@@ -1,0 +1,17 @@
+C:\Projeler\BYT\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Projeler\BYT\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Projeler\BYT\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Projeler\BYT\bin\Debug\netcoreapp3.1\.BYT.WS.exe
+C:\Projeler\BYT\bin\Debug\netcoreapp3.1\.BYT.WS.deps.json
+C:\Projeler\BYT\bin\Debug\netcoreapp3.1\.BYT.WS.runtimeconfig.json
+C:\Projeler\BYT\bin\Debug\netcoreapp3.1\.BYT.WS.runtimeconfig.dev.json
+C:\Projeler\BYT\bin\Debug\netcoreapp3.1\.BYT.WS.dll
+C:\Projeler\BYT\bin\Debug\netcoreapp3.1\.BYT.WS.pdb
+C:\Projeler\BYT\obj\Debug\netcoreapp3.1\staticwebassets\.BYT.WS.StaticWebAssets.Manifest.cache
+C:\Projeler\BYT\obj\Debug\netcoreapp3.1\staticwebassets\.BYT.WS.StaticWebAssets.xml
+C:\Projeler\BYT\obj\Debug\netcoreapp3.1\.BYT.WS.MvcApplicationPartsAssemblyInfo.cache
+C:\Projeler\BYT\obj\Debug\netcoreapp3.1\.BYT.WS.AssemblyInfoInputs.cache
+C:\Projeler\BYT\obj\Debug\netcoreapp3.1\.BYT.WS.AssemblyInfo.cs
+C:\Projeler\BYT\obj\Debug\netcoreapp3.1\.BYT.WS.RazorTargetAssemblyInfo.cache
+C:\Projeler\BYT\obj\Debug\netcoreapp3.1\.BYT.WS.dll
+C:\Projeler\BYT\obj\Debug\netcoreapp3.1\.BYT.WS.pdb
