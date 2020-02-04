@@ -39,8 +39,7 @@ namespace BYT.WS.Controllers.api
             {
 
                 ServisDurum _servisDurum = new ServisDurum();
-
-
+                
                 var results = _bilgiContext.GetRefIdNextSequenceValue(Rejim);
                 int? nextSequenceValue = results;
 
