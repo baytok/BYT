@@ -9078,11 +9078,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projeler\\BYT\\BYT.WS\\BYT.WS.csproj",
+      "projectUniqueName": "C:\\Projeler\\GitHub\\Repositories\\BYT\\BYT.WS\\BYT.WS.csproj",
       "projectName": "BYT.WS",
-      "projectPath": "C:\\Projeler\\BYT\\BYT.WS\\BYT.WS.csproj",
+      "projectPath": "C:\\Projeler\\GitHub\\Repositories\\BYT\\BYT.WS\\BYT.WS.csproj",
       "packagesPath": "C:\\Users\\Ata\\.nuget\\packages\\",
-      "outputPath": "C:\\Projeler\\BYT\\BYT.WS\\obj\\",
+      "outputPath": "C:\\Projeler\\GitHub\\Repositories\\BYT\\BYT.WS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
