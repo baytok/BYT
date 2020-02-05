@@ -30,15 +30,15 @@ namespace BYT.UI
 
             HttpClient _client = new HttpClient();
 #if (DEBUG)
-            _client.BaseAddress = new Uri("https://localhost:44345/");
+            _client.BaseAddress = new Uri("https://localhost:44345/api/BYT/");
 #endif
 
 #if TEST
-                        _client.BaseAddress = new Uri("http://localhost:44345/");
+                        _client.BaseAddress = new Uri("http://localhost:44345/api/BYT/");
 #endif
 
 #if RELEASE
-                        _client.BaseAddress = new Uri("http://localhost:44345/");
+                        _client.BaseAddress = new Uri("http://localhost:44345/api/BYT/");
 #endif
 
             _client.DefaultRequestHeaders.Accept.Clear();
@@ -61,7 +61,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent("application/json");
-            string url = string.Format(_client.BaseAddress + "api/KullaniciHizmeti/" + Kullanici);
+            string url = string.Format(_client.BaseAddress + "KullaniciHizmeti/" + Kullanici);
             var response = _client.PostAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -76,7 +76,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent("application/json");
-            string url = string.Format(_client.BaseAddress + "api/Servis/SorgulamaHizmeti/" + Guid );
+            string url = string.Format(_client.BaseAddress + "Servis/SorgulamaHizmeti/" + Guid );
             var response =  _client.PostAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -90,7 +90,7 @@ namespace BYT.UI
         {
 
             HttpClient _client = GetClient();
-            string url = string.Format(_client.BaseAddress + "api/BilgiHizmeti/ReferansId/" + Rejim);
+            string url = string.Format(_client.BaseAddress + "BilgiHizmeti/ReferansId/" + Rejim);
             try
             {
                 var content = new StringContent("application/json");
@@ -115,7 +115,7 @@ namespace BYT.UI
         {
 
             HttpClient _client = GetClient();
-            string url = string.Format(_client.BaseAddress + "api/IslemHizmeti/" + Kullanici );
+            string url = string.Format(_client.BaseAddress + "IslemHizmeti/" + Kullanici );
             try
             {
                 var response =  _client.GetAsync(url);
@@ -139,7 +139,7 @@ namespace BYT.UI
         {
 
             HttpClient _client = GetClient();
-            string url = string.Format(_client.BaseAddress + "api/TarihceHizmeti/" + IslemInternalNo);
+            string url = string.Format(_client.BaseAddress + "TarihceHizmeti/" + IslemInternalNo);
             try
             {
                 var response = _client.GetAsync(url);
@@ -165,7 +165,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent("application/json");
-            string url = string.Format(_client.BaseAddress + "api/Servis/Beyanname/BeyannameOlusturma/" + Kullanici);
+            string url = string.Format(_client.BaseAddress + "Servis/Beyanname/BeyannameOlusturma/" + Kullanici);
             var response = _client.PutAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -181,7 +181,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent(JsonConvert.SerializeObject(beyan), Encoding.UTF8,"application/json");
-            string url = string.Format(_client.BaseAddress + "api/Servis/Beyanname/BeyannameOlusturma/BeyannameOlustur");
+            string url = string.Format(_client.BaseAddress + "Servis/Beyanname/BeyannameOlusturma/BeyannameOlustur");
             var response = _client.PostAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -196,7 +196,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent(JsonConvert.SerializeObject(kalem), Encoding.UTF8, "application/json");
-            string url = string.Format(_client.BaseAddress + "api/Servis/Beyanname/BeyannameOlusturma/KalemOlustur");
+            string url = string.Format(_client.BaseAddress + "Servis/Beyanname/BeyannameOlusturma/KalemOlustur");
             var response = _client.PostAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -212,7 +212,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent(JsonConvert.SerializeObject(odeme), Encoding.UTF8, "application/json");
-            string url = string.Format(_client.BaseAddress + "api/Servis/Beyanname/BeyannameOlusturma/OdemeSekliOlustur");
+            string url = string.Format(_client.BaseAddress + "Servis/Beyanname/BeyannameOlusturma/OdemeSekliOlustur");
             var response = _client.PostAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -228,7 +228,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent(JsonConvert.SerializeObject(marka), Encoding.UTF8, "application/json");
-            string url = string.Format(_client.BaseAddress + "api/Servis/Beyanname/BeyannameOlusturma/MarkaOlustur");
+            string url = string.Format(_client.BaseAddress + "Servis/Beyanname/BeyannameOlusturma/MarkaOlustur");
             var response = _client.PostAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -244,7 +244,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent(JsonConvert.SerializeObject(firma), Encoding.UTF8, "application/json");
-            string url = string.Format(_client.BaseAddress + "api/Servis/Beyanname/BeyannameOlusturma/FirmaOlustur");
+            string url = string.Format(_client.BaseAddress + "Servis/Beyanname/BeyannameOlusturma/FirmaOlustur");
             var response = _client.PostAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -259,7 +259,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent("application/json");
-            string url = string.Format(_client.BaseAddress + "api/IslemHizmeti/" + Kullanici);
+            string url = string.Format(_client.BaseAddress + "IslemHizmeti/" + Kullanici);
             var response =  _client.PutAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)
@@ -273,7 +273,7 @@ namespace BYT.UI
         {
 
             HttpClient _client = GetClient();
-            string url = string.Format(_client.BaseAddress + "api/Servis/KontrolHizmeti/"+ BeyanInternalNo + "/"+ Kullanici);
+            string url = string.Format(_client.BaseAddress + "Servis/KontrolHizmeti/"+ BeyanInternalNo + "/"+ Kullanici);
             var response = await _client.GetAsync(url);
             string responseString = response.Content.ReadAsStringAsync().Result;
             if (response.IsSuccessStatusCode)
@@ -289,7 +289,7 @@ namespace BYT.UI
             HttpClient _client = GetClient();
         
             var content = new StringContent("application/json");
-            string url = string.Format(_client.BaseAddress + "api/Servis/Beyanname/KontrolHizmeti/" + IslemInternalNo + "/" + Kullanici);
+            string url = string.Format(_client.BaseAddress + "Servis/Beyanname/KontrolHizmeti/" + IslemInternalNo + "/" + Kullanici);
             var response =  _client.PostAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)

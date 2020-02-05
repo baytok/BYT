@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace BYT.WS.Controllers.api
 {
-    [Route("api/[controller]")]
+    [Route("api/BYT/[controller]")]
     [ApiController]
     public class IslemHizmetiController : ControllerBase
     {

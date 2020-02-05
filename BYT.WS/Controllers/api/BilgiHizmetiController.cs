@@ -31,7 +31,7 @@ namespace BYT.WS.Controllers.api
             _bilgiContext = new BilgiDataContext(options);
         }
 
-        [Route("api/[controller]/ReferansId/{Rejim}")]
+        [Route("api/BYT/[controller]/ReferansId/{Rejim}")]
         [HttpPost("{Rejim}")]
         public async Task<Sonuc<ServisDurum>> PostRefId(string Rejim)
         {

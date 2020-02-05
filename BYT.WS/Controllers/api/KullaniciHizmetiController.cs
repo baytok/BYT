@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 
 namespace BYT.WS.Controllers.api
 {
-    [Route("api/[controller]")]
+    [Route("api/BYT/[controller]")]
     [ApiController]
     public class KullaniciHizmetiController : ControllerBase
     {

@@ -17,7 +17,7 @@ using Microsoft.Extensions.Configuration;
 namespace BYT.WS.Controllers.Servis.Beyanname
 {
 
-    //[Route("api/Servis/Beyanname/[controller]")]
+    //[Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     public class BeyannameOlusturmaController : ControllerBase
     {
@@ -38,7 +38,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
 
-        [Route("api/Servis/Beyanname/[controller]/{Kullanici}")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/{Kullanici}")]
         [HttpPut("{Kullanici}")]
         public async Task<Sonuc<ServisDurum>> PutBeyanname(string Kullanici)
         {
@@ -127,7 +127,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
 
-        [Route("api/Servis/Beyanname/[controller]/BeyannameOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostBeyanname([FromBody]DbBeyan beyan)
         {
@@ -223,7 +223,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/KalemOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/KalemOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostKalem([FromBody]DbKalem kalem)
         {
@@ -306,7 +306,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/OdemeSekliOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/OdemeSekliOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostOdeme([FromBody]DbOdemeSekli odeme)
         {
@@ -389,7 +389,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/MarkaOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/MarkaOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostMarka([FromBody]DbMarka marka)
         {
@@ -472,7 +472,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/KonteynerOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/KonteynerOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostKonteyner([FromBody]DbKonteyner konteyner)
         {
@@ -556,7 +556,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
 
-        [Route("api/Servis/Beyanname/[controller]/BeyannameAcmaOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameAcmaOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostBeyannameAcma([FromBody]DbBeyannameAcma acmabeyan)
         {
@@ -639,7 +639,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/TamamlayiciBilgiOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/TamamlayiciBilgiOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostTamamlayiciBilgi([FromBody]DbTamamlayiciBilgi tamamlayici)
         {
@@ -722,7 +722,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/FirmaOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/FirmaOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostFirma([FromBody]DbFirma firma)
         {
@@ -806,7 +806,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
 
-        [Route("api/Servis/Beyanname/[controller]/TeminatOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/TeminatOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostTeminat([FromBody]DbTeminat teminat)
         {
@@ -889,7 +889,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/OzetBeyanOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/OzetBeyanOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostOzetBeyanAcma([FromBody]DbOzetbeyanAcma ozetbeyan)
         {
@@ -972,7 +972,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/TasimaSenetiOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSenetiOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostTasimaSenedi([FromBody]DbTasimaSatir tasima)
         {
@@ -1055,7 +1055,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/TasimaSatiriOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSatiriOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostTasimaSatir([FromBody]DbTasimaSatir tasima)
         {
@@ -1138,7 +1138,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/KiymetBildirimOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/KiymetBildirimOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostKiymet([FromBody]DbKiymetBildirim kiymet)
         {
@@ -1221,7 +1221,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/Servis/Beyanname/[controller]/KiymetBildirimKalemOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/KiymetBildirimKalemOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostKiymetKalem([FromBody]DbKiymetBildirimKalem kiymet)
         {
@@ -1305,7 +1305,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
 
-        [Route("api/Servis/Beyanname/[controller]/VergiOlustur")]
+        [Route("api/BYT/Servis/Beyanname/[controller]/VergiOlustur")]
         [HttpPost]
         public async Task<Sonuc<ServisDurum>> PostVergi([FromBody]DbVergi vergi)
         {

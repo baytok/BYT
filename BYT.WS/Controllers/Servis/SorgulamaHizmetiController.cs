@@ -17,7 +17,7 @@ using Microsoft.Extensions.Options;
 
 namespace BYT.WS.Controllers.Servis
 {
-    [Route("api/Servis/[controller]")]
+    [Route("api/BYT/Servis/[controller]")]
     [ApiController]
     public class SorgulamaHizmetiController : ControllerBase
     {
