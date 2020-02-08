@@ -1,1 +1,326 @@
-<p>islem works!</p>
+<div class="page home">
+  <div class="container">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-6">
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Yapılacak yeni sorgulama" #refId />
+            </mat-form-field>
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              (click)="getIslemFromRefId(refId)"
+            >
+              Sorgula
+            </button>
+          </form>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <mat-card class="d-flex">
+              <div class="example-container">
+                <h5>İşlemler</h5>
+                <!-- <div class="example-box" *ngFor="let item of islemler" >
+              <span class="islem-title">{{ item.refId }} </span>
+              <span class="islem-title">{{ item.guidof }} </span>
+              <span class="islem-title">{{ item.islemDurumu }} </span>
+              <span class="islem-title">{{ item.islemInternalNo }} </span>
+              <span class="islem-title">{{ item.islemSonucu }} </span>       
+              <div class="button">
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="getTarihce(item.islemInternalNo)"
+                > <mat-icon>Tarihce</mat-icon>
+                </button>
+              </div>
+            </div>  -->
+
+                <div class="example-box">
+                  <table class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Referas No</th>
+                        <th>İşlem Tipi</th>
+                        <th>Beyan Tipi</th>
+                        <th>Durum</th>
+                        <th>Sonuc</th>
+                        <th>Zaman</th>
+                        <th>Gönderim No</th>
+                        <th>
+                          <button
+                            mat-icon-button
+                            [matMenuTriggerFor]="headerMenu"
+                            class="header-dropdown-mat-icon-button"
+                          >
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                          <mat-menu #headerMenu="matMenu">
+                            <button mat-menu-item (click)="yenile()">
+                              <mat-icon>refresh</mat-icon>
+                              <span>Yenile</span>
+                            </button>
+                          </mat-menu>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of islemler">
+                        <td>{{ item.refId }}</td>
+                        <td>{{ item.islemTipi }}</td>
+                        <td>{{ item.beyanTipi }}</td>
+                        <td>{{ item.islemDurumu }}</td>
+                        <td>{{ item.islemSonucu }}</td>
+                        <td>{{ item.islemZamani }}</td>
+                        <td>{{ item.gonderimSayisi }}</td>
+
+                        <td>
+                          <button mat-button [matMenuTriggerFor]="aboveMenu">
+                            <mat-icon>menu</mat-icon>
+                          </button>
+                          <mat-menu #aboveMenu="matMenu" yPosition="above">
+                            <button
+                              mat-menu-item
+                              color="warn"
+                              (click)="getTarihce(item.islemInternalNo)"
+                            >
+                              Tarihçe
+                            </button>
+                            <button mat-menu-item>Kontrol Gönder</button>
+                            <button mat-menu-item disabled>
+                              Tescil Gönder
+                            </button>
+                          </mat-menu>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="text-center pt-3" *ngIf="islemler?.length === 0">
+                  <small>Yapım aşamasında olan bir madde bulunmadı </small>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+        <div class="row mt-4" *ngIf="tarihce?.length >= 1">
+          <div class="col-md-12">
+            <mat-card class="d-flex">
+              <div class="example-container">
+                <h5>Tarihçe</h5>
+                <mat-form-field>
+                  <mat-label>Filter</mat-label>
+                  <input
+                    matInput
+                    (keyup)="applyFilter($event)"
+                    placeholder="aranacak kelime"
+                  />
+                </mat-form-field>
+                <table
+                  mat-table
+                  [dataSource]="dataSourceTarihce"
+                  multiTemplateDataRows
+                  class="mat-elevation-z8"
+                >
+                  <ng-container
+                    matColumnDef="{{ column }}"
+                    *ngFor="let column of displayedColumnsTarihce"
+                  >
+                    <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element[column] }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                  <ng-container matColumnDef="expandedDetail">
+                    <td
+                      mat-cell
+                      *matCellDef="let element"
+                      [attr.colspan]="displayedColumnsTarihce.length"
+                    >
+                      <div
+                        class="example-element-detail"
+                        [@detailExpand]="
+                          element == expandedElement ? 'expanded' : 'collapsed'"
+                      >
+                        <div class="example-element-diagram">
+                         
+                          <div class="example-element-ticaretTipi">
+                            {{ element.ticaretTipi }}
+                          </div>
+                          <div class="example-element-rejim">
+                            {{ element.rejim }}
+                          </div>
+                          <div class="example-element-gumruk">
+                            {{ element.gumruk }}
+                          </div>
+                        </div>
+                         <div class="example-element-guid">
+                          {{ element.guid }}
+                          <span class="example-element-guid-attribution">
+                            {{ element.Sonucu }}
+                          </span>
+                          <div class="button">
+                            <button
+                              mat-icon-button
+                              color="warn"
+                              (click)="getSonuc(element.guid)"
+                            >
+                              <mat-icon>apps</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsTarihce"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let element; columns: displayedColumnsTarihce"
+                    class="example-element-row"
+                    [class.example-expanded-row]="expandedElement === element"
+                    (click)="
+                      expandedElement =
+                        expandedElement === element ? null : element
+                    "
+                  ></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: ['expandedDetail']"
+                    class="example-detail-row"
+                  ></tr>
+                </table>
+
+                <!-- <mat-table
+                  [dataSource]="dataSourceTarihce"
+                  class="mat-elevation-z8"
+                >
+                  <ng-container matColumnDef="guid">
+                    <mat-header-cell *matHeaderCellDef> Guid </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.guid }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="ticaretTipi">
+                    <mat-header-cell *matHeaderCellDef>
+                      Ticaret Tipi
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.ticaretTipi }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="rejim">
+                    <mat-header-cell *matHeaderCellDef> Rejim </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.rejim }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="gumruk">
+                    <mat-header-cell *matHeaderCellDef>
+                      Gümrük
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.gumruk }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="islemTipi">
+                    <mat-header-cell *matHeaderCellDef>
+                      İşlem Tipi
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.islemTipi }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="islemDurumu">
+                    <mat-header-cell *matHeaderCellDef>
+                      İşlem Durumu
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.islemDurumu }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="islemSonucu">
+                    <mat-header-cell *matHeaderCellDef>
+                      İşlem Sonucu
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.islemSonucu }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="gondermeZamani">
+                    <mat-header-cell *matHeaderCellDef>
+                      Gönderi Zamanı
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.gondermeZamani }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="sonucZamani">
+                    <mat-header-cell *matHeaderCellDef>
+                      Sonuç Zamanı
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.sonucZamani }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="gonderimNo">
+                    <mat-header-cell *matHeaderCellDef>
+                      Gönderi No
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.gonderimNo }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row
+                    *matHeaderRowDef="displayedColumnsTarihce"
+                  ></mat-header-row>
+                  <mat-row
+                    *matRowDef="let row; columns: displayedColumnsTarihce"
+                  ></mat-row>
+                </mat-table> -->
+                <!-- <div class="example-box" *ngFor="let item of tarihce">
+                  <span class="islem-title">{{ item.guid }} </span>
+                  <span class="islem-title">{{ item.ticaretTipi }} </span>
+                  <span class="islem-title">{{ item.rejim }} </span>
+                  <span class="islem-title">{{ item.gumruk }} </span>
+                  <span class="islem-title">{{ item.islemTipi }} </span>
+                  <span class="islem-title">{{ item.islemDurumu }} </span>
+                  <span class="islem-title">{{ item.islemSonucu }} </span>
+                  <span class="islem-title">{{ item.sonucZamani }} </span>
+                  <span class="islem-title">{{ item.gonderimNo }} </span>
+                  <span class="islem-title">{{ item.gondermeZamani }} </span>
+
+                  <div class="button">
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      (click)="getSonuc(item.guid)"
+                    >
+                      <mat-icon>apps</mat-icon>
+                    </button>
+                  </div>
+                </div> -->
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

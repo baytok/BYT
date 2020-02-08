@@ -11,8 +11,9 @@ const routes: Routes = [
   ,
   {
     path:"",component:IslemComponent
-  }
-  /*,
+    //TODO: login sayfası yapılınca login sayfasına yönlenecek
+  }/*
+  ,
   {
     path:"**",component:NotFoundComponent
   }

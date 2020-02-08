@@ -21,9 +21,9 @@ namespace BYT.UI
         {
             ServisManager manager = new ServisManager();
             var kullanici = manager.KullanicilariGetir("11111111100");
-            var list = manager.IslemleriGetir("11111111100");
-            if (list != null && list.Veri != null)
-                dataGridView1.DataSource = list.Veri.Bilgiler[0].SonucVeriler;
+            var list = manager.IslemleriGetirFromKullanici("11111111100");
+            if (list != null)
+                dataGridView1.DataSource = list;
 
 
         }
@@ -41,8 +41,8 @@ namespace BYT.UI
 
                 var list = manager.TarihceGetir(internalNo);
 
-                if (list != null && list.Veri != null)
-                    dataGridView2.DataSource = list.Veri.Bilgiler[0].SonucVeriler;
+                if (list != null )
+                    dataGridView2.DataSource = list;
             }
 
         }
@@ -144,10 +144,10 @@ namespace BYT.UI
 
             if (values != null && values.Veri != null)
                 MessageBox.Show(values.Veri.Hatalar != null && values.Veri.Hatalar.Count > 0 ? values.Veri.Hatalar[0].HataAciklamasi : values.Veri.Bilgiler[0].ReferansNo + "-" + values.Veri.Bilgiler[0].Sonuc);
-            var list = manager.IslemleriGetir("15781158208");
+            var list = manager.IslemleriGetirFromKullanici("15781158208");
 
-            if (list != null && list.Veri != null)
-                dataGridView1.DataSource = list.Veri.Bilgiler[0].SonucVeriler;
+            if (list != null)
+                dataGridView1.DataSource = list;
         }
 
         private void btnSonucSorgula_Click(object sender, EventArgs e)
@@ -187,8 +187,8 @@ namespace BYT.UI
              
                 var list = manager.TarihceGetir(e.Row.Cells["IslemInternalNo"].Value.ToString());
 
-                if (list != null && list.Veri != null)
-                    dataGridView2.DataSource = list.Veri.Bilgiler[0].SonucVeriler;
+                if (list != null )
+                    dataGridView2.DataSource = list;
               
             }
             btnKontrolGonder.Visible = true;

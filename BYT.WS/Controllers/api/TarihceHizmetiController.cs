@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BYT.WS.AltYapi;
 using BYT.WS.Data;
 using BYT.WS.Internal;
+using BYT.WS.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,7 @@ namespace BYT.WS.Controllers.api
         }
 
         [HttpGet("{IslemInternalNo}")]
-        public async Task<Sonuc<ServisDurum>> GetTarihce(string IslemInternalNo)
+        public async Task<List<Tarihce>> GetTarihce(string IslemInternalNo)
         {
             try
             {
@@ -38,17 +39,17 @@ namespace BYT.WS.Controllers.api
 
                 var tarihceValues = await _islemTarihceContext.Tarihce.Where(v => v.IslemInternalNo == IslemInternalNo).ToListAsync();
 
-                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                //_servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                List<Bilgi> lstBlg = new List<Bilgi>();
-                Bilgi blg = new Bilgi { IslemTipi = "Sorgulama", ReferansNo = IslemInternalNo, Sonuc = "Sorgulama Başarılı", SonucVeriler = tarihceValues };
-                lstBlg.Add(blg);
-                _servisDurum.Bilgiler = lstBlg;
+                //List<Bilgi> lstBlg = new List<Bilgi>();
+                //Bilgi blg = new Bilgi { IslemTipi = "Sorgulama", ReferansNo = IslemInternalNo, Sonuc = "Sorgulama Başarılı", SonucVeriler = tarihceValues };
+                //lstBlg.Add(blg);
+                //_servisDurum.Bilgiler = lstBlg;
 
-                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
               
 
-                return result;
+                return tarihceValues;
 
             }
             catch (Exception ex)

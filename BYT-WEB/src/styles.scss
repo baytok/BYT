@@ -1,0 +1,36 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body {
+  background-color: #f3f3f3;
+  padding: 54px 0;
+}
+.page {
+  &.home {
+    .page-title {
+      .svg {
+        widows: 60px;
+        height: 60px;
+        margin-right: 15px;
+      }
+    }
+    .example-form {
+      .example-full-width {
+        width: 80%;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+

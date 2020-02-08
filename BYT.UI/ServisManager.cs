@@ -111,18 +111,18 @@ namespace BYT.UI
             }
 
         }
-        public  Sonuc<ServisDurum> IslemleriGetir( string Kullanici)
+        public  List<Islem> IslemleriGetirFromKullanici( string Kullanici)
         {
 
             HttpClient _client = GetClient();
-            string url = string.Format(_client.BaseAddress + "IslemHizmeti/" + Kullanici );
+            string url = string.Format(_client.BaseAddress + "IslemHizmeti/KullaniciIleSorgulama/" + Kullanici );
             try
             {
                 var response =  _client.GetAsync(url);
                 string responseString = response.Result.Content.ReadAsStringAsync().Result;
                 if (response.Result.IsSuccessStatusCode)
                 {
-                    var mobileEsult = JsonConvert.DeserializeObject<Sonuc<ServisDurum>>(responseString);
+                    var mobileEsult = JsonConvert.DeserializeObject<List<Islem>>(responseString);
                     return mobileEsult;
                 }
                 return null;
@@ -135,7 +135,7 @@ namespace BYT.UI
             }
           
         }
-        public Sonuc<ServisDurum> TarihceGetir(string IslemInternalNo)
+        public List<Tarihce> TarihceGetir(string IslemInternalNo)
         {
 
             HttpClient _client = GetClient();
@@ -146,7 +146,7 @@ namespace BYT.UI
                 string responseString = response.Result.Content.ReadAsStringAsync().Result;
                 if (response.Result.IsSuccessStatusCode)
                 {
-                    var mobileEsult = JsonConvert.DeserializeObject<Sonuc<ServisDurum>>(responseString);
+                    var mobileEsult = JsonConvert.DeserializeObject<List<Tarihce>>(responseString);
                     return mobileEsult;
                 }
                 return null;
@@ -159,7 +159,6 @@ namespace BYT.UI
             }
 
         }
-
         public Sonuc<ServisDurum> BeyannameOlustur(string Kullanici)
         {
 
@@ -175,7 +174,6 @@ namespace BYT.UI
             }
             return null;
         }
-
         public Sonuc<ServisDurum> BeyannameOlustur(DbBeyan beyan)
         {
 
@@ -206,7 +204,6 @@ namespace BYT.UI
             }
             return null;
         }
-
         public Sonuc<ServisDurum> OdemeSekliOlustur(DbOdemeSekli odeme)
         {
 
@@ -222,7 +219,6 @@ namespace BYT.UI
             }
             return null;
         }
-
         public Sonuc<ServisDurum> MarkaOlustur(DbMarka marka)
         {
 
@@ -238,7 +234,6 @@ namespace BYT.UI
             }
             return null;
         }
-
         public Sonuc<ServisDurum> FirmaOlustur(DbFirma firma)
         {
 
@@ -259,7 +254,7 @@ namespace BYT.UI
 
             HttpClient _client = GetClient();
             var content = new StringContent("application/json");
-            string url = string.Format(_client.BaseAddress + "IslemHizmeti/" + Kullanici);
+            string url = string.Format(_client.BaseAddress + "IslemHizmeti/IslemOlustur/" + Kullanici);
             var response =  _client.PutAsync(url, content);
             string responseString = response.Result.Content.ReadAsStringAsync().Result;
             if (response.Result.IsSuccessStatusCode)

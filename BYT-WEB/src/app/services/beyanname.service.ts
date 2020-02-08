@@ -14,6 +14,14 @@ export class BeyannameService {
    }
 
   getAllIslem(Kullanici){
-    return this.http.get(this._apiUrl+'/api/IslemHizmeti/' + Kullanici);
+    return this.http.get(this._apiUrl+'IslemHizmeti/KullaniciIleSorgulama/' + Kullanici);
   }
+  getAllIslemFromRefId(refId){
+    return this.http.get(this._apiUrl+'IslemHizmeti/RefIdIleSorgulama/' + refId);
+  }
+
+  getTarihce(IslemInternalNo){
+    return this.http.get(this._apiUrl+'TarihceHizmeti/' + IslemInternalNo);
+  }
+  
 }

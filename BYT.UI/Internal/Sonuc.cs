@@ -11,6 +11,7 @@ namespace BYT.UI.Internal
         public T Veri { get; set; }
         public string Mesaj { get; set; }
         public bool Islem { get; set; }
+        public List<Hata> Hatalar { get; set; }
 
     }
 }

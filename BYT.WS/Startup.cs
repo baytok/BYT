@@ -25,6 +25,7 @@ namespace BYT
 
     public class Startup
     {
+       
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -50,10 +51,10 @@ namespace BYT
             {
                 x.UseSqlServer(Configuration.GetConnectionString("BYTConnection"));
             });
-          
+           
+
             services.AddMvc();
             services.AddCors();
-
             services.AddControllers();
         }
 
@@ -66,9 +67,8 @@ namespace BYT
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

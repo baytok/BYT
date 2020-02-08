@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace BYT.WS.Controllers.api
 {
-    [Route("api/BYT/[controller]")]
+   
     [ApiController]
     public class IslemHizmetiController : ControllerBase
     {
@@ -31,27 +31,26 @@ namespace BYT.WS.Controllers.api
             _servisCredential.password = servisCredential.Value.password;
         }
 
-
-
-        [HttpGet("{Kullanici}")]
-        public async Task<Sonuc<ServisDurum>> GetIslemler(string Kullanici)
+        [Route("api/BYT/[controller]")]
+        [HttpGet]
+        public async Task<Sonuc<ServisDurum>> Get()
         {
             try
             {
                 ServisDurum _servisDurum = new ServisDurum();
 
-                var islemValues =  await _islemContext.Islem.Where(v => v.Kullanici == Kullanici).ToListAsync();
+                var islemValues = await _islemContext.Islem.ToListAsync();
 
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
                 List<Bilgi> lstBlg = new List<Bilgi>();
-                Bilgi blg = new Bilgi { IslemTipi = "Sorgulama", ReferansNo = Kullanici, Sonuc = "Sorgulama Başarılı", SonucVeriler = islemValues };
+                Bilgi blg = new Bilgi { IslemTipi = "Sorgulama", ReferansNo = "", Sonuc = "Sorgulama Başarılı", SonucVeriler = islemValues };
                 lstBlg.Add(blg);
                 _servisDurum.Bilgiler = lstBlg;
 
                 var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
                 //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-              
+
                 return result;
 
             }
@@ -63,7 +62,61 @@ namespace BYT.WS.Controllers.api
 
 
         }
+        [Route("api/BYT/[controller]/KullaniciIleSorgulama/{Kullanici}")]
+        [HttpGet("{Kullanici}")]
+        public async Task<List<Islem>> GetIslemlerFromKullanici(string Kullanici)
+        {
+            try
+            {
+                ServisDurum _servisDurum = new ServisDurum();
 
+                var islemValues =  await _islemContext.Islem.Where(v => v.Kullanici == Kullanici).ToListAsync();
+                //var result = new Sonuc<object>() { Veri = islemValues, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
+               
+                return islemValues;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+        [Route("api/BYT/[controller]/RefIdIleSorgulama/{refId}")]
+        [HttpGet("{refId}")]
+        public async Task<List<Islem>> GetIslemlerFromRefId(string refId)
+        {
+            try
+            {
+                ServisDurum _servisDurum = new ServisDurum();
+
+                var islemValues = await _islemContext.Islem.Where(v => v.RefId == refId).ToListAsync();
+
+                //_servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                //List<Bilgi> lstBlg = new List<Bilgi>();
+                //Bilgi blg = new Bilgi { IslemTipi = "Sorgulama", ReferansNo = refId, Sonuc = "Sorgulama Başarılı", SonucVeriler = islemValues };
+                //lstBlg.Add(blg);
+                //_servisDurum.Bilgiler = lstBlg;
+
+                //var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return islemValues;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+
+        [Route("api/BYT/[controller]/IslemOlustur/{Kullanici}")]
         [HttpPut("{Kullanici}")]
         public async Task<Sonuc<ServisDurum>> PutIslem(string Kullanici)
         {
@@ -104,6 +157,7 @@ namespace BYT.WS.Controllers.api
 
         }
 
+        [Route("api/BYT/[controller]/IslemOlustur")]
         [HttpPut()]
         public async Task<Sonuc<ServisDurum>> Put(Islem _islem)
         {
