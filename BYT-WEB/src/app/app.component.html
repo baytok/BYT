@@ -1,9 +1,18 @@
-<div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <app-header></app-header>
-        <router-outlet></router-outlet>
-        <app-footer></app-footer>
-      </div>
-    </div>
+
+<app-header></app-header>
+
+<!-- <section (window:resize)="onResize($event)">
+  <aside id="leftsidebar" class="sidebar">
+      <sidebar-user-area></sidebar-user-area>
+      <sidebar-nav></sidebar-nav>
+      <sidebar-footer></sidebar-footer>
+  </aside>
+  <right-sidebar></right-sidebar>
+</section> -->
+<section class="content">
+  <div class="container-fluid">
+      <router-outlet></router-outlet>
   </div>
+</section>
+
+

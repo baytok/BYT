@@ -1,7 +1,14 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-body {
-  background-color: #f3f3f3;
+body { 
   padding: 54px 0;
+  // position: fixed; //paging yapmak için kapalı olacak
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #00BCD4;
+  z-index: 10; 
 }
 .page {
   &.home {
@@ -33,4 +40,7 @@ body {
 .example-headers-align .mat-form-field + .mat-form-field {
   margin-left: 8px;
 }
+
+
+
 

@@ -80,7 +80,9 @@
   table {
     width: 100%;
   }
-  
+  td, th {
+    width: 25%;
+  }
   tr.example-detail-row {
     height: 0;
   }

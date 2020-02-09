@@ -9,6 +9,7 @@ import { NaviComponent } from './components/navi/navi.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { IslemComponent } from './components/islem/islem.component';
+import { GirisComponent } from '../account/giris/giris.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { SonucservisComponent } from './components/sonucservis/sonucservis.component';
 import { 
@@ -21,7 +22,8 @@ import {
   MatMenuModule,
   MatExpansionModule,
   MatDialogModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule 
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
@@ -34,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     IslemComponent,
     BeyannameComponent,
-    SonucservisComponent
+    SonucservisComponent,
+    GirisComponent
     
   ],
   imports: [
@@ -52,9 +55,13 @@ import { FormsModule } from '@angular/forms';
     MatMenuModule,
     MatExpansionModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule 
     
 
+  ],
+  entryComponents: [
+    SonucservisComponent
   ],
   providers: [
     {provide:'apiUrl',useValue:'https://localhost:44345/api/BYT/'}

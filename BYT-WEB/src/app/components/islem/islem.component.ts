@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { BeyannameService } from '../../services/beyanname.service';
-import {MatSnackBar,MatDialog} from '@angular/material';
+import { Component,ViewChild, OnInit } from '@angular/core';
+import { BeyannameService } from '../../../shared/services/beyanname.service';
+import { SessionService } from  '../../../shared/session/session.service';
+import { MatSnackBar,MatDialog} from '@angular/material';
 import { SonucservisComponent } from '../../components/sonucservis/sonucservis.component';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 import {
@@ -36,25 +39,31 @@ import {
 })
 export class IslemComponent implements OnInit {
   kullanici="11111111100";
-  islemler: IslemDto []=[];
-  tarihce: TarihceDto []=[];
-
+  islemlerDataSource: IslemDto []=[];
+  tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumnsIslem: string[] = ['refId','islemTipi','beyanTipi','islemDurumu','islemSonucu','islemZamani','gonderimSayisi','islemInternalNo'];
+  displayedColumnsTarihce: string[] = ['refId','islemTipi','islemDurumu','sonucZamani','gondermeZamani','gonderimNo'];
+  expandedElement: TarihceDto | null;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     private beyanServis: BeyannameService,
+    private _session:SessionService,
     private snackBar: MatSnackBar ,
     private _dialog: MatDialog
 
     ) { }
 
-    displayedColumnsTarihce: string[] = ['refId','islemTipi','islemDurumu','sonucZamani','gondermeZamani','gonderimNo'];
-    dataSourceTarihce = new MatTableDataSource(ELEMENT_DATA);
-    expandedElement: TarihceDto | null;
+   
     
   ngOnInit() {
-
-    this.yenile();
+    
+    // this.kullanici=this._session._user.userNameOrEmailAddress;
+    this.tarihceDataSource.paginator = this.paginator;
+    this.tarihceDataSource.sort = this.sort;
+    this.yenileIslemler();
   }
-  yenile(): void {
+  yenileIslemler(): void {
     this.getAllIslem();
 }
   openSnackBar(message: string, action: string) {
@@ -65,7 +74,7 @@ export class IslemComponent implements OnInit {
   getAllIslem(){
     this.beyanServis.getAllIslem(this.kullanici)
     .subscribe( (result: IslemDto[])=>{
-          this.islemler=result;
+          this.islemlerDataSource=result;
           // console.log(this.islemler);
      }, (err)=>{
        console.log(err);
@@ -76,7 +85,7 @@ export class IslemComponent implements OnInit {
     this.beyanServis.getAllIslemFromRefId(refId.value)
     .subscribe( (result: IslemDto[])=>{
       this.openSnackBar(refId.value,'Tamam')
-      this.islemler=result;
+      this.islemlerDataSource=result;
       // console.log(this.islemler);
      }, (err)=>{
        console.log(err);
@@ -87,10 +96,8 @@ export class IslemComponent implements OnInit {
     console.log(IslemInternalNo);
     this.beyanServis.getTarihce(IslemInternalNo)
     .subscribe( (result: TarihceDto[])=>{
-      this.dataSourceTarihce.data=result;
-      this.tarihce=result;
-       console.log(this.tarihce);
-     }, (err)=>{
+      this.tarihceDataSource.data=result;
+      }, (err)=>{
        console.log(err);
      });
 
@@ -104,21 +111,22 @@ export class IslemComponent implements OnInit {
     let sonucDialog;
     if (id === undefined || id <= 0) {
      sonucDialog = this._dialog.open(SonucservisComponent,{
-      width: '250px',
+      width: '700px',
+      height:'600px',
       data: {guidOf:guid}
     });
     
       sonucDialog.afterClosed().subscribe(result => {
         if (result) {
-            this.yenile();
+            this.yenileIslemler();
         }
     });
     }   
    }
 
-    applyFilter(event: Event) {
+    applyTarihceFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceTarihce.filter = filterValue.trim().toLowerCase();
+    this.tarihceDataSource.filter = filterValue.trim().toLowerCase();
    }
 }
 

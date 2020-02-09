@@ -46,9 +46,6 @@ export class IslemDto implements IIslemlerDto {
             this.islemZamani= data["islemZamani"];
             this.kullanici= data["kullanici"];
             this.olusturmaZamani= data["olusturmaZamani"];
-        
-
-
         }
     }
 
@@ -104,60 +101,6 @@ export interface IIslemlerDto {
 
 }
 
-// export class IslemDtoPagedResultDto implements IIslemDtoPagedResultDto {
-//     kayitSayisi: number;
-//     veri: IslemDto[] | undefined;
-
-//     constructor(data?: IslemDtoPagedResultDto) {
-//         if (data) {
-//             for (var property in data) {
-//                  if (data.hasOwnProperty(property))
-//                     (<any>this)[property] = (<any>data)[property];
-//             }
-//         }
-//     }
-
-//     init(data?: any) {
-//         if (data) {
-//             this.kayitSayisi = data["veri"].length;
-//             if (Array.isArray(data["veri"])) {
-//                 this.veri = [] as any;
-//                 for (let item of data["veri"])
-//                     this.veri.push(IslemDto.fromJS(item));
-//             }
-//         }
-//     }
-
-//     static fromJS(data: any): IslemDtoPagedResultDto {
-//         data = typeof data === 'object' ? data : {};
-//         let result = new IslemDtoPagedResultDto();
-//         result.init(data);
-//         return result;
-//     }
-
-//     toJSON(data?: any) {
-//         data = typeof data === 'object' ? data : {};
-//         data["kayitSayisi"] = this.kayitSayisi;
-//         if (Array.isArray(this.veri)) {
-//             data["veri"] = [];
-//             for (let item of this.veri)
-//                 data["veri"].push(item.toJSON());
-//         }
-//         return data; 
-//     }
-
-//     clone(): IslemDtoPagedResultDto {
-//         const json = this.toJSON();
-//         let result = new IslemDtoPagedResultDto();
-//         result.init(json);
-//         return result;
-//     }
-//     }
-
-// export interface IIslemDtoPagedResultDto {
-//     kayitSayisi: number;
-//     veri: IslemDto[] | undefined;
-// }
 
 export class TarihceDto implements ITarihceDto {
     id: number;
@@ -327,56 +270,108 @@ export interface ISonucDto {
     islem: boolean;
 }
 
-// export class SonucDtoPagedResultDto implements ISonucDtoPagedResultDto {
-//     veri: SonucDto | undefined;
+export class AuthenticateModel implements IAuthenticateModel {
+    userNameOrEmailAddress: string | undefined;
+    password: string | undefined;
+    rememberClient: boolean;
 
-//     constructor(data?: SonucDtoPagedResultDto) {
-//         if (data) {
-//             for (var property in data) {
-//                 if (data.hasOwnProperty(property))
-//                     (<any>this)[property] = (<any>data)[property];
-//             }
-//         }
-//     }
+    constructor(data?: IAuthenticateModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
 
-//     init(data?: any) {
-//         if (data) {
-         
-//             this.veri = data["Veri"];
-//             // if (Array.isArray(data["veri"])) {
-//             //     this.veri = [] as any;
-//             //     for (let item of data["veri"])
-//             //         this.veri.push(SonucDto.fromJS(item));
-//             // }
-//         }
-//     }
+    init(data?: any) {
+        if (data) {
+            this.userNameOrEmailAddress = data["userNameOrEmailAddress"];
+            this.password = data["password"];
+            this.rememberClient = data["rememberClient"];
+        }
+    }
 
-//     static fromJS(data: any): SonucDtoPagedResultDto {
-//         data = typeof data === 'object' ? data : {};
-//         let result = new SonucDtoPagedResultDto();
-//         result.init(data);
-//         return result;
-//     }
+    static fromJS(data: any): AuthenticateModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new AuthenticateModel();
+        result.init(data);
+        return result;
+    }
 
-//     toJSON(data?: any) {
-//         data = typeof data === 'object' ? data : {};
-      
-//         if (Array.isArray(this.veri)) {
-//             data["veri"] = [];
-//             for (let item of this.veri)
-//                 data["veri"].push(item.toJSON());
-//         }
-//         return data; 
-//     }
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userNameOrEmailAddress"] = this.userNameOrEmailAddress;
+        data["password"] = this.password;
+        data["rememberClient"] = this.rememberClient;
+        return data; 
+    }
 
-//     clone(): SonucDtoPagedResultDto {
-//         const json = this.toJSON();
-//         let result = new SonucDtoPagedResultDto();
-//         result.init(json);
-//         return result;
-//     }
-// }
+    clone(): AuthenticateModel {
+        const json = this.toJSON();
+        let result = new AuthenticateModel();
+        result.init(json);
+        return result;
+    }
+}
 
-// export interface ISonucDtoPagedResultDto {
-//       veri: SonucDto | undefined;
-// }
+export interface IAuthenticateModel {
+    userNameOrEmailAddress: string | undefined;
+    password: string | undefined;
+    rememberClient: boolean;
+}
+
+export class AuthenticateResultModel implements IAuthenticateResultModel {
+    accessToken: string | undefined;
+    encryptedAccessToken: string | undefined;
+    expireInSeconds: number;
+    userId: number;
+
+    constructor(data?: IAuthenticateResultModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.accessToken = data["accessToken"];
+            this.encryptedAccessToken = data["encryptedAccessToken"];
+            this.expireInSeconds = data["expireInSeconds"];
+            this.userId = data["userId"];
+        }
+    }
+
+    static fromJS(data: any): AuthenticateResultModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new AuthenticateResultModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["accessToken"] = this.accessToken;
+        data["encryptedAccessToken"] = this.encryptedAccessToken;
+        data["expireInSeconds"] = this.expireInSeconds;
+        data["userId"] = this.userId;
+        return data; 
+    }
+
+    clone(): AuthenticateResultModel {
+        const json = this.toJSON();
+        let result = new AuthenticateResultModel();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IAuthenticateResultModel {
+    accessToken: string | undefined;
+    encryptedAccessToken: string | undefined;
+    expireInSeconds: number;
+    userId: number;
+}
