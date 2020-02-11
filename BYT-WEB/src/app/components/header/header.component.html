@@ -1,9 +1,21 @@
-<div class="container">
-    <div class="row">
-      <div class="col-md-2 text-center mt-2">
-       <h2 class="page-title">
-         <span>BYT App</span>
-       </h2>
-     </div>
-    </div>  
- </div>
+<mat-toolbar color="primary">
+  <div>
+    <a><img src="../assets/byt-menu.png"/></a>
+  </div>
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <!-- <div>
+      <a routerLink="/home">Owner-Account</a>
+  </div>-->
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li>
+        <img src="../assets/byt-header.png" />
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>

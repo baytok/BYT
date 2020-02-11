@@ -23,9 +23,12 @@ import {
   MatExpansionModule,
   MatDialogModule,
   MatTableModule,
-  MatPaginatorModule 
+  MatPaginatorModule,
+  MatToolbarModule,
+  MatListModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { MatTabsModule, MatSidenavModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -56,8 +59,10 @@ import { FormsModule } from '@angular/forms';
     MatExpansionModule,
     MatDialogModule,
     MatTableModule,
-    MatPaginatorModule 
-    
+    MatPaginatorModule ,
+    MatTabsModule,
+    MatSidenavModule,
+    MatToolbarModule,MatListModule       
 
   ],
   entryComponents: [

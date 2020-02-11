@@ -38,11 +38,12 @@ import {
   ],
 })
 export class IslemComponent implements OnInit {
+  islemInternalNo="";
   kullanici="11111111100";
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
   displayedColumnsIslem: string[] = ['refId','islemTipi','beyanTipi','islemDurumu','islemSonucu','islemZamani','gonderimSayisi','islemInternalNo'];
-  displayedColumnsTarihce: string[] = ['refId','islemTipi','islemDurumu','sonucZamani','gondermeZamani','gonderimNo'];
+  displayedColumnsTarihce: string[] = ['islemInternalNo','gonderimNo','islemTipi','islemDurumu','sonucZamani','gondermeZamani','guid'];
   expandedElement: TarihceDto | null;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -65,7 +66,12 @@ export class IslemComponent implements OnInit {
   }
   yenileIslemler(): void {
     this.getAllIslem();
-}
+  }
+
+  yenileTarihce(IslemInternalNo:string): void {
+     this.getTarihce(IslemInternalNo);
+    
+  }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
@@ -93,7 +99,7 @@ export class IslemComponent implements OnInit {
 
    }
    getTarihce(IslemInternalNo:string){
-    console.log(IslemInternalNo);
+    this.islemInternalNo=IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo)
     .subscribe( (result: TarihceDto[])=>{
       this.tarihceDataSource.data=result;

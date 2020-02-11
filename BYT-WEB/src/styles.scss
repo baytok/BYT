@@ -1,4 +1,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+html { 
+  
+}
 body { 
   padding: 54px 0;
   // position: fixed; //paging yapmak için kapalı olacak
@@ -9,6 +12,8 @@ body {
   bottom: 0;
   background-color: #00BCD4;
   z-index: 10; 
+  margin: 0;
+  height: 100%;
 }
 .page {
   &.home {

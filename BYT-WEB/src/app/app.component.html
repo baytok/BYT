@@ -1,18 +1,17 @@
 
-<app-header></app-header>
+<mat-sidenav-container>
+   <mat-sidenav #sidenav role="navigation">
+    <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
 
-<!-- <section (window:resize)="onResize($event)">
-  <aside id="leftsidebar" class="sidebar">
-      <sidebar-user-area></sidebar-user-area>
-      <sidebar-nav></sidebar-nav>
-      <sidebar-footer></sidebar-footer>
-  </aside>
-  <right-sidebar></right-sidebar>
-</section> -->
-<section class="content">
-  <div class="container-fluid">
+    <!--in here all the content must reside. We will add a navigation header as well-->
+    <main>
+     
       <router-outlet></router-outlet>
-  </div>
-</section>
-
-
+    </main>
+   
+  </mat-sidenav-content> 
+</mat-sidenav-container>
+<app-footer></app-footer>
