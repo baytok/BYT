@@ -18,12 +18,18 @@
           </form>
         </div>
 
+        <mat-progress-spinner *ngIf="progressMode === 'indeterminate'"
+        class="example-margin"
+        [color]="color"
+        [mode]="progressMode"
+        [value]="value">
+       </mat-progress-spinner>
+
         <div class="row mt-4">
           <div class="col-md-12">
             <mat-card class="d-flex">
               <div class="example-container">
                 <h5>İşlemler</h5>
-
                 <div class="example-box">
                   <mat-table
                     [dataSource]="islemlerDataSource"
@@ -147,6 +153,12 @@
                           <button mat-menu-item (click)="yenileIslemler()">
                             <mat-icon>refresh</mat-icon>
                             <span>Yenile</span>
+
+                            <section class="example-section" *ngIf="mode === 'determinate'">
+                              <label class="example-margin">Progress:</label>
+                              <mat-slider class="example-margin" [(ngModel)]="value"></mat-slider>
+                            </section>                           
+
                           </button>
                         </mat-menu>
                       </mat-header-cell>
@@ -171,20 +183,14 @@
                     </ng-container>
 
                     <mat-header-row
-                      *matHeaderRowDef="displayedColumnsIslem"
+                      *matHeaderRowDef="displayedColumnsIslem; sticky: true"
                     ></mat-header-row>
                     <mat-row
                       *matRowDef="let row; columns: displayedColumnsIslem"
                     ></mat-row>
-                  </mat-table>
+                  </mat-table>                  
                 </div>
-
-                <div
-                  class="text-center pt-3"
-                  *ngIf="islemlerDataSource.data?.length === 0"
-                >
-                  <small>Yapım aşamasında olan bir madde bulunmadı </small>
-                </div>
+              
               </div>
             </mat-card>
           </div>
@@ -341,6 +347,12 @@
                         ></mat-row>
                       </mat-table>
                     </div>
+                    <mat-paginator
+                    [length]="3"
+                    [pageSize]="3"
+                    [pageSizeOptions]="[5, 10, 25]"
+                  >
+                  </mat-paginator>
                     <!-- <mat-table
                       [dataSource]="tarihceDataSource"
                       multiTemplateDataRows
@@ -426,12 +438,7 @@
                       ></tr>
                     </mat-table> -->
 
-                    <mat-paginator
-                      [length]="5"
-                      [pageSize]="3"
-                      [pageSizeOptions]="[5, 10, 25]"
-                    >
-                    </mat-paginator>
+                   
                   </div>
                 </div>
               </div>

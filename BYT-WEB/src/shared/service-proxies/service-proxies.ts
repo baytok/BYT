@@ -16,7 +16,7 @@ export class BeyannameServiceProxy {
         this.baseUrl = baseUrl ? baseUrl : "";
     }
 
-    getAllIslem(Kullanici){
+      getAllIslem(Kullanici){       
         return this.http.get(this.baseUrl+'IslemHizmeti/KullaniciIleSorgulama/' + Kullanici);
       }
       getAllIslemFromRefId(refId){
@@ -28,9 +28,9 @@ export class BeyannameServiceProxy {
       }
     
       KontrolGonderimi(IslemInternalNo,Kullanici){
-        return this.http.get(this.baseUrl+"Servis/Beyanname/KontrolHizmeti/" + IslemInternalNo + "/" + Kullanici);
+         return this.http.post<any>(this.baseUrl+"Servis/Beyanname/KontrolHizmeti/" + IslemInternalNo + "/" + Kullanici, { title: 'Angular POST Request Example' })
       }
-
+   
    
     }
 
@@ -41,6 +41,9 @@ export class BeyannameServiceProxy {
 export class SessionServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
+    public guidOf:string;
+    public refId:string;
+    public islemInternalNo:string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {

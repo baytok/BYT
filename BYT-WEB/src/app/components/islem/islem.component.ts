@@ -1,11 +1,13 @@
 import { Component,ViewChild, OnInit } from '@angular/core';
-import { BeyannameServiceProxy } from '../../../shared/service-proxies//service-proxies';
+import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../shared/service-proxies/service-proxies';
 import { MatSnackBar,MatDialog} from '@angular/material';
 import { SonucservisComponent } from '../../components/sonucservis/sonucservis.component';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {ThemePalette} from '@angular/material/core';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 
 import {
    IslemDto,
@@ -37,10 +39,12 @@ import {
   ],
 })
 export class IslemComponent implements OnInit {
-  islemInternalNo="";
+ 
   kullanici="11111111100";
-  guid="";
-  refId="";
+  color: ThemePalette = 'accent';
+  progressMode: ProgressSpinnerMode = 'determinate';
+  value = 50;
+
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
   displayedColumnsIslem: string[] = ['refId','islemTipi','beyanTipi','islemDurumu','islemSonucu','islemZamani','gonderimSayisi','islemInternalNo'];
@@ -50,6 +54,7 @@ export class IslemComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     private beyanServis: BeyannameServiceProxy,
+    private session: SessionServiceProxy,
     private snackBar: MatSnackBar ,
     private _dialog: MatDialog
 
@@ -69,7 +74,7 @@ export class IslemComponent implements OnInit {
   }
 
   yenileTarihce(): void {
-     this.getTarihce(this.islemInternalNo);
+     this.getTarihce(this.session.islemInternalNo);
     
   }
   openSnackBar(message: string, action: string) {
@@ -81,9 +86,10 @@ export class IslemComponent implements OnInit {
     this.beyanServis.getAllIslem(this.kullanici)
     .subscribe( (result: IslemDto[])=>{
           this.islemlerDataSource=result;
-          this.refId=result[0].refId;
-          this.islemInternalNo=result[0].islemInternalNo;
-          this.guid=result[0].guidof;
+          this.session.guidOf=result[0].guidof;
+          this.session.islemInternalNo= result[0].islemInternalNo;
+          this.session.refId=result[0].refId;
+       
      }, (err)=>{
        console.log(err);
      });
@@ -101,7 +107,7 @@ export class IslemComponent implements OnInit {
 
    }
    getTarihce(IslemInternalNo:string){
-    this.islemInternalNo=IslemInternalNo;
+    this.session.islemInternalNo=IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo)
     .subscribe( (result: TarihceDto[])=>{
       this.tarihceDataSource.data=result;
@@ -115,16 +121,18 @@ export class IslemComponent implements OnInit {
    {
      this.showSonucDialog(0,guid);
    }
-   sendingControlMessages(IslemInternalNo){
-    this.islemInternalNo=IslemInternalNo;
-      this.beyanServis.KontrolGonderimi(this.islemInternalNo,this.kullanici)
+   sendingControlMessages(){
+    if(confirm('Kontrol Gönderimi Yapamak İstediğinizden Eminmisiniz?')){
+      this.progressMode = 'indeterminate';
+      this.beyanServis.KontrolGonderimi(this.session.islemInternalNo,this.kullanici)
       .subscribe( (result: string[])=>{  //ServisDto oluşturulacak
-            this.getIslemFromRefId(this.refId);
+            this.getIslemFromRefId(this.session.refId);
             this.openSnackBar(result.values.toString(),'Tamam');
       }, (err)=>{
        console.log(err);
      });
-
+      this.progressMode = 'determinate';
+    }
    }
 
    

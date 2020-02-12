@@ -19,7 +19,6 @@ import { AppConsts } from '../shared/AppConsts';
 import { GirisComponent } from '../account/giris/giris.component';
 
 
-
 @NgModule({
    declarations: [
       AppComponent,
@@ -40,13 +39,14 @@ import { GirisComponent } from '../account/giris/giris.component';
       HttpClientModule,
       BrowserAnimationsModule,
       FormsModule,
-      ServiceProxyModule
+      ServiceProxyModule,
+    
    ],
    entryComponents: [
       SonucservisComponent
    ],
    providers: [
-      { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
+      { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" }
    ],
     bootstrap: [
        AppComponent
@@ -55,5 +55,6 @@ import { GirisComponent } from '../account/giris/giris.component';
 
 export class AppModule { }
 export function getRemoteServiceBaseUrl(): string {
-  return AppConsts.remoteServiceBaseUrl;
+ return AppConsts.remoteServiceBaseUrl;
+  
 }

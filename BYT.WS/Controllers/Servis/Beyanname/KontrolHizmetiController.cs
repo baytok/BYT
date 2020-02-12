@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace BYT.WS.Controllers.Servis.Beyanname
 {
-    [Route("api/Servis/Beyanname/[controller]")]
+    [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     public class KontrolHizmetiController : ControllerBase
     {
