@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from '../../shared/session/session.service';
+import { AppSessionService } from '../../shared/session/app-session.service';
 import { GirisService } from './giris.service';
 import { Router } from "@angular/router";
 @Component({
@@ -11,7 +11,7 @@ export class GirisComponent implements OnInit {
   
 
   constructor(
-    private _session:SessionService,
+    private _session:AppSessionService,
     public girisService: GirisService,
     private router:Router
      ) { }
@@ -23,7 +23,7 @@ export class GirisComponent implements OnInit {
   login() {    
     
      this._session._user = this.girisService.authenticateModel;
-     this.router.navigateByUrl('/Islemler');
+     this.router.navigateByUrl('/islemler');
   }
 
 }

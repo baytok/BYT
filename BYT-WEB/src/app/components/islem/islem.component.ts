@@ -1,6 +1,5 @@
 import { Component,ViewChild, OnInit } from '@angular/core';
-import { BeyannameService } from '../../../shared/services/beyanname.service';
-import { SessionService } from  '../../../shared/session/session.service';
+import { BeyannameServiceProxy } from '../../../shared/service-proxies//service-proxies';
 import { MatSnackBar,MatDialog} from '@angular/material';
 import { SonucservisComponent } from '../../components/sonucservis/sonucservis.component';
 import {MatTableDataSource} from '@angular/material/table';
@@ -40,6 +39,8 @@ import {
 export class IslemComponent implements OnInit {
   islemInternalNo="";
   kullanici="11111111100";
+  guid="";
+  refId="";
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
   displayedColumnsIslem: string[] = ['refId','islemTipi','beyanTipi','islemDurumu','islemSonucu','islemZamani','gonderimSayisi','islemInternalNo'];
@@ -48,8 +49,7 @@ export class IslemComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
-    private beyanServis: BeyannameService,
-    private _session:SessionService,
+    private beyanServis: BeyannameServiceProxy,
     private snackBar: MatSnackBar ,
     private _dialog: MatDialog
 
@@ -68,8 +68,8 @@ export class IslemComponent implements OnInit {
     this.getAllIslem();
   }
 
-  yenileTarihce(IslemInternalNo:string): void {
-     this.getTarihce(IslemInternalNo);
+  yenileTarihce(): void {
+     this.getTarihce(this.islemInternalNo);
     
   }
   openSnackBar(message: string, action: string) {
@@ -81,7 +81,9 @@ export class IslemComponent implements OnInit {
     this.beyanServis.getAllIslem(this.kullanici)
     .subscribe( (result: IslemDto[])=>{
           this.islemlerDataSource=result;
-          // console.log(this.islemler);
+          this.refId=result[0].refId;
+          this.islemInternalNo=result[0].islemInternalNo;
+          this.guid=result[0].guidof;
      }, (err)=>{
        console.log(err);
      });
@@ -113,6 +115,19 @@ export class IslemComponent implements OnInit {
    {
      this.showSonucDialog(0,guid);
    }
+   sendingControlMessages(IslemInternalNo){
+    this.islemInternalNo=IslemInternalNo;
+      this.beyanServis.KontrolGonderimi(this.islemInternalNo,this.kullanici)
+      .subscribe( (result: string[])=>{  //ServisDto oluşturulacak
+            this.getIslemFromRefId(this.refId);
+            this.openSnackBar(result.values.toString(),'Tamam');
+      }, (err)=>{
+       console.log(err);
+     });
+
+   }
+
+   
    showSonucDialog(id?: number, guid?: string): void {
     let sonucDialog;
     if (id === undefined || id <= 0) {

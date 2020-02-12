@@ -3,33 +3,32 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './components/about/about.component';
 import { IslemComponent } from './components/islem/islem.component';
-import { GirisComponent } from '../account/giris/giris.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
-const routes: Routes = [
-  {
-    path:"about",component:AboutComponent
-  }
-  ,
-  {
-    path:"",component:GirisComponent
-    
-  },
-  {
-    path:"Islemler",component:IslemComponent
-    
-  },
-  {
-    path:"Beyanname",component:BeyannameComponent
-    
-  }/*
-  ,
-  {
-    path:"**",component:NotFoundComponent
-  }
-*/
-];
+import { GirisComponent } from '../account/giris/giris.component';
 
-@NgModule({
+ const routes: Routes = [
+   {
+     path:"about",component:AboutComponent
+   }
+   ,
+   {
+     path:"islemler",component:IslemComponent
+    
+   },
+   {
+     path:"beyanname",component:BeyannameComponent
+    
+    }
+   ,
+      {
+      path:'',component:GirisComponent
+    
+    }
+   ,
+    // { path: '', redirectTo: '../account/account.component', pathMatch: 'full' },
+ ];
+
+ @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot(routes)

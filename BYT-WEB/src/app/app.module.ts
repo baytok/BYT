@@ -9,68 +9,51 @@ import { NaviComponent } from './components/navi/navi.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { IslemComponent } from './components/islem/islem.component';
-import { GirisComponent } from '../account/giris/giris.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { SonucservisComponent } from './components/sonucservis/sonucservis.component';
-import { 
-  MatButtonModule,
-  MatCheckboxModule,
-  MatInputModule,
-  MatCardModule,
-  MatIconModule,
-  MatSnackBarModule,
-  MatMenuModule,
-  MatExpansionModule,
-  MatDialogModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatToolbarModule,
-  MatListModule
-} from '@angular/material';
 import { FormsModule } from '@angular/forms';
-import { MatTabsModule, MatSidenavModule } from '@angular/material';
+import { API_BASE_URL } from '../shared/service-proxies/service-proxies';
+import { SharedModule } from '../shared/shared.module';
+import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.module';
+import { AppConsts } from '../shared/AppConsts';
+import { GirisComponent } from '../account/giris/giris.component';
+
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AboutComponent,
-    NaviComponent,
-    HeaderComponent,
-    FooterComponent,
-    IslemComponent,
-    BeyannameComponent,
-    SonucservisComponent,
-    GirisComponent
+   declarations: [
+      AppComponent,
+      AboutComponent,
+      NaviComponent,
+      HeaderComponent,
+      FooterComponent,
+      IslemComponent,
+      BeyannameComponent,
+      SonucservisComponent,
+      GirisComponent
     
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatCardModule,
-    MatIconModule,
-    MatSnackBarModule,
-    FormsModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatDialogModule,
-    MatTableModule,
-    MatPaginatorModule ,
-    MatTabsModule,
-    MatSidenavModule,
-    MatToolbarModule,MatListModule       
-
-  ],
-  entryComponents: [
-    SonucservisComponent
-  ],
-  providers: [
-    {provide:'apiUrl',useValue:'https://localhost:44345/api/BYT/'}
-  ],
-  bootstrap: [AppComponent]
+   ],
+   imports: [
+      SharedModule.forRoot(),
+      BrowserModule,
+      AppRoutingModule,
+      HttpClientModule,
+      BrowserAnimationsModule,
+      FormsModule,
+      ServiceProxyModule
+   ],
+   entryComponents: [
+      SonucservisComponent
+   ],
+   providers: [
+      { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
+   ],
+    bootstrap: [
+       AppComponent
+    ]
 })
+
 export class AppModule { }
+export function getRemoteServiceBaseUrl(): string {
+  return AppConsts.remoteServiceBaseUrl;
+}

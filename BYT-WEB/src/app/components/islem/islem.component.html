@@ -162,7 +162,7 @@
                           >
                             Tarihçe
                           </button>
-                          <button mat-menu-item>Kontrol Gönder</button>
+                          <button mat-menu-item (click)="sendingControlMessages(element.islemInternalNo)" >Kontrol Gönder</button>
                           <button mat-menu-item disabled>
                             Tescil Gönder
                           </button>
@@ -226,7 +226,7 @@
                             <mat-menu #headerMenu="matMenu">
                               <button
                                 mat-menu-item
-                                (click)="yenileTarihce(islemInternalNo)"
+                                (click)="yenileTarihce()"
                               >
                                 <mat-icon>refresh</mat-icon>
                                 <span>Yenile</span>

@@ -5,6 +5,67 @@ import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+@Injectable()
+export class BeyannameServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    getAllIslem(Kullanici){
+        return this.http.get(this.baseUrl+'IslemHizmeti/KullaniciIleSorgulama/' + Kullanici);
+      }
+      getAllIslemFromRefId(refId){
+        return this.http.get(this.baseUrl+'IslemHizmeti/RefIdIleSorgulama/' + refId);
+      }
+    
+      getTarihce(IslemInternalNo){
+        return this.http.get(this.baseUrl+'TarihceHizmeti/' + IslemInternalNo);
+      }
+    
+      KontrolGonderimi(IslemInternalNo,Kullanici){
+        return this.http.get(this.baseUrl+"Servis/Beyanname/KontrolHizmeti/" + IslemInternalNo + "/" + Kullanici);
+      }
+
+   
+    }
+
+  
+
+
+@Injectable()
+export class SessionServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    // getCurrentLoginInformations(): Observable<GetCurrentLoginInformationsOutput> {
+    //     let url_ = this.baseUrl + "/api/services/app/Session/GetCurrentLoginInformations";
+    //     url_ = url_.replace(/[?&]$/, "");
+
+    //     let options_ : any = {
+    //         observe: "response",
+    //         responseType: "blob",
+    //         headers: new HttpHeaders({
+    //             "Accept": "text/plain"
+    //         })
+    //     };
+   
+    //}
+}
+
 export class IslemDto implements IIslemlerDto {
     refId: string | undefined;
     guidof: string | undefined;
