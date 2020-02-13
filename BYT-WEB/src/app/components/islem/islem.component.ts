@@ -8,10 +8,15 @@ import {MatSort} from '@angular/material/sort';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ThemePalette} from '@angular/material/core';
 import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import {AppServisDurumKodlari} from '../../../shared/AppEnums';
+
+
+
 
 import {
    IslemDto,
-   TarihceDto
+   TarihceDto,
+   ServisDto
   } from '../../../shared/service-proxies/service-proxies';
   // export interface PeriodicElement {
   //   name: string;
@@ -38,10 +43,24 @@ import {
     ]),
   ],
 })
+@Component({
+  selector: 'app-root',
+  template: `
+    <mat-progress-bar
+      *ngIf="isLoading | async"
+      mode="indeterminate"
+      color="warn"
+      style="position: absolute; top: 0; z-index: 5000;"
+    >
+    </mat-progress-bar>
+
+    <router-outlet></router-outlet>
+  `,
+})
 export class IslemComponent implements OnInit {
  
   kullanici="11111111100";
-  color: ThemePalette = 'accent';
+  color: ThemePalette = 'primary';
   progressMode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
@@ -56,7 +75,8 @@ export class IslemComponent implements OnInit {
     private beyanServis: BeyannameServiceProxy,
     private session: SessionServiceProxy,
     private snackBar: MatSnackBar ,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    
 
     ) { }
 
@@ -96,6 +116,9 @@ export class IslemComponent implements OnInit {
 
    }
    getIslemFromRefId(refId){
+
+
+    
     this.beyanServis.getAllIslemFromRefId(refId.value)
     .subscribe( (result: IslemDto[])=>{
       this.openSnackBar(refId.value,'Tamam')
@@ -117,21 +140,38 @@ export class IslemComponent implements OnInit {
 
    }
 
+   getMessageSonucSorgula(guid:string)
+   {
+    this.beyanServis.getSonucSorgula(guid)
+    .subscribe( (result: ServisDto[])=>{
+      this.openSnackBar(guid + "Sonuçlar sorgulandı" ,'Tamam')
+      this.yenileTarihce();
+      // console.log(this.islemler);
+     }, (err)=>{
+       console.log(err);
+     });
+   }
+
    getSonuc(guid:string)
    {
      this.showSonucDialog(0,guid);
    }
-   sendingControlMessages(){
+   sendingControlMessages(IslemInternalNo:string){
+    this.session.islemInternalNo=IslemInternalNo;
+  
     if(confirm('Kontrol Gönderimi Yapamak İstediğinizden Eminmisiniz?')){
       this.progressMode = 'indeterminate';
-      this.beyanServis.KontrolGonderimi(this.session.islemInternalNo,this.kullanici)
-      .subscribe( (result: string[])=>{  //ServisDto oluşturulacak
+      this.beyanServis.KontrolGonderimi(IslemInternalNo,this.kullanici)
+      .subscribe( (result: ServisDto)=>{  
+        console.log(result);
+       
             this.getIslemFromRefId(this.session.refId);
-            this.openSnackBar(result.values.toString(),'Tamam');
+            // this.openSnackBar( result.ServisDurumKodu===AppServisDurumKodlari.Available ? result.Bilgiler[0].GUID + "-"+result.Bilgiler[0].Sonuc 
+            // : result.Hatalar[0].HataKodu +"-"+ result.Hatalar[0].HataAciklamasi,'Tamam');
       }, (err)=>{
        console.log(err);
      });
-      this.progressMode = 'determinate';
+     this.progressMode = 'determinate';
     }
    }
 
