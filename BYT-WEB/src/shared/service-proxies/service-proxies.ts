@@ -28,9 +28,13 @@ export class BeyannameServiceProxy {
       }
     
       KontrolGonderimi(IslemInternalNo,Kullanici){
-         return this.http.post<any>(this.baseUrl+"Servis/Beyanname/KontrolHizmeti/" + IslemInternalNo + "/" + Kullanici, { title: 'Angular POST Request Example' })
+         return this.http.post<any>(this.baseUrl+"Servis/Beyanname/KontrolHizmeti/" + IslemInternalNo + "/" + Kullanici, { title: ' POST Request' })
       }
    
+      getSonucSorgula(Guid){
+        return this.http.post<any>(this.baseUrl+"Servis/SorgulamaHizmeti/" + Guid, { title: ' POST Request ' })
+  
+      }
    
     }
 
@@ -438,4 +442,106 @@ export interface IAuthenticateResultModel {
     encryptedAccessToken: string | undefined;
     expireInSeconds: number;
     userId: number;
+}
+export class ServisDto  {
+    
+    ServisDurumKodu: number;
+    Hatalar:HatalarDto [];
+    Bilgiler:BilgilerDto [];
+   
+  
+
+    constructor(data?: ServisDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            console.log(data);
+            if (Array.isArray(data["bilgiler"])) {
+                this.Bilgiler = [] as any;
+                for (let item of data["bilgiler"])
+                    this.Bilgiler.push(item);
+            }
+            if (Array.isArray(data["hatalar"])) {
+                this.Hatalar = [] as any;
+                for (let item of data["hatalar"])
+                    this.Hatalar.push(item);
+            }
+         
+            this.ServisDurumKodu = data["servisDurumKodlari"];
+          
+        }
+    }
+
+    static fromJS(data: any): ServisDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ServisDto();
+       
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+     
+      
+        if (Array.isArray(this.Bilgiler)) {
+            data["bilgiler"] = [];
+            for (let item of this.Bilgiler)
+                data["bilgiler"].push(item);
+        }
+        if (Array.isArray(this.Hatalar)) {
+            data["hatalar"] = [];
+            for (let item of this.Hatalar)
+                data["hatalar"].push(item);
+        }
+        data["servisDurumKodlari"]= this.ServisDurumKodu;
+        return data; 
+    }
+
+    clone(): ServisDto {
+        const json = this.toJSON();
+        let result = new ServisDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export class HatalarDto  {
+    
+    hataKodu: number;
+    hataAciklamasi: string;
+    
+}
+
+export class BilgilerDto  {
+    
+    guid: string;
+    islemTipi: string;
+    referansNo: string;    
+    sonuc: string;
+    sonucVeriler: object;
+
+}
+
+export enum ServisDurumKodlari {
+    _0= 0,
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
+    _4 = 4
+
+    // 0= "İşlem sırasında beklenmeyen bir hata oluştu.",
+    // 1 = "İşlem Başarılı.",
+    // 2 = "Beklenmeyen hata.",
+    // 3 = "Beyanname kayıt aşamasında hata oluştu.",
+    // 4 = "Kalem kayıt aşamasında hata oluştu."
+
+
 }

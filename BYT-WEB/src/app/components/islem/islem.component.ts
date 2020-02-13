@@ -6,10 +6,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {ThemePalette} from '@angular/material/core';
-import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 import {AppServisDurumKodlari} from '../../../shared/AppEnums';
-
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 
@@ -43,26 +41,12 @@ import {
     ]),
   ],
 })
-@Component({
-  selector: 'app-root',
-  template: `
-    <mat-progress-bar
-      *ngIf="isLoading | async"
-      mode="indeterminate"
-      color="warn"
-      style="position: absolute; top: 0; z-index: 5000;"
-    >
-    </mat-progress-bar>
 
-    <router-outlet></router-outlet>
-  `,
-})
 export class IslemComponent implements OnInit {
  
   kullanici="11111111100";
-  color: ThemePalette = 'primary';
-  progressMode: ProgressSpinnerMode = 'determinate';
-  value = 50;
+ 
+  public loading = false;
 
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -76,24 +60,25 @@ export class IslemComponent implements OnInit {
     private session: SessionServiceProxy,
     private snackBar: MatSnackBar ,
     private _dialog: MatDialog,
-    
-
+    private spinner: NgxSpinnerService
     ) { }
 
    
     
   ngOnInit() {
-    
+   
     // this.kullanici=this._session._user.userNameOrEmailAddress;
     this.tarihceDataSource.paginator = this.paginator;
     this.tarihceDataSource.sort = this.sort;
     this.yenileIslemler();
+ 
   }
   yenileIslemler(): void {
     this.getAllIslem();
   }
 
   yenileTarihce(): void {
+  
      this.getTarihce(this.session.islemInternalNo);
     
   }
@@ -103,6 +88,7 @@ export class IslemComponent implements OnInit {
     });
   }
   getAllIslem(){
+ 
     this.beyanServis.getAllIslem(this.kullanici)
     .subscribe( (result: IslemDto[])=>{
           this.islemlerDataSource=result;
@@ -113,11 +99,9 @@ export class IslemComponent implements OnInit {
      }, (err)=>{
        console.log(err);
      });
-
+ 
    }
    getIslemFromRefId(refId){
-
-
     
     this.beyanServis.getAllIslemFromRefId(refId.value)
     .subscribe( (result: IslemDto[])=>{
@@ -130,6 +114,10 @@ export class IslemComponent implements OnInit {
 
    }
    getTarihce(IslemInternalNo:string){
+    // this.spinner.show();
+    // this.loading = true;
+    // setTimeout(() => { console.log("World!"); this.spinner.hide();  this.loading = false; }, 5000);
+   
     this.session.islemInternalNo=IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo)
     .subscribe( (result: TarihceDto[])=>{
@@ -137,42 +125,51 @@ export class IslemComponent implements OnInit {
       }, (err)=>{
        console.log(err);
      });
-
+    
    }
 
    getMessageSonucSorgula(guid:string)
    {
+    this.loading = true; 
+  
     this.beyanServis.getSonucSorgula(guid)
-    .subscribe( (result: ServisDto[])=>{
-      this.openSnackBar(guid + "Sonuçlar sorgulandı" ,'Tamam')
-      this.yenileTarihce();
-      // console.log(this.islemler);
+    .subscribe( (result)=>{
+      const sonuc_ = new ServisDto;
+      sonuc_.init(result);
+      
+      this.openSnackBar(sonuc_.Bilgiler[0].referansNo +"-" +sonuc_.Bilgiler[0].sonuc ,'Tamam')
+      this.yenileTarihce();    
+     
+      this.loading = false;
      }, (err)=>{
        console.log(err);
      });
+    
    }
 
    getSonuc(guid:string)
    {
      this.showSonucDialog(0,guid);
    }
-   sendingControlMessages(IslemInternalNo:string){
-    this.session.islemInternalNo=IslemInternalNo;
-  
+   sendingKontrolMessages(IslemInternalNo:string){
+    this.session.islemInternalNo=IslemInternalNo;  
     if(confirm('Kontrol Gönderimi Yapamak İstediğinizden Eminmisiniz?')){
-      this.progressMode = 'indeterminate';
+      this.spinner.show();
       this.beyanServis.KontrolGonderimi(IslemInternalNo,this.kullanici)
-      .subscribe( (result: ServisDto)=>{  
-        console.log(result);
-       
-            this.getIslemFromRefId(this.session.refId);
-            // this.openSnackBar( result.ServisDurumKodu===AppServisDurumKodlari.Available ? result.Bilgiler[0].GUID + "-"+result.Bilgiler[0].Sonuc 
-            // : result.Hatalar[0].HataKodu +"-"+ result.Hatalar[0].HataAciklamasi,'Tamam');
+      .subscribe( (result)=>{  
+        const sonuc_ = new ServisDto();
+        sonuc_.init(result);
+         this.session.guidOf=sonuc_.Bilgiler[0].guid;
+         //  this.getIslemFromRefId(this.session.refId);
+            setTimeout(() => {  this.spinner.hide(); }, 5000);
+              this.openSnackBar( sonuc_.ServisDurumKodu===AppServisDurumKodlari.Available ? this.session.guidOf +"-"+sonuc_.Bilgiler[0].sonuc
+                :sonuc_.Hatalar[0].hataKodu+"-"+sonuc_.Hatalar[0].hataAciklamasi ,'Tamam');
       }, (err)=>{
        console.log(err);
      });
-     this.progressMode = 'determinate';
+    
     }
+    
    }
 
    
@@ -198,4 +195,5 @@ export class IslemComponent implements OnInit {
     this.tarihceDataSource.filter = filterValue.trim().toLowerCase();
    }
 }
+
 

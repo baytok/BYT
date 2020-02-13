@@ -39,7 +39,7 @@ namespace BYT.WS.Controllers.Servis
 
 
         [HttpPost("{Guid}")]
-        public async Task<Sonuc<ServisDurum>> GetSonuc(string Guid)
+        public async Task<ServisDurum> GetSonuc(string Guid)
         {
             ServisDurum _servisDurum = new ServisDurum();
             try
@@ -141,7 +141,7 @@ namespace BYT.WS.Controllers.Servis
                         lsthtt.Add(ht);
                         _servisDurum.Hatalar = lsthtt;
                         var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                        return rresult;
+                        return _servisDurum;
                     }
                 }
 
@@ -165,10 +165,10 @@ namespace BYT.WS.Controllers.Servis
                 _servisDurum.Bilgiler = lstBlg;
                 _servisDurum.Hatalar = lstht;
 
-                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "Sorgulama İşlemler Gerçekleştirildi" };
 
 
-                return result;
+                return _servisDurum;
 
 
             }

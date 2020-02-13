@@ -17,14 +17,7 @@
             </button>
           </form>
         </div>
-
-        <mat-progress-spinner *ngIf="progressMode === 'indeterminate'"
-        class="example-margin"
-        [color]="color"
-        [mode]="progressMode"
-        [value]="value">
-       </mat-progress-spinner>
-
+      
         <div class="row mt-4">
           <div class="col-md-12">
             <mat-card class="d-flex">
@@ -174,7 +167,7 @@
                           >
                             Tarihçe
                           </button>
-                          <button mat-menu-item (click)="sendingControlMessages(element.islemInternalNo)" >Kontrol Gönder</button>
+                          <button mat-menu-item (click)="sendingKontrolMessages(element.islemInternalNo)" >Kontrol Gönder</button>
                           <button mat-menu-item disabled>
                             Tescil Gönder
                           </button>
@@ -190,7 +183,7 @@
                     ></mat-row>
                   </mat-table>                  
                 </div>
-              
+                <ngx-spinner></ngx-spinner>
               </div>
             </mat-card>
           </div>
@@ -327,13 +320,24 @@
                            
                           </mat-header-cell>
                           <mat-cell *matCellDef="let element">
-                            <div class="button">
+                            <div class="button" *ngIf="element.islemDurumu==='Sonuclandi' ">
                               <button
                                 mat-icon-button
                                 color="warn"
                                 (click)="getSonuc(element.guid)"
                               >
                                 <mat-icon>apps</mat-icon>
+                              </button>
+                            </div>
+                            <div class="button" *ngIf="element.islemDurumu==='Islemde' ">
+                              <button
+                                mat-icon-button
+                                color="primary"
+                                (click)="getMessageSonucSorgula(element.guid)"
+                              >
+                              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                              İşlemde...
+                                <mat-icon>cached</mat-icon>
                               </button>
                             </div>
                           </mat-cell>
@@ -441,10 +445,14 @@
                    
                   </div>
                 </div>
+               
+                <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '10px' }" [template]="customLoadingTemplate"></ngx-loading>
+
               </div>
             </mat-card>
           </div>
         </div>
+           
       </div>
     </div>
   </div>

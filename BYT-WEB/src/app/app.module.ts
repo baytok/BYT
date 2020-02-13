@@ -17,6 +17,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.module';
 import { AppConsts } from '../shared/AppConsts';
 import { GirisComponent } from '../account/giris/giris.component';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -40,6 +42,15 @@ import { GirisComponent } from '../account/giris/giris.component';
       BrowserAnimationsModule,
       FormsModule,
       ServiceProxyModule,
+      NgxSpinnerModule,
+      NgxLoadingModule.forRoot({
+         animationType: ngxLoadingAnimationTypes.threeBounce,
+         backdropBackgroundColour: 'rgba(0,0,0,0.2)', 
+         backdropBorderRadius: '10px',
+         primaryColour: '#8883e6', 
+         secondaryColour: '#8883e6', 
+         tertiaryColour: '#8883e6'
+     })
     
    ],
    entryComponents: [

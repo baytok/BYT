@@ -60,7 +60,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
         [HttpPost("{IslemInternalNo}/{Kullanici}")]
-        public async Task<Sonuc<ServisDurum>> GetKontrol(string IslemInternalNo, string Kullanici)
+        public async Task<ServisDurum> GetKontrol(string IslemInternalNo, string Kullanici)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -651,7 +651,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         lsthtt.Add(ht);
                         _servisDurum.Hatalar = lsthtt;
                         var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                        return rresult;
+                        return _servisDurum;
                     }
                 }
 
@@ -667,17 +667,16 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     Internal.Hata ht = new Internal.Hata { HataKodu = 1, HataAciklamasi = islemSonucu };
                     lstht.Add(ht);
                 }
-                Bilgi blg = new Bilgi { IslemTipi = "Kontrol Gönderimi", ReferansNo = guidOf, Sonuc = "Gönderim Başarılı", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "Kontrol Gönderimi", ReferansNo = guidOf,GUID= guidOf, Sonuc = "Kontrol Gönderimi Gerçekleşti", SonucVeriler = null };
                 lstBlg.Add(blg);
 
 
                 _servisDurum.Bilgiler = lstBlg;
                 _servisDurum.Hatalar = lstht;
 
-                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+              
 
-
-                return result;
+                return _servisDurum;
 
             }
             catch (Exception ex)

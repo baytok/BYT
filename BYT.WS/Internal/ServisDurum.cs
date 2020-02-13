@@ -9,7 +9,6 @@ namespace BYT.WS.Internal
     public class ServisDurum
     {
         public ServisDurumKodlari ServisDurumKodlari { get; set; }
-        public int ServisDurumKodu { get; set; }
         public List<Hata> Hatalar { get; set; }
         public List<Bilgi> Bilgiler { get; set; }
         public ServisDurum()
@@ -25,7 +24,7 @@ namespace BYT.WS.Internal
         public string GUID { get; set; }
         public string Sonuc { get; set; }
         public object SonucVeriler { get; set; }
-        public string ShortKey { get; set; }
+       
     }
     public class Hata
     {
@@ -50,10 +49,6 @@ namespace BYT.WS.Internal
 
         [Description("Kalem kayıt aşamasında hata oluştu.")]
         KalemKayitHatasi = 4,
-
-
-
-
 
     }
 }
