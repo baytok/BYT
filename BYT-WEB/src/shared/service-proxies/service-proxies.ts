@@ -37,6 +37,11 @@ export class BeyannameServiceProxy {
       }
       getBeyannameSonucSorgula(Guid,IslemInternalNo){
         return this.http.get(this.baseUrl+'Servis/Beyanname/BeyannameSonucHizmeti/'+Guid+'/' + IslemInternalNo);
+ 
+      }
+
+      getBeyanname(IslemInternalNo){
+        return this.http.get(this.baseUrl+'Servis/Beyanname/Beyanname/'+IslemInternalNo);
 
   
       }
@@ -615,8 +620,8 @@ export class SonucHatalarDto  {
 }
 export class SonucBelgelerDto  {
     kalemNo:number;
-    hataKodu: number;
-    hataAciklamasi: string;
+    belgeKodu: number;
+    belgeAciklamasi: string;
     dogrulama:string;
     referans:string;
     belgeTarihi:string;
@@ -633,6 +638,88 @@ export class BilgilerDto  {
 
 }
 
+
+export class BeyannameBilgileriDto  {
+    
+    
+    Beyanname:BeyannameDto ;
+    Kalemler:KalemlerDto [];
+    BeyannameNo:string;
+    
+
+    constructor(data?: ServisDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+        
+            this.Beyanname = data["beyanname"];
+           
+            if (Array.isArray(data["kalemler"])) {
+                this.Kalemler = [] as any;
+                for (let item of data["kalemler"])
+                    this.Kalemler.push(item);
+            }
+         
+            this.BeyannameNo = data["beyanNo"];
+          
+            
+          
+        }
+    }
+
+    static fromJS(data: any): ServisDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ServisDto();
+       
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+     
+        data["beyanname"]=this.Beyanname;
+       
+        if (Array.isArray(this.Kalemler)) {
+            data["kalemler"] = [];
+            for (let item of this.Kalemler)
+                data["kalemler"].push(item);
+        }
+
+        data["beyanNo"]= this.BeyannameNo;
+       
+       
+        return data; 
+    }
+
+    clone(): ServisDto {
+        const json = this.toJSON();
+        let result = new ServisDto();
+        result.init(json);
+        return result;
+    }
+}
+export class BeyannameDto  {
+    BeyanInternalNo:string;
+    BeyannameNo:string;
+    rejim: string;
+   
+    
+}
+export class KalemlerDto  {
+    BeyanInternalNo:string;
+    KalemInternalNo:string
+    kalemNo:number;
+    gtip:string;
+    
+}
 export enum ServisDurumKodlari {
     _0= 0,
     _1 = 1,

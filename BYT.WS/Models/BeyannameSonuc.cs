@@ -824,7 +824,7 @@ namespace BYT.WS.Models
      
         [Required]
         [StringLength(10)]
-        public string Cevap { get; set; }
+        public string SoruCevap { get; set; }
 
     
     }

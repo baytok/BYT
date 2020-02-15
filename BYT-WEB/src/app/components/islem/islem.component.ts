@@ -166,7 +166,7 @@ export class IslemComponent implements OnInit {
         sonuc_.init(result);
          this.session.guidOf=sonuc_.Bilgiler[0].guid;
          //  this.getIslemFromRefId(this.session.refId);
-            setTimeout(() => {  this.spinner.hide(); }, 5000);
+            setTimeout(() => {  this.spinner.hide(); }, 3000);
               this.openSnackBar( sonuc_.ServisDurumKodu===AppServisDurumKodlari.Available ? this.session.guidOf +"-"+sonuc_.Bilgiler[0].sonuc
                 :sonuc_.Hatalar[0].hataKodu+"-"+sonuc_.Hatalar[0].hataAciklamasi ,'Tamam');
       }, (err)=>{

@@ -415,7 +415,7 @@ namespace BYT.WS.Controllers.Servis
                                     _soruCevap.IslemInternalNo = InternalNo;
                                     _soruCevap.KalemNo = Kalem_no;
                                     _soruCevap.SoruKodu = soru_no;
-                                    _soruCevap.Cevap = cevap;
+                                    _soruCevap.SoruCevap = cevap;
                                   
                                    
 

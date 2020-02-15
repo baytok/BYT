@@ -3,7 +3,9 @@ import {MatSnackBar,MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/mater
 import { BeyannameServiceProxy} from '../../../shared/service-proxies/service-proxies';
 
 import {
-  BeyannameSonucDto
+  BeyannameSonucDto,
+  SonucBelgelerDto,
+  SonucHatalarDto
   
  } from '../../../shared/service-proxies/service-proxies';
 export interface DialogData {
@@ -32,13 +34,16 @@ implements OnInit {
   }
   guidOf= this.data.guidOf;
   islemInternalNo= this.data.islemInternalNo;
+  _sonucHatalar:SonucHatalarDto[];
+  _sonucBelgeler:SonucBelgelerDto[];
   ngOnInit() {
     this.beyanServis.getBeyannameSonucSorgula(this.islemInternalNo,this.guidOf)
     .subscribe( (result)=>{  
-    
-     const sonuc_ = new BeyannameSonucDto();
-      sonuc_.init(result);     
-      console.log(sonuc_);
+     
+     const sonuc = new BeyannameSonucDto();
+      sonuc.init(result);     
+      this._sonucBelgeler=sonuc.Belgeler;
+      this._sonucHatalar =sonuc.Hatalar;
     }, (err)=>{
      console.log(err);
    });

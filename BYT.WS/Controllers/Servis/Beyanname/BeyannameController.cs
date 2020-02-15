@@ -48,45 +48,56 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                  .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                  .Options;
             var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo);
+                if (islemValues != null)
+                {
+                    var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
+                    var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var tamamlayiciValues = await _beyannameContext.DbTamamlayiciBilgi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var tcgbacmaValues = await _beyannameContext.DbBeyannameAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var markaValues = await _beyannameContext.DbMarka.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var konteynerValues = await _beyannameContext.DbKonteyner.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var odemeValues = await _beyannameContext.DbOdemeSekli.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var ozetBeyanAcmaValues = await _beyannameContext.DbOzetbeyanAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenedi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var firmaValues = await _beyannameContext.DbFirma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var teminatValues = await _beyannameContext.DbTeminat.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var kiymetValues = await _beyannameContext.DbKiymetBildirim.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var kiymetKalemValues = await _beyannameContext.DbKiymetBildirimKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
-            var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo);
-            var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
-            var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-            var tamamlayiciValues = await _beyannameContext.DbTamamlayiciBilgi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-            var tcgbacmaValues = await _beyannameContext.DbBeyannameAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-            var markaValues = await _beyannameContext.DbMarka.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-            var konteynerValues = await _beyannameContext.DbKonteyner.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-            var odemeValues = await _beyannameContext.DbOdemeSekli.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-            var ozetBeyanAcmaValues = await _beyannameContext.DbOzetbeyanAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-            var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenedi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-            var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-            var firmaValues = await _beyannameContext.DbFirma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-            var teminatValues = await _beyannameContext.DbTeminat.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-            var kiymetValues = await _beyannameContext.DbKiymetBildirim.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-            var kiymetKalemValues = await _beyannameContext.DbKiymetBildirimKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
 
+                    _beyanname.beyanname = beyanValues;
+                    _beyanname.kalemler = kalemValues;
+                    _beyanname.tamamlayiciBilgi = tamamlayiciValues;
+                    _beyanname.tcgbAcma = tcgbacmaValues;
+                    _beyanname.marka = markaValues;
+                    _beyanname.odemeSekli = odemeValues;
+                    _beyanname.konteyner = konteynerValues;
+                    _beyanname.ozetBeyanAcma = ozetBeyanAcmaValues;
+                    _beyanname.tasimaSenetleri = ozetBeyanAcmaTasimaSenediValues;
+                    _beyanname.tasimaSatirlari = ozetBeyanAcmaTasimaSatirValues;
+                    _beyanname.teminat = teminatValues;
+                    _beyanname.firma = firmaValues;
+                    _beyanname.kiymet = kiymetValues;
+                    _beyanname.kiymetKalem = kiymetKalemValues;
+                }
 
-            _beyanname.beyanname = beyanValues;
-            _beyanname.kalemler = kalemValues;
-            _beyanname.tamamlayiciBilgi = tamamlayiciValues;
-            _beyanname.tcgbAcma = tcgbacmaValues;
-            _beyanname.marka = markaValues;
-            _beyanname.odemeSekli = odemeValues;
-            _beyanname.konteyner = konteynerValues;
-            _beyanname.ozetBeyanAcma = ozetBeyanAcmaValues;           
-            _beyanname.tasimaSenetleri = ozetBeyanAcmaTasimaSenediValues;
-            _beyanname.tasimaSatirlari = ozetBeyanAcmaTasimaSatirValues;
-            _beyanname.teminat = teminatValues;
-            _beyanname.firma = firmaValues;
-            _beyanname.kiymet = kiymetValues;
-            _beyanname.kiymetKalem = kiymetKalemValues;
-            
+                return _beyanname;
 
-            return _beyanname;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
-      
+
     }
 
 

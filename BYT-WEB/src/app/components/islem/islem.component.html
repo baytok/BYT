@@ -17,180 +17,191 @@
             </button>
           </form>
         </div>
-      
+
         <div class="row mt-4">
           <div class="col-md-12">
-            <mat-card class="mat-card">            
-                <h5>İşlemler</h5>
-                <div class="example-box">
-                  <mat-table
-                    [dataSource]="islemlerDataSource"
-                    class="mat-elevation-z8 "
-                  >
-                    <ng-container matColumnDef="refId">
-                      <mat-header-cell
-                        [style.flex]="'0 0 220px'"
-                        *matHeaderCellDef
-                      >
-                        Referans No
-                      </mat-header-cell>
-                      <mat-cell
-                        [style.flex]="'0 0 220px'"
-                        *matCellDef="let element"
-                      >
-                        {{ element.refId }}
-                      </mat-cell>
-                    </ng-container>
+            <mat-card class="mat-card">
+              <h5>İşlemler</h5>
+              <div class="example-box">
+                <mat-table
+                  [dataSource]="islemlerDataSource"
+                  class="mat-elevation-z8 "
+                >
+                  <ng-container matColumnDef="refId">
+                    <mat-header-cell
+                      [style.flex]="'0 0 220px'"
+                      *matHeaderCellDef
+                    >
+                      Referans No
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 220px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.refId }}
+                    </mat-cell>
+                  </ng-container>
 
-                    <ng-container matColumnDef="islemTipi">
-                      <mat-header-cell
-                        [style.flex]="'0 0 80px'"
-                        *matHeaderCellDef
-                      >
-                        İşlem Tipi
-                      </mat-header-cell>
-                      <mat-cell
-                        [style.flex]="'0 0 80px'"
-                        *matCellDef="let element"
-                      >
-                        {{ element.islemTipi }}
-                      </mat-cell>
-                    </ng-container>
+                  <ng-container matColumnDef="islemTipi">
+                    <mat-header-cell
+                      [style.flex]="'0 0 80px'"
+                      *matHeaderCellDef
+                    >
+                      İşlem Tipi
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 80px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.islemTipi }}
+                    </mat-cell>
+                  </ng-container>
 
-                    <ng-container matColumnDef="beyanTipi">
-                      <mat-header-cell
-                        [style.flex]="'0 0 100px'"
-                        *matHeaderCellDef
-                      >
-                        Beyan Tipi
-                      </mat-header-cell>
-                      <mat-cell
-                        [style.flex]="'0 0 100px'"
-                        *matCellDef="let element"
-                      >
-                        {{ element.beyanTipi }}
-                      </mat-cell>
-                    </ng-container>
+                  <ng-container matColumnDef="beyanTipi">
+                    <mat-header-cell
+                      [style.flex]="'0 0 100px'"
+                      *matHeaderCellDef
+                    >
+                      Beyan Tipi
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 100px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.beyanTipi }}
+                    </mat-cell>
+                  </ng-container>
 
-                    <ng-container matColumnDef="islemDurumu">
-                      <mat-header-cell
-                        [style.flex]="'0 0 100px'"
-                        *matHeaderCellDef
-                      >
-                        Durum
-                      </mat-header-cell>
-                      <mat-cell
-                        [style.flex]="'0 0 100px'"
-                        *matCellDef="let element"
-                      >
-                        {{ element.islemDurumu }}
-                      </mat-cell>
-                    </ng-container>
+                  <ng-container matColumnDef="islemDurumu">
+                    <mat-header-cell
+                      [style.flex]="'0 0 100px'"
+                      *matHeaderCellDef
+                    >
+                      Durum
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 100px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.islemDurumu }}
+                    </mat-cell>
+                  </ng-container>
 
-                    <ng-container matColumnDef="islemSonucu">
-                      <mat-header-cell
-                        [style.flex]="'0 0 250px'"
-                        *matHeaderCellDef
-                      >
-                        Sonuc
-                      </mat-header-cell>
-                      <mat-cell
-                        [style.flex]="'0 0 250px'"
-                        *matCellDef="let element"
-                      >
-                        {{ element.islemSonucu }}
-                      </mat-cell>
-                    </ng-container>
+                  <ng-container matColumnDef="islemSonucu">
+                    <mat-header-cell
+                      [style.flex]="'0 0 250px'"
+                      *matHeaderCellDef
+                    >
+                      Sonuc
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 250px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.islemSonucu }}
+                    </mat-cell>
+                  </ng-container>
 
-                    <ng-container matColumnDef="islemZamani">
-                      <mat-header-cell
-                        [style.flex]="'0 0 150px'"
-                        *matHeaderCellDef
-                      >
-                        Zaman
-                      </mat-header-cell>
-                      <mat-cell
-                        [style.flex]="'0 0 150px'"
-                        *matCellDef="let element"
-                      >
-                        {{ element.islemZamani }}
-                      </mat-cell>
-                    </ng-container>
+                  <ng-container matColumnDef="islemZamani">
+                    <mat-header-cell
+                      [style.flex]="'0 0 150px'"
+                      *matHeaderCellDef
+                    >
+                      Zaman
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 150px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.islemZamani }}
+                    </mat-cell>
+                  </ng-container>
 
-                    <ng-container matColumnDef="gonderimSayisi">
-                      <mat-header-cell
-                        [style.flex]="'0 0 80px'"
-                        *matHeaderCellDef
-                      >
-                        Gönderim No
-                      </mat-header-cell>
-                      <mat-cell
-                        [style.flex]="'0 0 80px'"
-                        *matCellDef="let element"
-                      >
-                        {{ element.gonderimSayisi }}
-                      </mat-cell>
-                    </ng-container>
+                  <ng-container matColumnDef="gonderimSayisi">
+                    <mat-header-cell
+                      [style.flex]="'0 0 80px'"
+                      *matHeaderCellDef
+                    >
+                      Gönderim No
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 80px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.gonderimSayisi }}
+                    </mat-cell>
+                  </ng-container>
 
-                    <ng-container matColumnDef="islemInternalNo">
-                      <mat-header-cell *matHeaderCellDef>
+                  <ng-container matColumnDef="islemInternalNo">
+                    <mat-header-cell *matHeaderCellDef>
+                      <button
+                        mat-icon-button
+                        [matMenuTriggerFor]="headerMenu"
+                        class="header-dropdown-mat-icon-button"
+                      >
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #headerMenu="matMenu">
+                        <button mat-menu-item (click)="yenileIslemler()">
+                          <mat-icon>refresh</mat-icon>
+                          <span>Yenile</span>
+
+                          <section
+                            class="example-section"
+                            *ngIf="mode === 'determinate'"
+                          >
+                            <label class="example-margin">Progress:</label>
+                            <mat-slider
+                              class="example-margin"
+                              [(ngModel)]="value"
+                            ></mat-slider>
+                          </section>
+                        </button>
+                      </mat-menu>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <button mat-button [matMenuTriggerFor]="aboveMenu">
+                        <mat-icon>menu</mat-icon>
+                      </button>
+                      <mat-menu #aboveMenu="matMenu" yPosition="above">
                         <button
-                          mat-icon-button
-                          [matMenuTriggerFor]="headerMenu"
-                          class="header-dropdown-mat-icon-button"
-                        >
-                          <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #headerMenu="matMenu">
-                          <button mat-menu-item (click)="yenileIslemler()">
-                            <mat-icon>refresh</mat-icon>
-                            <span>Yenile</span>
-
-                            <section class="example-section" *ngIf="mode === 'determinate'">
-                              <label class="example-margin">Progress:</label>
-                              <mat-slider class="example-margin" [(ngModel)]="value"></mat-slider>
-                            </section>                           
-
-                          </button>
-                        </mat-menu>
-                      </mat-header-cell>
-                      <mat-cell *matCellDef="let element">
-                        <button mat-button [matMenuTriggerFor]="aboveMenu">
-                          <mat-icon>menu</mat-icon>
-                        </button>
-                        <mat-menu #aboveMenu="matMenu" yPosition="above">
-                          <button
                           mat-menu-item
                           color="warn"
                           (click)="getBeyanname(element.islemInternalNo)"
                         >
                           Beyanname
                         </button>
-                          <button
-                            mat-menu-item
-                            color="warn"
-                            (click)="getTarihce(element.islemInternalNo)"
-                          >
-                            Tarihçe
-                          </button>
-                          <button mat-menu-item (click)="sendingKontrolMessages(element.islemInternalNo)" >Kontrol Gönder</button>
-                          <button mat-menu-item disabled>
-                            Tescil Gönder
-                          </button>
-                        </mat-menu>
-                      </mat-cell>
-                    </ng-container>
+                        <button
+                          mat-menu-item
+                          color="warn"
+                          (click)="getTarihce(element.islemInternalNo)"
+                        >
+                          Tarihçe
+                        </button>
+                        <button
+                          mat-menu-item
+                          (click)="
+                            sendingKontrolMessages(element.islemInternalNo)
+                          "
+                        >
+                          Kontrol Gönder
+                        </button>
+                        <button mat-menu-item disabled>
+                          Tescil Gönder
+                        </button>
+                      </mat-menu>
+                    </mat-cell>
+                  </ng-container>
 
-                    <mat-header-row
-                      *matHeaderRowDef="displayedColumnsIslem; sticky: true"
-                    ></mat-header-row>
-                    <mat-row
-                      *matRowDef="let row; columns: displayedColumnsIslem"
-                    ></mat-row>
-                  </mat-table>                  
-                </div>
-                <ngx-spinner></ngx-spinner>
-             
+                  <mat-header-row
+                    *matHeaderRowDef="displayedColumnsIslem; sticky: true"
+                  ></mat-header-row>
+                  <mat-row
+                    *matRowDef="let row; columns: displayedColumnsIslem"
+                  ></mat-row>
+                </mat-table>
+              </div>
+              <ngx-spinner></ngx-spinner>
             </mat-card>
           </div>
         </div>
@@ -204,157 +215,167 @@
                   (keyup)="applyTarihceFilter($event)"
                   placeholder="aranacak kelime"
                 />
-              </mat-form-field> 
-            </div>        
+              </mat-form-field>
+            </div>
             <mat-card class="mat-card">
-              <div class="example-box">                 
-                    <mat-table
-                        [dataSource]="tarihceDataSource"
-                        class="mat-elevation-z8"
+              <div class="example-box">
+                <mat-table
+                  [dataSource]="tarihceDataSource"
+                  class="mat-elevation-z8"
+                >
+                  <ng-container matColumnDef="islemInternalNo">
+                    <mat-header-cell
+                      [style.flex]="'0 0 250px'"
+                      *matHeaderCellDef
+                    >
+                      İşlem No
+                      <button
+                        mat-icon-button
+                        [matMenuTriggerFor]="headerMenu"
+                        class="header-dropdown-mat-icon-button"
                       >
-                        <ng-container matColumnDef="islemInternalNo">
-                          <mat-header-cell
-                            [style.flex]="'0 0 250px'"
-                            *matHeaderCellDef
-                          >
-                            İşlem No
-                            <button
-                              mat-icon-button
-                              [matMenuTriggerFor]="headerMenu"
-                              class="header-dropdown-mat-icon-button"
-                            >
-                              <mat-icon>more_vert</mat-icon>
-                            </button>
-                            <mat-menu #headerMenu="matMenu">
-                              <button
-                                mat-menu-item
-                                (click)="yenileTarihce()"
-                              >
-                                <mat-icon>refresh</mat-icon>
-                                <span>Yenile</span>
-                              </button>
-                            </mat-menu>
-                          </mat-header-cell>
-                          <mat-cell
-                            [style.flex]="'0 0 250px'"
-                            *matCellDef="let element"
-                          >
-                            {{ element.islemInternalNo }}
-                          </mat-cell>
-                        </ng-container>
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #headerMenu="matMenu">
+                        <button mat-menu-item (click)="yenileTarihce()">
+                          <mat-icon>refresh</mat-icon>
+                          <span>Yenile</span>
+                        </button>
+                      </mat-menu>
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 250px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.islemInternalNo }}
+                    </mat-cell>
+                  </ng-container>
 
-                        <ng-container matColumnDef="gonderimNo">
-                          <mat-header-cell
-                            [style.flex]="'0 0 90px'"
-                            *matHeaderCellDef
-                          >
-                            Gönderim No
-                          </mat-header-cell>
-                          <mat-cell
-                            [style.flex]="'0 0 90px'"
-                            *matCellDef="let element"
-                          >
-                            {{ element.gonderimNo }}
-                          </mat-cell>
-                        </ng-container>
+                  <ng-container matColumnDef="gonderimNo">
+                    <mat-header-cell
+                      [style.flex]="'0 0 90px'"
+                      *matHeaderCellDef
+                    >
+                      Gönderim No
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 90px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.gonderimNo }}
+                    </mat-cell>
+                  </ng-container>
 
-                        <ng-container matColumnDef="islemTipi">
-                          <mat-header-cell
-                            [style.flex]="'0 0 50px'"
-                            *matHeaderCellDef
-                          >
-                            İşlem Tipi
-                          </mat-header-cell>
-                          <mat-cell
-                            [style.flex]="'0 0 50px'"
-                            *matCellDef="let element"
-                          >
-                            {{ element.islemTipi }}
-                          </mat-cell>
-                        </ng-container>
+                  <ng-container matColumnDef="islemTipi">
+                    <mat-header-cell
+                      [style.flex]="'0 0 50px'"
+                      *matHeaderCellDef
+                    >
+                      İşlem Tipi
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 50px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.islemTipi }}
+                    </mat-cell>
+                  </ng-container>
 
-                        <ng-container matColumnDef="islemDurumu">
-                          <mat-header-cell
-                            [style.flex]="'0 0 100px'"
-                            *matHeaderCellDef
-                          >
-                            İşlem Durumu
-                          </mat-header-cell>
-                          <mat-cell
-                            [style.flex]="'0 0 100px'"
-                            *matCellDef="let element"
-                          >
-                            {{ element.islemDurumu }}
-                          </mat-cell>
-                        </ng-container>
+                  <ng-container matColumnDef="islemDurumu">
+                    <mat-header-cell
+                      [style.flex]="'0 0 100px'"
+                      *matHeaderCellDef
+                    >
+                      İşlem Durumu
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 100px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.islemDurumu }}
+                    </mat-cell>
+                  </ng-container>
 
-                        <ng-container matColumnDef="gondermeZamani">
-                          <mat-header-cell
-                            [style.flex]="'0 0 150px'"
-                            *matHeaderCellDef
-                          >
-                            Gönderim Zamanı
-                          </mat-header-cell>
-                          <mat-cell
-                            [style.flex]="'0 0 150px'"
-                            *matCellDef="let element"
-                          >
-                            {{ element.gondermeZamani }}
-                          </mat-cell>
-                        </ng-container>
+                  <ng-container matColumnDef="gondermeZamani">
+                    <mat-header-cell
+                      [style.flex]="'0 0 150px'"
+                      *matHeaderCellDef
+                    >
+                      Gönderim Zamanı
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 150px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.gondermeZamani }}
+                    </mat-cell>
+                  </ng-container>
 
-                        <ng-container matColumnDef="sonucZamani">
-                          <mat-header-cell
-                            [style.flex]="'0 0 150px'"
-                            *matHeaderCellDef
-                          >
-                            Sonuç Zaman
-                          </mat-header-cell>
-                          <mat-cell
-                            [style.flex]="'0 0 150px'"
-                            *matCellDef="let element"
-                          >
-                            {{ element.sonucZamani }}
-                          </mat-cell>
-                        </ng-container>
+                  <ng-container matColumnDef="sonucZamani">
+                    <mat-header-cell
+                      [style.flex]="'0 0 150px'"
+                      *matHeaderCellDef
+                    >
+                      Sonuç Zaman
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 150px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.sonucZamani }}
+                    </mat-cell>
+                  </ng-container>
 
-                        <ng-container matColumnDef="guid">
-                          <mat-header-cell *matHeaderCellDef>
-                           
-                          </mat-header-cell>
-                          <mat-cell *matCellDef="let element">
-                            <div class="button" *ngIf="element.islemDurumu==='Sonuclandi' ">
-                              <button
-                                mat-icon-button
-                                color="warn"
-                                (click)="getBeyannameSonuc(element.guid, element.islemInternalNo)"
-                              >
-                                <mat-icon>apps</mat-icon>
-                              </button>
-                            </div>
-                            <div class="button" *ngIf="element.islemDurumu==='Islemde' ">
-                              <button
-                                mat-icon-button
-                                color="primary"
-                                (click)="getMessageSonucSorgula(element.guid)"
-                              >
-                              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                              İşlemde...
-                                <mat-icon>cached</mat-icon>
-                              </button>
-                            </div>
-                          </mat-cell>
-                        </ng-container>
+                  <ng-container matColumnDef="guid">
+                    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <div
+                        class="button"
+                        *ngIf="element.islemDurumu === 'Sonuclandi'"
+                      >
+                        <button
+                          mat-icon-button
+                          color="warn"
+                          (click)="
+                            getBeyannameSonuc(
+                              element.guid,
+                              element.islemInternalNo
+                            )
+                          "
+                        >
+                          <mat-icon>apps</mat-icon>
+                        </button>
+                      </div>
+                      <div
+                        class="button"
+                        *ngIf="element.islemDurumu === 'Islemde'"
+                      >
+                        <button
+                          mat-icon-button
+                          color="primary"
+                          (click)="getMessageSonucSorgula(element.guid)"
+                        >
+                          <span
+                            class="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
+                          İşlemde...
+                          <mat-icon>cached</mat-icon>
+                        </button>
+                      </div>
+                    </mat-cell>
+                  </ng-container>
 
-                        <mat-header-row
-                          *matHeaderRowDef="displayedColumnsTarihce"
-                        ></mat-header-row>
-                        <mat-row
-                          *matRowDef="let row; columns: displayedColumnsTarihce"
-                        ></mat-row>
-                    </mat-table>                  
-                  
-                    <!-- <mat-table
+                  <mat-header-row
+                    *matHeaderRowDef="displayedColumnsTarihce"
+                  ></mat-header-row>
+                  <mat-row
+                    *matRowDef="let row; columns: displayedColumnsTarihce"
+                  ></mat-row>
+                </mat-table>
+
+                <!-- <mat-table
                       [dataSource]="tarihceDataSource"
                       multiTemplateDataRows
                     >
@@ -438,21 +459,17 @@
                         class="example-detail-row"
                       ></tr>
                     </mat-table> -->
-            
-              </div>    
+              </div>
               <mat-paginator
-              [length]=tarihceDataSource.data?.length
-              [pageSize]="5"
-              [pageSizeOptions]="[5, 10, 25]"
-              showFirstLastButtons
-            >
-            </mat-paginator>                 
-            </mat-card>     
-           
+                [length]="tarihceDataSource.data?.length"
+                [pageSize]="5"
+                [pageSizeOptions]="[5, 10, 25]"
+                showFirstLastButtons
+              >
+              </mat-paginator>
+            </mat-card>
           </div>
-        
         </div>
-           
       </div>
     </div>
   </div>
