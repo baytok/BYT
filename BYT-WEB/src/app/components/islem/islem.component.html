@@ -20,13 +20,12 @@
       
         <div class="row mt-4">
           <div class="col-md-12">
-            <mat-card class="d-flex">
-              <div class="example-container">
+            <mat-card class="mat-card">            
                 <h5>İşlemler</h5>
                 <div class="example-box">
                   <mat-table
                     [dataSource]="islemlerDataSource"
-                    class="mat-elevation-z8"
+                    class="mat-elevation-z8 "
                   >
                     <ng-container matColumnDef="refId">
                       <mat-header-cell
@@ -161,6 +160,13 @@
                         </button>
                         <mat-menu #aboveMenu="matMenu" yPosition="above">
                           <button
+                          mat-menu-item
+                          color="warn"
+                          (click)="getBeyanname(element.islemInternalNo)"
+                        >
+                          Beyanname
+                        </button>
+                          <button
                             mat-menu-item
                             color="warn"
                             (click)="getTarihce(element.islemInternalNo)"
@@ -184,28 +190,25 @@
                   </mat-table>                  
                 </div>
                 <ngx-spinner></ngx-spinner>
-              </div>
+             
             </mat-card>
           </div>
         </div>
         <div class="row mt-4" *ngIf="tarihceDataSource.data?.length >= 1">
           <div class="col-md-12">
-            <mat-card class="d-flex">
-              <div class="example-container">
-                <h5>Tarihçe</h5>
-                <div class="example-box">
-                  <div class="mat-elevation-z8">
-                    <mat-form-field>
-                      <mat-label>Filter</mat-label>
-                      <input
-                        matInput
-                        (keyup)="applyTarihceFilter($event)"
-                        placeholder="aranacak kelime"
-                      />
-                    </mat-form-field>
-
-                    <div class="example-box">
-                      <mat-table
+            <div class="example-header">
+              <mat-form-field>
+                <mat-label>Filter</mat-label>
+                <input
+                  matInput
+                  (keyup)="applyTarihceFilter($event)"
+                  placeholder="aranacak kelime"
+                />
+              </mat-form-field> 
+            </div>        
+            <mat-card class="mat-card">
+              <div class="example-box">                 
+                    <mat-table
                         [dataSource]="tarihceDataSource"
                         class="mat-elevation-z8"
                       >
@@ -324,7 +327,7 @@
                               <button
                                 mat-icon-button
                                 color="warn"
-                                (click)="getSonuc(element.guid)"
+                                (click)="getBeyannameSonuc(element.guid, element.islemInternalNo)"
                               >
                                 <mat-icon>apps</mat-icon>
                               </button>
@@ -349,14 +352,8 @@
                         <mat-row
                           *matRowDef="let row; columns: displayedColumnsTarihce"
                         ></mat-row>
-                      </mat-table>
-                    </div>
-                    <mat-paginator
-                    [length]="3"
-                    [pageSize]="3"
-                    [pageSizeOptions]="[5, 10, 25]"
-                  >
-                  </mat-paginator>
+                    </mat-table>                  
+                  
                     <!-- <mat-table
                       [dataSource]="tarihceDataSource"
                       multiTemplateDataRows
@@ -441,16 +438,19 @@
                         class="example-detail-row"
                       ></tr>
                     </mat-table> -->
-
-                   
-                  </div>
-                </div>
-               
-                <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '10px' }" [template]="customLoadingTemplate"></ngx-loading>
-
-              </div>
-            </mat-card>
+            
+              </div>    
+              <mat-paginator
+              [length]=tarihceDataSource.data?.length
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25]"
+              showFirstLastButtons
+            >
+            </mat-paginator>                 
+            </mat-card>     
+           
           </div>
+        
         </div>
            
       </div>

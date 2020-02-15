@@ -1,0 +1,67 @@
+<mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          GUID:{{this.guidOf}}
+         </mat-panel-title>
+        <mat-panel-description>
+        Islem NO:{{this.islemInternalNo}}
+          <mat-icon>apps</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>     
+  
+      <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Hatalar
+        </mat-panel-title>
+
+        <div class="example-box" *ngFor="let item of sonuc_" >
+          <span class="islem-title">{{ item.kalemNo }} </span>
+          <span class="islem-title">{{ item.hataKodu }} </span>
+          <span class="islem-title">{{ item.hataAcikalmasi }} </span>
+     
+        </div>  
+        <mat-panel-description>
+         
+          <mat-action-row>
+            <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+          </mat-action-row>
+          <mat-action-row>
+            <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+          </mat-action-row>
+        
+          <mat-icon>report_problem</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Belgeler
+        </mat-panel-title>
+        <mat-panel-description>
+          <div class="example-box" *ngFor="let item of sonuc_" >
+            <span class="islem-title">{{ item.kalemNo }} </span>
+            <span class="islem-title">{{ item.hataKodu }} </span>
+            <span class="islem-title">{{ item.hataAcikalmasi }} </span>
+       
+          </div>  
+          <mat-action-row>
+            <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+          </mat-action-row>
+          <mat-action-row>
+            <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+          </mat-action-row>
+        
+          <mat-icon>assignment</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+</mat-accordion>

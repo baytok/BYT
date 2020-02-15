@@ -14,6 +14,19 @@ namespace BYT.WS.Models
 
         public DbBeyan beyanname { get; set; }
         public List<DbKalem> kalemler { get; set; }
+        public List<DbTamamlayiciBilgi> tamamlayiciBilgi { get; set; }
+        public List<DbBeyannameAcma> tcgbAcma { get; set; }
+        public List<DbMarka> marka { get; set; }
+        public List<DbKonteyner> konteyner { get; set; }
+        public List<DbOdemeSekli> odemeSekli { get; set; }
+        public List<DbOzetbeyanAcma> ozetBeyanAcma { get; set; }
+        public List<DbTasimaSenedi> tasimaSenetleri { get; set; }
+        public List<DbTasimaSatir> tasimaSatirlari { get; set; }
+        public List<DbFirma> firma { get; set; }
+        public List<DbTeminat> teminat { get; set; }
+        public List<DbKiymetBildirim> kiymet { get; set; }
+        public List<DbKiymetBildirimKalem> kiymetKalem { get; set; }
+
 
     }
     public class BeyannameBilgileriModelValidator : AbstractValidator<BeyannameBilgileri>

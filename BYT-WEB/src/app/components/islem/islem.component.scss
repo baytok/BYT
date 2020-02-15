@@ -156,4 +156,11 @@
       height: 6rem;
     }
   }
-
+  .mat-card {
+    min-width: 100% !important;
+    max-width: 100% !important;
+}
+.table {
+  display: block !important;
+  overflow-x: scroll;
+}

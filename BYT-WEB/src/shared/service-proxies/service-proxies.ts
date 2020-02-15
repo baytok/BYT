@@ -35,7 +35,13 @@ export class BeyannameServiceProxy {
         return this.http.post<any>(this.baseUrl+"Servis/SorgulamaHizmeti/" + Guid, { title: ' POST Request ' })
   
       }
-   
+      getBeyannameSonucSorgula(Guid,IslemInternalNo){
+        return this.http.get(this.baseUrl+'Servis/Beyanname/BeyannameSonucHizmeti/'+Guid+'/' + IslemInternalNo);
+
+  
+      }
+      
+
     }
 
   
@@ -513,10 +519,107 @@ export class ServisDto  {
     }
 }
 
+export class BeyannameSonucDto  {
+    
+    
+    Hatalar:SonucHatalarDto [];
+    Belgeler:SonucBelgelerDto [];
+    DovizKuruAlis:string;
+    DovizKuruSatis:string;
+    CiktiSeriNo:string;
+  
+
+    constructor(data?: ServisDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+        
+            if (Array.isArray(data["belgeler"])) {
+                this.Belgeler = [] as any;
+                for (let item of data["belgeler"])
+                    this.Belgeler.push(item);
+            }
+            if (Array.isArray(data["hatalar"])) {
+                this.Hatalar = [] as any;
+                for (let item of data["hatalar"])
+                    this.Hatalar.push(item);
+            }
+         
+            this.DovizKuruAlis = data["dovizKuruAlis"];
+            this.DovizKuruSatis = data["dovizKuruSatis"];
+            this.CiktiSeriNo = data["ciktiSeriNo"];
+            
+          
+        }
+    }
+
+    static fromJS(data: any): ServisDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ServisDto();
+       
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+     
+      
+        if (Array.isArray(this.Belgeler)) {
+            data["belgeler"] = [];
+            for (let item of this.Belgeler)
+                data["belgeler"].push(item);
+        }
+        if (Array.isArray(this.Hatalar)) {
+            data["hatalar"] = [];
+            for (let item of this.Hatalar)
+                data["hatalar"].push(item);
+        }
+
+        data["dovizKuruAlis"]= this.DovizKuruAlis;
+        data["dovizKuruSatis"]=this.DovizKuruSatis;
+        data["ciktiSeriNo"]=this.CiktiSeriNo;
+       
+        return data; 
+    }
+
+    clone(): ServisDto {
+        const json = this.toJSON();
+        let result = new ServisDto();
+        result.init(json);
+        return result;
+    }
+}
+
+
 export class HatalarDto  {
     
     hataKodu: number;
     hataAciklamasi: string;
+    
+}
+
+
+export class SonucHatalarDto  {
+    kalemNo:number;
+    hataKodu: number;
+    hataAciklamasi: string;
+    
+}
+export class SonucBelgelerDto  {
+    kalemNo:number;
+    hataKodu: number;
+    hataAciklamasi: string;
+    dogrulama:string;
+    referans:string;
+    belgeTarihi:string;
     
 }
 

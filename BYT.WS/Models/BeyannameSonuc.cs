@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BYT.WS.Models
 {
-    public class BeyannameSonuc
+    public class BeyannameXmlSonuc
     {
         public string SonucXml { get; set; } 
 
@@ -688,7 +688,53 @@ namespace BYT.WS.Models
 
     }
 
-    
+
+
+    public class BeyannameSonuc
+    {
+        public string SonucXml { get; set; }
+
+        public string IslemTipi { get; set; }
+
+        public string TescilTarihi { get; set; }
+
+        public string BeyannameNo { get; set; }
+
+        public string CiktiSeriNo { get; set; }
+
+        public string DovizKuruAlis { get; set; }
+
+        public string DovizKuruSatis { get; set; }     
+
+        public string MuayeneMemuru { get; set; }
+
+        public string KalanKontor { get; set; }
+
+        public List<DbSonucHatalar> Hatalar { get; set; }
+
+        public List<DbSonucSorular> Sorular { get; set; }
+
+        public List<DbSonucSoruCevaplar> SoruCevap { get; set; }
+
+        public List<DbSonucBelgeler> Belgeler { get; set; }
+
+        public List<DbSonucVergiler> Vergiler { get; set; }
+
+        public List<DbSonucToplamVergiler> ToplamVergiler { get; set; }
+
+        public List<DbSonucToplananVergiler> ToplananVergiler { get; set; }
+
+        public List<DbSonucHesapDetaylar> HesapDetaylari { get; set; }
+
+        public List<DbSonucOzetBeyan> OzetbeyanBilgi { get; set; }
+
+        public List<DbSonucGumrukKiymeti> GumrukKiymetleri { get; set; }
+
+        public List<DbSonucIstatistikiKiymet> IstatistikiKiymetler { get; set; }
+
+      
+        }
+
     public class DbSonucHatalar
     {
         [Key]
@@ -702,6 +748,9 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(50)]
         public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -726,6 +775,9 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(50)]
         public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
 
         [Required]
         public int KalemNo { get; set; }
@@ -760,6 +812,9 @@ namespace BYT.WS.Models
         public string Guid { get; set; }
 
         [Required]
+        public int GonderimNo { get; set; }
+
+        [Required]
         public int KalemNo { get; set; }
 
         [Required]
@@ -786,6 +841,9 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(50)]
         public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
 
         [Required]
         public int KalemNo { get; set; }
@@ -823,6 +881,9 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(50)]
         public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
 
         [Required]
         public int KalemNo { get; set; }
@@ -864,6 +925,9 @@ namespace BYT.WS.Models
         [StringLength(50)]
         public string Guid { get; set; }
 
+        [Required]
+        public int GonderimNo { get; set; }
+
 
         [Required]
         [StringLength(10)]
@@ -899,6 +963,9 @@ namespace BYT.WS.Models
         [StringLength(50)]
         public string Guid { get; set; }
 
+        [Required]
+        public int GonderimNo { get; set; }
+
 
         [StringLength(20)]
         public string Miktar { get; set; }
@@ -924,6 +991,9 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(50)]
         public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
 
 
         [StringLength(20)]
@@ -951,6 +1021,9 @@ namespace BYT.WS.Models
         public string Guid { get; set; }
 
         [Required]
+        public int GonderimNo { get; set; }
+
+        [Required]
         public int KalemNo { get; set; }
 
 
@@ -961,7 +1034,7 @@ namespace BYT.WS.Models
 
 
     }
-    public class DbSonucIstatistikiKiymeti
+    public class DbSonucIstatistikiKiymet
     {
         [Key]
         public int ID { get; set; }
@@ -974,6 +1047,9 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(50)]
         public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
 
         [Required]
         public int KalemNo { get; set; }
@@ -1000,6 +1076,9 @@ namespace BYT.WS.Models
         [StringLength(50)]
         public string Guid { get; set; }
 
+        [Required]
+        public int GonderimNo { get; set; }
+
 
         [StringLength(20)]
         public string OzetBeyanNo { get; set; }
@@ -1023,6 +1102,9 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(50)]
         public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
 
 
         [StringLength(10)]

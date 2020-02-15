@@ -10,7 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
-import { SonucservisComponent } from './components/sonucservis/sonucservis.component';
+import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
 import { FormsModule } from '@angular/forms';
 import { API_BASE_URL } from '../shared/service-proxies/service-proxies';
 import { SharedModule } from '../shared/shared.module';
@@ -30,7 +30,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
       FooterComponent,
       IslemComponent,
       BeyannameComponent,
-      SonucservisComponent,
+      BeyannameSonucservisComponent,
       GirisComponent
     
    ],
@@ -54,7 +54,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     
    ],
    entryComponents: [
-      SonucservisComponent
+      BeyannameSonucservisComponent
    ],
    providers: [
       { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" }

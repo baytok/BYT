@@ -24,7 +24,7 @@ namespace BYT.WS.Data
         public DbSet<DbSonucToplananVergiler> DbSonucToplananVergiler { get; set; }
         public DbSet<DbSonucHesapDetaylar> DbSonucHesapDetaylar { get; set; }
         public DbSet<DbSonucGumrukKiymeti> DbSonucGumrukKiymeti { get; set; }
-        public DbSet<DbSonucIstatistikiKiymeti> DbSonucIstatistikiKiymeti { get; set; }
+        public DbSet<DbSonucIstatistikiKiymet> DbSonucIstatistikiKiymet{ get; set; }
         public DbSet<DbSonucOzetBeyan> DbSonucOzetBeyan { get; set; }
         public DbSet<DbSonucDigerBilgiler> DbSonucDigerBilgiler { get; set; }
         

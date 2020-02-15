@@ -1,14 +1,14 @@
 import { Component,ViewChild, OnInit } from '@angular/core';
 import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../shared/service-proxies/service-proxies';
 import { MatSnackBar,MatDialog} from '@angular/material';
-import { SonucservisComponent } from '../../components/sonucservis/sonucservis.component';
+import { BeyannameSonucservisComponent } from '../../components/beyannamesonucservis/beyannamesonucservis.component';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {AppServisDurumKodlari} from '../../../shared/AppEnums';
 import { NgxSpinnerService } from "ngx-spinner";
-
+import { Router } from "@angular/router";
 
 
 import {
@@ -60,7 +60,8 @@ export class IslemComponent implements OnInit {
     private session: SessionServiceProxy,
     private snackBar: MatSnackBar ,
     private _dialog: MatDialog,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router:Router
     ) { }
 
    
@@ -68,8 +69,7 @@ export class IslemComponent implements OnInit {
   ngOnInit() {
    
     // this.kullanici=this._session._user.userNameOrEmailAddress;
-    this.tarihceDataSource.paginator = this.paginator;
-    this.tarihceDataSource.sort = this.sort;
+    
     this.yenileIslemler();
  
   }
@@ -121,7 +121,9 @@ export class IslemComponent implements OnInit {
     this.session.islemInternalNo=IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo)
     .subscribe( (result: TarihceDto[])=>{
-      this.tarihceDataSource.data=result;
+       this.tarihceDataSource.data=result;
+       this.tarihceDataSource.paginator = this.paginator;
+       this.tarihceDataSource.sort = this.sort;
       }, (err)=>{
        console.log(err);
      });
@@ -146,10 +148,13 @@ export class IslemComponent implements OnInit {
      });
     
    }
-
-   getSonuc(guid:string)
+   getBeyanname(islemInternalNo: string)
    {
-     this.showSonucDialog(0,guid);
+    this.router.navigateByUrl('/beyanname');
+   }
+   getBeyannameSonuc(guid:string,islemInternalNo: string)
+   {
+     this.showSonucDialog(0,guid,islemInternalNo);
    }
    sendingKontrolMessages(IslemInternalNo:string){
     this.session.islemInternalNo=IslemInternalNo;  
@@ -173,13 +178,13 @@ export class IslemComponent implements OnInit {
    }
 
    
-   showSonucDialog(id?: number, guid?: string): void {
+   showSonucDialog(id?: number, guid?: string,  islemInternalNo?: string): void {
     let sonucDialog;
     if (id === undefined || id <= 0) {
-     sonucDialog = this._dialog.open(SonucservisComponent,{
+     sonucDialog = this._dialog.open(BeyannameSonucservisComponent,{
       width: '700px',
       height:'600px',
-      data: {guidOf:guid}
+      data: {guidOf:guid, islemInternalNo:islemInternalNo}
     });
     
       sonucDialog.afterClosed().subscribe(result => {

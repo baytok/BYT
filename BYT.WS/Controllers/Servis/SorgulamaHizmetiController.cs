@@ -95,7 +95,7 @@ namespace BYT.WS.Controllers.Servis
                         var _beyanname = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == _islem.BeyanInternalNo);
 
 
-                        var sonucObj= SonuclariTopla(gidenXml, Guid, _islem.IslemInternalNo);
+                        var sonucObj= SonuclariTopla(gidenXml, Guid, _islem.IslemInternalNo,_tarihce.GonderimNo);
                         // GonderilenVeriler(gelenXml);
                       
 
@@ -111,7 +111,7 @@ namespace BYT.WS.Controllers.Servis
 
                      
 
-                        _islem.IslemDurumu = "Sonuclandi";
+                       // _islem.IslemDurumu = "Sonuclandi";
                         _islem.IslemZamani = DateTime.Now;
                         _tarihce.BeyanNo = sonucObj.Beyanname_no;
 
@@ -181,11 +181,11 @@ namespace BYT.WS.Controllers.Servis
 
         }
 
-       private BeyannameSonuc SonuclariTopla(string XML, string GuidOf, string InternalNo)
+       private BeyannameXmlSonuc SonuclariTopla(string XML, string GuidOf, string InternalNo, int GonderimNo)
         {
 
             XmlDocument xd = new XmlDocument();
-            BeyannameSonuc sonucObj = new BeyannameSonuc();
+            BeyannameXmlSonuc sonucObj = new BeyannameXmlSonuc();
 
             try
             {
@@ -261,6 +261,7 @@ namespace BYT.WS.Controllers.Servis
                         DbSonucHatalar _hata = new DbSonucHatalar();
                      
                         _hata.Guid = GuidOf;
+                        _hata.GonderimNo = GonderimNo;
                         _hata.IslemInternalNo = InternalNo;
                         _hata.HataKodu = hata_kodu;
                         _hata.HataAciklamasi = hata_aciklamasi;
@@ -360,6 +361,7 @@ namespace BYT.WS.Controllers.Servis
 
                             DbSonucSorular _soru = new DbSonucSorular();
                             _soru.Guid = GuidOf;
+                            _soru.GonderimNo = GonderimNo;
                             _soru.IslemInternalNo = InternalNo;
                             _soru.KalemNo = Kalem_no;
                             _soru.SoruKodu = Kod;
@@ -409,6 +411,7 @@ namespace BYT.WS.Controllers.Servis
 
                                     DbSonucSoruCevaplar _soruCevap = new DbSonucSoruCevaplar();
                                     _soruCevap.Guid = GuidOf;
+                                    _soruCevap.GonderimNo = GonderimNo;
                                     _soruCevap.IslemInternalNo = InternalNo;
                                     _soruCevap.KalemNo = Kalem_no;
                                     _soruCevap.SoruKodu = soru_no;
@@ -462,6 +465,7 @@ namespace BYT.WS.Controllers.Servis
 
                                 DbSonucBelgeler _belge = new DbSonucBelgeler();
                                 _belge.Guid = GuidOf;
+                                _belge.GonderimNo = GonderimNo;
                                 _belge.IslemInternalNo = InternalNo;
                                 _belge.KalemNo = Kalem_no;
                                 _belge.BelgeKodu = Kod;
@@ -520,6 +524,7 @@ namespace BYT.WS.Controllers.Servis
 
                                 DbSonucVergiler _vergi = new DbSonucVergiler();
                                 _vergi.Guid = GuidOf;
+                                _vergi.GonderimNo = GonderimNo;
                                 _vergi.IslemInternalNo = InternalNo;
                                 _vergi.KalemNo = Kalem_no;
                                 _vergi.VergiKodu = Kod;
@@ -570,6 +575,7 @@ namespace BYT.WS.Controllers.Servis
 
                                 DbSonucToplamVergiler _tvergi = new DbSonucToplamVergiler();
                                 _tvergi.Guid = GuidOf;
+                                _tvergi.GonderimNo = GonderimNo;
                                 _tvergi.IslemInternalNo = InternalNo;
                                 _tvergi.VergiKodu = Kod;
                                 _tvergi.VergiAciklamasi = Aciklama;
@@ -612,6 +618,7 @@ namespace BYT.WS.Controllers.Servis
 
                                 DbSonucToplananVergiler _ttvergi = new DbSonucToplananVergiler();
                                 _ttvergi.Guid = GuidOf;
+                                _ttvergi.GonderimNo = GonderimNo;
                                 _ttvergi.IslemInternalNo = InternalNo;
                                 _ttvergi.Miktar = Miktar;
                                 _ttvergi.OdemeSekli = Odeme_sekli;
@@ -650,6 +657,7 @@ namespace BYT.WS.Controllers.Servis
 
                                 DbSonucHesapDetaylar _hesap = new DbSonucHesapDetaylar();
                                 _hesap.Guid = GuidOf;
+                                _hesap.GonderimNo = GonderimNo;
                                 _hesap.IslemInternalNo = InternalNo;
                                 _hesap.Miktar = Miktar;
                                 _hesap.Aciklama = Aciklama;
@@ -688,6 +696,7 @@ namespace BYT.WS.Controllers.Servis
 
                                 DbSonucGumrukKiymeti _kiymet = new DbSonucGumrukKiymeti();
                                 _kiymet.Guid = GuidOf;
+                                _kiymet.GonderimNo = GonderimNo;
                                 _kiymet.IslemInternalNo = InternalNo;
                                 _kiymet.KalemNo = Kalem_No;
                                 _kiymet.Miktar = Miktar;
@@ -724,8 +733,9 @@ namespace BYT.WS.Controllers.Servis
 
                                 stIKiymet.Add(tikiymetObj);
 
-                                DbSonucIstatistikiKiymeti _istk = new DbSonucIstatistikiKiymeti();
+                                DbSonucIstatistikiKiymet _istk = new DbSonucIstatistikiKiymet();
                                 _istk.Guid = GuidOf;
+                                _istk.GonderimNo = GonderimNo;
                                 _istk.IslemInternalNo = InternalNo;
                                 _istk.KalemNo = Kalem_No;
                                 _istk.Miktar = Miktar;
@@ -761,6 +771,7 @@ namespace BYT.WS.Controllers.Servis
 
                             DbSonucOzetBeyan _ozetB = new DbSonucOzetBeyan();
                             _ozetB.Guid = GuidOf;
+                            _ozetB.GonderimNo = GonderimNo;
                             _ozetB.IslemInternalNo = InternalNo;
                             _ozetB.OzetBeyanNo = ozetbeyanno;
                             _ozetB.TescilTarihi = tesciltarihi;
@@ -809,6 +820,7 @@ namespace BYT.WS.Controllers.Servis
 
                 DbSonucDigerBilgiler _digerB = new DbSonucDigerBilgiler();
                 _digerB.Guid = GuidOf;
+                _digerB.GonderimNo = GonderimNo;
                 _digerB.IslemInternalNo = InternalNo;
                 _digerB.DovizKuruAlis = sonucObj.Doviz_kuru_alis;
                 _digerB.DovizKuruSatis = sonucObj.Doviz_kuru_satis;
