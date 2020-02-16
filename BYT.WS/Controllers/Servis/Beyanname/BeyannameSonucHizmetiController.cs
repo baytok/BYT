@@ -94,6 +94,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         belgeler.BelgeKodu = item.BelgeKodu;
                         belgeler.BelgeAciklamasi = item.BelgeAciklamasi;
                         belgeler.KalemNo = item.KalemNo;
+                        belgeler.Dogrulama = item.Dogrulama;
+                        belgeler.Referans = item.Referans;
+                        belgeler.BelgeTarihi = item.BelgeTarihi;
                         lstBelgeler.Add(belgeler);
                     }
 

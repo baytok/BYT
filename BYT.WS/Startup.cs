@@ -29,6 +29,7 @@ namespace BYT
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -38,7 +39,7 @@ namespace BYT
         {
         services.Configure<ServisCredential>(Configuration.GetSection("ServisCredential"));
 
-          
+           
             services.AddDbContext<IslemTarihceDataContext>(x =>
              {
                  x.UseSqlServer(Configuration.GetConnectionString("BYTConnection"));

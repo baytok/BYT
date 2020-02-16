@@ -89,4 +89,291 @@
     </mat-action-row>
   
     </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Vergiler
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>ballot</mat-icon>
+        </mat-panel-description>               
+     
+      </mat-expansion-panel-header>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Kalem No</th>
+            <th>Vergi Kodu</th>
+            <th>Vergi Açıklaması</th>
+            <th>Oran</th>
+            <th>Miktar</th>
+            <th>Matrah</th>
+            <th>Ödeme Şekli</th>
+                            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of _sonucVergiler">
+            <td>{{ item.kalemNo }}</td>
+            <td>{{ item.vergiKodu }}</td>
+            <td>{{ item.vergiAciklamasi }}</td>
+            <td>{{ item.oran }}</td>
+            <td>{{ item.miktar }}</td>
+            <td>{{ item.matrah }}</td>
+            <td>{{ item.odemeSekli }}</td>
+          </tr>
+        </tbody>
+      </table>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+      <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+    </mat-action-row>
+  
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Sorular
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>sms</mat-icon>
+        </mat-panel-description>               
+     
+      </mat-expansion-panel-header>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Kalem No</th>
+            <th>Soru Kodu</th>
+            <th>Soru Açıklaması</th>           
+                            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of _sonucSorular">
+            <td>{{ item.kalemNo }}</td>
+            <td>{{ item.soruKodu }}</td>
+            <td>{{ item.soruAciklamasi }}</td>
+            
+          </tr>
+        </tbody>
+      </table>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+      <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+    </mat-action-row>
+  
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Soru ve Cevaplar
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>sd_card</mat-icon>
+        </mat-panel-description>               
+     
+      </mat-expansion-panel-header>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Kalem No</th>
+            <th>Soru Kodu</th>
+            <th>Soru Cevap</th>           
+                            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of _sonucSoruCevaplar">
+            <td>{{ item.kalemNo }}</td>
+            <td>{{ item.soruKodu }}</td>
+            <td>{{ item.soruCevap }}</td>
+            
+          </tr>
+        </tbody>
+      </table>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+      <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+    </mat-action-row>
+  
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Toplam Vergiler
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>attach_money</mat-icon>
+        </mat-panel-description>               
+     
+      </mat-expansion-panel-header>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Vergi Kodu</th>
+            <th>Vergi Açıklaması</th>
+            <th>Ödeme Şekli</th>     
+            <th>Miktar</th>           
+       
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of _sonucToplamVergiler">
+            <td>{{ item.vergiKodu }}</td>
+            <td>{{ item.vergiAciklamasi }}</td>
+            <td>{{ item.odemeSekli }}</td>
+            <td>{{ item.miktar }}</td>
+          </tr>
+        </tbody>
+      </table>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+      <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+    </mat-action-row>
+  
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Toplanan Vergiler
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>functions</mat-icon>
+        </mat-panel-description>               
+     
+      </mat-expansion-panel-header>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Miktar</th>   
+            <th>Ödeme Şekli</th>     
+                   
+       
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of _sonucToplananVergiler">
+            <td>{{ item.miktar }}</td>
+            <td>{{ item.odemeSekli }}</td>
+           
+          </tr>
+        </tbody>
+      </table>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+      <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+    </mat-action-row>
+  
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 8" (opened)="setStep(8)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Hesap Detayları
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>menu_open</mat-icon>
+        </mat-panel-description>               
+     
+      </mat-expansion-panel-header>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Miktar</th>   
+            <th>Açıklama</th>     
+                   
+       
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of _sonucHesapDetaylari">
+            <td>{{ item.miktar }}</td>
+            <td>{{ item.aciklama }}</td>
+           
+          </tr>
+        </tbody>
+      </table>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+      <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+    </mat-action-row>
+  
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 9" (opened)="setStep(9)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+         İstatistiki Kıymetler
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>event_note</mat-icon>
+        </mat-panel-description>               
+     
+      </mat-expansion-panel-header>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Kalem No</th>   
+            <th>Miktar</th>     
+                   
+       
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of _sonucIstatistikiKiymet">
+            <td>{{ item.kalemNo }}</td>
+            <td>{{ item.miktar }}</td>
+           
+          </tr>
+        </tbody>
+      </table>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+      <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+    </mat-action-row>
+  
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 10" (opened)="setStep(10)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+         Gümrük Kıymetleri
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>poll</mat-icon>
+        </mat-panel-description>               
+     
+      </mat-expansion-panel-header>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Kalem No</th>   
+            <th>Miktar</th>     
+                   
+       
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of _sonucGumrukKiymet">
+            <td>{{ item.kalemNo }}</td>
+            <td>{{ item.miktar }}</td>
+           
+          </tr>
+        </tbody>
+      </table>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="prevStep()"> <mat-icon>arrow_back</mat-icon></button>
+      <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
+    </mat-action-row>
+  
+    </mat-expansion-panel>
+    
+    
+    
 </mat-accordion>

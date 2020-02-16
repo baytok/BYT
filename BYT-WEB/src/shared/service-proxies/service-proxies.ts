@@ -529,9 +529,20 @@ export class BeyannameSonucDto  {
     
     Hatalar:SonucHatalarDto [];
     Belgeler:SonucBelgelerDto [];
+    Vergiler: SonucVergilerDto[];
+    Sorular:SonucSorularDto[];
+    SoruCevaplar:SonucSoruCevaplarDto[];
+    ToplamVergiler:SonucToplamVergilerDto[];
+    ToplananVergiler:SonucToplananVergilerDto[];
+    HesapDetaylari:SonucHesapDetaylariDto[];
+    IstatistikiKiymet:SonucIstatistikiKiymetDto[];
+    GumrukKiymet:SonucGumrukKiymetDto[];
     DovizKuruAlis:string;
     DovizKuruSatis:string;
     CiktiSeriNo:string;
+    KalanKontor:string;
+    MuayeneMemuru:string;
+
   
 
     constructor(data?: ServisDto) {
@@ -556,10 +567,58 @@ export class BeyannameSonucDto  {
                 for (let item of data["hatalar"])
                     this.Hatalar.push(item);
             }
+            if (Array.isArray(data["vergiler"])) {
+                this.Vergiler = [] as any;
+                for (let item of data["vergiler"])
+                    this.Vergiler.push(item);
+            }
+            if (Array.isArray(data["sorular"])) {
+                this.Sorular = [] as any;
+                for (let item of data["sorular"])
+                    this.Sorular.push(item);
+            }
+            if (Array.isArray(data["soruCevap"])) {
+                this.SoruCevaplar = [] as any;
+                for (let item of data["soruCevap"])
+                    this.SoruCevaplar.push(item);
+            }
+
+            if (Array.isArray(data["toplamVergiler"])) {
+                this.ToplamVergiler = [] as any;
+                for (let item of data["toplamVergiler"])
+                    this.ToplamVergiler.push(item);
+            }
+
+            if (Array.isArray(data["toplananVergiler"])) {
+                this.ToplananVergiler = [] as any;
+                for (let item of data["toplananVergiler"])
+                    this.ToplananVergiler.push(item);
+            }
+
+            if (Array.isArray(data["hesapDetaylari"])) {
+                this.HesapDetaylari = [] as any;
+                for (let item of data["hesapDetaylari"])
+                    this.HesapDetaylari.push(item);
+            }
+
+            if (Array.isArray(data["istatistikiKiymetler"])) {
+                this.IstatistikiKiymet = [] as any;
+                for (let item of data["istatistikiKiymetler"])
+                    this.IstatistikiKiymet.push(item);
+            }
          
+            if (Array.isArray(data["gumrukKiymetleri"])) {
+                this.GumrukKiymet = [] as any;
+                for (let item of data["gumrukKiymetleri"])
+                    this.GumrukKiymet.push(item);
+            }
+            
+            
             this.DovizKuruAlis = data["dovizKuruAlis"];
             this.DovizKuruSatis = data["dovizKuruSatis"];
             this.CiktiSeriNo = data["ciktiSeriNo"];
+            this.KalanKontor = data["kalanKontor"];
+            this.MuayeneMemuru = data["muayeneMemuru"];
             
           
         }
@@ -587,11 +646,55 @@ export class BeyannameSonucDto  {
             for (let item of this.Hatalar)
                 data["hatalar"].push(item);
         }
+        if (Array.isArray(this.Vergiler)) {
+            data["vergiler"] = [];
+            for (let item of this.Vergiler)
+                data["vergiler"].push(item);
+        }
+        if (Array.isArray(this.Sorular)) {
+            data["sorular"] = [];
+            for (let item of this.Sorular)
+                data["sorular"].push(item);
+        }
+        if (Array.isArray(this.SoruCevaplar)) {
+            data["soruCevap"] = [];
+            for (let item of this.SoruCevaplar)
+                data["soruCevap"].push(item);
+        }
+        if (Array.isArray(this.ToplamVergiler)) {
+            data["toplamVergiler"] = [];
+            for (let item of this.ToplamVergiler)
+                data["toplamVergiler"].push(item);
+        }
+        if (Array.isArray(this.ToplananVergiler)) {
+            data["toplananVergiler"] = [];
+            for (let item of this.ToplananVergiler)
+                data["toplananVergiler"].push(item);
+        }
+        
+        if (Array.isArray(this.HesapDetaylari)) {
+            data["hesapDetaylari"] = [];
+            for (let item of this.HesapDetaylari)
+                data["hesapDetaylari"].push(item);
+        }
 
+        if (Array.isArray(this.GumrukKiymet)) {
+            data["gumrukKiymetleri"] = [];
+            for (let item of this.GumrukKiymet)
+                data["gumrukKiymetleri"].push(item);
+        }
+
+        if (Array.isArray(this.IstatistikiKiymet)) {
+            data["istatistikiKiymetler"] = [];
+            for (let item of this.IstatistikiKiymet)
+                data["istatistikiKiymetler"].push(item);
+        }
+        
         data["dovizKuruAlis"]= this.DovizKuruAlis;
         data["dovizKuruSatis"]=this.DovizKuruSatis;
         data["ciktiSeriNo"]=this.CiktiSeriNo;
-       
+        data["kalanKontor"]=this.KalanKontor;
+        data["muayeneMemuru"]=this.MuayeneMemuru;
         return data; 
     }
 
@@ -620,12 +723,73 @@ export class SonucHatalarDto  {
 }
 export class SonucBelgelerDto  {
     kalemNo:number;
-    belgeKodu: number;
+    belgeKodu: string;
     belgeAciklamasi: string;
     dogrulama:string;
     referans:string;
     belgeTarihi:string;
     
+}
+
+export class SonucVergilerDto  {
+    kalemNo:number;
+    vergiKodu: string;
+    vergiAciklamasi: string;
+    oran:string;
+    miktar:string;
+    natrah:string;
+    odemeSekli:string;
+    
+    
+}
+
+export class SonucSorularDto  {
+    kalemNo:number;
+    soruKodu: string;
+    soruAciklamasi: string;
+   
+}
+
+export class SonucSoruCevaplarDto  {
+    kalemNo:number;
+    soruKodu: string;
+    soruCevap: string;
+   
+}
+
+export class SonucToplamVergilerDto  {
+    vergiKodu:string;
+    vergiAciklamasi: string;
+    OdemeSekli: string;
+    miktar: string;
+  
+}
+
+export class SonucToplananVergilerDto  {
+  
+    miktar: string;
+    odemeSekli: string;
+   
+}
+
+export class SonucHesapDetaylariDto  {
+  
+    miktar: string;
+    aciklama: string;
+   
+}
+
+export class SonucIstatistikiKiymetDto  {
+    kalemNo:number;
+    miktar: string;
+   
+   
+}
+
+export class SonucGumrukKiymetDto  {
+    kalemNo:number;
+    miktar: string;
+   
 }
 
 export class BilgilerDto  {
@@ -642,7 +806,7 @@ export class BilgilerDto  {
 export class BeyannameBilgileriDto  {
     
     
-    Beyanname:BeyannameDto ;
+    Beyanname:BeyannameDto;
     Kalemler:KalemlerDto [];
     BeyannameNo:string;
     
