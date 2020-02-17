@@ -7,13 +7,13 @@ import { Component, OnInit,Output, EventEmitter } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  @Output() public sidenavToggle = new EventEmitter();
+  @Output() sidenavClose = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
+  } 
+  public onSidenavClose = () => {
+    this.sidenavClose.emit();
   }
-  public onToggleSidenav = () => {
-    this.sidenavToggle.emit();
-  }
+  
 }

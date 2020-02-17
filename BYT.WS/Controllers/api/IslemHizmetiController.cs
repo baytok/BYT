@@ -35,15 +35,17 @@ namespace BYT.WS.Controllers.api
         [HttpGet]
         public async Task<Sonuc<ServisDurum>> Get()
         {
+            ServisDurum _servisDurum = new ServisDurum();
+            List<Bilgi> lstBlg = new List<Bilgi>();
             try
             {
-                ServisDurum _servisDurum = new ServisDurum();
+               
 
                 var islemValues = await _islemContext.Islem.ToListAsync();
 
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                List<Bilgi> lstBlg = new List<Bilgi>();
+               
                 Bilgi blg = new Bilgi { IslemTipi = "Sorgulama", ReferansNo = "", Sonuc = "Sorgulama Başarılı", SonucVeriler = islemValues };
                 lstBlg.Add(blg);
                 _servisDurum.Bilgiler = lstBlg;
@@ -56,11 +58,15 @@ namespace BYT.WS.Controllers.api
             }
             catch (Exception ex)
             {
-
-                return null;
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeklenmeyenHata;
+                Bilgi blg = new Bilgi { IslemTipi = "Sorgulama", ReferansNo = "", Sonuc = "Sorgulama Başarısız", SonucVeriler = ex.ToString() };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekletirilemedi" };
+                return result;
             }
 
-
+           
         }
         [Route("api/BYT/[controller]/KullaniciIleSorgulama/{Kullanici}")]
         [HttpGet("{Kullanici}")]

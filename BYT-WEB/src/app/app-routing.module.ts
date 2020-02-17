@@ -4,13 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './components/about/about.component';
 import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
+import { GenelComponent } from './components/genel/genel.component';
 import { GirisComponent } from '../account/giris/giris.component';
 import { AppComponent } from './app.component';
  const routes: Routes = [
    { path:"about",component:AboutComponent },
    { path:"islemler",component:IslemComponent },
-   { path:"beyanname",component:BeyannameComponent}  
-   ,
+   { path:"beyanname",component:BeyannameComponent},
+   { path:"genel",component:GenelComponent },  
+   
   //     {
   //     path:'',component:GirisComponent
     

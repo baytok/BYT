@@ -5,9 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AboutComponent } from './components/about/about.component';
-import { NaviComponent } from './components/navi/navi.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { NaviComponent } from './components/layout/navi/navi.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { GenelComponent } from './components/genel/genel.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
@@ -20,7 +21,6 @@ import { GirisComponent } from '../account/giris/giris.component';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { NgxSpinnerModule } from "ngx-spinner";
 
-
 @NgModule({
    declarations: [
       AppComponent,
@@ -31,7 +31,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
       IslemComponent,
       BeyannameComponent,
       BeyannameSonucservisComponent,
-      GirisComponent
+      GirisComponent,
+      GenelComponent
     
    ],
    imports: [

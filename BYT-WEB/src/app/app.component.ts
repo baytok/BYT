@@ -9,5 +9,9 @@ export class AppComponent {
   title = 'BYT-WEB';
 
   
+  onResize(event) {
+   
+}
   
 }
+
