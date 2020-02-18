@@ -1,6 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,9 +16,9 @@ import { API_BASE_URL } from '../shared/service-proxies/service-proxies';
 import { SharedModule } from '../shared/shared.module';
 import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.module';
 import { AppConsts } from '../shared/AppConsts';
-import { GirisComponent } from '../account/giris/giris.component';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
    declarations: [
@@ -30,19 +29,18 @@ import { NgxSpinnerModule } from "ngx-spinner";
       FooterComponent,
       IslemComponent,
       BeyannameComponent,
-      BeyannameSonucservisComponent,
-      GirisComponent,
-      GenelComponent
+      BeyannameSonucservisComponent,      
+      GenelComponent,
+   
     
    ],
    imports: [
       SharedModule.forRoot(),
-      BrowserModule,
+      CommonModule,
       AppRoutingModule,
       HttpClientModule,
-      BrowserAnimationsModule,
       FormsModule,
-      ServiceProxyModule,
+      ServiceProxyModule,      
       NgxSpinnerModule,
       NgxLoadingModule.forRoot({
          animationType: ngxLoadingAnimationTypes.threeBounce,
@@ -61,8 +59,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
       { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" }
    ],
     bootstrap: [
-       AppComponent
-    ]
+        AppComponent
+   ]
 })
 
 export class AppModule { }

@@ -1,15 +1,10 @@
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, Injector, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
-import { PlatformLocation, registerLocaleData } from '@angular/common';
-import { SharedModule } from '../../src/shared/shared.module';
-import { ServiceProxyModule } from '../../src/shared/service-proxies/service-proxy.module';
 import { RootRoutingModule } from './root-routing.module';
 import { AppConsts } from '../../src/shared/AppConsts';
-import { AppSessionService } from '../../src/shared/session/app-session.service';
 import { API_BASE_URL } from '../../src/shared/service-proxies/service-proxies';
 import { RootComponent } from './root.component';
-import { AppModule } from '../app/app.module';
 import { HttpClientModule } from '@angular/common/http';
 import * as _ from 'lodash';
 
@@ -38,11 +33,9 @@ export function getRemoteServiceBaseUrl(): string {
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        SharedModule.forRoot(),
-        ServiceProxyModule,
         RootRoutingModule,
         HttpClientModule,
-        AppModule,
+     
       
     ],
     declarations: [
@@ -50,7 +43,7 @@ export function getRemoteServiceBaseUrl(): string {
     ],
     providers: [
       
-        { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
+        { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" },
       
     ],
     bootstrap: [RootComponent]
@@ -60,20 +53,4 @@ export class RootModule {
 
 }
 
-export function getBaseHref(platformLocation: PlatformLocation): string {
-    const baseUrl = platformLocation.getBaseHrefFromDOM();
-    if (baseUrl) {
-        return baseUrl;
-    }
 
-    return '/';
-}
-
-function getDocumentOrigin() {
-    if (!document.location.origin) {
-        const port = document.location.port ? ':' + document.location.port : '';
-        return document.location.protocol + '//' + document.location.hostname + port;
-    }
-
-    return document.location.origin;
-}

@@ -3,14 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
-// import { ModalModule } from 'ngx-bootstrap';
-
 import { AccountRoutingModule } from './account-routing.module';
-
-import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.module';
-
 import { SharedModule } from '../shared/shared.module';
-
+import { AppSessionService } from '../shared/session/app-session.service';
 import { AccountComponent } from './account.component';
 import { GirisComponent } from './giris/giris.component';
 import { GirisService } from './giris/giris.service';
@@ -22,10 +17,9 @@ import { GirisService } from './giris/giris.service';
         FormsModule,
         HttpClientModule,
         HttpClientJsonpModule,     
-        SharedModule,
-        ServiceProxyModule,
+        SharedModule,       
         AccountRoutingModule,
-      
+        
     ],
     declarations: [
         AccountComponent,
@@ -33,11 +27,14 @@ import { GirisService } from './giris/giris.service';
        
     ],
     providers: [
-        GirisService
+        GirisService,AppSessionService
     ],
     entryComponents: [
        
-    ]
+    ],
+     bootstrap: [
+         AccountComponent
+      ]
 })
 export class AccountModule {
 

@@ -18,20 +18,30 @@
     </div>
   </div>
   
-<mat-nav-list>
-    <a mat-list-item routerLink="/genel" (click)="onSidenavClose()">
+  <!-- <mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+  
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+<mat-nav-list (sidenavClose)="sidenav.close()">
+    <a mat-list-item routerLink="/app/genel" (click)="onSidenavClose()">
         <mat-icon>home</mat-icon> <span class="nav-caption">Ana Sayfa</span>
     </a>
-    <a mat-list-item routerLink="/genel" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="/app/genel" (click)="onSidenavClose()">
         <mat-icon>business</mat-icon> <span class="nav-caption">Müşteriler</span>
     </a>
-    <a mat-list-item routerLink="/genel" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="/app/genel" (click)="onSidenavClose()">
         <mat-icon>people</mat-icon> <span class="nav-caption">Kullanıcılar</span>
     </a>
-    <a mat-list-item routerLink="/beyanname" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="/app/beyanname" (click)="onSidenavClose()">
         <mat-icon>description</mat-icon> <span class="nav-caption">Beyanname</span>
     </a>
-    <a mat-list-item routerLink="/islemler" (click)="onSidenavClose()" >
+    <a mat-list-item routerLink="/app/islemler" (click)="onSidenavClose()" >
         <mat-icon>list</mat-icon> <span class="nav-caption">İşlemler</span>   
     </a>
     <!-- <a mat-list-item routerLink="#" (click)="onSidenavClose()">

@@ -7,7 +7,7 @@ const routes: Routes = [
     //  ,
      {
          path: '',
-         loadChildren: () => import('src/app/app.module').then(m => m.AppModule), // Lazy load account module
+         loadChildren: () => import('src/account/account.module').then(m => m.AccountModule), // Lazy load account module
          data: { preload: true }
      },
      {

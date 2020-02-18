@@ -1,19 +1,20 @@
-<div class="overlay"></div>
+
+ <div class="overlay"></div>
 <app-header></app-header>
 <section (window:resize)="onResize($event)">
     <aside id="leftsidebar" class="sidebar">
         <app-sidenav-list></app-sidenav-list>
         <app-footer></app-footer>
     </aside>
-   
-    <!-- <right-sidebar></right-sidebar> -->
+ 
+ 
 </section>
 
 <section class="content">
     <div class="container-fluid">
         <router-outlet></router-outlet>
     </div>
-</section>
+</section> 
 
 <!-- <mat-sidenav-container>
   <mat-sidenav #sidenav role="navigation">

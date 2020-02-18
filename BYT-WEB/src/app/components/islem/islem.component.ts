@@ -150,7 +150,7 @@ export class IslemComponent implements OnInit {
    }
    getBeyanname(islemInternalNo: string)
    {
-    this.router.navigateByUrl('/beyanname');
+    this.router.navigateByUrl('/app/beyanname');
    }
    getBeyannameSonuc(guid:string,islemInternalNo: string)
    {

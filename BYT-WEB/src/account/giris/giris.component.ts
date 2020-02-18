@@ -23,7 +23,7 @@ export class GirisComponent implements OnInit {
   login() {    
     
      this._session._user = this.girisService.authenticateModel;
-     this.router.navigateByUrl('/genel');
+     this.router.navigateByUrl('/app');
   }
 
 }

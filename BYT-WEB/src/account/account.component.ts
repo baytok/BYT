@@ -4,7 +4,7 @@ import { GirisService } from './giris/giris.service';
 
 @Component({
     templateUrl: 'account.component.html',
-    selector: 'app-account',
+    selector: 'account-root',
     encapsulation: ViewEncapsulation.None
 })
 export class AccountComponent  implements OnInit {
