@@ -682,7 +682,12 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             catch (Exception ex)
             {
 
-                return null;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+                Internal.Hata ht = new Internal.Hata { HataKodu = 1, HataAciklamasi = ex.ToString() };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+                               
+                return _servisDurum;
             }
 
 

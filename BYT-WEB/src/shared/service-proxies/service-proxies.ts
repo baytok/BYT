@@ -28,7 +28,7 @@ export class BeyannameServiceProxy {
       }
     
       KontrolGonderimi(IslemInternalNo,Kullanici){
-         return this.http.post<any>(this.baseUrl+"Servis/Beyanname/KontrolHizmeti/" + IslemInternalNo + "/" + Kullanici, { title: ' POST Request' })
+        return this.http.post<any>(this.baseUrl+"Servis/Beyanname/KontrolHizmeti/" + IslemInternalNo + "/" + Kullanici, { title: ' POST Request' })
       }
    
       getSonucSorgula(Guid){

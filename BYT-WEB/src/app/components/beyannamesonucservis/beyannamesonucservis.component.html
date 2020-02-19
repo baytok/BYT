@@ -5,40 +5,62 @@
           GUID:{{this.guidOf}}
          </mat-panel-title>
         <mat-panel-description>
-        Islem NO:{{this.islemInternalNo}}
+          Islem NO:{{this.islemInternalNo}}
           <mat-icon>apps</mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>     
   
+      <mat-form-field>
+        <mat-label>Döviz Alış Kuru</mat-label>
+        <input matInput  value="{{dovizKuruAlis}}" readonly>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Döviz Satış Kuru</mat-label>
+        <input matInput value="{{dovizKuruSatis}}" readonly>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Çıktı Seri No</mat-label>
+        <input matInput value="{{ciktiSeriNo}}" readonly>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Muayene Memuru</mat-label>
+        <input matInput value="{{muayeneMeuru}}" readonly>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Kalan Kontör</mat-label>
+        <input matInput type="number" min="0" value="{{kalanKontor}}" readonly >
+      </mat-form-field>
+
       <mat-action-row>
         <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
       </mat-action-row>
     </mat-expansion-panel>
   
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-      <mat-expansion-panel-header>
+    <mat-expansion-panel class={{ngClass}} [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+      <mat-expansion-panel-header >
         <mat-panel-title>
-          Hatalar
+         Hatalar({{hataSayisi}})
         </mat-panel-title>
-        <mat-panel-description>    
-        
-          <mat-icon>report_problem</mat-icon>
+        <mat-panel-description>            
+          <mat-icon>report_problem</mat-icon> 
         </mat-panel-description>
       </mat-expansion-panel-header>
       <table class="table table-striped table-bordered">
         <thead>
-          <tr>
-            <th>Kalem No</th>
+          <tr>         
             <th>Hata Kodu</th>
             <th>Hata Açıklaması</th>         
-                            
+                           
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of _sonucHatalar">
-            <td>{{ item.kalemNo }}</td>
-            <td>{{ item.belgeKodu }}</td>
-            <td>{{ item.belgeAciklamasi }}</td>
+           
+            <td>{{ item.hataKodu }}</td>
+            <td>{{ item.hataAciklamasi }}</td>
          
           </tr>
         </tbody>
@@ -53,7 +75,7 @@
     <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Belgeler
+          Belgeler ({{belgeSayisi}})
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>assignment</mat-icon>
@@ -88,12 +110,12 @@
       <button mat-button color="primary" (click)="nextStep()"><mat-icon>arrow_forward</mat-icon></button>
     </mat-action-row>
   
-    </mat-expansion-panel>
+    </mat-expansion-panel> 
 
     <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Vergiler
+          Vergiler({{vergiSayisi}})
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>ballot</mat-icon>
@@ -135,7 +157,7 @@
     <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Sorular
+          Sorular({{soruSayisi}})
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>sms</mat-icon>
@@ -170,7 +192,7 @@
     <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Soru ve Cevaplar
+          Soru ve Cevaplar({{soruCevapSayisi}})
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>sd_card</mat-icon>
@@ -205,7 +227,7 @@
     <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Toplam Vergiler
+          Toplam Vergiler({{toplamVergiSayisi}})
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>attach_money</mat-icon>
@@ -241,7 +263,7 @@
     <mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Toplanan Vergiler
+          Toplanan Vergiler({{toplananVergiSayisi}})
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>functions</mat-icon>
@@ -275,7 +297,7 @@
     <mat-expansion-panel [expanded]="step === 8" (opened)="setStep(8)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Hesap Detayları
+          Hesap Detayları({{hesapDetaySayisi}})
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>menu_open</mat-icon>
@@ -309,7 +331,7 @@
     <mat-expansion-panel [expanded]="step === 9" (opened)="setStep(9)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-         İstatistiki Kıymetler
+         İstatistiki Kıymetler({{istatistikiKiymetSayisi}})
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>event_note</mat-icon>
@@ -343,7 +365,7 @@
     <mat-expansion-panel [expanded]="step === 10" (opened)="setStep(10)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-         Gümrük Kıymetleri
+         Gümrük Kıymetleri({{gumrukKiymetSayisi}})
         </mat-panel-title>
         <mat-panel-description>
           <mat-icon>poll</mat-icon>
@@ -373,7 +395,7 @@
     </mat-action-row>
   
     </mat-expansion-panel>
-    
+  
     
     
 </mat-accordion>

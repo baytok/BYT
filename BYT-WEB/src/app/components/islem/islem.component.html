@@ -1,3 +1,11 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '10px' }" [template]="customLoadingTemplate"></ngx-loading>
+<!-- <ngx-spinner
+bdColor = "rgba(51, 51, 51, 0.8)"
+size = "large"
+color = "#934d4d"
+[fullScreen] = "true"
+type = "ball-8bits">
+</ngx-spinner> -->
 <div class="page home">
   <div class="container">
     <div class="row clearfix">
@@ -20,6 +28,8 @@
 
         <div class="row mt-4">
           <div class="col-md-12">
+           
+          
             <mat-card class="mat-card">
               <h5>İşlemler</h5>
               <div class="example-box">
@@ -200,12 +210,15 @@
                     *matRowDef="let row; columns: displayedColumnsIslem"
                   ></mat-row>
                 </mat-table>
+               
               </div>
-              <ngx-spinner></ngx-spinner>
+           
             </mat-card>
           </div>
         </div>
+    
         <div class="row mt-4" *ngIf="tarihceDataSource.data?.length >= 1">
+         
           <div class="col-md-12">
             <div class="example-header">
               <mat-form-field>
@@ -219,6 +232,7 @@
             </div>
             <mat-card class="mat-card">
               <div class="example-box">
+                
                 <mat-table
                   [dataSource]="tarihceDataSource"
                   class="mat-elevation-z8"
@@ -374,7 +388,8 @@
                     *matRowDef="let row; columns: displayedColumnsTarihce"
                   ></mat-row>
                 </mat-table>
-
+               
+             
                 <!-- <mat-table
                       [dataSource]="tarihceDataSource"
                       multiTemplateDataRows

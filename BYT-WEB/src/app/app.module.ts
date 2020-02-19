@@ -17,7 +17,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.module';
 import { AppConsts } from '../shared/AppConsts';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { AppSessionService } from 'src/shared/session/app-session.service';
 
 
 @NgModule({
@@ -41,14 +41,14 @@ import { NgxSpinnerModule } from "ngx-spinner";
       HttpClientModule,
       FormsModule,
       ServiceProxyModule,      
-      NgxSpinnerModule,
-      NgxLoadingModule.forRoot({
+         NgxLoadingModule.forRoot({
          animationType: ngxLoadingAnimationTypes.threeBounce,
-         backdropBackgroundColour: 'rgba(0,0,0,0.2)', 
+         backdropBackgroundColour: 'rgba(0,2,0,0.2)', 
          backdropBorderRadius: '10px',
          primaryColour: '#8883e6', 
          secondaryColour: '#8883e6', 
          tertiaryColour: '#8883e6'
+         
      })
     
    ],
@@ -56,7 +56,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
       BeyannameSonucservisComponent
    ],
    providers: [
-      { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" }
+      { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" },
+       AppSessionService
    ],
     bootstrap: [
         AppComponent

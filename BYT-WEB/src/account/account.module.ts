@@ -20,6 +20,7 @@ import { GirisService } from './giris/giris.service';
         SharedModule,       
         AccountRoutingModule,
         
+        
     ],
     declarations: [
         AccountComponent,

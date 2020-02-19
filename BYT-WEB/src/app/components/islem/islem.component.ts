@@ -7,7 +7,6 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {AppServisDurumKodlari} from '../../../shared/AppEnums';
-import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from "@angular/router";
 
 
@@ -60,7 +59,6 @@ export class IslemComponent implements OnInit {
     private session: SessionServiceProxy,
     private snackBar: MatSnackBar ,
     private _dialog: MatDialog,
-    private spinner: NgxSpinnerService,
     private router:Router
     ) { }
 
@@ -113,14 +111,13 @@ export class IslemComponent implements OnInit {
      });
 
    }
-   getTarihce(IslemInternalNo:string){
-    // this.spinner.show();
-    // this.loading = true;
-    // setTimeout(() => { console.log("World!"); this.spinner.hide();  this.loading = false; }, 5000);
+   getTarihce(IslemInternalNo:string){  
    
     this.session.islemInternalNo=IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo)
     .subscribe( (result: TarihceDto[])=>{
+      
+   
        this.tarihceDataSource.data=result;
        this.tarihceDataSource.paginator = this.paginator;
        this.tarihceDataSource.sort = this.sort;
@@ -134,11 +131,11 @@ export class IslemComponent implements OnInit {
    {
     this.loading = true; 
   
-    this.beyanServis.getSonucSorgula(guid)
-    .subscribe( (result)=>{
+    const promise=this.beyanServis.getSonucSorgula(guid).toPromise();
+    promise.then( (result)=>{
       const sonuc_ = new ServisDto;
       sonuc_.init(result);
-      
+      this.loading = false; 
       this.openSnackBar(sonuc_.Bilgiler[0].referansNo +"-" +sonuc_.Bilgiler[0].sonuc ,'Tamam')
       this.yenileTarihce();    
      
@@ -159,14 +156,15 @@ export class IslemComponent implements OnInit {
    sendingKontrolMessages(IslemInternalNo:string){
     this.session.islemInternalNo=IslemInternalNo;  
     if(confirm('Kontrol Gönderimi Yapamak İstediğinizden Eminmisiniz?')){
-      this.spinner.show();
-      this.beyanServis.KontrolGonderimi(IslemInternalNo,this.kullanici)
-      .subscribe( (result)=>{  
+      this.loading = true; 
+    
+     const promise=this.beyanServis.KontrolGonderimi(IslemInternalNo,this.kullanici).toPromise();
+     promise.then( (result)=>{  
         const sonuc_ = new ServisDto();
         sonuc_.init(result);
          this.session.guidOf=sonuc_.Bilgiler[0].guid;
-         //  this.getIslemFromRefId(this.session.refId);
-            setTimeout(() => {  this.spinner.hide(); }, 3000);
+         this.loading = false; 
+      
               this.openSnackBar( sonuc_.ServisDurumKodu===AppServisDurumKodlari.Available ? this.session.guidOf +"-"+sonuc_.Bilgiler[0].sonuc
                 :sonuc_.Hatalar[0].hataKodu+"-"+sonuc_.Hatalar[0].hataAciklamasi ,'Tamam');
       }, (err)=>{

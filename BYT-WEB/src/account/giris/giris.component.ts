@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppSessionService } from '../../shared/session/app-session.service';
 import { GirisService } from './giris.service';
 import { Router } from "@angular/router";
+
 @Component({
   selector: 'app-giris',
   templateUrl: './giris.component.html',
@@ -13,11 +14,12 @@ export class GirisComponent implements OnInit {
   constructor(
     private _session:AppSessionService,
     public girisService: GirisService,
-    private router:Router
+    private router:Router,
+ 
      ) { }
 
   ngOnInit() {
-    
+   
   }
 
   login() {    
