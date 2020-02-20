@@ -44,11 +44,13 @@
             </ng-template>
              </mat-tab> 
               <mat-tab label="Genel Bilgiler"> 
+                <mat-dialog-content>
                 <mat-form-field>
                   <mat-label>Beyanname No</mat-label>
-                  <input matInput  value="_beyanname.beyanInternalNo" readonly>
+                  <input matInput readonly  name="BeyannameNo"
+                   [(ngModel)]="_beyanname.beyanInternalNo">
                 </mat-form-field>
-            
+              </mat-dialog-content>
                
               </mat-tab>
               <mat-tab label="Kalemler"> Content 2 </mat-tab>

@@ -821,13 +821,13 @@ export class BeyannameBilgileriDto  {
 }
 
 export class BeyannameDto {
-  BeyanInternalNo: string;
-  BeyannameNo: string;
+  beyanInternalNo: string;
+  beyannameNo: string;
   rejim: string;
 }
 export class KalemlerDto {
-  BeyanInternalNo: string;
-  KalemInternalNo: string;
+  beyanInternalNo: string;
+  kalemInternalNo: string;
   kalemNo: number;
   gtip: string;
 }

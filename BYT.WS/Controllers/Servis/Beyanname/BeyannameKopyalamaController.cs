@@ -517,7 +517,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                             _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                             List<Internal.Bilgi> lstbilgi = new List<Internal.Bilgi>();
-
+                            lstbilgi.Add(new Bilgi { IslemTipi = "Beyanname Kopyalama", ReferansNo = newbeyanValues.BeyanInternalNo, Sonuc = "Kopyalama Başarılı", SonucVeriler = null, GUID = null });
                             _servisDurum.Bilgiler = lstbilgi;
 
                             return _servisDurum;
