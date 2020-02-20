@@ -35,6 +35,20 @@ namespace BYT.WS.Data
         public DbSet<DbTamamlayiciBilgi> DbTamamlayiciBilgi { get; set; }
         public DbSet<DbVergi> DbVergi { get; set; }
 
+        public int GetRefIdNextSequenceValue(string Rejim)
+        {
+            SqlParameter result = new SqlParameter("@result", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            string sequenceName = "RefId" + Rejim;
+            Database.ExecuteSqlCommand(
+                       "SELECT @result = (NEXT VALUE FOR  " + sequenceName + ")", result);
+
+            return (int)result.Value;
+
+        }
+
 
 
     }

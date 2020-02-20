@@ -1,12 +1,10 @@
 import { Component, OnInit, Inject,Injector } from '@angular/core';
-import { BeyannameServiceProxy,SessionServiceProxy} from '../../../shared/service-proxies/service-proxies';
+import { BeyannameServiceProxy,SessionServiceProxy,BeyannameBilgileriProxy} from '../../../shared/service-proxies/service-proxies';
 import { MatSnackBar,MatDialog} from '@angular/material';
 
-import {
-  BeyannameBilgileriDto,
+import {  
   BeyannameDto,
   KalemlerDto,
-  TarihceDto,
   ServisDto
  } from '../../../shared/service-proxies/service-proxies';
 
@@ -20,6 +18,7 @@ export class BeyannameComponent implements OnInit {
    
   constructor(
     private beyanServis: BeyannameServiceProxy,
+    private beyanBilgileriServis: BeyannameBilgileriProxy,
     private session: SessionServiceProxy,
     private snackBar: MatSnackBar ,
    
@@ -36,31 +35,51 @@ export class BeyannameComponent implements OnInit {
       duration: 2000,
     });
   }
-  getBeyanname(islemInternalNo:string){
-    console.log(islemInternalNo);
+    getBeyanname(islemInternalNo:string){
+   
     this.beyanServis.getBeyanname(islemInternalNo)
     .subscribe( (result)=>{  
-      console.log(result);
-      const _beyannameBilgileri = new BeyannameBilgileriDto();
-      _beyannameBilgileri.init(result);  
+     
+      const _beyannameBilgileri = this.beyanBilgileriServis.init(result); 
       console.log(_beyannameBilgileri);
-
-      this._beyanname =_beyannameBilgileri.Beyanname;
-
        if(this._beyanname==null )  
        {
+        islemInternalNo="";
         this.openSnackBar(islemInternalNo+ "  Bulunamadı",'Tamam'); 
          return;
        }
-           
-       this._kalemler =_beyannameBilgileri.Kalemler;
+     
+      //  this._kalemler =_beyannameBilgileri.Kalemler;
  
     
+    }, (err)=>{
+     console.log(err);
+   });
+  }
+
+  getBeyannameKopyalama(islemInternalNo:string){
+   let yeniislemInternalNo:string;
+   const promise= this.beyanServis.getBeyannameKopyalama(islemInternalNo).toPromise();
+    promise.then( (result)=>{  
+      console.log(result);
+      const servisSonuc = new ServisDto();
+      servisSonuc.init(result);  
+      yeniislemInternalNo=servisSonuc.Bilgiler[0].referansNo;
+      console.log(yeniislemInternalNo);
+
+      if(this._beyanname==null )  
+       {
+        islemInternalNo="";
+        this.openSnackBar(yeniislemInternalNo,'Tamam'); 
+       
+       }
+     
     }, (err)=>{
      console.log(err);
    });
 
 
   }
+  
 
 }

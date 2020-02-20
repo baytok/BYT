@@ -17,14 +17,46 @@
             </button>
           </form>
         </div>
-
-        <mat-tab-group>
-          <mat-tab label="First"> 
-              
-        </mat-tab>
-          <mat-tab label="Second"> Content 2 </mat-tab>
-          <mat-tab label="Third"> Content 3 </mat-tab>
-        </mat-tab-group>
+        <mat-card class="mat-card">
+          <div class="example-box"> 
+            <mat-tab-group >
+             <mat-tab>
+              <ng-template mat-tab-label>
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="headerMenu"
+                  class="header-dropdown-mat-icon-button"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #headerMenu="matMenu">
+                  <button mat-menu-item (click)="yeniBeyanname()">
+                    <mat-icon>description</mat-icon>
+                    <span>Yeni Beyanname</span>
+                  </button>
+                  <button mat-menu-item (click)="getBeyannameKopyalama(islemInternalNo.value)">
+                    <mat-icon>file_copy</mat-icon>
+                    <span>Beyanname Kopyala</span>
+                  </button>
+                </mat-menu>       
+                <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
+                </mat-cell>        
+            </ng-template>
+             </mat-tab> 
+              <mat-tab label="Genel Bilgiler"> 
+                <mat-form-field>
+                  <mat-label>Beyanname No</mat-label>
+                  <!-- <input matInput  value="beyanBilgileriServis.Beyanname.BeyannameNo" readonly> -->
+                </mat-form-field>
+            
+               
+              </mat-tab>
+              <mat-tab label="Kalemler"> Content 2 </mat-tab>
+              <mat-tab label="Third"> Content 3 </mat-tab>
+          
+            </mat-tab-group>
+          </div>
+        </mat-card>
       </div>
     </div>
   </div>

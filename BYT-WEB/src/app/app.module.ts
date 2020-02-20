@@ -57,7 +57,7 @@ import { AppSessionService } from 'src/shared/session/app-session.service';
    ],
    providers: [
       { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" },
-       AppSessionService
+       AppSessionService,
    ],
     bootstrap: [
         AppComponent
