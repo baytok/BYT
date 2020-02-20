@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject,Injector } from '@angular/core';
-import { BeyannameServiceProxy,SessionServiceProxy,BeyannameBilgileriProxy} from '../../../shared/service-proxies/service-proxies';
+import { BeyannameServiceProxy,SessionServiceProxy} from '../../../shared/service-proxies/service-proxies';
 import { MatSnackBar,MatDialog} from '@angular/material';
 
-import {  
+import {
+  BeyannameBilgileriDto,
   BeyannameDto,
   KalemlerDto,
   ServisDto
@@ -18,13 +19,13 @@ export class BeyannameComponent implements OnInit {
    
   constructor(
     private beyanServis: BeyannameServiceProxy,
-    private beyanBilgileriServis: BeyannameBilgileriProxy,
     private session: SessionServiceProxy,
     private snackBar: MatSnackBar ,
    
   ) { }
   guidOf= this.session.guidOf;
   islemInternalNo= this.session.islemInternalNo;
+  _beyannameBilgileri:BeyannameBilgileriDto;
   _beyanname:BeyannameDto;
   _kalemler:KalemlerDto[];
   ngOnInit() {
@@ -38,10 +39,12 @@ export class BeyannameComponent implements OnInit {
     getBeyanname(islemInternalNo:string){
    
     this.beyanServis.getBeyanname(islemInternalNo)
-    .subscribe( (result)=>{  
-     
-      const _beyannameBilgileri = this.beyanBilgileriServis.init(result); 
-      console.log(_beyannameBilgileri);
+    .subscribe( (result)=>{      
+      this._beyannameBilgileri=new BeyannameBilgileriDto();
+      this._beyannameBilgileri.init(result); 
+    
+      this._beyanname=this._beyannameBilgileri.Beyanname;
+      console.log( this._beyanname);
        if(this._beyanname==null )  
        {
         islemInternalNo="";
@@ -49,7 +52,7 @@ export class BeyannameComponent implements OnInit {
          return;
        }
      
-      //  this._kalemler =_beyannameBilgileri.Kalemler;
+       this._kalemler =this._beyannameBilgileri.Kalemler;
  
     
     }, (err)=>{

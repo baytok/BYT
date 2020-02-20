@@ -799,24 +799,15 @@ export enum ServisDurumKodlari {
   // 4 = "Kalem kayıt aşamasında hata oluştu."
 }
 @Injectable()
-export class BeyannameBilgileriProxy {
+export class BeyannameBilgileriDto  {
   Beyanname: BeyannameDto;
   Kalemler: KalemlerDto[];
-  BeyannameNo: string;
-
-  constructor(data?: ServisDto) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    }
-  }
+  BeyannameNo: string; 
 
   init(data?: any) {
     if (data) {
+      console.log(data);
       this.Beyanname = data["beyanname"];
-
       if (Array.isArray(data["kalemler"])) {
         this.Kalemler = [] as any;
         for (let item of data["kalemler"]) this.Kalemler.push(item);
@@ -826,24 +817,7 @@ export class BeyannameBilgileriProxy {
     }
   }
 
-  
 
-  toJSON(data?: any) {
-    data = typeof data === "object" ? data : {};
-
-    data["beyanname"] = this.Beyanname;
-
-    if (Array.isArray(this.Kalemler)) {
-      data["kalemler"] = [];
-      for (let item of this.Kalemler) data["kalemler"].push(item);
-    }
-
-    data["beyanNo"] = this.BeyannameNo;
-
-    return data;
-  }
-
- 
 }
 
 export class BeyannameDto {

@@ -8,7 +8,7 @@ import * as ApiServiceProxies from './service-proxies';
   providers: [
         ApiServiceProxies.BeyannameServiceProxy,
         ApiServiceProxies.SessionServiceProxy,
-        ApiServiceProxies.BeyannameBilgileriProxy,
+       
     ]
 })
 export class ServiceProxyModule { }
