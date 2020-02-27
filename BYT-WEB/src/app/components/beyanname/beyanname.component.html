@@ -1,267 +1,1313 @@
-<div class="page home">
-  <div class="container">
-    <div class="row clearfix">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="col-md-6">
-          <form class="example-form">
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="İşlem No"   #islemNo
-               />
-            </mat-form-field>
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              (click)="getBeyanname(islemNo)"
-            >
-              Sorgula
-            </button>
-          </form>
-        </div>
-        <mat-card class="mat-card">
-          <div class="example-box"> 
-            <mat-tab-group >
-             <mat-tab>
-              <ng-template mat-tab-label>
-                <button
-                  mat-icon-button
-                  [matMenuTriggerFor]="headerMenu"
-                  class="header-dropdown-mat-icon-button"
-                >
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #headerMenu="matMenu">
-                  <button mat-menu-item (click)="yeniBeyanname()">
-                    <mat-icon>description</mat-icon>
-                    <span>Yeni Beyanname</span>
-                  </button>
-                  <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)">
-                    <mat-icon>file_copy</mat-icon>
-                    <span>Beyanname Kopyala</span>
-                  </button>
-                </mat-menu>       
-                <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
-                </mat-cell>        
-            </ng-template>
-             </mat-tab> 
-              <mat-tab label="Genel Bilgiler"> 
-                <mat-dialog-content>
-                <mat-form-field>                
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="İşlem No" #islemNo />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      (click)="getBeyanname(islemNo)"
+    >
+      Sorgula
+    </button>
+  </form>
+  <div class="card m-3">
+    <h5 class="card-header text-center">Beyanname Bilgileri</h5>
+    <div class="card-body text-center">
+      <mat-form-field >
+        <mat-label>Beyanname No</mat-label>
+        <input
+          matInput
+          readonly
+          name="BeyannameNo"
+          [(ngModel)]="_beyanname.beyanInternalNo"
+        />
+      </mat-form-field>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="headerMenu"
+        class="header-dropdown-mat-icon-button"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #headerMenu="matMenu">
+        <button mat-menu-item (click)="yeniBeyanname()">
+          <mat-icon>description</mat-icon>
+          <span>Yeni Beyanname</span>
+        </button>
+        <button mat-menu-item (click)="duzeltBeyanname()">
+          <mat-icon>developer_board</mat-icon>
+          <span>Beyanname Düzeltme</span>
+        </button>
 
+        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)">
+          <mat-icon>file_copy</mat-icon>
+          <span>Beyanname Kopyala</span>
+        </button>
+      </mat-menu>
+      <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
+      </mat-cell>
+      <mat-label>{{_beyanname.tescilStatu}}</mat-label>
+      
+      <form [formGroup]="beyannameForm" (ngSubmit)="onbeyannameFormSubmit()">
+        <mat-card class="mat-card">
+          <div class="example-box">
+            <mat-tab-group>
+              <mat-tab label="Genel Bilgiler">
+                <div class="form-row">                               
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Gümrük</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="gumruk"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.gumruk.errors
+                        }"
+                      >
+                        <option *ngFor="let g of _gumrukList" [value]="g.kod">{{
+                          g.kod
+                        }}</option>
+                      </select>
+                      <div
+                        *ngIf="submitted && f.gumruk.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.gumruk.errors.required">
+                          Gümrük Zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Rejim</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="rejim"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.rejim.errors
+                        }"
+                      >
+                        <option *ngFor="let r of _rejimList" [value]="r.kod">{{
+                          r.kod
+                        }}</option>
+                      </select>
+                      <div
+                        *ngIf="submitted && f.rejim.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.rejim.errors.required">
+                          Rejim Zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                 <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Basitleştirilmiş Usul</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="basitlestirilmisUsul"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted && f.basitlestirilmisUsul.errors
+                        }"
+                      >
+                        <option *ngFor="let b of _bsList" [value]="b.kod">{{
+                          b.kod
+                        }}</option>
+                      </select>
+                      <div
+                        *ngIf="submitted && f.basitlestirilmisUsul.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Alıcı Satıcı İlişkisi</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="aliciSaticiIliskisi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted && f.aliciSaticiIliskisi.errors
+                        }"
+                      >
+                        <option
+                          *ngFor="let s of _aliciSaticiList"
+                          [value]="s.kod"
+                          >{{ s.kod }}</option
+                        >
+                      </select>
+                      <div
+                        *ngIf="submitted && f.aliciSaticiIliskisi.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.aliciSaticiIliskisi.errors.required">
+                          Alıcı Satıcı İlişkisi Zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>İşlemin Niteliği</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="isleminNiteligi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted && f.isleminNiteligi.errors
+                        }"
+                      >
+                        <option
+                          *ngFor="let s of _isleminNiteligiList"
+                          [value]="s.kod"
+                          >{{ s.kod }}</option
+                        >
+                      </select>
+                      <div
+                        *ngIf="submitted && f.isleminNiteligi.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.isleminNiteligi.errors.required">
+                         İşlemin Niteliği Zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Kap Adedi</mat-label>
+                      <input
+                        matNativeControl
+                        type="text"
+                        formControlName="kapAdedi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.kapAdedi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && f.kapAdedi.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>    
+                  <div class="card m-2">
+                    <div  class="row">
+                    <div class="form-group col">
+                        <mat-form-field>
+                          <mat-label>Kullanıcı</mat-label>
+                          <input
+                            readonly
+                            matNativeControl
+                            type="text"
+                            formControlName="kullanici"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid': submitted && f.kullanici.errors
+                            }"
+                          />
+                          <div
+                            *ngIf="submitted && f.kullanici.errors"
+                            class="invalid-feedback"
+                          ></div>
+                        </mat-form-field>
+                    </div>   
+                    <div class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Alıcı Vergi No</mat-label>
+                        <input
+                          matNativeControl
+                          type="text"
+                          formControlName="aliciVergiNo"
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.aliciVergiNo.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.aliciVergiNo.errors"
+                          class="invalid-feedback"
+                        ></div>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Gönderici Vergi No</mat-label>
+                        <input
+                          matNativeControl
+                          type="text"
+                          formControlName="gondericiVergiNo"
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.gondericiVergiNo.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.gondericiVergiNo.errors"
+                          class="invalid-feedback"
+                        ></div>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Beyan Sahibi Vergi No</mat-label>
+                        <input
+                          matNativeControl
+                          type="text"
+                          formControlName="beyanSahibiVergiNo"
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.beyanSahibiVergiNo.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.beyanSahibiVergiNo.errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f.beyanSahibiVergiNo.errors.required">
+                            Beyan Sahibi Vergi No Zorunlu
+                          </div>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Müşavir Vergi No</mat-label>
+                        <input
+                          matNativeControl
+                          type="text"
+                          formControlName="musavirVergiNo"
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.musavirVergiNo.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.musavirVergiNo.errors"
+                          class="invalid-feedback"
+                        ></div>
+                      </mat-form-field>
+                    </div>                    
+                    <div class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Asıl Sorumlu Vergi No</mat-label>
+                        <input
+                          matNativeControl
+                          type="text"
+                          formControlName="asilSorumluVergiNo"
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.asilSorumluVergiNo.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.asilSorumluVergiNo.errors"
+                          class="invalid-feedback"
+                        ></div>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Müşavir Referans No</mat-label>
+                        <input
+                          matNativeControl
+                          type="text"
+                          formControlName="musavirReferansNo"
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid': submitted && f.musavirReferansNo.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f.musavirReferansNo.errors"
+                          class="invalid-feedback"
+                        >
+                        <div *ngIf="f.musavirReferansNo.errors.required">
+                         Müşavir Referans No Zorunlu
+                        </div>
+                      </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  </div>
+                 <div class="card m-2">  
+                   <div  class="row">                 
+                    <div  class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Çıkış Ülkesi</mat-label>
+                        <select
+                        matNativeControl
+                        formControlName="cikisUlkesi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.cikisUlkesi.errors
+                        }"
+                      >
+                        <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
+                          u.kod
+                        }}</option>
+                      </select>
+                        <div
+                          *ngIf="submitted && f.cikisUlkesi.errors"
+                          class="invalid-feedback"
+                        >  <div *ngIf="f.cikisUlkesi.errors.required">
+                          Çıkış Ülkesi Zorunlu
+                        </div>
+                      </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Gideceği Ülke</mat-label>
+                        <select
+                        matNativeControl
+                        formControlName="gidecegiUlke"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.gumruk.errors
+                        }"
+                      >
+                        <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
+                          u.kod
+                        }}</option>
+                        </select>
+                        <div
+                          *ngIf="submitted && f.gidecegiUlke.errors"
+                          class="invalid-feedback"
+                        >
+                        <div *ngIf="f.gidecegiUlke.errors.required">
+                          Gideceği Ülkesi Zorunlu
+                        </div>
+                      </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Ticaret Ülkesi</mat-label>
+                        <select
+                        matNativeControl
+                        formControlName="ticaretUlkesi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.gumruk.errors
+                        }"
+                      >
+                        <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
+                          u.kod
+                        }}</option>
+                        </select>
+                        <div
+                          *ngIf="submitted && f.ticaretUlkesi.errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f.beyanSahibiVergiNo.errors.required">
+                            Ticaret Ülkesi Zorunlu
+                          </div>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col">
+                      <mat-form-field>
+                        <mat-label>Gideceği Sevk Ülkesi</mat-label>
+                        <select
+                        matNativeControl
+                        formControlName="gidecegiSevkUlkesi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.gumruk.errors
+                        }"
+                      >
+                        <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
+                          u.kod
+                        }}</option>
+                        </select>
+                        <div
+                          *ngIf="submitted && f.gidecegiSevkUlkesi.errors"
+                          class="invalid-feedback"
+                        > <div *ngIf="f.gidecegiSevkUlkesi.errors.required">
+                          Ticaret Ülkesi Zorunlu
+                        </div>
+                      </div>
+                      </mat-form-field>
+                    </div>              
+                  </div>          
+                  </div>  
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Birlik Kayıt Numarası</mat-label>
+                      <input
+                        
+                        matNativeControl
+                        type="text"
+                        formControlName="birlikKayitNumarasi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.birlikKayitNumarasi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && f.birlikKayitNumarasi.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Birlik Kriptosu</mat-label>
+                      <input
+                        
+                        matNativeControl
+                        type="text"
+                        formControlName="birlikKriptoNumarasi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.birlikKriptoNumarasi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && f.birlikKriptoNumarasi.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+                  
+                </div>
+                <div class="card m-2">
+                 <div class="form-group col">                  
+                    <mat-label>Açıklamalar</mat-label>
+                    <textarea                                    
+                      type="text"                    
+                      rows="3"
+                      formControlName="aciklamalar"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.aciklamalar.errors
+                      }"
+                    ></textarea>
+
+                    <div
+                      *ngIf="submitted && f.aciklamalar.errors"
+                      class="invalid-feedback"
+                    ></div>
                  
-                  <mat-label>Beyanname No</mat-label>
-                  <input matInput readonly  name="BeyannameNo"
-                   [(ngModel)]="_beyanname.beyanInternalNo">
-                </mat-form-field>
-              </mat-dialog-content>
-               
+                </div> 
+                </div>
               </mat-tab>
-              <mat-tab label="Kalemler">
-                <div class="card m-3">
-                  <h5 class="card-header">Angular 8 Reactive Form Validation</h5>
-                  <div class="card-body">
-                      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-                          <div class="form-row">
-                              <div class="form-group col">
-                                  <label>Title</label>
-                                  <select formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
-                                      <option value=""></option>
-                                      <option value="Mr">Mr</option>
-                                      <option value="Mrs">Mrs</option>
-                                      <option value="Miss">Miss</option>
-                                      <option value="Ms">Ms</option>
-                                  </select>
-                                  <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
-                                      <div *ngIf="f.title.errors.required">Title is required</div>
-                                  </div>
+              <mat-tab label="Finansal Bilgiler"> 
+                <div class="form-group col">
+                  <mat-form-field>
+                    <mat-label>Banka Kodu</mat-label>
+                    <input
+                      matNativeControl
+                      type="text"
+                      formControlName="bankaKodu"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.bankaKodu.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && f.bankaKodu.errors"
+                      class="invalid-feedback"
+                    ></div>
+                  </mat-form-field>
+                </div>
+
+              </mat-tab>
+              <mat-tab label="Taşıma Bilgiler"> 
+                <div class="form-row">
+                 <div class="form-group col">
+                  <mat-form-field>
+                    <mat-label>Antrepo Kodu</mat-label>
+                    <input
+                      matNativeControl
+                      type="text"
+                      formControlName="antrepoKodu"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.antrepoKodu.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && f.antrepoKodu.errors"
+                      class="invalid-feedback"
+                    ></div>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col">
+                <div class="form-group form-check">               
+                  <input  type="checkbox" formControlName="konteyner" id="konteyner" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.konteyner.errors }" />
+                  <mat-label for="konteyner" class="form-check-label">Konteyner</mat-label>
+                  <div *ngIf="submitted && f.konteyner.errors" class="invalid-feedback">Konteyner Zorunlu</div>
+                </div>
+              </div>
+               
+               <div class="card col-lg-10">
+                  <div  class="row">                  
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Çıkıştaki Aracın Tipi</mat-label>
+                      <select
+                      matNativeControl
+                      formControlName="cikistakiAracinTipi"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && f.cikistakiAracinTipi.errors
+                      }"
+                    >
+                      <option
+                        *ngFor="let c of _aracTipiList"
+                        [value]="c.kod"
+                        >{{ c.kod }}</option
+                      >
+                    </select>
+                    
+                      <div
+                        *ngIf="submitted && f.cikistakiAracinTipi.errors"
+                        class="invalid-feedback"
+                      ><div *ngIf="f.cikistakiAracinTipi.errors.required">
+                       Çıkıştaki aracın tipi zorunlu
+                      </div>
+                    </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Çıkıştaki Aracın Kimliği</mat-label>
+                      <input
+                        matNativeControl
+                        type="text"
+                        formControlName="cikistakiAracinKimligi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.cikistakiAracinKimligi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && f.cikistakiAracinKimligi.errors"
+                        class="invalid-feedback"
+                      ><div *ngIf="f.cikistakiAracinKimligi.errors.required">
+                       Çıkıştaki aracın kimliği Zorunlu
+                      </div>
+                    </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Çıkış Araç Ülkesi</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="cikistakiAracinUlkesi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.cikistakiAracinUlkesi.errors
+                        }"
+                      >
+                        <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
+                          u.kod
+                        }}</option>
+                      </select>
+                      <div
+                        *ngIf="submitted && f.cikistakiAracinUlkesi.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.cikistakiAracinUlkesi.errors.required">
+                          Çıkış Araç Ülkesi Zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Sınırdaki Aracın Tipi</mat-label>
+                      <select
+                      matNativeControl
+                      formControlName="sinirdakiAracinTipi"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && f.sinirdakiAracinTipi.errors
+                      }"
+                    >
+                      <option
+                        *ngFor="let s of _aracTipiList"
+                        [value]="s.kod"
+                        >{{ s.kod }}</option
+                      >
+                    </select>
+                     
+                      <div
+                        *ngIf="submitted && f.sinirdakiAracinTipi.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.sinirdakiAracinTipi.errors.required">
+                          Sınırdaki aracın tipi zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Sınırdaki Aracın Kimliği</mat-label>
+                      <input
+                        matNativeControl
+                        type="text"
+                        formControlName="sinirdakiAracinKimligi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.sinirdakiAracinKimligi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && f.sinirdakiAracinKimligi.errors"
+                        class="invalid-feedback"
+                      >
+                      <div *ngIf="f.sinirdakiAracinKimligi.errors.required">
+                        Sınırdaki Aracın Kimliği Zorunlu
+                      </div>
+                    </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Sınır Araç Ülkesi</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="sinirdakiAracinUlkesi"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && f.sinirdakiAracinUlkesi.errors
+                        }"
+                      >
+                        <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
+                          u.kod
+                        }}</option>
+                      </select>
+                      <div
+                        *ngIf="submitted && f.sinirdakiAracinUlkesi.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="f.sinirdakiAracinUlkesi.errors.required">
+                          Sınır Araç Ülkesi Zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Sınırdaki Taşıma Şekli</mat-label>
+                      <select
+                      matNativeControl
+                      formControlName="sinirdakiTasimaSekli"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && f.sinirdakiTasimaSekli.errors
+                      }"
+                    >
+                      <option
+                        *ngFor="let t of _tasimaSekliList"
+                        [value]="t.kod"
+                        >{{ t.kod }}</option
+                      >
+                    </select>
+                    
+                      <div
+                        *ngIf="submitted && f.sinirdakiTasimaSekli.errors"
+                        class="invalid-feedback"
+                      >
+                      <div *ngIf="f.sinirdakiTasimaSekli.errors.required">
+                        Sınırdaki Taşıma Şekli Zorunlu
+                      </div>
+                    </div>
+                    </mat-form-field>
+                  </div>
+                </div>
+                </div> 
+              </div> 
+              </mat-tab>
+              <mat-tab label="Kalemler"> </mat-tab>
+              <!-- <mat-tab label="Third">
+                      <div class="container">
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <div class="col-sm-6 form-group">
+                              <label>First Name</label>
+                              <input
+                                type="text"
+                                placeholder="Enter First Name Here.."
+                                formControlName="firstName"
+                                class="form-control"
+                              />
+                              <div
+                                *ngIf="
+                                  beyannameForm.get('firstName').errors &&
+                                  isSubmitted
+                                "
+                              >
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('firstName')
+                                      .hasError('required')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >Please Enter First Name.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('firstName')
+                                      .hasError('minlength')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >First Name requied atleast 3
+                                    characters.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('firstName')
+                                      .hasError('maxlength')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >First Name requied only 30
+                                    characters.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('firstName')
+                                      .hasError('pattern')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >Only characters are allowed.</span
+                                  >
+                                </div>
                               </div>
-                              <div class="form-group col-5">
-                                  <label>First Name</label>
-                                  <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-                                  <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                                      <div *ngIf="f.firstName.errors.required">First Name is required</div>
-                                  </div>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                              <label>Last Name</label>
+                              <input
+                                type="text"
+                                placeholder="Enter Last Name Here.."
+                                formControlName="lastName"
+                                class="form-control"
+                              />
+                            </div>
+                          </div>
+                          <div formGroupName="addressGroup" class="form-group">
+                            <label>Address</label>
+                            <textarea
+                              placeholder="Enter Address Here.."
+                              rows="2"
+                              formControlName="address"
+                              class="form-control"
+                            ></textarea>
+                            <div
+                              *ngIf="
+                                beyannameForm.get('addressGroup.address')
+                                  .errors && isSubmitted
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  beyannameForm
+                                    .get('addressGroup.address')
+                                    .hasError('required')
+                                "
+                              >
+                                <span style="color: red;"
+                                  >Please Enter Address.</span
+                                >
                               </div>
-                              <div class="form-group col-5">
-                                  <label>Last Name</label>
-                                  <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-                                  <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                                      <div *ngIf="f.lastName.errors.required">Last Name is required</div>
-                                  </div>
+                              <div
+                                *ngIf="
+                                  beyannameForm
+                                    .get('addressGroup.address')
+                                    .hasError('maxlength')
+                                "
+                              >
+                                <span style="color: red;"
+                                  >Only 255 characters are allowed.</span
+                                >
                               </div>
+                            </div>
+                          </div>
+                          <div formGroupName="addressGroup" class="row">
+                            <div class="col-sm-4 form-group">
+                              <label>City</label>
+                              <input
+                                type="text"
+                                placeholder="Enter City Name Here.."
+                                formControlName="city"
+                                class="form-control"
+                              />
+                            </div>
+                            <div class="col-sm-4 form-group">
+                              <label>State</label>
+                              <input
+                                type="text"
+                                placeholder="Enter State Name Here.."
+                                formControlName="state"
+                                class="form-control"
+                              />
+                            </div>
+                            <div class="col-sm-4 form-group">
+                              <label>PinCode</label>
+                              <input
+                                type="text"
+                                placeholder="Enter Zip Code Here.."
+                                formControlName="pincode"
+                                class="form-control"
+                              />
+                              <div
+                                *ngIf="
+                                  beyannameForm.get('addressGroup.pincode') &&
+                                  isSubmitted
+                                "
+                              >
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('addressGroup.pincode')
+                                      .hasError('required')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >Please Enter PinCode.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('addressGroup.pincode')
+                                      .hasError('minlength')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >PinCode requied atleast 6 characters.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('addressGroup.pincode')
+                                      .hasError('maxlength')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >PinCode requied only 8 characters.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('addressGroup.pincode')
+                                      .hasError('pattern')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >Only alph-numerics are allowed.</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
                           </div>
                           <div class="form-group">
-                              <label>Email</label>
-                              <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                                  <div *ngIf="f.email.errors.required">Email is required</div>
-                                  <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                            <label>Phone Number</label>
+                            <input
+                              type="text"
+                              placeholder="Enter Phone Number Here.."
+                              formControlName="phoneNumber"
+                              class="form-control"
+                            />
+                            <div
+                              *ngIf="
+                                beyannameForm.get('phoneNumber').errors &&
+                                isSubmitted
+                              "
+                            >
+                              <div
+                                *ngIf="
+                                  beyannameForm
+                                    .get('phoneNumber')
+                                    .hasError('required')
+                                "
+                              >
+                                <span style="color: red;"
+                                  >Please Enter Phone Number.</span
+                                >
                               </div>
-                          </div>
-                          <div class="form-row">
-                              <div class="form-group col">
-                                  <label>Password</label>
-                                  <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                                      <div *ngIf="f.password.errors.required">Password is required</div>
-                                      <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                                  </div>
+                              <div
+                                *ngIf="
+                                  beyannameForm
+                                    .get('phoneNumber')
+                                    .hasError('minlength')
+                                "
+                              >
+                                <span style="color: red;"
+                                  >Phone Number requied atleast 8
+                                  characters.</span
+                                >
                               </div>
-                              <div class="form-group col">
-                                  <label>Confirm Password</label>
-                                  <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
-                                  <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                                      <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
-                                      <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
-                                  </div>
+                              <div
+                                *ngIf="
+                                  beyannameForm
+                                    .get('phoneNumber')
+                                    .hasError('maxlength')
+                                "
+                              >
+                                <span style="color: red;"
+                                  >Phone Number requied only 12
+                                  characters.</span
+                                >
                               </div>
+                              <div
+                                *ngIf="
+                                  beyannameForm
+                                    .get('phoneNumber')
+                                    .hasError('pattern')
+                                "
+                              >
+                                <span style="color: red;"
+                                  >Only Numbers are allowed.</span
+                                >
+                              </div>
+                            </div>
                           </div>
-                          <div class="form-group form-check">
-                              <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
-                              <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
-                              <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Accept Ts & Cs is required</div>
+                          <div class="row">
+                            <div class="col-sm-6 form-group">
+                              <label>Email Address</label>
+                              <input
+                                type="text"
+                                placeholder="Enter Email Address Here.."
+                                formControlName="email"
+                                class="form-control"
+                              />
+                              <div
+                                *ngIf="
+                                  beyannameForm.get('email').errors &&
+                                  isSubmitted
+                                "
+                              >
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('email')
+                                      .hasError('required')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >Please Enter Email.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('email')
+                                      .hasError('minlength')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >The email requied atleast 5
+                                    characters.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('email')
+                                      .hasError('maxlength')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >The email requied only 80 characters.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('email')
+                                      .hasError('pattern')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >The Email is not valid.</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                              <label>Password</label>
+                              <input
+                                type="password"
+                                placeholder="Enter Password Here.."
+                                formControlName="password"
+                                class="form-control"
+                              />
+                              <div
+                                *ngIf="
+                                  beyannameForm.get('password').errors &&
+                                  isSubmitted
+                                "
+                              >
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('password')
+                                      .hasError('required')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >Please Enter Password.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('password')
+                                      .hasError('minlength')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >The password requied atleast 5
+                                    characters.</span
+                                  >
+                                </div>
+                                <div
+                                  *ngIf="
+                                    beyannameForm
+                                      .get('password')
+                                      .hasError('maxlength')
+                                  "
+                                >
+                                  <span style="color: red;"
+                                    >The password requied only 12
+                                    characters.</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <div class="text-center">
-                              <button class="btn btn-primary mr-1">Register</button>
-                              <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
-                          </div>
-                      </form>
+                        </div>
+                      </div>
+                    </mat-tab>-->
+              <mat-tab>
+                <!-- Page form start -->
+                <form [formGroup]="kalemForm" novalidate>
+                  <div
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    fxLayoutWrap
+                    fxLayoutGap="3.5%"
+                    fxLayoutAlign="left"
+                  >
+                    <!-- Comapny name input field --><mat-form-field
+                      class="example-full-width"
+                      fxFlex="75%"
+                    >
+                      <input
+                        matInput
+                        placeholder="Company name"
+                        formControlName="companyName"
+                        required
+                      /><!-- input field hint --><mat-hint align="end">
+                        Can contain only characters. Maximum
+                        {{
+                          kalemForm.controls.companyName.value.length
+                        }}/25 </mat-hint
+                      ><!-- input field error --><mat-error
+                        *ngIf="kalemForm.controls.companyName.invalid"
+                      >
+                        This field is required and maximmum alowed charactes are
+                        25
+                      </mat-error></mat-form-field
+                    >
+
+                    <!-- Country input field --><mat-form-field
+                      class="example-full-width"
+                    >
+                      <input
+                        matInput
+                        placeholder="Country"
+                        formControlName="countryName"
+                      /><mat-hint align="end"
+                        >Your IP country name loaded from
+                        freegeoip.net</mat-hint
+                      ></mat-form-field
+                    >
                   </div>
-              </div>
-              
-          </mat-tab>
-              <mat-tab label="Third"> <div class="container">
-                <h3 class="well">Registration Form</h3>
-                <div class="row">
-                  <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationFormSubmit()">
-                    <div class="col-sm-12">
-                      <div class="row">
-                        <div class="col-sm-6 form-group">
-                          <label>First Name</label>
-                          <input type="text" placeholder="Enter First Name Here.." formControlName="firstName" class="form-control" />
-                          <div *ngIf="registrationForm.get('firstName').errors  && isSubmitted">
-                            <div *ngIf="registrationForm.get('firstName').hasError('required')">
-                              <span style="color: red;">Please Enter First Name.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('firstName').hasError('minlength')">
-                              <span style="color: red;">First Name requied atleast 3 characters.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('firstName').hasError('maxlength')">
-                              <span style="color: red;">First Name requied only 30 characters.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('firstName').hasError('pattern')">
-                              <span style="color: red;">Only characters are allowed.</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 form-group">
-                          <label>Last Name</label>
-                          <input type="text" placeholder="Enter Last Name Here.." formControlName="lastName" class="form-control" />
+
+                  <div
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    fxLayoutWrap
+                    fxLayoutGap="3.5%"
+                    fxLayoutAlign="center"
+                    layout-margin
+                  >
+                    <!-- Street input field --><mat-form-field
+                      class="example-full-width"
+                      ><input
+                        matInput
+                        placeholder="Street"
+                        fxFlex="75%"
+                        formControlName="street"
+                    /></mat-form-field>
+
+                    <!-- City input field --><mat-form-field
+                      class="example-full-width"
+                    >
+                      <input
+                        matInput
+                        placeholder="City"
+                        formControlName="city"
+                      /><mat-hint align="end"
+                        >City name loaded from freegeoip.net</mat-hint
+                      ></mat-form-field
+                    >
+
+                    <!-- Zip code input field --><mat-form-field
+                      class="example-full-width"
+                      fxFlex="20%"
+                    >
+                      <input
+                        matInput
+                        placeholder="Zip"
+                        formControlName="zipCode"
+                      /><mat-hint align="end"
+                        >Zip loaded from freegeoip.net</mat-hint
+                      ></mat-form-field
+                    >
+                  </div>
+                  <br />
+
+                  <!-- Start form units array with first row must and dynamically add more --><mat-card
+                    formArrayName="units"
+                    ><mat-card-title>Units</mat-card-title
+                    ><mat-divider></mat-divider>
+
+                    <!-- loop throught units -->
+                    <div
+                      *ngFor="
+                        let unit of kalemForm.controls.units.controls;
+                        let i = index
+                      "
+                    >
+                      <!-- row divider show for every nex row exclude if first row --><mat-divider
+                        *ngIf="
+                        kalemForm.controls.units.controls.length > 1 &&
+                          i > 0
+                        "
+                      ></mat-divider
+                      ><br />
+
+                      <!-- group name in this case row index -->
+                      <div [formGroupName]="i">
+                        <div
+                          fxLayout="row"
+                          fxLayout.xs="column"
+                          fxLayoutWrap
+                          fxLayoutGap="3.5%"
+                          fxLayoutAlign="center"
+                        >
+                          <!-- unit name input field --><mat-form-field
+                            fxFlex="30%"
+                          >
+                            <input
+                              matInput
+                              placeholder="Unit name"
+                              formControlName="unitName"
+                              required
+                            />
+                          </mat-form-field>
+
+                          <!-- unit quantity input field --><mat-form-field
+                            fxFlex="10%"
+                          >
+                            <input
+                              matInput
+                              placeholder="Quantity"
+                              type="number"
+                              formControlName="qty"
+                              required
+                          /></mat-form-field>
+
+                          <!-- unit price input field --><mat-form-field
+                            fxFlex="20%"
+                          >
+                            <input
+                              matInput
+                              placeholder="Unit price"
+                              type="number"
+                              formControlName="unitPrice"
+                              required
+                          /></mat-form-field>
+
+                          <!-- unit total price input field, calculated and not editable --><mat-form-field>
+                            <input
+                              matInput
+                              placeholder="Total sum"
+                              formControlName="unitTotalPrice"
+                          /></mat-form-field>
+
+                          <!-- row delete button, hidden if there is just one row --><button
+                            mat-mini-fab
+                            color="warn"
+                            *ngIf="
+                            kalemForm.controls.units.controls.length > 1
+                            "
+                            (click)="removeUnit(i)"
+                          >
+                            <mat-icon>delete forever</mat-icon>
+                          </button>
                         </div>
                       </div>
-                      <div formGroupName="addressGroup" class="form-group">
-                        <label>Address</label>
-                        <textarea placeholder="Enter Address Here.." rows="2" formControlName="address" class="form-control"></textarea>
-                        <div *ngIf="registrationForm.get('addressGroup.address').errors && isSubmitted">
-                          <div *ngIf="registrationForm.get('addressGroup.address').hasError('required')">
-                            <span style="color: red;">Please Enter Address.</span>
-                          </div>
-                          <div *ngIf="registrationForm.get('addressGroup.address').hasError('maxlength')">
-                            <span style="color: red;">Only 255 characters are allowed.</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div formGroupName="addressGroup" class="row">
-                        <div class="col-sm-4 form-group">
-                          <label>City</label>
-                          <input type="text" placeholder="Enter City Name Here.." formControlName="city" class="form-control" />
-                        </div>
-                        <div class="col-sm-4 form-group">
-                          <label>State</label>
-                          <input type="text" placeholder="Enter State Name Here.." formControlName="state" class="form-control" />
-                        </div>
-                        <div class="col-sm-4 form-group">
-                          <label>PinCode</label>
-                          <input type="text" placeholder="Enter Zip Code Here.." formControlName="pincode" class="form-control" />
-                          <div *ngIf="registrationForm.get('addressGroup.pincode') && isSubmitted">
-                            <div *ngIf="registrationForm.get('addressGroup.pincode').hasError('required')">
-                              <span style="color: red;">Please Enter PinCode.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('addressGroup.pincode').hasError('minlength')">
-                              <span style="color: red;">PinCode requied atleast 6 characters.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('addressGroup.pincode').hasError('maxlength')">
-                              <span style="color: red;">PinCode requied only 8 characters.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('addressGroup.pincode').hasError('pattern')">
-                              <span style="color: red;">Only alph-numerics are allowed.</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="text" placeholder="Enter Phone Number Here.." formControlName="phoneNumber" class="form-control" />
-                        <div *ngIf="registrationForm.get('phoneNumber').errors && isSubmitted">
-                          <div *ngIf="registrationForm.get('phoneNumber').hasError('required')">
-                            <span style="color: red;">Please Enter Phone Number.</span>
-                          </div>
-                          <div *ngIf="registrationForm.get('phoneNumber').hasError('minlength')">
-                            <span style="color: red;">Phone Number requied atleast 8 characters.</span>
-                          </div>
-                          <div *ngIf="registrationForm.get('phoneNumber').hasError('maxlength')">
-                            <span style="color: red;">Phone Number requied only 12 characters.</span>
-                          </div>
-                          <div *ngIf="registrationForm.get('phoneNumber').hasError('pattern')">
-                            <span style="color: red;">Only Numbers are allowed.</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-6 form-group">
-                          <label>Email Address</label>
-                          <input type="text" placeholder="Enter Email Address Here.." formControlName="email" class="form-control" />
-                          <div *ngIf="registrationForm.get('email').errors && isSubmitted">
-                            <div *ngIf="registrationForm.get('email').hasError('required')">
-                              <span style="color: red;">Please Enter Email.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('email').hasError('minlength')">
-                              <span style="color: red;">The email requied atleast 5 characters.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('email').hasError('maxlength')">
-                              <span style="color: red;">The email requied only 80 characters.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('email').hasError('pattern')">
-                              <span style="color: red;">The Email is not valid.</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 form-group">
-                          <label>Password</label>
-                          <input type="password" placeholder="Enter Password Here.." formControlName="password" class="form-control" />
-                          <div *ngIf="registrationForm.get('password').errors && isSubmitted">
-                            <div *ngIf="registrationForm.get('password').hasError('required')">
-                              <span style="color: red;">Please Enter Password.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('password').hasError('minlength')">
-                              <span style="color: red;">The password requied atleast 5 characters.</span>
-                            </div>
-                            <div *ngIf="registrationForm.get('password').hasError('maxlength')">
-                              <span style="color: red;">The password requied only 12 characters.</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <button type="submit" class="btn btn-lg btn-info">Submit</button>
                     </div>
-                  </form>
-                </div>
-              </div></mat-tab>
-          
+
+                    <!-- New unit button --><mat-divider
+                    ></mat-divider
+                    ><mat-card-actions
+                      ><button mat-raised-button (click)="addUnit()">
+                        <mat-icon>add box</mat-icon>
+                        Add new unit
+                      </button></mat-card-actions
+                    ></mat-card
+                  >
+                  <!-- End form units array -->
+                </form>
+                <!-- Page form end --><br />
+              </mat-tab>
             </mat-tab-group>
           </div>
         </mat-card>
-      </div>
+        <div class="text-right">
+          <button class="btn btn-primary mr-1">Kaydet</button>
+          <button class="btn btn-secondary" type="reset" (click)="onReset()">
+            İptal
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

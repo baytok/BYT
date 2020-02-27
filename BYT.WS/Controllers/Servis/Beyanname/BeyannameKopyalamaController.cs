@@ -105,7 +105,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         Mobil2 = beyanValues.Mobil2,
                         MusavirVergiNo = beyanValues.MusavirVergiNo,
                         OdemeAraci = beyanValues.OdemeAraci,
-                        ReferansNo = beyanValues.ReferansNo,
+                        MusavirReferansNo = beyanValues.MusavirReferansNo,
                         ReferansTarihi = beyanValues.ReferansTarihi,
                         SinirdakiAracinKimligi = beyanValues.SinirdakiAracinKimligi,
                         SinirdakiAracinTipi = beyanValues.SinirdakiAracinTipi,
@@ -130,7 +130,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         VarisGumrukIdaresi = beyanValues.VarisGumrukIdaresi,
                         YukBelgeleriSayisi = beyanValues.YukBelgeleriSayisi,
                         YuklemeBosaltmaYeri = beyanValues.YuklemeBosaltmaYeri,
-                        RefId = beyanValues.Kullanici + "|" + beyanValues.Rejim + "|" + internalrefid.ToString().PadLeft(6, '0'),
+                        RefNo = beyanValues.Kullanici + "|" + beyanValues.Rejim + "|" + internalrefid.ToString().PadLeft(6, '0'),
                         BeyanInternalNo = InternalNo,
                         Rejim = beyanValues.Rejim,
                     };
@@ -504,7 +504,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             _islem.IslemTipi = "";
                             _islem.BeyanTipi = "DetayliBeyan";
                             _islem.IslemDurumu = "Olusturuldu";
-                            _islem.RefId = newbeyanValues.RefId;
+                            _islem.RefNo = newbeyanValues.RefNo;
                             _islem.BeyanInternalNo = newbeyanValues.BeyanInternalNo;
                             _islem.IslemInternalNo = newbeyanValues.BeyanInternalNo;
                             _islem.OlusturmaZamani = DateTime.Now;

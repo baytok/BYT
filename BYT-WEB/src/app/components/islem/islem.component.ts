@@ -49,7 +49,7 @@ export class IslemComponent implements OnInit {
 
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
-  displayedColumnsIslem: string[] = ['refId','islemTipi','beyanTipi','islemDurumu','islemSonucu','islemZamani','gonderimSayisi','islemInternalNo'];
+  displayedColumnsIslem: string[] = ['beyanTipi','islemTipi','islemDurumu','islemSonucu','islemZamani','gonderimSayisi','islemInternalNo'];
   displayedColumnsTarihce: string[] = ['islemInternalNo','gonderimNo','islemTipi','islemDurumu','sonucZamani','gondermeZamani','guid'];
   expandedElement: TarihceDto | null;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -92,18 +92,18 @@ export class IslemComponent implements OnInit {
           this.islemlerDataSource=result;
           this.session.guidOf=result[0].guidof;
           this.session.islemInternalNo= result[0].islemInternalNo;
-          this.session.refId=result[0].refId;
+          this.session.refNo=result[0].refNo;
        
      }, (err)=>{
        console.log(err);
      });
  
    }
-   getIslemFromRefId(refId){
+   getIslemFromRefNo(refNo){
     
-    this.beyanServis.getAllIslemFromRefId(refId.value)
+    this.beyanServis.getAllIslemFromRefNo(refNo.value)
     .subscribe( (result: IslemDto[])=>{
-      this.openSnackBar(refId.value,'Tamam')
+      this.openSnackBar(refNo.value,'Tamam')
       this.islemlerDataSource=result;
       // console.log(this.islemler);
      }, (err)=>{

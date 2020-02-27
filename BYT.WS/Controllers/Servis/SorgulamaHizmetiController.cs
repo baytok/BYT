@@ -91,7 +91,7 @@ namespace BYT.WS.Controllers.Servis
                     try
                     {
                         var _tarihce = await _islemTarihceContext.Tarihce.FirstOrDefaultAsync(v => v.Guid == Guid);
-                        var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.Kullanici == _tarihce.Kullanici && v.RefId == _tarihce.RefId);
+                        var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.Kullanici == _tarihce.Kullanici && v.RefNo == _tarihce.RefNo);
                         var _beyanname = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == _islem.BeyanInternalNo);
 
 

@@ -98,7 +98,7 @@ namespace BYT.WS.Models
     {
         [Required]
         [StringLength(30)]
-        public string RefId { get; set; }
+        public string RefNo { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -210,7 +210,7 @@ namespace BYT.WS.Models
 
 
         [StringLength(12)]
-        public string ReferansNo { get; set; }
+        public string MusavirReferansNo { get; set; }
 
         [StringLength(12)]
         public string ReferansTarihi { get; set; }

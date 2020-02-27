@@ -90,15 +90,15 @@ namespace BYT.WS.Controllers.api
 
 
         }
-        [Route("api/BYT/[controller]/RefIdIleSorgulama/{refId}")]
+        [Route("api/BYT/[controller]/RefNoIleSorgulama/{refNo}")]
         [HttpGet("{refId}")]
-        public async Task<List<Islem>> GetIslemlerFromRefId(string refId)
+        public async Task<List<Islem>> GetIslemlerFromRefId(string refNo)
         {
             try
             {
                 ServisDurum _servisDurum = new ServisDurum();
 
-                var islemValues = await _islemContext.Islem.Where(v => v.RefId == refId).ToListAsync();
+                var islemValues = await _islemContext.Islem.Where(v => v.RefNo == refNo).ToListAsync();
 
                 //_servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
@@ -134,7 +134,7 @@ namespace BYT.WS.Controllers.api
                 _islem.IslemTipi = "Kontrol";
                 _islem.BeyanTipi = "DetayliBeyan";
                 _islem.IslemDurumu = "Olusturuldu";
-                _islem.RefId = "000002";
+                _islem.RefNo = "000002";
                 _islem.IslemInternalNo = Kullanici+"G"+"000002"; //TODO: sequence sayı alıp 6 ya tamamlayalım
                 _islem.OlusturmaZamani = DateTime.Now;
                 _islem.GonderimSayisi=0;

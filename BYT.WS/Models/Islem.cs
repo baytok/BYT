@@ -15,7 +15,7 @@ namespace BYT.WS.Models
 
         [Required]
         [StringLength(30)]
-        public string RefId { get; set; }
+        public string RefNo { get; set; }
 
         [Required]
         [StringLength(15)]

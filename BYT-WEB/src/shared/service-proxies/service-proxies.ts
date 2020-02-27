@@ -14,6 +14,7 @@ import {
   HttpResponse,
   HttpResponseBase
 } from "@angular/common/http";
+import { DecimalPipe } from "@angular/common";
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
 
 @Injectable()
@@ -37,9 +38,9 @@ export class BeyannameServiceProxy {
       this.baseUrl + "IslemHizmeti/KullaniciIleSorgulama/" + Kullanici
     );
   }
-  getAllIslemFromRefId(refId) {
+  getAllIslemFromRefNo(refNo) {
     return this.http.get(
-      this.baseUrl + "IslemHizmeti/RefIdIleSorgulama/" + refId
+      this.baseUrl + "IslemHizmeti/RefNoIleSorgulama/" + refNo
     );
   }
 
@@ -96,7 +97,7 @@ export class SessionServiceProxy {
   private http: HttpClient;
   private baseUrl: string;
   public guidOf: string;
-  public refId: string;
+  public refNo: string;
   public islemInternalNo: string;
   protected jsonParseReviver:
     | ((key: string, value: any) => any)
@@ -129,7 +130,7 @@ export class SessionServiceProxy {
 }
 
 export class IslemDto implements IIslemlerDto {
-  refId: string | undefined;
+  refNo: string | undefined;
   guidof: string | undefined;
   gonderimSayisi: number;
   beyanInternalNo: string | undefined;
@@ -155,7 +156,7 @@ export class IslemDto implements IIslemlerDto {
 
   init(data?: any) {
     if (data) {
-      this.refId = data["refId"];
+      this.refNo = data["refNo"];
       this.guidof = data["guidof"];
       this.gonderimSayisi = data["gonderimSayisi"];
       this.beyanInternalNo = data["beyanInternalNo"];
@@ -181,7 +182,7 @@ export class IslemDto implements IIslemlerDto {
 
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};
-    data["refId"] = this.refId;
+    data["refNo"] = this.refNo;
     data["guidof"] = this.guidof;
     data["gonderimSayisi"] = this.gonderimSayisi;
     data["beyanInternalNo"] = this.beyanInternalNo;
@@ -207,7 +208,7 @@ export class IslemDto implements IIslemlerDto {
 }
 
 export interface IIslemlerDto {
-  refId: string | undefined;
+  refNo: string | undefined;
   guidof: string | undefined;
   gonderimSayisi: number;
   beyanInternalNo: string | undefined;
@@ -225,7 +226,7 @@ export interface IIslemlerDto {
 
 export class TarihceDto implements ITarihceDto {
   id: number;
-  RefId: string;
+  RefNo: string;
   IslemInternalNo: string;
   BeyanInternalNo: string;
   Kullanici: string;
@@ -254,7 +255,7 @@ export class TarihceDto implements ITarihceDto {
 
   init(data?: any) {
     if (data) {
-      this.RefId = data["RefId"];
+      this.RefNo = data["RefNo"];
       this.IslemInternalNo = data["IslemInternalNo"];
       this.BeyanInternalNo = data["BeyanInternalNo"];
       this.Kullanici = data["Kullanici"];
@@ -284,7 +285,7 @@ export class TarihceDto implements ITarihceDto {
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};
 
-    data["RefId"] = this.RefId;
+    data["RefNo"] = this.RefNo;
     data["IslemInternalNo"] = this.IslemInternalNo;
     data["BeyanInternalNo"] = this.BeyanInternalNo;
     data["Kullanici"] = this.Kullanici;
@@ -314,7 +315,7 @@ export class TarihceDto implements ITarihceDto {
 
 export interface ITarihceDto {
   id: number;
-  RefId: string;
+  RefNo: string;
   IslemInternalNo: string;
   Kullanici: string;
   Guid: string;
@@ -799,10 +800,10 @@ export enum ServisDurumKodlari {
   // 4 = "Kalem kayıt aşamasında hata oluştu."
 }
 @Injectable()
-export class BeyannameBilgileriDto  {
+export class BeyannameBilgileriDto {
   Beyanname: BeyannameDto;
   Kalemler: KalemlerDto[];
-  BeyannameNo: string; 
+  BeyannameNo: string;
 
   init(data?: any) {
     if (data) {
@@ -816,14 +817,70 @@ export class BeyannameBilgileriDto  {
       this.BeyannameNo = data["beyanNo"];
     }
   }
-
-
 }
 
 export class BeyannameDto {
   beyanInternalNo: string;
   beyannameNo: string;
   rejim: string;
+  aciklamalar: string;
+  aliciSaticiIliskisi: string;
+  aliciVergiNo: string;
+  antrepoKodu: string;
+  asilSorumluVergiNo: string;
+  bankaKodu: string;
+  basitlestirilmisUsul: string;
+  beyanSahibiVergiNo: string;
+  birlikKayitNumarasi: string;
+  birlikKriptoNumarasi: string;
+  cikistakiAracinKimligi: string;
+  cikistakiAracinTipi: string;
+  cikistakiAracinUlkesi: string;
+  cikisUlkesi: string;
+  esyaninBulunduguYer: string;
+  gidecegiSevkUlkesi: string;
+  gidecegiUlke: string;
+  girisGumrukIdaresi: string;
+  gondericiVergiNo: string;
+  gumruk: string;
+  isleminNiteligi: string;
+  kapAdedi: number;
+  konteyner: string;
+  kullanici: string;
+  limanKodu: string;
+  mail1: string;
+  mail2: string;
+  mail3: string;
+  mobil1: string;
+  mobil2: string;
+  musavirVergiNo: string;
+  odemeAraci: string;
+  musavirReferansNo: string;
+  referansTarihi: string;
+  refNo: string;
+  sinirdakiAracinKimligi: string;
+  sinirdakiAracinTipi: string;
+  sinirdakiAracinUlkesi: string;
+  sinirdakiTasimaSekli: string;
+  tasarlananGuzergah: string;
+  telafiEdiciVergi: number;
+  tescilStatu: string;
+  tescilTarihi: string;
+  teslimSekli: string;
+  teslimSekliYeri: string;
+  ticaretUlkesi: string;
+  toplamFatura: number;
+  toplamFaturaDovizi: string;
+  toplamNavlun: number;
+  toplamNavlunDovizi: string;
+  toplamSigorta: number;
+  toplamSigortaDovizi: string;
+  toplamYurtDisiHarcamalar: number;
+  toplamYurtDisiHarcamalarDovizi: string;
+  toplamYurtIciHarcamalar: number;
+  varisGumrukIdaresi: string;
+  yukBelgeleriSayisi: number;
+  yuklemeBosaltmaYeri: string;
 }
 export class KalemlerDto {
   beyanInternalNo: string;

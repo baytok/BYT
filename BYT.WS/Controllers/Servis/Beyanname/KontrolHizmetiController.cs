@@ -113,11 +113,11 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 _beyan.mail3 = beyanValues.Mail3;
                 _beyan.mobil1 = beyanValues.Mobil1;
                 _beyan.mobil2 = beyanValues.Mobil2;
-                _beyan.Musavir_referansi = islemValues.RefId;
+                _beyan.Musavir_referansi = islemValues.RefNo;
                 _beyan.Musavir_vergi_no = beyanValues.MusavirVergiNo;
                 _beyan.Odeme = "PESIN";
                 //  _beyan.Odeme_araci = beyanValues.OdemeAraci;
-                _beyan.Referans_no = beyanValues.ReferansNo;
+                _beyan.Referans_no = beyanValues.MusavirReferansNo;
                 _beyan.Referans_tarihi = beyanValues.ReferansTarihi;
                 _beyan.Rejim = beyanValues.Rejim;
                 _beyan.Sinirdaki_aracin_kimligi = beyanValues.SinirdakiAracinKimligi;
@@ -556,7 +556,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 var kullaniciValues = await _kullaniciContext.Kullanici.Where(v => v.KullaniciKod == Kullanici).FirstOrDefaultAsync();
 
                 gelen.KullaniciAdi = "15781158208"; // islemValues.Kullanici;
-                gelen.RefID = islemValues.RefId;
+                gelen.RefID = islemValues.RefNo;
                 gelen.Sifre = Md5Helper.getMd5Hash(kullaniciValues.KullaniciSifre);
                 gelen.IP = "";
                 gelen.BeyannameBilgi = _beyan;
@@ -625,7 +625,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _tarihce.Rejim = beyanValues.Rejim;
                         _tarihce.IslemInternalNo = islemValues.IslemInternalNo;
                         _tarihce.Kullanici = Kullanici;
-                        _tarihce.RefId = islemValues.RefId;
+                        _tarihce.RefNo = islemValues.RefNo;
                         _tarihce.IslemDurumu = IslemDurumu;
                         _tarihce.IslemSonucu = islemSonucu;
                         _tarihce.IslemTipi = "1";

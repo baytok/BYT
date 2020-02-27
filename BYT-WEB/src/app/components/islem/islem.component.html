@@ -13,13 +13,13 @@ type = "ball-8bits">
         <div class="col-md-6">
           <form class="example-form">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Yapılacak yeni sorgulama" #refId />
+              <input matInput placeholder="Yapılacak yeni sorgulama" #refNo />
             </mat-form-field>
             <button
               mat-raised-button
               color="primary"
               type="submit"
-              (click)="getIslemFromRefId(refId)"
+              (click)="getIslemFromRefNo(refNo)"
             >
               Sorgula
             </button>
@@ -35,50 +35,36 @@ type = "ball-8bits">
                   [dataSource]="islemlerDataSource"
                   class="mat-elevation-z8 "
                 >
-                  <ng-container matColumnDef="refId">
-                    <mat-header-cell
-                      [style.flex]="'0 0 220px'"
-                      *matHeaderCellDef
-                    >
-                      Referans No
-                    </mat-header-cell>
-                    <mat-cell
-                      [style.flex]="'0 0 220px'"
-                      *matCellDef="let element"
-                    >
-                      {{ element.refId }}
-                    </mat-cell>
-                  </ng-container>
+                <ng-container matColumnDef="beyanTipi">
+                  <mat-header-cell
+                    [style.flex]="'0 0 120px'"
+                    *matHeaderCellDef
+                  >
+                    Beyan Tipi
+                  </mat-header-cell>
+                  <mat-cell
+                    [style.flex]="'0 0 120px'"
+                    *matCellDef="let element"
+                  >
+                    {{ element.beyanTipi }}
+                  </mat-cell>
+                </ng-container>
 
                   <ng-container matColumnDef="islemTipi">
                     <mat-header-cell
-                      [style.flex]="'0 0 80px'"
+                      [style.flex]="'0 0 70px'"
                       *matHeaderCellDef
                     >
                       İşlem Tipi
                     </mat-header-cell>
                     <mat-cell
-                      [style.flex]="'0 0 80px'"
+                      [style.flex]="'0 0 70px'"
                       *matCellDef="let element"
                     >
                       {{ element.islemTipi }}
                     </mat-cell>
                   </ng-container>
-
-                  <ng-container matColumnDef="beyanTipi">
-                    <mat-header-cell
-                      [style.flex]="'0 0 100px'"
-                      *matHeaderCellDef
-                    >
-                      Beyan Tipi
-                    </mat-header-cell>
-                    <mat-cell
-                      [style.flex]="'0 0 100px'"
-                      *matCellDef="let element"
-                    >
-                      {{ element.beyanTipi }}
-                    </mat-cell>
-                  </ng-container>
+                
 
                   <ng-container matColumnDef="islemDurumu">
                     <mat-header-cell
@@ -168,6 +154,7 @@ type = "ball-8bits">
                       </mat-menu>
                     </mat-header-cell>
                     <mat-cell *matCellDef="let element">
+                      {{element.islemInternalNo}}
                       <button mat-button [matMenuTriggerFor]="aboveMenu">
                         <mat-icon>menu</mat-icon>
                       </button>

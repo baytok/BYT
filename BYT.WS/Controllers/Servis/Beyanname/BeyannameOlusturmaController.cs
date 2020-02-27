@@ -54,7 +54,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _beyan.Kullanici = Kullanici;
                         _beyan.Rejim = "1000";
                         _beyan.Gumruk = "067777";
-                        _beyan.RefId = "000002";
+                        _beyan.RefNo = "000002";
                         _beyan.BeyanInternalNo = Kullanici + "DB" + "000002"; //TODO: sequence sayı alıp 6 ya tamamlayalım
 
 
@@ -95,7 +95,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 _islem.IslemTipi = "";
                 _islem.BeyanTipi = "DetayliBeyan";
                 _islem.IslemDurumu = "Olusturuldu";
-                _islem.RefId = _beyan.RefId;
+                _islem.RefNo = _beyan.RefNo;
                 _islem.BeyanInternalNo = _beyan.BeyanInternalNo;
                 _islem.IslemInternalNo = _beyan.BeyanInternalNo;
                 _islem.OlusturmaZamani = DateTime.Now;
@@ -173,7 +173,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _islem.IslemTipi = "";
                         _islem.BeyanTipi = "DetayliBeyan";
                         _islem.IslemDurumu = "Olusturuldu";
-                        _islem.RefId = beyan.RefId;
+                        _islem.RefNo = beyan.RefNo;
                         _islem.BeyanInternalNo = beyan.BeyanInternalNo;
                         _islem.IslemInternalNo = beyan.BeyanInternalNo;
                         _islem.OlusturmaZamani = DateTime.Now;
