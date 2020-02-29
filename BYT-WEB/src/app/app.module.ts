@@ -10,6 +10,7 @@ import { GenelComponent } from './components/genel/genel.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
+import { KalemComponent } from './components/kalem/kalem.component';
 import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { API_BASE_URL } from '../shared/service-proxies/service-proxies';
@@ -31,6 +32,7 @@ import { AppSessionService } from 'src/shared/session/app-session.service';
       BeyannameComponent,
       BeyannameSonucservisComponent,      
       GenelComponent,
+      KalemComponent
    
     
    ],
@@ -42,7 +44,7 @@ import { AppSessionService } from 'src/shared/session/app-session.service';
       FormsModule,
       ServiceProxyModule,   
       ReactiveFormsModule,
-         NgxLoadingModule.forRoot({
+        NgxLoadingModule.forRoot({
          animationType: ngxLoadingAnimationTypes.threeBounce,
          backdropBackgroundColour: 'rgba(0,2,0,0.2)', 
          backdropBorderRadius: '10px',

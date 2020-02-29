@@ -16,7 +16,9 @@ import {
   aliciSatici,
   tasimaSekli,
   isleminNiteligi,
-  aracTipi
+  aracTipi,
+  teslimSekli,
+  dovizCinsi
 } from "../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
@@ -37,8 +39,9 @@ import {
   styleUrls: ["./beyanname.component.scss"]
 })
 export class BeyannameComponent implements OnInit {
-  submitted: boolean = false;
+  
   beyannameForm: FormGroup;
+  submitted: boolean = false;
   guidOf = this.session.guidOf;
   islemInternalNo = this.session.islemInternalNo;
   _beyannameBilgileri: BeyannameBilgileriDto;
@@ -52,8 +55,9 @@ export class BeyannameComponent implements OnInit {
   _tasimaSekliList = tasimaSekli;
   _isleminNiteligiList = isleminNiteligi;
   _aracTipiList = aracTipi;
+  _teslimList = teslimSekli;
+  _dovizList=dovizCinsi;
 
-  kalemForm: FormGroup;
 
   constructor(
     private beyanServis: BeyannameServiceProxy,
@@ -118,33 +122,37 @@ export class BeyannameComponent implements OnInit {
         kapAdedi: new FormControl("", [Validators.pattern("^[0-9]*$")]),
         musavirReferansNo: new FormControl("", [Validators.required,Validators.maxLength(12)]),     
         referansTarihi: [],
-        refNo: [],
         tescilStatu: [],
         tescilTarihi:[],
-
+        refNo: new FormControl("", [Validators.maxLength(30)]),
         //Finansal Bilgiler
         bankaKodu: new FormControl("", [
           Validators.maxLength(16),
           Validators.pattern("^[0-9]*$")
         ]),        
-        teslimSekli: [],
-        teslimSekliYeri: [],
-        toplamFatura:[],
-        toplamFaturaDovizi: [],
-        toplamNavlun: [],
+        teslimSekli: new FormControl("", [Validators.required,Validators.maxLength(9)]), 
+        teslimSekliYeri:  new FormControl("", [Validators.maxLength(40)]),         
+        telafiEdiciVergi:new FormControl("", [Validators.pattern("^[0-9]*$")]),
+        toplamFatura: new FormControl("", [Validators.required,Validators.pattern("^[0-9]*$")]),
+        toplamFaturaDovizi:new FormControl("", [Validators.required]), 
+        toplamNavlun: new FormControl("", [Validators.pattern("^[0-9]*$")]),
         toplamNavlunDovizi: [],
-        toplamSigorta: [],
+        toplamSigorta: new FormControl("", [Validators.pattern("^[0-9]*$")]),
         toplamSigortaDovizi: [],
-        toplamYurtDisiHarcamalar:[],
+        toplamYurtDisiHarcamalar:new FormControl("", [Validators.pattern("^[0-9]*$")]),
         toplamYurtDisiHarcamalarDovizi: [],
-        toplamYurtIciHarcamalar: [],
+        toplamYurtIciHarcamalar:new FormControl("", [Validators.pattern("^[0-9]*$")]),
         odemeAraci:[],       
-        telafiEdiciVergi:[],
+      
         //Taşıma Bilgileri
         antrepoKodu: new FormControl("", [
           Validators.maxLength(9),
           Validators.pattern("^[a-zA-Z0-9]*$")
-        ]),       
+        ]),   
+        limanKodu:new FormControl("", [
+          Validators.maxLength(9),
+          Validators.pattern("^[a-zA-Z0-9]*$")
+        ]),               
         sinirdakiAracinUlkesi: new FormControl("", [
           Validators.required,
           Validators.minLength(3),
@@ -161,10 +169,10 @@ export class BeyannameComponent implements OnInit {
           Validators.required,
           Validators.maxLength(35)
         ]),
-        cikistakiAracinTipi: [
+        cikistakiAracinTipi: new FormControl("",[
           Validators.maxLength(9),
           Validators.pattern("^[0-9]*$")
-        ],
+        ]),
         sinirdakiAracinKimligi: new FormControl("", [
           Validators.required,
           Validators.maxLength(35)
@@ -178,13 +186,18 @@ export class BeyannameComponent implements OnInit {
           Validators.pattern("^[0-9]*$")
         ]),
         konteyner: [false, Validators.requiredTrue],
-        tasarlananGuzergah: new FormControl("", [Validators.maxLength(250)]),
-        esyaninBulunduguYer:[],
-        girisGumrukIdaresi:[],
-        limanKodu: [],        
-        varisGumrukIdaresi:[],
-        yukBelgeleriSayisi: [],
-        yuklemeBosaltmaYeri: [],
+        girisGumrukIdaresi:new FormControl("",[
+          Validators.maxLength(9),
+          Validators.pattern("^[0-9]*$")
+        ]),
+        varisGumrukIdaresi:new FormControl("",[
+          Validators.maxLength(9),
+          Validators.pattern("^[0-9]*$")
+        ]),
+        tasarlananGuzergah: new FormControl("", [Validators.maxLength(250)]),       
+        yukBelgeleriSayisi: new FormControl("", [Validators.pattern("^[0-9]*$")]),    
+        yuklemeBosaltmaYeri: new FormControl("", [Validators.maxLength(40)]),    
+        esyaninBulunduguYer: new FormControl("", [Validators.maxLength(40)]),    
         mobil1: new FormControl("", [
           Validators.required,
           Validators.minLength(8),
@@ -202,23 +215,16 @@ export class BeyannameComponent implements OnInit {
       //   validator: MustMatch('password', 'confirmPassword')
       // }
     );
-    this.kalemForm = this._fb.group({
-      companyName: ["", [Validators.required, Validators.maxLength(25)]],
-      countryName: [""],
-      city: [""],
-      zipCode: [""],
-      street: [""],
-      units: this._fb.array([this.getUnit()])
-    });
+   
   }
-  get f() {
+  get focus() {
     return this.beyannameForm.controls;
   }
   ngOnInit() {
     if (this.session.islemInternalNo != undefined) {
       this.getBeyanname(this.session.islemInternalNo);
     }
-    registrationForm: FormGroup;
+   
   }
 
   openSnackBar(message: string, action: string) {
@@ -239,12 +245,13 @@ export class BeyannameComponent implements OnInit {
         this._beyannameBilgileri.init(result);
 
         this._beyanname = this._beyannameBilgileri.Beyanname;
-
+        this._kalemler=this._beyannameBilgileri.Kalemler;
+        this.session.Kalemler= this._kalemler;
         if (this._beyanname == null) {
           this.openSnackBar(islemInternalNo.value + "  Bulunamadı", "Tamam");
           return;
         }
-
+        this.session.beyanInternalNo= this._beyanname.beyanInternalNo ;
         this.beyannameForm.setValue({
           beyanInternalNo: this._beyanname.beyanInternalNo,
           beyannameNo: this._beyanname.beyannameNo,
@@ -311,7 +318,7 @@ export class BeyannameComponent implements OnInit {
           yuklemeBosaltmaYeri: this._beyanname.yuklemeBosaltmaYeri,
        
         });
-        this._kalemler = this._beyannameBilgileri.Kalemler;
+     
         this.beyannameForm.disable();
       },
       err => {
@@ -373,27 +380,6 @@ export class BeyannameComponent implements OnInit {
   onReset() {
     this.submitted = false;
   }
-  private getUnit() {
-    const numberPatern = "^[0-9.,]+$";
-    return this._fb.group({
-      unitName: ["", Validators.required],
-      qty: [1, [Validators.required, Validators.pattern(numberPatern)]],
-      unitPrice: ["", [Validators.required, Validators.pattern(numberPatern)]],
-      unitTotalPrice: [{ value: "", disabled: true }]
-    });
-  }
-
-  // add new row
-  private addUnit() {
-    const control = <FormArray>this.kalemForm.controls["units"];
-    control.push(this.getUnit());
-  }
-
-  // remove row
-  private removeUnit(i: number) {
-    const control = <FormArray>this.kalemForm.controls["units"];
-    control.removeAt(i);
-  }
- 
-
+  
+  
 }

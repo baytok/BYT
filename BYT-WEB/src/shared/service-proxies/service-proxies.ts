@@ -99,6 +99,8 @@ export class SessionServiceProxy {
   public guidOf: string;
   public refNo: string;
   public islemInternalNo: string;
+  public beyanInternalNo: string;
+  public Kalemler: KalemlerDto[];
   protected jsonParseReviver:
     | ((key: string, value: any) => any)
     | undefined = undefined;
@@ -885,6 +887,6 @@ export class BeyannameDto {
 export class KalemlerDto {
   beyanInternalNo: string;
   kalemInternalNo: string;
-  kalemNo: number;
+  kalemSiraNo: number;
   gtip: string;
 }

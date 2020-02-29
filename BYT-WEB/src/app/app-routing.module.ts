@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { AboutComponent } from './components/about/about.component';
+import { KalemComponent } from './components/kalem/kalem.component';
 import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { GenelComponent } from './components/genel/genel.component';
@@ -18,7 +18,8 @@ import { AppComponent } from './app.component';
              { path: '', component: GenelComponent },         
               { path: 'islemler', component: IslemComponent },            
               { path: 'beyanname', component: BeyannameComponent },   
-              { path: 'genel', component: GenelComponent },           
+              { path: 'genel', component: GenelComponent }, 
+              { path: 'kalem', component: KalemComponent },             
           ],
           
       }

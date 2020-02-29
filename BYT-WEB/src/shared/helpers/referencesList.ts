@@ -66,4 +66,16 @@ export const rejim= [
     { kod:'4', aciklama: '' },
     { kod:'10', aciklama: '' },
   ];
+  export const teslimSekli= [
+    { kod:'', aciklama: '' },
+    { kod:'FOB', aciklama: '' },
+    { kod:'SIF', aciklama: '' },
+    { kod:'EXC', aciklama: '' },
+  ];
+  export const dovizCinsi= [
+    { kod:'', aciklama: '' },
+    { kod:'USD', aciklama: '' },
+    { kod:'EURO', aciklama: '' },
+    { kod:'TRY', aciklama: '' },
+  ];
 export const colorIDs = ['green', 'red', 'blue'] as const;

@@ -1,62 +1,92 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="İşlem No" #islemNo />
-    </mat-form-field>
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      (click)="getBeyanname(islemNo)"
-    >
-      Sorgula
-    </button>
-  </form>
   <div class="card m-3">
-    <h5 class="card-header text-center">Beyanname Bilgileri</h5>
+    <h5 class="card-header text-center">Kalem Bilgileri</h5>
     <div class="card-body text-center">
       <mat-form-field >
-        <mat-label>Beyanname No</mat-label>
+        <mat-label>Geçici Beyanname No</mat-label>
         <input
           matInput
           readonly
-          name="Geçici BeyannameNo"
-          [(ngModel)]="_beyanname.beyanInternalNo"
+          name="BeyannameNo"
+          [(ngModel)]="beyanInternalNo"
         />
       </mat-form-field>
       <button
         mat-icon-button
-        [matMenuTriggerFor]="beyannameheaderMenu"
+        [matMenuTriggerFor]="kalemheaderMenu"
         class="header-dropdown-mat-icon-button"
       >
         <mat-icon>more_vert</mat-icon>
       </button>
-      <mat-menu #beyannameheaderMenu="matMenu">
-        <button mat-menu-item (click)="yeniBeyanname()">
+      <mat-menu #kalemheaderMenu="matMenu">
+        <button mat-menu-item (click)="yeniKalem()">
           <mat-icon>add</mat-icon>
-          <span>Yeni Beyanname</span>
+          <span>Yeni Kalem</span>
         </button>
-        <button mat-menu-item (click)="duzeltBeyanname()">
+        <button mat-menu-item (click)="duzeltKalem()">
           <mat-icon>sync</mat-icon>
-          <span>Beyanname Düzeltme</span>
+          <span>Kalem Düzeltme</span>
         </button>
-
-        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)">
-          <mat-icon>file_copy</mat-icon>
-          <span>Beyanname Kopyala</span>
+        <button mat-menu-item (click)="siltKalem()">
+          <mat-icon>remove</mat-icon>
+          <span>Kalem Sil</span>
         </button>
+      
       </mat-menu>
       <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
       </mat-cell>
-      <mat-label>{{_beyanname.tescilStatu}}</mat-label>
+    
       
-      <form [formGroup]="beyannameForm" (ngSubmit)="onbeyannameFormSubmit()">
+       <form [formGroup]="kalemForm" (ngSubmit)="onkalemFormSubmit()">
         <mat-card class="mat-card">
           <div class="example-box">
             <mat-tab-group>
-              <mat-tab label="Genel Bilgiler">
-                <div class="form-row">                               
+             <mat-tab label="Genel Bilgiler">
+                <div class="form-row">    
+                  
                   <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Kalem No</mat-label>
+                      <input
+                        matNativeControl
+                        type="text"
+                        formControlName="kalemSiraNo"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.kalemSiraNo.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.kalemSiraNo.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>   
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Gtip</mat-label>
+                      <input
+                        matNativeControl
+                        type="text"
+                        formControlName="gtip"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.gtip.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.gtip.errors"
+                        class="invalid-feedback"
+                      >
+                      <div *ngIf="focus.gtip.errors.required">
+                        Gtip Zorunlu
+                      </div>
+                    </div>
+                    </mat-form-field>
+                  </div>   
+
+                  <!-- <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Gümrük</mat-label>
                       <select
@@ -543,10 +573,10 @@
                       </mat-form-field>
                     </div>              
                   </div>          
-                  </div>               
+                  </div>                -->
                   
                 </div>
-                <div class="card m-2">
+                <!-- <div class="card m-2">
                  <div class="form-group col">                  
                     <mat-label>Açıklamalar</mat-label>
                     <textarea                                    
@@ -565,9 +595,9 @@
                     ></div>
                  
                 </div> 
-                </div>
+                </div> -->
               </mat-tab>
-              <mat-tab label="Finansal Bilgiler"> 
+              <!--     <mat-tab label="Finansal Bilgiler"> 
                 <div class="form-row">        
                 <div class="form-group col">
                   <mat-form-field>
@@ -856,8 +886,7 @@
               </div>
               </mat-tab>
               <mat-tab label="Taşıma Bilgiler"> 
-             <div class="form-row">
-            
+              <div class="form-row">            
               <div class="form-group col">
                   <mat-form-field>
                     <mat-label>Antrepo Kodu</mat-label>
@@ -1251,9 +1280,195 @@
                 </div>
                 </mat-form-field>
               </div>              
-              </div>    
+               </div>    
+              </mat-tab> 
+              <mat-tab label="Kalemler"> 
+              </mat-tab>   -->
+              <mat-tab>             
+       <!--        <form [formGroup]="ornekForm" novalidate>
+                  <div
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    fxLayoutWrap
+                    fxLayoutGap="3.5%"
+                    fxLayoutAlign="left"
+                  >
+                  <mat-form-field
+                      class="example-full-width"
+                      fxFlex="75%"
+                    >
+                      <input
+                        matInput
+                        placeholder="Company name"
+                        formControlName="companyName"
+                        required
+                      /><mat-hint align="end">
+                        Can contain only characters. Maximum
+                        {{
+                          kalemForm.controls.companyName.value.length
+                        }}/25 </mat-hint
+                      ><mat-error
+                        *ngIf="kalemForm.controls.companyName.invalid"
+                      >
+                        This field is required and maximmum alowed charactes are
+                        25
+                      </mat-error></mat-form-field
+                    >
+
+                   <mat-form-field
+                      class="example-full-width"
+                    >
+                      <input
+                        matInput
+                        placeholder="Country"
+                        formControlName="countryName"
+                      /><mat-hint align="end"
+                        >Your IP country name loaded from
+                        freegeoip.net</mat-hint
+                      ></mat-form-field
+                    >
+                  </div>
+
+                  <div
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    fxLayoutWrap
+                    fxLayoutGap="3.5%"
+                    fxLayoutAlign="center"
+                    layout-margin
+                  >
+                    <mat-form-field
+                      class="example-full-width"
+                      ><input
+                        matInput
+                        placeholder="Street"
+                        fxFlex="75%"
+                        formControlName="street"
+                    /></mat-form-field>
+
+                    <mat-form-field
+                      class="example-full-width"
+                    >
+                      <input
+                        matInput
+                        placeholder="City"
+                        formControlName="city"
+                      /><mat-hint align="end"
+                        >City name loaded from freegeoip.net</mat-hint
+                      ></mat-form-field
+                    >
+
+                    <mat-form-field
+                      class="example-full-width"
+                      fxFlex="20%"
+                    >
+                      <input
+                        matInput
+                        placeholder="Zip"
+                        formControlName="zipCode"
+                      /><mat-hint align="end"
+                        >Zip loaded from freegeoip.net</mat-hint
+                      ></mat-form-field
+                    >
+                  </div>
+                  <br />
+
+                  <mat-card
+                    formArrayName="units"
+                    ><mat-card-title>Units</mat-card-title
+                    ><mat-divider></mat-divider>
+
+               
+                    <div
+                      *ngFor="
+                        let unit of kalemForm.controls.units.controls;
+                        let i = index
+                      "
+                    >
+                      <mat-divider
+                        *ngIf="
+                        kalemForm.controls.units.controls.length > 1 &&
+                          i > 0
+                        "
+                      ></mat-divider
+                      ><br />
+
+                     
+                      <div [formGroupName]="i">
+                        <div
+                          fxLayout="row"
+                          fxLayout.xs="column"
+                          fxLayoutWrap
+                          fxLayoutGap="3.5%"
+                          fxLayoutAlign="center"
+                        >
+                       <mat-form-field
+                            fxFlex="30%"
+                          >
+                            <input
+                              matInput
+                              placeholder="Unit name"
+                              formControlName="unitName"
+                              required
+                            />
+                          </mat-form-field>
+
+                          <mat-form-field
+                            fxFlex="10%"
+                          >
+                            <input
+                              matInput
+                              placeholder="Quantity"
+                              type="number"
+                              formControlName="qty"
+                              required
+                          /></mat-form-field>
+
+                         <mat-form-field
+                            fxFlex="20%"
+                          >
+                            <input
+                              matInput
+                              placeholder="Unit price"
+                              type="number"
+                              formControlName="unitPrice"
+                              required
+                          /></mat-form-field>
+
+                          <mat-form-field>
+                            <input
+                              matInput
+                              placeholder="Total sum"
+                              formControlName="unitTotalPrice"
+                          /></mat-form-field>
+
+                          <button
+                            mat-mini-fab
+                            color="warn"
+                            *ngIf="
+                            kalemForm.controls.units.controls.length > 1
+                            "
+                            (click)="removeUnit(i)"
+                          >
+                            <mat-icon>delete forever</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                  <mat-divider
+                    ></mat-divider
+                    ><mat-card-actions
+                      ><button mat-raised-button (click)="addUnit()">
+                        <mat-icon>add box</mat-icon>
+                        Add new unit
+                      </button></mat-card-actions
+                    ></mat-card
+                  >
+               
+                </form> -->
+                 <br />
               </mat-tab>
-             
             </mat-tab-group>
           </div>
         </mat-card>
@@ -1263,7 +1478,7 @@
             İptal
           </button>
         </div>
-      </form>
+      </form> 
     </div>
   </div>
 </div>

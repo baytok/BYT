@@ -38,22 +38,32 @@
     <a mat-list-item routerLink="/app/genel" (click)="onSidenavClose()">
         <mat-icon>people</mat-icon> <span class="nav-caption">Kullanıcılar</span>
     </a>
-    <a mat-list-item routerLink="/app/beyanname" (click)="onSidenavClose()">
-        <mat-icon>description</mat-icon> <span class="nav-caption">Beyanname</span>
+    <a mat-list-item  routerLink="/app/beyanname" (click)="onSidenavClose()"  [matMenuTriggerFor]="beyan">
+        <mat-icon>description</mat-icon> <span class="nav-caption">Beyanname</span>     
     </a>
     <a mat-list-item routerLink="/app/islemler" (click)="onSidenavClose()" >
         <mat-icon>list</mat-icon> <span class="nav-caption">İşlemler</span>   
     </a>
     <!-- <a mat-list-item routerLink="#" (click)="onSidenavClose()">
         <mat-icon>account_balance</mat-icon><span class="nav-caption">Account Actions</span>
-    </a> 
-    <mat-list-item [matMenuTriggerFor]="menu">
-        <mat-icon>unfold_more</mat-icon>
-        <a matline>Example</a>
-    </mat-list-item>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="onSidenavClose()">View profile</button>
-      <button mat-menu-item (click)="onSidenavClose()">Add contact</button>
-    </mat-menu> -->
+    </a>  -->
+   
+      <mat-menu #beyan="matMenu">        
+        <button mat-menu-item [matMenuTriggerFor]="kalem" routerLink="/app/kalem">Kalemler</button>
+        <button mat-menu-item [matMenuTriggerFor]="amphibians">Özet Beyan Açma</button>
+        <button mat-menu-item [matMenuTriggerFor]="reptiles">Kıymet Bildirim</button>
+        <button mat-menu-item>Teminat</button>
+        <button mat-menu-item>Firma</button>
+      </mat-menu>
+      <mat-menu #kalem="matMenu">
+        <button mat-menu-item>Marka</button>
+        <button mat-menu-item>Ödeme Şekilleri</button>
+        <button mat-menu-item>Açmalar</button>        
+        <button mat-menu-item>Konteyner</button>
+        <button mat-menu-item>Tamamlayıcı Bilgi</button>       
+      </mat-menu>
+      <mat-menu #amphibians="matMenu"></mat-menu>
+      <mat-menu #reptiles="matMenu"></mat-menu>
+  
 </mat-nav-list>
 

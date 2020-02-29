@@ -58,7 +58,7 @@ namespace BYT.UI
             //var valuess = manager.BeyannameOlustur("12344");
             var internalrefid = manager.RefIdAl("1000");
 
-            string InternalNo = "11111111100" + "DBG" + internalrefid.Veri.Bilgiler[0].SonucVeriler.ToString().PadLeft(6, '0');
+            string InternalNo = "11111111100" + "DB" + internalrefid.Veri.Bilgiler[0].SonucVeriler.ToString().PadLeft(6, '0');
 
             DbBeyan _beyan = new DbBeyan();
            
