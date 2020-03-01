@@ -69,7 +69,7 @@ namespace BYT.WS.Controllers.api
             {
                 ServisDurum _servisDurum = new ServisDurum();
 
-                var kullaniciValues = await _kullaniciContext.Kullanici.Where(v => v.KullaniciKod == Kullanici).ToListAsync();
+                var kullaniciValues = await _kullaniciContext.Kullanici.Where(v => v.KullaniciKod == Kullanici.Trim()).ToListAsync();
 
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 

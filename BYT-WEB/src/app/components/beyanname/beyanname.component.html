@@ -36,12 +36,12 @@
           <mat-icon>add</mat-icon>
           <span>Yeni Beyanname</span>
         </button>
-        <button mat-menu-item (click)="duzeltBeyanname()">
+        <button mat-menu-item (click)="duzeltBeyanname()" [disabled]="_beyanname.tescilStatu === 'Olusturuldu' ? false : true" >
           <mat-icon>sync</mat-icon>
           <span>Beyanname Düzeltme</span>
         </button>
 
-        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)">
+        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)" [disabled]="_beyanname.tescilStatu ==='Olusturuldu' ? false : true" >
           <mat-icon>file_copy</mat-icon>
           <span>Beyanname Kopyala</span>
         </button>

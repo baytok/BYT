@@ -37,7 +37,7 @@ namespace BYT.WS.Controllers.api
             {
                 ServisDurum _servisDurum = new ServisDurum();
 
-                var tarihceValues = await _islemTarihceContext.Tarihce.Where(v => v.IslemInternalNo == IslemInternalNo).ToListAsync();
+                var tarihceValues = await _islemTarihceContext.Tarihce.Where(v => v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
 
                 //_servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
@@ -70,7 +70,7 @@ namespace BYT.WS.Controllers.api
                 SonucHizmeti.GumrukWSSoapClient sonuc = ServiceHelper.GetSonucWSClient(_servisCredential.username, _servisCredential.password);
 
 
-                var values = await sonuc.IslemSonucGetir4Async(Guid);
+                var values = await sonuc.IslemSonucGetir4Async(Guid.Trim());
 
 
                 //var islemValues = await _islemContext.Islem.Update(v => v.InternalNo == InternalNo);

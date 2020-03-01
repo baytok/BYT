@@ -147,18 +147,19 @@ export class IslemComponent implements OnInit {
    }
    getBeyanname(islemInternalNo: string)
    {
+    this.session.islemInternalNo=islemInternalNo;  
     this.router.navigateByUrl('/app/beyanname');
    }
    getBeyannameSonuc(guid:string,islemInternalNo: string)
    {
      this.showSonucDialog(0,guid,islemInternalNo);
    }
-   sendingKontrolMessages(IslemInternalNo:string){
-    this.session.islemInternalNo=IslemInternalNo;  
+   sendingKontrolMessages(islemInternalNo:string){
+    this.session.islemInternalNo=islemInternalNo;  
     if(confirm('Kontrol Gönderimi Yapamak İstediğinizden Eminmisiniz?')){
       this.loading = true; 
     
-     const promise=this.beyanServis.KontrolGonderimi(IslemInternalNo,this.kullanici).toPromise();
+     const promise=this.beyanServis.KontrolGonderimi(islemInternalNo,this.kullanici).toPromise();
      promise.then( (result)=>{  
         const sonuc_ = new ServisDto();
         sonuc_.init(result);

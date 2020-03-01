@@ -48,7 +48,7 @@ namespace BYT.WS.Controllers.Servis
                 SonucHizmeti.GumrukWSSoapClient sonuc = ServiceHelper.GetSonucWSClient(_servisCredential.username, _servisCredential.password);
                 SonucHizmeti.ArrayOfXElement snc = new SonucHizmeti.ArrayOfXElement();
 
-                snc = await sonuc.IslemSonucGetir4Async(Guid);
+                snc = await sonuc.IslemSonucGetir4Async(Guid.Trim());
 
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(snc.Nodes[1].FirstNode.ToString());

@@ -76,7 +76,7 @@ namespace BYT.WS.Controllers.api
             {
                 ServisDurum _servisDurum = new ServisDurum();
 
-                var islemValues =  await _islemContext.Islem.Where(v => v.Kullanici == Kullanici).ToListAsync();
+                var islemValues =  await _islemContext.Islem.Where(v => v.Kullanici == Kullanici.Trim()).ToListAsync();
                 //var result = new Sonuc<object>() { Veri = islemValues, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
                
                 return islemValues;
@@ -98,7 +98,7 @@ namespace BYT.WS.Controllers.api
             {
                 ServisDurum _servisDurum = new ServisDurum();
 
-                var islemValues = await _islemContext.Islem.Where(v => v.RefNo == refNo).ToListAsync();
+                var islemValues = await _islemContext.Islem.Where(v => v.RefNo == refNo.Trim()).ToListAsync();
 
                 //_servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 

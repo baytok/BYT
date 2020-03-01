@@ -7,36 +7,84 @@
         <input
           matInput
           readonly
-          name="BeyannameNo"
+           #BeyannameNo
           [(ngModel)]="beyanInternalNo"
         />
       </mat-form-field>
-      <button
-        mat-icon-button
-        [matMenuTriggerFor]="kalemheaderMenu"
-        class="header-dropdown-mat-icon-button"
-      >
-        <mat-icon>more_vert</mat-icon>
-      </button>
+      
+      <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
+      </mat-cell>
+      <mat-label>{{beyanStatu}}</mat-label>     
+     
+   
       <mat-menu #kalemheaderMenu="matMenu">
-        <button mat-menu-item (click)="yeniKalem()">
+        <button mat-menu-item (click)="yukleKalemler()" [disabled]="beyanStatu === 'Olusturuldu' ? false : true" >
+          <mat-icon>refresh</mat-icon>
+          <span>Listeyi Yenile</span>
+        </button>
+        <button mat-menu-item (click)="yeniKalem()" [disabled]="beyanStatu === 'Olusturuldu' ? false : true" >
           <mat-icon>add</mat-icon>
           <span>Yeni Kalem</span>
         </button>
-        <button mat-menu-item (click)="duzeltKalem()">
+        <button mat-menu-item (click)="duzeltKalem()" [disabled]="beyanStatu === 'Olusturuldu' && _kalemler.Length != 0  ? false : true" >
           <mat-icon>sync</mat-icon>
           <span>Kalem Düzeltme</span>
         </button>
-        <button mat-menu-item (click)="siltKalem()">
+        <button mat-menu-item (click)="siltKalem()" [disabled]="beyanStatu === 'Olusturuldu' && _kalemler.Length != 0 ? false : true" >
           <mat-icon>remove</mat-icon>
           <span>Kalem Sil</span>
+        </button>      
+        </mat-menu>  
+       
+         <h6 class="card-header text-left">Kalemler</h6>  
+         <div class="card m-2">
+          <button
+          mat-icon-button
+          [matMenuTriggerFor]="kalemheaderMenu"
+          class="header-dropdown-mat-icon-button"
+        >
+         <mat-icon>more_vert</mat-icon>
         </button>
+        <mat-selection-list #KalemList multiple="false" >
+          <mat-list-option *ngFor="let kalem of _kalemler;"
+           (selectionChange)="handleSelection($event, kalem)"
+           [value]="kalem" [disableRipple]="true"
+           (click)="getKalem(kalem.kalemSiraNo)"         
+           >
+            <div style="display:flex; justify-content:space-between;align-items:center">
+              <div style="display:flex;align-items:center">
+                <mat-icon matListAvatar>folder</mat-icon>        
+                <div style="display:flex; flex-direction:column">
+               
+                    <h5 matLine> {{kalem.kalemSiraNo}}</h5>
+                    <p matLine>
+                      {{kalem.gtip}}
+                    </p>
+                 
+                  
+                </div>
+              </div>
+              <!--<div>
+                 <button mat-icon-button (click)="onEdit($event, item)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div> -->
+            </div>
+          </mat-list-option>
+        </mat-selection-list>
+       
+        <!-- <mat-nav-list>
+         <mat-list-item (click)="getKalem(kalem.kalemSiraNo)" *ngFor="let kalem of _kalemler" [routerLinkActive]="['active']" [routerLink]="['/home']">         
+          <mat-icon [class.active]="selected" matListIcon>folder</mat-icon>
+          <h4 mat-line>{{kalem.kalemSiraNo}}</h4>
+          <p mat-line> {{kalem.gtip}} </p>   
+          <h5 mat-line> {{kalem.kalemInternalNo}} </h5>        
+           <mat-divider></mat-divider>   
+        </mat-list-item>         
+        </mat-nav-list> -->
+     
       
-      </mat-menu>
-      <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
-      </mat-cell>
-    
-      
+    </div> 
        <form [formGroup]="kalemForm" (ngSubmit)="onkalemFormSubmit()">
         <mat-card class="mat-card">
           <div class="example-box">

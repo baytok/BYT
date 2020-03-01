@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Injector } from "@angular/core";
+import { Component, OnInit, Inject, Injector,ViewChild,ElementRef } from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -24,7 +24,7 @@ import {
   BeyannameServiceProxy,
   SessionServiceProxy
 } from "../../../shared/service-proxies/service-proxies";
-import { MatSnackBar, MatDialog } from "@angular/material";
+import { MatSnackBar, MatDialog, MatInput } from "@angular/material";
 
 import {
   BeyannameBilgileriDto,
@@ -39,7 +39,7 @@ import {
   styleUrls: ["./beyanname.component.scss"]
 })
 export class BeyannameComponent implements OnInit {
-  
+  @ViewChild('islemNo', {static: true}) private islemInput: ElementRef;
   beyannameForm: FormGroup;
   submitted: boolean = false;
   guidOf = this.session.guidOf;
@@ -222,7 +222,9 @@ export class BeyannameComponent implements OnInit {
   }
   ngOnInit() {
     if (this.session.islemInternalNo != undefined) {
-      this.getBeyanname(this.session.islemInternalNo);
+      this.islemInput.nativeElement.value=this.session.islemInternalNo;
+      this.getBeyannameFromIslem(this.session.islemInternalNo);
+     
     }
    
   }
@@ -232,101 +234,135 @@ export class BeyannameComponent implements OnInit {
       duration: 2000
     });
   }
-  getBeyanname(islemInternalNo) {
-    if (
-      this.session.islemInternalNo === null ||
-      this.session.islemInternalNo === undefined
-    )
-      this.session.islemInternalNo = islemInternalNo.value;
+  getBeyannameFromIslem(islemInternalNo:string) {  
 
-    this.beyanServis.getBeyanname(this.session.islemInternalNo).subscribe(
+    this.beyanServis.getBeyanname(islemInternalNo).subscribe(
       result => {
+       
         this._beyannameBilgileri = new BeyannameBilgileriDto();
         this._beyannameBilgileri.init(result);
-
-        this._beyanname = this._beyannameBilgileri.Beyanname;
-        this._kalemler=this._beyannameBilgileri.Kalemler;
-        this.session.Kalemler= this._kalemler;
+        
+        this._beyanname = this._beyannameBilgileri.Beyanname;       
         if (this._beyanname == null) {
-          this.openSnackBar(islemInternalNo.value + "  Bulunamadı", "Tamam");
+          this.openSnackBar(islemInternalNo + "  Bulunamadı", "Tamam");
           return;
         }
-        this.session.beyanInternalNo= this._beyanname.beyanInternalNo ;
-        this.beyannameForm.setValue({
-          beyanInternalNo: this._beyanname.beyanInternalNo,
-          beyannameNo: this._beyanname.beyannameNo,
-          rejim: this._beyanname.rejim,
-          gumruk: this._beyanname.gumruk,
-          aciklamalar: this._beyanname.aciklamalar,
-          aliciSaticiIliskisi: this._beyanname.aliciSaticiIliskisi,
-          aliciVergiNo: this._beyanname.aliciVergiNo,
-          antrepoKodu: this._beyanname.antrepoKodu,
-          asilSorumluVergiNo: this._beyanname.asilSorumluVergiNo,
-           bankaKodu: this._beyanname.bankaKodu,
-           basitlestirilmisUsul: this._beyanname.basitlestirilmisUsul,
-           beyanSahibiVergiNo: this._beyanname.beyanSahibiVergiNo,
-           kullanici: this._beyanname.kullanici,
-           gondericiVergiNo: this._beyanname.gondericiVergiNo,    
-           birlikKayitNumarasi: this._beyanname.birlikKayitNumarasi,
-           birlikKriptoNumarasi: this._beyanname.birlikKriptoNumarasi,
-           cikistakiAracinKimligi: this._beyanname.cikistakiAracinKimligi,
-           cikistakiAracinTipi: this._beyanname.cikistakiAracinTipi,
-           cikistakiAracinUlkesi: this._beyanname.cikistakiAracinUlkesi,
-           cikisUlkesi: this._beyanname.cikisUlkesi,
-           esyaninBulunduguYer: this._beyanname.esyaninBulunduguYer,
-           gidecegiSevkUlkesi: this._beyanname.gidecegiSevkUlkesi,
-           gidecegiUlke: this._beyanname.gidecegiUlke,
-           girisGumrukIdaresi: this._beyanname.girisGumrukIdaresi,              
-           isleminNiteligi: this._beyanname.isleminNiteligi,
-           kapAdedi: this._beyanname.kapAdedi,
-           konteyner: this._beyanname.konteyner,
-          
-          limanKodu: this._beyanname.limanKodu,
-          mail1: this._beyanname.mail1,
-          // mail2: this._beyanname.mail2,
-          // mail3: this._beyanname.mail3,
-          mobil1: this._beyanname.mobil1,
-          // mobil2: this._beyanname.mobil2,
-          musavirVergiNo: this._beyanname.musavirVergiNo,
-          odemeAraci: this._beyanname.odemeAraci,
-          musavirReferansNo: this._beyanname.musavirReferansNo,
-          referansTarihi: this._beyanname.referansTarihi,
-          refNo: this._beyanname.refNo,
-          sinirdakiAracinKimligi: this._beyanname.sinirdakiAracinKimligi,
-          sinirdakiAracinTipi: this._beyanname.sinirdakiAracinTipi,
-          sinirdakiAracinUlkesi: this._beyanname.sinirdakiAracinUlkesi,
-          sinirdakiTasimaSekli: this._beyanname.sinirdakiTasimaSekli,
-          tasarlananGuzergah: this._beyanname.tasarlananGuzergah,
-          telafiEdiciVergi: this._beyanname.telafiEdiciVergi,
-          tescilStatu: this._beyanname.tescilStatu,
-          tescilTarihi: this._beyanname.tescilTarihi,
-          teslimSekli: this._beyanname.teslimSekli,
-          teslimSekliYeri: this._beyanname.teslimSekliYeri,
-           ticaretUlkesi: this._beyanname.ticaretUlkesi,
-          toplamFatura: this._beyanname.toplamFatura,
-          toplamFaturaDovizi: this._beyanname.toplamFaturaDovizi,
-          toplamNavlun: this._beyanname.toplamNavlun,
-          toplamNavlunDovizi: this._beyanname.toplamNavlunDovizi,
-          toplamSigorta: this._beyanname.toplamSigorta,
-          toplamSigortaDovizi: this._beyanname.toplamSigortaDovizi,
-          toplamYurtDisiHarcamalar: this._beyanname.toplamYurtDisiHarcamalar,
-          toplamYurtDisiHarcamalarDovizi: this._beyanname
-            .toplamYurtDisiHarcamalarDovizi,
-          toplamYurtIciHarcamalar: this._beyanname.toplamYurtIciHarcamalar,
-          varisGumrukIdaresi: this._beyanname.varisGumrukIdaresi,
-          yukBelgeleriSayisi: this._beyanname.yukBelgeleriSayisi,
-          yuklemeBosaltmaYeri: this._beyanname.yuklemeBosaltmaYeri,
-       
-        });
-     
-        this.beyannameForm.disable();
+        else{
+          this._kalemler=this._beyannameBilgileri.Kalemler;
+          this.session.islemInternalNo = islemInternalNo;
+          this.session.Kalemler= this._kalemler;
+          this.session.beyanInternalNo= this._beyanname.beyanInternalNo ;
+          this.session.beyanStatu= this._beyanname.tescilStatu ;
+        }
+        this.setBeyannameForm();
+      
       },
       err => {
         console.log(err);
       }
     );
   }
+  getBeyanname(islemInternalNo) {  
 
+    this.beyanServis.getBeyanname(islemInternalNo.value).subscribe(
+      result => {
+       
+        this._beyannameBilgileri = new BeyannameBilgileriDto();
+        this._beyannameBilgileri.init(result);
+        
+        this._beyanname = this._beyannameBilgileri.Beyanname;       
+        if (this._beyanname == null) {
+          this.openSnackBar(islemInternalNo.value + "  Bulunamadı", "Tamam");
+          return;
+        }
+        else{
+          this._kalemler=this._beyannameBilgileri.Kalemler;
+          this.session.islemInternalNo = islemInternalNo.value;
+          this.session.Kalemler= this._kalemler;
+          this.session.beyanInternalNo= this._beyanname.beyanInternalNo ;
+          this.session.beyanStatu= this._beyanname.tescilStatu ;
+          this.setBeyannameForm();
+          // islemInternalNo.value ="";
+        }
+    
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  setBeyannameForm()
+    {
+      this.beyannameForm.setValue({
+        beyanInternalNo: this._beyanname.beyanInternalNo,
+        beyannameNo: this._beyanname.beyannameNo,
+        rejim: this._beyanname.rejim,
+        gumruk: this._beyanname.gumruk,
+        aciklamalar: this._beyanname.aciklamalar,
+        aliciSaticiIliskisi: this._beyanname.aliciSaticiIliskisi,
+        aliciVergiNo: this._beyanname.aliciVergiNo,
+        antrepoKodu: this._beyanname.antrepoKodu,
+        asilSorumluVergiNo: this._beyanname.asilSorumluVergiNo,
+        bankaKodu: this._beyanname.bankaKodu,
+        basitlestirilmisUsul: this._beyanname.basitlestirilmisUsul,
+        beyanSahibiVergiNo: this._beyanname.beyanSahibiVergiNo,
+        kullanici: this._beyanname.kullanici,
+        gondericiVergiNo: this._beyanname.gondericiVergiNo,    
+        birlikKayitNumarasi: this._beyanname.birlikKayitNumarasi,
+        birlikKriptoNumarasi: this._beyanname.birlikKriptoNumarasi,
+        cikistakiAracinKimligi: this._beyanname.cikistakiAracinKimligi,
+        cikistakiAracinTipi: this._beyanname.cikistakiAracinTipi,
+        cikistakiAracinUlkesi: this._beyanname.cikistakiAracinUlkesi,
+        cikisUlkesi: this._beyanname.cikisUlkesi,
+        esyaninBulunduguYer: this._beyanname.esyaninBulunduguYer,
+        gidecegiSevkUlkesi: this._beyanname.gidecegiSevkUlkesi,
+        gidecegiUlke: this._beyanname.gidecegiUlke,
+        girisGumrukIdaresi: this._beyanname.girisGumrukIdaresi,              
+        isleminNiteligi: this._beyanname.isleminNiteligi,
+        kapAdedi: this._beyanname.kapAdedi,
+        konteyner: this._beyanname.konteyner,
+        
+        limanKodu: this._beyanname.limanKodu,
+        mail1: this._beyanname.mail1,
+        // mail2: this._beyanname.mail2,
+        // mail3: this._beyanname.mail3,
+        mobil1: this._beyanname.mobil1,
+        // mobil2: this._beyanname.mobil2,
+        musavirVergiNo: this._beyanname.musavirVergiNo,
+        odemeAraci: this._beyanname.odemeAraci,
+        musavirReferansNo: this._beyanname.musavirReferansNo,
+        referansTarihi: this._beyanname.referansTarihi,
+        refNo: this._beyanname.refNo,
+        sinirdakiAracinKimligi: this._beyanname.sinirdakiAracinKimligi,
+        sinirdakiAracinTipi: this._beyanname.sinirdakiAracinTipi,
+        sinirdakiAracinUlkesi: this._beyanname.sinirdakiAracinUlkesi,
+        sinirdakiTasimaSekli: this._beyanname.sinirdakiTasimaSekli,
+        tasarlananGuzergah: this._beyanname.tasarlananGuzergah,
+        telafiEdiciVergi: this._beyanname.telafiEdiciVergi,
+        tescilStatu: this._beyanname.tescilStatu,
+        tescilTarihi: this._beyanname.tescilTarihi,
+        teslimSekli: this._beyanname.teslimSekli,
+        teslimSekliYeri: this._beyanname.teslimSekliYeri,
+        ticaretUlkesi: this._beyanname.ticaretUlkesi,
+        toplamFatura: this._beyanname.toplamFatura,
+        toplamFaturaDovizi: this._beyanname.toplamFaturaDovizi,
+        toplamNavlun: this._beyanname.toplamNavlun,
+        toplamNavlunDovizi: this._beyanname.toplamNavlunDovizi,
+        toplamSigorta: this._beyanname.toplamSigorta,
+        toplamSigortaDovizi: this._beyanname.toplamSigortaDovizi,
+        toplamYurtDisiHarcamalar: this._beyanname.toplamYurtDisiHarcamalar,
+        toplamYurtDisiHarcamalarDovizi: this._beyanname
+          .toplamYurtDisiHarcamalarDovizi,
+        toplamYurtIciHarcamalar: this._beyanname.toplamYurtIciHarcamalar,
+        varisGumrukIdaresi: this._beyanname.varisGumrukIdaresi,
+        yukBelgeleriSayisi: this._beyanname.yukBelgeleriSayisi,
+        yuklemeBosaltmaYeri: this._beyanname.yuklemeBosaltmaYeri,
+    
+      });
+  
+      this.beyannameForm.disable();
+
+  }
   getBeyannameKopyalama(islemInternalNo) {
     if (confirm("Beyannameyi Kopyalamakta Eminmisiniz?")) {
       let yeniislemInternalNo: string;

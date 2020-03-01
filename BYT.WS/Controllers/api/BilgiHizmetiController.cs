@@ -40,7 +40,7 @@ namespace BYT.WS.Controllers.api
 
                 ServisDurum _servisDurum = new ServisDurum();
                 
-                var results = _bilgiContext.GetRefIdNextSequenceValue(Rejim);
+                var results = _bilgiContext.GetRefIdNextSequenceValue(Rejim.Trim());
                 int? nextSequenceValue = results;
 
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;

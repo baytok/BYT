@@ -42,18 +42,18 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
             try
             {
-                var _hatalar = await _sonucContext.DbSonucHatalar.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _belgeler = await _sonucContext.DbSonucBelgeler.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _vergiler = await _sonucContext.DbSonucVergiler.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _sorular = await _sonucContext.DbSonucSorular.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _sorucevaplar = await _sonucContext.DbSonucSoruCevaplar.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _toplamvergiler = await _sonucContext.DbSonucToplamVergiler.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _toplananvergiler = await _sonucContext.DbSonucToplananVergiler.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _hesapdetaylar = await _sonucContext.DbSonucHesapDetaylar.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _ozetbeyan = await _sonucContext.DbSonucOzetBeyan.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _gumrukkiymeti = await _sonucContext.DbSonucGumrukKiymeti.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _istatitikikiymet = await _sonucContext.DbSonucIstatistikiKiymet.Where(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo).ToListAsync();
-                var _digerbilgiler = await _sonucContext.DbSonucDigerBilgiler.FirstOrDefaultAsync(v => v.Guid == Guid && v.IslemInternalNo == IslemInternalNo);
+                var _hatalar = await _sonucContext.DbSonucHatalar.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _belgeler = await _sonucContext.DbSonucBelgeler.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _vergiler = await _sonucContext.DbSonucVergiler.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _sorular = await _sonucContext.DbSonucSorular.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _sorucevaplar = await _sonucContext.DbSonucSoruCevaplar.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _toplamvergiler = await _sonucContext.DbSonucToplamVergiler.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _toplananvergiler = await _sonucContext.DbSonucToplananVergiler.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _hesapdetaylar = await _sonucContext.DbSonucHesapDetaylar.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _ozetbeyan = await _sonucContext.DbSonucOzetBeyan.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _gumrukkiymeti = await _sonucContext.DbSonucGumrukKiymeti.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _istatitikikiymet = await _sonucContext.DbSonucIstatistikiKiymet.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _digerbilgiler = await _sonucContext.DbSonucDigerBilgiler.FirstOrDefaultAsync(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim());
 
                 if (_digerbilgiler != null)
                 {

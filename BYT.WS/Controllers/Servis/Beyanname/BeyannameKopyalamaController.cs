@@ -50,7 +50,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             var _beyannameContext = new BeyannameDataContext(options);
             try
             {
-                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo);
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
                 if (islemValues != null)
                 {
                     var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
