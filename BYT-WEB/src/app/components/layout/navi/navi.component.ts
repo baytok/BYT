@@ -19,5 +19,7 @@ export class NaviComponent implements OnInit {
   public onSidenavClose = () => {
     this.sidenavClose.emit();
   }
+  onToggleSidenav(){}
+  
 }
 

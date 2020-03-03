@@ -24,7 +24,9 @@ import {
   BeyannameServiceProxy,
   SessionServiceProxy
 } from "../../../shared/service-proxies/service-proxies";
-import { MatSnackBar, MatDialog, MatInput } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatInput } from "@angular/material/input";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 import {
   BeyannameBilgileriDto,

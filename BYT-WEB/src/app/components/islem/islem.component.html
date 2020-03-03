@@ -1,4 +1,4 @@
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '10px' }" [template]="customLoadingTemplate"></ngx-loading>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '10px' }" ></ngx-loading>
 <!-- <ngx-spinner
 bdColor = "rgba(51, 51, 51, 0.8)"
 size = "large"
@@ -146,7 +146,7 @@ type = "ball-8bits">
                           <mat-icon>refresh</mat-icon>
                           <span>Yenile</span>
 
-                          <section
+                          <!-- <section
                             class="example-section"
                             *ngIf="mode === 'determinate'"
                           >
@@ -155,17 +155,15 @@ type = "ball-8bits">
                               class="example-margin"
                               [(ngModel)]="value"
                             ></mat-slider>
-                          </section>
+                          </section> -->
                         </button>
                       </mat-menu>
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let element">
-                     <button type="button" class="btn btn-outline-secondary"
+                    <mat-cell *matCellDef="let element"
                       ngbTooltip="Sonuç: {{element.islemSonucu}}, Gönderim No:{{ element.gonderimSayisi }}"
                       [openDelay]="1000" [closeDelay]="3000" tooltipClass="my-custom-class">
                       {{element.islemInternalNo}}
-                    </button>
-                    
+               
                       <button mat-button [matMenuTriggerFor]="aboveMenu">
                         <mat-icon>menu</mat-icon>
                       </button>

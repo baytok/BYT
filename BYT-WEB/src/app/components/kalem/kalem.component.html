@@ -26,11 +26,11 @@
           <mat-icon>add</mat-icon>
           <span>Yeni Kalem</span>
         </button>
-        <button mat-menu-item (click)="duzeltKalem()" [disabled]="beyanStatu === 'Olusturuldu' && _kalemler.Length != 0  ? false : true" >
+        <button mat-menu-item (click)="duzeltKalem()" [disabled]="beyanStatu === 'Olusturuldu'  ? false : true" >
           <mat-icon>sync</mat-icon>
           <span>Kalem Düzeltme</span>
         </button>
-        <button mat-menu-item (click)="siltKalem()" [disabled]="beyanStatu === 'Olusturuldu' && _kalemler.Length != 0 ? false : true" >
+        <button mat-menu-item (click)="silKalem()" [disabled]="beyanStatu === 'Olusturuldu'  ? false : true" >
           <mat-icon>remove</mat-icon>
           <span>Kalem Sil</span>
         </button>      
@@ -1520,8 +1520,8 @@
           </div>
         </mat-card>
         <div class="text-right">
-          <button  [disabled]="!isValid ? true : null" class="btn btn-primary mr-1">Kaydet</button>
-          <button  [disabled]="!isValid ? true : null" class="btn btn-secondary" type="reset" (click)="onReset()">
+          <button  class="btn btn-primary mr-1">Kaydet</button>
+          <button   class="btn btn-secondary" type="reset" (click)="onReset()">
             İptal
           </button>
         </div>

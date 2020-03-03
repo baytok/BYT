@@ -18,7 +18,8 @@ import {
   BeyannameServiceProxy,
   SessionServiceProxy
 } from "../../../shared/service-proxies/service-proxies";
-import { MatSnackBar, MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 import {
   BeyannameBilgileriDto,
@@ -420,7 +421,10 @@ export class KalemComponent implements OnInit {
   onReset() {
     this.submitted = false;
   }
- 
+  yukleKalemler(){
+
+  }
+  
 
   private getUnit() {
     const numberPatern = "^[0-9.,]+$";

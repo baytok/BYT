@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject,Injector } from '@angular/core';
-import {MatSnackBar,MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BeyannameServiceProxy} from '../../../shared/service-proxies/service-proxies';
 
 import {
