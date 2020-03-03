@@ -19,6 +19,7 @@ import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.modu
 import { AppConsts } from '../shared/AppConsts';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { AppSessionService } from 'src/shared/session/app-session.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { AppSessionService } from 'src/shared/session/app-session.service';
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
+      NgbModule,
       ServiceProxyModule,   
       ReactiveFormsModule,
         NgxLoadingModule.forRoot({

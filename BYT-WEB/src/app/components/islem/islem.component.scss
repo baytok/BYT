@@ -155,3 +155,10 @@
   border-bottom: 16px solid red;
   border-left: 16px solid pink;
 }
+.my-custom-class .tooltip-inner {
+  background-color: darkgreen;
+  font-size: 125%;
+}
+.my-custom-class .arrow::before {
+  border-top-color: darkgreen;
+}

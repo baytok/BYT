@@ -36,12 +36,12 @@
           <mat-icon>add</mat-icon>
           <span>Yeni Beyanname</span>
         </button>
-        <button mat-menu-item (click)="duzeltBeyanname()" [disabled]="_beyanname.tescilStatu === 'Olusturuldu' ? false : true" >
+        <button mat-menu-item (click)="duzeltBeyanname()" [disabled]="_beyanname.tescilStatu === 'Olusturuldu' || _beyanname.tescilStatu === 'Güncellendi' ? false : true" >
           <mat-icon>sync</mat-icon>
           <span>Beyanname Düzeltme</span>
         </button>
 
-        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)" [disabled]="_beyanname.tescilStatu ==='Olusturuldu' ? false : true" >
+        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)" [disabled]="_beyanname.tescilStatu ==='Olusturuldu' || _beyanname.tescilStatu === 'Güncellendi' ? false : true" >
           <mat-icon>file_copy</mat-icon>
           <span>Beyanname Kopyala</span>
         </button>
@@ -1258,10 +1258,9 @@
           </div>
         </mat-card>
         <div class="text-right">
-          <button  [disabled]="!isValid ? true : null" class="btn btn-primary mr-1">Kaydet</button>
-          <button  [disabled]="!isValid ? true : null" class="btn btn-secondary" type="reset" (click)="onReset()">
-            İptal
-          </button>
+      
+          <button  [disabled]="!beyannameForm.valid" class="btn btn-primary mr-1">Kaydet</button>
+          
         </div>
       </form>
     </div>

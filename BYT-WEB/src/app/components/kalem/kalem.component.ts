@@ -289,8 +289,7 @@ export class KalemComponent implements OnInit {
   }
   ngOnInit() {
     this._beyannameNo.nativeElement.focus();
-    this.selectionList.selectionChange.subscribe((s: MatSelectionListChange) => {          
-
+    this.selectionList.selectionChange.subscribe((s: MatSelectionListChange) => { 
       this.selectionList.deselectAll();
       s.option.selected = true;
   });
@@ -421,16 +420,7 @@ export class KalemComponent implements OnInit {
   onReset() {
     this.submitted = false;
   }
-  handleSelection(event, categorySelected) {
-    console.log(categorySelected, event);
-    if (event.selected) {
-      event.source.selectionList.options.toArray().forEach(element => {
-        if (element.value.name != categorySelected.name) {
-          element.selected = false;
-        }
-      });
-    }
-  }
+ 
 
   private getUnit() {
     const numberPatern = "^[0-9.,]+$";

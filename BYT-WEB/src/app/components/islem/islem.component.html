@@ -35,6 +35,11 @@ type = "ball-8bits">
                   [dataSource]="islemlerDataSource"
                   class="mat-elevation-z8 "
                 >
+                 <ng-container matColumnDef="detay" > 
+                  <mat-cell *matHeaderCellDef>
+                   
+                  </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="beyanTipi">
                   <mat-header-cell
                     [style.flex]="'0 0 120px'"
@@ -48,6 +53,7 @@ type = "ball-8bits">
                   >
                     {{ element.beyanTipi }}
                   </mat-cell>
+                 
                 </ng-container>
 
                   <ng-container matColumnDef="islemTipi">
@@ -81,7 +87,7 @@ type = "ball-8bits">
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="islemSonucu">
+                  <!-- <ng-container matColumnDef="islemSonucu">
                     <mat-header-cell
                       [style.flex]="'0 0 250px'"
                       *matHeaderCellDef
@@ -94,7 +100,7 @@ type = "ball-8bits">
                     >
                       {{ element.islemSonucu }}
                     </mat-cell>
-                  </ng-container>
+                  </ng-container> -->
 
                   <ng-container matColumnDef="islemZamani">
                     <mat-header-cell
@@ -111,7 +117,7 @@ type = "ball-8bits">
                     </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="gonderimSayisi">
+                  <!-- <ng-container matColumnDef="gonderimSayisi">
                     <mat-header-cell
                       [style.flex]="'0 0 80px'"
                       *matHeaderCellDef
@@ -124,7 +130,7 @@ type = "ball-8bits">
                     >
                       {{ element.gonderimSayisi }}
                     </mat-cell>
-                  </ng-container>
+                  </ng-container> -->
 
                   <ng-container matColumnDef="islemInternalNo">
                     <mat-header-cell *matHeaderCellDef>
@@ -154,7 +160,12 @@ type = "ball-8bits">
                       </mat-menu>
                     </mat-header-cell>
                     <mat-cell *matCellDef="let element">
+                      <button type="button" class="btn btn-outline-secondary"
+                      ngbTooltip="Sonuç: {{element.islemSonucu}}, Gönderim No:{{ element.gonderimSayisi }}"
+                      [openDelay]="1000" [closeDelay]="3000" tooltipClass="my-custom-class">
                       {{element.islemInternalNo}}
+                    </button>
+                    
                       <button mat-button [matMenuTriggerFor]="aboveMenu">
                         <mat-icon>menu</mat-icon>
                       </button>
@@ -321,7 +332,7 @@ type = "ball-8bits">
                       {{ element.sonucZamani }}
                     </mat-cell>
                   </ng-container>
-
+                 
                   <ng-container matColumnDef="guid">
                     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                     <mat-cell *matCellDef="let element">

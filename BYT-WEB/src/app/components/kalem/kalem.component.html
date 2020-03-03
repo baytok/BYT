@@ -47,8 +47,7 @@
         </button>
         <mat-selection-list #KalemList multiple="false" >
           <mat-list-option *ngFor="let kalem of _kalemler;"
-           (selectionChange)="handleSelection($event, kalem)"
-           [value]="kalem" [disableRipple]="true"
+          [value]="kalem" [disableRipple]="true"
            (click)="getKalem(kalem.kalemSiraNo)"         
            >
             <div style="display:flex; justify-content:space-between;align-items:center">

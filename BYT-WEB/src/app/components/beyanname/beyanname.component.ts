@@ -185,7 +185,7 @@ export class BeyannameComponent implements OnInit {
           Validators.maxLength(9),
           Validators.pattern("^[0-9]*$")
         ]),
-        konteyner: [false, Validators.requiredTrue],
+        konteyner: [false],
         girisGumrukIdaresi:new FormControl("",[
           Validators.maxLength(9),
           Validators.pattern("^[0-9]*$")
@@ -226,7 +226,7 @@ export class BeyannameComponent implements OnInit {
       this.getBeyannameFromIslem(this.session.islemInternalNo);
      
     }
-   
+    this.beyannameForm.disable();
   }
 
   openSnackBar(message: string, action: string) {
@@ -254,7 +254,7 @@ export class BeyannameComponent implements OnInit {
           this.session.beyanInternalNo= this._beyanname.beyanInternalNo ;
           this.session.beyanStatu= this._beyanname.tescilStatu ;
         }
-        this.setBeyannameForm();
+        this.loadBeyannameForm();
       
       },
       err => {
@@ -281,7 +281,7 @@ export class BeyannameComponent implements OnInit {
           this.session.Kalemler= this._kalemler;
           this.session.beyanInternalNo= this._beyanname.beyanInternalNo ;
           this.session.beyanStatu= this._beyanname.tescilStatu ;
-          this.setBeyannameForm();
+          this.loadBeyannameForm();
           // islemInternalNo.value ="";
         }
     
@@ -291,7 +291,7 @@ export class BeyannameComponent implements OnInit {
       }
     );
   }
-  setBeyannameForm()
+  loadBeyannameForm()
     {
       this.beyannameForm.setValue({
         beyanInternalNo: this._beyanname.beyanInternalNo,
@@ -393,10 +393,29 @@ export class BeyannameComponent implements OnInit {
     this._beyanname.beyanInternalNo='';
     this._beyanname.tescilStatu='';
     this.beyannameForm.reset();
+    this.beyannameForm.enable();
+    this.submitted = false;
+    this.islemInput.nativeElement.value="";
   }
 
   duzeltBeyanname() {
+   
     this.beyannameForm.enable();
+ //   this.beyannameForm.asyncValidator.call;
+    if (this.beyannameForm.invalid) {
+      const invalid = [];
+      const controls = this.beyannameForm.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          invalid.push(name);
+        }
+      }
+      
+      alert(
+        "ERROR!! :-)\n\n Aşağıdaki nesnelerin verileri veya formatı yanlış:"  + JSON.stringify(invalid, null, 4)
+      );
+     
+    }
   }
 
   onbeyannameFormSubmit() {
@@ -404,17 +423,57 @@ export class BeyannameComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.beyannameForm.invalid) {
-      console.log("User Registration Form Submit", this.beyannameForm.value);
+      const invalid = [];
+      const controls = this.beyannameForm.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          invalid.push(name);
+        }
+      }
+      
+      alert(
+        "ERROR!! :-)\n\n Aşağıdaki nesnelerin verileri veya formatı yanlış:"  + JSON.stringify(invalid, null, 4)
+      );
+     
       return;
     }
 
-    // display form values on success
+    let yeniislemInternalNo: string;
+    let yeniBeyanname=new BeyannameDto();
+    yeniBeyanname.init(this.beyannameForm.value);
+    console.log(yeniBeyanname);
+      const promise = this.beyanServis
+        .setBeyanname(yeniBeyanname)
+        .toPromise();
+      promise.then(
+        result => {
+          console.log(result);
+          const servisSonuc = new ServisDto();
+          servisSonuc.init(result);
+          yeniislemInternalNo = servisSonuc.Bilgiler[0].referansNo;
+          console.log(yeniislemInternalNo);
+
+          if (yeniislemInternalNo != null) {
+            this.islemInput.nativeElement.value=yeniislemInternalNo;
+            this.session.islemInternalNo=yeniislemInternalNo;
+            this.openSnackBar(yeniislemInternalNo, "Tamam");
+          
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    
     alert(
       "SUCCESS!! :-)\n\n" + JSON.stringify(this.beyannameForm.value, null, 4)
     );
+
+    this.beyannameForm.disable();
   }
-  onReset() {
+  onCancel() {
     this.submitted = false;
+    this.beyannameForm.disable();
   }
   
   

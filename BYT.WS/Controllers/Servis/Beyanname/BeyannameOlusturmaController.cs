@@ -129,7 +129,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameOlustur")]
         [HttpPost]
-        public async Task<Sonuc<ServisDurum>> PostBeyanname([FromBody]DbBeyan beyan)
+        public async Task<ServisDurum> PostBeyanname([FromBody]DbBeyan beyan)
         {
             ServisDurum _servisDurum = new ServisDurum();
 
@@ -153,10 +153,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                 _servisDurum.Hatalar = _hatalar;
 
-                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-                return result;
+                //var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+                return _servisDurum;
             }
-
+                Islem _islem = new Islem();
             try
             {
 
@@ -164,24 +164,50 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 {
                     try
                     {
+                   
+                        //var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo && v.TescilStatu!="Tescil Edilmiş");
+                        if (!string.IsNullOrWhiteSpace(beyan.BeyanInternalNo))
+                        {
+                            _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo);
 
-                        _beyannameContext.Entry(beyan).State = EntityState.Added;
-                        await _beyannameContext.SaveChangesAsync();
+                            beyan.TescilStatu = "Güncellendi";
+                            _beyannameContext.Entry(beyan).State = EntityState.Modified;
+                            await _beyannameContext.SaveChangesAsync();
 
-                        Islem _islem = new Islem();
-                        _islem.Kullanici = beyan.Kullanici;
-                        _islem.IslemTipi = "";
-                        _islem.BeyanTipi = "DetayliBeyan";
-                        _islem.IslemDurumu = "Olusturuldu";
-                        _islem.RefNo = beyan.RefNo;
-                        _islem.BeyanInternalNo = beyan.BeyanInternalNo;
-                        _islem.IslemInternalNo = beyan.BeyanInternalNo;
-                        _islem.OlusturmaZamani = DateTime.Now;
-                        _islem.GonderimSayisi = 0;
 
-                        _islemTarihceContext.Entry(_islem).State = EntityState.Added;
-                        await _islemTarihceContext.SaveChangesAsync();
+                            _islem.IslemDurumu = "Güncellendi";
+                            _islem.OlusturmaZamani = DateTime.Now;
+                        
+                            _islemTarihceContext.Entry(_islem).State = EntityState.Modified;
+                            await _islemTarihceContext.SaveChangesAsync();
 
+                        }
+
+                        else
+                        {
+                            var internalrefid = _beyannameContext.GetRefIdNextSequenceValue(beyan.Rejim);
+                            string InternalNo = beyan.Kullanici + "DB" + internalrefid.ToString().PadLeft(6, '0');
+
+                            beyan.BeyanInternalNo = InternalNo;
+                            beyan.RefNo = "11111111100" + "|" + "1000" + "|" + internalrefid.ToString().PadLeft(6, '0');
+                            beyan.TescilStatu = "Olusturuldu";
+                            _beyannameContext.Entry(beyan).State = EntityState.Added;
+                            await _beyannameContext.SaveChangesAsync();
+
+
+                            _islem.Kullanici = beyan.Kullanici;
+                            _islem.IslemTipi = "";
+                            _islem.BeyanTipi = "DetayliBeyan";
+                            _islem.IslemDurumu = "Olusturuldu";
+                            _islem.RefNo = beyan.RefNo;
+                            _islem.BeyanInternalNo = beyan.BeyanInternalNo;
+                            _islem.IslemInternalNo = beyan.BeyanInternalNo;
+                            _islem.OlusturmaZamani = DateTime.Now;
+                            _islem.GonderimSayisi = 0;
+
+                            _islemTarihceContext.Entry(_islem).State = EntityState.Added;
+                            await _islemTarihceContext.SaveChangesAsync();
+                        }
                         transaction.Commit();
 
                     }
@@ -195,8 +221,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
                         lstht.Add(ht);
                         _servisDurum.Hatalar = lstht;
-                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                        return rresult;
+                       // var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
                     }
 
                 }
@@ -205,14 +231,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
                 List<Bilgi> lstBlg = new List<Bilgi>();
-                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = beyan.Kullanici, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = _islem.IslemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
                 lstBlg.Add(blg);
                 _servisDurum.Bilgiler = lstBlg;
 
                 var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
                 //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
 
-                return result;
+                return _servisDurum;
             }
             catch (Exception ex)
             {

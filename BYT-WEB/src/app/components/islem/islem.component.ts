@@ -1,4 +1,4 @@
-import { Component,ViewChild, OnInit } from '@angular/core';
+import { Component,ViewChild, OnInit,ViewEncapsulation } from '@angular/core';
 import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../shared/service-proxies/service-proxies';
 import { MatSnackBar,MatDialog} from '@angular/material';
 import { BeyannameSonucservisComponent } from '../../components/beyannamesonucservis/beyannamesonucservis.component';
@@ -31,6 +31,7 @@ import {
 @Component({
   selector: 'app-islem',
   templateUrl: './islem.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./islem.component.scss'],
   animations: [
     trigger('detailExpand', [
@@ -49,7 +50,7 @@ export class IslemComponent implements OnInit {
 
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
-  displayedColumnsIslem: string[] = ['beyanTipi','islemTipi','islemDurumu','islemSonucu','islemZamani','gonderimSayisi','islemInternalNo'];
+  displayedColumnsIslem: string[] = ['beyanTipi','islemTipi','islemDurumu','islemZamani','islemInternalNo'];
   displayedColumnsTarihce: string[] = ['islemInternalNo','gonderimNo','islemTipi','islemDurumu','sonucZamani','gondermeZamani','guid'];
   expandedElement: TarihceDto | null;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

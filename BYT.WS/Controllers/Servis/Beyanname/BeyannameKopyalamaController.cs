@@ -57,7 +57,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
                     var internalrefid = _beyannameContext.GetRefIdNextSequenceValue(beyanValues.Rejim);
-                    string InternalNo = beyanValues.Kullanici + "DBG" + internalrefid.ToString().PadLeft(6, '0');
+                    string InternalNo = beyanValues.Kullanici + "DB" + internalrefid.ToString().PadLeft(6, '0');
 
                     List<DbKalem> lstKalem = new List<DbKalem>();
                     List<DbOdemeSekli> lstOdeme = new List<DbOdemeSekli>();

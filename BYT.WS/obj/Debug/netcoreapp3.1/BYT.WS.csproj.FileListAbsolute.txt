@@ -391,7 +391,6 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win7
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.csprojAssemblyReference.cache
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\staticwebassets\BYT.WS.StaticWebAssets.Manifest.cache
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\staticwebassets\BYT.WS.StaticWebAssets.xml
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cs
