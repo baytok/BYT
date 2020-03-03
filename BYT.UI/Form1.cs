@@ -1,4 +1,5 @@
-﻿using BYT.UI.Models.Dto;
+﻿using BYT.UI.KpsWs;
+using BYT.UI.Models.Dto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -301,6 +302,12 @@ namespace BYT.UI
                 MessageBox.Show(values.Veri.Hatalar != null && values.Veri.Hatalar.Count > 0 ? values.Veri.Hatalar[0].HataAciklamasi : values.Veri.Bilgiler[0].ReferansNo + "-" + values.Veri.Bilgiler[0].Sonuc);
 
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TCKKBilgisi tckk = GetKPSClient.GetTCKKBilgisi("15781158208", "127.0.0.1");
+            MessageBox.Show(tckk.Ad+"-"+tckk.Soyad+"-"+tckk.AnneAd+"-"+tckk.BabaAd+"-"+tckk.DogumTarih+"-"+tckk.DogumYer);
         }
     }
 }

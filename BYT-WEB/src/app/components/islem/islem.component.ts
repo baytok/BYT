@@ -31,7 +31,6 @@ import {
 @Component({
   selector: 'app-islem',
   templateUrl: './islem.component.html',
-  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./islem.component.scss'],
   animations: [
     trigger('detailExpand', [
@@ -40,6 +39,7 @@ import {
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class IslemComponent implements OnInit {
