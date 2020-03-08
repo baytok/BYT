@@ -12,7 +12,18 @@ import { MustMatch } from "../../../shared/helpers/must-match.validator";
 import {
   ulke,
   teslimSekli,
-  dovizCinsi
+  dovizCinsi,
+  kullanilmisEsya,
+  girisCikisAmaci,
+  anlasma,
+  muafiyet,
+  ozellik,
+  kalemIsleminNiteligi,
+  stmIlKod,
+  cins,
+  olcu,
+  algilama
+
 } from "../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
@@ -37,7 +48,8 @@ export class KalemComponent implements OnInit {
 
   
   kalemForm: FormGroup;
-  ornekForm: FormGroup;
+  odemeForm: FormGroup;
+  markaForm: FormGroup;
   submitted: boolean = false;
   guidOf = this.session.guidOf;
   islemInternalNo = this.session.islemInternalNo;
@@ -48,6 +60,16 @@ export class KalemComponent implements OnInit {
   _ulkeList = ulke;
   _teslimList = teslimSekli;
   _dovizList = dovizCinsi;
+  _kullanilmisList = kullanilmisEsya;
+  _girisCikisAmaciList = girisCikisAmaci;
+  _anlasmaList=anlasma;
+  _muafiyetList=muafiyet;
+  _ozellikList=ozellik;
+  _isleminNiteligiList=kalemIsleminNiteligi;
+  _stmIlKodList= stmIlKod;
+  _cinsList= cins;
+  _olcuList= olcu;
+  _algilamaList=algilama;
   @ViewChild('KalemList', {static: true}) private selectionList: MatSelectionList;
   @ViewChild('BeyannameNo', {static: true}) private _beyannameNo: ElementRef;
   
@@ -60,233 +82,114 @@ export class KalemComponent implements OnInit {
   ) {
     (this.kalemForm = this.formBuilder.group({
       //Genel Bilgiler
+        //  tarifeTanimi:[],
       beyanInternalNo: [],
       kalemInternalNo: [],
       kalemSiraNo: [],
-      gtip: []
-      //  aciklama44: [],
-      //  adet: [],
-      //  algilamaBirimi1:[],
-      //  algilamaBirimi2: [],
-      //  algilamaBirimi3: [],
-      //  algilamaMiktari1: [],
-      //  algilamaMiktari2: [],
-      //  algilamaMiktari3: [],
-      //  beyanInternalNo: [],
-      //  brutAgirlik: [],
-      //  cins: [],
-      //  ekKod: [],
-      //  faturaMiktari:[],
-      //  faturaMiktariDovizi:[],
-      //  girisCikisAmaci: [],
-      //  girisCikisAmaciAciklama:[],
-      //  ikincilIslem:[],
-      //  imalatciFirmaBilgisi: [],
-      //  imalatciVergiNo: [],
-      //  istatistikiKiymet: [],
-      //  istatistikiMiktar: [],
-      //
-      //  kalemIslemNiteligi: [],
-      //  kullanilmisEsya: [],
-      //  mahraceIade: [],
-      //  marka: [],
-      //  menseiUlke: [],
-      //  miktar: [],
-      //  miktarBirimi: [],
-      //  muafiyetAciklamasi:[],
-      //  muafiyetler1: [],
-      //  muafiyetler2:[],
-      //  muafiyetler3: [],
-      //  muafiyetler4: [],
-      //  muafiyetler5: [],
-      //  navlunMiktari: [],
-      //  navlunMiktariDovizi:[],
-      //  netAgirlik: [],
-      //  numara: [],
-      //  ozellik: [],
-      //  referansTarihi:[],
-      //  satirNo:[],
-      //  sigortaMiktari: [],
-      //  sigortaMiktariDovizi:[],
-      //  sinirGecisUcreti: [],
-      //  stmIlKodu: [],
-      //  tamamlayiciOlcuBirimi:[],
-      //  tarifeTanimi:[],
-      //  teslimSekli: [],
-      //  ticariTanimi:[],
-      //  uluslararasiAnlasma: [],
-      //  yurtDisiDemuraj: [],
-      //  yurtDisiDemurajDovizi: [],
-      //  yurtDisiDiger: [],
-      //  yurtDisiDigerAciklama:[],
-      //  yurtDisiDigerDovizi: [],
-      //  yurtDisiFaiz: [],
-      //  yurtDisiFaizDovizi: [],
-      //  yurtDisiKomisyon: [],
-      //  yurtDisiKomisyonDovizi: [],
-      //  yurtDisiRoyalti: [],
-      //  yurtDisiRoyaltiDovizi: [],
-      //  yurtIciBanka:[],
-      //  yurtIciCevre: [],
-      //  yurtIciDepolama: [],
-      //  yurtIciDiger:[],
-      //  yurtIciDigerAciklama: [],
-      //  yurtIciKkdf: [],
-      //  yurtIciKultur:[],
-      //  yurtIciLiman:[],
-      //  yurtIciTahliye:[],
+      gtip: new FormControl("", [Validators.required,Validators.maxLength(12), Validators.pattern("^[0-9]*$")]),
+      aciklama44: new FormControl("", [Validators.maxLength(500)]),
+      menseiUlke:  new FormControl("", [Validators.required,Validators.maxLength(9)]),
+      girisCikisAmaci: new FormControl("", [Validators.maxLength(9)]),
+      girisCikisAmaciAciklama:new FormControl("", [Validators.maxLength(300)]),
+      uluslararasiAnlasma: new FormControl("", [Validators.maxLength(9)]),    
+      ikincilIslem:[false],
+      imalatciFirmaBilgisi: [false], 
+      mahraceIade: [false],     
+      kalemIslemNiteligi: new FormControl("", [Validators.maxLength(9)]),
+      kullanilmisEsya: new FormControl("", [Validators.maxLength(9)]),
+      ozellik: new FormControl("", [Validators.maxLength(9)]), 
+      muafiyetler1: new FormControl("", [Validators.maxLength(9)]), 
+      muafiyetler2: new FormControl("", [Validators.maxLength(9)]), 
+      muafiyetler3: new FormControl("", [Validators.maxLength(9)]), 
+      muafiyetler4: new FormControl("", [Validators.maxLength(9)]), 
+      muafiyetler5: new FormControl("", [Validators.maxLength(9)]), 
+      imalatciVergiNo: new FormControl("", [Validators.maxLength(15)]), 
+      muafiyetAciklamasi: new FormControl("", [Validators.maxLength(500)]), 
+      stmIlKodu: new FormControl("", [Validators.maxLength(9)]), 
+      ticariTanimi: new FormControl("", [Validators.maxLength(350)]), 
+    
+     
+     
+    // Eşya Bilgileri
+     // referansTarihi:[],
+       cins: new FormControl("", [Validators.required,Validators.maxLength(9)]), 
+       ekKod: new FormControl("", [Validators.maxLength(9)]), 
+       adet: new FormControl("", [Validators.required,Validators.pattern("^[0-9]*$")]),
+       marka: new FormControl("", [Validators.required,,Validators.maxLength(70)]),     
+       miktar: new FormControl("", [Validators.required,Validators.pattern("^[0-9]*$")]),
+       miktarBirimi: new FormControl("", [Validators.required, Validators.maxLength(9)]),   
+       netAgirlik: new FormControl("", [Validators.required,Validators.pattern("^[0-9]*$")]),
+       brutAgirlik: new FormControl("", [Validators.required,Validators.pattern("^[0-9]*$")]),
+       numara: new FormControl("", [Validators.required,,Validators.maxLength(70)]),
+       satirNo: new FormControl("", [Validators.maxLength(20)]),
+       istatistikiMiktar: new FormControl("", [Validators.required,Validators.pattern("^[0-9]*$")]),
+       tamamlayiciOlcuBirimi: new FormControl("", [Validators.required, Validators.maxLength(9)]),   
+       algilamaBirimi1: new FormControl("", [Validators.maxLength(9)]), 
+       algilamaBirimi2: new FormControl("", [Validators.maxLength(9)]), 
+       algilamaBirimi3: new FormControl("", [Validators.maxLength(9)]), 
+       algilamaMiktari1: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+       algilamaMiktari2: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+       algilamaMiktari3: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+ 
+    
+      //Finansal Bilgiler
+      teslimSekli: new FormControl("", [Validators.required, Validators.maxLength(9)]),   
+      istatistikiKiymet: new FormControl("", [Validators.pattern("^[0-9]*$")]),      
+      faturaMiktari: new FormControl("", [Validators.required,Validators.pattern("^[0-9]*$")]), 
+      faturaMiktariDovizi: new FormControl("", [Validators.required, Validators.maxLength(9)]),    
+      navlunMiktari: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      navlunMiktariDovizi: new FormControl("", [Validators.maxLength(9)]), 
+      sigortaMiktari: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      sigortaMiktariDovizi: new FormControl("", [Validators.maxLength(9)]), 
+      sinirGecisUcreti: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtDisiDemuraj: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtDisiDemurajDovizi: new FormControl("", [Validators.maxLength(9)]), 
+      yurtDisiDiger: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtDisiDigerAciklama: new FormControl("", [Validators.maxLength(100)]), 
+      yurtDisiDigerDovizi: new FormControl("", [Validators.maxLength(9)]), 
+      yurtDisiFaiz: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtDisiFaizDovizi: new FormControl("", [Validators.maxLength(9)]), 
+      yurtDisiKomisyon: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtDisiKomisyonDovizi: new FormControl("", [Validators.maxLength(9)]), 
+      yurtDisiRoyalti: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtDisiRoyaltiDovizi: new FormControl("", [Validators.maxLength(9)]), 
+      yurtIciBanka: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtIciCevre: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtIciDepolama: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtIciDiger: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtIciDigerAciklama: new FormControl("", [Validators.maxLength(100)]), 
+      yurtIciKkdf: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtIciKultur: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtIciLiman: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
+      yurtIciTahliye: new FormControl("", [Validators.pattern("^[0-9]*$")]), 
 
-      //     kullanici: new FormControl(""),
-      //     gumruk: new FormControl("", [Validators.required]),
-      //     rejim: ["", Validators.required],
-      //     aciklamalar: new FormControl("", [Validators.maxLength(350)]),
-      //     aliciSaticiIliskisi: [
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[0-9]*$")
-      //     ],
-      //     aliciVergiNo: new FormControl("", [Validators.maxLength(20)]),
-      //     gondericiVergiNo: new FormControl("", [Validators.maxLength(20)]),
-      //     musavirVergiNo:  new FormControl("", [Validators.maxLength(20)]),
-      //     beyanSahibiVergiNo: new FormControl("", [
-      //       Validators.required,
-      //       Validators.maxLength(20)
-      //     ]),
-      //     asilSorumluVergiNo: new FormControl("", [Validators.maxLength(20)]),
 
-      //     basitlestirilmisUsul: new FormControl("", [
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[0-9]*$")
-      //     ]),
-      //     ticaretUlkesi:  new FormControl("", [
-      //       Validators.required,
-      //       Validators.minLength(3),
-      //       Validators.maxLength(30),
-      //       Validators.pattern("^[a-zA-Z0-9]*$")
-      //     ]),
-      //     cikisUlkesi: new FormControl("",  [
-      //       Validators.required,
-      //       Validators.minLength(2),
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[a-zA-Z0-9]*$")
-      //     ]),
-      //     gidecegiSevkUlkesi:  new FormControl("", [
-      //       Validators.required,
-      //       Validators.minLength(3),
-      //       Validators.maxLength(30),
-      //       Validators.pattern("^[a-zA-Z0-9]*$")
-      //     ]),
-      //     gidecegiUlke:  new FormControl("", [
-      //       Validators.required,
-      //       Validators.minLength(3),
-      //       Validators.maxLength(30),
-      //       Validators.pattern("^[a-zA-Z0-9]*$")
-      //     ]),
-      //     birlikKayitNumarasi: new FormControl("", [Validators.maxLength(30)]),
-      //     birlikKriptoNumarasi: new FormControl("", [Validators.maxLength(30)]),
-      //     isleminNiteligi:new FormControl("", [Validators.required,Validators.maxLength(9)]),
-      //     kapAdedi: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      //     musavirReferansNo: new FormControl("", [Validators.required,Validators.maxLength(12)]),
-      //     referansTarihi: [],
-      //     tescilStatu: [],
-      //     tescilTarihi:[],
-      //     refNo: new FormControl("", [Validators.maxLength(30)]),
-      //     //Finansal Bilgiler
-      //     bankaKodu: new FormControl("", [
-      //       Validators.maxLength(16),
-      //       Validators.pattern("^[0-9]*$")
-      //     ]),
-      //     teslimSekli: new FormControl("", [Validators.required,Validators.maxLength(9)]),
-      //     teslimSekliYeri:  new FormControl("", [Validators.maxLength(40)]),
-      //     telafiEdiciVergi:new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      //     toplamFatura: new FormControl("", [Validators.required,Validators.pattern("^[0-9]*$")]),
-      //     toplamFaturaDovizi:new FormControl("", [Validators.required]),
-      //     toplamNavlun: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      //     toplamNavlunDovizi: [],
-      //     toplamSigorta: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      //     toplamSigortaDovizi: [],
-      //     toplamYurtDisiHarcamalar:new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      //     toplamYurtDisiHarcamalarDovizi: [],
-      //     toplamYurtIciHarcamalar:new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      //     odemeAraci:[],
-
-      //     //Taşıma Bilgileri
-      //     antrepoKodu: new FormControl("", [
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[a-zA-Z0-9]*$")
-      //     ]),
-      //     limanKodu:new FormControl("", [
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[a-zA-Z0-9]*$")
-      //     ]),
-      //     sinirdakiAracinUlkesi: new FormControl("", [
-      //       Validators.required,
-      //       Validators.minLength(3),
-      //       Validators.maxLength(30),
-      //       Validators.pattern("^[a-zA-Z0-9]*$")
-      //     ]),
-      //     cikistakiAracinUlkesi: new FormControl("", [
-      //       Validators.required,
-      //       Validators.minLength(3),
-      //       Validators.maxLength(30),
-      //       Validators.pattern("^[a-zA-Z0-9]*$")
-      //     ]),
-      //     cikistakiAracinKimligi: new FormControl("", [
-      //       Validators.required,
-      //       Validators.maxLength(35)
-      //     ]),
-      //     cikistakiAracinTipi: new FormControl("",[
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[0-9]*$")
-      //     ]),
-      //     sinirdakiAracinKimligi: new FormControl("", [
-      //       Validators.required,
-      //       Validators.maxLength(35)
-      //     ]),
-      //     sinirdakiAracinTipi: new FormControl("", [
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[0-9]*$")
-      //     ]),
-      //     sinirdakiTasimaSekli: new FormControl("", [
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[0-9]*$")
-      //     ]),
-      //     konteyner: [false, Validators.requiredTrue],
-      //     girisGumrukIdaresi:new FormControl("",[
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[0-9]*$")
-      //     ]),
-      //     varisGumrukIdaresi:new FormControl("",[
-      //       Validators.maxLength(9),
-      //       Validators.pattern("^[0-9]*$")
-      //     ]),
-      //     tasarlananGuzergah: new FormControl("", [Validators.maxLength(250)]),
-      //     yukBelgeleriSayisi: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      //     yuklemeBosaltmaYeri: new FormControl("", [Validators.maxLength(40)]),
-      //     esyaninBulunduguYer: new FormControl("", [Validators.maxLength(40)]),
-      //     mobil1: new FormControl("", [
-      //       Validators.required,
-      //       Validators.minLength(8),
-      //       Validators.maxLength(12),
-      //       Validators.pattern("^[0-9]*$")
-      //     ]),
-      //     mail1: new FormControl("", [
-      //       Validators.required,
-      //       Validators.minLength(5),
-      //       Validators.maxLength(80),
-      //       Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")
-      //     ])
     })),
-      (this.ornekForm = this._fb.group({
+    (this.odemeForm = this._fb.group({
+      odeme: new FormArray([
+        new FormControl('', Validators.required),
+    
+      ]),
+      
+    })),
+    (this.markaForm = this._fb.group({    
         companyName: ["", [Validators.required, Validators.maxLength(25)]],
         countryName: [""],
         city: [""],
         zipCode: [""],
         street: [""],
-        units: this._fb.array([this.getUnit()])
-      }));
+        units: this._fb.array([this.getMarka()])
+    }));
   }
   get focus() {
     return this.kalemForm.controls;
+  }
+  
+  get odemeitem(): FormArray {
+    return this.odemeForm.get('odeme') as FormArray;
+  }
+  get markaitem(): FormArray {
+  return this.markaForm.get('units') as FormArray;
   }
   ngOnInit() {
     this._beyannameNo.nativeElement.focus();
@@ -317,78 +220,77 @@ export class KalemComponent implements OnInit {
       beyanInternalNo: this._kalemler[kalemNo - 1].beyanInternalNo,
       kalemInternalNo: this._kalemler[kalemNo - 1].kalemInternalNo,
       gtip: this._kalemler[kalemNo - 1].gtip,
-      kalemSiraNo: this._kalemler[kalemNo - 1].kalemSiraNo
+      kalemSiraNo: this._kalemler[kalemNo - 1].kalemSiraNo,
 
-      // aciklama44: "Aciklama44",
-      // adet: 10,
-      // algilamaBirimi1: "",
-      // algilamaBirimi2: "",
-      // algilamaBirimi3: "",
-      // algilamaMiktari1: 0,
-      // algilamaMiktari2: 0,
-      // algilamaMiktari3: 0,
-      // brutAgirlik: 100,
-      // cins: "BI",
-      // ekKod: "",
-      // faturaMiktari: 100,
-      // faturaMiktariDovizi: "USD",
-      // girisCikisAmaci: "",
-      // girisCikisAmaciAciklama: "",
-      // ikincilIslem: "",
-      // imalatciFirmaBilgisi: "HAYIR",
-      // imalatciVergiNo: "",
-      // istatistikiKiymet: 600,
-      // istatistikiMiktar: 10,
-      // kalemInternalNo: "11111111100DBG000011|1",
-      // kalemIslemNiteligi: "",
-      // kullanilmisEsya: "",
-      // mahraceIade: "",
-      // marka: "iphone",
-      // menseiUlke: "400",
-      // miktar: 10,
-      // miktarBirimi: "C6",
-      // muafiyetAciklamasi: "",
-      // muafiyetler1: "",
-      // muafiyetler2: "",
-      // muafiyetler3: "",
-      // muafiyetler4: "",
-      // muafiyetler5: "",
-      // navlunMiktari: 0,
-      // navlunMiktariDovizi: "",
-      // netAgirlik: 100,
-      // numara: "12345",
-      // ozellik: "88",
-      // referansTarihi: "",
-      // satirNo: "",
-      // sigortaMiktari: 0,
-      // sigortaMiktariDovizi: "",
-      // sinirGecisUcreti: 0,
-      // stmIlKodu: "",
-      // tamamlayiciOlcuBirimi: "C62",
-      // tarifeTanimi: "",
-      // teslimSekli: "FOB",
-      // ticariTanimi: "TicariTanimi",
-      // uluslararasiAnlasma: "",
-      // yurtDisiDemuraj: 0,
-      // yurtDisiDemurajDovizi: "",
-      // yurtDisiDiger: 0,
-      // yurtDisiDigerAciklama: "",
-      // yurtDisiDigerDovizi: "",
-      // yurtDisiFaiz: 0,
-      // yurtDisiFaizDovizi: "",
-      // yurtDisiKomisyon: 0,
-      // yurtDisiKomisyonDovizi: "",
-      // yurtDisiRoyalti: 0,
-      // yurtDisiRoyaltiDovizi: "",
-      // yurtIciBanka: 0,
-      // yurtIciCevre: 0,
-      // yurtIciDepolama: 0,
-      // yurtIciDiger: 0,
-      // yurtIciDigerAciklama: "",
-      // yurtIciKkdf: 0,
-      // yurtIciKultur: 0,
-      // yurtIciLiman: 0,
-      // yurtIciTahliye: 0
+      aciklama44:  this._kalemler[kalemNo - 1].aciklama44,
+      adet:  this._kalemler[kalemNo - 1].adet,
+      algilamaBirimi1: this._kalemler[kalemNo - 1].algilamaBirimi1,
+      algilamaBirimi2: this._kalemler[kalemNo - 1].algilamaBirimi2,
+      algilamaBirimi3: this._kalemler[kalemNo - 1].algilamaBirimi3,
+      algilamaMiktari1:  this._kalemler[kalemNo - 1].algilamaMiktari1,
+      algilamaMiktari2:  this._kalemler[kalemNo - 1].algilamaMiktari2,
+      algilamaMiktari3:  this._kalemler[kalemNo - 1].algilamaMiktari3,
+      brutAgirlik:  this._kalemler[kalemNo - 1].brutAgirlik,
+      cins:  this._kalemler[kalemNo - 1].cins,
+      ekKod:  this._kalemler[kalemNo - 1].ekKod,
+      faturaMiktari:  this._kalemler[kalemNo - 1].faturaMiktari,
+      faturaMiktariDovizi:  this._kalemler[kalemNo - 1].faturaMiktariDovizi,
+      girisCikisAmaci: this._kalemler[kalemNo - 1].girisCikisAmaci,
+      girisCikisAmaciAciklama:  this._kalemler[kalemNo - 1].girisCikisAmaciAciklama,
+      ikincilIslem: this._kalemler[kalemNo - 1].ikincilIslem,
+      imalatciFirmaBilgisi: this._kalemler[kalemNo - 1].imalatciFirmaBilgisi,
+      imalatciVergiNo: this._kalemler[kalemNo - 1].imalatciVergiNo,
+      istatistikiKiymet: this._kalemler[kalemNo - 1].istatistikiKiymet,
+      istatistikiMiktar:  this._kalemler[kalemNo - 1].istatistikiMiktar,
+       kalemIslemNiteligi:  this._kalemler[kalemNo - 1].kalemIslemNiteligi,
+      kullanilmisEsya: this._kalemler[kalemNo - 1].kullanilmisEsya,
+      mahraceIade: this._kalemler[kalemNo - 1].mahraceIade,
+      marka:  this._kalemler[kalemNo - 1].marka,
+      menseiUlke:  this._kalemler[kalemNo - 1].menseiUlke,
+      miktar: this._kalemler[kalemNo - 1].miktar,
+      miktarBirimi:  this._kalemler[kalemNo - 1].miktarBirimi,
+      muafiyetAciklamasi: this._kalemler[kalemNo - 1].muafiyetAciklamasi,
+      muafiyetler1:  this._kalemler[kalemNo - 1].muafiyetler1,
+      muafiyetler2: this._kalemler[kalemNo - 1].muafiyetler2,
+      muafiyetler3:  this._kalemler[kalemNo - 1].muafiyetler3,
+      muafiyetler4:  this._kalemler[kalemNo - 1].muafiyetler4,
+      muafiyetler5:  this._kalemler[kalemNo - 1].muafiyetler5,
+      navlunMiktari:  this._kalemler[kalemNo - 1].navlunMiktari,
+      navlunMiktariDovizi:  this._kalemler[kalemNo - 1].navlunMiktariDovizi,
+      netAgirlik:  this._kalemler[kalemNo - 1].netAgirlik,
+      numara:  this._kalemler[kalemNo - 1].numara,
+      ozellik:  this._kalemler[kalemNo - 1].ozellik,
+      referansTarihi:  this._kalemler[kalemNo - 1].referansTarihi,
+      satirNo: this._kalemler[kalemNo - 1].satirNo,
+      sigortaMiktari:this._kalemler[kalemNo - 1].sigortaMiktari,
+      sigortaMiktariDovizi: this._kalemler[kalemNo - 1].sigortaMiktariDovizi,
+      sinirGecisUcreti:  this._kalemler[kalemNo - 1].sinirGecisUcreti,
+      stmIlKodu: this._kalemler[kalemNo - 1].stmIlKodu,
+      tamamlayiciOlcuBirimi: this._kalemler[kalemNo - 1].tamamlayiciOlcuBirimi,
+      //tarifeTanimi:  this._kalemler[kalemNo - 1].
+      teslimSekli:  this._kalemler[kalemNo - 1].teslimSekli,
+      ticariTanimi:  this._kalemler[kalemNo - 1].ticariTanimi,
+      uluslararasiAnlasma:  this._kalemler[kalemNo - 1].uluslararasiAnlasma,
+      yurtDisiDemuraj:  this._kalemler[kalemNo - 1].yurtDisiDemuraj,
+      yurtDisiDemurajDovizi:  this._kalemler[kalemNo - 1].yurtDisiDemurajDovizi,
+      yurtDisiDiger:  this._kalemler[kalemNo - 1].yurtDisiDiger,
+      yurtDisiDigerAciklama:  this._kalemler[kalemNo - 1].yurtDisiDigerAciklama,
+      yurtDisiDigerDovizi:  this._kalemler[kalemNo - 1].yurtDisiDigerDovizi,
+      yurtDisiFaiz: this._kalemler[kalemNo - 1].yurtDisiFaiz,
+      yurtDisiFaizDovizi:  this._kalemler[kalemNo - 1].yurtDisiFaizDovizi,
+      yurtDisiKomisyon:  this._kalemler[kalemNo - 1].yurtDisiKomisyon,
+      yurtDisiKomisyonDovizi:  this._kalemler[kalemNo - 1].yurtDisiKomisyonDovizi,
+      yurtDisiRoyalti: this._kalemler[kalemNo - 1].yurtDisiRoyalti,
+      yurtDisiRoyaltiDovizi:  this._kalemler[kalemNo - 1].yurtDisiRoyaltiDovizi,
+      yurtIciBanka:  this._kalemler[kalemNo - 1].yurtIciBanka,
+      yurtIciCevre:  this._kalemler[kalemNo - 1].yurtIciCevre,
+      yurtIciDepolama:  this._kalemler[kalemNo - 1].yurtIciDepolama,
+      yurtIciDiger:  this._kalemler[kalemNo - 1].yurtIciDiger,
+      yurtIciDigerAciklama:  this._kalemler[kalemNo - 1].yurtIciDigerAciklama,
+      yurtIciKkdf: this._kalemler[kalemNo - 1].yurtIciKkdf,
+      yurtIciKultur: this._kalemler[kalemNo - 1].yurtIciKultur,
+      yurtIciLiman:  this._kalemler[kalemNo - 1].yurtIciLiman,
+      yurtIciTahliye:  this._kalemler[kalemNo - 1].yurtIciTahliye
     });
 
     this.kalemForm.disable();
@@ -425,8 +327,9 @@ export class KalemComponent implements OnInit {
 
   }
   
+  //Marka
 
-  private getUnit() {
+   getMarka() {
     const numberPatern = "^[0-9.,]+$";
     return this._fb.group({
       unitName: ["", Validators.required],
@@ -436,13 +339,34 @@ export class KalemComponent implements OnInit {
     });
   }
 
-  private addUnit() {
-    const control = <FormArray>this.kalemForm.controls["units"];
-    control.push(this.getUnit());
+  addMarka() {
+    const control = <FormArray>this.markaForm.controls["units"];
+    control.push(this.getMarka());
   }
 
-  private removeUnit(i: number) {
-    const control = <FormArray>this.kalemForm.controls["units"];
+  removeMarka(i: number) {
+    const control = <FormArray>this.markaForm.controls["units"];
     control.removeAt(i);
+  }
+
+  // Ödeme Şekli
+  get names(): FormArray {
+    return this.odemeForm.get('names') as FormArray;
+  }
+
+  onOdemeFormSubmit(): void {
+    for (let i = 0; i < this.names.length; i++) {
+      console.log(this.names.at(i).value);
+    }
+  }
+  addOdemeField() {
+    this.names.push(new FormControl('', Validators.required));
+  }
+
+  deleteOdemeField(index: number) {
+    if (this.names.length !== 1) {
+      this.names.removeAt(index);
+    }
+    console.log(this.names.length);
   }
 }

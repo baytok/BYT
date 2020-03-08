@@ -39,6 +39,7 @@ export const rejim= [
     { kod:'', aciklama: '' },
     { kod:'001', aciklama: 'Fransa' },
     { kod:'052', aciklama: 'Türkiye' },
+    { kod:'400', aciklama: 'Birleşik Milletler' },
     { kod:'720', aciklama: 'Çin' },
   ];
   
@@ -77,5 +78,67 @@ export const rejim= [
     { kod:'USD', aciklama: '' },
     { kod:'EURO', aciklama: '' },
     { kod:'TRY', aciklama: '' },
+  ];
+  export const kullanilmisEsya= [
+    { kod:'', aciklama: '' },
+    { kod:'K1', aciklama: '' },
+    { kod:'K2', aciklama: '' }
+  
+  ];
+  export const girisCikisAmaci= [
+    { kod:'', aciklama: '' },
+    { kod:'1', aciklama: '' },
+    { kod:'2', aciklama: '' }
+  
+  ];
+  export const anlasma= [
+    { kod:'', aciklama: '' },
+    { kod:'AT', aciklama: '' },
+    { kod:'EFTA', aciklama: '' }
+  
+  ];
+   export const muafiyet= [
+    { kod:'', aciklama: '' },
+    { kod:'D1A', aciklama: '' },
+    { kod:'KD17', aciklama: '' }
+  
+  ];
+  export const ozellik= [
+    { kod:'', aciklama: '' },
+    { kod:'1', aciklama: '' },
+    { kod:'2', aciklama: '' },
+    { kod:'3', aciklama: '' }, 
+     { kod:'88', aciklama: '' }
+  
+  ];
+  export const kalemIsleminNiteligi= [
+    { kod:'', aciklama: '' },
+    { kod:'1', aciklama: '' },
+    { kod:'2', aciklama: '' }
+  
+  ];
+  export const stmIlKod= [
+    { kod:'', aciklama: '' },
+    { kod:'10', aciklama: '' },
+    { kod:'20', aciklama: '' }
+  
+  ];
+  export const cins= [
+    { kod:'', aciklama: '' },
+    { kod:'BI', aciklama: '' },
+    { kod:'MTK', aciklama: '' }
+  
+  ];
+  export const olcu= [
+    { kod:'', aciklama: '' },
+    { kod:'C62', aciklama: '' },
+    { kod:'MTK', aciklama: '' }
+  
+  ];
+  export const algilama= [
+    { kod:'', aciklama: '' },
+    { kod:'OMV', aciklama: '' },
+    { kod:'LT', aciklama: '' }
+  
   ];
 export const colorIDs = ['green', 'red', 'blue'] as const;

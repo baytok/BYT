@@ -68,6 +68,13 @@ export class BeyannameComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _fb: FormBuilder
   ) {
+    
+   
+  }
+  get focus() {
+    return this.beyannameForm.controls;
+  }
+  buildForm(): void {
     this.beyannameForm = this.formBuilder.group(
       {
         //Genel Bilgiler
@@ -202,10 +209,11 @@ export class BeyannameComponent implements OnInit {
         esyaninBulunduguYer: new FormControl("", [Validators.maxLength(40)]),    
         mobil1: new FormControl("", [
           Validators.required,
-          Validators.minLength(8),
+          Validators.minLength(3),
           Validators.maxLength(12),
           Validators.pattern("^[0-9]*$")
         ]),
+       
         mail1: new FormControl("", [
           Validators.required,
           Validators.minLength(5),
@@ -216,11 +224,7 @@ export class BeyannameComponent implements OnInit {
       // {
       //   validator: MustMatch('password', 'confirmPassword')
       // }
-    );
-   
-  }
-  get focus() {
-    return this.beyannameForm.controls;
+    )
   }
   ngOnInit() {
     if (this.session.islemInternalNo != undefined) {
@@ -228,6 +232,7 @@ export class BeyannameComponent implements OnInit {
       this.getBeyannameFromIslem(this.session.islemInternalNo);
      
     }
+    this.buildForm();
     this.beyannameForm.disable();
   }
 
@@ -400,10 +405,12 @@ export class BeyannameComponent implements OnInit {
     this.islemInput.nativeElement.value="";
   }
 
+ 
   duzeltBeyanname() {
    
     this.beyannameForm.enable();
- //   this.beyannameForm.asyncValidator.call;
+    this.beyannameForm.markAllAsTouched();
+   
     if (this.beyannameForm.invalid) {
       const invalid = [];
       const controls = this.beyannameForm.controls;
@@ -414,7 +421,7 @@ export class BeyannameComponent implements OnInit {
       }
       
       alert(
-        "ERROR!! :-)\n\n Aşağıdaki nesnelerin verileri veya formatı yanlış:"  + JSON.stringify(invalid, null, 4)
+        "ERROR!! \n\n Aşağıdaki nesnelerin verileri veya formatı yanlış:"  + JSON.stringify(invalid, null, 4)
       );
      
     }
