@@ -1,0 +1,147 @@
+<div class="row mt-4">
+  <div class="col-md-12">
+    <mat-card class="mat-card">
+      <h5>Kullanıcılar</h5>
+      <div class="example-box">
+        <mat-table
+          [dataSource]="kullaniciDataSource"
+          class="mat-elevation-z8 "
+        >
+         <ng-container matColumnDef="detay" > 
+          <mat-cell *matHeaderCellDef>
+           
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="KullaniciKod">
+          <mat-header-cell
+            [style.flex]="'0 0 120px'"
+            *matHeaderCellDef
+          >
+            Kullanıcı Kod
+          </mat-header-cell>
+          <mat-cell
+            [style.flex]="'0 0 120px'"
+            *matCellDef="let element"
+          >
+            {{ element.KullaniciKod }}
+          </mat-cell>
+         
+        </ng-container>
+
+          <ng-container matColumnDef="Ad">
+            <mat-header-cell
+              [style.flex]="'0 0 70px'"
+              *matHeaderCellDef
+            >
+            Ad
+            </mat-header-cell>
+            <mat-cell
+              [style.flex]="'0 0 70px'"
+              *matCellDef="let element"
+            >
+              {{ element.Ad }}
+            </mat-cell>
+          </ng-container>        
+
+          <ng-container matColumnDef="Soyad">
+            <mat-header-cell
+              [style.flex]="'0 0 100px'"
+              *matHeaderCellDef
+            >
+             Soyad
+            </mat-header-cell>
+            <mat-cell
+              [style.flex]="'0 0 100px'"
+              *matCellDef="let element"
+            >
+              {{ element.Soyad }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="VergiNo">
+            <mat-header-cell
+              [style.flex]="'0 0 150px'"
+              *matHeaderCellDef
+            >
+            Vergi No
+            </mat-header-cell>
+            <mat-cell
+              [style.flex]="'0 0 150px'"
+              *matCellDef="let element"
+            >
+              {{ element.VergiNo }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="FirmaAd">
+            <mat-header-cell
+              [style.flex]="'0 0 150px'"
+              *matHeaderCellDef
+            >
+           Firma Adı
+            </mat-header-cell>
+            <mat-cell
+              [style.flex]="'0 0 250px'"
+              *matCellDef="let element"
+            >
+              {{ element.FirmaAd }}
+            </mat-cell>
+          </ng-container>
+       
+          <ng-container matColumnDef="islem">
+            <mat-header-cell *matHeaderCellDef>
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="headerMenu"
+                class="header-dropdown-mat-icon-button"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #headerMenu="matMenu">
+                <button mat-menu-item (click)="yenileKullanicilar()">
+                  <mat-icon>refresh</mat-icon> Yenile              
+                </button>
+                <button mat-menu-item (click)="yeniKullanici()">
+                  <mat-icon>group_add</mat-icon> Yeni Kuallanıcı             
+                </button>
+              </mat-menu>
+           
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"
+            >
+              <button mat-button [matMenuTriggerFor]="aboveMenu">
+                <mat-icon>menu</mat-icon>
+              </button>
+              <mat-menu #aboveMenu="matMenu" yPosition="above">
+               
+                <button
+                  mat-menu-item
+                  color="warn"
+                  (click)="degistirKullanici(element.kullanici)"
+                >
+                  Değiştir Kullanıcı
+                </button>
+                <button
+                  mat-menu-item
+                  (click)="
+                    silKullanici(element.kullanici)
+                  "
+                >
+                 Sil Kullanıcı
+                </button>
+                
+              </mat-menu>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row
+            *matHeaderRowDef="displayedColumnsKullanici; sticky: true"
+          ></mat-header-row>
+          <mat-row
+            *matRowDef="let row; columns: displayedColumnsKullanici"
+          ></mat-row>
+        </mat-table>               
+      </div>           
+    </mat-card>
+  </div>
+</div>

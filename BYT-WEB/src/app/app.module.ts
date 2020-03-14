@@ -11,6 +11,8 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { KalemComponent } from './components/kalem/kalem.component';
+import { KullanicilarComponent } from './components/kullanici/kullanicilar/kullanicilar.component';
+import { MusterilerComponent } from './components/musteri/musteriler/musteriler.component';
 import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { API_BASE_URL } from '../shared/service-proxies/service-proxies';
@@ -33,7 +35,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
       BeyannameComponent,
       BeyannameSonucservisComponent,      
       GenelComponent,
-      KalemComponent
+      KalemComponent,
+      KullanicilarComponent,
+      MusterilerComponent
    
     
    ],

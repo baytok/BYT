@@ -141,4 +141,12 @@ export const rejim= [
     { kod:'LT', aciklama: '' }
   
   ];
+  export const odeme= [
+    { kod:'', aciklama: '' },
+    { kod:'1', aciklama: '' },
+    { kod:'2', aciklama: '' },
+    { kod:'3', aciklama: '' },
+    { kod:'5', aciklama: '' }
+  
+  ];
 export const colorIDs = ['green', 'red', 'blue'] as const;

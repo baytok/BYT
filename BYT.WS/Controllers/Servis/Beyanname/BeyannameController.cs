@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace BYT.WS.Controllers.Servis.Beyanname
 {
-    [Route("api/BYT/Servis/Beyanname/[controller]")]
+   // [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     public class BeyannameController : ControllerBase
     {
@@ -40,8 +40,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             _servisCredential.password = servisCredential.Value.password;
         }
 
+        [Route("api/BYT/Servis/Beyanname/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
-        public async Task<BeyannameBilgileri> Get(string IslemInternalNo)
+        public async Task<BeyannameBilgileri> GetBeyanname(string IslemInternalNo)
         {
             BeyannameBilgileri _beyanname = new BeyannameBilgileri();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -97,7 +98,98 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
+        [Route("api/BYT/Servis/Kalem/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbKalem>> GetKalem(string IslemInternalNo)
+        {
+            List<DbKalem> _kalem = new List<DbKalem>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+                
+                    var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
+                    _kalem = kalemValues;
+                }
+
+                return _kalem;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/Odeme/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbOdemeSekli>> GetOdeme(string IslemInternalNo)
+        {
+            List<DbOdemeSekli> _odeme = new List<DbOdemeSekli>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var odemeValues = await _beyannameContext.DbOdemeSekli.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _odeme = odemeValues;
+                }
+
+                return _odeme;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/Marka/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbMarka>> GetMarka(string IslemInternalNo)
+        {
+            List<DbMarka> _marka = new List<DbMarka>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var markaValues = await _beyannameContext.DbMarka.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _marka = markaValues;
+                }
+
+                return _marka;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 
 

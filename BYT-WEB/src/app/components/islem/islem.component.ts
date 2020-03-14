@@ -16,17 +16,10 @@ import {
    TarihceDto,
    ServisDto
   } from '../../../shared/service-proxies/service-proxies';
-  // export interface PeriodicElement {
-  //   name: string;
-  //   position: number;
-  //   weight: number;
-  //   symbol: string;
-  // }
+
   
   const ELEMENT_DATA: TarihceDto[] = [
-    // {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    // {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    
+   
   ];
 
 @Component({

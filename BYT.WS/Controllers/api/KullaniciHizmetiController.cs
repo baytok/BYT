@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BYT.WS.AltYapi;
 using BYT.WS.Data;
 using BYT.WS.Internal;
+using BYT.WS.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -14,7 +15,7 @@ using Microsoft.Extensions.Options;
 
 namespace BYT.WS.Controllers.api
 {
-    [Route("api/BYT/[controller]")]
+   //  [Route("api/BYT/[controller]")]
     [ApiController]
     public class KullaniciHizmetiController : ControllerBase
     {
@@ -31,26 +32,18 @@ namespace BYT.WS.Controllers.api
             _kullaniciContext = new KullaniciDataContext(options);
         }
 
+        [Route("api/BYT/[controller]")]
         [HttpGet]
-        public async Task<Sonuc<ServisDurum>> GetKullanici()
+        public async Task<List<Kullanici>> GetKullanici()
         {
             try
             {
-                ServisDurum _servisDurum = new ServisDurum();
+            
 
                 var kullaniciValues = await _kullaniciContext.Kullanici.ToListAsync();
+                             
 
-                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
-
-                List<Bilgi> lstBlg = new List<Bilgi>();
-                Bilgi blg = new Bilgi { IslemTipi = "Sorgulama", ReferansNo = "", Sonuc = "Sorgulama Başarılı", SonucVeriler = kullaniciValues };
-                lstBlg.Add(blg);
-                _servisDurum.Bilgiler = lstBlg;
-
-                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-              
-
-                return result;
+                return kullaniciValues;
 
             }
             catch (Exception ex)
@@ -61,7 +54,7 @@ namespace BYT.WS.Controllers.api
 
 
         }
-
+        [Route("api/BYT/[controller]/{Kullanici}")]
         [HttpGet("{Kullanici}")]
         public async Task<Sonuc<ServisDurum>> GetKullanici(string Kullanici)
         {

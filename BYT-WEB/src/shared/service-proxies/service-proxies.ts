@@ -32,7 +32,11 @@ export class BeyannameServiceProxy {
     this.http = http;
     this.baseUrl = baseUrl ? baseUrl : "";
   }
-
+  getAllKullanici() {
+    return this.http.get(
+      this.baseUrl + "KullaniciHizmeti/" 
+    );
+  }
   getAllIslem(Kullanici) {
     return this.http.get(
       this.baseUrl + "IslemHizmeti/KullaniciIleSorgulama/" + Kullanici
@@ -81,6 +85,21 @@ export class BeyannameServiceProxy {
     );
   }
 
+  getKalem(IslemInternalNo) {
+    return this.http.get(
+      this.baseUrl + "Servis/Kalem/Beyanname/" + IslemInternalNo
+    );
+  }
+  getOdeme(IslemInternalNo) {
+    return this.http.get(
+      this.baseUrl + "Servis/Odeme/Beyanname/" + IslemInternalNo
+    );
+  }
+  getMarka(IslemInternalNo) {
+    return this.http.get(
+      this.baseUrl + "Servis/Marka/Beyanname/" + IslemInternalNo
+    );
+  }
   setBeyanname(beyanname: BeyannameDto) {
 
     // const options = new RequestOptions({
@@ -531,7 +550,7 @@ export class ServisDto {
 
   init(data?: any) {
     if (data) {
-      console.log(data);
+    
       if (Array.isArray(data["bilgiler"])) {
         this.Bilgiler = [] as any;
         for (let item of data["bilgiler"]) this.Bilgiler.push(item);
@@ -571,6 +590,64 @@ export class ServisDto {
   clone(): ServisDto {
     const json = this.toJSON();
     let result = new ServisDto();
+    result.init(json);
+    return result;
+  }
+}
+export class KullaniciDto {
+  id: number;
+  KullaniciKod:string;
+  KullaniciSifre:string;
+  Ad: string;
+  Soyad: string;
+  VergiNo:string;
+  FirmaAd:string;
+
+  constructor(data?: KullaniciDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {         
+      this.id = data["id"];
+      this.KullaniciKod = data["kullaniciKod"];
+      this.KullaniciSifre = data["kullaniciSifre"];
+      this.Ad = data["ad"];
+      this.Soyad = data["soyad"];
+      this.VergiNo = data["vergiNo"];
+      this.FirmaAd = data["firmaAd"];
+    }
+  }
+
+  static fromJS(data: any): KullaniciDto {
+    data = typeof data === "object" ? data : {};
+    let result = new KullaniciDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};
+  
+    data["kullaniciKod"]=this.KullaniciKod ;
+    data["kullaniciSifre"]= this.KullaniciSifre ;
+    data["ad"]= this.Ad ;
+    data["soyad"]= this.Soyad ;
+    data["vergiNo"]= this.VergiNo ;
+    data["firmaAd"]=this.FirmaAd ;
+    data["id"] = this.id;
+    return data;
+  }
+
+  clone(): KullaniciDto {
+    const json = this.toJSON();
+    let result = new KullaniciDto();
     result.init(json);
     return result;
   }
@@ -829,7 +906,7 @@ export class BeyannameBilgileriDto {
 
   init(data?: any) {
     if (data) {
-      console.log(data);
+    
       this.Beyanname = data["beyanname"];
       if (Array.isArray(data["kalemler"])) {
         this.Kalemler = [] as any;
@@ -1064,4 +1141,108 @@ export class KalemlerDto {
   yurtIciKultur: number;
   yurtIciLiman: number;
   yurtIciTahliye: number;
+
+  constructor(data?: KalemlerDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?:[]) {
+    if (data) {   
+     for(var kalem in data)
+      {    console.log(kalem);
+        // this.beyanInternalNo=kalem[0].beyanInternalNo;
+        // this.kalemInternalNo=data[kalem].kalemInternalNo;
+        // this.kalemSiraNo=data[kalem].kalemSiraNo;
+        // this.gtip=data[kalem].gtip;
+    
+      } 
+     
+      // this.beyanInternalNo=data["beyanInternalNo"];
+      // this.kalemInternalNo=data["kalemInternalNo"];
+      // this.kalemSiraNo=data["kalemSiraNo"];
+      // this.gtip=data["gtip"];
+      // this.aciklamalar=data["aciklamalar"];
+      // this.aliciSaticiIliskisi=data["aliciSaticiIliskisi"];
+      // this.aliciVergiNo=data["aliciVergiNo"];
+      // this.antrepoKodu=data["antrepoKodu"];
+      // this.asilSorumluVergiNo=data["asilSorumluVergiNo"];
+      // this.bankaKodu=data["bankaKodu"];
+      // this.basitlestirilmisUsul=data["basitlestirilmisUsul"];;
+      // this.beyanSahibiVergiNo=data["beyanSahibiVergiNo"];
+      // this.birlikKayitNumarasi=data["birlikKayitNumarasi"];
+      // this.birlikKriptoNumarasi=data["birlikKriptoNumarasi"];
+      // this.cikistakiAracinKimligi=data["cikistakiAracinKimligi"];
+      // this.cikistakiAracinTipi=data["cikistakiAracinTipi"];
+      // this.cikistakiAracinUlkesi=data["cikistakiAracinUlkesi"];
+      // this.cikisUlkesi=data["cikisUlkesi"];
+      // this.esyaninBulunduguYer=data["esyaninBulunduguYer"];
+      // this.gidecegiSevkUlkesi=data["gidecegiSevkUlkesi"];
+      // this.gidecegiUlke=data["gidecegiUlke"];
+      // this.girisGumrukIdaresi=data["girisGumrukIdaresi"];
+      // this.gondericiVergiNo=data["gondericiVergiNo"];
+      // this.gumruk=data["gumruk"];
+      // this.isleminNiteligi=data["isleminNiteligi"];
+      // this.kapAdedi=data["kapAdedi"];
+      // this.konteyner=data["konteyner"];
+      // this.kullanici=data["kullanici"];
+      // this.limanKodu=data["limanKodu"];
+      // this.mail1=data["mail1"];
+      // this.mail2=data["mail2"];
+      // this.mail3=data["mail3"];
+      // this.mobil1=data["mobil1"];
+      // this.mobil2=data["mobil2"];
+      // this.musavirVergiNo=data["musavirVergiNo"];
+      // this.odemeAraci=data["odemeAraci"];
+      // this.musavirReferansNo=data["musavirReferansNo"];
+      // this.referansTarihi=data["referansTarihi"];
+      // this.refNo=data["refNo"];
+      // this.sinirdakiAracinKimligi=data["sinirdakiAracinKimligi"];
+      // this.sinirdakiAracinTipi=data["sinirdakiAracinTipi"];
+      // this.sinirdakiAracinUlkesi=data["sinirdakiAracinUlkesi"];
+      // this.sinirdakiTasimaSekli=data["sinirdakiTasimaSekli"];
+      // this.tasarlananGuzergah=data["tasarlananGuzergah"];
+      // this.telafiEdiciVergi=data["telafiEdiciVergi"];
+      // this.tescilStatu=data["tescilStatu"];
+      // this.tescilTarihi=data["tescilTarihi"];
+      // this.teslimSekli=data["teslimSekli"];
+      // this.teslimSekliYeri=data["teslimSekliYeri"];
+      // this.ticaretUlkesi=data["ticaretUlkesi"];
+      // this.toplamFatura=data["toplamFatura"];
+      // this.toplamFaturaDovizi= data["toplamFaturaDovizi"];
+      // this.toplamNavlun=data["toplamNavlun"];
+      // this.toplamNavlunDovizi=data["toplamNavlunDovizi"];
+      // this.toplamSigorta=data["toplamSigorta"];
+      // this.toplamSigortaDovizi=data["toplamSigortaDovizi"];
+      // this.toplamYurtDisiHarcamalar=data["toplamYurtDisiHarcamalar"];
+      // this.toplamYurtDisiHarcamalarDovizi=data["toplamYurtDisiHarcamalarDovizi"];
+      // this.toplamYurtIciHarcamalar=data["toplamYurtIciHarcamalarrejim"];
+      // this.varisGumrukIdaresi=data["varisGumrukIdaresi"];
+      // this.yukBelgeleriSayisi=data["yukBelgeleriSayisi"];
+      // this.yuklemeBosaltmaYeri=data["yuklemeBosaltmaYeri"];
+      
+    }
+  }
+
+  
+
+  static fromJS(data: any): KalemlerDto {
+    data = typeof data === "object" ? data : {};
+    let result = new KalemlerDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class OdemeDto {
+  beyanInternalNo: string;
+  kalemInternalNo: string;
+  odemeTutari: number;
+  odemeSekliKodu: string;
+  tbfid:string;
 }
