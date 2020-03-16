@@ -39,8 +39,21 @@ namespace BYT.WS.Models
         [StringLength(150)]
         public string FirmaAd { get; set; }
 
-     
+
+        [Required]
+        [StringLength(150)]
+        public string MailAdres { get; set; }
+
+        [Required]
+        public bool Aktif { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string Telefon { get; set; }
         
+
+        [Required]
+        public DateTime SonIslemZamani { get; set; }
 
     }
 

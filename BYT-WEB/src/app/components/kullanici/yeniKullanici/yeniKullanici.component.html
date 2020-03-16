@@ -1,3 +1,229 @@
-<p>
-  yeniKullanici works!
-</p>
+<form [formGroup]="kullaniciForm" (ngSubmit)="save()">  
+     <div class="card m-2">
+      <h5 class="card-header text-center">Yeni Kullanıcı</h5>   
+      <div class="form-row"> 
+        <div class="form-group col">
+          <mat-form-field>
+            <mat-label>Kullanıcı Kodu</mat-label>
+            <input
+              matNativeControl
+              formControlName="kullaniciKod"
+              class="form-control "
+              [ngClass]="{
+                'is-invalid': submitted && focus.kullaniciKod.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && focus.kullaniciKod.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="focus.kullaniciKod.errors.required">
+                Kullanıcı Kodu Zorunlu
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+       
+       <div class="form-group col">
+          <mat-form-field>
+            <mat-label>Kullanıcı Adı</mat-label>
+            <input
+              matNativeControl
+              formControlName="ad"
+              class="form-control "
+              [ngClass]="{
+                'is-invalid': submitted && focus.ad.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && focus.ad.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="focus.kullaniciKod.errors.required">
+                Kullanıcı Adı Zorunlu
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="form-group col">
+          <mat-form-field>
+            <mat-label>Kullanıcı Soyadı</mat-label>
+            <input
+              matNativeControl
+              formControlName="soyad"
+              class="form-control "
+              [ngClass]="{
+                'is-invalid': submitted && focus.soyad.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && focus.soyad.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="focus.soyad.errors.required">
+                Kullanıcı Soyadı Zorunlu
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="form-group col">
+          <div class="form-group form-check">
+            <input
+              type="checkbox"
+              formControlName="aktif"
+              id="aktif"
+              class="form-check-input"
+              [ngClass]="{ 'is-invalid': submitted && focus.aktif.errors }"
+            />
+            <mat-label for="aktif" class="form-check-label">aktif</mat-label>
+            <div
+              *ngIf="submitted && focus.aktif.errors"
+              class="invalid-feedback"
+            >
+              Aktif Zorunlu
+            </div>
+          </div>
+        </div> 
+        <div class="form-group col">
+          <mat-form-field>
+            <mat-label>Vergi No</mat-label>
+            <input
+              matNativeControl
+              formControlName="vergiNo"
+              class="form-control "
+              [ngClass]="{
+                'is-invalid': submitted && focus.vergiNo.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && focus.vergiNo.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="focus.vergiNo.errors.required">
+                Vergi No Kodu Zorunlu
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="form-group col">
+          <mat-form-field>
+            <mat-label>Firma Adı</mat-label>
+            <input
+              matNativeControl
+              formControlName="firmaAd"
+              class="form-control "
+              [ngClass]="{
+                'is-invalid': submitted && focus.firmaAd.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && focus.firmaAd.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="focus.firmaAd.errors.required">
+                Firma Adı Zorunlu
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="form-group col">
+          <mat-form-field>
+            <mat-label>Kullanıcı Şifresi</mat-label>
+            <input
+              type="password"
+              matNativeControl
+              formControlName="kullaniciSifre"
+              class="form-control "
+              [ngClass]="{
+                'is-invalid': submitted && focus.kullaniciSifre.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && focus.kullaniciSifre.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="focus.kullaniciSifre.errors.required">
+                Kullanıcı Şfresi Zorunlu
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="form-group col">
+          <mat-form-field>
+            <mat-label>Kullanıcı Şifresi Tekrarla</mat-label>
+            <input
+            type="password"
+              matNativeControl
+              formControlName="kullaniciSifreTekrarla"
+              class="form-control "
+              [ngClass]="{
+                'is-invalid': submitted && focus.kullaniciSifreTekrarla.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && focus.kullaniciSifreTekrarla.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="focus.kullaniciSifreTekrarla.errors.required">
+                Kullanıcı Şifresi Tekrarlama Zorunlu
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="form-group col">
+          <mat-form-field>
+            <mat-label>Mail Adresi</mat-label>
+            <input
+              matNativeControl
+              formControlName="mailAdres"
+              class="form-control "
+              [ngClass]="{
+                'is-invalid': submitted && focus.mailAdres.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && focus.mailAdres.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="focus.mailAdres.errors.required">
+                Mail Adresi Zorunlu
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="form-group col">
+          <mat-form-field>
+            <mat-label>Telefon No</mat-label>
+            <input
+              matNativeControl
+              formControlName="telefon"
+              class="form-control "
+              [ngClass]="{
+                'is-invalid': submitted && focus.telefon.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && focus.telefon.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="focus.telefon.errors.required">
+                Telefon Zorunlu
+              </div>
+            </div>
+          </mat-form-field>
+        </div> 
+      </div>
+      </div>
+      <div class="text-right">      
+        <button  [disabled]="!kullaniciForm.valid" class="btn btn-primary mr-1">Kaydet</button>          
+      </div>
+</form>

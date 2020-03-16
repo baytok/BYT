@@ -3,7 +3,15 @@ import { AppComponentBase } from '../../../../shared/app-component-base';
 import { YeniKullaniciComponent } from '../yeniKullanici/yeniKullanici.component';
 import { DegistirKullaniciComponent } from '../degistirKullanici/degistirKullanici.component';
 import {
-  ServisDto,KullaniciDto
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+  FormArray,
+  NgForm
+} from "@angular/forms";
+import {
+  KullaniciDto
  } from '../../../../shared/service-proxies/service-proxies';
  import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../../shared/service-proxies/service-proxies';
  import { MatDialog } from '@angular/material/dialog';
@@ -13,18 +21,21 @@ import {
   styleUrls: ['./kullanicilar.component.css']
 })
 export class KullanicilarComponent    implements OnInit {
+
   kullaniciDataSource: KullaniciDto[]=[];
-  displayedColumnsKullanici: string[] = ['KullaniciKod','Ad','Soyad','VergiNo','FirmaAd','islem'];
+
   constructor( 
     injector: Injector,
     private beyanServis: BeyannameServiceProxy,
     private _dialog: MatDialog,
+    private _fb: FormBuilder
     ) {
     // super(injector);
   }
-
+ 
   ngOnInit() {
     this.getAllKullanici();
+
   }
   getAllKullanici(){
      this.beyanServis.getAllKullanici()
@@ -43,12 +54,15 @@ export class KullanicilarComponent    implements OnInit {
     this.showCreateOrEditTenantDialog();
   }
 
-  silKullanici(kullanici:string){
-
+  silKullanici(kullanici: KullaniciDto){
+    if(confirm(kullanici.kullaniciKod+ '- Kullanıcısını Silmek İstediğinizden Eminmisiniz?')){
+      this.yenileKullanicilar();
+    }
   }
 
   degistirKullanici(kullanici: KullaniciDto){
     this.showCreateOrEditTenantDialog(kullanici.id);
+    this.yenileKullanicilar();
   }
 
 

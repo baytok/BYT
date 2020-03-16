@@ -32,9 +32,28 @@ export class BeyannameServiceProxy {
     this.http = http;
     this.baseUrl = baseUrl ? baseUrl : "";
   }
+  restoreKullanici(kullanici: KullaniciDto) {
+         
+      return this.http.put<any>(
+        this.baseUrl + "KullaniciDegistir/KullaniciHizmeti", 
+        kullanici  
+        );
+  }
+  setKullanici(kullanici: KullaniciDto) {
+         
+    return this.http.post<any>(
+      this.baseUrl + "KullaniciOlustur/KullaniciHizmeti", 
+      kullanici  
+      );
+  }
   getAllKullanici() {
     return this.http.get(
-      this.baseUrl + "KullaniciHizmeti/" 
+      this.baseUrl + "Kullanicilar/KullaniciHizmeti/" 
+    );
+  }
+  getKullaniciGiris(KullaniciKod,KullaniciSifre) {
+    return this.http.get(
+      this.baseUrl + "KullaniciGiris/KullaniciHizmeti/"+KullaniciKod+"/"+KullaniciSifre 
     );
   }
   getAllIslem(Kullanici) {
@@ -596,12 +615,16 @@ export class ServisDto {
 }
 export class KullaniciDto {
   id: number;
-  KullaniciKod:string;
-  KullaniciSifre:string;
-  Ad: string;
-  Soyad: string;
-  VergiNo:string;
-  FirmaAd:string;
+  kullaniciKod:string;
+  kullaniciSifre:string;
+  ad: string;
+  soyad: string;
+  vergiNo:string;
+  firmaAd:string;
+  mailAdres:string;
+  telefon:string;
+  aktif:boolean;
+  sonIslemZamani:Date;
 
   constructor(data?: KullaniciDto) {
     if (data) {
@@ -615,12 +638,16 @@ export class KullaniciDto {
   init(data?: any) {
     if (data) {         
       this.id = data["id"];
-      this.KullaniciKod = data["kullaniciKod"];
-      this.KullaniciSifre = data["kullaniciSifre"];
-      this.Ad = data["ad"];
-      this.Soyad = data["soyad"];
-      this.VergiNo = data["vergiNo"];
-      this.FirmaAd = data["firmaAd"];
+      this.kullaniciKod = data["kullaniciKod"];
+      this.kullaniciSifre = data["kullaniciSifre"];
+      this.ad = data["ad"];
+      this.soyad = data["soyad"];
+      this.vergiNo = data["vergiNo"];
+      this.firmaAd = data["firmaAd"];
+      this.mailAdres = data["mailAdres"];
+      this.aktif = data["aktif"];
+      this.telefon = data["telefon"];
+      this.sonIslemZamani = data["sonIslemZamani"];
     }
   }
 
@@ -635,16 +662,19 @@ export class KullaniciDto {
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};
   
-    data["kullaniciKod"]=this.KullaniciKod ;
-    data["kullaniciSifre"]= this.KullaniciSifre ;
-    data["ad"]= this.Ad ;
-    data["soyad"]= this.Soyad ;
-    data["vergiNo"]= this.VergiNo ;
-    data["firmaAd"]=this.FirmaAd ;
+    data["kullaniciKod"]=this.kullaniciKod ;
+    data["kullaniciSifre"]= this.kullaniciSifre ;
+    data["ad"]= this.ad ;
+    data["soyad"]= this.soyad ;
+    data["vergiNo"]= this.vergiNo ;
+    data["firmaAd"]=this.firmaAd ;
     data["id"] = this.id;
+    data["mailAdres"]= this.mailAdres;
+    data["aktif"]=this.aktif ;
+    data["telefon"]=this.telefon ;
+    data["sonIslemZamani"]=this.sonIslemZamani;
     return data;
   }
-
   clone(): KullaniciDto {
     const json = this.toJSON();
     let result = new KullaniciDto();

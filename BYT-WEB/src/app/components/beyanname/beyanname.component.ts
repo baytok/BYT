@@ -221,9 +221,7 @@ export class BeyannameComponent implements OnInit {
           Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")
         ])
       }
-      // {
-      //   validator: MustMatch('password', 'confirmPassword')
-      // }
+      
     )
   }
   ngOnInit() {
@@ -403,9 +401,7 @@ export class BeyannameComponent implements OnInit {
     this.beyannameForm.enable();
     this.submitted = false;
     this.islemInput.nativeElement.value="";
-  }
-
- 
+  } 
   duzeltBeyanname() {
    
     this.beyannameForm.enable();
@@ -426,7 +422,6 @@ export class BeyannameComponent implements OnInit {
      
     }
   }
-
   onbeyannameFormSubmit() {
     this.submitted = true;
 
