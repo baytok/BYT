@@ -13,6 +13,9 @@ import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { KalemComponent } from './components/kalem/kalem.component';
 import { KullanicilarComponent } from './components/kullanici/kullanicilar/kullanicilar.component';
 import { YeniKullaniciComponent } from './components/kullanici/yeniKullanici/yeniKullanici.component';
+import { DegistirKullaniciComponent } from './components/kullanici/degistirKullanici/degistirKullanici.component';
+import { YeniMusteriComponent } from './components/musteri/yeniMusteri/yeniMusteri.component';
+import { DegistirMusteriComponent } from './components/musteri/degistirMusteri/degistirMusteri.component';
 import { MusterilerComponent } from './components/musteri/musteriler/musteriler.component';
 import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
@@ -21,8 +24,11 @@ import { SharedModule } from '../shared/shared.module';
 import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.module';
 import { AppConsts } from '../shared/AppConsts';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
-import { AppSessionService } from 'src/shared/session/app-session.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {
+   BeyannameServiceProxy,
+   SessionServiceProxy
+ } from "../shared/service-proxies/service-proxies";
 
 
 @NgModule({
@@ -39,7 +45,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
       KalemComponent,
       KullanicilarComponent,
       MusterilerComponent,
-      YeniKullaniciComponent
+      YeniKullaniciComponent,
+      DegistirKullaniciComponent,
+      YeniMusteriComponent,
+      DegistirMusteriComponent
    
     
    ],
@@ -64,13 +73,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     
    ],
    entryComponents: [
-      BeyannameSonucservisComponent,
+      BeyannameSonucservisComponent,DegistirKullaniciComponent,DegistirMusteriComponent
       
 
    ],
    providers: [
       { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" },
-       AppSessionService,
+       SessionServiceProxy
    ],
     bootstrap: [
         AppComponent

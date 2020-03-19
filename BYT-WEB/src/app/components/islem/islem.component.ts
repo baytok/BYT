@@ -9,8 +9,8 @@ import {MatSort} from '@angular/material/sort';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {AppServisDurumKodlari} from '../../../shared/AppEnums';
 import { Router } from "@angular/router";
-
-
+import { AppSessionService } from '../../../shared/session/app-session.service';
+import { GirisService } from '../../../account/giris/giris.service';
 import {
    IslemDto,
    TarihceDto,
@@ -38,7 +38,7 @@ import {
 
 export class IslemComponent implements OnInit {
  
-  kullanici="11111111100";
+  kullanici="";
  
   public loading = false;
 
@@ -51,7 +51,9 @@ export class IslemComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     private beyanServis: BeyannameServiceProxy,
-    private session: SessionServiceProxy,
+    private  girisService: GirisService,  
+    private  _UserSession: AppSessionService,  
+    private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar ,
     private _dialog: MatDialog,
     private router:Router
@@ -61,8 +63,8 @@ export class IslemComponent implements OnInit {
     
   ngOnInit() {
    
-    // this.kullanici=this._session._user.userNameOrEmailAddress;
-    
+     this._UserSession._user=this.girisService.authenticateModel;
+    console.log(this._UserSession._user);
     this.yenileIslemler();
  
   }
@@ -72,7 +74,7 @@ export class IslemComponent implements OnInit {
 
   yenileTarihce(): void {
   
-     this.getTarihce(this.session.islemInternalNo);
+     this.getTarihce(this._beyanSession.islemInternalNo);
     
   }
   openSnackBar(message: string, action: string) {
@@ -85,9 +87,9 @@ export class IslemComponent implements OnInit {
     this.beyanServis.getAllIslem(this.kullanici)
     .subscribe( (result: IslemDto[])=>{
           this.islemlerDataSource=result;
-          this.session.guidOf=result[0].guidof;
-          this.session.islemInternalNo= result[0].islemInternalNo;
-          this.session.refNo=result[0].refNo;
+          this._beyanSession.guidOf=result[0].guidof;
+          this._beyanSession.islemInternalNo= result[0].islemInternalNo;
+          this._beyanSession.refNo=result[0].refNo;
        
      }, (err)=>{
        console.log(err);
@@ -108,7 +110,7 @@ export class IslemComponent implements OnInit {
    }
    getTarihce(IslemInternalNo:string){  
    
-    this.session.islemInternalNo=IslemInternalNo;
+    this._beyanSession.islemInternalNo=IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo)
     .subscribe( (result: TarihceDto[])=>{
       
@@ -142,7 +144,7 @@ export class IslemComponent implements OnInit {
    }
    getBeyanname(islemInternalNo: string)
    {
-    this.session.islemInternalNo=islemInternalNo;  
+    this._beyanSession.islemInternalNo=islemInternalNo;  
     this.router.navigateByUrl('/app/beyanname');
    }
    getBeyannameSonuc(guid:string,islemInternalNo: string)
@@ -150,7 +152,7 @@ export class IslemComponent implements OnInit {
      this.showSonucDialog(0,guid,islemInternalNo);
    }
    sendingKontrolMessages(islemInternalNo:string){
-    this.session.islemInternalNo=islemInternalNo;  
+    this._beyanSession.islemInternalNo=islemInternalNo;  
     if(confirm('Kontrol Gönderimi Yapamak İstediğinizden Eminmisiniz?')){
       this.loading = true; 
     
@@ -158,10 +160,10 @@ export class IslemComponent implements OnInit {
      promise.then( (result)=>{  
         const sonuc_ = new ServisDto();
         sonuc_.init(result);
-         this.session.guidOf=sonuc_.Bilgiler[0].guid;
+         this._beyanSession.guidOf=sonuc_.Bilgiler[0].guid;
          this.loading = false; 
       
-              this.openSnackBar( sonuc_.ServisDurumKodu===AppServisDurumKodlari.Available ? this.session.guidOf +"-"+sonuc_.Bilgiler[0].sonuc
+              this.openSnackBar( sonuc_.ServisDurumKodu===AppServisDurumKodlari.Available ? this._beyanSession.guidOf +"-"+sonuc_.Bilgiler[0].sonuc
                 :sonuc_.Hatalar[0].hataKodu+"-"+sonuc_.Hatalar[0].hataAciklamasi ,'Tamam');
       }, (err)=>{
        console.log(err);

@@ -32,20 +32,7 @@ export class BeyannameServiceProxy {
     this.http = http;
     this.baseUrl = baseUrl ? baseUrl : "";
   }
-  restoreKullanici(kullanici: KullaniciDto) {
-         
-      return this.http.put<any>(
-        this.baseUrl + "KullaniciDegistir/KullaniciHizmeti", 
-        kullanici  
-        );
-  }
-  setKullanici(kullanici: KullaniciDto) {
-         
-    return this.http.post<any>(
-      this.baseUrl + "KullaniciOlustur/KullaniciHizmeti", 
-      kullanici  
-      );
-  }
+
   getAllKullanici() {
     return this.http.get(
       this.baseUrl + "Kullanicilar/KullaniciHizmeti/" 
@@ -55,6 +42,57 @@ export class BeyannameServiceProxy {
     return this.http.get(
       this.baseUrl + "KullaniciGiris/KullaniciHizmeti/"+KullaniciKod+"/"+KullaniciSifre 
     );
+  }
+  setKullanici(kullanici: KullaniciDto) {
+         
+    return this.http.post<any>(
+      this.baseUrl + "KullaniciOlustur/KullaniciHizmeti", 
+      kullanici  
+      );
+  }
+  restoreKullanici(kullanici: KullaniciDto) {
+         
+      return this.http.put<any>(
+        this.baseUrl + "KullaniciDegistir/KullaniciHizmeti", 
+        kullanici  
+        );
+  }
+  removeKullanici(kullaniciId) {
+         
+    return this.http.delete<any>(
+      this.baseUrl + "KullaniciSil/KullaniciHizmeti/"+kullaniciId        
+      );
+  }
+
+  getAllAktifMusteri() {
+    return this.http.get(
+      this.baseUrl + "AktifMusteriler/KullaniciHizmeti/" 
+    );
+  }
+  getAllMusteri() {
+    return this.http.get(
+      this.baseUrl + "Musteriler/KullaniciHizmeti/" 
+    );
+  }
+  setMusteri(musteri: MusteriDto) {
+         
+    return this.http.post<any>(
+      this.baseUrl + "MusteriOlustur/KullaniciHizmeti", 
+      musteri  
+      );
+  }
+  restoreMusteri(musteri: MusteriDto) {
+         
+      return this.http.put<any>(
+        this.baseUrl + "MusteriDegistir/KullaniciHizmeti", 
+        musteri  
+        );
+  }
+  removeMusteri(musteriId) {
+   
+    return this.http.delete<any>(
+      this.baseUrl + "MusteriSil/KullaniciHizmeti/"+musteriId        
+      );
   }
   getAllIslem(Kullanici) {
     return this.http.get(
@@ -150,6 +188,7 @@ export class BeyannameServiceProxy {
 }
 @Injectable()
 export class SessionServiceProxy {
+  
   private http: HttpClient;
   private baseUrl: string;
   public guidOf: string;
@@ -557,7 +596,7 @@ export class ServisDto {
   ServisDurumKodu: number;
   Hatalar: HatalarDto[];
   Bilgiler: BilgilerDto[];
-
+  Sonuc: string;
   constructor(data?: ServisDto) {
     if (data) {
       for (var property in data) {
@@ -578,8 +617,8 @@ export class ServisDto {
         this.Hatalar = [] as any;
         for (let item of data["hatalar"]) this.Hatalar.push(item);
       }
-
       this.ServisDurumKodu = data["servisDurumKodlari"];
+      this.Sonuc=this.getSonuc();
     }
   }
 
@@ -612,7 +651,46 @@ export class ServisDto {
     result.init(json);
     return result;
   }
+  getSonuc():string
+  {
+    let result={};
+  
+   if(this.ServisDurumKodu===1)
+   {
+    if (Array.isArray( this.Bilgiler)) {
+ 
+      for (let item of this.Bilgiler) 
+      {
+      result={
+        Guid:item.guid,
+        İşlemTipi: item.islemTipi,
+        ReferansNo:item.referansNo,
+        Sonuç:item.sonuc
+      }     
+      }
+    }
+
+   }
+   else
+   {
+    if (this.Hatalar) {
+     
+      for (let item of this.Hatalar) 
+      {
+        result={
+          HataKodu:item.hataKodu,
+          HataAçıklaması:item.hataAciklamasi
+        }
+    
+      }
+    }
+    }
+   
+    return JSON.stringify(result, null, 4);
+  
+  }
 }
+
 export class KullaniciDto {
   id: number;
   kullaniciKod:string;
@@ -682,6 +760,68 @@ export class KullaniciDto {
     return result;
   }
 }
+
+export class MusteriDto {
+  id: number;
+  adres: string;
+  vergiNo:string;
+  firmaAd:string;
+  mailAdres:string;
+  telefon:string;
+  aktif:boolean;
+  sonIslemZamani:Date;
+
+  constructor(data?: KullaniciDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {         
+      this.id = data["id"];
+      this.adres = data["adres"];
+      this.vergiNo = data["vergiNo"];
+      this.firmaAd = data["firmaAd"];
+      this.mailAdres = data["mailAdres"];
+      this.aktif = data["aktif"];
+      this.telefon = data["telefon"];
+      this.sonIslemZamani = data["sonIslemZamani"];
+    }
+  }
+
+  static fromJS(data: any): KullaniciDto {
+    data = typeof data === "object" ? data : {};
+    let result = new KullaniciDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};  
+   
+    data["adres"]= this.adres ;
+    data["vergiNo"]= this.vergiNo ;
+    data["firmaAd"]=this.firmaAd ;
+    data["id"] = this.id;
+    data["mailAdres"]= this.mailAdres;
+    data["aktif"]=this.aktif ;
+    data["telefon"]=this.telefon ;
+    data["sonIslemZamani"]=this.sonIslemZamani;
+    return data;
+  }
+  clone(): KullaniciDto {
+    const json = this.toJSON();
+    let result = new KullaniciDto();
+    result.init(json);
+    return result;
+  }
+}
+
 
 export class BeyannameSonucDto {
   Hatalar: SonucHatalarDto[];
@@ -1276,3 +1416,4 @@ export class OdemeDto {
   odemeSekliKodu: string;
   tbfid:string;
 }
+  

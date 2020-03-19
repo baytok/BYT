@@ -17,11 +17,11 @@ import {
   styleUrls: ['./giris.component.scss']
 })
 export class GirisComponent implements OnInit {
-  
-
+ 
   constructor(
-    private _session:AppSessionService,
-    public girisService: GirisService,
+    private _UserSession: AppSessionService,
+    public   girisService: GirisService,     
+
     private router:Router,
     private snackBar: MatSnackBar,
     private beyanServis: BeyannameServiceProxy,
@@ -41,7 +41,7 @@ export class GirisComponent implements OnInit {
     .toPromise();
   promise.then(
     result => {
-      console.log(result);
+     
       const servisSonuc = new ServisDto();
       servisSonuc.init(result);
     
@@ -49,7 +49,8 @@ export class GirisComponent implements OnInit {
 
       if (servisSonuc.ServisDurumKodu===AppServisDurumKodlari.Available ) {        
         this.openSnackBar(servisSonuc.Bilgiler[0].referansNo +"/"+servisSonuc.Bilgiler[0].sonuc, "Tamam");
-        this._session._user = this.girisService.authenticateModel;
+        this._UserSession._user = this.girisService.authenticateModel;
+  
         this.router.navigateByUrl('/app');
       }
       else this.openSnackBar(servisSonuc.Hatalar[0].hataKodu.toString() +"/"+servisSonuc.Hatalar[0].hataAciklamasi , "Tamam");

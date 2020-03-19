@@ -67,10 +67,10 @@ export class KalemComponent implements OnInit {
   odemeForm: FormGroup;
   markaForm: FormGroup;
   submitted: boolean = false;
-  guidOf = this.session.guidOf;
-  islemInternalNo = this.session.islemInternalNo;
-  beyanInternalNo = this.session.beyanInternalNo;
-  beyanStatu = this.session.beyanStatu;
+  guidOf = this._beyanSession.guidOf;
+  islemInternalNo = this._beyanSession.islemInternalNo;
+  beyanInternalNo = this._beyanSession.beyanInternalNo;
+  beyanStatu = this._beyanSession.beyanStatu;
   _beyannameBilgileri: BeyannameBilgileriDto;
   _kalemler: KalemlerDto[];
   _odemeler: OdemeDto[];
@@ -95,9 +95,8 @@ export class KalemComponent implements OnInit {
 
   constructor(
     private beyanServis: BeyannameServiceProxy,
-    private session: SessionServiceProxy,
+    private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar,
-
     private _fb: FormBuilder
   ) {
     (this.kalemForm = this._fb.group({
@@ -256,8 +255,8 @@ export class KalemComponent implements OnInit {
     //   );
     // else
 
-    this.session.islemInternalNo = "11111111100DBKG000011";
-    this.getKalemler(this.session.islemInternalNo);
+    this._beyanSession.islemInternalNo = "11111111100DBKG000011";
+    this.getKalemler(this._beyanSession.islemInternalNo);
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(
       (s: MatSelectionListChange) => {
@@ -361,7 +360,7 @@ export class KalemComponent implements OnInit {
       yurtIciTahliye: this._kalemler[kalemNo - 1].yurtIciTahliye
     });
 
-    this.beyanServis.getOdeme(this.session.islemInternalNo).subscribe(
+    this.beyanServis.getOdeme(this._beyanSession.islemInternalNo).subscribe(
       (result: OdemeDto[]) => {
         this._odemeler = result.filter(
           x => x.kalemInternalNo === this._kalemler[kalemNo - 1].kalemInternalNo

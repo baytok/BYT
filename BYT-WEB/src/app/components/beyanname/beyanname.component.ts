@@ -44,8 +44,8 @@ export class BeyannameComponent implements OnInit {
   @ViewChild('islemNo', {static: true}) private islemInput: ElementRef;
   beyannameForm: FormGroup;
   submitted: boolean = false;
-  guidOf = this.session.guidOf;
-  islemInternalNo = this.session.islemInternalNo;
+  guidOf = this._beyanSession.guidOf;
+  islemInternalNo = this._beyanSession.islemInternalNo;
   _beyannameBilgileri: BeyannameBilgileriDto;
   _beyanname: BeyannameDto = new BeyannameDto();
   _kalemler: KalemlerDto[];
@@ -63,7 +63,7 @@ export class BeyannameComponent implements OnInit {
 
   constructor(
     private beyanServis: BeyannameServiceProxy,
-    private session: SessionServiceProxy,
+    private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private _fb: FormBuilder
@@ -225,9 +225,9 @@ export class BeyannameComponent implements OnInit {
     )
   }
   ngOnInit() {
-    if (this.session.islemInternalNo != undefined) {
-      this.islemInput.nativeElement.value=this.session.islemInternalNo;
-      this.getBeyannameFromIslem(this.session.islemInternalNo);
+    if (this._beyanSession.islemInternalNo != undefined) {
+      this.islemInput.nativeElement.value=this._beyanSession.islemInternalNo;
+      this.getBeyannameFromIslem(this._beyanSession.islemInternalNo);
      
     }
     this.buildForm();
@@ -254,10 +254,10 @@ export class BeyannameComponent implements OnInit {
         }
         else{
           this._kalemler=this._beyannameBilgileri.Kalemler;
-          this.session.islemInternalNo = islemInternalNo;
-          this.session.Kalemler= this._kalemler;
-          this.session.beyanInternalNo= this._beyanname.beyanInternalNo ;
-          this.session.beyanStatu= this._beyanname.tescilStatu ;
+          this._beyanSession.islemInternalNo = islemInternalNo;
+          this._beyanSession.Kalemler= this._kalemler;
+          this._beyanSession.beyanInternalNo= this._beyanname.beyanInternalNo ;
+          this._beyanSession.beyanStatu= this._beyanname.tescilStatu ;
         }
         this.loadBeyannameForm();
       
@@ -282,10 +282,10 @@ export class BeyannameComponent implements OnInit {
         }
         else{
           this._kalemler=this._beyannameBilgileri.Kalemler;
-          this.session.islemInternalNo = islemInternalNo.value;
-          this.session.Kalemler= this._kalemler;
-          this.session.beyanInternalNo= this._beyanname.beyanInternalNo ;
-          this.session.beyanStatu= this._beyanname.tescilStatu ;
+          this._beyanSession.islemInternalNo = islemInternalNo.value;
+          this._beyanSession.Kalemler= this._kalemler;
+          this._beyanSession.beyanInternalNo= this._beyanname.beyanInternalNo ;
+          this._beyanSession.beyanStatu= this._beyanname.tescilStatu ;
           this.loadBeyannameForm();
           // islemInternalNo.value ="";
         }
@@ -459,7 +459,7 @@ export class BeyannameComponent implements OnInit {
 
           if (yeniislemInternalNo != null) {
             this.islemInput.nativeElement.value=yeniislemInternalNo;
-            this.session.islemInternalNo=yeniislemInternalNo;
+            this._beyanSession.islemInternalNo=yeniislemInternalNo;
             this.openSnackBar(yeniislemInternalNo, "Tamam");
           
           }

@@ -11,10 +11,12 @@ import {
   NgForm
 } from "@angular/forms";
 import {
-  KullaniciDto
+  KullaniciDto, ServisDto
  } from '../../../../shared/service-proxies/service-proxies';
+ import {AppServisDurumKodlari} from '../../../../shared/AppEnums';
  import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../../shared/service-proxies/service-proxies';
  import { MatDialog } from '@angular/material/dialog';
+ import { MatSnackBar } from "@angular/material/snack-bar";
 @Component({
   selector: 'app-kullanicilar',
   templateUrl: './kullanicilar.component.html',
@@ -28,7 +30,8 @@ export class KullanicilarComponent    implements OnInit {
     injector: Injector,
     private beyanServis: BeyannameServiceProxy,
     private _dialog: MatDialog,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private snackBar: MatSnackBar,
     ) {
     // super(injector);
   }
@@ -36,6 +39,11 @@ export class KullanicilarComponent    implements OnInit {
   ngOnInit() {
     this.getAllKullanici();
 
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000
+    });
   }
   getAllKullanici(){
      this.beyanServis.getAllKullanici()
@@ -51,35 +59,62 @@ export class KullanicilarComponent    implements OnInit {
   this.getAllKullanici();
   }
   yeniKullanici(){
-    this.showCreateOrEditTenantDialog();
+    this.showCreateOrEditKullaniciDialog();
   }
 
   silKullanici(kullanici: KullaniciDto){
     if(confirm(kullanici.kullaniciKod+ '- Kullanıcısını Silmek İstediğinizden Eminmisiniz?')){
+      const promise = this.beyanServis
+      .removeKullanici(kullanici.id)
+      .toPromise();
+      promise.then(
+      result => {
+        console.log(result);
+        const servisSonuc = new ServisDto();
+        servisSonuc.init(result);       
+
+        this.openSnackBar(servisSonuc.Sonuc, "Tamam");
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
       this.yenileKullanicilar();
     }
   }
 
   degistirKullanici(kullanici: KullaniciDto){
-    this.showCreateOrEditTenantDialog(kullanici.id);
+    this.showCreateOrEditKullaniciDialog(kullanici);
     this.yenileKullanicilar();
   }
 
 
 
-  showCreateOrEditTenantDialog(id?: number): void {
+  showCreateOrEditKullaniciDialog(kullanici?: KullaniciDto): void {
     let sonucDialog;
-    if (id === undefined || id <= 0) {
+    if (kullanici=== undefined || kullanici.id === undefined || kullanici.id <= 0) {
       sonucDialog = this._dialog.open(YeniKullaniciComponent,{
         width: '700px',
         height:'600px',
-        data: {id:id, adSoyad:""}
+      
       });
     } else {
       sonucDialog = this._dialog.open(DegistirKullaniciComponent,{
         width: '700px',
         height:'600px',
-        data: {id:id, adSoyad:""}
+        data: {id:kullanici.id,
+          kullaniciKod: kullanici.kullaniciKod,
+          ad:kullanici.ad,
+          soyad:kullanici.soyad,
+          vergiNo:kullanici.vergiNo,
+          firmaAd:kullanici.firmaAd,
+          aktif:kullanici.aktif,
+          telefon:kullanici.telefon,
+          mailAdres:kullanici.mailAdres,
+          kullaniciSifre:kullanici.kullaniciSifre,
+          kullaniciSifreTekrarla:""
+        }
       });
     }
 

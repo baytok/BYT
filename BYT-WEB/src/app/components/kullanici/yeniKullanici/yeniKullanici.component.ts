@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
-  KullaniciDto,ServisDto
+  KullaniciDto, MusteriDto, ServisDto
  } from '../../../../shared/service-proxies/service-proxies';
  import {
   BeyannameServiceProxy,
@@ -28,6 +28,7 @@ export class YeniKullaniciComponent implements OnInit {
   kullaniciForm:FormGroup;
   submitted: boolean = false;  
   kullaniciDataSource: KullaniciDto[]=[];
+  musteriDataSource: MusteriDto[]=[];
   constructor(
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
@@ -37,6 +38,8 @@ export class YeniKullaniciComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.getAktifMusteri();
+   
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -45,6 +48,26 @@ export class YeniKullaniciComponent implements OnInit {
   }
   get focus() {
     return this.kullaniciForm.controls;
+  }
+  getAktifMusteri()
+  {
+      this.beyanServis.getAllAktifMusteri()
+     .subscribe( (result: MusteriDto[])=>{
+           this.musteriDataSource=result;
+           
+      }, (err)=>{
+        console.log(err);
+      });
+    
+  }
+  get firmaAd(): string {
+    let vergiNo= this.kullaniciForm ? this.kullaniciForm.get('vergiNo').value : '';
+    if(vergiNo==='')
+    return '';
+    let selected = this.musteriDataSource.find(c=> c.vergiNo == vergiNo);
+    this.kullaniciForm.get("firmaAd").setValue(selected.firmaAd);
+ 
+    return selected.firmaAd;
   }
   buildForm(): void {
     this.kullaniciForm = this._fb.group(
@@ -104,7 +127,7 @@ export class YeniKullaniciComponent implements OnInit {
     
     let yeniKullanici=new KullaniciDto();
     yeniKullanici.init(this.kullaniciForm.value);
- 
+  
       const promise = this.beyanServis
         .setKullanici(yeniKullanici)
         .toPromise();
@@ -114,11 +137,8 @@ export class YeniKullaniciComponent implements OnInit {
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);       
 
-          if (servisSonuc.ServisDurumKodu===AppServisDurumKodlari.Available ) {        
-            this.openSnackBar(servisSonuc.Bilgiler[0].referansNo +"/"+servisSonuc.Bilgiler[0].sonuc, "Tamam");
-            this.kullaniciForm.disable();
-          }
-          else this.openSnackBar(servisSonuc.Hatalar[0].hataKodu.toString() +"/"+servisSonuc.Hatalar[0].hataAciklamasi , "Tamam");
+          this.openSnackBar(servisSonuc.Sonuc, "Tamam");
+          this.kullaniciForm.disable();
         },
         err => {
           console.log(err);
@@ -128,7 +148,7 @@ export class YeniKullaniciComponent implements OnInit {
     // alert(
     //   "SUCCESS!! :-)\n\n" + JSON.stringify(this.kullaniciForm.value, null, 4)
     // );
-
+  
   
   }
 

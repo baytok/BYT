@@ -15,7 +15,8 @@ namespace BYT.WS.Data
 
         }
         public DbSet<Kullanici> Kullanici { get; set; }
-     
-      
+        public DbSet<Musteri> Musteri { get; set; }
+
+
     }
 }

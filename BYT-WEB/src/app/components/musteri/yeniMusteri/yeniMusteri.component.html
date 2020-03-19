@@ -1,3 +1,139 @@
-<p>
-  yeniMusteri works!
-</p>
+<form [formGroup]="musteriForm" (ngSubmit)="save()">  
+  <div class="card m-3">
+   <h5 class="card-header text-center">Yeni Müşteri</h5>   
+   <div class="form-row">  
+    
+     <div class="form-group col">
+       <mat-form-field>
+         <mat-label>Vergi No</mat-label>
+         <input
+           matNativeControl
+           formControlName="vergiNo"
+           class="form-control "
+           [ngClass]="{
+             'is-invalid': submitted && focus.vergiNo.errors
+           }"
+         />
+
+         <div
+           *ngIf="submitted && focus.vergiNo.errors"
+           class="invalid-feedback"
+         >
+           <div *ngIf="focus.vergiNo.errors.required">
+             Vergi No Kodu Zorunlu
+           </div>
+         </div>
+       </mat-form-field>
+     </div>
+     <div class="form-group col">
+       <mat-form-field>
+         <mat-label>Firma Adı</mat-label>
+         <input
+           matNativeControl
+           formControlName="firmaAd"
+           class="form-control "
+           [ngClass]="{
+             'is-invalid': submitted && focus.firmaAd.errors
+           }"
+         />
+
+         <div
+           *ngIf="submitted && focus.firmaAd.errors"
+           class="invalid-feedback"
+         >
+           <div *ngIf="focus.firmaAd.errors.required">
+             Firma Adı Zorunlu
+           </div>
+         </div>
+       </mat-form-field>
+     </div>
+     <div class="form-group col">
+      <mat-form-field>
+        <mat-label>Adres</mat-label>
+        <input
+          matNativeControl
+          formControlName="adres"
+          class="form-control "
+          [ngClass]="{
+            'is-invalid': submitted && focus.adres.errors
+          }"
+        />
+
+        <div
+          *ngIf="submitted && focus.adres.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="focus.adres.errors.required">
+            Adres Zorunlu
+          </div>
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="form-group col">
+      <div class="form-group form-check">
+        <input
+          type="checkbox"
+          formControlName="aktif"
+          id="aktif"
+          class="form-check-input"
+          [ngClass]="{ 'is-invalid': submitted && focus.aktif.errors }"
+        />
+        <mat-label for="aktif" class="form-check-label">aktif</mat-label>
+        <div
+          *ngIf="submitted && focus.aktif.errors"
+          class="invalid-feedback"
+        >
+          Aktif Zorunlu
+        </div>
+      </div>
+    </div> 
+     <div class="form-group col">
+       <mat-form-field>
+         <mat-label>Mail Adresi</mat-label>
+         <input
+           matNativeControl
+           formControlName="mailAdres"
+           class="form-control "
+           [ngClass]="{
+             'is-invalid': submitted && focus.mailAdres.errors
+           }"
+         />
+
+         <div
+           *ngIf="submitted && focus.mailAdres.errors"
+           class="invalid-feedback"
+         >
+           <div *ngIf="focus.mailAdres.errors.required">
+             Mail Adresi Zorunlu
+           </div>
+         </div>
+       </mat-form-field>
+     </div>
+     <div class="form-group col">
+       <mat-form-field>
+         <mat-label>Telefon No</mat-label>
+         <input
+           matNativeControl
+           formControlName="telefon"
+           class="form-control "
+           [ngClass]="{
+             'is-invalid': submitted && focus.telefon.errors
+           }"
+         />
+
+         <div
+           *ngIf="submitted && focus.telefon.errors"
+           class="invalid-feedback"
+         >
+           <div *ngIf="focus.telefon.errors.required">
+             Telefon Zorunlu
+           </div>
+         </div>
+       </mat-form-field>
+     </div> 
+   </div>
+   </div>
+   <div class="text-right">      
+     <button  [disabled]="!musteriForm.valid" class="btn btn-primary mr-1">Kaydet</button>          
+   </div>
+</form>
