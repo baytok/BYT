@@ -273,6 +273,7 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\BYT.WS.pdb
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\FluentValidation.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\FluentValidation.AspNetCore.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\FluentValidation.DependencyInjectionExtensions.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
@@ -298,6 +299,11 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.Ext
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
@@ -316,6 +322,7 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Compos
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Composition.TypedParts.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Net.Http.WinHttpHandler.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll

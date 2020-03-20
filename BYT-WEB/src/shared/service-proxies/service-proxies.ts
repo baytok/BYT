@@ -38,11 +38,7 @@ export class BeyannameServiceProxy {
       this.baseUrl + "Kullanicilar/KullaniciHizmeti/" 
     );
   }
-  getKullaniciGiris(KullaniciKod,KullaniciSifre) {
-    return this.http.get(
-      this.baseUrl + "KullaniciGiris/KullaniciHizmeti/"+KullaniciKod+"/"+KullaniciSifre 
-    );
-  }
+
   setKullanici(kullanici: KullaniciDto) {
          
     return this.http.post<any>(

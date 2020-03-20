@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthenticateModel, AuthenticateResultModel } from '../../account/giris/giris-service-proxies';
+import { KullaniciModel, KullaniciSonucModel } from '../../account/giris/giris-service-proxies';
 import {
 
   SessionServiceProxy
@@ -9,7 +9,7 @@ import {
 @Injectable()
 export class AppSessionService {
 
-     public _user: AuthenticateModel;
+     public _user: KullaniciModel;
     // private _tenant: TenantLoginInfoDto;
     // private _application: ApplicationInfoDto;
 

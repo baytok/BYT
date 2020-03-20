@@ -1,10 +1,10 @@
 ﻿
-export class AuthenticateModel implements IAuthenticateModel {
-    userNameOrEmailAddress: string | undefined;
-    password: string | undefined;
+export class KullaniciModel implements IKullaniciModel {
+    kullanici: string | undefined;
+    sifre: string | undefined;
     rememberClient: boolean;
 
-    constructor(data?: IAuthenticateModel) {
+    constructor(data?: IKullaniciModel) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -15,48 +15,47 @@ export class AuthenticateModel implements IAuthenticateModel {
 
     init(data?: any) {
         if (data) {
-            this.userNameOrEmailAddress = data["userNameOrEmailAddress"];
-            this.password = data["password"];
+            this.kullanici = data["kullanici"];
+            this.sifre = data["sifre"];
             this.rememberClient = data["rememberClient"];
         }
     }
 
-    static fromJS(data: any): AuthenticateModel {
+    static fromJS(data: any): KullaniciModel {
         data = typeof data === 'object' ? data : {};
-        let result = new AuthenticateModel();
+        let result = new KullaniciModel();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["userNameOrEmailAddress"] = this.userNameOrEmailAddress;
-        data["password"] = this.password;
+        data["kullanici"] = this.kullanici;
+        data["sifre"] = this.sifre;
         data["rememberClient"] = this.rememberClient;
         return data; 
     }
 
-    clone(): AuthenticateModel {
+    clone(): KullaniciModel {
         const json = this.toJSON();
-        let result = new AuthenticateModel();
+        let result = new KullaniciModel();
         result.init(json);
         return result;
     }
 }
 
-export interface IAuthenticateModel {
-    userNameOrEmailAddress: string | undefined;
-    password: string | undefined;
+export interface IKullaniciModel {
+    kullanici: string | undefined;
+    sifre: string | undefined;
     rememberClient: boolean;
 }
 
-export class AuthenticateResultModel implements IAuthenticateResultModel {
-    accessToken: string | undefined;
-    encryptedAccessToken: string | undefined;
-    expireInSeconds: number;
-    userId: number;
+export class KullaniciSonucModel implements IKullaniciSonucModel {
+    token: string | undefined;
+    expireInSeconds: 1800;
+    kullanici: string;
 
-    constructor(data?: IAuthenticateResultModel) {
+    constructor(data?: IKullaniciSonucModel) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -67,40 +66,37 @@ export class AuthenticateResultModel implements IAuthenticateResultModel {
 
     init(data?: any) {
         if (data) {
-            this.accessToken = data["accessToken"];
-            this.encryptedAccessToken = data["encryptedAccessToken"];
+            this.token = data["token"];
             this.expireInSeconds = data["expireInSeconds"];
-            this.userId = data["userId"];
+            this.kullanici = data["kullanici"];
         }
     }
 
-    static fromJS(data: any): AuthenticateResultModel {
+    static fromJS(data: any): KullaniciSonucModel {
         data = typeof data === 'object' ? data : {};
-        let result = new AuthenticateResultModel();
+        let result = new KullaniciSonucModel();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["accessToken"] = this.accessToken;
-        data["encryptedAccessToken"] = this.encryptedAccessToken;
+        data["token"] = this.token;
         data["expireInSeconds"] = this.expireInSeconds;
-        data["userId"] = this.userId;
+        data["kullanici"] = this.kullanici;
         return data; 
     }
 
-    clone(): AuthenticateResultModel {
+    clone(): KullaniciSonucModel {
         const json = this.toJSON();
-        let result = new AuthenticateResultModel();
+        let result = new KullaniciSonucModel();
         result.init(json);
         return result;
     }
 }
 
-export interface IAuthenticateResultModel {
-    accessToken: string | undefined;
-    encryptedAccessToken: string | undefined;
-    expireInSeconds: number;
-    userId: number;
+export interface IKullaniciSonucModel {
+    token: string | undefined;
+    expireInSeconds: 1800;
+    kullanici: string;
 }

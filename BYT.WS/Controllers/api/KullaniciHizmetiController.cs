@@ -4,8 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using BYT.WS.AltYapi;
 using BYT.WS.Data;
+using BYT.WS.Entities;
 using BYT.WS.Internal;
 using BYT.WS.Models;
+using BYT.WS.Services.Kullanici;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -16,37 +19,43 @@ using Microsoft.Extensions.Options;
 namespace BYT.WS.Controllers.api
 {
     //  [Route("api/BYT/[controller]")]
+    [Authorize]
     [ApiController]
     public class KullaniciHizmetiController : ControllerBase
     {
-
+        private readonly IKullaniciServis _userService;
         private KullaniciDataContext _kullaniciContext;
         public IConfiguration Configuration { get; }
 
-        public KullaniciHizmetiController(IConfiguration configuration)
+        public KullaniciHizmetiController(IConfiguration configuration, IKullaniciServis userService)
         {
+           _userService = userService;
             Configuration = configuration;
             var options = new DbContextOptionsBuilder<KullaniciDataContext>()
                        .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                        .Options;
             _kullaniciContext = new KullaniciDataContext(options);
         }
-        [Route("api/BYT/KullaniciGiris/[controller]/{Kullanici}/{sifre}")]
-        [HttpGet("{Kullanici}/{sifre}")]
-        public async Task<ServisDurum> GetGiris(string Kullanici, string sifre)
+        [AllowAnonymous]
+        [Route("api/BYT/KullaniciGiris/[controller]/{kullanici}/{sifre}")]
+        [HttpGet("{kullanici}/{sifre}")]
+        public async Task<ServisDurum> GetGiris(string kullanici, string sifre)
         {
+            var kullaniciValues = _userService.Authenticate(kullanici.Trim(), sifre.Trim());
+            //if (user == null)
+            //    return BadRequest("Username or password incorrect!");
+            //return Ok(new { Kullanici = user.Value.KullaniciKod, Token = user.Value.token });
+
             ServisDurum _servisDurum = new ServisDurum();
             try
             {
-             
 
-                var kullaniciValues = await _kullaniciContext.Kullanici.Where(v => v.KullaniciKod == Kullanici.Trim() && v.KullaniciSifre == sifre.Trim() && v.Aktif == true).ToListAsync();
-
-                if (kullaniciValues != null && kullaniciValues.Count > 0)
+                if (kullaniciValues != null)
                 {
+
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                     List<Bilgi> lstBlg = new List<Bilgi>();
-                    Bilgi blg = new Bilgi { IslemTipi = "Giriş", ReferansNo = Kullanici, Sonuc = "Giriş Başarılı", SonucVeriler = kullaniciValues };
+                    Bilgi blg = new Bilgi { IslemTipi = "Giriş", ReferansNo = kullaniciValues.Value.token, Sonuc = "Giriş Başarılı", SonucVeriler = kullaniciValues };
                     lstBlg.Add(blg);
                     _servisDurum.Bilgiler = lstBlg;
                 }
@@ -55,11 +64,11 @@ namespace BYT.WS.Controllers.api
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarisiz;
                     List<Internal.Hata> lstht = new List<Internal.Hata>();
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = "Giriş İşlemi Başarısız"};
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = "Giriş İşlemi Başarısız" };
                     lstht.Add(ht);
                     _servisDurum.Hatalar = lstht;
                 }
-                 
+
 
 
                 return _servisDurum;
@@ -79,6 +88,7 @@ namespace BYT.WS.Controllers.api
 
 
         }
+
 
         [Route("api/BYT/Kullanicilar/[controller]")]
         [HttpGet]
@@ -100,6 +110,7 @@ namespace BYT.WS.Controllers.api
 
 
         }
+
 
         [Route("api/BYT/KullaniciOlustur/[controller]")]
         [HttpPost]

@@ -36,24 +36,23 @@ export class GirisComponent implements OnInit {
     });
   }
   login() {    
-    const promise = this.beyanServis
-    .getKullaniciGiris(this.girisService.authenticateModel.userNameOrEmailAddress,this.girisService.authenticateModel.password)
+    const promise = this.girisService
+    .getKullaniciGiris(this.girisService.kullaniciModel.kullanici,this.girisService.kullaniciModel.sifre)
     .toPromise();
   promise.then(
     result => {
      
       const servisSonuc = new ServisDto();
       servisSonuc.init(result);
-    
-     // console.log(servisSonuc.Bilgiler[0].referansNo);
+
+      var token = JSON.parse(servisSonuc.Sonuc).ReferansNo;
+      localStorage.setItem('bytServis_access_token', token);
+      localStorage.setItem('kullanici', this.girisService.kullaniciModel.kullanici);
 
       if (servisSonuc.ServisDurumKodu===AppServisDurumKodlari.Available ) {        
-        this.openSnackBar(servisSonuc.Bilgiler[0].referansNo +"/"+servisSonuc.Bilgiler[0].sonuc, "Tamam");
-        this._UserSession._user = this.girisService.authenticateModel;
-  
         this.router.navigateByUrl('/app');
       }
-      else this.openSnackBar(servisSonuc.Hatalar[0].hataKodu.toString() +"/"+servisSonuc.Hatalar[0].hataAciklamasi , "Tamam");
+      else this.openSnackBar(servisSonuc.Sonuc , "Tamam");
     },
     err => {
       console.log(err);

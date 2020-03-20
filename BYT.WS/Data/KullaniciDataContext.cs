@@ -1,4 +1,5 @@
-﻿using BYT.WS.Models;
+﻿using BYT.WS.Entities;
+using BYT.WS.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;

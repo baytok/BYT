@@ -16,9 +16,9 @@
                     matInput
                     placeholder="Kullanici Kodu"
                     [(ngModel)]="
-                      girisService.authenticateModel.userNameOrEmailAddress
+                    girisService.kullaniciModel.kullanici
                     "
-                    name="userNameOrEmailAddress"
+                    name="Kullanici"
                     required
                    
                   />
@@ -38,9 +38,9 @@
                   <input
                     matInput
                     placeholder="Şifre"
-                    [(ngModel)]="girisService.authenticateModel.password"
+                    [(ngModel)]="girisService.kullaniciModel.sifre"
                     type="password"
-                    name="password"
+                    name="Sifre"
                     required
                   />
                   <span class="input-group-addon">

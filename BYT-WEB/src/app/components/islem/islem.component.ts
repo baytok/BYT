@@ -62,9 +62,11 @@ export class IslemComponent implements OnInit {
    
     
   ngOnInit() {
-   
-     this._UserSession._user=this.girisService.authenticateModel;
-    console.log(this._UserSession._user);
+   if(!this.girisService.loggedIn)
+   this.router.navigateByUrl('/giris');
+
+     this.kullanici=localStorage.getItem('kullanici');
+  7
     this.yenileIslemler();
  
   }
