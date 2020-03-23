@@ -160,7 +160,8 @@ type = "ball-8bits">
                       </mat-menu>
                     </mat-header-cell>
                     <mat-cell *matCellDef="let element"
-                      ngbTooltip="Sonuç: {{element.islemSonucu}}, Gönderim No:{{ element.gonderimSayisi }}"
+                      ngbTooltip="Referans No:{{element.refNo}}, Gönderim No:{{ element.gonderimSayisi }},
+                      Oluşturma Zaman:{{element.olusturmaZamani}},  Sonuç: {{element.islemSonucu}} "
                       [openDelay]="1000" [closeDelay]="3000" tooltipClass="my-custom-class">
                       {{element.islemInternalNo}}
                
@@ -251,6 +252,9 @@ type = "ball-8bits">
                     <mat-cell
                       [style.flex]="'0 0 250px'"
                       *matCellDef="let element"
+                      ngbTooltip="Referans No:{{element.refNo}}, Ticaret Tipi:{{ element.ticaretTipi }},
+                      Gümrük :{{element.gumruk}}, Rejim:{{rejim}}, İşlem Sonuç: {{element.islemSonucu}} "
+                      [openDelay]="1000" [closeDelay]="3000" tooltipClass="my-custom-class"
                     >
                       {{ element.islemInternalNo }}
                     </mat-cell>

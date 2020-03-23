@@ -1,29 +1,6 @@
-<div class="user-info">
-    <div class="image">
-        <img src="../assets/byt-menu.png" width="48" height="48" alt="User" />
-    </div>
-    <div class="info-container">
-        <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>      
-        <button class="btn-group user-helper-dropdown" mat-icon-button (click)="onToggleSidenav()">
-            <!-- <a><img src="../assets/byt-menu.png"/></a> -->
-            <mat-icon>menu</mat-icon>
-        </button>
-       
-    </div>
-  </div>
- 
-  
-  <!-- <mat-sidenav-container>
-  <mat-sidenav #sidenav role="navigation">
-    <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
-  
-  </mat-sidenav-content>
-</mat-sidenav-container> -->
 
-<mat-nav-list >
+
+<mat-nav-list  routerLinkActive="active">
     <a mat-list-item routerLink="/app/genel" (click)="onSidenavClose()">
         <mat-icon>home</mat-icon> <span class="nav-caption">Ana Sayfa</span>
     </a>

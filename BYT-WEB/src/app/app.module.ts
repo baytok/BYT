@@ -8,6 +8,7 @@ import { NaviComponent } from './components/layout/navi/navi.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { GenelComponent } from './components/genel/genel.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { UserAreaComponent } from './components/layout/user-area/user-area.component';
 import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { KalemComponent } from './components/kalem/kalem.component';
@@ -37,6 +38,7 @@ import {
       NaviComponent,
       HeaderComponent,
       FooterComponent,
+      UserAreaComponent,
       IslemComponent,
       BeyannameComponent,
       BeyannameSonucservisComponent,      

@@ -42,9 +42,10 @@ export class GirisService {
     
     }
     public setLoginToken(kullanici:string,token:string, kullaniciAdi:string){
-      localStorage.setItem('bytServis_access_token', token);
-      localStorage.setItem('kullanici', kullanici);
-      localStorage.setItem('kullaniciAdi', kullaniciAdi);
+      // localStorage.setItem('bytServis_access_token', token);
+      // localStorage.setItem('kullanici', kullanici);
+      // localStorage.setItem('kullaniciAdi', kullaniciAdi);
+      localStorage.setItem('kullaniciInfo', JSON.stringify({ token: token, name: kullaniciAdi, user:kullanici }))
      
       const Kullanici = new InjectionToken<string[]>('Kullanici');
       const injector = Injector.create([
@@ -59,23 +60,32 @@ export class GirisService {
      
     }
     setKullaniciCikis() {
-    localStorage.removeItem('bytServis_access_token');
-    localStorage.removeItem('kullanici');
-    localStorage.removeItem('kullaniciAdi');
+      
+    // localStorage.removeItem('bytServis_access_token');
+    // localStorage.removeItem('kullanici');
+    // localStorage.removeItem('kullaniciAdi');
+    // localStorage.removeItem('kullaniciInfo');
     this.router.navigateByUrl('/giris');
     }
     public get loggedIn(): boolean{
-      return localStorage.getItem('bytServis_access_token') !==  null;
+      return localStorage.getItem('kullaniciInfo') !==  null;
     }
     public get loggedKullanici(): string{
-      return localStorage.getItem('kullanici').toString() ;
+      var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+        var user = currentUser.user;
+      return user ;
     }
 
     public get loggedToken(): string{
-      return localStorage.getItem('bytServis_access_token').toString() ;
+      var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+      var token = currentUser.token;
+        return token ;
+     
     }
     public get getShownLoginName():string{
-      return localStorage.getItem('kullaniciAdi').toString() ;
+      var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+      var name = currentUser.name;
+        return name ;
     }
 
   }

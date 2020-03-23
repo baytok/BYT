@@ -48,7 +48,7 @@ export class IslemComponent implements OnInit {
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
   displayedColumnsIslem: string[] = ['beyanTipi','islemTipi','islemDurumu','islemZamani','islemInternalNo'];
-  displayedColumnsTarihce: string[] = ['islemInternalNo','gonderimNo','islemTipi','islemDurumu','sonucZamani','gondermeZamani','guid'];
+  displayedColumnsTarihce: string[] = ['islemInternalNo','gonderimNo','islemTipi','islemDurumu','gondermeZamani','sonucZamani', 'guid'];
   expandedElement: TarihceDto | null;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

@@ -13,7 +13,8 @@ import {
   HttpParams,
   HttpHeaders,
   HttpResponse,
-  HttpResponseBase
+  HttpResponseBase,
+  JsonpInterceptor
 } from "@angular/common/http";
 import { DecimalPipe } from "@angular/common";
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
@@ -39,9 +40,11 @@ export class BeyannameServiceProxy {
     this.http = http;
     this.baseUrl = baseUrl ? baseUrl : "";
     this._LoggedToken = LoggedToken ;
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
     this.headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
-       'Authorization': "Bearer "+localStorage.getItem('bytServis_access_token')})
+       'Authorization': "Bearer "+token})
      
   }
   
@@ -671,6 +674,7 @@ export class ServisDto {
   ServisDurumKodu: number;
   Hatalar: HatalarDto[];
   Bilgiler: BilgilerDto[];
+  SonucVeriler:string;
   
   Sonuc: string;
   constructor(data?: ServisDto) {
@@ -684,7 +688,7 @@ export class ServisDto {
 
   init(data?: any) {
     if (data) {
-   
+     
       if (Array.isArray(data["bilgiler"])) {
         this.Bilgiler = [] as any;
         for (let item of data["bilgiler"]) this.Bilgiler.push(item);
@@ -696,6 +700,8 @@ export class ServisDto {
     
       this.ServisDurumKodu = data["servisDurumKodlari"];
       this.Sonuc=this.getSonuc();
+      this.SonucVeriler= JSON.stringify(this.Bilgiler[0].sonucVeriler);
+      console.log( this.SonucVeriler);
     }
   }
 
@@ -717,7 +723,7 @@ export class ServisDto {
     if (Array.isArray(this.Hatalar)) {
       data["hatalar"] = [];
       for (let item of this.Hatalar) data["hatalar"].push(item);
-    }
+    } 
     data["servisDurumKodlari"] = this.ServisDurumKodu;
    
     return data;

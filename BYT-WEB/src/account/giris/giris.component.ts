@@ -18,6 +18,7 @@ import {
   styleUrls: ['./giris.component.scss']
 })
 export class GirisComponent implements OnInit {
+  submitting = false;
   @Inject(LoggedToken) loggedUserInfo;
   constructor(
     private _UserSession: AppSessionService,
@@ -47,16 +48,19 @@ export class GirisComponent implements OnInit {
       servisSonuc.init(result);
      
       var token = JSON.parse(servisSonuc.Sonuc).ReferansNo;
-       var kullaniciAdi=JSON.parse(servisSonuc.Sonuc).Guid;
-
-   
+      var kullaniciAdi=JSON.parse(servisSonuc.Sonuc).Guid;
+      
       this.girisService.setLoginToken(this.girisService.kullaniciModel.kullanici,token,kullaniciAdi);
        
 
-      if (servisSonuc.ServisDurumKodu===AppServisDurumKodlari.Available ) {        
+      if (servisSonuc.ServisDurumKodu===AppServisDurumKodlari.Available ) {     
+        this.submitting = true;   
         this.router.navigateByUrl('/app');
       }
-      else this.openSnackBar(servisSonuc.Sonuc , "Tamam");
+      else 
+      {  this.submitting = false;
+        this.openSnackBar(servisSonuc.Sonuc , "Tamam");
+      }
     },
     err => {
       console.log(err);

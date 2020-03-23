@@ -1,10 +1,11 @@
-import { Component, OnInit,Output, EventEmitter } from '@angular/core';
+import { Component, OnInit,Output, EventEmitter,ViewEncapsulation } from '@angular/core';
 import { GirisService } from '../../../../account/giris/giris.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {
   shownLoginName = '';
