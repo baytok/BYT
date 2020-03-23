@@ -7,7 +7,7 @@ namespace BYT.WS.Helpers
 {
     public class AppSettings
     {
-        public string SecretKey { get; set; }
+        public string TokenSecretKey { get; set; }
 
     }
 }

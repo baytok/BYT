@@ -1,4 +1,4 @@
-import { Component,ViewChild, OnInit,ViewEncapsulation } from '@angular/core';
+import { Component,ViewChild, OnInit,ViewEncapsulation,Inject,InjectionToken } from '@angular/core';
 import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../shared/service-proxies/service-proxies';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,6 +11,8 @@ import {AppServisDurumKodlari} from '../../../shared/AppEnums';
 import { Router } from "@angular/router";
 import { AppSessionService } from '../../../shared/session/app-session.service';
 import { GirisService } from '../../../account/giris/giris.service';
+export const LoggedToken = new InjectionToken<string[]>('LoggedToken ');
+
 import {
    IslemDto,
    TarihceDto,
@@ -39,9 +41,10 @@ import {
 export class IslemComponent implements OnInit {
  
   kullanici="";
- 
-  public loading = false;
+  loggedToken="";
+  @Inject(LoggedToken) loggedUserInfo;
 
+  public loading = false;
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
   displayedColumnsIslem: string[] = ['beyanTipi','islemTipi','islemDurumu','islemZamani','islemInternalNo'];
@@ -56,19 +59,18 @@ export class IslemComponent implements OnInit {
     private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar ,
     private _dialog: MatDialog,
-    private router:Router
-    ) { }
-
+    private router:Router,
+       ) {
+        
+     }
    
-    
   ngOnInit() {
-   if(!this.girisService.loggedIn)
-   this.router.navigateByUrl('/giris');
 
-     this.kullanici=localStorage.getItem('kullanici');
-  7
+   this.kullanici=this.girisService.loggedKullanici;
+   this.loggedToken=this.girisService.loggedToken;   
+   
     this.yenileIslemler();
- 
+    console.log(this.loggedUserInfo);
   }
   yenileIslemler(): void {
     this.getAllIslem();

@@ -8,6 +8,7 @@ using BYT.WS.Entities;
 using BYT.WS.Internal;
 using BYT.WS.Models;
 using BYT.WS.Services.Kullanici;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,8 @@ using Microsoft.Extensions.Options;
 namespace BYT.WS.Controllers.api
 {
     //  [Route("api/BYT/[controller]")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize]
     [ApiController]
     public class KullaniciHizmetiController : ControllerBase
     {
@@ -55,7 +57,7 @@ namespace BYT.WS.Controllers.api
 
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                     List<Bilgi> lstBlg = new List<Bilgi>();
-                    Bilgi blg = new Bilgi { IslemTipi = "Giriş", ReferansNo = kullaniciValues.Value.token, Sonuc = "Giriş Başarılı", SonucVeriler = kullaniciValues };
+                    Bilgi blg = new Bilgi { GUID= kullaniciValues.Value.kullaniciAdi, IslemTipi = "Giriş", ReferansNo = kullaniciValues.Value.token, Sonuc = "Giriş Başarılı", SonucVeriler = kullaniciValues };
                     lstBlg.Add(blg);
                     _servisDurum.Bilgiler = lstBlg;
                 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,InjectionToken,Inject } from '@angular/core';
 import { AppSessionService } from '../../shared/session/app-session.service';
 import { GirisService } from './giris.service';
 import { Router } from "@angular/router";
@@ -11,13 +11,14 @@ import {
   KullaniciDto,ServisDto
  } from '../../shared/service-proxies/service-proxies';
  import { MatSnackBar } from "@angular/material/snack-bar";
+ export const LoggedToken = new InjectionToken<string[]>('LoggedToken ');
 @Component({
   selector: 'app-giris',
   templateUrl: './giris.component.html',
   styleUrls: ['./giris.component.scss']
 })
 export class GirisComponent implements OnInit {
- 
+  @Inject(LoggedToken) loggedUserInfo;
   constructor(
     private _UserSession: AppSessionService,
     public   girisService: GirisService,     
@@ -28,7 +29,7 @@ export class GirisComponent implements OnInit {
      ) { }
 
   ngOnInit() {
-   
+ 
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -44,10 +45,13 @@ export class GirisComponent implements OnInit {
      
       const servisSonuc = new ServisDto();
       servisSonuc.init(result);
-
+     
       var token = JSON.parse(servisSonuc.Sonuc).ReferansNo;
-      localStorage.setItem('bytServis_access_token', token);
-      localStorage.setItem('kullanici', this.girisService.kullaniciModel.kullanici);
+       var kullaniciAdi=JSON.parse(servisSonuc.Sonuc).Guid;
+
+   
+      this.girisService.setLoginToken(this.girisService.kullaniciModel.kullanici,token,kullaniciAdi);
+       
 
       if (servisSonuc.ServisDurumKodu===AppServisDurumKodlari.Available ) {        
         this.router.navigateByUrl('/app');

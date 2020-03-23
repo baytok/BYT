@@ -10,151 +10,227 @@ import {
 import { Injectable, Inject, Optional, InjectionToken } from "@angular/core";
 import {
   HttpClient,
+  HttpParams,
   HttpHeaders,
   HttpResponse,
   HttpResponseBase
 } from "@angular/common/http";
 import { DecimalPipe } from "@angular/common";
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
+export const LoggedToken = new InjectionToken<string[]>('LoggedToken ');
 
 @Injectable()
 export class BeyannameServiceProxy {
+  headers_object;
+  
   private http: HttpClient;
   private baseUrl: string;
+  private _LoggedToken: InjectionToken<string[]>;
   protected jsonParseReviver:
     | ((key: string, value: any) => any)
     | undefined = undefined;
 
   constructor(
     @Inject(HttpClient) http: HttpClient,
-    @Optional() @Inject(API_BASE_URL) baseUrl?: string
+    @Optional() @Inject(API_BASE_URL) baseUrl?: string,
+    @Optional() @Inject(LoggedToken) LoggedToken?: InjectionToken<string[]>,
+   
   ) {
     this.http = http;
     this.baseUrl = baseUrl ? baseUrl : "";
+    this._LoggedToken = LoggedToken ;
+    this.headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+localStorage.getItem('bytServis_access_token')})
+     
   }
-
-  getAllKullanici() {
+  
+  getAllKullanici() { 
+    // var headers_object = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //    'Authorization': "Bearer "+localStorage.getItem('bytServis_access_token')});
+    const httpOptions = {
+     headers: this.headers_object
+    };
     return this.http.get(
-      this.baseUrl + "Kullanicilar/KullaniciHizmeti/" 
-    );
+      this.baseUrl + "Kullanicilar/KullaniciHizmeti/",httpOptions
+    )
   }
 
   setKullanici(kullanici: KullaniciDto) {
-         
+    const httpOptions = {
+      headers: this.headers_object
+     };
+
     return this.http.post<any>(
       this.baseUrl + "KullaniciOlustur/KullaniciHizmeti", 
-      kullanici  
+      kullanici,httpOptions  
       );
   }
   restoreKullanici(kullanici: KullaniciDto) {
-         
+    const httpOptions = {
+      headers: this.headers_object
+     };
+
       return this.http.put<any>(
         this.baseUrl + "KullaniciDegistir/KullaniciHizmeti", 
-        kullanici  
-        );
+        kullanici,httpOptions);
   }
   removeKullanici(kullaniciId) {
-         
+  
+    const httpOptions = {
+      headers: this.headers_object
+     };
     return this.http.delete<any>(
-      this.baseUrl + "KullaniciSil/KullaniciHizmeti/"+kullaniciId        
+      this.baseUrl + "KullaniciSil/KullaniciHizmeti/"+kullaniciId, httpOptions        
       );
   }
 
   getAllAktifMusteri() {
+    const httpOptions = {
+      headers: this.headers_object
+     };
+
     return this.http.get(
-      this.baseUrl + "AktifMusteriler/KullaniciHizmeti/" 
+      this.baseUrl + "AktifMusteriler/KullaniciHizmeti/",httpOptions 
     );
   }
   getAllMusteri() {
+    const httpOptions = {
+      headers: this.headers_object
+     };
     return this.http.get(
-      this.baseUrl + "Musteriler/KullaniciHizmeti/" 
+      this.baseUrl + "Musteriler/KullaniciHizmeti/",httpOptions 
     );
   }
   setMusteri(musteri: MusteriDto) {
-         
+    const httpOptions = {
+      headers: this.headers_object
+     };
+
     return this.http.post<any>(
       this.baseUrl + "MusteriOlustur/KullaniciHizmeti", 
-      musteri  
+      musteri,httpOptions  
       );
   }
   restoreMusteri(musteri: MusteriDto) {
-         
+    const httpOptions = {
+      headers: this.headers_object
+     };
       return this.http.put<any>(
         this.baseUrl + "MusteriDegistir/KullaniciHizmeti", 
-        musteri  
+        musteri,httpOptions  
         );
   }
   removeMusteri(musteriId) {
-   
+    const httpOptions = {
+      headers: this.headers_object
+     };
+
     return this.http.delete<any>(
-      this.baseUrl + "MusteriSil/KullaniciHizmeti/"+musteriId        
+      this.baseUrl + "MusteriSil/KullaniciHizmeti/"+musteriId, httpOptions        
       );
   }
   getAllIslem(Kullanici) {
+    const httpOptions = {
+      headers: this.headers_object
+     };
     return this.http.get(
-      this.baseUrl + "IslemHizmeti/KullaniciIleSorgulama/" + Kullanici
+      this.baseUrl + "IslemHizmeti/KullaniciIleSorgulama/" + Kullanici,httpOptions
     );
   }
   getAllIslemFromRefNo(refNo) {
+    const httpOptions = {
+      headers: this.headers_object
+     };
     return this.http.get(
-      this.baseUrl + "IslemHizmeti/RefNoIleSorgulama/" + refNo
+      this.baseUrl + "IslemHizmeti/RefNoIleSorgulama/" + refNo,httpOptions
     );
   }
 
   getTarihce(IslemInternalNo) {
-    return this.http.get(this.baseUrl + "TarihceHizmeti/" + IslemInternalNo);
+    const httpOptions = {
+      headers: this.headers_object
+     };
+    return this.http.get(this.baseUrl + "TarihceHizmeti/" + IslemInternalNo, httpOptions);
   }
 
   KontrolGonderimi(IslemInternalNo, Kullanici) {
-    return this.http.post<any>(
+    const httpOptions = {
+      headers: this.headers_object
+     };
+      return this.http.post<any>(
       this.baseUrl +
         "Servis/Beyanname/KontrolHizmeti/" +
         IslemInternalNo +
         "/" +
         Kullanici,
-      { title: " POST Request" }
+      httpOptions
     );
   }
 
   getSonucSorgula(Guid) {
+    const httpOptions = {
+      headers: this.headers_object
+     };
+
     return this.http.post<any>(
       this.baseUrl + "Servis/SorgulamaHizmeti/" + Guid,
-      { title: " POST Request " }
+      httpOptions
     );
   }
   getBeyannameSonucSorgula(Guid, IslemInternalNo) {
+    const httpOptions = {
+      headers: this.headers_object
+     };
     return this.http.get(
       this.baseUrl +
         "Servis/Beyanname/BeyannameSonucHizmeti/" +
         Guid +
         "/" +
-        IslemInternalNo
+        IslemInternalNo,httpOptions
     );
   }
 
   getBeyanname(IslemInternalNo) {
+    const httpOptions = {
+      headers: this.headers_object
+     };
     return this.http.get(
-      this.baseUrl + "Servis/Beyanname/Beyanname/" + IslemInternalNo
+      this.baseUrl + "Servis/Beyanname/Beyanname/" + IslemInternalNo,httpOptions
     );
   }
 
   getKalem(IslemInternalNo) {
+    const httpOptions = {
+      headers: this.headers_object
+     };
     return this.http.get(
-      this.baseUrl + "Servis/Kalem/Beyanname/" + IslemInternalNo
+      this.baseUrl + "Servis/Kalem/Beyanname/" + IslemInternalNo,httpOptions
     );
   }
   getOdeme(IslemInternalNo) {
+    const httpOptions = {
+      headers: this.headers_object
+     };
+
     return this.http.get(
-      this.baseUrl + "Servis/Odeme/Beyanname/" + IslemInternalNo
+      this.baseUrl + "Servis/Odeme/Beyanname/" + IslemInternalNo,httpOptions
     );
   }
   getMarka(IslemInternalNo) {
+    const httpOptions = {
+      headers: this.headers_object
+     };
+
     return this.http.get(
-      this.baseUrl + "Servis/Marka/Beyanname/" + IslemInternalNo
+      this.baseUrl + "Servis/Marka/Beyanname/" + IslemInternalNo, httpOptions
     );
   }
   setBeyanname(beyanname: BeyannameDto) {
-
+    const httpOptions = {
+      headers: this.headers_object
+     };
     // const options = new RequestOptions({
     //   headers: this.getAuthorizedHeaders(),
     //   responseType: ResponseContentType.Json,
@@ -167,7 +243,7 @@ export class BeyannameServiceProxy {
       
       return this.http.post<any>(
         this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/BeyannameOlustur/", 
-        beyanname  
+        beyanname, httpOptions  
         );
   }
 
@@ -176,9 +252,12 @@ export class BeyannameServiceProxy {
   //  }
 
   getBeyannameKopyalama(IslemInternalNo) {
+    const httpOptions = {
+      headers: this.headers_object
+     };
     return this.http.post<any>(
       this.baseUrl + "Servis/Beyanname/BeyannameKopyalama/" + IslemInternalNo,
-      { title: " POST Request " }
+      httpOptions
     );
   }
 }
@@ -592,6 +671,7 @@ export class ServisDto {
   ServisDurumKodu: number;
   Hatalar: HatalarDto[];
   Bilgiler: BilgilerDto[];
+  
   Sonuc: string;
   constructor(data?: ServisDto) {
     if (data) {
@@ -604,7 +684,7 @@ export class ServisDto {
 
   init(data?: any) {
     if (data) {
-    
+   
       if (Array.isArray(data["bilgiler"])) {
         this.Bilgiler = [] as any;
         for (let item of data["bilgiler"]) this.Bilgiler.push(item);
@@ -613,6 +693,7 @@ export class ServisDto {
         this.Hatalar = [] as any;
         for (let item of data["hatalar"]) this.Hatalar.push(item);
       }
+    
       this.ServisDurumKodu = data["servisDurumKodlari"];
       this.Sonuc=this.getSonuc();
     }
@@ -638,6 +719,7 @@ export class ServisDto {
       for (let item of this.Hatalar) data["hatalar"].push(item);
     }
     data["servisDurumKodlari"] = this.ServisDurumKodu;
+   
     return data;
   }
 

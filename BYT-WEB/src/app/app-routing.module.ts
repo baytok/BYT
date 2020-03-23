@@ -8,6 +8,7 @@ import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { GenelComponent } from './components/genel/genel.component';
 import { AppComponent } from './app.component';
+import { AuthGuard } from '../account/giris/giris.guard';
 
  @NgModule({
   imports: [
@@ -17,13 +18,13 @@ import { AppComponent } from './app.component';
           path: '',
           component: AppComponent,
           children: [
-             { path: '', component: GenelComponent },         
-              { path: 'islemler', component: IslemComponent },            
-              { path: 'beyanname', component: BeyannameComponent },   
-              { path: 'genel', component: GenelComponent }, 
-              { path: 'kalem', component: KalemComponent },      
-              { path: 'kullanicilar', component: KullanicilarComponent },      
-              { path: 'musteriler', component: MusterilerComponent },             
+              { path: '', component: GenelComponent,canActivate : [AuthGuard] },         
+              { path: 'islemler', component: IslemComponent, canActivate : [AuthGuard] },            
+              { path: 'beyanname', component: BeyannameComponent,canActivate : [AuthGuard] },   
+              { path: 'genel', component: GenelComponent,canActivate : [AuthGuard] }, 
+              { path: 'kalem', component: KalemComponent,canActivate : [AuthGuard] },      
+              { path: 'kullanicilar', component: KullanicilarComponent,canActivate : [AuthGuard] },      
+              { path: 'musteriler', component: MusterilerComponent,canActivate : [AuthGuard] },             
           ],
           
       }

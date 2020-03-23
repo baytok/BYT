@@ -14,8 +14,7 @@ export class GenelComponent implements OnInit {
         ) { }
 
   ngOnInit() {
-    if(!this.girisService.loggedIn)
-    this.router.navigateByUrl('/giris');
+  
   }
 
 }

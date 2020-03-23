@@ -68,34 +68,23 @@ namespace BYT
 
             services.Configure<AppSettings>(appSettingsSection);
 
-
-
             // Oluþturduðumuz gizli anahtarýmýzý byte dizisi olarak alýyoruz.
 
             var appSettings = appSettingsSection.Get<AppSettings>();
 
-            var key = Encoding.ASCII.GetBytes(appSettings.SecretKey);
-
-
+            var key = Encoding.ASCII.GetBytes(appSettings.TokenSecretKey);
 
             //Projede farklý authentication tipleri olabileceði için varsayýlan olarak JWT ile kontrol edeceðimizin bilgisini kaydediyoruz.
-
+           
             services.AddAuthentication(x =>
-
             {
-
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            })
-
-                //JWT kullanacaðým ve ayarlarý da þunlar olsun dediðimiz yer ise burasýdýr.
-
+            })             
                 .AddJwtBearer(x =>
-
                 {
-
                     //Gelen isteklerin sadece HTTPS yani SSL sertifikasý olanlarý kabul etmesi(varsayýlan true)
 
                     x.RequireHttpsMetadata = false;
@@ -107,7 +96,6 @@ namespace BYT
                     //Token içinde neleri kontrol edeceðimizin ayarlarý.
 
                     x.TokenValidationParameters = new TokenValidationParameters
-
                     {
 
                         //Token 3.kýsým(imza) kontrolü

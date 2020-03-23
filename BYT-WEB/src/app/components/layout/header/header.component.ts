@@ -1,5 +1,5 @@
 import { Component, OnInit,Output, EventEmitter } from '@angular/core';
-
+import { GirisService } from '../../../../account/giris/giris.service';
 
 @Component({
   selector: 'app-header',
@@ -7,11 +7,16 @@ import { Component, OnInit,Output, EventEmitter } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  
-  constructor() { }
+  shownLoginName = '';
+  constructor( private  girisService: GirisService,  ) {
+   
+   }
 
   ngOnInit() {
+    this.shownLoginName = this.girisService.getShownLoginName;
   } 
-  
+  logout(){
+    this.girisService.setKullaniciCikis();
+  }
   
 }

@@ -6,6 +6,8 @@ using BYT.WS.AltYapi;
 using BYT.WS.Data;
 using BYT.WS.Internal;
 using BYT.WS.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,7 @@ namespace BYT.WS.Controllers.api
 {
    
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class IslemHizmetiController : ControllerBase
     {
         private IslemTarihceDataContext _islemContext;

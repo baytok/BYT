@@ -19,7 +19,6 @@ import { DegistirMusteriComponent } from './components/musteri/degistirMusteri/d
 import { MusterilerComponent } from './components/musteri/musteriler/musteriler.component';
 import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
-import { API_BASE_URL } from '../shared/service-proxies/service-proxies';
 import { SharedModule } from '../shared/shared.module';
 import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.module';
 import { AppConsts } from '../shared/AppConsts';
@@ -29,7 +28,7 @@ import {
    BeyannameServiceProxy,
    SessionServiceProxy
  } from "../shared/service-proxies/service-proxies";
-
+ import { GirisService } from '../account/giris/giris.service';
 
 @NgModule({
    declarations: [
@@ -73,13 +72,12 @@ import {
     
    ],
    entryComponents: [
-      BeyannameSonucservisComponent,DegistirKullaniciComponent,DegistirMusteriComponent
+      BeyannameSonucservisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts
       
 
    ],
    providers: [
-      { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" },
-       SessionServiceProxy
+      GirisService, SessionServiceProxy
    ],
     bootstrap: [
         AppComponent

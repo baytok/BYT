@@ -17,4 +17,5 @@ export class AppConsts {
     static readonly authorization = {
         encryptedAuthTokenName: 'enc_auth_token'
     };
+  
 }

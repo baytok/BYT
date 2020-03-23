@@ -20,6 +20,6 @@ export class NaviComponent implements OnInit {
     this.sidenavClose.emit();
   }
   onToggleSidenav(){}
-  
+ 
 }
 

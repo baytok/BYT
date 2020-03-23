@@ -9,6 +9,8 @@ using BYT.WS.Controllers.api;
 using BYT.WS.Data;
 using BYT.WS.Internal;
 using BYT.WS.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -21,6 +23,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 {
     [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class KontrolHizmetiController : ControllerBase
     {
         private IslemTarihceDataContext _islemTarihceContext;

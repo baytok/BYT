@@ -33,7 +33,7 @@ namespace BYT.WS.Services.Kullanici
 
         }
 
-        public (string KullaniciKod, string token)? Authenticate(string KullaniciKod, string KullaniciSifre)
+        public (string KullaniciKod, string token, string kullaniciAdi)? Authenticate(string KullaniciKod, string KullaniciSifre)
         {
 
             var user = _kullaniciContext.Kullanici.SingleOrDefault(x => x.KullaniciKod == KullaniciKod && x.KullaniciSifre == KullaniciSifre && x.Aktif == true);
@@ -41,7 +41,7 @@ namespace BYT.WS.Services.Kullanici
                 return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.SecretKey);
+            var key = Encoding.ASCII.GetBytes(_appSettings.TokenSecretKey);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -63,10 +63,10 @@ namespace BYT.WS.Services.Kullanici
             var token = tokenHandler.CreateToken(tokenDescriptor);
             //Oluşturduğumuz tokenı string olarak bir değişkene atıyoruz.
             string generatedToken = tokenHandler.WriteToken(token);
-
+            string kullaniciAdi = user.Ad + " " + user.Soyad;
             //Sonuçlarımızı tuple olarak dönüyoruz.
 
-            return (user.KullaniciKod, generatedToken);
+            return (user.KullaniciKod, generatedToken, kullaniciAdi);
 
         }
 

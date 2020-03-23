@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule,InjectionToken } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AccountRoutingModule } from './account-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { API_BASE_URL } from '../shared/service-proxies/service-proxies';
 import { AppSessionService } from '../shared/session/app-session.service';
 import { AccountComponent } from './account.component';
 import { GirisComponent } from './giris/giris.component';
 import { GirisService } from './giris/giris.service';
+import { AppConsts } from '../shared/AppConsts';
 import {
     BeyannameServiceProxy,
     SessionServiceProxy
@@ -31,9 +31,11 @@ import {
         GirisComponent,
        
     ],
+   
     providers: [
-        { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" },
-        GirisService,AppSessionService,BeyannameServiceProxy,SessionServiceProxy
+        // { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/"}, 
+        // { provide: LoggedToken, useValue: ""},           
+        GirisService,AppSessionService,BeyannameServiceProxy,SessionServiceProxy,AppConsts
     ],
     entryComponents: [
        
@@ -45,3 +47,4 @@ import {
 export class AccountModule {
 
 }
+
