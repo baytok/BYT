@@ -363,6 +363,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     }
                     else
                     {
+                        //TODO kalem sıra verilecek
                         kalem.KalemInternalNo = kalem.BeyanInternalNo + "|" + kalem.KalemSiraNo;
                         beyannameContext.Entry(kalem).State = EntityState.Added;
                     }

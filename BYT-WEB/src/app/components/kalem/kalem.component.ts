@@ -133,7 +133,7 @@ export class KalemComponent implements OnInit {
       imalatciVergiNo: new FormControl("", [Validators.maxLength(15)]),
       muafiyetAciklamasi: new FormControl("", [Validators.maxLength(500)]),
       stmIlKodu: new FormControl("", [Validators.maxLength(9)]),
-      ticariTanimi: new FormControl("", [Validators.maxLength(350)]),
+      ticariTanimi: new FormControl("", [Validators.required,Validators.maxLength(350)]),
 
       // Eşya Bilgileri
       // referansTarihi:[],
@@ -166,7 +166,6 @@ export class KalemComponent implements OnInit {
       ]),
       numara: new FormControl("", [
         Validators.required,
-        ,
         Validators.maxLength(70)
       ]),
       satirNo: new FormControl("", [Validators.maxLength(20)]),
@@ -286,7 +285,7 @@ export class KalemComponent implements OnInit {
     this.kalemInternalNo=this._kalemler[kalemNo - 1].kalemInternalNo;
     this.kalemNo=this._kalemler[kalemNo - 1].kalemSiraNo;
     this.kalemForm.setValue({
-    beyanInternalNo: this._kalemler[kalemNo - 1].beyanInternalNo,
+     beyanInternalNo: this._kalemler[kalemNo - 1].beyanInternalNo,
      kalemInternalNo: this._kalemler[kalemNo - 1].kalemInternalNo,
       gtip: this._kalemler[kalemNo - 1].gtip,
       kalemSiraNo: this._kalemler[kalemNo - 1].kalemSiraNo,
@@ -477,10 +476,12 @@ export class KalemComponent implements OnInit {
       );
       return;
     }
+    this.kalemForm.get("beyanInternalNo").setValue(this._beyanSession.beyanInternalNo);
     let yenikalemInternalNo: string;
     let yeniKalem=new KalemDto();
     yeniKalem.init(this.kalemForm.value);
-  
+   
+   console.log(yeniKalem);
       const promise = this.beyanServis
         .restoreKalem(yeniKalem)
         .toPromise();
