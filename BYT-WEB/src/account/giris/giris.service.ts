@@ -12,15 +12,14 @@ import { Router } from "@angular/router";
 import { KullaniciModel, KullaniciSonucModel } from './giris-service-proxies';
 import { strict } from 'assert';
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
-export const LoggedToken = new InjectionToken<string[]>('LoggedToken ');
+
 @Injectable({
     providedIn: 'root'
   })
   
 export class GirisService {
      private http: HttpClient;
-     @Inject(LoggedToken) _loggedToken; 
-     private baseUrl: string;
+      private baseUrl: string;
       kullaniciModel=new KullaniciModel;
       kullaniciSonuc: KullaniciSonucModel;
      
@@ -47,21 +46,12 @@ export class GirisService {
       // localStorage.setItem('kullaniciAdi', kullaniciAdi);
       localStorage.setItem('kullaniciInfo', JSON.stringify({ token: token, name: kullaniciAdi, user:kullanici }))
      
-      const Kullanici = new InjectionToken<string[]>('Kullanici');
-      const injector = Injector.create([
-        {provide: Kullanici, multi: true, useValue: kullanici},
-        {provide: Kullanici, multi: true, useValue: token},]);
-
-      const locales: string[] = injector.get(Kullanici);
   
-       this._loggedToken=locales;
-       
-     
      
     }
     setKullaniciCikis() {
       
-    // localStorage.removeItem('bytServis_access_token');
+     localStorage.removeItem('kullaniciInfo');
     // localStorage.removeItem('kullanici');
     // localStorage.removeItem('kullaniciAdi');
     // localStorage.removeItem('kullaniciInfo');

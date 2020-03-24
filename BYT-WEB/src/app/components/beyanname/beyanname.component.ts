@@ -31,7 +31,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import {
   BeyannameBilgileriDto,
   BeyannameDto,
-  KalemlerDto,
+  KalemDto,
   ServisDto
 } from "../../../shared/service-proxies/service-proxies";
 
@@ -48,7 +48,7 @@ export class BeyannameComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   _beyannameBilgileri: BeyannameBilgileriDto;
   _beyanname: BeyannameDto = new BeyannameDto();
-  _kalemler: KalemlerDto[];
+  _kalemler: KalemDto[];
   _rejimList = rejim;
   _bsList = bs;
   _gumrukList = gumruk;
@@ -445,22 +445,21 @@ export class BeyannameComponent implements OnInit {
     let yeniislemInternalNo: string;
     let yeniBeyanname=new BeyannameDto();
     yeniBeyanname.init(this.beyannameForm.value);
-    console.log(yeniBeyanname);
+   
       const promise = this.beyanServis
         .setBeyanname(yeniBeyanname)
         .toPromise();
       promise.then(
         result => {
-          console.log(result);
+        
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);
           yeniislemInternalNo = servisSonuc.Bilgiler[0].referansNo;
-          console.log(yeniislemInternalNo);
-
+         
           if (yeniislemInternalNo != null) {
             this.islemInput.nativeElement.value=yeniislemInternalNo;
             this._beyanSession.islemInternalNo=yeniislemInternalNo;
-            this.openSnackBar(yeniislemInternalNo, "Tamam");
+            this.openSnackBar(servisSonuc.Sonuc, "Tamam");
           
           }
         },
@@ -469,9 +468,9 @@ export class BeyannameComponent implements OnInit {
         }
       );
     
-    alert(
-      "SUCCESS!! :-)\n\n" + JSON.stringify(this.beyannameForm.value, null, 4)
-    );
+    // alert(
+    //   "SUCCESS!! :-)\n\n" + JSON.stringify(this.beyannameForm.value, null, 4)
+    // );
 
     this.beyannameForm.disable();
   }

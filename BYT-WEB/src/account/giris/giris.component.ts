@@ -3,15 +3,12 @@ import { AppSessionService } from '../../shared/session/app-session.service';
 import { GirisService } from './giris.service';
 import { Router } from "@angular/router";
 import {AppServisDurumKodlari} from '../../shared/AppEnums';
+
 import {
-  BeyannameServiceProxy,
-  SessionServiceProxy
-} from "../../shared/service-proxies/service-proxies";
-import {
-  KullaniciDto,ServisDto
+  ServisDto
  } from '../../shared/service-proxies/service-proxies';
  import { MatSnackBar } from "@angular/material/snack-bar";
- export const LoggedToken = new InjectionToken<string[]>('LoggedToken ');
+
 @Component({
   selector: 'app-giris',
   templateUrl: './giris.component.html',
@@ -19,14 +16,14 @@ import {
 })
 export class GirisComponent implements OnInit {
   submitting = false;
-  @Inject(LoggedToken) loggedUserInfo;
+
   constructor(
     private _UserSession: AppSessionService,
     public   girisService: GirisService,     
 
     private router:Router,
     private snackBar: MatSnackBar,
-    private beyanServis: BeyannameServiceProxy,
+
      ) { }
 
   ngOnInit() {

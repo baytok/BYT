@@ -18,15 +18,15 @@ import {
 } from "@angular/common/http";
 import { DecimalPipe } from "@angular/common";
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
-export const LoggedToken = new InjectionToken<string[]>('LoggedToken ');
+
 
 @Injectable()
 export class BeyannameServiceProxy {
-  headers_object;
+  
   
   private http: HttpClient;
   private baseUrl: string;
-  private _LoggedToken: InjectionToken<string[]>;
+
   protected jsonParseReviver:
     | ((key: string, value: any) => any)
     | undefined = undefined;
@@ -34,26 +34,23 @@ export class BeyannameServiceProxy {
   constructor(
     @Inject(HttpClient) http: HttpClient,
     @Optional() @Inject(API_BASE_URL) baseUrl?: string,
-    @Optional() @Inject(LoggedToken) LoggedToken?: InjectionToken<string[]>,
+   
    
   ) {
     this.http = http;
     this.baseUrl = baseUrl ? baseUrl : "";
-    this._LoggedToken = LoggedToken ;
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    this.headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
+  
   }
   
   getAllKullanici() { 
-    // var headers_object = new HttpHeaders({
-    //   'Content-Type': 'application/json',
-    //    'Authorization': "Bearer "+localStorage.getItem('bytServis_access_token')});
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
     const httpOptions = {
-     headers: this.headers_object
+     headers: headers_object
     };
     return this.http.get(
       this.baseUrl + "Kullanicilar/KullaniciHizmeti/",httpOptions
@@ -61,9 +58,17 @@ export class BeyannameServiceProxy {
   }
 
   setKullanici(kullanici: KullaniciDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
+  
 
     return this.http.post<any>(
       this.baseUrl + "KullaniciOlustur/KullaniciHizmeti", 
@@ -71,9 +76,16 @@ export class BeyannameServiceProxy {
       );
   }
   restoreKullanici(kullanici: KullaniciDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
 
       return this.http.put<any>(
         this.baseUrl + "KullaniciDegistir/KullaniciHizmeti", 
@@ -81,35 +93,63 @@ export class BeyannameServiceProxy {
   }
   removeKullanici(kullaniciId) {
   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     return this.http.delete<any>(
       this.baseUrl + "KullaniciSil/KullaniciHizmeti/"+kullaniciId, httpOptions        
       );
   }
 
   getAllAktifMusteri() {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
 
     return this.http.get(
       this.baseUrl + "AktifMusteriler/KullaniciHizmeti/",httpOptions 
     );
   }
   getAllMusteri() {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     return this.http.get(
       this.baseUrl + "Musteriler/KullaniciHizmeti/",httpOptions 
     );
   }
   setMusteri(musteri: MusteriDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
 
     return this.http.post<any>(
       this.baseUrl + "MusteriOlustur/KullaniciHizmeti", 
@@ -117,51 +157,88 @@ export class BeyannameServiceProxy {
       );
   }
   restoreMusteri(musteri: MusteriDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
       return this.http.put<any>(
         this.baseUrl + "MusteriDegistir/KullaniciHizmeti", 
         musteri,httpOptions  
         );
   }
   removeMusteri(musteriId) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
 
     return this.http.delete<any>(
       this.baseUrl + "MusteriSil/KullaniciHizmeti/"+musteriId, httpOptions        
       );
   }
   getAllIslem(Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     return this.http.get(
       this.baseUrl + "IslemHizmeti/KullaniciIleSorgulama/" + Kullanici,httpOptions
     );
   }
   getAllIslemFromRefNo(refNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     return this.http.get(
       this.baseUrl + "IslemHizmeti/RefNoIleSorgulama/" + refNo,httpOptions
     );
   }
 
   getTarihce(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     return this.http.get(this.baseUrl + "TarihceHizmeti/" + IslemInternalNo, httpOptions);
   }
 
   KontrolGonderimi(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
       return this.http.post<any>(
       this.baseUrl +
         "Servis/Beyanname/KontrolHizmeti/" +
@@ -173,9 +250,16 @@ export class BeyannameServiceProxy {
   }
 
   getSonucSorgula(Guid) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
 
     return this.http.post<any>(
       this.baseUrl + "Servis/SorgulamaHizmeti/" + Guid,
@@ -183,9 +267,16 @@ export class BeyannameServiceProxy {
     );
   }
   getBeyannameSonucSorgula(Guid, IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     return this.http.get(
       this.baseUrl +
         "Servis/Beyanname/BeyannameSonucHizmeti/" +
@@ -196,44 +287,108 @@ export class BeyannameServiceProxy {
   }
 
   getBeyanname(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     return this.http.get(
       this.baseUrl + "Servis/Beyanname/Beyanname/" + IslemInternalNo,httpOptions
     );
   }
 
   getKalem(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     return this.http.get(
-      this.baseUrl + "Servis/Kalem/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Kalemler/Beyanname/" + IslemInternalNo,httpOptions
     );
   }
-  getOdeme(IslemInternalNo) {
+  removeKalem(kalemInternalNo,beyanInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/"+kalemInternalNo+"/"+beyanInternalNo+"/KalemSil", httpOptions        
+      );
+  }
+  restoreKalem(kalem: KalemDto) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.put<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KalemOlusturDegistir/", 
+        kalem,httpOptions  
+        );
+  }
+  getOdeme(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
 
     return this.http.get(
       this.baseUrl + "Servis/Odeme/Beyanname/" + IslemInternalNo,httpOptions
     );
   }
   getMarka(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
 
     return this.http.get(
       this.baseUrl + "Servis/Marka/Beyanname/" + IslemInternalNo, httpOptions
     );
   }
   setBeyanname(beyanname: BeyannameDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     // const options = new RequestOptions({
     //   headers: this.getAuthorizedHeaders(),
     //   responseType: ResponseContentType.Json,
@@ -255,9 +410,16 @@ export class BeyannameServiceProxy {
   //  }
 
   getBeyannameKopyalama(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+
     const httpOptions = {
-      headers: this.headers_object
-     };
+     headers: headers_object
+    };
     return this.http.post<any>(
       this.baseUrl + "Servis/Beyanname/BeyannameKopyalama/" + IslemInternalNo,
       httpOptions
@@ -275,7 +437,7 @@ export class SessionServiceProxy {
   public beyanInternalNo: string;
   public beyanStatu: string;
 
-  public Kalemler: KalemlerDto[];
+  public Kalemler: KalemDto[];
   protected jsonParseReviver:
     | ((key: string, value: any) => any)
     | undefined = undefined;
@@ -1155,7 +1317,7 @@ export enum ServisDurumKodlari {
 @Injectable()
 export class BeyannameBilgileriDto {
   Beyanname: BeyannameDto;
-  Kalemler: KalemlerDto[];
+  Kalemler: KalemDto[];
   BeyannameNo: string;
 
   init(data?: any) {
@@ -1321,7 +1483,7 @@ export class BeyannameDto {
 
 
 }
-export class KalemlerDto {
+export class KalemDto {
   beyanInternalNo: string;
   kalemInternalNo: string;
   kalemSiraNo: number;
@@ -1396,7 +1558,7 @@ export class KalemlerDto {
   yurtIciLiman: number;
   yurtIciTahliye: number;
 
-  constructor(data?: KalemlerDto) {
+  constructor(data?: KalemDto) {
     if (data) {
     
       for (var property in data) {
@@ -1407,87 +1569,29 @@ export class KalemlerDto {
   }
 
   init(data?:[]) {
-    if (data) {   
-     for(var kalem in data)
-      {    console.log(kalem);
-        // this.beyanInternalNo=kalem[0].beyanInternalNo;
-        // this.kalemInternalNo=data[kalem].kalemInternalNo;
-        // this.kalemSiraNo=data[kalem].kalemSiraNo;
-        // this.gtip=data[kalem].gtip;
+    if (data) { 
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
     
-      } 
-     
-      // this.beyanInternalNo=data["beyanInternalNo"];
-      // this.kalemInternalNo=data["kalemInternalNo"];
-      // this.kalemSiraNo=data["kalemSiraNo"];
-      // this.gtip=data["gtip"];
-      // this.aciklamalar=data["aciklamalar"];
-      // this.aliciSaticiIliskisi=data["aliciSaticiIliskisi"];
-      // this.aliciVergiNo=data["aliciVergiNo"];
-      // this.antrepoKodu=data["antrepoKodu"];
-      // this.asilSorumluVergiNo=data["asilSorumluVergiNo"];
-      // this.bankaKodu=data["bankaKodu"];
-      // this.basitlestirilmisUsul=data["basitlestirilmisUsul"];;
-      // this.beyanSahibiVergiNo=data["beyanSahibiVergiNo"];
-      // this.birlikKayitNumarasi=data["birlikKayitNumarasi"];
-      // this.birlikKriptoNumarasi=data["birlikKriptoNumarasi"];
-      // this.cikistakiAracinKimligi=data["cikistakiAracinKimligi"];
-      // this.cikistakiAracinTipi=data["cikistakiAracinTipi"];
-      // this.cikistakiAracinUlkesi=data["cikistakiAracinUlkesi"];
-      // this.cikisUlkesi=data["cikisUlkesi"];
-      // this.esyaninBulunduguYer=data["esyaninBulunduguYer"];
-      // this.gidecegiSevkUlkesi=data["gidecegiSevkUlkesi"];
-      // this.gidecegiUlke=data["gidecegiUlke"];
-      // this.girisGumrukIdaresi=data["girisGumrukIdaresi"];
-      // this.gondericiVergiNo=data["gondericiVergiNo"];
-      // this.gumruk=data["gumruk"];
-      // this.isleminNiteligi=data["isleminNiteligi"];
-      // this.kapAdedi=data["kapAdedi"];
-      // this.konteyner=data["konteyner"];
-      // this.kullanici=data["kullanici"];
-      // this.limanKodu=data["limanKodu"];
-      // this.mail1=data["mail1"];
-      // this.mail2=data["mail2"];
-      // this.mail3=data["mail3"];
-      // this.mobil1=data["mobil1"];
-      // this.mobil2=data["mobil2"];
-      // this.musavirVergiNo=data["musavirVergiNo"];
-      // this.odemeAraci=data["odemeAraci"];
-      // this.musavirReferansNo=data["musavirReferansNo"];
-      // this.referansTarihi=data["referansTarihi"];
-      // this.refNo=data["refNo"];
-      // this.sinirdakiAracinKimligi=data["sinirdakiAracinKimligi"];
-      // this.sinirdakiAracinTipi=data["sinirdakiAracinTipi"];
-      // this.sinirdakiAracinUlkesi=data["sinirdakiAracinUlkesi"];
-      // this.sinirdakiTasimaSekli=data["sinirdakiTasimaSekli"];
-      // this.tasarlananGuzergah=data["tasarlananGuzergah"];
-      // this.telafiEdiciVergi=data["telafiEdiciVergi"];
-      // this.tescilStatu=data["tescilStatu"];
-      // this.tescilTarihi=data["tescilTarihi"];
-      // this.teslimSekli=data["teslimSekli"];
-      // this.teslimSekliYeri=data["teslimSekliYeri"];
-      // this.ticaretUlkesi=data["ticaretUlkesi"];
-      // this.toplamFatura=data["toplamFatura"];
-      // this.toplamFaturaDovizi= data["toplamFaturaDovizi"];
-      // this.toplamNavlun=data["toplamNavlun"];
-      // this.toplamNavlunDovizi=data["toplamNavlunDovizi"];
-      // this.toplamSigorta=data["toplamSigorta"];
-      // this.toplamSigortaDovizi=data["toplamSigortaDovizi"];
-      // this.toplamYurtDisiHarcamalar=data["toplamYurtDisiHarcamalar"];
-      // this.toplamYurtDisiHarcamalarDovizi=data["toplamYurtDisiHarcamalarDovizi"];
-      // this.toplamYurtIciHarcamalar=data["toplamYurtIciHarcamalarrejim"];
-      // this.varisGumrukIdaresi=data["varisGumrukIdaresi"];
-      // this.yukBelgeleriSayisi=data["yukBelgeleriSayisi"];
-      // this.yuklemeBosaltmaYeri=data["yuklemeBosaltmaYeri"];
-      
+    //  for(var kalem in data)
+    //   {   
+    //      this.beyanInternalNo=kalem[0].beyanInternalNo;
+    //      this.kalemInternalNo=data[kalem].kalemInternalNo;
+    //      this.kalemSiraNo=data[kalem].kalemSiraNo;
+    //      this.gtip=data[kalem].gtip;
+    
+    //   } 
+         
     }
   }
 
   
 
-  static fromJS(data: any): KalemlerDto {
+  static fromJS(data: any): KalemDto {
     data = typeof data === "object" ? data : {};
-    let result = new KalemlerDto();
+    let result = new KalemDto();
 
     result.init(data);
     return result;

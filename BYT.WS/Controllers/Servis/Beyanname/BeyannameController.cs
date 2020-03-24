@@ -101,7 +101,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/BYT/Servis/Kalem/[controller]/{IslemInternalNo}")]
+        [Route("api/BYT/Servis/Kalemler/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
         public async Task<List<DbKalem>> GetKalem(string IslemInternalNo)
         {
@@ -131,6 +131,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             }
 
         }
+
+      
 
         [Route("api/BYT/Servis/Odeme/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]

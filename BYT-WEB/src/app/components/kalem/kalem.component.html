@@ -15,7 +15,7 @@
         <button
           mat-menu-item
           (click)="yukleKalemler()"
-          [disabled]="beyanStatu === 'Olusturuldu' ? false : true"
+          [disabled]="beyanStatu !== ('Olusturuldu' ||  'Güncellendi') ? false : true"
         >
           <mat-icon>refresh</mat-icon>
           <span>Listeyi Yenile</span>
@@ -23,7 +23,7 @@
         <button
           mat-menu-item
           (click)="yeniKalem()"
-          [disabled]="beyanStatu === 'Olusturuldu' ? false : true"
+          [disabled]="beyanStatu !== ('Olusturuldu' ||  'Güncellendi') ? false : true"
         >
           <mat-icon>add</mat-icon>
           <span>Yeni Kalem</span>
@@ -31,15 +31,15 @@
         <button
           mat-menu-item
           (click)="duzeltKalem()"
-          [disabled]="beyanStatu === 'Olusturuldu' ? false : true"
+          [disabled]="beyanStatu !== ('Olusturuldu' ||  'Güncellendi') && kalemInternalNo ? false : true"
         >
           <mat-icon>sync</mat-icon>
           <span>Kalem Düzeltme</span>
         </button>
         <button
           mat-menu-item
-          (click)="silKalem()"
-          [disabled]="beyanStatu === 'Olusturuldu' ? false : true"
+          (click)="silKalem(kalemInternalNo)"
+          [disabled]="beyanStatu !== ('Olusturuldu' ||  'Güncellendi') && kalemInternalNo  ? false : true"
         >
           <mat-icon>remove</mat-icon>
           <span>Kalem Sil</span>
@@ -74,11 +74,7 @@
                   </p>
                 </div>
               </div>
-              <!--<div>
-                 <button mat-icon-button (click)="onEdit($event, item)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-              </div> -->
+             
             </div>
           </mat-list-option>
         </mat-selection-list>
@@ -1853,10 +1849,10 @@
           </div>
         </mat-card>
         <div class="text-right">
-          <button class="btn btn-primary mr-1">Kaydet</button>
-          <button class="btn btn-secondary" type="reset" (click)="onReset()">
+          <button  [disabled]="!kalemForm.valid" class="btn btn-primary mr-1">Kaydet</button>
+          <!-- <button class="btn btn-secondary" type="reset" (click)="onReset()">
             İptal
-          </button>
+          </button> -->
         </div>
       </form>
     </div>

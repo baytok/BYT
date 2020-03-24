@@ -155,8 +155,8 @@ namespace BYT.WS.Controllers.api
 
 
         }        
-
-       [Route("api/BYT/KullaniciDegistir/[controller]")]
+ 
+        [Route("api/BYT/KullaniciDegistir/[controller]")]
         [HttpPut]
         public async Task<ServisDurum> PutKullanici([FromBody]Kullanici kullanici)
         {

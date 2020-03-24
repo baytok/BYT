@@ -46,7 +46,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import {
   BeyannameBilgileriDto,
   BeyannameDto,
-  KalemlerDto,
+  KalemDto,
   OdemeDto,
   ServisDto
 } from "../../../shared/service-proxies/service-proxies";
@@ -62,7 +62,8 @@ export class KalemComponent implements OnInit {
   get contactFormGroup() {
     return this.form.get("contacts") as FormArray;
   }
-
+  kalemInternalNo:string;
+  kalemNo:number;
   kalemForm: FormGroup;
   odemeForm: FormGroup;
   markaForm: FormGroup;
@@ -72,7 +73,7 @@ export class KalemComponent implements OnInit {
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
   _beyannameBilgileri: BeyannameBilgileriDto;
-  _kalemler: KalemlerDto[];
+  _kalemler: KalemDto[];
   _odemeler: OdemeDto[];
   _odeme: OdemeDto;
   _ulkeList = ulke;
@@ -267,7 +268,7 @@ export class KalemComponent implements OnInit {
   }
   getKalemler(islemInternalNo: string) {
     this.beyanServis.getKalem(islemInternalNo).subscribe(
-      (result: KalemlerDto[]) => {
+      (result: KalemDto[]) => {
         this._kalemler = result;
       },
       err => {
@@ -282,9 +283,11 @@ export class KalemComponent implements OnInit {
     });
   }
   getKalem(kalemNo) {
+    this.kalemInternalNo=this._kalemler[kalemNo - 1].kalemInternalNo;
+    this.kalemNo=this._kalemler[kalemNo - 1].kalemSiraNo;
     this.kalemForm.setValue({
-      beyanInternalNo: this._kalemler[kalemNo - 1].beyanInternalNo,
-      kalemInternalNo: this._kalemler[kalemNo - 1].kalemInternalNo,
+    beyanInternalNo: this._kalemler[kalemNo - 1].beyanInternalNo,
+     kalemInternalNo: this._kalemler[kalemNo - 1].kalemInternalNo,
       gtip: this._kalemler[kalemNo - 1].gtip,
       kalemSiraNo: this._kalemler[kalemNo - 1].kalemSiraNo,
       aciklama44: this._kalemler[kalemNo - 1].aciklama44,
@@ -419,16 +422,41 @@ export class KalemComponent implements OnInit {
     return formGroup;
   }
 
+  yukleKalemler() {
+    this.getKalemler(this._beyanSession.islemInternalNo);
+  }
+
   yeniKalem() {
+    this.kalemInternalNo='';
+    this.kalemNo=null;
     this.kalemForm.reset();
   }
 
   duzeltKalem() {
+   
     this.kalemForm.enable();
   }
 
-  silKalem() {
-    this.kalemForm.enable();
+  silKalem(kalemInternalNo:string) {
+    if(confirm(kalemInternalNo+ '- kalemi Silmek İstediğinizden Eminmisiniz?')){
+      const promise = this.beyanServis
+      .removeKalem(kalemInternalNo,this._beyanSession.beyanInternalNo)
+      .toPromise();
+      promise.then(
+      result => {
+       
+        const servisSonuc = new ServisDto();
+        servisSonuc.init(result);       
+        this.kalemForm.reset();
+        this.kalemForm.disable();
+        this.openSnackBar(servisSonuc.Sonuc, "Tamam");
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+   
   }
 
   onkalemFormSubmit() {
@@ -436,17 +464,51 @@ export class KalemComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.kalemForm.invalid) {
-      console.log("User Registration Form Submit", this.kalemForm.value);
+      const invalid = [];
+      const controls = this.kalemForm.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          invalid.push(name);
+        }
+      }
+      
+      alert(
+        "ERROR!! :-)\n\n Aşağıdaki nesnelerin verileri veya formatı yanlış:"  + JSON.stringify(invalid, null, 4)
+      );
       return;
     }
-
-    // display form values on success
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.kalemForm.value, null, 4));
+    let yenikalemInternalNo: string;
+    let yeniKalem=new KalemDto();
+    yeniKalem.init(this.kalemForm.value);
+  
+      const promise = this.beyanServis
+        .restoreKalem(yeniKalem)
+        .toPromise();
+      promise.then(
+        result => {
+         
+          const servisSonuc = new ServisDto();
+          servisSonuc.init(result);
+          yenikalemInternalNo = servisSonuc.Bilgiler[0].referansNo;
+        
+          if (yenikalemInternalNo != null) {         
+        
+            this.openSnackBar(servisSonuc.Sonuc, "Tamam");
+            this.kalemForm.disable();
+          }
+        },
+        err => {
+        
+          this.openSnackBar(err, "Tamam");
+        }
+      );
+   
+ 
   }
   onReset() {
     this.submitted = false;
   }
-  yukleKalemler() {}
+ 
 
   //Marka
 
