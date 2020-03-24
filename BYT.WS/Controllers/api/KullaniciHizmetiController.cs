@@ -43,7 +43,7 @@ namespace BYT.WS.Controllers.api
         [HttpGet("{kullanici}/{sifre}")]
         public async Task<ServisDurum> GetGiris(string kullanici, string sifre)
         {
-            var kullaniciValues = _userService.Authenticate(kullanici.Trim(), sifre.Trim());
+           
             //if (user == null)
             //    return BadRequest("Username or password incorrect!");
             //return Ok(new { Kullanici = user.Value.KullaniciKod, Token = user.Value.token });
@@ -51,6 +51,7 @@ namespace BYT.WS.Controllers.api
             ServisDurum _servisDurum = new ServisDurum();
             try
             {
+                var kullaniciValues = _userService.Authenticate(kullanici.Trim(), sifre.Trim());
 
                 if (kullaniciValues != null)
                 {
@@ -91,7 +92,7 @@ namespace BYT.WS.Controllers.api
 
         }
 
-
+       
         [Route("api/BYT/Kullanicilar/[controller]")]
         [HttpGet]
         public async Task<List<Kullanici>> GetKullanici()
@@ -107,7 +108,7 @@ namespace BYT.WS.Controllers.api
             catch (Exception ex)
             {
 
-                return null;
+                throw ex;
             }
 
 

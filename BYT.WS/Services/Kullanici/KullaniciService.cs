@@ -35,7 +35,15 @@ namespace BYT.WS.Services.Kullanici
 
         public (string KullaniciKod, string token, string kullaniciAdi)? Authenticate(string KullaniciKod, string KullaniciSifre)
         {
+            try
+            {
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             var user = _kullaniciContext.Kullanici.SingleOrDefault(x => x.KullaniciKod == KullaniciKod && x.KullaniciSifre == KullaniciSifre && x.Aktif == true);
             if (user == null)
                 return null;
