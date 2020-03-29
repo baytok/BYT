@@ -264,7 +264,7 @@ namespace BYT.WS.Controllers.api
 
         [Route("api/BYT/AktifMusteriler/[controller]")]
         [HttpGet]
-        public async Task<List<Musteri>> GetAktifMusteri()
+        public async Task<List<Musteri>> GetAktifMusterler()
         {
             try
             {
@@ -385,6 +385,175 @@ namespace BYT.WS.Controllers.api
                     transaction.Commit();
                     List<Bilgi> lstBlg = new List<Bilgi>();
                     Bilgi blg = new Bilgi { IslemTipi = "Kullanıcı Silme", ReferansNo = musteriValues.VergiNo, Sonuc = "Kullanıcı Silme Başarılı", SonucVeriler = null };
+                    lstBlg.Add(blg);
+                    _servisDurum.Bilgiler = lstBlg;
+
+
+                    return _servisDurum;
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+                }
+
+            }
+
+        }
+
+
+        [Route("api/BYT/Yetkiler/[controller]")]
+        [HttpGet]
+        public async Task<List<Yetki>> GetYetki()
+        {
+            try
+            {
+
+                var yetkiValues = await _kullaniciContext.Yetki.ToListAsync();
+
+                return yetkiValues;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+
+        [Route("api/BYT/AktifYetkiler/[controller]")]
+        [HttpGet]
+        public async Task<List<Yetki>> GetAktifYetkiler()
+        {
+            try
+            {
+
+                var yetkiValues = await _kullaniciContext.Yetki.Where(x => x.Aktif == true).ToListAsync();
+
+                return yetkiValues;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+
+        [Route("api/BYT/YetkiOlustur/[controller]")]
+        [HttpPost]
+        public async Task<ServisDurum> PostYetki([FromBody]Yetki yetki)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+            using (var transaction = _kullaniciContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    yetki.SonIslemZamani = DateTime.Now;
+                    _kullaniciContext.Entry(yetki).State = EntityState.Added;
+                    await _kullaniciContext.SaveChangesAsync();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                    transaction.Commit();
+                    List<Bilgi> lstBlg = new List<Bilgi>();
+                    Bilgi blg = new Bilgi { IslemTipi = "Yetki Oluşturma", ReferansNo = yetki.YetkiAdi, Sonuc = "Yetki Oluşturma Başarılı", SonucVeriler = null };
+                    lstBlg.Add(blg);
+                    _servisDurum.Bilgiler = lstBlg;
+
+
+                    return _servisDurum;
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+
+                }
+
+            }
+
+
+        }
+
+        [Route("api/BYT/YetkiDegistir/[controller]")]
+        [HttpPut]
+        public async Task<ServisDurum> PutYetki([FromBody]Yetki yetki)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+            using (var transaction = _kullaniciContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    yetki.SonIslemZamani = DateTime.Now;
+                    _kullaniciContext.Entry(yetki).State = EntityState.Modified;
+                    await _kullaniciContext.SaveChangesAsync();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                    transaction.Commit();
+                    List<Bilgi> lstBlg = new List<Bilgi>();
+                    Bilgi blg = new Bilgi { IslemTipi = "Yetki Değişiklik", ReferansNo = yetki.YetkiAdi, Sonuc = "Yetki Değişikliği Başarılı", SonucVeriler = null };
+                    lstBlg.Add(blg);
+                    _servisDurum.Bilgiler = lstBlg;
+
+
+                    return _servisDurum;
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+                }
+
+            }
+
+        }
+
+        [Route("api/BYT/YetkiSil/[controller]/{yetkiId}")]
+        [HttpDelete("{yetkiId}")]
+        public async Task<ServisDurum> DeleteYetki(int yetkiId)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+            using (var transaction = _kullaniciContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var yetkiValues = await _kullaniciContext.Yetki.FirstOrDefaultAsync(v => v.ID == yetkiId);
+
+                    _kullaniciContext.Entry(yetkiValues).State = EntityState.Deleted;
+                    await _kullaniciContext.SaveChangesAsync();
+
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                    transaction.Commit();
+                    List<Bilgi> lstBlg = new List<Bilgi>();
+                    Bilgi blg = new Bilgi { IslemTipi = "Yetki Silme", ReferansNo = yetkiValues.YetkiAdi, Sonuc = "Yetki Silme Başarılı", SonucVeriler = null };
                     lstBlg.Add(blg);
                     _servisDurum.Bilgiler = lstBlg;
 

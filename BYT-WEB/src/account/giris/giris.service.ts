@@ -42,9 +42,7 @@ export class GirisService {
     
     }
     public setLoginToken(kullanici:string,token:string, kullaniciAdi:string){
-      // localStorage.setItem('bytServis_access_token', token);
-      // localStorage.setItem('kullanici', kullanici);
-      // localStorage.setItem('kullaniciAdi', kullaniciAdi);
+   
       localStorage.setItem('kullaniciInfo', JSON.stringify({ token: token, name: kullaniciAdi, user:kullanici }))
      
   
@@ -53,9 +51,7 @@ export class GirisService {
     setKullaniciCikis() {
       
      localStorage.removeItem('kullaniciInfo');
-    // localStorage.removeItem('kullanici');
-    // localStorage.removeItem('kullaniciAdi');
-    // localStorage.removeItem('kullaniciInfo');
+   
     this.router.navigateByUrl('/giris');
     }
     public get loggedIn(): boolean{

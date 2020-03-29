@@ -1,0 +1,75 @@
+<form [formGroup]="yetkiForm" (ngSubmit)="save()">
+  <div class="card m-2">
+    <h5 class="card-header text-center">Yetki Bilgilerinde Değişiklik</h5>
+    <div class="form-row">
+      <div class="form-group col">
+        <mat-form-field>
+          <mat-label>Yetki Adı</mat-label>
+          <input
+           readonly
+            matNativeControl
+            formControlName="yetkiAdi"
+            class="form-control "
+            [ngClass]="{
+              'is-invalid': submitted && focus.yetkiAdi.errors
+            }"
+          />
+
+          <div
+            *ngIf="submitted && focus.yetkiAdi.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="focus.yetkiAdi.errors.required">
+              Yetki Adı Kodu Zorunlu
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group col">
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            formControlName="aktif"
+            id="aktif"
+            class="form-check-input"
+            [ngClass]="{ 'is-invalid': submitted && focus.aktif.errors }"
+          />
+          <mat-label for="aktif" class="form-check-label">aktif</mat-label>
+          <div *ngIf="submitted && focus.aktif.errors" class="invalid-feedback">
+            Aktif Zorunlu
+          </div>
+        </div>
+      </div>
+     
+      <div class="card m-1">
+        <div class="form-group col">
+          <mat-label>Açıklama</mat-label>
+          <textarea
+            type="text"
+            rows="3"
+            formControlName="aciklama"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && focus.aciklama.errors
+            }"
+          ></textarea>
+
+          <div
+            *ngIf="submitted && focus.aciklama.errors"
+            class="invalid-feedback"
+          >
+          <div *ngIf="focus.aciklama.errors.required">
+            Açıklma Zorunlu
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-right">
+    <button [disabled]="!yetkiForm.valid" class="btn btn-primary mr-1">
+      Kaydet
+    </button>
+  </div>
+</form>

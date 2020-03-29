@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
-  KullaniciDto, MusteriDto, ServisDto
+  KullaniciDto, MusteriDto,YetkiDto, ServisDto
  } from '../../../../shared/service-proxies/service-proxies';
  import {
   BeyannameServiceProxy,
@@ -19,6 +19,7 @@ import {AppServisDurumKodlari} from '../../../../shared/AppEnums';
 import { MatDialog } from "@angular/material/dialog";
 import { MatInput } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
+
 @Component({
   selector: 'app-yeniKullanici',
   templateUrl: './yeniKullanici.component.html',
@@ -29,6 +30,7 @@ export class YeniKullaniciComponent implements OnInit {
   submitted: boolean = false;  
   kullaniciDataSource: KullaniciDto[]=[];
   musteriDataSource: MusteriDto[]=[];
+  yetkiDataSource: YetkiDto[]=[];
   constructor(
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
@@ -37,8 +39,9 @@ export class YeniKullaniciComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.buildForm();
-    this.getAktifMusteri();
+    this.buildForm();   
+    this.getAktifYetkiler();
+    this.getAktifMusteriler();
    
   }
   openSnackBar(message: string, action: string) {
@@ -49,12 +52,23 @@ export class YeniKullaniciComponent implements OnInit {
   get focus() {
     return this.kullaniciForm.controls;
   }
-  getAktifMusteri()
+  getAktifMusteriler()
   {
-      this.beyanServis.getAllAktifMusteri()
+      this.beyanServis.getAllAktifMusteriler()
      .subscribe( (result: MusteriDto[])=>{
            this.musteriDataSource=result;
-           
+          
+      }, (err)=>{
+        console.log(err);
+      });
+    
+  }
+  getAktifYetkiler()
+  {
+      this.beyanServis.getAllAktifYetkiler()
+     .subscribe( (result: YetkiDto[])=>{
+           this.yetkiDataSource=result;
+           console.log(result);
       }, (err)=>{
         console.log(err);
       });
@@ -100,11 +114,14 @@ export class YeniKullaniciComponent implements OnInit {
           Validators.maxLength(80),
           Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")
         ])
+        ,
+        yetki: this._fb.array([])
       },{
         validator: MustMatch('kullaniciSifre', 'kullaniciSifreTekrarla')
     }
     )
   }
+ 
   save(){
     this.submitted = true;
 

@@ -14,13 +14,14 @@ import {
   HttpHeaders,
   HttpResponse,
   HttpResponseBase,
+  HttpErrorResponse,
   JsonpInterceptor
 } from "@angular/common/http";
 import { DecimalPipe } from "@angular/common";
 import { parse } from 'querystring';
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
-
-
+import { GirisService } from '../../account/giris/giris.service';
+import { Router } from "@angular/router";
 @Injectable()
 export class BeyannameServiceProxy {
   
@@ -33,6 +34,8 @@ export class BeyannameServiceProxy {
     | undefined = undefined;
 
   constructor(
+    private router:Router,
+    private girisService:GirisService,
     @Inject(HttpClient) http: HttpClient,
     @Optional() @Inject(API_BASE_URL) baseUrl?: string,
    
@@ -42,7 +45,16 @@ export class BeyannameServiceProxy {
     this.baseUrl = baseUrl ? baseUrl : "";
   
   }
-  
+ errorHandel(err:any)
+ {
+  if (err instanceof HttpErrorResponse) {
+    if (err.status == 401) {
+      localStorage.removeItem('kullaniciInfo');   
+      this.router.navigateByUrl('/giris');
+   
+  }
+  }
+ }
   getAllKullanici() { 
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -109,7 +121,88 @@ export class BeyannameServiceProxy {
       );
   }
 
-  getAllAktifMusteri() {
+  getAllYetki() { 
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.get(
+      this.baseUrl + "Yetkiler/KullaniciHizmeti/",httpOptions
+    )
+  }
+  getAllAktifYetkiler() {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "AktifYetkiler/KullaniciHizmeti/",httpOptions 
+    );
+  }
+  setYetki(yetki: YetkiDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+  
+
+    return this.http.post<any>(
+      this.baseUrl + "YetkiOlustur/KullaniciHizmeti", 
+      yetki,httpOptions  
+      );
+  }
+  restoreYetki(yetki: YetkiDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+      return this.http.put<any>(
+        this.baseUrl + "YetkiDegistir/KullaniciHizmeti", 
+        yetki,httpOptions);
+  }
+  removeYetki(yetkiId) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.delete<any>(
+      this.baseUrl + "YetkiSil/KullaniciHizmeti/"+yetkiId, httpOptions        
+      );
+  }
+
+  getAllAktifMusteriler() {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
@@ -298,7 +391,7 @@ export class BeyannameServiceProxy {
     const httpOptions = {
      headers: headers_object
     };
-    return this.http.get(
+     return  this.http.get(
       this.baseUrl + "Servis/Beyanname/Beyanname/" + IslemInternalNo,httpOptions
     );
   }
@@ -1059,6 +1152,58 @@ export class MusteriDto {
     data["aktif"]=this.aktif ;
     data["telefon"]=this.telefon ;
     data["sonIslemZamani"]=this.sonIslemZamani;
+    return data;
+  }
+  clone(): KullaniciDto {
+    const json = this.toJSON();
+    let result = new KullaniciDto();
+    result.init(json);
+    return result;
+  }
+}
+
+export class YetkiDto {
+  id: number;
+  yetkiAdi: string;
+  aciklama:string;  
+  aktif:boolean;
+ 
+
+  constructor(data?: KullaniciDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {         
+      this.id = data["id"];
+      this.yetkiAdi = data["yetkiAdi"];
+      this.aciklama = data["aciklama"];
+      this.aktif = data["aktif"];
+    
+    }
+  }
+
+  static fromJS(data: any): KullaniciDto {
+    data = typeof data === "object" ? data : {};
+    let result = new KullaniciDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};  
+   
+    data["yetkiAdi"]= this.yetkiAdi ;
+    data["aciklama"]= this.aciklama ;  
+    data["id"] = this.id;  
+    data["aktif"]=this.aktif ;
+   
     return data;
   }
   clone(): KullaniciDto {

@@ -1,5 +1,14 @@
 import { Component, OnInit, Inject, Injector,ViewChild,ElementRef } from "@angular/core";
 import {
+  HttpClient,
+  HttpParams,
+  HttpHeaders,
+  HttpResponse,
+  HttpResponseBase,
+  HttpErrorResponse,
+  JsonpInterceptor
+} from "@angular/common/http";
+import {
   FormGroup,
   FormBuilder,
   Validators,
@@ -8,6 +17,7 @@ import {
   NgForm
 } from "@angular/forms";
 import { MustMatch } from "../../../shared/helpers/must-match.validator";
+
 import {
   rejim,
   bs,
@@ -269,7 +279,7 @@ export class BeyannameComponent implements OnInit {
   }
   getBeyanname(islemInternalNo) {  
 
-    this.beyanServis.getBeyanname(islemInternalNo.value).subscribe(
+      var result= this.beyanServis.getBeyanname(islemInternalNo.value).subscribe(
       result => {
        
         this._beyannameBilgileri = new BeyannameBilgileriDto();
@@ -291,9 +301,10 @@ export class BeyannameComponent implements OnInit {
         }
     
       },
-      err => {
-        console.log(err);
+      (err: any) => {     
+            this.beyanServis.errorHandel(err);    
       }
+     
     );
   }
   loadBeyannameForm()

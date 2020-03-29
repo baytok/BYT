@@ -18,6 +18,9 @@ import { DegistirKullaniciComponent } from './components/kullanici/degistirKulla
 import { YeniMusteriComponent } from './components/musteri/yeniMusteri/yeniMusteri.component';
 import { DegistirMusteriComponent } from './components/musteri/degistirMusteri/degistirMusteri.component';
 import { MusterilerComponent } from './components/musteri/musteriler/musteriler.component';
+import { YetkilerComponent } from './components/yetki/yetkiler/yetkiler.component';
+import { DegistirYetkiComponent } from './components/yetki/degistirYetki/degistirYetki.component';
+import { YeniYetkiComponent } from './components/yetki/yeniYetki/yeniYetki.component';
 import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -49,8 +52,10 @@ import {
       YeniKullaniciComponent,
       DegistirKullaniciComponent,
       YeniMusteriComponent,
-      DegistirMusteriComponent
-   
+      DegistirMusteriComponent,
+      YetkilerComponent,
+      DegistirYetkiComponent,
+      YeniYetkiComponent
     
    ],
    imports: [

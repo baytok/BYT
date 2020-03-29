@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { KalemComponent } from './components/kalem/kalem.component';
 import { KullanicilarComponent } from './components/kullanici/kullanicilar/kullanicilar.component';
 import { MusterilerComponent } from './components/musteri/musteriler/musteriler.component';
+import { YetkilerComponent } from './components/yetki/yetkiler/yetkiler.component';
 import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { GenelComponent } from './components/genel/genel.component';
@@ -24,7 +25,8 @@ import { AuthGuard } from '../account/giris/giris.guard';
               { path: 'genel', component: GenelComponent,canActivate : [AuthGuard] }, 
               { path: 'kalem', component: KalemComponent,canActivate : [AuthGuard] },      
               { path: 'kullanicilar', component: KullanicilarComponent,canActivate : [AuthGuard] },      
-              { path: 'musteriler', component: MusterilerComponent,canActivate : [AuthGuard] },             
+              { path: 'musteriler', component: MusterilerComponent,canActivate : [AuthGuard] }, 
+              { path: 'yetkiler', component: YetkilerComponent,canActivate : [AuthGuard] },                         
           ],
           
       }

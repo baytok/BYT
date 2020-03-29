@@ -245,17 +245,15 @@ export class KalemComponent implements OnInit {
   }
   ngOnInit() {
     
-    // if (
-    //   this.session.islemInternalNo == undefined ||
-    //   this.session.islemInternalNo == null
-    // )
-    //   this.openSnackBar(
-    //     this.session.islemInternalNo + " ait Kalem Bulunamadı",
-    //     "Tamam"
-    //   );
-    // else
-
-    this._beyanSession.islemInternalNo = "11111111100DBKG000011";
+    if (
+      this._beyanSession.islemInternalNo == undefined ||
+      this._beyanSession.islemInternalNo == null
+    )
+      this.openSnackBar(
+        this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
+        "Tamam"
+      );
+   
     this.getKalemler(this._beyanSession.islemInternalNo);
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(
@@ -269,6 +267,7 @@ export class KalemComponent implements OnInit {
     this.beyanServis.getKalem(islemInternalNo).subscribe(
       (result: KalemDto[]) => {
         this._kalemler = result;
+        this.kalemForm.disable();
       },
       err => {
         console.log(err);
@@ -426,16 +425,18 @@ export class KalemComponent implements OnInit {
   }
 
   yeniKalem() {
-    this.kalemForm.markAllAsTouched();
+   
     this.kalemInternalNo='Boş';
     this.kalemNo=0;
     this.kalemForm.reset();
     this.kalemForm.enable();
+    this.kalemForm.markAllAsTouched();
   }
 
   duzeltKalem() {
-    this.kalemForm.markAllAsTouched();
+   
     this.kalemForm.enable();
+    this.kalemForm.markAllAsTouched();
   }
 
   silKalem(kalemInternalNo:string) {

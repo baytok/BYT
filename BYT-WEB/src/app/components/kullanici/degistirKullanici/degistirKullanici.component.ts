@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
-  KullaniciDto,MusteriDto,ServisDto
+  KullaniciDto,MusteriDto,YetkiDto,ServisDto
  } from '../../../../shared/service-proxies/service-proxies';
  import {
   BeyannameServiceProxy,
@@ -43,6 +43,7 @@ export class DegistirKullaniciComponent implements OnInit {
   submitted: boolean = false;  
   kullaniciDataSource: KullaniciDto[]=[];
   musteriDataSource: MusteriDto[]=[];
+  yetkiDataSource: YetkiDto[]=[];
   constructor(
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
@@ -91,7 +92,8 @@ export class DegistirKullaniciComponent implements OnInit {
   ngOnInit() {
  
     this.loadKullaniciForm();
-   this.getAktifMusteri();
+   this.getAktifMusteriler();
+   this.getAktifYetkiler();
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -101,12 +103,23 @@ export class DegistirKullaniciComponent implements OnInit {
   get focus() {
     return this.kullaniciForm.controls;
   } 
-  getAktifMusteri()
+  getAktifMusteriler()
   {
-      this.beyanServis.getAllAktifMusteri()
+      this.beyanServis.getAllAktifMusteriler()
      .subscribe( (result: MusteriDto[])=>{
            this.musteriDataSource=result;
           
+      }, (err)=>{
+        console.log(err);
+      });
+    
+  }
+  getAktifYetkiler()
+  {
+      this.beyanServis.getAllAktifYetkiler()
+     .subscribe( (result: YetkiDto[])=>{
+           this.yetkiDataSource=result;
+           
       }, (err)=>{
         console.log(err);
       });
