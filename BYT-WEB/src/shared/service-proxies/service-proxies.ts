@@ -17,6 +17,7 @@ import {
   JsonpInterceptor
 } from "@angular/common/http";
 import { DecimalPipe } from "@angular/common";
+import { parse } from 'querystring';
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
 
 
@@ -329,7 +330,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
       return this.http.delete<any>(
-      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/"+kalemInternalNo+"/"+beyanInternalNo+"/KalemSil", httpOptions        
+      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KalemSil/"+kalemInternalNo+"/"+beyanInternalNo, httpOptions        
       );
   }
   restoreKalem(kalem: KalemDto) {
@@ -343,8 +344,8 @@ export class BeyannameServiceProxy {
     const httpOptions = {
      headers: headers_object
     };
-      return this.http.put<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KalemOlusturDegistir/", 
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KalemOlustur/", 
         kalem,httpOptions  
         );
   }
@@ -1570,19 +1571,79 @@ export class KalemDto {
 
   init(data?:[]) {
     if (data) { 
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    
-    //  for(var kalem in data)
-    //   {   
-    //      this.beyanInternalNo=kalem[0].beyanInternalNo;
-    //      this.kalemInternalNo=data[kalem].kalemInternalNo;
-    //      this.kalemSiraNo=data[kalem].kalemSiraNo;
-    //      this.gtip=data[kalem].gtip;
-    
-    //   } 
+     
+         this.beyanInternalNo=data["beyanInternalNo"]!=null ? data["beyanInternalNo"] : "";
+         this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"]:"";
+         this.kalemSiraNo=data["kalemSiraNo"]!=null ? parseInt(data["kalemSiraNo"]):0;
+         this.gtip=data["gtip"]!=null ?data["gtip"]:"";        
+         this.aciklama44=data["aciklama44"]!=null ? data["aciklama44"]:"";
+         this.adet=data["adet"]!=null ? parseInt(data["adet"]):0;
+         this.algilamaBirimi1=data["algilamaBirimi1"]!=null ?data["algilamaBirimi1"]:"";
+         this.algilamaBirimi2=data["algilamaBirimi2"]!=null ?data["algilamaBirimi2"]:"";
+         this.algilamaBirimi3=data["algilamaBirimi3"]!=null ?data["algilamaBirimi3"]:"";
+         this.algilamaMiktari1=data["algilamaMiktari1"]!=null ?parseInt(data["algilamaMiktari1"]):0;
+         this.algilamaMiktari2=data["algilamaMiktari2"]!=null ?parseInt(data["algilamaMiktari2"]):0;
+         this.algilamaMiktari3=data["algilamaMiktari3"]!=null ?parseInt(data["algilamaMiktari3"]):0;
+         this.brutAgirlik=data["brutAgirlik"]!=null ? parseInt(data["brutAgirlik"]):0;
+         this.cins=data["cins"]!=null ?data["cins"]:"";
+         this.ekKod=data["ekKod"]!=null ?data["ekKod"]:"";
+         this.faturaMiktari=data["faturaMiktari"]!=null ? parseInt(data["faturaMiktari"]):0;
+         this.faturaMiktariDovizi=data["faturaMiktariDovizi"]!=null ?data["faturaMiktariDovizi"]:"";
+         this.girisCikisAmaci=data["girisCikisAmaci"]!=null ?data["girisCikisAmaci"]:"";
+         this.girisCikisAmaciAciklama=data["girisCikisAmaciAciklama"]!=null ?data["girisCikisAmaciAciklama"]:"";
+         this.ikincilIslem=data["ikincilIslem"]!=null ? data["ikincilIslem"]:"";
+         this.imalatciFirmaBilgisi=data["imalatciFirmaBilgisi"]!=null ?data["imalatciFirmaBilgisi"]:"";
+         this.imalatciVergiNo=data["imalatciVergiNo"]!=null ?data["imalatciVergiNo"]:"";
+         this.istatistikiKiymet=data["istatistikiKiymet"]!=null ? parseInt(data["istatistikiKiymet"]):0;
+         this.istatistikiMiktar=data["istatistikiMiktar"]!=null ? parseInt(data["istatistikiMiktar"]):0;
+         this.kalemIslemNiteligi=data["kalemIslemNiteligi"]!=null ?data["kalemIslemNiteligi"]:"";
+         this.kullanilmisEsya=data["kullanilmisEsya"]!=null ?data["kullanilmisEsya"]:"";
+         this.mahraceIade=data["mahraceIade"]!=null ?data["mahraceIade"]:"";
+         this.marka=data["marka"]!=null ?data["marka"]:"";
+         this.menseiUlke=data["menseiUlke"]!=null ?data["menseiUlke"]:"";
+         this.miktar=data["miktar"]!=null ? parseInt(data["miktar"]):0;
+         this.miktarBirimi=data["miktarBirimi"]!=null ?data["miktarBirimi"]:"";
+         this.muafiyetAciklamasi=data["muafiyetAciklamasi"]!=null ?data["muafiyetAciklamasi"]:"";
+         this.muafiyetler1=data["muafiyetler1"]!=null ?data["muafiyetler1"]:"";
+         this.muafiyetler2=data["muafiyetler2"]!=null ?data["muafiyetler2"]:"";
+         this.muafiyetler3=data["muafiyetler3"]!=null ?data["muafiyetler3"]:"";
+         this.muafiyetler4=data["muafiyetler4"]!=null ?data["muafiyetler4"]:"";
+         this.muafiyetler5=data["muafiyetler5"]!=null ?data["muafiyetler5"]:"";
+         this.navlunMiktari=data["navlunMiktari"]!=null ? parseInt(data["navlunMiktari"]):0;
+         this.navlunMiktariDovizi=data["navlunMiktariDovizi"]!=null ?data["navlunMiktariDovizi"]:"";
+         this.netAgirlik=data["netAgirlik"]!=null ? parseInt(data["netAgirlik"]):0;
+         this.numara=data["numara"]!=null ?data["numara"]:"";
+         this.ozellik=data["ozellik"]!=null ?data["ozellik"]:"";
+         this.satirNo=data["satirNo"]!=null ?data["satirNo"]:"";
+         this.sigortaMiktari=data["sigortaMiktari"]!=null ? parseInt(data["sigortaMiktari"]):0;
+         this.sigortaMiktariDovizi=data["sigortaMiktariDovizi"]!=null ?data["sigortaMiktariDovizi"]:"";
+         this.sinirGecisUcreti=data["sinirGecisUcreti"]!=null ? parseInt(data["sinirGecisUcreti"]):0;
+         this.stmIlKodu=data["stmIlKodu"]!=null ?data["stmIlKodu"]:"";
+         this.tamamlayiciOlcuBirimi=data["tamamlayiciOlcuBirimi"]!=null ?data["tamamlayiciOlcuBirimi"]:"";
+         this.teslimSekli=data["teslimSekli"]!=null ?data["teslimSekli"]:"";
+         this.ticariTanimi=data["ticariTanimi"]!=null ?data["ticariTanimi"]:"";
+         this.uluslararasiAnlasma=data["uluslararasiAnlasma"]!=null ?data["uluslararasiAnlasma"]:"";
+         this.yurtDisiDemuraj=data["yurtDisiDemuraj"]!=null ? parseInt(data["yurtDisiDemuraj"]):0;
+         this.yurtDisiDemurajDovizi=data["yurtDisiDemurajDovizi"]!=null ?data["yurtDisiDemurajDovizi"]:"";
+         this.yurtDisiDiger=data["yurtDisiDiger"]!=null ? parseInt(data["yurtDisiDiger"]):0;
+         this.yurtDisiDigerAciklama=data["yurtDisiDigerAciklama"]!=null ?data["yurtDisiDigerAciklama"]:"";
+         this.yurtDisiDigerDovizi=data["yurtDisiDigerDovizi"]!=null ?data["yurtDisiDigerDovizi"]:"";
+         this.yurtDisiFaiz=data["yurtDisiFaiz"]!=null ? parseInt(data["yurtDisiFaiz"]):0;
+         this.yurtDisiFaizDovizi=data["yurtDisiFaizDovizi"]!=null ?data["yurtDisiFaizDovizi"]:"";
+         this.yurtDisiKomisyon=data["yurtDisiKomisyon"]!=null ? parseInt(data["yurtDisiKomisyon"]):0;
+         this.yurtDisiKomisyonDovizi=data["yurtDisiKomisyonDovizi"]!=null ?data["yurtDisiKomisyonDovizi"]:"";
+         this.yurtDisiRoyalti=data["yurtDisiRoyalti"]!=null ? parseInt(data["yurtDisiRoyalti"]):0;
+         this.yurtDisiRoyaltiDovizi=data["yurtDisiRoyaltiDovizi"]!=null ?data["yurtDisiRoyaltiDovizi"]:"";
+         this.yurtIciBanka=data["yurtIciBanka"]!=null ? parseInt(data["yurtIciBanka"]):0;
+         this.yurtIciCevre=data["yurtIciCevre"]!=null ? parseInt(data["yurtIciCevre"]):0;
+         this.yurtIciDepolama=data["yurtIciDepolama"]!=null ? parseInt(data["yurtIciDepolama"]):0;
+         this.yurtIciDiger=data["yurtIciDiger"]!=null ? parseInt(data["yurtIciDiger"]):0;
+         this.yurtIciDigerAciklama=data["yurtIciDigerAciklama"]!=null ?data["yurtIciDigerAciklama"]:"";
+         this.yurtIciKkdf=data["yurtIciKkdf"]!=null ? parseInt(data["yurtIciKkdf"]):0;
+         this.yurtIciKultur=data["yurtIciKultur"]!=null ? parseInt(data["yurtIciKultur"]):0;
+         this.yurtIciLiman=data["yurtIciLiman"]!=null ? parseInt(data["yurtIciLiman"]):0;
+         this.yurtIciTahliye=data["yurtIciTahliye"]!=null ? parseInt(data["yurtIciTahliye"]):0;
+
          
     }
   }

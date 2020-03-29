@@ -811,8 +811,8 @@ namespace BYT.WS.Models
         public string Ozellik { get; set; }
 
 
-        [StringLength(12)]
-        public string ReferansTarihi { get; set; }
+        //[StringLength(12)]
+        //public string ReferansTarihi { get; set; }
 
 
         [StringLength(20)]
@@ -837,8 +837,8 @@ namespace BYT.WS.Models
         public string TamamlayiciOlcuBirimi { get; set; }
 
 
-        [StringLength(350)]
-        public string TarifeTanimi { get; set; }
+        //[StringLength(350)]
+        //public string TarifeTanimi { get; set; }
 
         [Required]
         [StringLength(350)]

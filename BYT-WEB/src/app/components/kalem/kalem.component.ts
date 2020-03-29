@@ -426,13 +426,15 @@ export class KalemComponent implements OnInit {
   }
 
   yeniKalem() {
-    this.kalemInternalNo='';
-    this.kalemNo=null;
+    this.kalemForm.markAllAsTouched();
+    this.kalemInternalNo='Boş';
+    this.kalemNo=0;
     this.kalemForm.reset();
+    this.kalemForm.enable();
   }
 
   duzeltKalem() {
-   
+    this.kalemForm.markAllAsTouched();
     this.kalemForm.enable();
   }
 
@@ -476,7 +478,83 @@ export class KalemComponent implements OnInit {
       );
       return;
     }
+    // this.kalemForm.setValue({
+    //   aciklama44: "açıklama",
+    //   adet: 1,
+    //   algilamaBirimi1: "",
+    //   algilamaBirimi2: "",
+    //   algilamaBirimi3: "",
+    //   algilamaMiktari1: 0,
+    //   algilamaMiktari2: 0,
+    //   algilamaMiktari3: 0,
+    //   beyanInternalNo: "11111111100DB000011",
+    //   brutAgirlik: 1,
+    //   cins: "BI",
+    //   ekKod: "",
+    //   faturaMiktari: 12,
+    //   faturaMiktariDovizi: "USD",
+    //   girisCikisAmaci: "",
+    //   girisCikisAmaciAciklama: "",
+    //   gtip: "851712000011",
+    //   ikincilIslem: "",
+    //   imalatciFirmaBilgisi: "HAYIR",
+    //   imalatciVergiNo: "",
+    //   istatistikiKiymet: 10,
+    //   istatistikiMiktar: 1,
+    //   kalemInternalNo: "11111111100DB000011|1",
+    //   kalemIslemNiteligi: "",
+    //   kalemSiraNo: 1,
+    //   kullanilmisEsya: "",
+    //   mahraceIade: "",
+    //   marka: "dcx",
+    //   menseiUlke: "001",
+    //   miktar: 1,
+    //   miktarBirimi: "MTK",
+    //   muafiyetAciklamasi: "",
+    //   muafiyetler1: "",
+    //   muafiyetler2: "",
+    //   muafiyetler3: "",
+    //   muafiyetler4: "",
+    //   muafiyetler5: "",
+    //   navlunMiktari: 0,
+    //   navlunMiktariDovizi: "",
+    //   netAgirlik: 1,
+    //   numara: "1",
+    //   ozellik: "",
+    //   satirNo: "",
+    //   sigortaMiktari: 0,
+    //   sigortaMiktariDovizi: "",
+    //   sinirGecisUcreti: 0,
+    //   stmIlKodu: "",
+    //   tamamlayiciOlcuBirimi: "C62",
+    //   teslimSekli: "FOB",
+    //   ticariTanimi: "tanım",
+    //   uluslararasiAnlasma: "",
+    //   yurtDisiDemuraj: 0,
+    //   yurtDisiDemurajDovizi: "",
+    //   yurtDisiDiger: 0,
+    //   yurtDisiDigerAciklama: "",
+    //   yurtDisiDigerDovizi: "",
+    //   yurtDisiFaiz: 0,
+    //   yurtDisiFaizDovizi: "",
+    //   yurtDisiKomisyon: 0,
+    //   yurtDisiKomisyonDovizi: "",
+    //   yurtDisiRoyalti: 0,
+    //   yurtDisiRoyaltiDovizi: "",
+    //   yurtIciBanka: 0,
+    //   yurtIciCevre: 0,
+    //   yurtIciDepolama: 0,
+    //   yurtIciDiger: 0,
+    //   yurtIciDigerAciklama: "",
+    //   yurtIciKkdf: 0,
+    //   yurtIciKultur: 0,
+    //   yurtIciLiman: 0,
+    //   yurtIciTahliye: 0
+    //  })
     this.kalemForm.get("beyanInternalNo").setValue(this._beyanSession.beyanInternalNo);
+    this.kalemForm.get("kalemSiraNo").setValue(this.kalemNo);
+    console.log(this.kalemInternalNo);
+    this.kalemForm.get("kalemInternalNo").setValue(this.kalemInternalNo);
     let yenikalemInternalNo: string;
     let yeniKalem=new KalemDto();
     yeniKalem.init(this.kalemForm.value);

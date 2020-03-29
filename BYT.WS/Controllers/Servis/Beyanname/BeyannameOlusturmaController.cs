@@ -308,10 +308,41 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 try
                 {
                     var kalemValues = await _beyannameContext.DbKalem.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
-
+                   
                     _beyannameContext.Entry(kalemValues).State = EntityState.Deleted;
-                    await _beyannameContext.SaveChangesAsync();
+                 
+                    var updateKalemNo = from u in _beyannameContext.DbKalem
+                                        where u.BeyanInternalNo == BeyanInternalNo && u.KalemSiraNo > kalemValues.KalemSiraNo
+                                        select u;
 
+                    foreach (DbKalem itm in updateKalemNo)
+                    {
+                        itm.KalemSiraNo = itm.KalemSiraNo-1;
+                       
+                    }
+
+
+                    var odemeValues = await _beyannameContext.DbOdemeSekli.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
+                    if(odemeValues!=null)
+                    _beyannameContext.Entry(odemeValues).State = EntityState.Deleted;
+
+                    var markaValues = await _beyannameContext.DbMarka.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
+                    if (markaValues != null)
+                        _beyannameContext.Entry(markaValues).State = EntityState.Deleted;
+
+                    var konteynerValues = await _beyannameContext.DbKonteyner.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
+                    if (konteynerValues != null)
+                        _beyannameContext.Entry(konteynerValues).State = EntityState.Deleted;
+
+                    var acmaValues = await _beyannameContext.DbBeyannameAcma.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
+                    if (acmaValues != null)
+                        _beyannameContext.Entry(acmaValues).State = EntityState.Deleted;
+
+                    var tammalayiciValues = await _beyannameContext.DbTamamlayiciBilgi.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
+                    if (tammalayiciValues != null)
+                        _beyannameContext.Entry(tammalayiciValues).State = EntityState.Deleted;
+
+                    await _beyannameContext.SaveChangesAsync();
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                     transaction.Commit();
                     List<Bilgi> lstBlg = new List<Bilgi>();
@@ -339,10 +370,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             }
 
         }
+     
 
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/KalemOlusturDegistir/")]
-    [HttpPut]
+    [Route("api/BYT/Servis/Beyanname/[controller]/KalemOlustur")]
+    [HttpPost]
     public async Task<ServisDurum> PutKalem([FromBody]DbKalem kalem)
         {
             ServisDurum _servisDurum = new ServisDurum();
@@ -356,14 +387,18 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             {
                 try
                 {
-                      if (kalemValues != null)
+                    if (kalemValues != null)
                     {
 
                         beyannameContext.Entry(kalem).State = EntityState.Modified;
                     }
                     else
                     {
-                        //TODO kalem sıra verilecek
+                        var maxKalemNo = (from u in _beyannameContext.DbKalem
+                                      where u.BeyanInternalNo == kalem.BeyanInternalNo
+                                      select (u.KalemSiraNo)).Max();
+                      
+                        kalem.KalemSiraNo = Convert.ToInt32(maxKalemNo)+1;
                         kalem.KalemInternalNo = kalem.BeyanInternalNo + "|" + kalem.KalemSiraNo;
                         beyannameContext.Entry(kalem).State = EntityState.Added;
                     }

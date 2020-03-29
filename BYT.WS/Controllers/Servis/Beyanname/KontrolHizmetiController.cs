@@ -197,14 +197,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _kalem.Net_agirlik = item.NetAgirlik != null ? item.NetAgirlik : 0;
                         _kalem.Numara = item.Numara;
                         _kalem.Ozellik = item.Ozellik;
-                        _kalem.Referans_Tarihi = item.ReferansTarihi;
+                       // _kalem.Referans_Tarihi = item.ReferansTarihi;
                         _kalem.Satir_no = item.SatirNo;
                         _kalem.Sigorta_miktari = item.SigortaMiktari != null ? item.NavlunMiktari : 0;
                         _kalem.Sigorta_miktarinin_dovizi = item.SigortaMiktariDovizi;
                         _kalem.Sinir_gecis_ucreti = item.SinirGecisUcreti != null ? item.SinirGecisUcreti : 0;
                         _kalem.STM_IlKodu = item.StmIlKodu;
                         _kalem.Tamamlayici_olcu_birimi = item.TamamlayiciOlcuBirimi;
-                        _kalem.Tarifedeki_tanimi = item.TarifeTanimi;
+                       // _kalem.Tarifedeki_tanimi = item.TarifeTanimi;
                         _kalem.Ticari_tanimi = item.TicariTanimi;
                         _kalem.Teslim_sekli = item.TeslimSekli;
                         _kalem.Uluslararasi_anlasma = item.UluslararasiAnlasma;
