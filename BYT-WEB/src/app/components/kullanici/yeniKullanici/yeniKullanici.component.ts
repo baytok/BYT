@@ -9,16 +9,18 @@ import {
 } from "@angular/forms";
 import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
-  KullaniciDto, MusteriDto,YetkiDto, ServisDto
+  KullaniciDto, MusteriDto,YetkiDto,KullaniciYetkiDto, ServisDto
  } from '../../../../shared/service-proxies/service-proxies';
  import {
   BeyannameServiceProxy,
   SessionServiceProxy
 } from "../../../../shared/service-proxies/service-proxies";
+import * as _ from 'lodash';
 import {AppServisDurumKodlari} from '../../../../shared/AppEnums';
 import { MatDialog } from "@angular/material/dialog";
 import { MatInput } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-yeniKullanici',
@@ -31,6 +33,9 @@ export class YeniKullaniciComponent implements OnInit {
   kullaniciDataSource: KullaniciDto[]=[];
   musteriDataSource: MusteriDto[]=[];
   yetkiDataSource: YetkiDto[]=[];
+  yetkiler: string[] | undefined;
+  checkedRolesMap: { [key: string]: boolean } = {};
+  defaultRoleCheckedStatus = false;
   constructor(
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
@@ -59,7 +64,7 @@ export class YeniKullaniciComponent implements OnInit {
            this.musteriDataSource=result;
           
       }, (err)=>{
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       });
     
   }
@@ -68,9 +73,9 @@ export class YeniKullaniciComponent implements OnInit {
       this.beyanServis.getAllAktifYetkiler()
      .subscribe( (result: YetkiDto[])=>{
            this.yetkiDataSource=result;
-           console.log(result);
+        
       }, (err)=>{
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       });
     
   }
@@ -115,16 +120,41 @@ export class YeniKullaniciComponent implements OnInit {
           Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")
         ])
         ,
-        yetki: this._fb.array([])
+        //yetkiArry: this._fb.array([])
       },{
         validator: MustMatch('kullaniciSifre', 'kullaniciSifreTekrarla')
     }
     )
   }
  
+  isRoleChecked(normalizedName: string): boolean {
+    // just return default role checked status
+    // it's better to use a setting
+    return this.defaultRoleCheckedStatus;
+  }
+
+  onRoleChange(yetki: YetkiDto, $event) {
+    this.checkedRolesMap[yetki.id] = $event.checked;
+    
+  }
+
+  getCheckedRoles(): string[] {
+    const yetkiler: string[] = [];
+    
+    _.forEach(this.checkedRolesMap, function(value, key) {
+      if (value) {
+        yetkiler.push(key);
+      }
+    });
+    return yetkiler;
+    
+  }
+
   save(){
     this.submitted = true;
 
+    
+   
     // stop here if form is invalid
     if (this.kullaniciForm.invalid) {
       const invalid = [];
@@ -143,22 +173,32 @@ export class YeniKullaniciComponent implements OnInit {
     }
     
     let yeniKullanici=new KullaniciDto();
-    yeniKullanici.init(this.kullaniciForm.value);
-  
+    yeniKullanici.init(this.kullaniciForm.value);    
+
+    this.yetkiler = this.getCheckedRoles()
+    let yetkiKullanici=new KullaniciYetkiDto [this.yetkiler.length]({
+      kullaniciKod:yeniKullanici.kullaniciKod,
+      yetkiId:this.yetkiler[0],
+      aktif:this.yetkiler[1]
+  });
+ 
+  yetkiKullanici.init(yetkiKullanici);
+  console.log(yetkiKullanici);
+
       const promise = this.beyanServis
         .setKullanici(yeniKullanici)
         .toPromise();
       promise.then(
         result => {
-          console.log(result);
+         
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);       
-
+          this.beyanServis.setYetkiKullanici(yetkiKullanici);
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
           this.kullaniciForm.disable();
         },
         err => {
-          console.log(err);
+         this.beyanServis.errorHandel(err);    
         }
       );
     

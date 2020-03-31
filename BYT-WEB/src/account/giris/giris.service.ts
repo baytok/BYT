@@ -9,7 +9,11 @@ import {
   HttpResponseBase
 } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { KullaniciModel, KullaniciSonucModel } from './giris-service-proxies';
+import {
+  KullaniciYetkileri,
+ 
+ } from '../../shared/service-proxies/service-proxies';
+import { KullaniciModel, KullaniciSonucModel, } from './giris-service-proxies';
 import { strict } from 'assert';
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
 
@@ -21,7 +25,7 @@ export class GirisService {
      private http: HttpClient;
       private baseUrl: string;
       kullaniciModel=new KullaniciModel;
-      kullaniciSonuc: KullaniciSonucModel;
+      kullaniciSonuc=new KullaniciSonucModel;
      
     constructor(
      
@@ -30,8 +34,8 @@ export class GirisService {
        @Optional()@Inject(API_BASE_URL) baseUrl?: string            
     ) {
       this.http = http;
-     // this.baseUrl = baseUrl ? baseUrl : "https://localhost:44345/api/BYT/";
-     this.baseUrl = baseUrl ? baseUrl : "http://servis.byt.com/BYTServis/api/BYT/";
+     this.baseUrl = baseUrl ? baseUrl : "https://localhost:44345/api/BYT/";
+    // this.baseUrl = baseUrl ? baseUrl : "http://servis.byt.com/BYTServis/api/BYT/";
     }
   
     getKullaniciGiris(KullaniciKod:string, KullaniciSifre:string) {
@@ -41,11 +45,14 @@ export class GirisService {
       );
     
     }
-    public setLoginToken(kullanici:string,token:string, kullaniciAdi:string){
+    public setLoginInfo(kullaniciKod:string,token:string, kullaniciAdi:string, yetki:[]){
    
-      localStorage.setItem('kullaniciInfo', JSON.stringify({ token: token, name: kullaniciAdi, user:kullanici }))
-     
-  
+      this.kullaniciSonuc.token=token;
+      this.kullaniciSonuc.kullaniciKod=kullaniciKod;
+      this.kullaniciSonuc.kullaniciAdi=kullaniciAdi;
+
+      localStorage.setItem('kullaniciInfo', JSON.stringify({ token: token, name: kullaniciAdi, user:kullaniciKod, roles:yetki }))
+      
      
     }
     setKullaniciCikis() {
@@ -61,6 +68,7 @@ export class GirisService {
       var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
         var user = currentUser.user;
       return user ;
+      return this.kullaniciSonuc.kullaniciKod;
     }
 
     public get loggedToken(): string{
@@ -73,6 +81,12 @@ export class GirisService {
       var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
       var name = currentUser.name;
         return name ;
+    }
+
+    public get loggedRoles(): KullaniciYetkileri[]{
+      var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+        var user = currentUser.roles;
+      return user ;
     }
 
   }

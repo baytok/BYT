@@ -116,7 +116,7 @@ implements OnInit {
      
 
     }, (err)=>{
-     console.log(err);
+      this.beyanServis.errorHandel(err);    
    });
   }
   setStep(index: number) {

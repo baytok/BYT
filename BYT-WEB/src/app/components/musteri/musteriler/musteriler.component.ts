@@ -17,6 +17,9 @@ import {
  import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../../shared/service-proxies/service-proxies';
  import { MatDialog } from '@angular/material/dialog';
  import { MatSnackBar } from "@angular/material/snack-bar";
+ import {
+  UserRoles
+} from "../../../../shared/service-proxies/UserRoles";
  @Component({
   selector: 'app-musteriler',
   templateUrl: './musteriler.component.html',
@@ -31,12 +34,18 @@ export class MusterilerComponent    implements OnInit {
     private beyanServis: BeyannameServiceProxy,
     private _dialog: MatDialog,
     private _fb: FormBuilder,
+    private _userRoles:UserRoles,
     private snackBar: MatSnackBar,
     ) {
     // super(injector);
   }
  
   ngOnInit() {
+    if(!this._userRoles.canBeyannameRoles())
+    {
+      this.openSnackBar("Bu Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
+      this.beyanServis.notAuthorizeRole();    
+    }
     this.getAllMusteri();
 
   }
@@ -51,7 +60,7 @@ export class MusterilerComponent    implements OnInit {
           this.musteriDataSource=result;
           
      }, (err)=>{
-       console.log(err);
+      this.beyanServis.errorHandel(err);    
      });
  
    }
@@ -76,7 +85,7 @@ export class MusterilerComponent    implements OnInit {
         this.openSnackBar(servisSonuc.Sonuc, "Tamam");
       },
       err => {
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       }
     );
 

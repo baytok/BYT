@@ -7,7 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'BYT-WEB';
+  constructor(
 
+   
+  ) {
+  
+  
+  }
+  
   
   onResize(event) {
    

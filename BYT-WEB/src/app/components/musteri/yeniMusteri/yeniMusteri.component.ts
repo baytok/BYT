@@ -108,7 +108,7 @@ export class YeniMusteriComponent implements OnInit {
           this.musteriForm.disable();
         },
         err => {
-          console.log(err);
+          this.beyanServis.errorHandel(err);    
         }
       );
     

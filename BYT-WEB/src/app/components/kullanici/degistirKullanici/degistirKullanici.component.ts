@@ -90,7 +90,7 @@ export class DegistirKullaniciComponent implements OnInit {
   }
 
   ngOnInit() {
- 
+  
     this.loadKullaniciForm();
    this.getAktifMusteriler();
    this.getAktifYetkiler();
@@ -110,7 +110,7 @@ export class DegistirKullaniciComponent implements OnInit {
            this.musteriDataSource=result;
           
       }, (err)=>{
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       });
     
   }
@@ -121,7 +121,7 @@ export class DegistirKullaniciComponent implements OnInit {
            this.yetkiDataSource=result;
            
       }, (err)=>{
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       });
     
   }
@@ -185,7 +185,7 @@ export class DegistirKullaniciComponent implements OnInit {
          this.kullaniciForm.disable();
         },
         err => {
-          console.log(err);
+          this.beyanServis.errorHandel(err);    
         }
       );
     

@@ -37,7 +37,9 @@ import {
 import { MatDialog } from "@angular/material/dialog";
 import { MatInput } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
-
+import {
+  UserRoles
+} from "../../../shared/service-proxies/UserRoles";
 import {
   BeyannameBilgileriDto,
   BeyannameDto,
@@ -74,6 +76,7 @@ export class BeyannameComponent implements OnInit {
   constructor(
     private beyanServis: BeyannameServiceProxy,
     private _beyanSession: SessionServiceProxy,
+    private _userRoles:UserRoles,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private _fb: FormBuilder
@@ -235,13 +238,21 @@ export class BeyannameComponent implements OnInit {
     )
   }
   ngOnInit() {
+
+    if(!this._userRoles.canBeyannameRoles())
+    {
+      this.openSnackBar("Beyanname Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
+      this.beyanServis.notAuthorizeRole();    
+    }
+    this.buildForm();
+    this.beyannameForm.disable();
+    
     if (this._beyanSession.islemInternalNo != undefined) {
       this.islemInput.nativeElement.value=this._beyanSession.islemInternalNo;
       this.getBeyannameFromIslem(this._beyanSession.islemInternalNo);
      
     }
-    this.buildForm();
-    this.beyannameForm.disable();
+  
   }
 
   openSnackBar(message: string, action: string) {
@@ -273,7 +284,7 @@ export class BeyannameComponent implements OnInit {
       
       },
       err => {
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       }
     );
   }
@@ -400,7 +411,7 @@ export class BeyannameComponent implements OnInit {
           }
         },
         err => {
-          console.log(err);
+          this.beyanServis.errorHandel(err);    
         }
       );
     }
@@ -475,7 +486,7 @@ export class BeyannameComponent implements OnInit {
           }
         },
         err => {
-          console.log(err);
+          this.beyanServis.errorHandel(err);    
         }
       );
     

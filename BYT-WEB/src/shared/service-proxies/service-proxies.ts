@@ -55,6 +55,15 @@ export class BeyannameServiceProxy {
   }
   }
  }
+
+  notAuthorizeRole()
+  {
+
+      localStorage.removeItem('kullaniciInfo');   
+      this.router.navigateByUrl('/giris');
+   
+ 
+  }
   getAllKullanici() { 
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -201,7 +210,40 @@ export class BeyannameServiceProxy {
       this.baseUrl + "YetkiSil/KullaniciHizmeti/"+yetkiId, httpOptions        
       );
   }
+  setYetkiKullanici(yetkiKullanici: KullaniciYetkiDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
 
+    const httpOptions = {
+     headers: headers_object
+    };
+  
+
+    return this.http.post<any>(
+      this.baseUrl + "KullaniciYetkiOlustur/KullaniciHizmeti", 
+      yetkiKullanici,httpOptions  
+      );
+  }
+  restoreYetkiKullanici(yetkiKullanici: KullaniciYetkiDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+      return this.http.put<any>(
+        this.baseUrl + "KullaniciYetkiDegistir/KullaniciHizmeti", 
+        yetkiKullanici,httpOptions);
+  }
   getAllAktifMusteriler() {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -957,7 +999,7 @@ export class ServisDto {
       this.ServisDurumKodu = data["servisDurumKodlari"];
       this.Sonuc=this.getSonuc();
       this.SonucVeriler= JSON.stringify(this.Bilgiler[0].sonucVeriler);
-      console.log( this.SonucVeriler);
+    
     }
   }
 
@@ -1011,6 +1053,112 @@ export class ServisDto {
     }
 
    }
+   else
+   {
+    if (this.Hatalar) {
+     
+      for (let item of this.Hatalar) 
+      {
+        result={
+          HataKodu:item.hataKodu,
+          HataAçıklaması:item.hataAciklamasi
+        }
+    
+      }
+    }
+    }
+   
+    return JSON.stringify(result, null, 4);
+  
+  }
+}
+
+export class KullaniciServisDto {
+  ServisDurumKodu: number;
+  Hatalar: HatalarDto[];
+  Bilgiler: BilgilerDto[];
+  KullaniciBilgiler: KullaniciBilgileriDto;
+  SonucVeriler:object;
+  
+  Sonuc: string;
+  constructor(data?: KullaniciServisDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {
+     
+      if (Array.isArray(data["bilgiler"])) {
+        this.Bilgiler = [] as any;
+        for (let item of data["bilgiler"]) this.Bilgiler.push(item);
+      }
+      if (Array.isArray(data["hatalar"])) {
+        this.Hatalar = [] as any;
+        for (let item of data["hatalar"]) this.Hatalar.push(item);
+      }
+      this.KullaniciBilgiler= data["kullaniciBilgileri"]; 
+    
+      this.ServisDurumKodu = data["servisDurumKodlari"];
+      this.Sonuc=this.getSonuc();     
+      this.SonucVeriler= this.Bilgiler[0].sonucVeriler;
+     
+    }
+  }
+
+  static fromJS(data: any): KullaniciServisDto {
+    data = typeof data === "object" ? data : {};
+    let result = new KullaniciServisDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};
+
+    if (Array.isArray(this.Bilgiler)) {
+      data["bilgiler"] = [];
+      for (let item of this.Bilgiler) data["bilgiler"].push(item);
+    }
+    if (Array.isArray(this.Hatalar)) {
+      data["hatalar"] = [];
+      for (let item of this.Hatalar) data["hatalar"].push(item);
+    }   
+     data["kullaniciBilgileri"] = this.KullaniciBilgiler;
+     data["servisDurumKodlari"] = this.ServisDurumKodu;
+   
+    return data;
+  }
+
+  clone(): KullaniciServisDto {
+    const json = this.toJSON();
+    let result = new KullaniciServisDto();
+    result.init(json);
+    return result;
+  }
+  getSonuc():string
+  {
+    let result={};
+  
+   if(this.ServisDurumKodu===1)
+   {
+  
+    if (this.KullaniciBilgiler!=null){ 
+     
+        result={
+          KullaniciKod:this.KullaniciBilgiler.kullaniciKod,
+          KullaniciAdi:this.KullaniciBilgiler.kullaniciAdi,
+          Token: this.KullaniciBilgiler.token,
+          Yetkiler:this.KullaniciBilgiler.yetkiler       
+        }     
+      
+      }
+  }
    else
    {
     if (this.Hatalar) {
@@ -1209,6 +1357,58 @@ export class YetkiDto {
   clone(): KullaniciDto {
     const json = this.toJSON();
     let result = new KullaniciDto();
+    result.init(json);
+    return result;
+  }
+}
+
+export class KullaniciYetkiDto {
+  id: number;
+  kullaniciKod: string;
+  yetkiId:number;  
+  aktif:boolean;
+ 
+
+  constructor(data?: KullaniciYetkiDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {         
+      this.id = data["id"];
+      this.kullaniciKod = data["kullaniciKod"];
+      this.yetkiId = data["yetkiId"];
+      this.aktif = data["aktif"];
+    
+    }
+  }
+
+  static fromJS(data: any): KullaniciYetkiDto {
+    data = typeof data === "object" ? data : {};
+    let result = new KullaniciYetkiDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};  
+   
+    data["kullaniciKod"]= this.kullaniciKod ;
+    data["yetkiId"]= this.yetkiId ;  
+    data["id"] = this.id;  
+    data["aktif"]=this.aktif ;
+   
+    return data;
+  }
+  clone(): KullaniciYetkiDto {
+    const json = this.toJSON();
+    let result = new KullaniciYetkiDto();
     result.init(json);
     return result;
   }
@@ -1447,6 +1647,18 @@ export class BilgilerDto {
   sonuc: string;
   sonucVeriler: object;
 }
+export class KullaniciBilgileriDto {
+  kullaniciKod: string;
+  kullaniciAdi: string;
+  token: string;
+  yetkiler: KullaniciYetkileri[];
+ 
+}
+export class KullaniciYetkileri {
+  id: number;
+  yetkiAdi: string; 
+}
+
 export enum ServisDurumKodlari {
   _0 = 0,
   _1 = 1,

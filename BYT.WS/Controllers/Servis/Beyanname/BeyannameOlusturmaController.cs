@@ -321,26 +321,40 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                        
                     }
 
+                    var odemeValues = await _beyannameContext.DbOdemeSekli.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                    if (odemeValues.Count > 0)
+                        foreach (var item in odemeValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+                        }
 
-                    var odemeValues = await _beyannameContext.DbOdemeSekli.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
-                    if(odemeValues!=null)
-                    _beyannameContext.Entry(odemeValues).State = EntityState.Deleted;
+                    var markaValues = await _beyannameContext.DbMarka.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync(); 
+                    if (markaValues.Count > 0)
+                        foreach (var item in markaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+                        }
 
-                    var markaValues = await _beyannameContext.DbMarka.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
-                    if (markaValues != null)
-                        _beyannameContext.Entry(markaValues).State = EntityState.Deleted;
+                    var konteynerValues = await _beyannameContext.DbKonteyner.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                    if (konteynerValues.Count > 0)
+                        foreach (var item in konteynerValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+                        }
 
-                    var konteynerValues = await _beyannameContext.DbKonteyner.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
-                    if (konteynerValues != null)
-                        _beyannameContext.Entry(konteynerValues).State = EntityState.Deleted;
+                    var acmaValues = await _beyannameContext.DbBeyannameAcma.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                    if (acmaValues.Count > 0)
+                        foreach (var item in acmaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+                        }
 
-                    var acmaValues = await _beyannameContext.DbBeyannameAcma.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
-                    if (acmaValues != null)
-                        _beyannameContext.Entry(acmaValues).State = EntityState.Deleted;
-
-                    var tammalayiciValues = await _beyannameContext.DbTamamlayiciBilgi.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
-                    if (tammalayiciValues != null)
-                        _beyannameContext.Entry(tammalayiciValues).State = EntityState.Deleted;
+                    var tammalayiciValues = await _beyannameContext.DbTamamlayiciBilgi.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                    if (tammalayiciValues.Count > 0)
+                        foreach (var item in markaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+                        }
 
                     await _beyannameContext.SaveChangesAsync();
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;

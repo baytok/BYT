@@ -3,9 +3,10 @@ import { AppSessionService } from '../../shared/session/app-session.service';
 import { GirisService } from './giris.service';
 import { Router } from "@angular/router";
 import {AppServisDurumKodlari} from '../../shared/AppEnums';
+import { KullaniciModel, KullaniciSonucModel, } from './giris-service-proxies';
 
 import {
-  ServisDto
+  KullaniciServisDto
  } from '../../shared/service-proxies/service-proxies';
  import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -40,15 +41,16 @@ export class GirisComponent implements OnInit {
     .toPromise();
   promise.then(
     result => {
-     
-      const servisSonuc = new ServisDto();
+    
+      const servisSonuc = new KullaniciServisDto();
       servisSonuc.init(result);
      
-      var token = JSON.parse(servisSonuc.Sonuc).ReferansNo;
-      var kullaniciAdi=JSON.parse(servisSonuc.Sonuc).Guid;
-      
-      this.girisService.setLoginToken(this.girisService.kullaniciModel.kullanici,token,kullaniciAdi);
-       
+      var token = JSON.parse(servisSonuc.Sonuc).Token;
+      var kullaniciKod=JSON.parse(servisSonuc.Sonuc).KullaniciKod;
+      var kullaniciAdi=JSON.parse(servisSonuc.Sonuc).KullaniciAdi;
+      var yetkiler= JSON.parse(servisSonuc.Sonuc).Yetkiler;
+   
+      this.girisService.setLoginInfo(kullaniciKod,token,kullaniciAdi,yetkiler);
 
       if (servisSonuc.ServisDurumKodu===AppServisDurumKodlari.Available ) {     
         this.submitting = true;   

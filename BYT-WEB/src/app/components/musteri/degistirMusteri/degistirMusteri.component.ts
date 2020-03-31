@@ -136,7 +136,7 @@ export class DegistirMusteriComponent implements OnInit {
           this.musteriForm.disable();
         },
         err => {
-          console.log(err);
+          this.beyanServis.errorHandel(err);    
         }
       );
     

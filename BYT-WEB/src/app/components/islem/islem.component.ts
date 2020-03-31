@@ -11,7 +11,7 @@ import {AppServisDurumKodlari} from '../../../shared/AppEnums';
 import { Router } from "@angular/router";
 import { AppSessionService } from '../../../shared/session/app-session.service';
 import { GirisService } from '../../../account/giris/giris.service';
-export const LoggedToken = new InjectionToken<string[]>('LoggedToken ');
+
 
 import {
    IslemDto,
@@ -41,9 +41,6 @@ import {
 export class IslemComponent implements OnInit {
  
   kullanici="";
-  loggedToken="";
-  @Inject(LoggedToken) loggedUserInfo;
-
   public loading = false;
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -67,10 +64,11 @@ export class IslemComponent implements OnInit {
   ngOnInit() {
 
    this.kullanici=this.girisService.loggedKullanici;
-   this.loggedToken=this.girisService.loggedToken;   
-   
-    this.yenileIslemler();
-    console.log(this.loggedUserInfo);
+  //  this.kullanici=this.girisService.kullaniciSonuc.kullaniciKod;
+  //  console.log(this.kullanici);
+
+   this.yenileIslemler();
+  
   }
   yenileIslemler(): void {
     this.getAllIslem();
@@ -96,7 +94,7 @@ export class IslemComponent implements OnInit {
           this._beyanSession.refNo=result[0].refNo;
        
      }, (err)=>{
-       console.log(err);
+      this.beyanServis.errorHandel(err);    
      });
  
    }
@@ -108,7 +106,7 @@ export class IslemComponent implements OnInit {
       this.islemlerDataSource=result;
       // console.log(this.islemler);
      }, (err)=>{
-       console.log(err);
+      this.beyanServis.errorHandel(err);    
      });
 
    }
@@ -123,7 +121,7 @@ export class IslemComponent implements OnInit {
        this.tarihceDataSource.paginator = this.paginator;
        this.tarihceDataSource.sort = this.sort;
       }, (err)=>{
-       console.log(err);
+        this.beyanServis.errorHandel(err);    
      });
     
    }
@@ -142,7 +140,7 @@ export class IslemComponent implements OnInit {
      
       this.loading = false;
      }, (err)=>{
-       console.log(err);
+      this.beyanServis.errorHandel(err);    
      });
     
    }
@@ -170,7 +168,7 @@ export class IslemComponent implements OnInit {
               this.openSnackBar( sonuc_.ServisDurumKodu===AppServisDurumKodlari.Available ? this._beyanSession.guidOf +"-"+sonuc_.Bilgiler[0].sonuc
                 :sonuc_.Hatalar[0].hataKodu+"-"+sonuc_.Hatalar[0].hataAciklamasi ,'Tamam');
       }, (err)=>{
-       console.log(err);
+        this.beyanServis.errorHandel(err);    
      });
     
     }

@@ -51,9 +51,11 @@ export interface IKullaniciModel {
 }
 
 export class KullaniciSonucModel implements IKullaniciSonucModel {
+    
+    kullaniciAdi: string;
+    kullaniciKod: string;
     token: string | undefined;
     expireInSeconds: 1800;
-    kullanici: string;
 
     constructor(data?: IKullaniciSonucModel) {
         if (data) {
@@ -68,7 +70,8 @@ export class KullaniciSonucModel implements IKullaniciSonucModel {
         if (data) {
             this.token = data["token"];
             this.expireInSeconds = data["expireInSeconds"];
-            this.kullanici = data["kullanici"];
+            this.kullaniciKod = data["kullaniciKod"];
+            this.kullaniciAdi = data["kullaniciAdi"];
         }
     }
 
@@ -83,7 +86,8 @@ export class KullaniciSonucModel implements IKullaniciSonucModel {
         data = typeof data === 'object' ? data : {};
         data["token"] = this.token;
         data["expireInSeconds"] = this.expireInSeconds;
-        data["kullanici"] = this.kullanici;
+        data["kullaniciKod"] = this.kullaniciKod;
+        data["kullaniciAdi"] = this.kullaniciAdi;
         return data; 
     }
 
@@ -96,7 +100,9 @@ export class KullaniciSonucModel implements IKullaniciSonucModel {
 }
 
 export interface IKullaniciSonucModel {
+    
+    kullaniciAdi: string;
+    kullaniciKod: string;
     token: string | undefined;
     expireInSeconds: 1800;
-    kullanici: string;
 }

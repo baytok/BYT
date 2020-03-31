@@ -1,12 +1,14 @@
 ﻿
 using BYT.WS.Data;
 using BYT.WS.Helpers;
+using BYT.WS.Internal;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -33,17 +35,12 @@ namespace BYT.WS.Services.Kullanici
 
         }
 
-        public (string KullaniciKod, string token, string kullaniciAdi)? Authenticate(string KullaniciKod, string KullaniciSifre)
+        public KullaniciBilgi? Authenticate(string KullaniciKod, string KullaniciSifre)
         {
+            KullaniciBilgi _kullaniciBilgi = new KullaniciBilgi();
             try
             {
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+           
             var user = _kullaniciContext.Kullanici.SingleOrDefault(x => x.KullaniciKod == KullaniciKod && x.KullaniciSifre == KullaniciSifre && x.Aktif == true);
             if (user == null)
                 return null;
@@ -71,11 +68,36 @@ namespace BYT.WS.Services.Kullanici
             var token = tokenHandler.CreateToken(tokenDescriptor);
             //Oluşturduğumuz tokenı string olarak bir değişkene atıyoruz.
             string generatedToken = tokenHandler.WriteToken(token);
-            string kullaniciAdi = user.Ad + " " + user.Soyad;
-            //Sonuçlarımızı tuple olarak dönüyoruz.
+         
+                //Sonuçlarımızı tuple olarak dönüyoruz.
 
-            return (user.KullaniciKod, generatedToken, kullaniciAdi);
+                var yetkiler = from a in _kullaniciContext.KullaniciYetki
+                               join b in _kullaniciContext.Yetki on a.YetkiId equals b.ID
+                               where a.Aktif==true && b.Aktif==true
+                               select new { b.ID, b.YetkiAdi };
 
+                //   var yetkiler = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == KullaniciKod  && x.Aktif == true).Select(x=>x.YetkiId).ToArray();
+                List<KullaniciYetkileri> lstYetki = new List<KullaniciYetkileri>();
+                foreach (var item in yetkiler)
+                {
+                    KullaniciYetkileri Yetki = new KullaniciYetkileri();
+                    Yetki.ID = item.ID;
+                    Yetki.YetkiAdi = item.YetkiAdi;
+                    lstYetki.Add(Yetki);
+                }
+
+                _kullaniciBilgi.KullaniciKod = user.KullaniciKod;
+                _kullaniciBilgi.KullaniciAdi= user.Ad + " " + user.Soyad;
+                _kullaniciBilgi.Token = generatedToken;
+                _kullaniciBilgi.Yetkiler = lstYetki;
+                return _kullaniciBilgi;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
         }
 
     }

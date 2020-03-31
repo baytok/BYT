@@ -1,19 +1,19 @@
 
 
-<mat-nav-list  routerLinkActive="active">
+<mat-nav-list routerLinkActive="active">
     <a mat-list-item routerLink="/app/genel" (click)="onSidenavClose()">
         <mat-icon>home</mat-icon> <span class="nav-caption">Ana Sayfa</span>
     </a>
-    <a mat-list-item routerLink="/app/musteriler" (click)="onSidenavClose()">
+    <a mat-list-item  *ngIf="AdminRole" routerLink="/app/musteriler" (click)="onSidenavClose()">
         <mat-icon>business</mat-icon> <span class="nav-caption">Müşteriler</span>
     </a>
-    <a mat-list-item routerLink="/app/kullanicilar" (click)="onSidenavClose()">
+    <a mat-list-item  *ngIf="AdminRole" routerLink="/app/kullanicilar" (click)="onSidenavClose()">
         <mat-icon>people</mat-icon> <span class="nav-caption">Kullanıcılar</span>
     </a>
-    <a mat-list-item routerLink="/app/yetkiler" (click)="onSidenavClose()">
+    <a mat-list-item  *ngIf="AdminRole" routerLink="/app/yetkiler" (click)="onSidenavClose()">
         <mat-icon>local_offer</mat-icon> <span class="nav-caption">Yetkiler</span>
     </a>
-    <a mat-list-item  routerLink="/app/beyanname" (click)="onSidenavClose()"  [matMenuTriggerFor]="beyan">
+    <a  mat-list-item  *ngIf="BeyannameRole"  routerLink="/app/beyanname" (click)="onSidenavClose()"  [matMenuTriggerFor]="beyan">
         <mat-icon>description</mat-icon> <span class="nav-caption">Beyanname</span>     
     </a>
     <a mat-list-item routerLink="/app/islemler" (click)="onSidenavClose()" >
@@ -21,7 +21,7 @@
     </a>
     <!-- <a mat-list-item routerLink="#" (click)="onSidenavClose()">
         <mat-icon>account_balance</mat-icon><span class="nav-caption">Account Actions</span>
-    </a>  -->
+    </a>  -->    
    
       <mat-menu #beyan="matMenu">        
         <button mat-menu-item [matMenuTriggerFor]="kalem" routerLink="/app/kalem">Kalemler</button>

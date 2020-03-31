@@ -27,6 +27,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.module';
 import { AppConsts } from '../shared/AppConsts';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import {AccountModule} from '../account/account.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
    BeyannameServiceProxy,
@@ -55,7 +56,8 @@ import {
       DegistirMusteriComponent,
       YetkilerComponent,
       DegistirYetkiComponent,
-      YeniYetkiComponent
+      YeniYetkiComponent,
+      
     
    ],
    imports: [
@@ -79,12 +81,12 @@ import {
     
    ],
    entryComponents: [
-      BeyannameSonucservisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts
+      BeyannameSonucservisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts,AccountModule
       
 
    ],
    providers: [
-      GirisService, SessionServiceProxy
+      GirisService, SessionServiceProxy,
    ],
     bootstrap: [
         AppComponent

@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
+import {
+  UserRoles
+} from "../../../../shared/service-proxies/UserRoles";
 @Component({
   selector: 'app-sidenav-list',
   templateUrl: './navi.component.html',
@@ -8,14 +10,22 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 
 export class NaviComponent implements OnInit {
-
+ 
   @Output() sidenavClose = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private userRoles: UserRoles,
+  ) { }
  
   ngOnInit() {
-    
+   
   }
+  get BeyannameRole() {
+        return this.userRoles.canBeyannameRoles();
+  }
+  get AdminRole() {
+    return this.userRoles.canAdminRoles();
+}
   public onSidenavClose = () => {
     this.sidenavClose.emit();
   }

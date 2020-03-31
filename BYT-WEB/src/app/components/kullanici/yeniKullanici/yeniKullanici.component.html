@@ -222,13 +222,16 @@
     <div class="card m-2"> 
       <mat-label>Yetkiler</mat-label>
      <div class="col-sm-6">                      
-      <div class="form-group form-check" *ngFor="let f of yetkiDataSource">
-        <input
-          type="checkbox"
-          id="yetkiAdi"
-          class="form-check-input"
-          />
-        <mat-label for="yetkiAdi" class="form-check-label">{{f.yetkiAdi}}</mat-label>
+      <div class="form-group form-check" *ngFor="let role of yetkiDataSource">
+        <div class="checkbox-wrapper">
+          <mat-checkbox
+            [checked]="isRoleChecked(role.yetkiAdi)"
+            (change)="onRoleChange(role, $event)"
+          >
+            {{ role.yetkiAdi }}
+          </mat-checkbox>
+        </div>
+
      </div>
     </div>      
     </div>

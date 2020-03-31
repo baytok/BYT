@@ -40,6 +40,9 @@ import {
   BeyannameServiceProxy,
   SessionServiceProxy
 } from "../../../shared/service-proxies/service-proxies";
+import {
+  UserRoles
+} from "../../../shared/service-proxies/UserRoles";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -98,6 +101,7 @@ export class KalemComponent implements OnInit {
     private beyanServis: BeyannameServiceProxy,
     private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar,
+    private _userRoles:UserRoles,
     private _fb: FormBuilder
   ) {
     (this.kalemForm = this._fb.group({
@@ -244,7 +248,11 @@ export class KalemComponent implements OnInit {
     return this.markaForm.get("units") as FormArray;
   }
   ngOnInit() {
-    
+    if(!this._userRoles.canBeyannameRoles())
+    {
+      this.openSnackBar("Beyanname Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
+      this.beyanServis.notAuthorizeRole();    
+    }
     if (
       this._beyanSession.islemInternalNo == undefined ||
       this._beyanSession.islemInternalNo == null
@@ -270,7 +278,7 @@ export class KalemComponent implements OnInit {
         this.kalemForm.disable();
       },
       err => {
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       }
     );
   }
@@ -369,7 +377,7 @@ export class KalemComponent implements OnInit {
         this.initOdemeFormArray(this._odemeler);
       },
       err => {
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       }
     );
   
@@ -396,10 +404,10 @@ export class KalemComponent implements OnInit {
     const formArray = this.odemeForm.get("odemeArry") as FormArray;
     formArray.clear();
    
-     for(var klm in odeme)
+     for(let klm of odeme)
      {
      
-      formArray.push(this.createOdemeForms(odeme[klm]));
+      formArray.push(this.createOdemeForms(klm));
      
      }
     this.odemeForm.setControl("odemeArry", formArray);
@@ -454,7 +462,7 @@ export class KalemComponent implements OnInit {
         this.openSnackBar(servisSonuc.Sonuc, "Tamam");
       },
       err => {
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       }
     );
   }

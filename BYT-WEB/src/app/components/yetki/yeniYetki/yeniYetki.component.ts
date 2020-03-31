@@ -15,6 +15,9 @@ import {
   BeyannameServiceProxy,
   SessionServiceProxy
 } from "../../../../shared/service-proxies/service-proxies";
+import {
+  UserRoles
+} from "../../../../shared/service-proxies/UserRoles";
 import {AppServisDurumKodlari} from '../../../../shared/AppEnums';
 import { MatDialog } from "@angular/material/dialog";
 import { MatInput } from "@angular/material/input";
@@ -34,9 +37,15 @@ export class YeniYetkiComponent implements OnInit {
     private beyanServis: BeyannameServiceProxy,
     private session: SessionServiceProxy,
     private snackBar: MatSnackBar,
+    private _userRoles:UserRoles,
   ) { }
 
   ngOnInit() {
+    if(!this._userRoles.canBeyannameRoles())
+    {
+      this.openSnackBar("Bu Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
+      this.beyanServis.notAuthorizeRole();    
+    }
     this.buildForm();
    
   }
@@ -96,7 +105,7 @@ export class YeniYetkiComponent implements OnInit {
           this.yetkiForm.disable();
         },
         err => {
-          console.log(err);
+          this.beyanServis.errorHandel(err);    
         }
       );
     

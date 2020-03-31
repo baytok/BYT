@@ -117,7 +117,7 @@ export class DegistirYetkiComponent implements OnInit {
          this.yetkiForm.disable();
         },
         err => {
-          console.log(err);
+          this.beyanServis.errorHandel(err);    
         }
       );
     

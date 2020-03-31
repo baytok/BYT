@@ -41,14 +41,14 @@ namespace BYT.WS.Controllers.api
         [AllowAnonymous]
         [Route("api/BYT/KullaniciGiris/[controller]/{kullanici}/{sifre}")]
         [HttpGet("{kullanici}/{sifre}")]
-        public async Task<ServisDurum> GetGiris(string kullanici, string sifre)
+        public async Task<KullaniciServisDurum> GetGiris(string kullanici, string sifre)
         {
-           
+
             //if (user == null)
             //    return BadRequest("Username or password incorrect!");
             //return Ok(new { Kullanici = user.Value.KullaniciKod, Token = user.Value.token });
 
-            ServisDurum _servisDurum = new ServisDurum();
+            KullaniciServisDurum _servisDurum = new KullaniciServisDurum();
             try
             {
                 var kullaniciValues = _userService.Authenticate(kullanici.Trim(), sifre.Trim());
@@ -58,9 +58,10 @@ namespace BYT.WS.Controllers.api
 
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                     List<Bilgi> lstBlg = new List<Bilgi>();
-                    Bilgi blg = new Bilgi { GUID= kullaniciValues.Value.kullaniciAdi, IslemTipi = "Giriş", ReferansNo = kullaniciValues.Value.token, Sonuc = "Giriş Başarılı", SonucVeriler = kullaniciValues };
+                    Bilgi blg = new Bilgi { GUID=null , IslemTipi = "Giriş", ReferansNo = kullanici, Sonuc = "Giriş Başarılı", SonucVeriler = kullaniciValues };
                     lstBlg.Add(blg);
                     _servisDurum.Bilgiler = lstBlg;
+                    _servisDurum.KullaniciBilgileri = kullaniciValues;
                 }
                 else
                 {
@@ -554,6 +555,108 @@ namespace BYT.WS.Controllers.api
                     transaction.Commit();
                     List<Bilgi> lstBlg = new List<Bilgi>();
                     Bilgi blg = new Bilgi { IslemTipi = "Yetki Silme", ReferansNo = yetkiValues.YetkiAdi, Sonuc = "Yetki Silme Başarılı", SonucVeriler = null };
+                    lstBlg.Add(blg);
+                    _servisDurum.Bilgiler = lstBlg;
+
+
+                    return _servisDurum;
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+                }
+
+            }
+
+        }
+
+
+        [Route("api/BYT/KullaniciYetkiOlustur/[controller]")]
+        [HttpPost]
+        public async Task<ServisDurum> PostKullaniciYetki([FromBody]KullaniciYetki[] kullaniciYetki)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+            using (var transaction = _kullaniciContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var item in kullaniciYetki)
+                    {
+                        var _kullaniciYetkiler = await _kullaniciContext.KullaniciYetki.Where(v => v.KullaniciKod == item.KullaniciKod).ToListAsync();
+                        if (_kullaniciYetkiler.Count > 0)                        {
+                           
+                            foreach (var itm in _kullaniciYetkiler)
+                            {
+                                itm.SonIslemZamani = DateTime.Now;
+                                _kullaniciContext.Entry(itm).State = EntityState.Modified;
+                            }
+                        }
+                        else
+                        {
+                            item.SonIslemZamani = DateTime.Now;
+                            _kullaniciContext.Entry(item).State = EntityState.Added;
+                        }
+                          
+                    }
+                    
+                    
+                    await _kullaniciContext.SaveChangesAsync();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                    transaction.Commit();
+                    List<Bilgi> lstBlg = new List<Bilgi>();
+                    Bilgi blg = new Bilgi { IslemTipi = "Kullanıcı Yetki Oluşturma", ReferansNo = kullaniciYetki[0].KullaniciKod, Sonuc = "Kullanıcı Yetki Oluşturma Başarılı", SonucVeriler = null };
+                    lstBlg.Add(blg);
+                    _servisDurum.Bilgiler = lstBlg;
+
+
+                    return _servisDurum;
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+
+                }
+
+            }
+
+
+        }
+
+        [Route("api/BYT/KullaniciYetkiDegistir/[controller]")]
+        [HttpPut]
+        public async Task<ServisDurum> PutKullaniciYetki([FromBody]KullaniciYetki kullaniciYetki)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+            using (var transaction = _kullaniciContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    kullaniciYetki.SonIslemZamani = DateTime.Now;
+                    _kullaniciContext.Entry(kullaniciYetki).State = EntityState.Modified;
+                    await _kullaniciContext.SaveChangesAsync();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                    transaction.Commit();
+                    List<Bilgi> lstBlg = new List<Bilgi>();
+                    Bilgi blg = new Bilgi { IslemTipi = "Kullanıcı Yetki Değişiklik", ReferansNo = kullaniciYetki.KullaniciKod, Sonuc = "Kullanıcı Yetki Değişikliği Başarılı", SonucVeriler = null };
                     lstBlg.Add(blg);
                     _servisDurum.Bilgiler = lstBlg;
 

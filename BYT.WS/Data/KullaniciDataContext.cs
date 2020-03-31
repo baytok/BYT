@@ -19,5 +19,8 @@ namespace BYT.WS.Data
         public DbSet<Musteri> Musteri { get; set; }
 
         public DbSet<Yetki> Yetki { get; set; }
+
+        public DbSet<KullaniciYetki> KullaniciYetki { get; set; }
+        
     }
 }

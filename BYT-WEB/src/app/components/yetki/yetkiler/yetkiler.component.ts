@@ -52,7 +52,7 @@ export class YetkilerComponent    implements OnInit {
           this.yetkiDataSource=result;
          
      }, (err)=>{
-       console.log(err);
+      this.beyanServis.errorHandel(err);    
      });
  
    }
@@ -77,7 +77,7 @@ export class YetkilerComponent    implements OnInit {
         this.openSnackBar(servisSonuc.Sonuc, "Tamam");
       },
       err => {
-        console.log(err);
+        this.beyanServis.errorHandel(err);    
       }
     );
 
