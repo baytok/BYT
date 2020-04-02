@@ -160,6 +160,22 @@ export class BeyannameServiceProxy {
       this.baseUrl + "AktifYetkiler/KullaniciHizmeti/",httpOptions 
     );
   }
+  getAllKullaniciAktifYetkiler(kullaniciKod) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "AktifKullaniciYetkiler/KullaniciHizmeti/"+kullaniciKod,httpOptions 
+    );
+  }
   setYetki(yetki: YetkiDto) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -210,7 +226,7 @@ export class BeyannameServiceProxy {
       this.baseUrl + "YetkiSil/KullaniciHizmeti/"+yetkiId, httpOptions        
       );
   }
-  setYetkiKullanici(yetkiKullanici: KullaniciYetkiDto) {
+  setYetkiKullanici(yetkiKullanici: KullaniciYetkiDto[], kullaniciKod:string) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
@@ -224,7 +240,7 @@ export class BeyannameServiceProxy {
   
 
     return this.http.post<any>(
-      this.baseUrl + "KullaniciYetkiOlustur/KullaniciHizmeti", 
+      this.baseUrl + "KullaniciYetkiOlustur/KullaniciHizmeti/"+kullaniciKod, 
       yetkiKullanici,httpOptions  
       );
   }

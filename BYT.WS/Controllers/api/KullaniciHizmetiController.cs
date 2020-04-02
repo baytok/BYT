@@ -31,7 +31,7 @@ namespace BYT.WS.Controllers.api
 
         public KullaniciHizmetiController(IConfiguration configuration, IKullaniciServis userService)
         {
-           _userService = userService;
+            _userService = userService;
             Configuration = configuration;
             var options = new DbContextOptionsBuilder<KullaniciDataContext>()
                        .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
@@ -58,7 +58,7 @@ namespace BYT.WS.Controllers.api
 
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                     List<Bilgi> lstBlg = new List<Bilgi>();
-                    Bilgi blg = new Bilgi { GUID=null , IslemTipi = "Giriş", ReferansNo = kullanici, Sonuc = "Giriş Başarılı", SonucVeriler = kullaniciValues };
+                    Bilgi blg = new Bilgi { GUID = null, IslemTipi = "Giriş", ReferansNo = kullanici, Sonuc = "Giriş Başarılı", SonucVeriler = kullaniciValues };
                     lstBlg.Add(blg);
                     _servisDurum.Bilgiler = lstBlg;
                     _servisDurum.KullaniciBilgileri = kullaniciValues;
@@ -93,7 +93,7 @@ namespace BYT.WS.Controllers.api
 
         }
 
-       
+
         [Route("api/BYT/Kullanicilar/[controller]")]
         [HttpGet]
         public async Task<List<Kullanici>> GetKullanici()
@@ -125,10 +125,43 @@ namespace BYT.WS.Controllers.api
             {
                 try
                 {
-                    kullanici.SonIslemZamani = DateTime.Now;
-                    _kullaniciContext.Entry(kullanici).State = EntityState.Added;
+                    var _kullaniciValues = await _kullaniciContext.Kullanici.FirstOrDefaultAsync(v => v.KullaniciKod == kullanici.KullaniciKod);
+                    if (_kullaniciValues != null)
+                    {
+                        if (_kullaniciValues.Aktif == false)
+                        {
+                            _kullaniciValues.Ad = kullanici.Ad;
+                            _kullaniciValues.Soyad = kullanici.Soyad;
+                            _kullaniciValues.Aktif = true;
+                            _kullaniciValues.FirmaAd = kullanici.FirmaAd;
+                            _kullaniciValues.KullaniciSifre = kullanici.KullaniciSifre;
+                            _kullaniciValues.MailAdres = kullanici.MailAdres;
+                            _kullaniciValues.Telefon = kullanici.Telefon;
+                            _kullaniciValues.VergiNo = kullanici.VergiNo;
+                            _kullaniciValues.SonIslemZamani = DateTime.Now;
+                            _kullaniciContext.Entry(_kullaniciValues).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                            List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                            Hata ht = new Hata { HataKodu = 1, HataAciklamasi = "Aktif Kullanıcı Bulunmaktadır." };
+                            lstht.Add(ht);
+                            _servisDurum.Hatalar = lstht;
+
+                            return _servisDurum;
+                        }
+                    }
+                    else
+                    {
+                        kullanici.SonIslemZamani = DateTime.Now;
+                        _kullaniciContext.Entry(kullanici).State = EntityState.Added;
+                    }
                     await _kullaniciContext.SaveChangesAsync();
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
                     transaction.Commit();
                     List<Bilgi> lstBlg = new List<Bilgi>();
                     Bilgi blg = new Bilgi { IslemTipi = "Kullanıcı Oluşturma", ReferansNo = kullanici.KullaniciKod, Sonuc = "Kullanıcı Oluşturma Başarılı", SonucVeriler = null };
@@ -156,8 +189,8 @@ namespace BYT.WS.Controllers.api
             }
 
 
-        }        
- 
+        }
+
         [Route("api/BYT/KullaniciDegistir/[controller]")]
         [HttpPut]
         public async Task<ServisDurum> PutKullanici([FromBody]Kullanici kullanici)
@@ -270,7 +303,7 @@ namespace BYT.WS.Controllers.api
             try
             {
 
-                var musteriValues = await _kullaniciContext.Musteri.Where(x=>x.Aktif==true).ToListAsync();
+                var musteriValues = await _kullaniciContext.Musteri.Where(x => x.Aktif == true).ToListAsync();
 
                 return musteriValues;
 
@@ -580,40 +613,86 @@ namespace BYT.WS.Controllers.api
         }
 
 
-        [Route("api/BYT/KullaniciYetkiOlustur/[controller]")]
-        [HttpPost]
-        public async Task<ServisDurum> PostKullaniciYetki([FromBody]KullaniciYetki[] kullaniciYetki)
+        [Route("api/BYT/AktifKullaniciYetkiler/[controller]/{kullaniciKod}")]
+        [HttpGet("{kullaniciKod}")]
+        public async Task<List<KullaniciYetki>> GetAktifKullaniciYetkiler(string kullaniciKod)
         {
+            try
+            {
+
+                var yetkiValues = await _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == kullaniciKod && x.Aktif == true).ToListAsync();
+
+                return yetkiValues;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+
+        [Route("api/BYT/KullaniciYetkiOlustur/[controller]/{kullaniciKod}")]
+        [HttpPost("{kullaniciKod}")]
+        public async Task<ServisDurum> PostKullaniciYetki([FromBody]KullaniciYetki[] kullaniciYetki,string kullaniciKod)
+        {
+            var options = new DbContextOptionsBuilder<KullaniciDataContext>()
+              .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+              .Options;
+            var _kullanici2Context = new KullaniciDataContext(options);
             ServisDurum _servisDurum = new ServisDurum();
             using (var transaction = _kullaniciContext.Database.BeginTransaction())
             {
                 try
                 {
-                    foreach (var item in kullaniciYetki)
+
+                    var _kullaniciYetkiler = await _kullaniciContext.KullaniciYetki.Where(v => v.KullaniciKod == kullaniciKod).ToListAsync();
+                    if (_kullaniciYetkiler.Count > 0)
                     {
-                        var _kullaniciYetkiler = await _kullaniciContext.KullaniciYetki.Where(v => v.KullaniciKod == item.KullaniciKod).ToListAsync();
-                        if (_kullaniciYetkiler.Count > 0)                        {
-                           
-                            foreach (var itm in _kullaniciYetkiler)
+                        foreach (var items in _kullaniciYetkiler)
+                        {
+                            items.Aktif = false;
+                            items.SonIslemZamani = DateTime.Now;
+                            _kullaniciContext.Entry(items).State = EntityState.Modified;
+
+                        }
+
+                        foreach (var itm in kullaniciYetki)
+                        {
+                            var _kVr = _kullaniciYetkiler.FirstOrDefault(x => x.YetkiId == itm.YetkiId);
+                            if (_kVr != null)
+                            {
+                                _kVr.Aktif = true;
+                                _kVr.SonIslemZamani = DateTime.Now;
+                                _kullaniciContext.Entry(_kVr).State = EntityState.Modified;
+
+                            }
+                            else
                             {
                                 itm.SonIslemZamani = DateTime.Now;
-                                _kullaniciContext.Entry(itm).State = EntityState.Modified;
+                                _kullaniciContext.Entry(itm).State = EntityState.Added;
+
                             }
+
                         }
-                        else
+                    }
+                    else
+                    {
+                        foreach (var item in kullaniciYetki)
                         {
                             item.SonIslemZamani = DateTime.Now;
                             _kullaniciContext.Entry(item).State = EntityState.Added;
+
                         }
-                          
                     }
-                    
-                    
                     await _kullaniciContext.SaveChangesAsync();
+
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                     transaction.Commit();
                     List<Bilgi> lstBlg = new List<Bilgi>();
-                    Bilgi blg = new Bilgi { IslemTipi = "Kullanıcı Yetki Oluşturma", ReferansNo = kullaniciYetki[0].KullaniciKod, Sonuc = "Kullanıcı Yetki Oluşturma Başarılı", SonucVeriler = null };
+                    Bilgi blg = new Bilgi { IslemTipi = "Kullanıcı Yetki Oluşturma", ReferansNo = kullaniciKod, Sonuc = "Kullanıcı Yetki Oluşturma Başarılı", SonucVeriler = null };
                     lstBlg.Add(blg);
                     _servisDurum.Bilgiler = lstBlg;
 
@@ -622,7 +701,6 @@ namespace BYT.WS.Controllers.api
                 }
                 catch (Exception ex)
                 {
-
                     transaction.Rollback();
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
                     List<Internal.Hata> lstht = new List<Internal.Hata>();
@@ -682,7 +760,6 @@ namespace BYT.WS.Controllers.api
         }
     }
 }
-   
-       
 
-   
+
+

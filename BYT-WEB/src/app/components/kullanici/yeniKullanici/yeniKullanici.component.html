@@ -66,6 +66,7 @@
       <div class="form-group col">
         <div class="form-group form-check">
           <input
+          readonly
             type="checkbox"
             formControlName="aktif"
             id="aktif"
@@ -230,6 +231,9 @@
           >
             {{ role.yetkiAdi }}
           </mat-checkbox>
+          <p matLine>
+            {{ role.aciklama }}
+          </p>
         </div>
 
      </div>

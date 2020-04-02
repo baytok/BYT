@@ -30,10 +30,9 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import {AccountModule} from '../account/account.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
-   BeyannameServiceProxy,
-   SessionServiceProxy
+    SessionServiceProxy
  } from "../shared/service-proxies/service-proxies";
- import { GirisService } from '../account/giris/giris.service';
+
 
 @NgModule({
    declarations: [
@@ -81,15 +80,15 @@ import {
     
    ],
    entryComponents: [
-      BeyannameSonucservisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts,AccountModule
+      BeyannameSonucservisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts
       
 
    ],
    providers: [
-      GirisService, SessionServiceProxy,
+      SessionServiceProxy,AccountModule
    ],
     bootstrap: [
-        AppComponent
+        AppComponent,
    ]
 })
 

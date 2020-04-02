@@ -218,16 +218,42 @@
         </mat-form-field>
       </div> 
     </div>
+
     <div class="card m-2"> 
-      <mat-label>Yetkiler</mat-label>
-     <div class="col-sm-6">                      
-      <div class="form-group form-check" *ngFor="let f of yetkiDataSource">
-        <input
-          type="checkbox"
-          id="yetkiAdi"
-          class="form-check-input"
-          />
-        <mat-label for="yetkiAdi" class="form-check-label">{{f.yetkiAdi}}</mat-label>
+      <mat-label>Kullanıcının Var Olan Yetkiler</mat-label>
+      <div class="col-sm-6">    
+      <mat-list>     
+        <mat-list-item *ngFor="let note of kullaniciYetkiIsimleriDataSource">
+          <mat-icon mat-list-icon>local_offer</mat-icon>
+          <div style="display:flex; flex-direction:column">
+            <h5 matLine>{{ note.yetkiAdi }}</h5>
+            <!-- <p matLine>
+              {{ note.aciklama }}
+            </p> -->
+          </div>
+       
+        </mat-list-item>
+      </mat-list> 
+    </div>
+      </div>
+
+    <div class="card m-2"> 
+      <mat-label>Aktif Yetkiler</mat-label>
+    
+     <div class="col-sm-6">              
+      <div class="form-group form-check" *ngFor="let role of yetkiDataSource">
+        <div class="checkbox-wrapper">
+          <mat-checkbox
+            [checked]="isRoleChecked(role.yetkiId)"
+            (change)="onRoleChange(role, $event)"
+          >
+            {{ role.yetkiAdi }}
+          </mat-checkbox>
+          <p matLine>
+            {{ role.aciklama }}
+          </p>
+        </div>
+
      </div>
     </div>      
     </div>

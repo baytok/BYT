@@ -52,7 +52,6 @@ export class IslemComponent implements OnInit {
   constructor(
     private beyanServis: BeyannameServiceProxy,
     private  girisService: GirisService,  
-    private  _UserSession: AppSessionService,  
     private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar ,
     private _dialog: MatDialog,
@@ -64,9 +63,7 @@ export class IslemComponent implements OnInit {
   ngOnInit() {
 
    this.kullanici=this.girisService.loggedKullanici;
-  //  this.kullanici=this.girisService.kullaniciSonuc.kullaniciKod;
-  //  console.log(this.kullanici);
-
+ 
    this.yenileIslemler();
   
   }

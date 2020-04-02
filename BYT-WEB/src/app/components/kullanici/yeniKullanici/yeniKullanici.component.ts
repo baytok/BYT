@@ -33,9 +33,9 @@ export class YeniKullaniciComponent implements OnInit {
   kullaniciDataSource: KullaniciDto[]=[];
   musteriDataSource: MusteriDto[]=[];
   yetkiDataSource: YetkiDto[]=[];
-  yetkiler: string[] | undefined;
   checkedRolesMap: { [key: string]: boolean } = {};
   defaultRoleCheckedStatus = false;
+  kullaniciYetkileri:KullaniciYetkiDto[];
   constructor(
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
@@ -127,7 +127,7 @@ export class YeniKullaniciComponent implements OnInit {
     )
   }
  
-  isRoleChecked(normalizedName: string): boolean {
+  isRoleChecked(yetkiAdi: string): boolean {
     // just return default role checked status
     // it's better to use a setting
     return this.defaultRoleCheckedStatus;
@@ -151,9 +151,7 @@ export class YeniKullaniciComponent implements OnInit {
   }
 
   save(){
-    this.submitted = true;
-
-    
+    this.submitted = true;    
    
     // stop here if form is invalid
     if (this.kullaniciForm.invalid) {
@@ -175,16 +173,16 @@ export class YeniKullaniciComponent implements OnInit {
     let yeniKullanici=new KullaniciDto();
     yeniKullanici.init(this.kullaniciForm.value);    
 
-    this.yetkiler = this.getCheckedRoles()
-    let yetkiKullanici=new KullaniciYetkiDto [this.yetkiler.length]({
-      kullaniciKod:yeniKullanici.kullaniciKod,
-      yetkiId:this.yetkiler[0],
-      aktif:this.yetkiler[1]
-  });
- 
-  yetkiKullanici.init(yetkiKullanici);
-  console.log(yetkiKullanici);
-
+    this.kullaniciYetkileri = [] as any;
+    for(let role of this.getCheckedRoles())
+    { 
+      let kullaniciYetki= new KullaniciYetkiDto();
+    
+      kullaniciYetki.yetkiId=parseInt(role);
+      kullaniciYetki.kullaniciKod=yeniKullanici.kullaniciKod;
+      kullaniciYetki.aktif=true;
+      this.kullaniciYetkileri.push(kullaniciYetki);  
+    }
       const promise = this.beyanServis
         .setKullanici(yeniKullanici)
         .toPromise();
@@ -193,7 +191,7 @@ export class YeniKullaniciComponent implements OnInit {
          
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);       
-          this.beyanServis.setYetkiKullanici(yetkiKullanici);
+         
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
           this.kullaniciForm.disable();
         },
@@ -201,6 +199,24 @@ export class YeniKullaniciComponent implements OnInit {
          this.beyanServis.errorHandel(err);    
         }
       );
+
+      const promises = this.beyanServis
+      .setYetkiKullanici(this.kullaniciYetkileri,yeniKullanici.kullaniciKod)
+      .toPromise();
+     promises.then(
+      result => {
+       
+        const servisSonuc = new ServisDto();
+        servisSonuc.init(result);       
+       
+        this.openSnackBar(servisSonuc.Sonuc, "Tamam");
+      
+      },
+      err => {
+       this.beyanServis.errorHandel(err);    
+      }
+    );
+     
     
     // alert(
     //   "SUCCESS!! :-)\n\n" + JSON.stringify(this.kullaniciForm.value, null, 4)

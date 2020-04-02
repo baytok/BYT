@@ -33,9 +33,8 @@ export class UserRoles {
  
          for(let role of this.Yetkiler)
          {
-           if(role.id===3 || role.id===1)
-            {
-          
+           if(role.id===3 || role.id===2)
+            {          
               yetki=true;
               break;
             }
@@ -56,9 +55,8 @@ export class UserRoles {
 
        for(let role of this.Yetkiler)
        {
-         if(role.id===1)
-          {
-         
+         if(role.id===2)
+          {         
             yetki=true;
             break;
           }
