@@ -78,10 +78,10 @@ export class MusterilerComponent    implements OnInit {
       .toPromise();
       promise.then(
       result => {
-        console.log(result);
+       
         const servisSonuc = new ServisDto();
         servisSonuc.init(result);       
-
+        this.yenileMusteriler();
         this.openSnackBar(servisSonuc.Sonuc, "Tamam");
       },
       err => {
@@ -89,13 +89,13 @@ export class MusterilerComponent    implements OnInit {
       }
     );
 
-      this.yenileMusteriler();
+   
     }
   }
 
   degistirMusteri(musteri: MusteriDto){
     this.showCreateOrEditMusteriDialog(musteri);
-    this.yenileMusteriler();
+   
   }
 
 
@@ -127,6 +127,7 @@ export class MusterilerComponent    implements OnInit {
 
     sonucDialog.afterClosed().subscribe(result => {
         if (result) {
+         
             this.yenileMusteriler();
         }
     });

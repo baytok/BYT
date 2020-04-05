@@ -16,9 +16,10 @@ import {
   SessionServiceProxy
 } from "../../../../shared/service-proxies/service-proxies";
 import {AppServisDurumKodlari} from '../../../../shared/AppEnums';
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog,MatDialogRef } from "@angular/material/dialog";
 import { MatInput } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
+
 @Component({
   selector: 'app-yeniMusteri',
   templateUrl: './yeniMusteri.component.html',
@@ -29,6 +30,7 @@ export class YeniMusteriComponent implements OnInit {
   submitted: boolean = false;  
   musteriDataSource: MusteriDto[]=[];
   constructor(
+    public dialogRef: MatDialogRef<YeniMusteriComponent>,
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
     private session: SessionServiceProxy,
@@ -119,5 +121,8 @@ export class YeniMusteriComponent implements OnInit {
 
   
   }
-
+  close(result: any): void {
+    this.dialogRef.close(result);
+   
+  }
 }

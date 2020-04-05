@@ -9,6 +9,10 @@ import {
 } from "@angular/forms";
 import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
+  MatDialogRef,
+  MAT_DIALOG_DATA
+} from "@angular/material/dialog";
+import {
   KullaniciDto, MusteriDto,YetkiDto,KullaniciYetkiDto, ServisDto
  } from '../../../../shared/service-proxies/service-proxies';
  import {
@@ -37,6 +41,7 @@ export class YeniKullaniciComponent implements OnInit {
   defaultRoleCheckedStatus = false;
   kullaniciYetkileri:KullaniciYetkiDto[];
   constructor(
+    public dialogRef: MatDialogRef<YeniKullaniciComponent>,
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
     private session: SessionServiceProxy,
@@ -223,6 +228,10 @@ export class YeniKullaniciComponent implements OnInit {
     // );
   
   
+  }
+  close(result: any): void {
+    this.dialogRef.close(result);
+   
   }
 
 }

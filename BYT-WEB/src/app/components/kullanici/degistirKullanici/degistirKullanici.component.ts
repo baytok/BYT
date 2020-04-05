@@ -64,6 +64,7 @@ export class DegistirKullaniciComponent implements OnInit {
   kullaniciYetkileriDataSource: KullaniciYetkiDto[] = [];
   kullaniciYetkiIsimleriDataSource:  YetkiDto[]=[];
   constructor(
+    public dialogRef: MatDialogRef<DegistirKullaniciComponent>,
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
     private session: SessionServiceProxy,
@@ -308,5 +309,9 @@ export class DegistirKullaniciComponent implements OnInit {
     // alert(
     //   "SUCCESS!! :-)\n\n" + JSON.stringify(this.kullaniciForm.value, null, 4)
     // );
+  }
+  close(result: any): void {
+    this.dialogRef.close(result);
+   
   }
 }

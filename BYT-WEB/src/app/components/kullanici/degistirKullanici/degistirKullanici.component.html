@@ -244,6 +244,7 @@
       <div class="form-group form-check" *ngFor="let role of yetkiDataSource">
         <div class="checkbox-wrapper">
           <mat-checkbox
+            [disabled]="!kullaniciForm.valid"
             [checked]="isRoleChecked(role.yetkiId)"
             (change)="onRoleChange(role, $event)"
           >
@@ -259,7 +260,7 @@
     </div>
   </div>
   <div class="text-right">
-    <button [disabled]="!kullaniciForm.valid" class="btn btn-primary mr-1">
+    <button [disabled]="!kullaniciForm.valid" class="btn btn-primary mr-1" (click)="close(true)">
       Kaydet
     </button>
   </div>

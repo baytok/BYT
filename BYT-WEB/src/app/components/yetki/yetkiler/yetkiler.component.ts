@@ -70,10 +70,10 @@ export class YetkilerComponent    implements OnInit {
       .toPromise();
       promise.then(
       result => {
-        console.log(result);
+      
         const servisSonuc = new ServisDto();
         servisSonuc.init(result);       
-
+        this.yenileYetkiler();
         this.openSnackBar(servisSonuc.Sonuc, "Tamam");
       },
       err => {
@@ -81,13 +81,13 @@ export class YetkilerComponent    implements OnInit {
       }
     );
 
-      this.yenileYetkiler();
+    
     }
   }
 
   degistirYetki(yetki: YetkiDto){
     this.showCreateOrEditKullaniciDialog(yetki);
-    this.yenileYetkiler();
+  
   }
 
 

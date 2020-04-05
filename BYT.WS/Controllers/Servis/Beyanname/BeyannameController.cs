@@ -116,7 +116,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 if (islemValues != null)
                 {
                 
-                    var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).OrderBy(x => x.KalemSiraNo).ToListAsync();
 
                     _kalem = kalemValues;
                 }

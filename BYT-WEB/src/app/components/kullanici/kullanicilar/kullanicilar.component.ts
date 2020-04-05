@@ -78,10 +78,10 @@ export class KullanicilarComponent    implements OnInit {
       .toPromise();
       promise.then(
       result => {
-        console.log(result);
+    
         const servisSonuc = new ServisDto();
         servisSonuc.init(result);       
-
+        this.yenileKullanicilar();
         this.openSnackBar(servisSonuc.Sonuc, "Tamam");
       },
       err => {
@@ -89,13 +89,13 @@ export class KullanicilarComponent    implements OnInit {
       }
     );
 
-      this.yenileKullanicilar();
+    
     }
   }
 
   degistirKullanici(kullanici: KullaniciDto){
     this.showCreateOrEditKullaniciDialog(kullanici);
-    this.yenileKullanicilar();
+  
   }
 
 
@@ -129,6 +129,7 @@ export class KullanicilarComponent    implements OnInit {
 
     sonucDialog.afterClosed().subscribe(result => {
         if (result) {
+        
             this.yenileKullanicilar();
         }
     });

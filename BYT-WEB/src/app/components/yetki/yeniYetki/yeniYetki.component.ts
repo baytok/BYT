@@ -19,7 +19,7 @@ import {
   UserRoles
 } from "../../../../shared/service-proxies/UserRoles";
 import {AppServisDurumKodlari} from '../../../../shared/AppEnums';
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog,MatDialogRef } from "@angular/material/dialog";
 import { MatInput } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
 @Component({
@@ -33,6 +33,7 @@ export class YeniYetkiComponent implements OnInit {
   yetkiDataSource: YetkiDto[]=[];
  
   constructor(
+    public dialogRef: MatDialogRef<YeniYetkiComponent>,
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
     private session: SessionServiceProxy,
@@ -115,5 +116,8 @@ export class YeniYetkiComponent implements OnInit {
   
   
   }
-
+  close(result: any): void {
+    this.dialogRef.close(result);
+   
+  }
 }

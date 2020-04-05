@@ -239,7 +239,7 @@ namespace BYT.WS.Models
         [StringLength(50)]
         public string TescilStatu { get; set; }
 
-        public DateTime TescilTarihi { get; set; }      
+        public DateTime? TescilTarihi { get; set; }      
 
 
         [StringLength(9)]

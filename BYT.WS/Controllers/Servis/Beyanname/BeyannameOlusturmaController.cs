@@ -318,7 +318,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     foreach (DbKalem itm in updateKalemNo)
                     {
                         itm.KalemSiraNo = itm.KalemSiraNo-1;
-                       
+                     
+
+
                     }
 
                     var odemeValues = await _beyannameContext.DbOdemeSekli.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
@@ -411,9 +413,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         var maxKalemNo = (from u in _beyannameContext.DbKalem
                                       where u.BeyanInternalNo == kalem.BeyanInternalNo
                                       select (u.KalemSiraNo)).Max();
-                      
+                        var maxKalemInternalNo = (from u in _beyannameContext.DbKalem
+                                          where u.BeyanInternalNo == kalem.BeyanInternalNo
+                                          select (u.KalemInternalNo)).Max();
+
                         kalem.KalemSiraNo = Convert.ToInt32(maxKalemNo)+1;
-                        kalem.KalemInternalNo = kalem.BeyanInternalNo + "|" + kalem.KalemSiraNo;
+
+                        int klNo = Convert.ToInt32(maxKalemInternalNo.Split('|')[1].ToString())+1;
+                        kalem.KalemInternalNo = kalem.BeyanInternalNo+"|"+klNo;
                         beyannameContext.Entry(kalem).State = EntityState.Added;
                     }
 

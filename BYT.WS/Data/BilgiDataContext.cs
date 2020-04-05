@@ -14,7 +14,9 @@ namespace BYT.WS.Data
         {
 
         }
-        
+        public DbSet<Islem> Islem { get; set; }
+        public DbSet<Tarihce> Tarihce { get; set; }
+        public DbSet<DbBeyan> DbBeyan { get; set; }
         public int GetRefIdNextSequenceValue(string Rejim)
         {
             SqlParameter result = new SqlParameter("@result", System.Data.SqlDbType.Int)

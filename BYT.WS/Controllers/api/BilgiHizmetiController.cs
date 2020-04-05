@@ -67,8 +67,46 @@ namespace BYT.WS.Controllers.api
 
         }
 
+        [Route("api/BYT/Istatistik/[controller]/{KullaniciKod}")]
+        [HttpGet("{KullaniciKod}")]
+        public async Task<Istatistik> GetIstatistik(string KullaniciKod)
+        {
+            try
+            {
 
-       
+                Istatistik _istatistik = new Istatistik();
+
+                var resultIslem = _bilgiContext.Islem.Where(x=>x.Kullanici==KullaniciKod.Trim()).ToList();
+                var resultTarihce = _bilgiContext.Tarihce.Where(x => x.Kullanici == KullaniciKod.Trim()).ToList();
+                var resultBeyan = _bilgiContext.DbBeyan.Where(x => x.Kullanici == KullaniciKod.Trim()).ToList();
+
+                _istatistik.KontrolGonderimSayisi = resultIslem.Where(x=>x.IslemTipi=="Kontrol").Sum(y=>y.GonderimSayisi);
+                _istatistik.BeyannameSayisi = resultBeyan.Count();
+                _istatistik.TescilBeyannameSayisi = resultTarihce.Where(x => x.IslemTipi == "Tescil" && x.BeyanNo!=null).Count();
+                _istatistik.SonucBeklenenSayisi = resultIslem.Where(x => x.IslemDurumu == "Gonderildi").Count();
+                //_servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                //List<Bilgi> lstBlg = new List<Bilgi>();
+                //Bilgi blg = new Bilgi { IslemTipi = "Sorgulama", ReferansNo = KullaniciKod, Sonuc = "Sorgulama Başarılı", SonucVeriler = nextSequenceValue };
+                //lstBlg.Add(blg);
+                //_servisDurum.Bilgiler = lstBlg;
+
+                //var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
+
+                return _istatistik;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+
+
+
 
 
     }

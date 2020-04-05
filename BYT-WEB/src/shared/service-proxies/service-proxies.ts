@@ -49,6 +49,7 @@ export class BeyannameServiceProxy {
  {
   if (err instanceof HttpErrorResponse) {
     if (err.status == 401) {
+      console.log(err);
       localStorage.removeItem('kullaniciInfo');   
       this.router.navigateByUrl('/giris');
    
@@ -387,18 +388,15 @@ export class BeyannameServiceProxy {
       'Content-Type': 'application/json',
        'Authorization': "Bearer "+token})
     
-
     const httpOptions = {
      headers: headers_object
     };
       return this.http.post<any>(
-      this.baseUrl +
-        "Servis/Beyanname/KontrolHizmeti/" +
-        IslemInternalNo +
-        "/" +
-        Kullanici,
-      httpOptions
-    );
+        this.baseUrl + "Servis/Beyanname/KontrolGonderim/" +
+        IslemInternalNo + "/" + Kullanici,null,httpOptions  
+        );
+   
+    
   }
 
   getSonucSorgula(Guid) {
@@ -414,7 +412,7 @@ export class BeyannameServiceProxy {
     };
 
     return this.http.post<any>(
-      this.baseUrl + "Servis/SorgulamaHizmeti/" + Guid,
+      this.baseUrl + "Servis/SorgulamaHizmeti/" + Guid,null,
       httpOptions
     );
   }
@@ -557,10 +555,6 @@ export class BeyannameServiceProxy {
         );
   }
 
-  //   getBeyannameKopyalama(IslemInternalNo){
-  //     return this.http.post<any>(this.baseUrl+"Servis/Beyanname/BeyannameOlusturma/BeyannameKopyalama/" + IslemInternalNo, { title: ' POST Request ' });
-  //  }
-
   getBeyannameKopyalama(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -572,10 +566,22 @@ export class BeyannameServiceProxy {
     const httpOptions = {
      headers: headers_object
     };
-    return this.http.post<any>(
-      this.baseUrl + "Servis/Beyanname/BeyannameKopyalama/" + IslemInternalNo,
-      httpOptions
+    return this.http.post(
+      this.baseUrl + "Servis/Beyanname/BeyannameKopyalama/" + IslemInternalNo,null,httpOptions
     );
+  }
+
+  getIstatistik(KullaniciKod) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.get(this.baseUrl + "Istatistik/BilgiHizmeti/" + KullaniciKod, httpOptions);
   }
 }
 @Injectable()
@@ -1195,6 +1201,66 @@ export class KullaniciServisDto {
   }
 }
 
+export class IstatistikDto {
+  KontrolGonderimSayisi: number;
+  TescilGonderimSayisi: number;
+  BeyannameSayisi: number;
+  TescilBeyannameSayisi: number;
+  SonucBeklenenSayisi:number;
+  Sonuc: string;
+  constructor(data?: IstatistikDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {     
+      this.KontrolGonderimSayisi= data["kontrolGonderimSayisi"];
+      this.TescilGonderimSayisi= data["tescilGonderimSayisi"];
+      this.BeyannameSayisi= data["beyannameSayisi"];
+      this.TescilBeyannameSayisi= data["tescilBeyannameSayisi"];
+      this.SonucBeklenenSayisi=data["sonucBeklenenSayisi"];
+    }
+  }
+
+  static fromJS(data: any): IstatistikDto {
+    data = typeof data === "object" ? data : {};
+    let result = new IstatistikDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};
+
+    this.TescilGonderimSayisi= data["tescilGonderimSayisi"];
+    this.BeyannameSayisi= data["beyannameSayisi"];
+    this.TescilBeyannameSayisi= data["tescilBeyannameSayisi"];
+     data["kontrolGonderimSayisi"] = this.KontrolGonderimSayisi;
+     data["tescilGonderimSayisi"]=this.TescilGonderimSayisi;
+     data["beyannameSayisi"]=this.BeyannameSayisi;
+     data["tescilBeyannameSayisi"]=this.TescilBeyannameSayisi;
+     data["sonucBeklenenSayisi"]=this.SonucBeklenenSayisi;
+   
+    return data;
+  }
+
+  clone(): IstatistikDto {
+    const json = this.toJSON();
+    let result = new IstatistikDto();
+    result.init(json);
+    return result;
+  }
+  
+    
+}
+
+
 export class KullaniciDto {
   id: number;
   kullaniciKod:string;
@@ -1780,6 +1846,73 @@ export class BeyannameDto {
     }
   }
 
+  initalBeyan(data?: any) {
+    if (data) {
+      this.beyanInternalNo=data["beyanInternalNo"]!=null ? data["beyanInternalNo"] : "";
+      this.beyannameNo=data["beyannameNo"];
+      this.rejim=data["rejim"]!=null ? data["rejim"] : "";
+      this.aciklamalar=data["aciklamalar"]!=null ? data["aciklamalar"] : "";
+      this.aliciSaticiIliskisi=data["aliciSaticiIliskisi"]!=null ? data["aliciSaticiIliskisi"] : "";
+      this.aliciVergiNo=data["aliciVergiNo"]!=null ? data["aliciVergiNo"] : "";
+      this.antrepoKodu=data["antrepoKodu"]!=null ? data["antrepoKodu"] : "";
+      this.asilSorumluVergiNo=data["asilSorumluVergiNo"]!=null ? data["asilSorumluVergiNo"] : "";
+      this.bankaKodu=data["bankaKodu"]!=null ? data["bankaKodu"] : "";
+      this.basitlestirilmisUsul=data["basitlestirilmisUsul"]!=null ? data["basitlestirilmisUsul"] : "";
+      this.beyanSahibiVergiNo=data["beyanSahibiVergiNo"]!=null ? data["beyanSahibiVergiNo"] : "";
+      this.birlikKayitNumarasi=data["birlikKayitNumarasi"]!=null ? data["birlikKayitNumarasi"] : "";
+      this.birlikKriptoNumarasi=data["birlikKriptoNumarasi"]!=null ? data["birlikKriptoNumarasi"] : "";
+      this.cikistakiAracinKimligi=data["cikistakiAracinKimligi"]!=null ? data["cikistakiAracinKimligi"] : "";
+      this.cikistakiAracinTipi=data["cikistakiAracinTipi"]!=null ? data["cikistakiAracinTipi"] : "";
+      this.cikistakiAracinUlkesi=data["cikistakiAracinUlkesi"]!=null ? data["cikistakiAracinUlkesi"] : "";
+      this.cikisUlkesi=data["cikisUlkesi"]!=null ? data["cikisUlkesi"] : "";
+      this.esyaninBulunduguYer=data["esyaninBulunduguYer"]!=null ? data["esyaninBulunduguYer"] : "";
+      this.gidecegiSevkUlkesi=data["gidecegiSevkUlkesi"]!=null ? data["gidecegiSevkUlkesi"] : "";
+      this.gidecegiUlke=data["gidecegiUlke"]!=null ? data["gidecegiUlke"] : "";
+      this.girisGumrukIdaresi=data["girisGumrukIdaresi"]!=null ? data["girisGumrukIdaresi"] : "";
+      this.gondericiVergiNo=data["gondericiVergiNo"]!=null ? data["gondericiVergiNo"] : "";
+      this.gumruk=data["gumruk"]!=null ? data["gumruk"] : "";
+      this.isleminNiteligi=data["isleminNiteligi"]!=null ? data["isleminNiteligi"] : "";
+      this.kapAdedi=data["kapAdedi"]!=null ?parseInt(data["kapAdedi"]):0;
+      this.konteyner=data["konteyner"]!=null ? data["konteyner"] : "";
+      this.kullanici=data["kullanici"]!=null ? data["kullanici"] : "";
+      this.limanKodu=data["limanKodu"]!=null ? data["limanKodu"] : "";
+      this.mail1=data["mail1"]!=null ? data["mail1"] : "";
+      this.mail2=data["mail2"]!=null ? data["mail2"] : "";
+      this.mail3=data["maimail3l1"]!=null ? data["mail3"] : "";
+      this.mobil1=data["mobil1"]!=null ? data["mobil1"] : "";
+      this.mobil2=data["mobil2"]!=null ? data["mobil2"] : "";
+      this.musavirVergiNo=data["islemmusavirVergiNoinNiteligi"]!=null ? data["musavirVergiNo"] : "";
+      this.odemeAraci=data["odemeAraci"]!=null ? data["odemeAraci"] : "";
+      this.musavirReferansNo=data["musavirReferansNo"]!=null ? data["musavirReferansNo"] : "";
+      this.referansTarihi=data["referansTarihi"]!=null ? data["referansTarihi"] : "";
+      this.refNo=data["refNo"]!=null ? data["refNo"] : "";
+      this.sinirdakiAracinKimligi=data["sinirdakiAracinKimligi"]!=null ? data["sinirdakiAracinKimligi"] : "";
+      this.sinirdakiAracinTipi=data["sinirdakiAracinTipi"]!=null ? data["sinirdakiAracinTipi"] : "";
+      this.sinirdakiAracinUlkesi=data["sinirdakiAracinUlkesi"]!=null ? data["sinirdakiAracinUlkesi"] : "";
+      this.sinirdakiTasimaSekli=data["sinirdakiTasimaSekli"]!=null ? data["sinirdakiTasimaSekli"] : "";
+      this.tasarlananGuzergah=data["tasarlananGuzergah"]!=null ? data["tasarlananGuzergah"] : "";
+      this.telafiEdiciVergi=data["telafiEdiciVergi"]!=null ?parseFloat(data["telafiEdiciVergi"]):0;
+      this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
+      this.tescilTarihi=data["tescilTarihi"]!=null && data["tescilTarihi"]!='' ? data["tescilTarihi"] : "0001-01-01T00:00:00";
+      this.teslimSekli=data["teslimSekli"]!=null ? data["teslimSekli"] : "";
+      this.teslimSekliYeri=data["teslimSekliYeri"]!=null ? data["teslimSekliYeri"] : "";
+      this.ticaretUlkesi=data["ticaretUlkesi"]!=null ? data["ticaretUlkesi"] : "";
+      this.toplamFatura=data["toplamFatura"]!=null ?parseFloat(data["toplamFatura"]):0;
+      this.toplamFaturaDovizi=data["toplamFaturaDovizi"]!=null ? data["toplamFaturaDovizi"] : "";
+      this.toplamNavlun=data["toplamNavlun"]!=null ?parseFloat(data["toplamNavlun"]):0;
+      this.toplamNavlunDovizi=data["toplamNavlunDovizi"]!=null ? data["toplamNavlunDovizi"] : "";
+      this.toplamSigorta=data["toplamSigorta"]!=null ?parseFloat(data["toplamSigorta"]):0;
+      this.toplamSigortaDovizi=data["toplamSigortaDovizi"]!=null ? data["toplamSigortaDovizi"] : "";
+      this.toplamYurtDisiHarcamalar=data["toplamYurtDisiHarcamalar"]!=null ?parseFloat(data["toplamYurtDisiHarcamalar"]):0;
+      this.toplamYurtDisiHarcamalarDovizi=data["toplamYurtDisiHarcamalarDovizi"]!=null ? data["toplamYurtDisiHarcamalarDovizi"] : "";
+      this.toplamYurtIciHarcamalar=data["toplamYurtIciHarcamalar"]!=null ?parseFloat(data["toplamYurtIciHarcamalar"]):0;
+      this.varisGumrukIdaresi=data["varisGumrukIdaresi"]!=null ? data["varisGumrukIdaresi"] : "";
+      this.yukBelgeleriSayisi=data["yukBelgeleriSayisi"]!=null ?parseFloat(data["yukBelgeleriSayisi"]):0;
+      this.yuklemeBosaltmaYeri=data["yuklemeBosaltmaYeri"]!=null ? data["yuklemeBosaltmaYeri"] : "";
+      
+    }
+  }
+
   init(data?: any) {
     if (data) {
       this.beyanInternalNo=data["beyanInternalNo"];
@@ -1806,7 +1939,7 @@ export class BeyannameDto {
       this.gondericiVergiNo=data["gondericiVergiNo"];
       this.gumruk=data["gumruk"];
       this.isleminNiteligi=data["isleminNiteligi"];
-      this.kapAdedi=data["kapAdedi"];
+      this.kapAdedi=data["kapAdedi"]!=null ?parseInt(data["kapAdedi"]):0;
       this.konteyner=data["konteyner"];
       this.kullanici=data["kullanici"];
       this.limanKodu=data["limanKodu"];
@@ -1825,23 +1958,23 @@ export class BeyannameDto {
       this.sinirdakiAracinUlkesi=data["sinirdakiAracinUlkesi"];
       this.sinirdakiTasimaSekli=data["sinirdakiTasimaSekli"];
       this.tasarlananGuzergah=data["tasarlananGuzergah"];
-      this.telafiEdiciVergi=data["telafiEdiciVergi"];
+      this.telafiEdiciVergi=data["telafiEdiciVergi"]!=null ?parseFloat(data["telafiEdiciVergi"]):0;
       this.tescilStatu=data["tescilStatu"];
       this.tescilTarihi=data["tescilTarihi"];
       this.teslimSekli=data["teslimSekli"];
       this.teslimSekliYeri=data["teslimSekliYeri"];
       this.ticaretUlkesi=data["ticaretUlkesi"];
-      this.toplamFatura=data["toplamFatura"];
+      this.toplamFatura=data["toplamFatura"]!=null ?parseFloat(data["toplamFatura"]):0;
       this.toplamFaturaDovizi= data["toplamFaturaDovizi"];
-      this.toplamNavlun=data["toplamNavlun"];
+      this.toplamNavlun=data["toplamNavlun"]!=null ?parseFloat(data["toplamNavlun"]):0;
       this.toplamNavlunDovizi=data["toplamNavlunDovizi"];
-      this.toplamSigorta=data["toplamSigorta"];
+      this.toplamSigorta=data["toplamSigorta"]!=null ?parseFloat(data["toplamSigorta"]):0;
       this.toplamSigortaDovizi=data["toplamSigortaDovizi"];
-      this.toplamYurtDisiHarcamalar=data["toplamYurtDisiHarcamalar"];
+      this.toplamYurtDisiHarcamalar=data["toplamYurtDisiHarcamalar"]!=null ?parseFloat(data["toplamYurtDisiHarcamalar"]):0;
       this.toplamYurtDisiHarcamalarDovizi=data["toplamYurtDisiHarcamalarDovizi"];
-      this.toplamYurtIciHarcamalar=data["toplamYurtIciHarcamalarrejim"];
+      this.toplamYurtIciHarcamalar=data["toplamYurtIciHarcamalar"]!=null ?parseFloat(data["toplamYurtIciHarcamalar"]):0;
       this.varisGumrukIdaresi=data["varisGumrukIdaresi"];
-      this.yukBelgeleriSayisi=data["yukBelgeleriSayisi"];
+      this.yukBelgeleriSayisi=data["yukBelgeleriSayisi"]!=null ?parseFloat(data["yukBelgeleriSayisi"]):0;
       this.yuklemeBosaltmaYeri=data["yuklemeBosaltmaYeri"];
       
     }
@@ -1941,7 +2074,15 @@ export class KalemDto {
       }
     }
   }
-
+  initKalem(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
   init(data?:[]) {
     if (data) { 
      
@@ -1954,27 +2095,27 @@ export class KalemDto {
          this.algilamaBirimi1=data["algilamaBirimi1"]!=null ?data["algilamaBirimi1"]:"";
          this.algilamaBirimi2=data["algilamaBirimi2"]!=null ?data["algilamaBirimi2"]:"";
          this.algilamaBirimi3=data["algilamaBirimi3"]!=null ?data["algilamaBirimi3"]:"";
-         this.algilamaMiktari1=data["algilamaMiktari1"]!=null ?parseInt(data["algilamaMiktari1"]):0;
-         this.algilamaMiktari2=data["algilamaMiktari2"]!=null ?parseInt(data["algilamaMiktari2"]):0;
-         this.algilamaMiktari3=data["algilamaMiktari3"]!=null ?parseInt(data["algilamaMiktari3"]):0;
-         this.brutAgirlik=data["brutAgirlik"]!=null ? parseInt(data["brutAgirlik"]):0;
+         this.algilamaMiktari1=data["algilamaMiktari1"]!=null ?parseFloat(data["algilamaMiktari1"]):0;
+         this.algilamaMiktari2=data["algilamaMiktari2"]!=null ?parseFloat(data["algilamaMiktari2"]):0;
+         this.algilamaMiktari3=data["algilamaMiktari3"]!=null ?parseFloat(data["algilamaMiktari3"]):0;
+         this.brutAgirlik=data["brutAgirlik"]!=null ? parseFloat(data["brutAgirlik"]):0;
          this.cins=data["cins"]!=null ?data["cins"]:"";
          this.ekKod=data["ekKod"]!=null ?data["ekKod"]:"";
-         this.faturaMiktari=data["faturaMiktari"]!=null ? parseInt(data["faturaMiktari"]):0;
+         this.faturaMiktari=data["faturaMiktari"]!=null ? parseFloat(data["faturaMiktari"]):0;
          this.faturaMiktariDovizi=data["faturaMiktariDovizi"]!=null ?data["faturaMiktariDovizi"]:"";
          this.girisCikisAmaci=data["girisCikisAmaci"]!=null ?data["girisCikisAmaci"]:"";
          this.girisCikisAmaciAciklama=data["girisCikisAmaciAciklama"]!=null ?data["girisCikisAmaciAciklama"]:"";
          this.ikincilIslem=data["ikincilIslem"]!=null ? data["ikincilIslem"]:"";
          this.imalatciFirmaBilgisi=data["imalatciFirmaBilgisi"]!=null ?data["imalatciFirmaBilgisi"]:"";
          this.imalatciVergiNo=data["imalatciVergiNo"]!=null ?data["imalatciVergiNo"]:"";
-         this.istatistikiKiymet=data["istatistikiKiymet"]!=null ? parseInt(data["istatistikiKiymet"]):0;
-         this.istatistikiMiktar=data["istatistikiMiktar"]!=null ? parseInt(data["istatistikiMiktar"]):0;
+         this.istatistikiKiymet=data["istatistikiKiymet"]!=null ? parseFloat(data["istatistikiKiymet"]):0;
+         this.istatistikiMiktar=data["istatistikiMiktar"]!=null ? parseFloat(data["istatistikiMiktar"]):0;
          this.kalemIslemNiteligi=data["kalemIslemNiteligi"]!=null ?data["kalemIslemNiteligi"]:"";
          this.kullanilmisEsya=data["kullanilmisEsya"]!=null ?data["kullanilmisEsya"]:"";
          this.mahraceIade=data["mahraceIade"]!=null ?data["mahraceIade"]:"";
          this.marka=data["marka"]!=null ?data["marka"]:"";
          this.menseiUlke=data["menseiUlke"]!=null ?data["menseiUlke"]:"";
-         this.miktar=data["miktar"]!=null ? parseInt(data["miktar"]):0;
+         this.miktar=data["miktar"]!=null ? parseFloat(data["miktar"]):0;
          this.miktarBirimi=data["miktarBirimi"]!=null ?data["miktarBirimi"]:"";
          this.muafiyetAciklamasi=data["muafiyetAciklamasi"]!=null ?data["muafiyetAciklamasi"]:"";
          this.muafiyetler1=data["muafiyetler1"]!=null ?data["muafiyetler1"]:"";
@@ -1982,40 +2123,40 @@ export class KalemDto {
          this.muafiyetler3=data["muafiyetler3"]!=null ?data["muafiyetler3"]:"";
          this.muafiyetler4=data["muafiyetler4"]!=null ?data["muafiyetler4"]:"";
          this.muafiyetler5=data["muafiyetler5"]!=null ?data["muafiyetler5"]:"";
-         this.navlunMiktari=data["navlunMiktari"]!=null ? parseInt(data["navlunMiktari"]):0;
+         this.navlunMiktari=data["navlunMiktari"]!=null ? parseFloat(data["navlunMiktari"]):0;
          this.navlunMiktariDovizi=data["navlunMiktariDovizi"]!=null ?data["navlunMiktariDovizi"]:"";
-         this.netAgirlik=data["netAgirlik"]!=null ? parseInt(data["netAgirlik"]):0;
+         this.netAgirlik=data["netAgirlik"]!=null ? parseFloat(data["netAgirlik"]):0;
          this.numara=data["numara"]!=null ?data["numara"]:"";
          this.ozellik=data["ozellik"]!=null ?data["ozellik"]:"";
          this.satirNo=data["satirNo"]!=null ?data["satirNo"]:"";
-         this.sigortaMiktari=data["sigortaMiktari"]!=null ? parseInt(data["sigortaMiktari"]):0;
+         this.sigortaMiktari=data["sigortaMiktari"]!=null ? parseFloat(data["sigortaMiktari"]):0;
          this.sigortaMiktariDovizi=data["sigortaMiktariDovizi"]!=null ?data["sigortaMiktariDovizi"]:"";
-         this.sinirGecisUcreti=data["sinirGecisUcreti"]!=null ? parseInt(data["sinirGecisUcreti"]):0;
+         this.sinirGecisUcreti=data["sinirGecisUcreti"]!=null ? parseFloat(data["sinirGecisUcreti"]):0;
          this.stmIlKodu=data["stmIlKodu"]!=null ?data["stmIlKodu"]:"";
          this.tamamlayiciOlcuBirimi=data["tamamlayiciOlcuBirimi"]!=null ?data["tamamlayiciOlcuBirimi"]:"";
          this.teslimSekli=data["teslimSekli"]!=null ?data["teslimSekli"]:"";
          this.ticariTanimi=data["ticariTanimi"]!=null ?data["ticariTanimi"]:"";
          this.uluslararasiAnlasma=data["uluslararasiAnlasma"]!=null ?data["uluslararasiAnlasma"]:"";
-         this.yurtDisiDemuraj=data["yurtDisiDemuraj"]!=null ? parseInt(data["yurtDisiDemuraj"]):0;
+         this.yurtDisiDemuraj=data["yurtDisiDemuraj"]!=null ? parseFloat(data["yurtDisiDemuraj"]):0;
          this.yurtDisiDemurajDovizi=data["yurtDisiDemurajDovizi"]!=null ?data["yurtDisiDemurajDovizi"]:"";
-         this.yurtDisiDiger=data["yurtDisiDiger"]!=null ? parseInt(data["yurtDisiDiger"]):0;
+         this.yurtDisiDiger=data["yurtDisiDiger"]!=null ? parseFloat(data["yurtDisiDiger"]):0;
          this.yurtDisiDigerAciklama=data["yurtDisiDigerAciklama"]!=null ?data["yurtDisiDigerAciklama"]:"";
          this.yurtDisiDigerDovizi=data["yurtDisiDigerDovizi"]!=null ?data["yurtDisiDigerDovizi"]:"";
-         this.yurtDisiFaiz=data["yurtDisiFaiz"]!=null ? parseInt(data["yurtDisiFaiz"]):0;
+         this.yurtDisiFaiz=data["yurtDisiFaiz"]!=null ? parseFloat(data["yurtDisiFaiz"]):0;
          this.yurtDisiFaizDovizi=data["yurtDisiFaizDovizi"]!=null ?data["yurtDisiFaizDovizi"]:"";
-         this.yurtDisiKomisyon=data["yurtDisiKomisyon"]!=null ? parseInt(data["yurtDisiKomisyon"]):0;
+         this.yurtDisiKomisyon=data["yurtDisiKomisyon"]!=null ? parseFloat(data["yurtDisiKomisyon"]):0;
          this.yurtDisiKomisyonDovizi=data["yurtDisiKomisyonDovizi"]!=null ?data["yurtDisiKomisyonDovizi"]:"";
-         this.yurtDisiRoyalti=data["yurtDisiRoyalti"]!=null ? parseInt(data["yurtDisiRoyalti"]):0;
+         this.yurtDisiRoyalti=data["yurtDisiRoyalti"]!=null ? parseFloat(data["yurtDisiRoyalti"]):0;
          this.yurtDisiRoyaltiDovizi=data["yurtDisiRoyaltiDovizi"]!=null ?data["yurtDisiRoyaltiDovizi"]:"";
-         this.yurtIciBanka=data["yurtIciBanka"]!=null ? parseInt(data["yurtIciBanka"]):0;
-         this.yurtIciCevre=data["yurtIciCevre"]!=null ? parseInt(data["yurtIciCevre"]):0;
-         this.yurtIciDepolama=data["yurtIciDepolama"]!=null ? parseInt(data["yurtIciDepolama"]):0;
-         this.yurtIciDiger=data["yurtIciDiger"]!=null ? parseInt(data["yurtIciDiger"]):0;
+         this.yurtIciBanka=data["yurtIciBanka"]!=null ? parseFloat(data["yurtIciBanka"]):0;
+         this.yurtIciCevre=data["yurtIciCevre"]!=null ? parseFloat(data["yurtIciCevre"]):0;
+         this.yurtIciDepolama=data["yurtIciDepolama"]!=null ? parseFloat(data["yurtIciDepolama"]):0;
+         this.yurtIciDiger=data["yurtIciDiger"]!=null ? parseFloat(data["yurtIciDiger"]):0;
          this.yurtIciDigerAciklama=data["yurtIciDigerAciklama"]!=null ?data["yurtIciDigerAciklama"]:"";
-         this.yurtIciKkdf=data["yurtIciKkdf"]!=null ? parseInt(data["yurtIciKkdf"]):0;
-         this.yurtIciKultur=data["yurtIciKultur"]!=null ? parseInt(data["yurtIciKultur"]):0;
-         this.yurtIciLiman=data["yurtIciLiman"]!=null ? parseInt(data["yurtIciLiman"]):0;
-         this.yurtIciTahliye=data["yurtIciTahliye"]!=null ? parseInt(data["yurtIciTahliye"]):0;
+         this.yurtIciKkdf=data["yurtIciKkdf"]!=null ? parseFloat(data["yurtIciKkdf"]):0;
+         this.yurtIciKultur=data["yurtIciKultur"]!=null ? parseFloat(data["yurtIciKultur"]):0;
+         this.yurtIciLiman=data["yurtIciLiman"]!=null ? parseFloat(data["yurtIciLiman"]):0;
+         this.yurtIciTahliye=data["yurtIciTahliye"]!=null ? parseFloat(data["yurtIciTahliye"]):0;
 
          
     }

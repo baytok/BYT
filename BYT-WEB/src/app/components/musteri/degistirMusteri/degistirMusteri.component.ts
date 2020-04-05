@@ -40,6 +40,7 @@ export class DegistirMusteriComponent implements OnInit {
   submitted: boolean = false;  
   musteriDataSource: MusteriDto[]=[];
   constructor(
+    public dialogRef: MatDialogRef<DegistirMusteriComponent>,
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
     private session: SessionServiceProxy,
@@ -146,5 +147,8 @@ export class DegistirMusteriComponent implements OnInit {
 
   
   }
-
+  close(result: any): void {
+    this.dialogRef.close(result);
+   
+  }
 }

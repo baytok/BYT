@@ -39,6 +39,7 @@ export class DegistirYetkiComponent implements OnInit {
   yetkiDataSource: YetkiDto[]=[];
 
   constructor(
+    public dialogRef: MatDialogRef<DegistirYetkiComponent>,
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
     private session: SessionServiceProxy,
@@ -127,5 +128,8 @@ export class DegistirYetkiComponent implements OnInit {
    
   
   }
-
+  close(result: any): void {
+    this.dialogRef.close(result);
+   
+  }
 }

@@ -41,6 +41,9 @@ import {
   SessionServiceProxy
 } from "../../../shared/service-proxies/service-proxies";
 import {
+  ValidationService
+} from "../../../shared/service-proxies/ValidationService";
+import {
   UserRoles
 } from "../../../shared/service-proxies/UserRoles";
 import { MatDialog } from "@angular/material/dialog";
@@ -145,7 +148,7 @@ export class KalemComponent implements OnInit {
       ekKod: new FormControl("", [Validators.maxLength(9)]),
       adet: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        ValidationService.numberValidator
       ]),
       marka: new FormControl("", [
         Validators.required,
@@ -154,7 +157,7 @@ export class KalemComponent implements OnInit {
       ]),
       miktar: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        ValidationService.numberValidator
       ]),
       miktarBirimi: new FormControl("", [
         Validators.required,
@@ -162,11 +165,11 @@ export class KalemComponent implements OnInit {
       ]),
       netAgirlik: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        ValidationService.decimalValidation
       ]),
       brutAgirlik: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        ValidationService.decimalValidation
       ]),
       numara: new FormControl("", [
         Validators.required,
@@ -175,7 +178,7 @@ export class KalemComponent implements OnInit {
       satirNo: new FormControl("", [Validators.maxLength(20)]),
       istatistikiMiktar: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        ValidationService.decimalValidation
       ]),
       tamamlayiciOlcuBirimi: new FormControl("", [
         Validators.required,
@@ -184,49 +187,49 @@ export class KalemComponent implements OnInit {
       algilamaBirimi1: new FormControl("", [Validators.maxLength(9)]),
       algilamaBirimi2: new FormControl("", [Validators.maxLength(9)]),
       algilamaBirimi3: new FormControl("", [Validators.maxLength(9)]),
-      algilamaMiktari1: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      algilamaMiktari2: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      algilamaMiktari3: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      algilamaMiktari1: new FormControl("", [ValidationService.decimalValidation]),
+      algilamaMiktari2: new FormControl("", [ValidationService.decimalValidation]),
+      algilamaMiktari3: new FormControl("", [ValidationService.decimalValidation]),
 
       //Finansal Bilgiler
       teslimSekli: new FormControl("", [
         Validators.required,
         Validators.maxLength(9)
       ]),
-      istatistikiKiymet: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      istatistikiKiymet: new FormControl("", [ValidationService.decimalValidation]),
       faturaMiktari: new FormControl("", [
         Validators.required,
-        Validators.pattern("^[0-9]*$")
+        ValidationService.decimalValidation
       ]),
       faturaMiktariDovizi: new FormControl("", [
         Validators.required,
         Validators.maxLength(9)
       ]),
-      navlunMiktari: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      navlunMiktari: new FormControl("", [ValidationService.decimalValidation]),
       navlunMiktariDovizi: new FormControl("", [Validators.maxLength(9)]),
-      sigortaMiktari: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      sigortaMiktari: new FormControl("", [ValidationService.decimalValidation]),
       sigortaMiktariDovizi: new FormControl("", [Validators.maxLength(9)]),
-      sinirGecisUcreti: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      yurtDisiDemuraj: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      sinirGecisUcreti: new FormControl("", [ValidationService.decimalValidation]),
+      yurtDisiDemuraj: new FormControl("", [ValidationService.decimalValidation]),
       yurtDisiDemurajDovizi: new FormControl("", [Validators.maxLength(9)]),
-      yurtDisiDiger: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      yurtDisiDiger: new FormControl("", [ValidationService.decimalValidation]),
       yurtDisiDigerAciklama: new FormControl("", [Validators.maxLength(100)]),
       yurtDisiDigerDovizi: new FormControl("", [Validators.maxLength(9)]),
-      yurtDisiFaiz: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      yurtDisiFaiz: new FormControl("", [ValidationService.decimalValidation]),
       yurtDisiFaizDovizi: new FormControl("", [Validators.maxLength(9)]),
-      yurtDisiKomisyon: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      yurtDisiKomisyon: new FormControl("", [ValidationService.decimalValidation]),
       yurtDisiKomisyonDovizi: new FormControl("", [Validators.maxLength(9)]),
-      yurtDisiRoyalti: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      yurtDisiRoyalti: new FormControl("", [ValidationService.decimalValidation]),
       yurtDisiRoyaltiDovizi: new FormControl("", [Validators.maxLength(9)]),
-      yurtIciBanka: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      yurtIciCevre: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      yurtIciDepolama: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      yurtIciDiger: new FormControl("", [Validators.pattern("^[0-9]*$")]),
+      yurtIciBanka: new FormControl("", [ValidationService.decimalValidation]),
+      yurtIciCevre: new FormControl("", [ValidationService.decimalValidation]),
+      yurtIciDepolama: new FormControl("", [ValidationService.decimalValidation]),
+      yurtIciDiger: new FormControl("", [ValidationService.decimalValidation]),
       yurtIciDigerAciklama: new FormControl("", [Validators.maxLength(100)]),
-      yurtIciKkdf: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      yurtIciKultur: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      yurtIciLiman: new FormControl("", [Validators.pattern("^[0-9]*$")]),
-      yurtIciTahliye: new FormControl("", [Validators.pattern("^[0-9]*$")])
+      yurtIciKkdf: new FormControl("", [ValidationService.decimalValidation]),
+      yurtIciKultur: new FormControl("", [ValidationService.decimalValidation]),
+      yurtIciLiman: new FormControl("", [ValidationService.decimalValidation]),
+      yurtIciTahliye: new FormControl("", [ValidationService.decimalValidation])
     })),
     (this.odemeForm = this._fb.group({
         odemeArry: this._fb.array([this.getOdeme()])
@@ -459,6 +462,7 @@ export class KalemComponent implements OnInit {
         servisSonuc.init(result);       
         this.kalemForm.reset();
         this.kalemForm.disable();
+        this.yukleKalemler();
         this.openSnackBar(servisSonuc.Sonuc, "Tamam");
       },
       err => {
@@ -487,88 +491,14 @@ export class KalemComponent implements OnInit {
       );
       return;
     }
-    // this.kalemForm.setValue({
-    //   aciklama44: "açıklama",
-    //   adet: 1,
-    //   algilamaBirimi1: "",
-    //   algilamaBirimi2: "",
-    //   algilamaBirimi3: "",
-    //   algilamaMiktari1: 0,
-    //   algilamaMiktari2: 0,
-    //   algilamaMiktari3: 0,
-    //   beyanInternalNo: "11111111100DB000011",
-    //   brutAgirlik: 1,
-    //   cins: "BI",
-    //   ekKod: "",
-    //   faturaMiktari: 12,
-    //   faturaMiktariDovizi: "USD",
-    //   girisCikisAmaci: "",
-    //   girisCikisAmaciAciklama: "",
-    //   gtip: "851712000011",
-    //   ikincilIslem: "",
-    //   imalatciFirmaBilgisi: "HAYIR",
-    //   imalatciVergiNo: "",
-    //   istatistikiKiymet: 10,
-    //   istatistikiMiktar: 1,
-    //   kalemInternalNo: "11111111100DB000011|1",
-    //   kalemIslemNiteligi: "",
-    //   kalemSiraNo: 1,
-    //   kullanilmisEsya: "",
-    //   mahraceIade: "",
-    //   marka: "dcx",
-    //   menseiUlke: "001",
-    //   miktar: 1,
-    //   miktarBirimi: "MTK",
-    //   muafiyetAciklamasi: "",
-    //   muafiyetler1: "",
-    //   muafiyetler2: "",
-    //   muafiyetler3: "",
-    //   muafiyetler4: "",
-    //   muafiyetler5: "",
-    //   navlunMiktari: 0,
-    //   navlunMiktariDovizi: "",
-    //   netAgirlik: 1,
-    //   numara: "1",
-    //   ozellik: "",
-    //   satirNo: "",
-    //   sigortaMiktari: 0,
-    //   sigortaMiktariDovizi: "",
-    //   sinirGecisUcreti: 0,
-    //   stmIlKodu: "",
-    //   tamamlayiciOlcuBirimi: "C62",
-    //   teslimSekli: "FOB",
-    //   ticariTanimi: "tanım",
-    //   uluslararasiAnlasma: "",
-    //   yurtDisiDemuraj: 0,
-    //   yurtDisiDemurajDovizi: "",
-    //   yurtDisiDiger: 0,
-    //   yurtDisiDigerAciklama: "",
-    //   yurtDisiDigerDovizi: "",
-    //   yurtDisiFaiz: 0,
-    //   yurtDisiFaizDovizi: "",
-    //   yurtDisiKomisyon: 0,
-    //   yurtDisiKomisyonDovizi: "",
-    //   yurtDisiRoyalti: 0,
-    //   yurtDisiRoyaltiDovizi: "",
-    //   yurtIciBanka: 0,
-    //   yurtIciCevre: 0,
-    //   yurtIciDepolama: 0,
-    //   yurtIciDiger: 0,
-    //   yurtIciDigerAciklama: "",
-    //   yurtIciKkdf: 0,
-    //   yurtIciKultur: 0,
-    //   yurtIciLiman: 0,
-    //   yurtIciTahliye: 0
-    //  })
+    
     this.kalemForm.get("beyanInternalNo").setValue(this._beyanSession.beyanInternalNo);
     this.kalemForm.get("kalemSiraNo").setValue(this.kalemNo);
-    console.log(this.kalemInternalNo);
     this.kalemForm.get("kalemInternalNo").setValue(this.kalemInternalNo);
     let yenikalemInternalNo: string;
     let yeniKalem=new KalemDto();
     yeniKalem.init(this.kalemForm.value);
-   
-   console.log(yeniKalem);
+
       const promise = this.beyanServis
         .restoreKalem(yeniKalem)
         .toPromise();
@@ -583,6 +513,7 @@ export class KalemComponent implements OnInit {
         
             this.openSnackBar(servisSonuc.Sonuc, "Tamam");
             this.kalemForm.disable();
+            this.yukleKalemler();
           }
         },
         err => {

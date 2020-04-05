@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
 using BYT.WS.AltYapi;
@@ -9,6 +9,7 @@ using BYT.WS.Controllers.api;
 using BYT.WS.Data;
 using BYT.WS.Internal;
 using BYT.WS.Models;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,22 +18,21 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace BYT.WS.Controllers.Servis.Beyanname
 {
-    [Route("api/BYT/Servis/Beyanname/[controller]")]
+   // [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class KontrolHizmetiController : ControllerBase
+    public class KontrolGonderimController : ControllerBase
     {
+
         private IslemTarihceDataContext _islemTarihceContext;
 
         private readonly ServisCredential _servisCredential;
         private BeyannameSonucDataContext _sonucContext;
         public IConfiguration Configuration { get; }
-
-        public KontrolHizmetiController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
+        public KontrolGonderimController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
             _islemTarihceContext = islemTarihcecontext;
             Configuration = configuration;
@@ -43,25 +43,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             _servisCredential.password = servisCredential.Value.password;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Get()
-        {
-            KontrolHizmeti.Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoapClient Kontrol = ServiceHelper.GetKontrolWsClient(_servisCredential.username, _servisCredential.password);
 
-            KontrolHizmeti.Gelen gelen = new KontrolHizmeti.Gelen();
-            KontrolHizmeti.BeyannameBilgi _beyan = new KontrolHizmeti.BeyannameBilgi();
-            _beyan.Rejim = "1000";
-            _beyan.GUMRUK = "067777";
-
-            gelen.KullaniciAdi = "15781158208";
-            gelen.RefID = "1234";
-            gelen.Sifre = Md5Helper.getMd5Hash("74746474");
-            gelen.IP = "";
-            gelen.BeyannameBilgi = _beyan;
-            var values = await Kontrol.KontrolAsync(gelen);
-            return Ok(values.Root.InnerText);
-        }
-
+        [Route("api/BYT/Servis/Beyanname/[controller]/{IslemInternalNo}/{Kullanici}")]
         [HttpPost("{IslemInternalNo}/{Kullanici}")]
         public async Task<ServisDurum> GetKontrol(string IslemInternalNo, string Kullanici)
         {
@@ -197,14 +180,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _kalem.Net_agirlik = item.NetAgirlik != null ? item.NetAgirlik : 0;
                         _kalem.Numara = item.Numara;
                         _kalem.Ozellik = item.Ozellik;
-                       // _kalem.Referans_Tarihi = item.ReferansTarihi;
+                        // _kalem.Referans_Tarihi = item.ReferansTarihi;
                         _kalem.Satir_no = item.SatirNo;
                         _kalem.Sigorta_miktari = item.SigortaMiktari != null ? item.NavlunMiktari : 0;
                         _kalem.Sigorta_miktarinin_dovizi = item.SigortaMiktariDovizi;
                         _kalem.Sinir_gecis_ucreti = item.SinirGecisUcreti != null ? item.SinirGecisUcreti : 0;
                         _kalem.STM_IlKodu = item.StmIlKodu;
                         _kalem.Tamamlayici_olcu_birimi = item.TamamlayiciOlcuBirimi;
-                       // _kalem.Tarifedeki_tanimi = item.TarifeTanimi;
+                        // _kalem.Tarifedeki_tanimi = item.TarifeTanimi;
                         _kalem.Ticari_tanimi = item.TicariTanimi;
                         _kalem.Teslim_sekli = item.TeslimSekli;
                         _kalem.Uluslararasi_anlasma = item.UluslararasiAnlasma;
@@ -399,13 +382,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                     }
                                     _ozetBeyanTasimaSenedi.tasimasatir_bilgi = ozetBeyanAcmaTasimaSatirList.ToArray();
                                 }
-                                else _ozetBeyanTasimaSenedi.tasimasatir_bilgi =new KontrolHizmeti.tasimasatirlari[0];
+                                else _ozetBeyanTasimaSenedi.tasimasatir_bilgi = new KontrolHizmeti.tasimasatirlari[0];
 
                                 _ozetBeyanTasimaSenediList.Add(_ozetBeyanTasimaSenedi);
                             }
                             _ozetBeyan.ozbyacma_bilgi = _ozetBeyanTasimaSenediList.ToArray();
                         }
-                        else _ozetBeyan.ozbyacma_bilgi =new KontrolHizmeti.tasimasenetleri[0];
+                        else _ozetBeyan.ozbyacma_bilgi = new KontrolHizmeti.tasimasenetleri[0];
 
                         _ozetBeyanList.Add(_ozetBeyan);
                     }
@@ -413,7 +396,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 }
                 else _beyan.Ozetbeyanlar = new KontrolHizmeti.Ozetbeyan[0];
 
-              
+
                 #endregion
 
                 #region FIRMA
@@ -610,7 +593,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     {
                         islemValues.Kullanici = Kullanici;
                         islemValues.IslemDurumu = "Gonderildi";
-                        islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DBG", "DBKG");
+                        islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBKG");
                         islemValues.IslemZamani = DateTime.Now;
                         islemValues.IslemSonucu = islemSonucu;
                         islemValues.Guidof = guidOf;
@@ -670,14 +653,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     Internal.Hata ht = new Internal.Hata { HataKodu = 1, HataAciklamasi = islemSonucu };
                     lstht.Add(ht);
                 }
-                Bilgi blg = new Bilgi { IslemTipi = "Kontrol Gönderimi", ReferansNo = guidOf,GUID= guidOf, Sonuc = "Kontrol Gönderimi Gerçekleşti", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "Kontrol Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Kontrol Gönderimi Gerçekleşti", SonucVeriler = null };
                 lstBlg.Add(blg);
 
 
                 _servisDurum.Bilgiler = lstBlg;
                 _servisDurum.Hatalar = lstht;
 
-              
+
 
                 return _servisDurum;
 
@@ -689,16 +672,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 Internal.Hata ht = new Internal.Hata { HataKodu = 1, HataAciklamasi = ex.ToString() };
                 lstht.Add(ht);
                 _servisDurum.Hatalar = lstht;
-                               
+
                 return _servisDurum;
             }
 
 
         }
+
     }
-
-
-
-
 
 }
