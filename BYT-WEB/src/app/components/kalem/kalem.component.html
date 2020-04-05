@@ -83,6 +83,70 @@
         <mat-card class="mat-card">
           <div class="example-box">
             <mat-tab-group>
+              <mat-tab label="Ödeme Şekli">
+                <div class="container">
+                  <h3>Ödeme Şekli Bilgileri</h3>               
+                  <form
+                    [formGroup]="odemeForm"
+                    (ngSubmit)="onOdemeFormSubmit()">
+                  
+                      <div 
+                        *ngFor="let odm of odemes.controls; let idx = index"
+                        class="form-group"
+                      >                       
+                          <!-- <select
+                        matNativeControl
+                        formControlName="idx.odemeSekliKodu"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted && focus.idx.errors
+                        }"
+                        >
+                        <option
+                          *ngFor="let s of _odemeList"
+                          [value]="s.kod"
+                          >{{ s.kod }}</option
+                        >
+                       </select>  -->
+                          <input                         
+                            type="text"
+                            value={{odm}}
+                          />
+                          <!-- <label
+                            [for]="idx.odemeSekliKodu"
+                            class="array-item-title"
+                          >
+                            {{ idx.odemeTutari }}</label
+                          > -->
+
+                          <button
+                            type="button"
+                            (click)="addOdemeField()"
+                            class="btn btn-success"
+                            [ngClass]="'pad'"
+                          >
+                            Ödeme Ekle
+                          </button>
+                          <button
+                            (click)="deleteOdemeField(idx)"
+                            class="btn btn-danger"
+                          >
+                            Sil
+                          </button>
+                        
+                      </div>
+                   
+                    <div>
+                      <button type="submit" class="btn btn-primary">
+                        Kaydet
+                      </button>
+                    </div>
+                  </form>
+
+
+                </div>
+              </mat-tab>
               <mat-tab label="Genel Bilgiler">
                 <div class="form-row">
                   <div class="form-group col">
@@ -1779,72 +1843,7 @@
                   <br />
                 </div>
               </mat-tab>
-              <mat-tab label="Ödeme Şekli">
-                <div class="container">
-                  <h3>Ödeme Şekli Bilgileri</h3>               
-                  <form
-                    [formGroup]="odemeForm"
-                    (ngSubmit)="onOdemeFormSubmit()">
-                  
-                      <div formArrayName="odemes"
-                        *ngFor="let name of odemes.controls; let idx = index"
-                        class="form-group"
-                      >
-                       
-                          <!-- <select
-                        matNativeControl
-                        formControlName="idx.odemeSekliKodu"
-                        class="form-control"
-                        [ngClass]="{
-                          'is-invalid':
-                            submitted && focus.idx.errors
-                        }"
-                      >
-                        <option
-                          *ngFor="let s of _odemeList"
-                          [value]="s.kod"
-                          >{{ s.kod }}</option
-                        >
-                       </select>  -->
-                          <input
-                            formControlName="idx"
-                            type="text"
-                            
-                          />
-                          <!-- <label
-                            [for]="idx.odemeSekliKodu"
-                            class="array-item-title"
-                          >
-                            {{ idx.odemeTutari }}</label
-                          > -->
-
-                          <button
-                            type="button"
-                            (click)="addOdemeField()"
-                            class="btn btn-success"
-                            [ngClass]="'pad'"
-                          >
-                            Ödeme Ekle
-                          </button>
-                          <button
-                            (click)="deleteOdemeField(idx)"
-                            class="btn btn-danger"
-                          >
-                            Sil
-                          </button>
-                        
-                      </div>
-                   
-                    <div>
-                      <button type="submit" class="btn btn-primary">
-                        Kaydet
-                      </button>
-                    </div>
-                  </form>
-
-
-                </div>
-              </mat-tab>
+           
             </mat-tab-group>
           </div>
         </mat-card>

@@ -264,7 +264,7 @@ export class KalemComponent implements OnInit {
         this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
         "Tamam"
       );
-   
+      this._beyanSession.islemInternalNo="11111111100DBKG000011";
     this.getKalemler(this._beyanSession.islemInternalNo);
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(
@@ -409,7 +409,7 @@ export class KalemComponent implements OnInit {
    
      for(let klm of odeme)
      {
-     
+    
       formArray.push(this.createOdemeForms(klm));
      
      }
@@ -564,6 +564,7 @@ export class KalemComponent implements OnInit {
     return this.odemeForm.get("odemeArry") as FormArray;
   }
 
+  
   onOdemeFormSubmit(): void {
     for (let i = 0; i < this.odemes.length; i++) {
       console.log(this.odemes.at(i).value);
@@ -575,6 +576,7 @@ export class KalemComponent implements OnInit {
   }
 
   deleteOdemeField(index: number) {
+   
     if (this.odemes.length !== 1) {
       this.odemes.removeAt(index);
     }

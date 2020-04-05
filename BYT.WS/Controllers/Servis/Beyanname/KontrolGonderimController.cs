@@ -543,7 +543,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                 gelen.KullaniciAdi = "15781158208"; // islemValues.Kullanici;
                 gelen.RefID = islemValues.RefNo;
-                gelen.Sifre = Md5Helper.getMd5Hash(kullaniciValues.KullaniciSifre);
+                gelen.Sifre =  "19cd21ebad3e08b8f1955b6461bd2f41"; //Md5Helper.getMd5Hash(kullaniciValues.KullaniciSifre);
                 gelen.IP = "";
                 gelen.BeyannameBilgi = _beyan;
                 var values = await Kontrol.KontrolAsync(gelen);
