@@ -279,6 +279,8 @@ export class KalemComponent implements OnInit {
       (result: KalemDto[]) => {
         this._kalemler = result;
         this.kalemForm.disable();
+        this.odemeForm.disable();
+      
       },
       err => {
         this.beyanServis.errorHandel(err);    
@@ -378,58 +380,16 @@ export class KalemComponent implements OnInit {
           x => x.kalemInternalNo === this._kalemler[kalemNo - 1].kalemInternalNo
         );
         this.initOdemeFormArray(this._odemeler);
+        this.odemeForm.disable();
       },
       err => {
         this.beyanServis.errorHandel(err);    
       }
     );
   
-    
-    // for(var klm in this._odeme)
-    // {
-     
-    
-      // this.odemes.setValue([
-      //   {
-      //     odemeSekliKodu:this._odeme[klm].odemeSekliKodu,
-      //     odemeTutari:this._odeme[klm].odemeTutari
-      //   }
-      // ]);
-
-  // }
-   
-   
-
     this.kalemForm.disable();
   }
 
-  initOdemeFormArray(odeme: OdemeDto[]) {
-    const formArray = this.odemeForm.get("odemeArry") as FormArray;
-    formArray.clear();
-   
-     for(let klm of odeme)
-     {
-    
-      formArray.push(this.createOdemeForms(klm));
-     
-     }
-    this.odemeForm.setControl("odemeArry", formArray);
-    console.log(this.odemeForm.value);
-   
-    // odeme.map(item => {
-    //   formArray.push(this.createForms(item));
-    // });
-    // this.odemeForm.setControl("odemeArry", formArray);
-    // console.log(formArray);
-  }
-  createOdemeForms(odeme): FormGroup {
-    let formGroup: FormGroup = new FormGroup({
-      odemeSekliKodu: new FormControl(odeme.odemeSekliKodu),
-      odemeTutari: new FormControl(odeme.odemeTutari)
-    });
-
-    return formGroup;
-  }
 
   yukleKalemler() {
     this.getKalemler(this._beyanSession.islemInternalNo);
@@ -440,13 +400,19 @@ export class KalemComponent implements OnInit {
     this.kalemInternalNo='Boş';
     this.kalemNo=0;
     this.kalemForm.reset();
+    this.odemeForm.reset();
+    const formArray = this.odemeForm.get("odemeArry") as FormArray;
+    formArray.clear();   
+    this.odemeForm.setControl("odemeArry", formArray);
     this.kalemForm.enable();
+    this.odemeForm.enable();
     this.kalemForm.markAllAsTouched();
   }
 
   duzeltKalem() {
    
     this.kalemForm.enable();
+    this.odemeForm.enable();
     this.kalemForm.markAllAsTouched();
   }
 
@@ -462,6 +428,11 @@ export class KalemComponent implements OnInit {
         servisSonuc.init(result);       
         this.kalemForm.reset();
         this.kalemForm.disable();
+        const formArray = this.odemeForm.get("odemeArry") as FormArray;
+        formArray.clear();   
+        this.odemeForm.setControl("odemeArry", formArray);
+        this.odemeForm.reset();
+        this.odemeForm.disable();
         this.yukleKalemler();
         this.openSnackBar(servisSonuc.Sonuc, "Tamam");
       },
@@ -498,7 +469,7 @@ export class KalemComponent implements OnInit {
     let yenikalemInternalNo: string;
     let yeniKalem=new KalemDto();
     yeniKalem.init(this.kalemForm.value);
-
+     console.log(yeniKalem);
       const promise = this.beyanServis
         .restoreKalem(yeniKalem)
         .toPromise();
@@ -521,8 +492,8 @@ export class KalemComponent implements OnInit {
           this.openSnackBar(err, "Tamam");
         }
       );
-   
- 
+      console.log(this.odemeBilgileri);
+      //Odeme bilgileride kayıt olacak
   }
   onReset() {
     this.submitted = false;
@@ -552,34 +523,46 @@ export class KalemComponent implements OnInit {
   }
 
   // Ödeme Şekli
+
+  
+  initOdemeFormArray(odeme: OdemeDto[]) {
+    const formArray = this.odemeForm.get("odemeArry") as FormArray;
+    formArray.clear();   
+     for(let klm of odeme)
+     {    
+      let formGroup: FormGroup = new FormGroup({
+        odemeSekliKodu: new FormControl(klm.odemeSekliKodu),
+        odemeTutari: new FormControl(klm.odemeTutari)
+      });
+  
+      formArray.push(formGroup);
+     }
+    this.odemeForm.setControl("odemeArry", formArray);
+  
+  }
+
   getOdeme() {
     const numberPatern = "^[0-9.,]+$";
     return this._fb.group({
       odemeSekliKodu: ["", Validators.required],
-      odemeTutari: [1, [Validators.required, Validators.pattern(numberPatern)]]
+      odemeTutari: ["", [Validators.required, Validators.pattern(numberPatern)]]
     });
   }
 
-  get odemes() {
+  get odemeBilgileri() {
     return this.odemeForm.get("odemeArry") as FormArray;
   }
 
-  
-  onOdemeFormSubmit(): void {
-    for (let i = 0; i < this.odemes.length; i++) {
-      console.log(this.odemes.at(i).value);
-    }
-  }
   addOdemeField() {
     // this.odemeArry.push(item);
-    this.odemes.push(this._fb.control(false));
+    this.odemeBilgileri.push(this._fb.control(false));
+
   }
 
   deleteOdemeField(index: number) {
    
-    if (this.odemes.length !== 1) {
-      this.odemes.removeAt(index);
-    }
-    console.log(this.odemes.length);
+    // if (this.odemeBilgileri.length !== 1) {
+      this.odemeBilgileri.removeAt(index);
+    
   }
 }

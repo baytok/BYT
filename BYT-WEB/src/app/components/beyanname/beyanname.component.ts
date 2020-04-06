@@ -154,7 +154,7 @@ export class BeyannameComponent implements OnInit {
         referansTarihi: [],
         tescilStatu: [],
         tescilTarihi:[],
-        refNo: new FormControl("", [Validators.required,Validators.maxLength(30)]),
+        refNo: new FormControl("", [Validators.maxLength(30)]),
         //Finansal Bilgiler
         bankaKodu: new FormControl("", [
           Validators.required,

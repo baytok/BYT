@@ -96,7 +96,7 @@ namespace BYT.WS.Models
     }
     public class DbBeyan
     {
-        [Required]
+      
         [StringLength(30)]
         public string RefNo { get; set; }
 

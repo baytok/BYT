@@ -193,10 +193,11 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         else
                         {
                             var internalrefid = beyannameContext.GetRefIdNextSequenceValue(beyan.Rejim);
-                            string InternalNo = beyan.Kullanici + "DB" + internalrefid.ToString().PadLeft(6, '0');
+                            string InternalNo = beyan.Rejim+ beyan.Kullanici + "DB" +internalrefid.ToString().PadLeft(5, '0');
 
                             beyan.BeyanInternalNo = InternalNo;
-                            beyan.RefNo = "11111111100" + "|" + "1000" + "|" + internalrefid.ToString().PadLeft(6, '0');
+                            beyan.RefNo = InternalNo;
+                            beyan.MusavirReferansNo = "BYT" + beyan.MusavirReferansNo;
                             beyan.TescilStatu = "Olusturuldu";
                             beyannameContext.Entry(beyan).State = EntityState.Added;
                             await beyannameContext.SaveChangesAsync();
@@ -256,43 +257,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-     [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameKopyalama/{IslemInternalNo}")]
-     [HttpPost]
-     public async Task<ServisDurum> PostBeyannameKopyalama(string IslemInternalNo)
-        {
-            ServisDurum _servisDurum = new ServisDurum();
-
-            List<Hata> _hatalar = new List<Hata>();
-            string yeniIslemInternalNo = "11111111100DBKG000012";
-            try
-            {
-                // Kopyalama Procedure
-                List<Bilgi> lstBlg = new List<Bilgi>();
-                Bilgi blg = new Bilgi { IslemTipi = "Beyanname Kopyalama", ReferansNo = yeniIslemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-                lstBlg.Add(blg);
-                _servisDurum.Bilgiler = lstBlg;
-
-
-                return _servisDurum;
-
-            }
-            catch (Exception ex)
-            {
-
-                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                List<Internal.Hata> lstht = new List<Internal.Hata>();
-
-                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                lstht.Add(ht);
-                _servisDurum.Hatalar = lstht;
-               
-                return _servisDurum;
-            }
-            
-
-    }
-
-   
+      
     [Route("api/BYT/Servis/Beyanname/[controller]/KalemSil/{kalemInternalNo}/{BeyanInternalNo}")]
     [HttpDelete("{kalemInternalNo}/{BeyanInternalNo}")]
     public async Task<ServisDurum> DeleteKalem(string kalemInternalNo, string BeyanInternalNo)
