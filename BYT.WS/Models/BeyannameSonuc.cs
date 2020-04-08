@@ -1126,5 +1126,127 @@ namespace BYT.WS.Models
 
     }
 
+    public class DbBelge
+    {
+        [Key]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string IslemInternalNo { get; set; }
+
+
+        [Required]
+        [StringLength(50)]
+        public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
+
+        [Required]
+        public int KalemNo { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string BelgeKodu { get; set; }
+
+        [Required]
+        [StringLength(1000)]
+        public string BelgeAciklamasi { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string Dogrulama { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string Referans { get; set; }
+
+        [Required]
+        [StringLength(12)]
+        public string BelgeTarihi { get; set; }
+    }
+    public class DbVergi
+    {
+        [Key]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string IslemInternalNo { get; set; }
+
+
+        [Required]
+        [StringLength(50)]
+        public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
+
+        [Required]
+        public int KalemNo { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string VergiKodu { get; set; }
+
+        [Required]
+        [StringLength(1000)]
+        public string VergiAciklamasi { get; set; }
+
+
+        [StringLength(20)]
+        public string Miktar { get; set; }
+
+        [Required]
+        [StringLength(5)]
+        public string Oran { get; set; }
+
+        [Required]
+        [StringLength(3)]
+        public string OdemeSekli { get; set; }
+
+        [StringLength(20)]
+        public string Matrah { get; set; }
+    }
+    public class DbSoruCevap
+    {
+        [Key]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string IslemInternalNo { get; set; }
+
+
+        [Required]
+        [StringLength(50)]
+        public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
+
+        [Required]
+        public int KalemNo { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string SoruKodu { get; set; }
+
+        
+        [StringLength(10)]
+        public string SoruCevap { get; set; }
+
+        [Required]
+        [StringLength(1000)]
+        public string SoruAciklamasi { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string Tip { get; set; }
+
+        [StringLength(int.MaxValue)]
+        public string Cevaplar { get; set; }
+    }
 
 }

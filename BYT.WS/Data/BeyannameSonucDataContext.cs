@@ -27,7 +27,11 @@ namespace BYT.WS.Data
         public DbSet<DbSonucIstatistikiKiymet> DbSonucIstatistikiKiymet { get; set; }
         public DbSet<DbSonucOzetBeyan> DbSonucOzetBeyan { get; set; }
         public DbSet<DbSonucDigerBilgiler> DbSonucDigerBilgiler { get; set; }
-        
+
+        public DbSet<DbVergi> DbVergi { get; set; }
+        public DbSet<DbBelge> DbBelge { get; set; }
+        public DbSet<DbSoruCevap> DbSoruCevap { get; set; }
+
 
 
 

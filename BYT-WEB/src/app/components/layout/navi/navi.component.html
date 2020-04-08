@@ -24,19 +24,19 @@
     </a>  -->    
    
       <mat-menu #beyan="matMenu">        
-        <button mat-menu-item [matMenuTriggerFor]="kalem" routerLink="/app/kalem">Kalemler</button>
+        <button mat-menu-item routerLink="/app/kalem">Kalemler</button>
         <button mat-menu-item [matMenuTriggerFor]="amphibians">Özet Beyan Açma</button>
         <button mat-menu-item [matMenuTriggerFor]="reptiles">Kıymet Bildirim</button>
         <button mat-menu-item>Teminat</button>
         <button mat-menu-item>Firma</button>
       </mat-menu>
-      <mat-menu #kalem="matMenu">
+      <!-- <mat-menu #kalem="matMenu">
         <button mat-menu-item>Marka</button>
         <button mat-menu-item>Ödeme Şekilleri</button>
         <button mat-menu-item>Açmalar</button>        
         <button mat-menu-item>Konteyner</button>
         <button mat-menu-item>Tamamlayıcı Bilgi</button>       
-      </mat-menu>
+      </mat-menu> -->
       <mat-menu #amphibians="matMenu"></mat-menu>
       <mat-menu #reptiles="matMenu"></mat-menu>
   

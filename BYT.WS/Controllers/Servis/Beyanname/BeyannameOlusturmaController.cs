@@ -41,9 +41,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
 
-     [Route("api/BYT/Servis/Beyanname/[controller]/{Kullanici}")]
-     [HttpPut("{Kullanici}")]
-     public async Task<Sonuc<ServisDurum>> PutBeyanname(string Kullanici)
+        [Route("api/BYT/Servis/Beyanname/[controller]/{Kullanici}")]
+        [HttpPut("{Kullanici}")]
+        public async Task<Sonuc<ServisDurum>> PutBeyanname(string Kullanici)
         {
             ServisDurum _servisDurum = new ServisDurum(); DbBeyan _beyan = new DbBeyan(); DbKalem _kalem = new DbKalem();
 
@@ -130,9 +130,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
 
-     [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameOlustur")]
-     [HttpPost]
-     public async Task<ServisDurum> PostBeyanname([FromBody]DbBeyan beyan)
+        [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameOlustur")]
+        [HttpPost]
+        public async Task<ServisDurum> PostBeyanname([FromBody]DbBeyan beyan)
         {
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
              .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
@@ -162,7 +162,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 //var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
                 return _servisDurum;
             }
-                Islem _islem = new Islem();
+            Islem _islem = new Islem();
             try
             {
 
@@ -170,8 +170,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 {
                     try
                     {
-                   
-                        var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo && v.TescilStatu!="Tescil Edilmiş");
+
+                        var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo && v.TescilStatu != "Tescil Edilmiş");
                         var beyannameContext = new BeyannameDataContext(options);
                         if (beyanValues != null)
                         {
@@ -184,7 +184,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                             _islem.IslemDurumu = "Güncellendi";
                             _islem.OlusturmaZamani = DateTime.Now;
-                        
+
                             _islemTarihceContext.Entry(_islem).State = EntityState.Modified;
                             await _islemTarihceContext.SaveChangesAsync();
 
@@ -193,7 +193,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         else
                         {
                             var internalrefid = beyannameContext.GetRefIdNextSequenceValue(beyan.Rejim);
-                            string InternalNo = beyan.Rejim+ beyan.Kullanici + "DB" +internalrefid.ToString().PadLeft(5, '0');
+                            string InternalNo = beyan.Rejim + beyan.Kullanici + "DB" + internalrefid.ToString().PadLeft(5, '0');
 
                             beyan.BeyanInternalNo = InternalNo;
                             beyan.RefNo = InternalNo;
@@ -229,7 +229,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
                         lstht.Add(ht);
                         _servisDurum.Hatalar = lstht;
-                       // var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        // var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
                         return _servisDurum;
                     }
 
@@ -257,10 +257,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-      
-    [Route("api/BYT/Servis/Beyanname/[controller]/KalemSil/{kalemInternalNo}/{BeyanInternalNo}")]
-    [HttpDelete("{kalemInternalNo}/{BeyanInternalNo}")]
-    public async Task<ServisDurum> DeleteKalem(string kalemInternalNo, string BeyanInternalNo)
+
+        [Route("api/BYT/Servis/Beyanname/[controller]/KalemSil/{kalemInternalNo}/{BeyanInternalNo}")]
+        [HttpDelete("{kalemInternalNo}/{BeyanInternalNo}")]
+        public async Task<ServisDurum> DeleteKalem(string kalemInternalNo, string BeyanInternalNo)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -273,17 +273,17 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 try
                 {
                     var kalemValues = await _beyannameContext.DbKalem.FirstOrDefaultAsync(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo);
-                   
+
                     _beyannameContext.Entry(kalemValues).State = EntityState.Deleted;
-                 
+
                     var updateKalemNo = from u in _beyannameContext.DbKalem
                                         where u.BeyanInternalNo == BeyanInternalNo && u.KalemSiraNo > kalemValues.KalemSiraNo
                                         select u;
 
                     foreach (DbKalem itm in updateKalemNo)
                     {
-                        itm.KalemSiraNo = itm.KalemSiraNo-1;
-                     
+                        itm.KalemSiraNo = itm.KalemSiraNo - 1;
+
 
 
                     }
@@ -295,7 +295,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             _beyannameContext.Entry(item).State = EntityState.Deleted;
                         }
 
-                    var markaValues = await _beyannameContext.DbMarka.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync(); 
+                    var markaValues = await _beyannameContext.DbMarka.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
                     if (markaValues.Count > 0)
                         foreach (var item in markaValues)
                         {
@@ -351,17 +351,17 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             }
 
         }
-     
 
-    [Route("api/BYT/Servis/Beyanname/[controller]/KalemOlustur")]
-    [HttpPost]
-    public async Task<ServisDurum> PutKalem([FromBody]DbKalem kalem)
+
+        [Route("api/BYT/Servis/Beyanname/[controller]/KalemOlustur")]
+        [HttpPost]
+        public async Task<ServisDurum> PutKalem([FromBody]DbKalem kalem)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
               .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
               .Options;
-           
+
             var kalemValues = await _beyannameContext.DbKalem.FirstOrDefaultAsync(v => v.KalemInternalNo == kalem.KalemInternalNo && v.BeyanInternalNo == kalem.BeyanInternalNo);
             var beyannameContext = new BeyannameDataContext(options);
             using (var transaction = beyannameContext.Database.BeginTransaction())
@@ -376,16 +376,16 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     else
                     {
                         var maxKalemNo = (from u in _beyannameContext.DbKalem
-                                      where u.BeyanInternalNo == kalem.BeyanInternalNo
-                                      select (u.KalemSiraNo)).Max();
-                        var maxKalemInternalNo = (from u in _beyannameContext.DbKalem
                                           where u.BeyanInternalNo == kalem.BeyanInternalNo
-                                          select (u.KalemInternalNo)).Max();
+                                          select (u.KalemSiraNo)).Max();
+                        var maxKalemInternalNo = (from u in _beyannameContext.DbKalem
+                                                  where u.BeyanInternalNo == kalem.BeyanInternalNo
+                                                  select (u.KalemInternalNo)).Max();
 
-                        kalem.KalemSiraNo = Convert.ToInt32(maxKalemNo)+1;
+                        kalem.KalemSiraNo = Convert.ToInt32(maxKalemNo) + 1;
 
-                        int klNo = Convert.ToInt32(maxKalemInternalNo.Split('|')[1].ToString())+1;
-                        kalem.KalemInternalNo = kalem.BeyanInternalNo+"|"+klNo;
+                        int klNo = Convert.ToInt32(maxKalemInternalNo.Split('|')[1].ToString()) + 1;
+                        kalem.KalemInternalNo = kalem.BeyanInternalNo + "|" + klNo;
                         beyannameContext.Entry(kalem).State = EntityState.Added;
                     }
 
@@ -421,1089 +421,1017 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
 
-    [Route("api/BYT/Servis/Beyanname/[controller]/OdemeSekliOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostOdeme([FromBody]DbOdemeSekli odeme)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/OdemeSekliOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
+        [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]
+        public async Task<Sonuc<ServisDurum>> PostOdeme([FromBody]DbOdemeSekli[] odemeBilgiList, string KalemInternalNo, string BeyanInternalNo)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
+                        var odemeValues = await _beyannameContext.DbOdemeSekli.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemInternalNo== KalemInternalNo).ToListAsync();
+                     
+                        foreach (var item in odemeValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+
+                        }
+                        foreach (var item in odemeBilgiList)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Added;
+
+                        }
+
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    _beyannameContext.Entry(odeme).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        transaction.Commit();
 
+                    }
+                    catch (Exception ex)
+                    {
 
-                    transaction.Commit();
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = odeme.KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
-
-    }
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/MarkaOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostMarka([FromBody]DbMarka marka)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/MarkaOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostMarka([FromBody]DbMarka marka)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(marka).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(marka).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = marka.KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = marka.KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
-
-    }
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/KonteynerOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostKonteyner([FromBody]DbKonteyner konteyner)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/KonteynerOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostKonteyner([FromBody]DbKonteyner konteyner)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(konteyner).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(konteyner).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = konteyner.KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = konteyner.KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
 
-    }
-
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameAcmaOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostBeyannameAcma([FromBody]DbBeyannameAcma acmabeyan)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameAcmaOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostBeyannameAcma([FromBody]DbBeyannameAcma acmabeyan)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(acmabeyan).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(acmabeyan).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = acmabeyan.KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = acmabeyan.KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
-
-    }
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/TamamlayiciBilgiOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostTamamlayiciBilgi([FromBody]DbTamamlayiciBilgi tamamlayici)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/TamamlayiciBilgiOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostTamamlayiciBilgi([FromBody]DbTamamlayiciBilgi tamamlayici)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(tamamlayici).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(tamamlayici).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = tamamlayici.KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = tamamlayici.KalemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
-
-    }
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/FirmaOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostFirma([FromBody]DbFirma firma)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/FirmaOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostFirma([FromBody]DbFirma firma)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(firma).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(firma).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = firma.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = firma.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
 
-    }
-
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/TeminatOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostTeminat([FromBody]DbTeminat teminat)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/TeminatOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostTeminat([FromBody]DbTeminat teminat)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(teminat).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(teminat).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = teminat.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = teminat.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
-
-    }
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/OzetBeyanOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostOzetBeyanAcma([FromBody]DbOzetbeyanAcma ozetbeyan)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/OzetBeyanOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostOzetBeyanAcma([FromBody]DbOzetbeyanAcma ozetbeyan)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(ozetbeyan).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(ozetbeyan).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = ozetbeyan.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = ozetbeyan.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
-
-    }
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSenetiOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostTasimaSenedi([FromBody]DbTasimaSatir tasima)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSenetiOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostTasimaSenedi([FromBody]DbTasimaSatir tasima)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(tasima).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(tasima).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = tasima.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = tasima.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
-
-    }
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSatiriOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostTasimaSatir([FromBody]DbTasimaSatir tasima)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSatiriOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostTasimaSatir([FromBody]DbTasimaSatir tasima)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(tasima).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(tasima).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = tasima.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = tasima.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
-
-    }
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/KiymetBildirimOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostKiymet([FromBody]DbKiymetBildirim kiymet)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/KiymetBildirimOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostKiymet([FromBody]DbKiymetBildirim kiymet)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(kiymet).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(kiymet).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = kiymet.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = kiymet.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
-
-    }
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/KiymetBildirimKalemOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostKiymetKalem([FromBody]DbKiymetBildirimKalem kiymet)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
+        [Route("api/BYT/Servis/Beyanname/[controller]/KiymetBildirimKalemOlustur")]
+        [HttpPost]
+        public async Task<Sonuc<ServisDurum>> PostKiymetKalem([FromBody]DbKiymetBildirimKalem kiymet)
         {
+            ServisDurum _servisDurum = new ServisDurum();
 
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            List<Hata> _hatalar = new List<Hata>();
+
+            //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
+            //ValidationResult validationResult = new ValidationResult();
+            //validationResult = vbValidator.Validate(odeme);
+
+            //if (!validationResult.IsValid)
+            //{
+
+            //    Hata ht = new Hata();
+            //    for (int i = 0; i < validationResult.Errors.Count; i++)
+            //    {
+            //        ht = new Hata();
+            //        ht.HataKodu = (i + 1);
+            //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
+            //        _hatalar.Add(ht);
+            //    }
+
+            //    _servisDurum.Hatalar = _hatalar;
+
+            //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
+            //    return result;
+            //}
+
+            try
             {
-                try
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
                 {
+                    try
+                    {
 
 
-                    _beyannameContext.Entry(kiymet).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
+                        _beyannameContext.Entry(kiymet).State = EntityState.Added;
+                        await _beyannameContext.SaveChangesAsync();
 
 
-                    transaction.Commit();
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return rresult;
+                    }
 
                 }
-                catch (Exception ex)
-                {
 
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = kiymet.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
 
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
             }
 
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = kiymet.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
         }
 
+
+     
 
     }
-
-
-    [Route("api/BYT/Servis/Beyanname/[controller]/VergiOlustur")]
-    [HttpPost]
-    public async Task<Sonuc<ServisDurum>> PostVergi([FromBody]DbVergi vergi)
-    {
-        ServisDurum _servisDurum = new ServisDurum();
-
-        List<Hata> _hatalar = new List<Hata>();
-
-        //DbKalemModelValidator vbValidator = new DbKalemModelValidator();
-        //ValidationResult validationResult = new ValidationResult();
-        //validationResult = vbValidator.Validate(odeme);
-
-        //if (!validationResult.IsValid)
-        //{
-
-        //    Hata ht = new Hata();
-        //    for (int i = 0; i < validationResult.Errors.Count; i++)
-        //    {
-        //        ht = new Hata();
-        //        ht.HataKodu = (i + 1);
-        //        ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-        //        _hatalar.Add(ht);
-        //    }
-
-        //    _servisDurum.Hatalar = _hatalar;
-
-        //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-        //    return result;
-        //}
-
-        try
-        {
-
-            using (var transaction = _beyannameContext.Database.BeginTransaction())
-            {
-                try
-                {
-
-
-                    _beyannameContext.Entry(vergi).State = EntityState.Added;
-                    await _beyannameContext.SaveChangesAsync();
-
-
-                    transaction.Commit();
-
-                }
-                catch (Exception ex)
-                {
-
-                    transaction.Rollback();
-                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                    List<Internal.Hata> lstht = new List<Internal.Hata>();
-
-                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                    lstht.Add(ht);
-                    _servisDurum.Hatalar = lstht;
-                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                    return rresult;
-                }
-
-            }
-
-            _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
-
-            List<Bilgi> lstBlg = new List<Bilgi>();
-            Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = vergi.BeyanInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-            lstBlg.Add(blg);
-            _servisDurum.Bilgiler = lstBlg;
-
-            var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-            //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-
-            return null;
-        }
-
-
-    }
-
-
-}
 
 }

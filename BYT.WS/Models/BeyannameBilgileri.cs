@@ -613,38 +613,6 @@ namespace BYT.WS.Models
 
     }
 
-    public class DbVergi
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string BeyanInternalNo { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string KalemInternalNo { get; set; }
-
-
-
-        [Required]
-        [StringLength(9)]
-        public string VergiKodu { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public decimal Matrah { get; set; }
-
-        [Required]
-        [StringLength(9)]
-        public string Oran { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public decimal VergiDegeri { get; set; }
-    }
     public class DbKalem
     {
         [Required]

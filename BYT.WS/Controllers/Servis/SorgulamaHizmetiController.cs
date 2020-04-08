@@ -363,6 +363,7 @@ namespace BYT.WS.Controllers.Servis
                             ssorular.Add(soruObj);
 
                             DbSonucSorular _soru = new DbSonucSorular();
+                            DbSoruCevap soruCevap = new DbSoruCevap();
                             _soru.Guid = GuidOf;
                             _soru.GonderimNo = GonderimNo;
                             _soru.IslemInternalNo = InternalNo;
@@ -371,10 +372,19 @@ namespace BYT.WS.Controllers.Servis
                             _soru.SoruAciklamasi = Aciklama;
                             _soru.Tip = Tip;
                             _soru.Cevaplar = lstCvp.ToString();
-                          
+
+                            soruCevap.Guid = GuidOf;
+                            soruCevap.GonderimNo = GonderimNo;
+                            soruCevap.IslemInternalNo = InternalNo;
+                            soruCevap.KalemNo = Kalem_no;
+                            soruCevap.SoruKodu = Kod;
+                            soruCevap.SoruAciklamasi = Aciklama;
+                            soruCevap.Tip = Tip;
+                            soruCevap.Cevaplar = lstCvp.ToString();
 
                             _beyannameSonucTarihcecontext.Entry(_soru).State = EntityState.Added;
-                           
+                            _beyannameSonucTarihcecontext.Entry(soruCevap).State = EntityState.Added;
+
 
                         }
                         _beyannameSonucTarihcecontext.SaveChangesAsync();
@@ -467,6 +477,7 @@ namespace BYT.WS.Controllers.Servis
                                 sBelgeler.Add(belgeObj);
 
                                 DbSonucBelgeler _belge = new DbSonucBelgeler();
+                                DbBelge belge = new DbBelge();
                                 _belge.Guid = GuidOf;
                                 _belge.GonderimNo = GonderimNo;
                                 _belge.IslemInternalNo = InternalNo;
@@ -476,10 +487,20 @@ namespace BYT.WS.Controllers.Servis
                                 _belge.Dogrulama = Dogrulama;
                                 _belge.Referans = Referans;
                                 _belge.BelgeTarihi = Tamamlama_tarih;
-                              
+
+                                belge.Guid = GuidOf;
+                                belge.GonderimNo = GonderimNo;
+                                belge.IslemInternalNo = InternalNo;
+                                belge.KalemNo = Kalem_no;
+                                belge.BelgeKodu = Kod;
+                                belge.BelgeAciklamasi = Aciklama;
+                                belge.Dogrulama = Dogrulama;
+                                belge.Referans = Referans;
+                                belge.BelgeTarihi = Tamamlama_tarih;
+
                                 _beyannameSonucTarihcecontext.Entry(_belge).State = EntityState.Added;
-                                
-                               
+                                _beyannameSonucTarihcecontext.Entry(belge).State = EntityState.Added;
+
                             }
                             _beyannameSonucTarihcecontext.SaveChangesAsync();
                             sonucObj.Belgeler = sBelgeler;
@@ -526,6 +547,7 @@ namespace BYT.WS.Controllers.Servis
                                 sVergiler.Add(vergiObj);
 
                                 DbSonucVergiler _vergi = new DbSonucVergiler();
+                                DbVergi vergi = new DbVergi();
                                 _vergi.Guid = GuidOf;
                                 _vergi.GonderimNo = GonderimNo;
                                 _vergi.IslemInternalNo = InternalNo;
@@ -537,8 +559,20 @@ namespace BYT.WS.Controllers.Servis
                                 _vergi.Oran = Oran;
                                 _vergi.Matrah = Matrah;
 
+                                vergi.Guid = GuidOf;
+                                vergi.GonderimNo = GonderimNo;
+                                vergi.IslemInternalNo = InternalNo;
+                                vergi.KalemNo = Kalem_no;
+                                vergi.VergiKodu = Kod;
+                                vergi.VergiAciklamasi = Aciklama;
+                                vergi.Miktar = Miktar;
+                                vergi.OdemeSekli = Odeme_sekli;
+                                vergi.Oran = Oran;
+                                vergi.Matrah = Matrah;
+
                                 _beyannameSonucTarihcecontext.Entry(_vergi).State = EntityState.Added;
-                               
+                                _beyannameSonucTarihcecontext.Entry(vergi).State = EntityState.Added;
+
                             }
                             _beyannameSonucTarihcecontext.SaveChangesAsync();
                             sonucObj.Vergiler = sVergiler;

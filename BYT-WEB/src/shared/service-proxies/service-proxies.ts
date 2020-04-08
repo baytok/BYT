@@ -513,6 +513,22 @@ export class BeyannameServiceProxy {
       this.baseUrl + "Servis/Odeme/Beyanname/" + IslemInternalNo,httpOptions
     );
   }
+  restoreOdeme(odeme: OdemeDto[], kalemInternalNo:string , beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/OdemeSekliOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
+        odeme,httpOptions  
+        );
+  }
   getMarka(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -2178,5 +2194,33 @@ export class OdemeDto {
   odemeTutari: number;
   odemeSekliKodu: string;
   tbfid:string;
+
+  constructor(data?: OdemeDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): OdemeDto {
+    data = typeof data === "object" ? data : {};
+    let result = new OdemeDto();
+
+    result.init(data);
+    return result;
+  }
 }
   

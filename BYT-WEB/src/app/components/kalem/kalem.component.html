@@ -1658,13 +1658,14 @@
                               fxLayoutWrap
                               fxLayoutGap="3.5%"
                               fxLayoutAlign="center"
-                            >
+                            > 
+                                          
                               <mat-form-field fxFlex="10%">
                                 <select
                                   matNativeControl
                                   placeholder="Ödeme Şekli"
                                   formControlName="odemeSekliKodu"
-                                  required
+                                  
                                 >
                                   <option
                                     *ngFor="let s of _odemeList"
@@ -1673,13 +1674,24 @@
                                   >
                                 </select>
                               </mat-form-field>
+                                             
+                              <mat-form-field fxFlex="30%">
+                                <input
+                                  matNativeControl
+                                  type="text"
+                                  placeholder="Ödeme Tutarı"
+                                  formControlName="odemeTutari"
+                                  
+                                />
+                              </mat-form-field>
 
                               <mat-form-field fxFlex="30%">
                                 <input
                                   matNativeControl
-                                  placeholder="Ödeme Tutarı"
-                                  formControlName="odemeTutari"
-                                  required
+                                  type="text"
+                                  placeholder="TBF ID"
+                                  formControlName="tbfid"
+                                  
                                 />
                               </mat-form-field>
                               <button
@@ -1873,6 +1885,105 @@
                   </form>
                   <br />
                 </div>
+              </mat-tab>
+              <mat-tab label="Konteyner">
+              </mat-tab>
+              <mat-tab label="Tamamlayıcı Bilgi">
+              </mat-tab>
+              <mat-tab label="Açmalar">
+              </mat-tab>
+              <mat-tab label="Vergiler">
+                <div class="container">
+                  <form [formGroup]="odemeForm" novalidate>
+                    <div
+                      fxLayout="row"
+                      fxLayout.xs="column"
+                      fxLayoutWrap
+                      fxLayoutGap="3.5%"
+                      fxLayoutAlign="left"
+                    >
+                      <mat-card formArrayName="odemeArry"
+                        ><mat-card-title>Vergi Bilgileri</mat-card-title
+                        ><mat-divider></mat-divider>
+
+                        <div
+                          *ngFor="let unit of odemeBilgileri.controls; let i = index"
+                        >
+                          <mat-divider
+                            *ngIf="odemeBilgileri.controls.length > 1 && i > 0"
+                          ></mat-divider
+                          ><br />
+
+                          <div [formGroupName]="i">
+                            <div
+                              fxLayout="row"
+                              fxLayout.xs="column"
+                              fxLayoutWrap
+                              fxLayoutGap="3.5%"
+                              fxLayoutAlign="center"
+                            >
+                              <mat-form-field fxFlex="10%">
+                                <select
+                                  matNativeControl
+                                  placeholder="Ödeme Şekli"
+                                  formControlName="odemeSekliKodu"
+                                  required
+                                >
+                                  <option
+                                    *ngFor="let s of _odemeList"
+                                    [value]="s.kod"
+                                    >{{ s.kod }}</option
+                                  >
+                                </select>
+                              </mat-form-field>
+
+                              <mat-form-field fxFlex="30%">
+                                <input
+                                  matNativeControl
+                                  placeholder="Ödeme Tutarı"
+                                  formControlName="odemeTutari"
+                                  required
+                                />
+                              </mat-form-field>
+
+                              <mat-form-field fxFlex="30%">
+                                <input
+                                  matNativeControl
+                                  placeholder="TBF ID"
+                                  formControlName="tbfid"
+                                  required
+                                />
+                              </mat-form-field>
+                              <button
+                                mat-mini-fab
+                                color="warn"
+                                [disabled]="!kalemForm.valid"
+                                (click)="deleteOdemeField(i)"
+                              >
+                                <mat-icon>delete forever</mat-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <mat-divider></mat-divider
+                        ><mat-card-actions
+                          ><button [disabled]="!kalemForm.valid" mat-raised-button (click)="addOdemeField()">
+                            <mat-icon>add box</mat-icon>
+                            Ödeme Şekli Ekle
+                          </button></mat-card-actions
+                        ></mat-card
+                      >
+                      <div>
+                      
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+              <mat-tab label="Belgeler">
+              </mat-tab>
+              <mat-tab label="Soru Cevaplar">
               </mat-tab>
             </mat-tab-group>
           </div>
