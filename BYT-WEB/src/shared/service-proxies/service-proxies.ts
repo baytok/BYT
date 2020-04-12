@@ -686,6 +686,38 @@ export class BeyannameServiceProxy {
         );
   }
 
+  getFirma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/Firma/Beyanname/" + IslemInternalNo,httpOptions
+    );
+  }
+  restoreFirma(firma: FirmaDto[], beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/FirmaOlustur/"+beyanInternalNo, 
+        firma,httpOptions  
+        );
+  }
+
   setBeyanname(beyanname: BeyannameDto) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -2502,6 +2534,45 @@ export class KiymetDto {
   }
 }
 export class TeminatDto {
+  beyanInternalNo: string;
+  teminatSekli: string;
+  teminatOrani:number;
+  globalTeminatNo:string;
+  bankaMektubuTutari:number;
+  nakdiTeminatTutari:number;
+  digerTutar:number;
+  digerTutarReferansi:string;
+  aciklama:string;
+
+  constructor(data?: TeminatDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): TeminatDto {
+    data = typeof data === "object" ? data : {};
+    let result = new TeminatDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class FirmaDto {
   beyanInternalNo: string;
   teminatSekli: string;
   teminatOrani:number;

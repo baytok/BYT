@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from '../account/giris/giris.guard';
 import { KiymetComponent } from './components/kiymet/kiymet.component';
 import { TeminatComponent } from './components/teminat/teminat.component';
+import { FirmaComponent } from './components/firma/firma.component';
 
  @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { TeminatComponent } from './components/teminat/teminat.component';
               { path: 'kalem', component: KalemComponent,canActivate : [AuthGuard] },      
               { path: 'kiymet', component: KiymetComponent,canActivate : [AuthGuard] },      
               { path: 'teminat', component: TeminatComponent,canActivate : [AuthGuard] },      
+              { path: 'firma', component: FirmaComponent,canActivate : [AuthGuard] },      
               { path: 'kullanicilar', component: KullanicilarComponent,canActivate : [AuthGuard] },      
               { path: 'musteriler', component: MusterilerComponent,canActivate : [AuthGuard] }, 
               { path: 'yetkiler', component: YetkilerComponent,canActivate : [AuthGuard] },                         

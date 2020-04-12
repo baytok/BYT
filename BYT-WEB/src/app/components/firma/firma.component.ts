@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import {
   MatListOption,
@@ -27,15 +28,15 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 import {
-  TeminatDto,
+  FirmaDto,
   ServisDto,
 } from "../../../shared/service-proxies/service-proxies";
 @Component({
-  selector: 'app-teminat',
-  templateUrl: './teminat.component.html',
-  styleUrls: ['./teminat.component.css']
+  selector: 'app-firma',
+  templateUrl: './firma.component.html',
+  styleUrls: ['./firma.component.css']
 })
-export class TeminatComponent implements OnInit {
+export class FirmaComponent implements OnInit {
 
   teminatForm: FormGroup;
   submitted: boolean = false;
@@ -72,7 +73,7 @@ export class TeminatComponent implements OnInit {
           this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
           "Tamam"
         );
-        this.getTeminatBilgileri();
+        this.getFirmaBilgileri();
        
     }
 
@@ -133,7 +134,7 @@ export class TeminatComponent implements OnInit {
   
     if (this.teminatBilgileri.length >= 0) {
       const promiseOdeme = this.beyanServis
-        .restoreTeminat(
+        .restoreFirma(
           this.teminatBilgileri.value,
           this._beyanSession.beyanInternalNo
         )
@@ -151,7 +152,7 @@ export class TeminatComponent implements OnInit {
       );
     }
   }
-  initTeminatFormArray(teminat: TeminatDto[]) {
+  initTeminatFormArray(teminat: FirmaDto[]) {
     const formArray = this.teminatForm.get("teminatArry") as FormArray;
     formArray.clear();
     for (let klm of teminat) {
@@ -196,9 +197,9 @@ export class TeminatComponent implements OnInit {
     }
     this.teminatForm.setControl("teminatArry", formArray);
   }
-  getTeminatBilgileri(){
-    this.beyanServis.getTeminat(this._beyanSession.islemInternalNo).subscribe(
-      (result:TeminatDto[]) => {
+  getFirmaBilgileri(){
+    this.beyanServis.getFirma(this._beyanSession.islemInternalNo).subscribe(
+      (result:FirmaDto[]) => {
        
         this.initTeminatFormArray(result);
         this.teminatForm.disable();

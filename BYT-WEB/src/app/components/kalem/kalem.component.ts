@@ -645,8 +645,8 @@ export class KalemComponent implements OnInit {
         Validators.maxLength(30),
         Validators.pattern("^[a-zA-Z0-9]*$"),
       ]),
-      beyanInternalNo: new FormControl("", []),
-      kalemInternalNo: new FormControl("", []),
+      beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [ Validators.required,]),
+      kalemInternalNo: new FormControl(this.kalemInternalNo, [ Validators.required,]),
     });
   }
 
@@ -665,8 +665,7 @@ export class KalemComponent implements OnInit {
   setOdeme() {
     if (this.odemeBilgileri.length > 0) {
       for (let klm of this.odemeBilgileri.value) {
-        klm.kalemInternalNo = this.kalemInternalNo;
-        klm.beyanInternalNo = this._beyanSession.beyanInternalNo;       
+       
         klm.odemeTutari = typeof(klm.odemeTutari)=="string" ? parseFloat(klm.odemeTutari) : klm.odemeTutari;
        
       }
@@ -749,8 +748,8 @@ export class KalemComponent implements OnInit {
         Validators.required,
         Validators.maxLength(9),
       ]),
-      beyanInternalNo: new FormControl("", []),
-      kalemInternalNo: new FormControl("", []),
+      beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [ Validators.required,]),
+      kalemInternalNo: new FormControl(this.kalemInternalNo, [ Validators.required,]),
     });
   }
 
@@ -769,10 +768,10 @@ export class KalemComponent implements OnInit {
 
   setKonteyner() {
     if (this.konteynerBilgileri.length > 0) {
-      for (let klm of this.konteynerBilgileri.value) {
-        klm.kalemInternalNo = this.kalemInternalNo;
-        klm.beyanInternalNo = this._beyanSession.beyanInternalNo;
-      }
+      // for (let klm of this.konteynerBilgileri.value) {
+      //   klm.kalemInternalNo = this.kalemInternalNo;
+      //   klm.beyanInternalNo = this._beyanSession.beyanInternalNo;
+      // }
       this.initKonteynerFormArray(this.konteynerBilgileri.value);
 
       if (this.konteynerBilgileri.invalid) {
@@ -866,8 +865,8 @@ export class KalemComponent implements OnInit {
         Validators.maxLength(10),
         Validators.pattern("^[0-9]*$"),
       ]),
-      beyanInternalNo: new FormControl("", []),
-      kalemInternalNo: new FormControl("", []),
+      beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [ Validators.required,]),
+      kalemInternalNo: new FormControl(this.kalemInternalNo, [ Validators.required,]),
     });
   }
 
@@ -886,10 +885,10 @@ export class KalemComponent implements OnInit {
 
   setTamamlayici() {
     if (this.tamamlayiciBilgileri.length > 0) {
-      for (let klm of this.tamamlayiciBilgileri.value) {
-        klm.kalemInternalNo = this.kalemInternalNo;
-        klm.beyanInternalNo = this._beyanSession.beyanInternalNo;
-      }
+      // for (let klm of this.tamamlayiciBilgileri.value) {
+      //   klm.kalemInternalNo = this.kalemInternalNo;
+      //   klm.beyanInternalNo = this._beyanSession.beyanInternalNo;
+      // }
       this.initTamamlayiciFormArray(this.tamamlayiciBilgileri.value);
 
       if (this.tamamlayiciBilgileri.invalid) {

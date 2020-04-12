@@ -319,6 +319,37 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             }
 
         }
+
+        [Route("api/BYT/Servis/Firma/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbFirma>> GetFirma(string IslemInternalNo)
+        {
+            List<DbFirma> _firma = new List<DbFirma>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var firmaValues = await _beyannameContext.DbFirma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _firma = firmaValues;
+                }
+
+                return _firma;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 
 

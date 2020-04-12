@@ -34,6 +34,7 @@ import {
     SessionServiceProxy
  } from "../shared/service-proxies/service-proxies";
 import { TeminatComponent } from './components/teminat/teminat.component';
+import { FirmaComponent } from './components/firma/firma.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { TeminatComponent } from './components/teminat/teminat.component';
       DegistirYetkiComponent,
       YeniYetkiComponent,
       KiymetComponent,
-      TeminatComponent
+      TeminatComponent,
+      FirmaComponent
       
     
    ],
