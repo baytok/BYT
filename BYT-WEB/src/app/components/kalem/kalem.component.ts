@@ -50,6 +50,8 @@ import {
   BeyannameDto,
   KalemDto,
   OdemeDto,
+  KonteynerDto,
+  TamamlayiciBilgiDto,
   ServisDto,
 } from "../../../shared/service-proxies/service-proxies";
 
@@ -60,14 +62,13 @@ import {
 })
 export class KalemComponent implements OnInit {
   public form: FormGroup;
-  public contactList: FormArray;
-  get contactFormGroup() {
-    return this.form.get("contacts") as FormArray;
-  }
+ 
   kalemInternalNo: string;
   kalemNo: number;
   kalemForm: FormGroup;
   odemeForm: FormGroup;
+  konteynerForm: FormGroup;
+  tamamlayiciForm: FormGroup;
   markaForm: FormGroup;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
@@ -77,7 +78,8 @@ export class KalemComponent implements OnInit {
   _beyannameBilgileri: BeyannameBilgileriDto;
   _kalemler: KalemDto[];
   _odemeler: OdemeDto[];
-  _odeme: OdemeDto;
+  _konteynerler: KonteynerDto[];
+  _tamamlayiciBilgiler: TamamlayiciBilgiDto[];
   _ulkeList = ulke;
   _teslimList = teslimSekli;
   _dovizList = dovizCinsi;
@@ -255,6 +257,12 @@ export class KalemComponent implements OnInit {
       (this.odemeForm = this._fb.group({
         odemeArry: this._fb.array([this.getOdeme()]),
       })),
+      (this.konteynerForm = this._fb.group({
+        konteynerArry: this._fb.array([this.getKonteyner()]),
+      })),
+      (this.tamamlayiciForm = this._fb.group({
+        tamamlayiciArry: this._fb.array([this.getTamamlayici()]),
+      })),
       (this.markaForm = this._fb.group({
         beyanInternalNo: [],
         kalemInternalNo: [],
@@ -270,9 +278,6 @@ export class KalemComponent implements OnInit {
     return this.kalemForm.controls;
   }
 
-  get markaitem(): FormArray {
-    return this.markaForm.get("units") as FormArray;
-  }
   ngOnInit() {
     if (!this._userRoles.canBeyannameRoles()) {
       this.openSnackBar(
@@ -299,12 +304,42 @@ export class KalemComponent implements OnInit {
       }
     );
   }
+  disableItem() {
+    this.kalemForm.disable();
+    this.odemeForm.disable();
+    this.konteynerForm.disable();
+    this.tamamlayiciForm.disable();
+  }
+  enableItem() {
+    this.kalemForm.enable();
+    this.odemeForm.enable();
+    this.konteynerForm.enable();
+    this.tamamlayiciForm.enable();
+  }
+  resetItem() {
+    this.kalemForm.reset();
+    this.odemeForm.reset();
+    this.konteynerForm.reset();
+    this.tamamlayiciForm.reset();
+    const formOdemeArray = this.odemeForm.get("odemeArry") as FormArray;
+    formOdemeArray.clear();
+    this.odemeForm.setControl("odemeArry", formOdemeArray);
+
+    const formKonteynerArray = this.odemeForm.get("konteynerArry") as FormArray;
+    formKonteynerArray.clear();
+    this.konteynerForm.setControl("konteynerArry", formKonteynerArray);
+
+    const formTamamlayiciArray = this.tamamlayiciForm.get(
+      "tamamlayiciArry"
+    ) as FormArray;
+    formTamamlayiciArray.clear();
+    this.tamamlayiciForm.setControl("tamamlayiciArry", formTamamlayiciArray);
+  }
   getKalemler(islemInternalNo: string) {
     this.beyanServis.getKalem(islemInternalNo).subscribe(
       (result: KalemDto[]) => {
         this._kalemler = result;
-        this.kalemForm.disable();
-        this.odemeForm.disable();
+        this.disableItem();
       },
       (err) => {
         this.beyanServis.errorHandel(err);
@@ -412,6 +447,36 @@ export class KalemComponent implements OnInit {
       }
     );
 
+    this.beyanServis.getKonteyner(this._beyanSession.islemInternalNo).subscribe(
+      (result: KonteynerDto[]) => {
+        this._konteynerler = result.filter(
+          (x) =>
+            x.kalemInternalNo === this._kalemler[kalemNo - 1].kalemInternalNo
+        );
+        this.initKonteynerFormArray(this._konteynerler);
+        this.konteynerForm.disable();
+      },
+      (err) => {
+        this.beyanServis.errorHandel(err);
+      }
+    );
+
+    this.beyanServis
+      .getTamamlayici(this._beyanSession.islemInternalNo)
+      .subscribe(
+        (result: TamamlayiciBilgiDto[]) => {
+          this._tamamlayiciBilgiler = result.filter(
+            (x) =>
+              x.kalemInternalNo === this._kalemler[kalemNo - 1].kalemInternalNo
+          );
+          this.initTamamlayiciFormArray(this._tamamlayiciBilgiler);
+          this.tamamlayiciForm.disable();
+        },
+        (err) => {
+          this.beyanServis.errorHandel(err);
+        }
+      );
+
     this.kalemForm.disable();
   }
 
@@ -422,20 +487,17 @@ export class KalemComponent implements OnInit {
   yeniKalem() {
     this.kalemInternalNo = "Boş";
     this.kalemNo = 0;
-    this.kalemForm.reset();
-    this.odemeForm.reset();
-    const formArray = this.odemeForm.get("odemeArry") as FormArray;
-    formArray.clear();
-    this.odemeForm.setControl("odemeArry", formArray);
-    this.kalemForm.enable();
-    this.odemeForm.enable();
+    this.enableItem();
+    this.resetItem();
     this.kalemForm.markAllAsTouched();
   }
 
   duzeltKalem() {
-    this.kalemForm.enable();
-    this.odemeForm.enable();
+    this.enableItem();
     this.kalemForm.markAllAsTouched();
+    this.tamamlayiciForm.markAllAsTouched();
+    this.odemeForm.markAllAsTouched();
+    this.konteynerForm.markAllAsTouched();
   }
 
   silKalem(kalemInternalNo: string) {
@@ -449,13 +511,8 @@ export class KalemComponent implements OnInit {
         (result) => {
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);
-          this.kalemForm.reset();
-          this.kalemForm.disable();
-          const formArray = this.odemeForm.get("odemeArry") as FormArray;
-          formArray.clear();
-          this.odemeForm.setControl("odemeArry", formArray);
-          this.odemeForm.reset();
-          this.odemeForm.disable();
+          this.disableItem();
+          this.resetItem();
           this.yukleKalemler();
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
         },
@@ -468,7 +525,7 @@ export class KalemComponent implements OnInit {
 
   onkalemFormSubmit() {
     this.submitted = true;
- 
+
     // stop here if form is invalid
     if (this.kalemForm.invalid) {
       const invalid = [];
@@ -505,23 +562,26 @@ export class KalemComponent implements OnInit {
         if (yenikalemInternalNo != null) {
           this.kalemInternalNo = yenikalemInternalNo;
           this.setOdeme();
-
+          this.setKonteyner();
+          this.setTamamlayici();
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
-          this.kalemForm.disable();
+          this.disableItem();
           this.yukleKalemler();
         }
       },
       (err) => {
         this.openSnackBar(err, "Tamam");
       }
-    );   
-  
+    );
   }
   onReset() {
     this.submitted = false;
   }
 
   //Marka
+  get markaitem(): FormArray {
+    return this.markaForm.get("units") as FormArray;
+  }
 
   getMarka() {
     const numberPatern = "^[0-9.,]+$";
@@ -543,16 +603,26 @@ export class KalemComponent implements OnInit {
     control.removeAt(i);
   }
 
-  // Ödeme Şekli
+  //#region Ödeme Şekli
 
   initOdemeFormArray(odeme: OdemeDto[]) {
     const formArray = this.odemeForm.get("odemeArry") as FormArray;
     formArray.clear();
     for (let klm of odeme) {
       let formGroup: FormGroup = new FormGroup({
-        odemeSekliKodu: new FormControl(klm.odemeSekliKodu),
-        odemeTutari: new FormControl(klm.odemeTutari),
-        tbfid: new FormControl(klm.tbfid),
+        odemeSekliKodu: new FormControl(klm.odemeSekliKodu, [
+          Validators.required,
+        ]),
+        odemeTutari: new FormControl(klm.odemeTutari, [
+          Validators.required,
+          Validators.maxLength(10),
+          ValidationService.decimalValidation,
+        ]),
+        tbfid: new FormControl(klm.tbfid, [
+          Validators.required,
+          Validators.maxLength(30),
+          Validators.pattern("^[a-zA-Z0-9]*$"),
+        ]),
         beyanInternalNo: new FormControl(klm.beyanInternalNo),
         kalemInternalNo: new FormControl(klm.kalemInternalNo),
       });
@@ -563,53 +633,80 @@ export class KalemComponent implements OnInit {
   }
 
   getOdeme() {
-   
     return this._fb.group({
-      odemeSekliKodu: ["", Validators.required],
-      odemeTutari: [
-        "",
-        [Validators.required, ValidationService.decimalValidation],
-      ],
-      tbfid: ["", [Validators.required, Validators.maxLength(30),  Validators.pattern("^[a-zA-Z0-9]*$")]],
-      beyanInternalNo: ["", [Validators.required]],
-      kalemInternalNo: ["", [Validators.required]],
+      odemeSekliKodu: new FormControl("", [Validators.required]),
+      odemeTutari: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(10),
+        ValidationService.decimalValidation,
+      ]),
+      tbfid: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(30),
+        Validators.pattern("^[a-zA-Z0-9]*$"),
+      ]),
+      beyanInternalNo: new FormControl("", [Validators.required]),
+      kalemInternalNo: new FormControl("", [Validators.required]),
     });
   }
 
   get odemeBilgileri() {
-    
     return this.odemeForm.get("odemeArry") as FormArray;
   }
 
   addOdemeField() {
-    
     this.odemeBilgileri.push(this.getOdeme());
-   
   }
 
   deleteOdemeField(index: number) {
-    // if (this.odemeBilgileri.length !== 1) {
     this.odemeBilgileri.removeAt(index);
   }
 
   setOdeme() {
-    if (this.odemeBilgileri.length >= 0) {    
-     
+    if (this.odemeBilgileri.length > 0) {
       for (let klm of this.odemeBilgileri.value) {
-           klm.kalemInternalNo=this.kalemInternalNo;
-           klm.beyanInternalNo=this._beyanSession.beyanInternalNo;
-           klm.odemeTutari=parseFloat(klm.odemeTutari);
-      }       
-    
+        klm.kalemInternalNo = this.kalemInternalNo;
+        klm.beyanInternalNo = this._beyanSession.beyanInternalNo;       
+        klm.odemeTutari = typeof(klm.odemeTutari)=="number" ? parseFloat(klm.odemeTutari) : klm.odemeTutari;
+        klm.odemeTutari.stri
+      }
+
+      this.initOdemeFormArray(this.odemeBilgileri.value);
+
+      if (this.odemeBilgileri.invalid) {
+        const invalid = [];
+        const controls = this.odemeBilgileri.controls;
+
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            invalid.push(name);
+          }
+        }
+
+        if (invalid.length > 0) {
+          alert(
+            "ERROR!! :-)\n\n Ödeme Şekli Bilgi verilerinin bazılarını değerleri veya formatı yanlış:" +
+              JSON.stringify(invalid, null, 4)
+          );
+         
+          return;
+        }
+      }
+    }
+     console.log(this.odemeBilgileri.value);
+    if (this.odemeBilgileri.length >= 0) {
       const promiseOdeme = this.beyanServis
-        .restoreOdeme(this.odemeBilgileri.value,this.kalemInternalNo,this._beyanSession.beyanInternalNo)
+        .restoreOdeme(
+          this.odemeBilgileri.value,
+          this.kalemInternalNo,
+          this._beyanSession.beyanInternalNo
+        )
         .toPromise();
       promiseOdeme.then(
         (result) => {
           // const servisSonuc = new ServisDto();
           // servisSonuc.init(result);
-          this.odemeForm.disable();
-         
+          // this.odemeForm.disable();
         },
         (err) => {
           this.openSnackBar(err, "Tamam");
@@ -617,4 +714,227 @@ export class KalemComponent implements OnInit {
       );
     }
   }
+  //#endregion Ödeme
+  //#region Konteyner
+
+  initKonteynerFormArray(konteyner: KonteynerDto[]) {
+    const formArray = this.konteynerForm.get("konteynerArry") as FormArray;
+    formArray.clear();
+    for (let klm of konteyner) {
+      let formGroup: FormGroup = new FormGroup({
+        konteynerNo: new FormControl(klm.konteynerNo, [
+          Validators.required,
+          Validators.maxLength(35),
+        ]),
+        ulkeKodu: new FormControl(klm.ulkeKodu, [
+          Validators.required,
+          Validators.maxLength(9),
+        ]),
+        beyanInternalNo: new FormControl(klm.beyanInternalNo),
+        kalemInternalNo: new FormControl(klm.kalemInternalNo),
+      });
+
+      formArray.push(formGroup);
+    }
+    this.konteynerForm.setControl("konteynerArry", formArray);
+  }
+
+  getKonteyner() {
+    return this._fb.group({
+      konteynerNo: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(35),
+      ]),
+      ulkeKodu: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(9),
+      ]),
+      beyanInternalNo: new FormControl("", [Validators.required]),
+      kalemInternalNo: new FormControl("", [Validators.required]),
+    });
+  }
+
+  get konteynerBilgileri() {
+    return this.konteynerForm.get("konteynerArry") as FormArray;
+  }
+
+  addKonteynerField() {
+    this.konteynerBilgileri.push(this.getKonteyner());
+  }
+
+  deleteKonteynerField(index: number) {
+    // if (this.odemeBilgileri.length !== 1) {
+    this.konteynerBilgileri.removeAt(index);
+  }
+
+  setKonteyner() {
+    if (this.konteynerBilgileri.length > 0) {
+      for (let klm of this.konteynerBilgileri.value) {
+        klm.kalemInternalNo = this.kalemInternalNo;
+        klm.beyanInternalNo = this._beyanSession.beyanInternalNo;
+      }
+      this.initKonteynerFormArray(this.konteynerBilgileri.value);
+
+      if (this.konteynerBilgileri.invalid) {
+        const invalid = [];
+        const controls = this.konteynerBilgileri.controls;
+
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            invalid.push(name);
+          }
+        }
+
+        if (invalid.length > 0) {
+          alert(
+            "ERROR!! :-)\n\n Konteyner Bilgi verilerinin bazılarını değerleri veya formatı yanlış:" +
+              JSON.stringify(invalid, null, 4)
+          );
+          return;
+        }
+      }
+    }
+
+    if (this.konteynerBilgileri.length >= 0) {
+      const promiseKonteyner = this.beyanServis
+        .restoreKonteyner(
+          this.konteynerBilgileri.value,
+          this.kalemInternalNo,
+          this._beyanSession.beyanInternalNo
+        )
+        .toPromise();
+      promiseKonteyner.then(
+        (result) => {
+          // const servisSonuc = new ServisDto();
+          // servisSonuc.init(result);
+          // this.odemeForm.disable();
+        },
+        (err) => {
+          this.openSnackBar(err, "Tamam");
+        }
+      );
+    }
+  }
+  //#endregion Konteyner
+  //#region Tamamlayici
+
+  initTamamlayiciFormArray(tamamlayici: TamamlayiciBilgiDto[]) {
+    const formArray = this.tamamlayiciForm.get("tamamlayiciArry") as FormArray;
+    formArray.clear();
+    for (let klm of tamamlayici) {
+      let formGroup: FormGroup = new FormGroup({
+        gtip: new FormControl(klm.gtip, [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(12),
+          Validators.pattern("^[0-9]*$"),
+        ]),
+        bilgi: new FormControl(klm.bilgi, [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.pattern("^[0-9]*$"),
+        ]),
+        oran: new FormControl(klm.oran, [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.pattern("^[0-9]*$"),
+        ]),
+        beyanInternalNo: new FormControl(klm.beyanInternalNo, [
+          Validators.required,
+        ]),
+        kalemInternalNo: new FormControl(klm.kalemInternalNo, [
+          Validators.required,
+        ]),
+      });
+
+      formArray.push(formGroup);
+    }
+    this.tamamlayiciForm.setControl("tamamlayiciArry", formArray);
+  }
+
+  getTamamlayici() {
+    return this._fb.group({
+      gtip: new FormControl("", [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(12),
+        Validators.pattern("^[0-9]*$"),
+      ]),
+      bilgi: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern("^[0-9]*$"),
+      ]),
+      oran: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern("^[0-9]*$"),
+      ]),
+      beyanInternalNo: new FormControl("", [Validators.required]),
+      kalemInternalNo: new FormControl("", [Validators.required]),
+    });
+  }
+
+  get tamamlayiciBilgileri() {
+    return this.tamamlayiciForm.get("tamamlayiciArry") as FormArray;
+  }
+
+  addTamamlayiciField() {
+    this.tamamlayiciBilgileri.push(this.getTamamlayici());
+  }
+
+  deleteTamamlayiciField(index: number) {
+    // if (this.odemeBilgileri.length !== 1) {
+    this.tamamlayiciBilgileri.removeAt(index);
+  }
+
+  setTamamlayici() {
+    if (this.tamamlayiciBilgileri.length > 0) {
+      for (let klm of this.tamamlayiciBilgileri.value) {
+        klm.kalemInternalNo = this.kalemInternalNo;
+        klm.beyanInternalNo = this._beyanSession.beyanInternalNo;
+      }
+      this.initTamamlayiciFormArray(this.tamamlayiciBilgileri.value);
+
+      if (this.tamamlayiciBilgileri.invalid) {
+        const invalid = [];
+        const controls = this.tamamlayiciBilgileri.controls;
+
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            invalid.push(name);
+          }
+        }
+
+        if (invalid.length > 0) {
+          alert(
+            "ERROR!! :-)\n\n Tamamlayıcı Bilgi verilerinin bazılarını değerleri veya formatı yanlış:" +
+              JSON.stringify(invalid, null, 4)
+          );
+          return;
+        }
+      }
+    }
+
+    if (this.tamamlayiciBilgileri.length >= 0) {
+      const promiseKonteyner = this.beyanServis
+        .restoreTamamlayici(
+          this.tamamlayiciBilgileri.value,
+          this.kalemInternalNo,
+          this._beyanSession.beyanInternalNo
+        )
+        .toPromise();
+      promiseKonteyner.then(
+        (result) => {
+          // const servisSonuc = new ServisDto();
+          // servisSonuc.init(result);
+          // this.odemeForm.disable();
+        },
+        (err) => {
+          this.openSnackBar(err, "Tamam");
+        }
+      );
+    }
+  }
+  //#endregion Tamamlayici
 }

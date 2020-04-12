@@ -21,6 +21,7 @@ import { MusterilerComponent } from './components/musteri/musteriler/musteriler.
 import { YetkilerComponent } from './components/yetki/yetkiler/yetkiler.component';
 import { DegistirYetkiComponent } from './components/yetki/degistirYetki/degistirYetki.component';
 import { YeniYetkiComponent } from './components/yetki/yeniYetki/yeniYetki.component';
+import { KiymetComponent } from './components/kiymet/kiymet.component';
 import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -56,6 +57,7 @@ import {
       YetkilerComponent,
       DegistirYetkiComponent,
       YeniYetkiComponent,
+      KiymetComponent
       
     
    ],

@@ -1629,98 +1629,6 @@
                   </div>
                 </div>
               </mat-tab>
-              <mat-tab label="Ödeme Şekli">
-                <div class="container">
-                  <form [formGroup]="odemeForm" novalidate>
-                    <div
-                      fxLayout="row"
-                      fxLayout.xs="column"
-                      fxLayoutWrap
-                      fxLayoutGap="3.5%"
-                      fxLayoutAlign="left"
-                    >
-                      <mat-card formArrayName="odemeArry"
-                        ><mat-card-title>Ödeme Bilgileri</mat-card-title
-                        ><mat-divider></mat-divider>
-
-                        <div
-                          *ngFor="let unit of odemeBilgileri.controls; let i = index"
-                        >
-                          <mat-divider
-                            *ngIf="odemeBilgileri.controls.length > 1 && i > 0"
-                          ></mat-divider
-                          ><br />
-
-                          <div [formGroupName]="i">
-                            <div
-                              fxLayout="row"
-                              fxLayout.xs="column"
-                              fxLayoutWrap
-                              fxLayoutGap="3.5%"
-                              fxLayoutAlign="center"
-                            > 
-                                          
-                              <mat-form-field fxFlex="10%">
-                                <select
-                                  matNativeControl
-                                  placeholder="Ödeme Şekli"
-                                  formControlName="odemeSekliKodu"
-                                  
-                                >
-                                  <option
-                                    *ngFor="let s of _odemeList"
-                                    [value]="s.kod"
-                                    >{{ s.kod }}</option
-                                  >
-                                </select>
-                              </mat-form-field>
-                                             
-                              <mat-form-field fxFlex="30%">
-                                <input
-                                  matNativeControl
-                                  type="text"
-                                  placeholder="Ödeme Tutarı"
-                                  formControlName="odemeTutari"
-                                  
-                                />
-                              </mat-form-field>
-
-                              <mat-form-field fxFlex="30%">
-                                <input
-                                  matNativeControl
-                                  type="text"
-                                  placeholder="TBF ID"
-                                  formControlName="tbfid"
-                                  
-                                />
-                              </mat-form-field>
-                              <button
-                                mat-mini-fab
-                                color="warn"
-                                [disabled]="!kalemForm.valid"
-                                (click)="deleteOdemeField(i)"
-                              >
-                                <mat-icon>delete forever</mat-icon>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <mat-divider></mat-divider
-                        ><mat-card-actions
-                          ><button [disabled]="!kalemForm.valid" mat-raised-button (click)="addOdemeField()">
-                            <mat-icon>add box</mat-icon>
-                            Ödeme Şekli Ekle
-                          </button></mat-card-actions
-                        ></mat-card
-                      >
-                      <div>
-                      
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </mat-tab>
               <mat-tab label="Marka">
                 <div class="container">
                   <h3>Marka Bilgileri Şekilleri</h3>
@@ -1886,9 +1794,269 @@
                   <br />
                 </div>
               </mat-tab>
+              <mat-tab label="Ödeme Şekli">
+                <div class="container">
+                  <form [formGroup]="odemeForm" novalidate>
+                    <div
+                      fxLayout="row"
+                      fxLayout.xs="column"
+                      fxLayoutWrap
+                      fxLayoutGap="3.5%"
+                      fxLayoutAlign="left"
+                    >
+                      <mat-card formArrayName="odemeArry"
+                        ><mat-card-title>Ödeme Bilgileri</mat-card-title
+                        ><mat-divider></mat-divider>
+
+                        <div
+                          *ngFor="let unit of odemeBilgileri.controls; let i = index"
+                        >
+                          <mat-divider
+                            *ngIf="odemeBilgileri.controls.length > 1 && i > 0"
+                          ></mat-divider
+                          ><br />
+
+                          <div [formGroupName]="i">
+                            <div
+                              fxLayout="row"
+                              fxLayout.xs="column"
+                              fxLayoutWrap
+                              fxLayoutGap="3.5%"
+                              fxLayoutAlign="center"
+                            > 
+                                          
+                              <mat-form-field fxFlex="10%">
+                                <select
+                                  matNativeControl
+                                  placeholder="Ödeme Şekli"
+                                  formControlName="odemeSekliKodu"
+                                  
+                                >
+                                  <option
+                                    *ngFor="let s of _odemeList"
+                                    [value]="s.kod"
+                                    >{{ s.kod }}</option
+                                  >
+                                </select>
+                              </mat-form-field>
+                                             
+                              <mat-form-field fxFlex="30%">
+                                <input
+                                  matNativeControl
+                                  type="text"
+                                  placeholder="Ödeme Tutarı"
+                                  formControlName="odemeTutari"
+                                  
+                                />
+                              </mat-form-field>
+
+                              <mat-form-field fxFlex="30%">
+                                <input
+                                  matNativeControl
+                                  type="text"
+                                  placeholder="TBF ID"
+                                  formControlName="tbfid"
+                                  
+                                />
+                              </mat-form-field>
+                              <button
+                                mat-mini-fab
+                                color="warn"
+                                [disabled]="!kalemForm.valid"
+                                (click)="deleteOdemeField(i)"
+                              >
+                                <mat-icon>delete forever</mat-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <mat-divider></mat-divider
+                        ><mat-card-actions
+                          ><button [disabled]="!kalemForm.valid" mat-raised-button (click)="addOdemeField()">
+                            <mat-icon>add box</mat-icon>
+                            Ödeme Şekli Ekle
+                          </button></mat-card-actions
+                        ></mat-card
+                      >
+                      <div>
+                      
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>            
               <mat-tab label="Konteyner">
+                <div class="container">
+                  <form [formGroup]="konteynerForm" novalidate>
+                    <div
+                      fxLayout="row"
+                      fxLayout.xs="column"
+                      fxLayoutWrap
+                      fxLayoutGap="3.5%"
+                      fxLayoutAlign="left"
+                    >
+                      <mat-card formArrayName="konteynerArry"
+                        ><mat-card-title>Konteyner Bilgileri</mat-card-title
+                        ><mat-divider></mat-divider>
+
+                        <div
+                          *ngFor="let unit of konteynerBilgileri.controls; let i = index"
+                        >
+                          <mat-divider
+                            *ngIf="konteynerBilgileri.controls.length > 1 && i > 0"
+                          ></mat-divider
+                          ><br />
+
+                          <div [formGroupName]="i">
+                            <div
+                              fxLayout="row"
+                              fxLayout.xs="column"
+                              fxLayoutWrap
+                              fxLayoutGap="3.5%"
+                              fxLayoutAlign="center"
+                            > 
+                                          
+                              <mat-form-field fxFlex="10%">
+                                <select
+                                  matNativeControl
+                                  placeholder="Ülke Kodu "
+                                  formControlName="ulkeKodu"
+                                  
+                                >
+                                  <option
+                                    *ngFor="let s of _ulkeList"
+                                    [value]="s.kod"
+                                    >{{ s.kod }}</option
+                                  >
+                                </select>
+                              </mat-form-field>
+                                             
+                              <mat-form-field fxFlex="30%">
+                                <input
+                                  matNativeControl
+                                  type="text"
+                                  placeholder="Konteyner No"
+                                  formControlName="konteynerNo"
+                                  
+                                />
+                              </mat-form-field>
+
+                             
+                              <button
+                                mat-mini-fab
+                                color="warn"
+                                [disabled]="!kalemForm.valid"
+                                (click)="deleteKonteynerField(i)"
+                              >
+                                <mat-icon>delete forever</mat-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <mat-divider></mat-divider
+                        ><mat-card-actions
+                          ><button [disabled]="!kalemForm.valid" mat-raised-button (click)="addKonteynerField()">
+                            <mat-icon>add box</mat-icon>
+                            Konteyner Ekle
+                          </button></mat-card-actions
+                        ></mat-card
+                      >
+                      <div>
+                      
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </mat-tab>
               <mat-tab label="Tamamlayıcı Bilgi">
+                <div class="container">
+                  <form [formGroup]="tamamlayiciForm" >
+                    <div
+                      fxLayout="row"
+                      fxLayout.xs="column"
+                      fxLayoutWrap
+                      fxLayoutGap="3.5%"
+                      fxLayoutAlign="left"
+                    >
+                      <mat-card formArrayName="tamamlayiciArry"
+                        ><mat-card-title>Tamamlayıcı Bilgileri</mat-card-title
+                        ><mat-divider></mat-divider>
+
+                        <div
+                          *ngFor="let unit of tamamlayiciBilgileri.controls; let i = index"
+                        >
+                          <mat-divider
+                            *ngIf="tamamlayiciBilgileri.controls.length > 1 && i > 0"
+                          ></mat-divider
+                          ><br />
+
+                          <div [formGroupName]="i">
+                            <div
+                              fxLayout="row"
+                              fxLayout.xs="column"
+                              fxLayoutWrap
+                              fxLayoutGap="3.5%"
+                              fxLayoutAlign="center"
+                            >                                                                        
+                              <mat-form-field fxFlex="30%">
+                                <input
+                                  matNativeControl
+                                  type="text"
+                                  placeholder="Gtip"
+                                  formControlName="gtip"
+                                 
+                                />
+                            
+
+                              </mat-form-field>
+                              <mat-form-field fxFlex="30%">
+                                <input
+                                  matNativeControl
+                                  type="text"
+                                  placeholder="Bilgi"
+                                  formControlName="bilgi"
+                                  
+                                />
+                              </mat-form-field>
+                              <mat-form-field fxFlex="30%">
+                                <input
+                                  matNativeControl
+                                  type="text"
+                                  placeholder="Oran"
+                                  formControlName="oran"
+                                  
+                                />
+                              </mat-form-field>
+
+                             
+                              <button
+                                mat-mini-fab
+                                color="warn"
+                                [disabled]="!kalemForm.valid"
+                                (click)="deleteTamamlayiciField(i)"
+                              >
+                                <mat-icon>delete forever</mat-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <mat-divider></mat-divider
+                        ><mat-card-actions
+                          ><button [disabled]="!kalemForm.valid" mat-raised-button (click)="addTamamlayiciField()">
+                            <mat-icon>add box</mat-icon>
+                            Tamamlayıcı Bilgi Ekle
+                          </button></mat-card-actions
+                        ></mat-card
+                      >
+                      <div>
+                      
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </mat-tab>
               <mat-tab label="Açmalar">
               </mat-tab>
@@ -1989,7 +2157,9 @@
           </div>
         </mat-card>
         <div class="text-right">
-          <button [disabled]="!kalemForm.valid" class="btn btn-primary mr-1" (click)="onkalemFormSubmit()">
+          <button [disabled]="!(kalemForm.valid && tamamlayiciBilgileri.valid && konteynerBilgileri.valid 
+                                && odemeBilgileri.valid  )" 
+          class="btn btn-primary mr-1" (click)="onkalemFormSubmit()">
             Kaydet
           </button>
           <!-- <button class="btn btn-secondary" type="reset" (click)="onReset()">

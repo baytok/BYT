@@ -165,6 +165,68 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
+        [Route("api/BYT/Servis/Konteyner/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbKonteyner>> GetKonteyner(string IslemInternalNo)
+        {
+            List<DbKonteyner> _konteyner = new List<DbKonteyner>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var konteynerValues = await _beyannameContext.DbKonteyner.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _konteyner = konteynerValues;
+                }
+
+                return _konteyner;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/TamamlayiciBilgi/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbTamamlayiciBilgi>> GetTamamlayiciBilgi(string IslemInternalNo)
+        {
+            List<DbTamamlayiciBilgi> _tamamlayici = new List<DbTamamlayiciBilgi>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var tamamlayiciValues = await _beyannameContext.DbTamamlayiciBilgi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _tamamlayici = tamamlayiciValues;
+                }
+
+                return _tamamlayici;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         [Route("api/BYT/Servis/Marka/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
         public async Task<List<DbMarka>> GetMarka(string IslemInternalNo)
@@ -183,6 +245,37 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     var markaValues = await _beyannameContext.DbMarka.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
                     _marka = markaValues;
+                }
+
+                return _marka;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/KiymetBildirim/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbKiymetBildirim>> GetKiymet(string IslemInternalNo)
+        {
+            List<DbKiymetBildirim> _marka = new List<DbKiymetBildirim>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var kiymetValues = await _beyannameContext.DbKiymetBildirim.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _marka = kiymetValues;
                 }
 
                 return _marka;
