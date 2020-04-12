@@ -1013,7 +1013,7 @@ namespace BYT.WS.Models
         [StringLength(150)]
         public string CaddeSokakNo { get; set; }
 
-        [Required]
+      
         [StringLength(15)]
         public string Faks { get; set; }
 
@@ -1033,12 +1033,12 @@ namespace BYT.WS.Models
         [StringLength(10)]
         public string PostaKodu { get; set; }
 
-
+        [Required]
         [StringLength(15)]
         public string Telefon { get; set; }
 
         [Required]
-        [StringLength(9)]
+        [StringLength(15)]
         public string Tip { get; set; }
 
         [Required]

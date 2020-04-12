@@ -16,7 +16,7 @@
       <mat-menu #beyannameheaderMenu="matMenu">
         <button
           mat-menu-item
-          (click)="islemTeminat()"
+          (click)="islemFirma()"
           [disabled]="
             beyanStatu === 'Olusturuldu' || beyanStatu === 'Güncellendi'
               ? false
@@ -24,13 +24,13 @@
           "
         >
           <mat-icon>sync</mat-icon>
-          <span>Teminat İşlemleri</span>
+          <span>Firma İşlemleri</span>
         </button>
       </mat-menu>
       <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
       </mat-cell>
       <mat-label>{{ beyanStatu }}</mat-label>
-      <form [formGroup]="teminatForm">
+      <form [formGroup]="firmaForm">
         <mat-card class="mat-card">
           <div class="example-box">
             <div class="container">
@@ -41,13 +41,13 @@
                 fxLayoutGap="3.5%"
                 fxLayoutAlign="left"
               >
-                <mat-card formArrayName="teminatArry"
-                  ><mat-card-title>Teminat Listesi</mat-card-title
+                <mat-card formArrayName="firmaArry"
+                  ><mat-card-title>Firma Listesi</mat-card-title
                   ><mat-divider></mat-divider>
 
                   <div
                     *ngFor="
-                      let unit of teminatBilgileri.controls;
+                      let unit of firmaBilgileri.controls;
                       let i = index
                     "
                   >
@@ -62,24 +62,51 @@
                        <mat-form-field fxFlex="10%">
                             <select
                               matNativeControl
-                              placeholder="Teminat Şekli"
-                              formControlName="teminatSekli"
+                              placeholder="Ülke Kodu"
+                              formControlName="ulkeKodu"
                               
                             >
                               <option
-                                *ngFor="let s of _teminatList"
+                                *ngFor="let s of _ulkeList"
                                 [value]="s.kod"
                                 >{{ s.kod }}</option
                               >
                             </select>
-                          </mat-form-field> 
-
+                       </mat-form-field> 
+                       <mat-form-field fxFlex="10%">
+                        <select
+                          matNativeControl
+                          placeholder="Tip"
+                          formControlName="tip"
+                          
+                        >
+                          <option
+                            *ngFor="let s of _firmaTipiList"
+                            [value]="s.kod"
+                            >{{ s.kod }}</option
+                          >
+                        </select>
+                        </mat-form-field> 
+                        <mat-form-field fxFlex="10%">
+                          <select
+                            matNativeControl
+                            placeholder="Kimlik Türü"
+                            formControlName="kimlikTuru"
+                            
+                          >
+                            <option
+                              *ngFor="let s of _kimlikTuruList"
+                              [value]="s.kod"
+                              >{{ s.kod }}</option
+                            >
+                          </select>
+                       </mat-form-field> 
                         <mat-form-field fxFlex="30%">
                           <input
                             matNativeControl
                             type="text"
-                            placeholder="Teminat Oranı"
-                            formControlName="teminatOrani"
+                            placeholder="No"
+                            formControlName="no"
                           />
                         </mat-form-field>
 
@@ -87,71 +114,72 @@
                           <input
                             matNativeControl
                             type="text"
-                            placeholder="Global Teminat No"
-                            formControlName="globalTeminatNo"
+                            placeholder="Ad Soyad/ Firma Ünvanı"
+                            formControlName="adUnvan"
                           />
                         </mat-form-field>
                         <mat-form-field fxFlex="30%">
                           <input
                             matNativeControl
                             type="text"
-                            placeholder="Banka Teminat Tutarı"
-                            formControlName="bankaMektubuTutari"
+                            placeholder="Cadde Sokak No"
+                            formControlName="caddeSokakNo"
                           />
                         </mat-form-field>
                         <mat-form-field fxFlex="30%">
                           <input
                             matNativeControl
                             type="text"
-                            placeholder="Nakdi Teminat Tutarı"
-                            formControlName="nakdiTeminatTutari"
+                            placeholder="İl/İlçe"
+                            formControlName="ilIlce"
+                          />
+                        </mat-form-field>
+                      
+                        <mat-form-field fxFlex="30%">
+                          <input
+                            matNativeControl
+                            type="text"
+                            placeholder="Telefon No"
+                            formControlName="telefon"
                           />
                         </mat-form-field>
                         <mat-form-field fxFlex="30%">
                           <input
                             matNativeControl
                             type="text"
-                            placeholder="Diğer Teminat Tutarı"
-                            formControlName="digerTutar"
+                            placeholder="Faks No"
+                            formControlName="faks"
                           />
                         </mat-form-field>
                         <mat-form-field fxFlex="30%">
                           <input
                             matNativeControl
                             type="text"
-                            placeholder="Diğer Teminat No"
-                            formControlName="digerTutarReferansi"
-                          />
-                        </mat-form-field>
-                        <mat-form-field fxFlex="30%">
-                          <input
-                            matNativeControl
-                            type="text"
-                            placeholder="Açıklama"
-                            formControlName="aciklama"
+                            placeholder="Posta Kodu"
+                            formControlName="postaKodu"
                           />
                         </mat-form-field>
                         <button
                           mat-mini-fab
                           color="warn"
-                          [disabled]="teminatBilgileri.disabled"
-                          (click)="deleteTeminatField(i)"
+                          [disabled]="firmaBilgileri.disabled"
+                          (click)="deleteFirmaField(i)"
                         >
                           <mat-icon>delete forever</mat-icon>
                         </button>
                       </div>
                     </div>
-                    <mat-list-item  *ngIf="teminatBilgileri.controls.length > 1 ">
+                    <mat-list-item  *ngIf="firmaBilgileri.controls.length > 0 ">
                       <p mat-line > {{i+1}} </p>
-                     <mat-divider [inset]="true" *ngIf="teminatBilgileri.controls.length !=i+1" ></mat-divider>
+                     <mat-divider [inset]="true" *ngIf="firmaBilgileri.controls.length !=i+1" ></mat-divider>
                   </mat-list-item>
                   </div>
 
                   <mat-divider></mat-divider
                   ><mat-card-actions
-                    ><button    [disabled]="teminatForm.disabled" mat-raised-button (click)="addTeminatField()">
+                    ><button    [disabled]="firmaForm.disabled" mat-raised-button (click)="addFirmaField()">
                       <mat-icon>add box</mat-icon>
-                      Teminat Ekle
+                      Firma Ekle
                     </button></mat-card-actions
                   ></mat-card
                 >
@@ -162,9 +190,9 @@
         </mat-card>
         <div class="text-right">
           <button
-          [disabled]="!teminatBilgileri.valid"
+          [disabled]="!firmaBilgileri.valid"
             class="btn btn-primary mr-1"
-            (click)="onTeminatFormSubmit()"
+            (click)="onFirmaFormSubmit()"
           >
             Kaydet
           </button>

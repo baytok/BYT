@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  MatListOption,
-  MatSelectionList,
-  MatSelectionListChange,
-} from "@angular/material/list";
+
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
   FormArray,
-  NgForm,
+ 
 } from "@angular/forms";
-import { MustMatch } from "../../../shared/helpers/must-match.validator";
+
 import {
   teminat,
   
@@ -23,7 +19,7 @@ import {
 } from "../../../shared/service-proxies/service-proxies";
 import { ValidationService } from "../../../shared/service-proxies/ValidationService";
 import { UserRoles } from "../../../shared/service-proxies/UserRoles";
-import { MatDialog } from "@angular/material/dialog";
+
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 import {
@@ -97,7 +93,7 @@ export class TeminatComponent implements OnInit {
   }
 
   onTeminatFormSubmit(){
-    console.log(this.teminatBilgileri.value);
+   
     if (this.teminatBilgileri.length > 0) {
       for (let klm of this.teminatBilgileri.value) {
        
@@ -258,7 +254,7 @@ export class TeminatComponent implements OnInit {
   addTeminatField() {
     
     this.teminatBilgileri.push(this.getTeminat());
-    console.log(this.teminatBilgileri.value);
+   
   }
 
   deleteTeminatField(index: number) {

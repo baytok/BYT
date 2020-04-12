@@ -258,6 +258,37 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
+        [Route("api/BYT/Servis/BeyannameAcma/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbBeyannameAcma>> GetBeyannameAcma(string IslemInternalNo)
+        {
+            List<DbBeyannameAcma> _acma = new List<DbBeyannameAcma>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var _acmaValues = await _beyannameContext.DbBeyannameAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _acma = _acmaValues;
+                }
+
+                return _acma;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         [Route("api/BYT/Servis/KiymetBildirim/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
         public async Task<List<DbKiymetBildirim>> GetKiymet(string IslemInternalNo)

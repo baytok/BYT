@@ -622,6 +622,38 @@ export class BeyannameServiceProxy {
         tamamlayici,httpOptions  
         );
   }
+  getBeyannameAcma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/BeyannameAcma/Beyanname/" + IslemInternalNo, httpOptions
+    );
+  }
+  restoreBeyannameAcma(acma: BeyannameAcmaDto[], kalemInternalNo:string , beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/BeyannameAcmaOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
+        acma,httpOptions  
+        );
+  }
+
   getKiymet(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -2468,10 +2500,22 @@ export class TamamlayiciBilgiDto {
 export class MarkaDto {
   beyanInternalNo: string;
   kalemInternalNo: string;
-  gtip: string;
-  bilgi:string;
-  oran:string;
-  constructor(data?: TamamlayiciBilgiDto) {
+  markaAdi: string;
+  markaKiymeti:number;
+  markaTescilNo:string;
+  markaTuru:string;
+  model:string;
+  motorGucu:number;
+  motorHacmi:string;
+  motorNo:string;
+  motorTipi:string;
+  modelYili:string
+  renk:string
+  referansNo:string
+  silindirAdet:number;
+  vites:string;
+
+  constructor(data?: MarkaDto) {
     if (data) {
     
       for (var property in data) {
@@ -2491,9 +2535,45 @@ export class MarkaDto {
   }
 
 
-  static fromJS(data: any): TamamlayiciBilgiDto {
+  static fromJS(data: any): MarkaDto {
     data = typeof data === "object" ? data : {};
-    let result = new TamamlayiciBilgiDto();
+    let result = new MarkaDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class BeyannameAcmaDto {
+  beyanInternalNo: string;
+  kalemInternalNo: string;
+  beyannameNo: string;
+  kalemNo:number;
+  miktar:number;
+  aciklama:string;
+ 
+  constructor(data?: BeyannameAcmaDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): BeyannameAcmaDto {
+    data = typeof data === "object" ? data : {};
+    let result = new BeyannameAcmaDto();
 
     result.init(data);
     return result;
@@ -2574,16 +2654,18 @@ export class TeminatDto {
 }
 export class FirmaDto {
   beyanInternalNo: string;
-  teminatSekli: string;
-  teminatOrani:number;
-  globalTeminatNo:string;
-  bankaMektubuTutari:number;
-  nakdiTeminatTutari:number;
-  digerTutar:number;
-  digerTutarReferansi:string;
-  aciklama:string;
+  adUnvan: string;
+  caddeSokakNo:string;
+  faks:string;
+  ilIlce:string;
+  kimlikTuru:string;
+  no:string;
+  postaKodu:string;
+  telefon:string;
+  tip:string;
+  ulkeKodu:string;
 
-  constructor(data?: TeminatDto) {
+  constructor(data?: FirmaDto) {
     if (data) {
     
       for (var property in data) {
@@ -2603,9 +2685,9 @@ export class FirmaDto {
   }
 
 
-  static fromJS(data: any): TeminatDto {
+  static fromJS(data: any): FirmaDto {
     data = typeof data === "object" ? data : {};
-    let result = new TeminatDto();
+    let result = new FirmaDto();
 
     result.init(data);
     return result;

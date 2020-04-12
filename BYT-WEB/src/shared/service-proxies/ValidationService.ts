@@ -7,6 +7,7 @@ export class ValidationService {
     let config = {
       required: "This field is required",
       twoDecimalAllowed: "Decimal value upto 2 decimal places is allowed.",
+      telefonAllowed: "Telefon value is allowed.",
       invalidNumber: "Input should be an integer value",
       invalidCreditCard: "Is invalid credit card number",
       invalidEmailAddress: "Invalid email address",
@@ -96,6 +97,16 @@ export class ValidationService {
     } else {
       return { twoDecimalAllowed: true };
     }
+  }
+
+  static telefonValidation(control: AbstractControl) {
+    if (!control.value) {
+        return null;
+      }
+    const regex = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$");
+    const valid = regex.test(control.value);
+    return valid ? null : { telefonAllowed: true };
+
   }
 
   // function to validate that dob should be 16 years old

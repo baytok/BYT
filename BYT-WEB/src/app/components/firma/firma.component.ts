@@ -1,22 +1,17 @@
+import { Component, OnInit } from "@angular/core";
 
-import { Component, OnInit } from '@angular/core';
-import {
-  MatListOption,
-  MatSelectionList,
-  MatSelectionListChange,
-} from "@angular/material/list";
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
   FormArray,
-  NgForm,
 } from "@angular/forms";
-import { MustMatch } from "../../../shared/helpers/must-match.validator";
+
 import {
-  teminat,
-  
+  ulke,
+  kimlikTuru,
+  firmaTipi,
 } from "../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
@@ -24,7 +19,7 @@ import {
 } from "../../../shared/service-proxies/service-proxies";
 import { ValidationService } from "../../../shared/service-proxies/ValidationService";
 import { UserRoles } from "../../../shared/service-proxies/UserRoles";
-import { MatDialog } from "@angular/material/dialog";
+
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 import {
@@ -32,88 +27,77 @@ import {
   ServisDto,
 } from "../../../shared/service-proxies/service-proxies";
 @Component({
-  selector: 'app-firma',
-  templateUrl: './firma.component.html',
-  styleUrls: ['./firma.component.css']
+  selector: "app-firma",
+  templateUrl: "./firma.component.html",
+  styleUrls: ["./firma.component.css"],
 })
 export class FirmaComponent implements OnInit {
-
-  teminatForm: FormGroup;
+  firmaForm: FormGroup;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
-  _teminatList = teminat;
-  constructor(  private beyanServis: BeyannameServiceProxy,
+  _ulkeList = ulke;
+  _firmaTipiList = firmaTipi;
+  _kimlikTuruList = kimlikTuru;
+  constructor(
+    private beyanServis: BeyannameServiceProxy,
     private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar,
     private _userRoles: UserRoles,
-    private _fb: FormBuilder) 
-    {
-      (this.teminatForm = this._fb.group({
-        teminatArry: this._fb.array([this.getTeminat()]),
-      }));
-    
-    }
-   
-    ngOnInit() {
-      if (!this._userRoles.canBeyannameRoles()) {
-        this.openSnackBar(
-          "Beyanname Sayfasını Görmeye Yetkiniz Yoktur.",
-          "Tamam"
-        );
-        this.beyanServis.notAuthorizeRole();
-      }
-      if (
-        this._beyanSession.islemInternalNo == undefined ||
-        this._beyanSession.islemInternalNo == null
-      )
-        this.openSnackBar(
-          this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
-          "Tamam"
-        );
-        this.getFirmaBilgileri();
-       
-    }
-
-    openSnackBar(message: string, action: string) {
-      this.snackBar.open(message, action, {
-        duration: 2000,
-      });
-    }
-
- islemTeminat(){
-  this.teminatForm.enable();
-  this.teminatForm.markAllAsTouched();
- }
-  yeniTeminat(){
-    
-    this.teminatForm.reset();   
-    const formTeminatArray = this.teminatForm.get("teminatArry") as FormArray;
-    formTeminatArray.clear();
-    this.teminatForm.setControl("teminatArry", formTeminatArray);
-    this.teminatForm.markAllAsTouched();
-
+    private _fb: FormBuilder
+  ) {
+    this.firmaForm = this._fb.group({
+      firmaArry: this._fb.array([this.getFirma()]),
+    });
   }
 
-  onTeminatFormSubmit(){
-    console.log(this.teminatBilgileri.value);
-    if (this.teminatBilgileri.length > 0) {
-      for (let klm of this.teminatBilgileri.value) {
-       
-        klm.teminatOrani = typeof(klm.teminatOrani)=="string" ? parseFloat(klm.teminatOrani) : klm.teminatOrani;
-        klm.nakdiTeminatTutari = typeof(klm.nakdiTeminatTutari)=="string" ? parseFloat(klm.nakdiTeminatTutari) : klm.nakdiTeminatTutari;
-        klm.bankaMektubuTutari = typeof(klm.bankaMektubuTutari)=="string" ? parseFloat(klm.bankaMektubuTutari) : klm.bankaMektubuTutari;
-        klm.digerTutar = typeof(klm.digerTutar)=="string" ? parseFloat(klm.digerTutar) :  klm.digerTutar; 
-       
-      }
+  ngOnInit() {
+    if (!this._userRoles.canBeyannameRoles()) {
+      this.openSnackBar(
+        "Beyanname Sayfasını Görmeye Yetkiniz Yoktur.",
+        "Tamam"
+      );
+      this.beyanServis.notAuthorizeRole();
+    }
+    if (
+      this._beyanSession.islemInternalNo == undefined ||
+      this._beyanSession.islemInternalNo == null
+    )
+      this.openSnackBar(
+        this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
+        "Tamam"
+      );
+    this.getFirmaBilgileri();
+  }
 
-      this.initTeminatFormArray(this.teminatBilgileri.value);
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 
-      if (this.teminatBilgileri.invalid) {
+  islemFirma() {
+    this.firmaForm.enable();
+    this.firmaForm.markAllAsTouched();
+  }
+  yeniFirma() {
+    this.firmaForm.reset();
+    const formTeminatArray = this.firmaForm.get("firmaArry") as FormArray;
+    formTeminatArray.clear();
+    this.firmaForm.setControl("firmaArry", formTeminatArray);
+    this.firmaForm.markAllAsTouched();
+  }
+
+  onFirmaFormSubmit() {
+    console.log(this.firmaBilgileri.value);
+    if (this.firmaBilgileri.length > 0) {
+      this.initFirmaFormArray(this.firmaBilgileri.value);
+
+      if (this.firmaBilgileri.invalid) {
         const invalid = [];
-        const controls = this.teminatBilgileri.controls;
+        const controls = this.firmaBilgileri.controls;
 
         for (const name in controls) {
           if (controls[name].invalid) {
@@ -126,16 +110,16 @@ export class FirmaComponent implements OnInit {
             "ERROR!! :-)\n\n Ödeme Şekli Bilgi verilerinin bazılarını değerleri veya formatı yanlış:" +
               JSON.stringify(invalid, null, 4)
           );
-         
+
           return;
         }
       }
     }
-  
-    if (this.teminatBilgileri.length >= 0) {
+
+    if (this.firmaBilgileri.length >= 0) {
       const promiseOdeme = this.beyanServis
         .restoreFirma(
-          this.teminatBilgileri.value,
+          this.firmaBilgileri.value,
           this._beyanSession.beyanInternalNo
         )
         .toPromise();
@@ -143,8 +127,8 @@ export class FirmaComponent implements OnInit {
         (result) => {
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);
-            this.openSnackBar(servisSonuc.Sonuc, "Tamam");
-          this.teminatForm.disable();
+          this.openSnackBar(servisSonuc.Sonuc, "Tamam");
+          this.firmaForm.disable();
         },
         (err) => {
           this.openSnackBar(err, "Tamam");
@@ -152,121 +136,113 @@ export class FirmaComponent implements OnInit {
       );
     }
   }
-  initTeminatFormArray(teminat: FirmaDto[]) {
-    const formArray = this.teminatForm.get("teminatArry") as FormArray;
+  initFirmaFormArray(teminat: FirmaDto[]) {
+    const formArray = this.firmaForm.get("firmaArry") as FormArray;
     formArray.clear();
     for (let klm of teminat) {
       let formGroup: FormGroup = new FormGroup({
-        teminatSekli: new FormControl(klm.teminatSekli, [
+        adUnvan: new FormControl(klm.adUnvan, [
           Validators.required,
+          Validators.maxLength(150),
         ]),
-        teminatOrani: new FormControl(klm.teminatOrani, [
+        caddeSokakNo: new FormControl(klm.caddeSokakNo, [
           Validators.required,
-          Validators.maxLength(10),
-          ValidationService.decimalValidation,
+          Validators.maxLength(150),
         ]),
-        bankaMektubuTutari: new FormControl(klm.bankaMektubuTutari, [
-          Validators.maxLength(10),
-          ValidationService.decimalValidation,
+        faks: new FormControl(klm.faks, [Validators.maxLength(15)]),
+        ilIlce: new FormControl(klm.ilIlce, [
+          Validators.required,
+          Validators.maxLength(35),
         ]),
-        nakdiTeminatTutari: new FormControl(klm.nakdiTeminatTutari, [
-          Validators.maxLength(10),
-          ValidationService.decimalValidation,
-        ]),
-        digerTutar: new FormControl(klm.digerTutar, [
-          Validators.maxLength(10),
-          ValidationService.decimalValidation,
-        ]),
-        digerTutarReferansi: new FormControl(klm.digerTutarReferansi, [
+        kimlikTuru: new FormControl(klm.kimlikTuru, [Validators.maxLength(9)]),
+        no: new FormControl(klm.no, [
+          Validators.required,
           Validators.maxLength(20),
-          Validators.pattern("^[a-zA-Z0-9]*$")
+          Validators.pattern("^[a-zA-Z0-9]*$"),
         ]),
-        globalTeminatNo: new FormControl(klm.globalTeminatNo, [
-          Validators.maxLength(20),
-          Validators.pattern("^[a-zA-Z0-9]*$")
+        postaKodu: new FormControl(klm.postaKodu, [
+          Validators.maxLength(10),
+          Validators.pattern("^[a-zA-Z0-9]*$"),
         ]),
-        aciklama: new FormControl(klm.aciklama, [
+        telefon: new FormControl(klm.telefon, [
+          Validators.required,
           Validators.maxLength(100),
-         
+          Validators.pattern("^[0-9]*$"),
         ]),
-        beyanInternalNo: new FormControl(klm.beyanInternalNo,[ Validators.required,]),
-    
+        
+        tip: new FormControl(klm.tip, [ Validators.required,Validators.maxLength(15)]),
+        ulkeKodu: new FormControl(klm.ulkeKodu, [ Validators.required,Validators.maxLength(9)]),
+
+        beyanInternalNo: new FormControl(klm.beyanInternalNo, [
+          Validators.required,
+        ]),
       });
 
       formArray.push(formGroup);
     }
-    this.teminatForm.setControl("teminatArry", formArray);
+    this.firmaForm.setControl("firmaArry", formArray);
   }
-  getFirmaBilgileri(){
+  getFirmaBilgileri() {
     this.beyanServis.getFirma(this._beyanSession.islemInternalNo).subscribe(
-      (result:FirmaDto[]) => {
-       
-        this.initTeminatFormArray(result);
-        this.teminatForm.disable();
+      (result: FirmaDto[]) => {
+        this.initFirmaFormArray(result);
+        this.firmaForm.disable();
       },
       (err) => {
         this.beyanServis.errorHandel(err);
       }
     );
   }
-  getTeminat() {
-    return this._fb.group({
 
-      teminatSekli: new FormControl("", [
+  getFirma() {
+    return this._fb.group({
+      adUnvan: new FormControl("", [
         Validators.required,
+        Validators.maxLength(150),
       ]),
-      teminatOrani: new FormControl(0, [
+      caddeSokakNo: new FormControl("", [
         Validators.required,
-        Validators.maxLength(10),
-        ValidationService.decimalValidation,
+        Validators.maxLength(150),
       ]),
-      bankaMektubuTutari: new FormControl(0, [
-        Validators.maxLength(10),
-        ValidationService.decimalValidation,
+      faks: new FormControl("", [Validators.maxLength(15)]),
+      ilIlce: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(35),
       ]),
-      nakdiTeminatTutari: new FormControl(0, [
-        Validators.maxLength(10),
-        ValidationService.decimalValidation,
-      ]),
-      digerTutar: new FormControl(0, [
-        Validators.maxLength(10),
-        ValidationService.decimalValidation,
-      ]),
-      digerTutarReferansi: new FormControl("", [
+      kimlikTuru: new FormControl("", [ Validators.required,Validators.maxLength(9)]),
+      no: new FormControl("", [
+        Validators.required,
         Validators.maxLength(20),
-        Validators.pattern("^[a-zA-Z0-9]*$")
+        Validators.pattern("^[a-zA-Z0-9]*$"),
       ]),
-      globalTeminatNo: new FormControl("", [
-        Validators.maxLength(20),
-        Validators.pattern("^[a-zA-Z0-9]*$")
+      postaKodu: new FormControl("", [
+        Validators.maxLength(10),
+        Validators.pattern("^[a-zA-Z0-9]*$"),
       ]),
-      aciklama: new FormControl("", [
+      telefon: new FormControl("", [
+        Validators.required,
         Validators.maxLength(100),
-       
+        Validators.pattern("^[0-9]*$"),
       ]),
-      beyanInternalNo:new FormControl(this._beyanSession.beyanInternalNo, [
+
+      tip: new FormControl("", [ Validators.required,Validators.maxLength(15)]),
+      ulkeKodu: new FormControl("", [ Validators.required,Validators.maxLength(9)]),
+
+      beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
         Validators.required,
-       
-      ])
-      
+      ]),
     });
   }
 
-  get teminatBilgileri() {
-    return this.teminatForm.get("teminatArry") as FormArray;
+  get firmaBilgileri() {
+    return this.firmaForm.get("firmaArry") as FormArray;
   }
 
-  addTeminatField() {
-    
-    this.teminatBilgileri.push(this.getTeminat());
-    console.log(this.teminatBilgileri.value);
+  addFirmaField() {
+    this.firmaBilgileri.push(this.getFirma());
   }
 
-  deleteTeminatField(index: number) {
-    this.teminatBilgileri.removeAt(index);
+  deleteFirmaField(index: number) {
+    this.firmaBilgileri.removeAt(index);
   }
-
-
-
 }
-

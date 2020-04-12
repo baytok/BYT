@@ -1,4 +1,5 @@
 ﻿
+
 export const rejim= [
   { kod:'', aciklama: '' },
     { kod: 1000, aciklama: 'İhracat' },
@@ -161,6 +162,25 @@ export const rejim= [
     { kod:'GTR20', aciklama: '' },
   
   ];
-export const colorIDs = ['green', 'red', 'blue'] as const;
+  export const kimlikTuru= [
+    { kod:'', aciklama: '' },
+    { kod:'Pasaport', aciklama: '' },
+    { kod:'Ehliyet', aciklama: '' },
+    { kod:'Kimlik', aciklama: '' },
+    { kod:'VergiNo', aciklama: '' },
+    { kod:'IIKS', aciklama: '' },
+     
+  ];
+
+  export const firmaTipi= [
+    { kod:'', aciklama: '' },
+    { kod:'Alici', aciklama: '' },
+    { kod:'Gonderici', aciklama: '' },
+    { kod:'DigerAlici', aciklama: '' },
+    { kod:'DigerGonderici', aciklama: '' },
+  
+  ];
+
+
 
 //TODO: Dosyadan okumaya çalışalım
