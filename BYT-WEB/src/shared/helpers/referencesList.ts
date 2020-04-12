@@ -149,4 +149,18 @@ export const rejim= [
     { kod:'5', aciklama: '' }
   
   ];
+  export const teminat= [
+    { kod:'', aciklama: '' },
+    { kod:'DİĞER', aciklama: '' },
+    { kod:'BANKA', aciklama: '' },
+    { kod:'TOPLU', aciklama: '' },
+    { kod:'NAKİT', aciklama: '' },
+    { kod:'BANNAKİT', aciklama: '' },
+    { kod:'GTRANT', aciklama: '' },
+    { kod:'GTR10', aciklama: '' },
+    { kod:'GTR20', aciklama: '' },
+  
+  ];
 export const colorIDs = ['green', 'red', 'blue'] as const;
+
+//TODO: Dosyadan okumaya çalışalım

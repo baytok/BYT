@@ -294,7 +294,7 @@ export class KalemComponent implements OnInit {
         this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
         "Tamam"
       );
-    this._beyanSession.islemInternalNo = "11111111100DBKG000011";
+  
     this.getKalemler(this._beyanSession.islemInternalNo);
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(
@@ -635,7 +635,7 @@ export class KalemComponent implements OnInit {
   getOdeme() {
     return this._fb.group({
       odemeSekliKodu: new FormControl("", [Validators.required]),
-      odemeTutari: new FormControl("", [
+      odemeTutari: new FormControl(0, [
         Validators.required,
         Validators.maxLength(10),
         ValidationService.decimalValidation,
@@ -645,8 +645,8 @@ export class KalemComponent implements OnInit {
         Validators.maxLength(30),
         Validators.pattern("^[a-zA-Z0-9]*$"),
       ]),
-      beyanInternalNo: new FormControl("", [Validators.required]),
-      kalemInternalNo: new FormControl("", [Validators.required]),
+      beyanInternalNo: new FormControl("", []),
+      kalemInternalNo: new FormControl("", []),
     });
   }
 
@@ -667,8 +667,8 @@ export class KalemComponent implements OnInit {
       for (let klm of this.odemeBilgileri.value) {
         klm.kalemInternalNo = this.kalemInternalNo;
         klm.beyanInternalNo = this._beyanSession.beyanInternalNo;       
-        klm.odemeTutari = typeof(klm.odemeTutari)=="number" ? parseFloat(klm.odemeTutari) : klm.odemeTutari;
-        klm.odemeTutari.stri
+        klm.odemeTutari = typeof(klm.odemeTutari)=="string" ? parseFloat(klm.odemeTutari) : klm.odemeTutari;
+       
       }
 
       this.initOdemeFormArray(this.odemeBilgileri.value);
@@ -749,8 +749,8 @@ export class KalemComponent implements OnInit {
         Validators.required,
         Validators.maxLength(9),
       ]),
-      beyanInternalNo: new FormControl("", [Validators.required]),
-      kalemInternalNo: new FormControl("", [Validators.required]),
+      beyanInternalNo: new FormControl("", []),
+      kalemInternalNo: new FormControl("", []),
     });
   }
 
@@ -839,12 +839,8 @@ export class KalemComponent implements OnInit {
           Validators.maxLength(10),
           Validators.pattern("^[0-9]*$"),
         ]),
-        beyanInternalNo: new FormControl(klm.beyanInternalNo, [
-          Validators.required,
-        ]),
-        kalemInternalNo: new FormControl(klm.kalemInternalNo, [
-          Validators.required,
-        ]),
+        beyanInternalNo: new FormControl(klm.beyanInternalNo),
+        kalemInternalNo: new FormControl(klm.kalemInternalNo),
       });
 
       formArray.push(formGroup);
@@ -870,8 +866,8 @@ export class KalemComponent implements OnInit {
         Validators.maxLength(10),
         Validators.pattern("^[0-9]*$"),
       ]),
-      beyanInternalNo: new FormControl("", [Validators.required]),
-      kalemInternalNo: new FormControl("", [Validators.required]),
+      beyanInternalNo: new FormControl("", []),
+      kalemInternalNo: new FormControl("", []),
     });
   }
 

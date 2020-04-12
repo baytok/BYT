@@ -33,6 +33,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
     SessionServiceProxy
  } from "../shared/service-proxies/service-proxies";
+import { TeminatComponent } from './components/teminat/teminat.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import {
       YetkilerComponent,
       DegistirYetkiComponent,
       YeniYetkiComponent,
-      KiymetComponent
+      KiymetComponent,
+      TeminatComponent
       
     
    ],

@@ -261,7 +261,7 @@ export class BeyannameComponent implements OnInit {
     }
     this.buildForm();
     this.beyannameForm.disable();
-    
+    this._beyanSession.islemInternalNo = "11111111100DBKG000011";
     if (this._beyanSession.islemInternalNo != undefined) {
       this.islemInput.nativeElement.value=this._beyanSession.islemInternalNo;
       this.getBeyannameFromIslem(this._beyanSession.islemInternalNo);

@@ -288,6 +288,37 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             }
 
         }
+
+        [Route("api/BYT/Servis/Teminat/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbTeminat>> GetTeminat(string IslemInternalNo)
+        {
+            List<DbTeminat> _teminat = new List<DbTeminat>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var teminatValues = await _beyannameContext.DbTeminat.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _teminat = teminatValues;
+                }
+
+                return _teminat;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 
 
