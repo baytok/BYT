@@ -98,7 +98,7 @@ namespace BYT.WS.Controllers.Servis
                         var _beyanname = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == _islem.BeyanInternalNo);
 
 
-                        var sonucObj= SonuclariTopla(gidenXml, Guid, _islem.IslemInternalNo,_tarihce.GonderimNo);
+                        var sonucObj= SonuclariTopla(gidenXml, Guid, _islem.IslemInternalNo,_tarihce.GonderimNo, _islem.BeyanInternalNo);
                         // GonderilenVeriler(gelenXml);
                       
 
@@ -184,12 +184,13 @@ namespace BYT.WS.Controllers.Servis
 
         }
 
-       private BeyannameXmlSonuc SonuclariTopla(string XML, string GuidOf, string InternalNo, int GonderimNo)
+       private BeyannameXmlSonuc SonuclariTopla(string XML, string GuidOf, string InternalNo, int GonderimNo, string BeyanInternalNo)
         {
 
             XmlDocument xd = new XmlDocument();
             BeyannameXmlSonuc sonucObj = new BeyannameXmlSonuc();
-
+         
+            
             try
             {
           
@@ -373,10 +374,14 @@ namespace BYT.WS.Controllers.Servis
                             _soru.Tip = Tip;
                             _soru.Cevaplar = lstCvp.ToString();
 
-                            soruCevap.Guid = GuidOf;
-                            soruCevap.GonderimNo = GonderimNo;
-                            soruCevap.IslemInternalNo = InternalNo;
-                            soruCevap.KalemNo = Kalem_no;
+                            var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
+                            var KalemInternalNo = kalemValues.KalemInternalNo;
+                            //soruCevap.Guid = GuidOf;
+                            soruCevap.BeyanInternalNo = BeyanInternalNo;
+                            soruCevap.KalemInternalNo = KalemInternalNo;
+                            //soruCevap.GonderimNo = GonderimNo;
+                            //soruCevap.IslemInternalNo = InternalNo;
+                            //soruCevap.KalemNo = Kalem_no;
                             soruCevap.SoruKodu = Kod;
                             soruCevap.SoruAciklamasi = Aciklama;
                             soruCevap.Tip = Tip;
@@ -488,10 +493,14 @@ namespace BYT.WS.Controllers.Servis
                                 _belge.Referans = Referans;
                                 _belge.BelgeTarihi = Tamamlama_tarih;
 
-                                belge.Guid = GuidOf;
-                                belge.GonderimNo = GonderimNo;
-                                belge.IslemInternalNo = InternalNo;
-                                belge.KalemNo = Kalem_no;
+                                var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
+                                var KalemInternalNo = kalemValues.KalemInternalNo;
+                              //  belge.Guid = GuidOf;
+                                belge.BeyanInternalNo = BeyanInternalNo;
+                                belge.KalemInternalNo = KalemInternalNo;
+                             //   belge.GonderimNo = GonderimNo;
+                             //   belge.IslemInternalNo = InternalNo;
+                             //   belge.KalemNo = Kalem_no;
                                 belge.BelgeKodu = Kod;
                                 belge.BelgeAciklamasi = Aciklama;
                                 belge.Dogrulama = Dogrulama;
@@ -559,16 +568,20 @@ namespace BYT.WS.Controllers.Servis
                                 _vergi.Oran = Oran;
                                 _vergi.Matrah = Matrah;
 
-                                vergi.Guid = GuidOf;
-                                vergi.GonderimNo = GonderimNo;
-                                vergi.IslemInternalNo = InternalNo;
-                                vergi.KalemNo = Kalem_no;
-                                vergi.VergiKodu = Kod;
+                                var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo  && v.KalemSiraNo== Kalem_no);
+                                var KalemInternalNo = kalemValues.KalemInternalNo;
+                              //  vergi.Guid = GuidOf;
+                                vergi.BeyanInternalNo = BeyanInternalNo;
+                                vergi.KalemInternalNo = KalemInternalNo;
+                              //  vergi.GonderimNo = GonderimNo;
+                             //   vergi.IslemInternalNo = InternalNo;
+                             //   vergi.KalemNo = Kalem_no;
+                                vergi.VergiKodu =Convert.ToInt32(Kod);
                                 vergi.VergiAciklamasi = Aciklama;
-                                vergi.Miktar = Miktar;
+                                vergi.Miktar =Convert.ToDecimal(Miktar);
                                 vergi.OdemeSekli = Odeme_sekli;
                                 vergi.Oran = Oran;
-                                vergi.Matrah = Matrah;
+                                vergi.Matrah = Convert.ToDecimal(Matrah);
 
                                 _beyannameSonucTarihcecontext.Entry(_vergi).State = EntityState.Added;
                                 _beyannameSonucTarihcecontext.Entry(vergi).State = EntityState.Added;

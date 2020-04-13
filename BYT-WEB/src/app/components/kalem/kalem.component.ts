@@ -35,6 +35,9 @@ import {
   olcu,
   algilama,
   odeme,
+  VergiKodu,
+  BelgeKodu,
+  SoruKodu,
 } from "../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
@@ -54,6 +57,9 @@ import {
   TamamlayiciBilgiDto,
   MarkaDto,
   BeyannameAcmaDto,
+  VergiDto,
+  BelgeDto,
+  SoruCevapDto,
   ServisDto,
 } from "../../../shared/service-proxies/service-proxies";
 
@@ -73,6 +79,9 @@ export class KalemComponent implements OnInit {
   tamamlayiciForm: FormGroup;
   markaForm: FormGroup;
   beyannameAcmaForm: FormGroup;
+  vergiForm: FormGroup;
+  belgeForm: FormGroup;
+  soruCevapForm: FormGroup;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
@@ -85,6 +94,9 @@ export class KalemComponent implements OnInit {
   _tamamlayiciBilgiler: TamamlayiciBilgiDto[];
   _markalar: MarkaDto[];
   _acmalar: BeyannameAcmaDto[];
+  _belgeler: BelgeDto[];
+  _vergiler: VergiDto[];
+  _soruCevaplar: SoruCevapDto[];
   _ulkeList = ulke;
   _teslimList = teslimSekli;
   _dovizList = dovizCinsi;
@@ -98,6 +110,9 @@ export class KalemComponent implements OnInit {
   _cinsList = cins;
   _olcuList = olcu;
   _algilamaList = algilama;
+  _vergiList = VergiKodu;
+  _belgeList = BelgeKodu;
+  _soruList = SoruKodu;
   _odemeList = odeme;
   @ViewChild("KalemList", { static: true })
   private selectionList: MatSelectionList;
@@ -273,6 +288,15 @@ export class KalemComponent implements OnInit {
       })),
       (this.beyannameAcmaForm = this._fb.group({
         acmaArry: this._fb.array([this.getAcma()]),
+      })),
+      (this.vergiForm = this._fb.group({
+        vergiArry: this._fb.array([this.getVergi()]),
+      })),
+      (this.belgeForm = this._fb.group({
+        belgeArry: this._fb.array([this.getBelge()]),
+      })),
+      (this.soruCevapForm = this._fb.group({
+        soruCevapArry: this._fb.array([this.getSoruCevap()]),
       }));
   }
   get focus() {
@@ -312,6 +336,9 @@ export class KalemComponent implements OnInit {
     this.tamamlayiciForm.disable();
     this.markaForm.disable();
     this.beyannameAcmaForm.disable();
+    this.vergiForm.disable();
+    this.belgeForm.disable();
+    this.soruCevapForm.disable();
   }
   enableItem() {
     this.kalemForm.enable();
@@ -320,6 +347,9 @@ export class KalemComponent implements OnInit {
     this.tamamlayiciForm.enable();
     this.markaForm.enable();
     this.beyannameAcmaForm.enable();
+    this.vergiForm.enable();
+    this.belgeForm.enable();
+    this.soruCevapForm.enable();
   }
   resetItem() {
     this.kalemForm.reset();
@@ -328,6 +358,10 @@ export class KalemComponent implements OnInit {
     this.tamamlayiciForm.reset();
     this.markaForm.reset();
     this.beyannameAcmaForm.reset();
+    this.vergiForm.reset();
+    this.belgeForm.reset();
+    this.soruCevapForm.reset();
+
     const formOdemeArray = this.odemeForm.get("odemeArry") as FormArray;
     formOdemeArray.clear();
     this.odemeForm.setControl("odemeArry", formOdemeArray);
@@ -349,6 +383,20 @@ export class KalemComponent implements OnInit {
     const formAcmaArray = this.beyannameAcmaForm.get("acmaArry") as FormArray;
     formAcmaArray.clear();
     this.beyannameAcmaForm.setControl("acmaArry", formAcmaArray);
+
+    const formVergiArray = this.vergiForm.get("vergiArry") as FormArray;
+    formVergiArray.clear();
+    this.vergiForm.setControl("vergiArry", formVergiArray);
+
+    const formBelgeArray = this.belgeForm.get("belgeArry") as FormArray;
+    formBelgeArray.clear();
+    this.belgeForm.setControl("belgeArry", formBelgeArray);
+
+    const formSoruCevapArray = this.soruCevapForm.get(
+      "soruCevapArry"
+    ) as FormArray;
+    formSoruCevapArray.clear();
+    this.soruCevapForm.setControl("soruCevapArry", formSoruCevapArray);
   }
   getKalemler(islemInternalNo: string) {
     this.beyanServis.getKalem(islemInternalNo).subscribe(
@@ -522,6 +570,48 @@ export class KalemComponent implements OnInit {
         }
       );
 
+    this.beyanServis.getVergi(this._beyanSession.islemInternalNo).subscribe(
+      (result: VergiDto[]) => {
+        this._vergiler = result.filter(
+          (x) =>
+            x.kalemInternalNo === this._kalemler[kalemNo - 1].kalemInternalNo
+        );
+        this.initVergiFormArray(this._vergiler);
+        this.vergiForm.disable();
+      },
+      (err) => {
+        this.beyanServis.errorHandel(err);
+      }
+    );
+
+    this.beyanServis.getBelge(this._beyanSession.islemInternalNo).subscribe(
+      (result: BelgeDto[]) => {
+        this._belgeler = result.filter(
+          (x) =>
+            x.kalemInternalNo === this._kalemler[kalemNo - 1].kalemInternalNo
+        );
+        this.initBelgeFormArray(this._belgeler);
+        this.belgeForm.disable();
+      },
+      (err) => {
+        this.beyanServis.errorHandel(err);
+      }
+    );
+
+    this.beyanServis.getSoruCevap(this._beyanSession.islemInternalNo).subscribe(
+      (result: SoruCevapDto[]) => {
+        this._soruCevaplar = result.filter(
+          (x) =>
+            x.kalemInternalNo === this._kalemler[kalemNo - 1].kalemInternalNo
+        );
+        this.initSoruCevapFormArray(this._soruCevaplar);
+        this.soruCevapForm.disable();
+      },
+      (err) => {
+        this.beyanServis.errorHandel(err);
+      }
+    );
+
     this.kalemForm.disable();
   }
 
@@ -545,6 +635,9 @@ export class KalemComponent implements OnInit {
     this.konteynerForm.markAllAsTouched();
     this.markaForm.markAllAsTouched();
     this.beyannameAcmaForm.markAllAsTouched();
+    this.vergiForm.markAllAsTouched();
+    this.belgeForm.markAllAsTouched();
+    this.soruCevapForm.markAllAsTouched();
   }
 
   silKalem(kalemInternalNo: string) {
@@ -613,6 +706,9 @@ export class KalemComponent implements OnInit {
           this.setTamamlayici();
           this.setMarka();
           this.setAcma();
+          this.setVergi();
+          this.setBelge();
+          this.setSoruCevap();
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
           this.disableItem();
           this.yukleKalemler();
@@ -1004,7 +1100,6 @@ export class KalemComponent implements OnInit {
   }
   //#endregion Konteyner
   //#region Beyanname Açma
-
   initAcmaFormArray(acma: BeyannameAcmaDto[]) {
     const formArray = this.beyannameAcmaForm.get("acmaArry") as FormArray;
     formArray.clear();
@@ -1071,9 +1166,7 @@ export class KalemComponent implements OnInit {
             ? parseFloat(klm.kalemNo)
             : klm.kalemNo;
         klm.miktar =
-          typeof klm.miktar == "string" 
-          ? parseFloat(klm.miktar) 
-          : klm.miktar;
+          typeof klm.miktar == "string" ? parseFloat(klm.miktar) : klm.miktar;
       }
 
       this.initAcmaFormArray(this.acmaBilgileri.value);
@@ -1120,7 +1213,6 @@ export class KalemComponent implements OnInit {
     }
   }
   //#endregion Beyanname Açma
-
   //#region Tamamlayici
 
   initTamamlayiciFormArray(tamamlayici: TamamlayiciBilgiDto[]) {
@@ -1240,4 +1332,385 @@ export class KalemComponent implements OnInit {
     }
   }
   //#endregion Tamamlayici
+  //#region Vergi
+  initVergiFormArray(vergi: VergiDto[]) {
+    const formArray = this.vergiForm.get("vergiArry") as FormArray;
+    formArray.clear();
+    for (let klm of vergi) {
+      let formGroup: FormGroup = new FormGroup({
+        vergiKodu: new FormControl(klm.vergiKodu, [
+          Validators.required,
+          ValidationService.numberValidator,
+        ]),
+        vergiAciklamasi: new FormControl(klm.vergiAciklamasi, []),        
+        miktar: new FormControl(klm.miktar, [
+          Validators.required,
+          ValidationService.decimalValidation,
+        ]),
+        matrah: new FormControl(klm.matrah, [
+          Validators.required,
+          ValidationService.decimalValidation,
+        ]),
+        oran: new FormControl(klm.oran, [
+          Validators.required,
+          Validators.maxLength(5),
+        ]),
+        odemeSekli: new FormControl(klm.odemeSekli, [
+          Validators.required,
+          Validators.maxLength(3),
+        ]),
+        beyanInternalNo: new FormControl(klm.beyanInternalNo),
+        kalemInternalNo: new FormControl(klm.kalemInternalNo),
+      });
+
+      formArray.push(formGroup);
+    }
+    this.vergiForm.setControl("vergiArry", formArray);
+  }
+
+  getVergi() {
+    return this._fb.group({
+      vergiKodu: new FormControl(0, [
+        Validators.required,
+        ValidationService.numberValidator,
+      ]),
+      miktar: new FormControl(0, [
+        Validators.required,
+        ValidationService.decimalValidation,
+      ]),
+      matrah: new FormControl(0, [
+        Validators.required,
+        ValidationService.decimalValidation,
+      ]),
+      vergiAciklamasi:[],
+      oran: new FormControl("", [Validators.required, Validators.maxLength(5)]),
+      odemeSekli: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(3),
+      ]),
+      beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
+        Validators.required,
+      ]),
+      kalemInternalNo: new FormControl(this.kalemInternalNo, [
+        Validators.required,
+      ]),
+    });
+  }
+
+  get vergiBilgileri() {
+    return this.vergiForm.get("vergiArry") as FormArray;
+  }
+
+  addVergiField() {
+    this.vergiBilgileri.push(this.getVergi());
+  }
+
+  deleteVergiField(index: number) {
+    this.vergiBilgileri.removeAt(index);
+  }
+  get vergiAd(): string {
+    let vergiKod= this.vergiBilgileri ? this.vergiBilgileri.value.get('vergiKodu') : '';
+    console.log(vergiKod);
+    if(vergiKod==='')
+    return '';
+    let selected = this._vergiList.find(c=> c.kod == vergiKod);
+    this.vergiBilgileri.get("vergiAciklamasi").setValue(selected.aciklama);
+ 
+    return selected.aciklama;
+  }
+  setVergi() {
+    if (this.vergiBilgileri.length > 0) {
+      for (let klm of this.vergiBilgileri.value) {
+        klm.kalemInternalNo = this.kalemInternalNo;
+        klm.vergiKodu =
+          typeof klm.vergiKodu == "string"
+            ? parseFloat(klm.vergiKodu)
+            : klm.vergiKodu;
+        klm.miktar =
+          typeof klm.miktar == "string" ? parseFloat(klm.miktar) : klm.miktar;
+        klm.matrah =
+          typeof klm.matrah == "string" ? parseFloat(klm.matrah) : klm.matrah;
+      }
+
+      this.initVergiFormArray(this.vergiBilgileri.value);
+
+      if (this.vergiBilgileri.invalid) {
+        const invalid = [];
+        const controls = this.vergiBilgileri.controls;
+
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            invalid.push(name);
+          }
+        }
+
+        if (invalid.length > 0) {
+          alert(
+            "ERROR!! :-)\n\n Vergi Bilgileri verilerinin bazılarını değerleri veya formatı yanlış:" +
+              JSON.stringify(invalid, null, 4)
+          );
+
+          return;
+        }
+      }
+    }
+
+    if (this.vergiBilgileri.length >= 0) {
+      const promiseVergi = this.beyanServis
+        .restoreVergi(
+          this.vergiBilgileri.value,
+          this.kalemInternalNo,
+          this._beyanSession.beyanInternalNo
+        )
+        .toPromise();
+      promiseVergi.then(
+        (result) => {
+          // const servisSonuc = new ServisDto();
+          // servisSonuc.init(result);
+          // this.odemeForm.disable();
+        },
+        (err) => {
+          this.openSnackBar(err, "Tamam");
+        }
+      );
+    }
+  }
+  //#endregion Vergi
+  //#region Belge
+  initBelgeFormArray(belge: BelgeDto[]) {
+    const formArray = this.belgeForm.get("belgeArry") as FormArray;
+    formArray.clear();
+    for (let klm of belge) {
+      let formGroup: FormGroup = new FormGroup({
+        belgeKodu: new FormControl(klm.belgeKodu, [
+          Validators.required,
+          Validators.maxLength(10),
+        ]),
+        dogrulama: new FormControl(klm.dogrulama, [
+          Validators.required,
+          Validators.maxLength(10),
+        ]),
+        referans: new FormControl(klm.referans, [
+          Validators.required,
+          Validators.maxLength(30),
+        ]),
+        belgeTarihi: new FormControl(klm.belgeTarihi, [
+          Validators.required,
+          Validators.maxLength(12),
+         
+        ]),
+        belgeAciklamasi: new FormControl(klm.belgeAciklamasi, []),
+        beyanInternalNo: new FormControl(klm.beyanInternalNo),
+        kalemInternalNo: new FormControl(klm.kalemInternalNo),
+      });
+
+      formArray.push(formGroup);
+    }
+    this.belgeForm.setControl("belgeArry", formArray);
+  }
+
+  getBelge() {
+    return this._fb.group({
+      belgeKodu: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(10),
+      ]),
+      belgeAciklamasi:[],
+      dogrulama: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(10),
+      ]),
+      referans: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(30),
+      ]),
+      belgeTarihi: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(12),
+      ]),
+      beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
+        Validators.required,
+      ]),
+      kalemInternalNo: new FormControl(this.kalemInternalNo, [
+        Validators.required,
+      ]),
+    });
+  }
+
+  get belgeBilgileri() {
+    return this.belgeForm.get("belgeArry") as FormArray;
+  }
+
+  addBelgeField() {
+    this.belgeBilgileri.push(this.getVergi());
+  }
+
+  deleteBelgeField(index: number) {
+    this.belgeBilgileri.removeAt(index);
+  }
+
+  setBelge() {
+    if (this.belgeBilgileri.length > 0) {
+      for (let klm of this.belgeBilgileri.value) {
+        klm.kalemInternalNo = this.kalemInternalNo;
+      }
+
+      this.initBelgeFormArray(this.belgeBilgileri.value);
+
+      if (this.belgeBilgileri.invalid) {
+        const invalid = [];
+        const controls = this.belgeBilgileri.controls;
+
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            invalid.push(name);
+          }
+        }
+
+        if (invalid.length > 0) {
+          alert(
+            "ERROR!! :-)\n\n Belge Bilgileri verilerinin bazılarını değerleri veya formatı yanlış:" +
+              JSON.stringify(invalid, null, 4)
+          );
+
+          return;
+        }
+      }
+    }
+
+    if (this.belgeBilgileri.length >= 0) {
+      const promiseBelge = this.beyanServis
+        .restoreBelge(
+          this.belgeBilgileri.value,
+          this.kalemInternalNo,
+          this._beyanSession.beyanInternalNo
+        )
+        .toPromise();
+      promiseBelge.then(
+        (result) => {
+          // const servisSonuc = new ServisDto();
+          // servisSonuc.init(result);
+          // this.odemeForm.disable();
+        },
+        (err) => {
+          this.openSnackBar(err, "Tamam");
+        }
+      );
+    }
+  }
+  //#endregion Belge
+  //#region Soru Cevap
+  initSoruCevapFormArray(sorucevap: SoruCevapDto[]) {
+    const formArray = this.soruCevapForm.get("soruCevapArry") as FormArray;
+    formArray.clear();
+    for (let klm of sorucevap) {
+      let formGroup: FormGroup = new FormGroup({
+        soruKodu: new FormControl(klm.soruKodu, [
+          Validators.required,
+          Validators.maxLength(10),
+        ]),
+        soruAciklamasi: new FormControl(klm.soruAciklamasi, []),
+        soruCevap: new FormControl(klm.soruCevap, [
+          Validators.required,
+          Validators.maxLength(10),
+        ]),
+        tip: new FormControl(klm.tip, [
+          Validators.required,
+          Validators.maxLength(10),
+        ]),
+        beyanInternalNo: new FormControl(klm.beyanInternalNo),
+        kalemInternalNo: new FormControl(klm.kalemInternalNo),
+      });
+
+      formArray.push(formGroup);
+    }
+    this.soruCevapForm.setControl("soruCevapArry", formArray);
+  }
+
+  getSoruCevap() {
+    return this._fb.group({
+      soruKodu: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(10),
+      ]),
+      soruAciklamasi:[],
+      soruCevap: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(10),
+      ]),
+      tip: new FormControl("Soru", [
+        Validators.required,
+        Validators.maxLength(10),
+      ]),
+      beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
+        Validators.required,
+      ]),
+      kalemInternalNo: new FormControl(this.kalemInternalNo, [
+        Validators.required,
+      ]),
+    });
+  }
+
+  get soruCevapBilgileri() {
+    return this.soruCevapForm.get("soruCevapArry") as FormArray;
+  }
+
+  addSoruCevapField() {
+    this.soruCevapBilgileri.push(this.getVergi());
+  }
+
+  deleteSoruCevapField(index: number) {
+    this.soruCevapBilgileri.removeAt(index);
+  }
+
+  setSoruCevap() {
+    if (this.soruCevapBilgileri.length > 0) {
+      for (let klm of this.soruCevapBilgileri.value) {
+        klm.kalemInternalNo = this.kalemInternalNo;
+      }
+
+      this.initSoruCevapFormArray(this.soruCevapBilgileri.value);
+
+      if (this.soruCevapBilgileri.invalid) {
+        const invalid = [];
+        const controls = this.soruCevapBilgileri.controls;
+
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            invalid.push(name);
+          }
+        }
+
+        if (invalid.length > 0) {
+          alert(
+            "ERROR!! :-)\n\n Soru ve Cevap Bilgileri verilerinin bazılarını değerleri veya formatı yanlış:" +
+              JSON.stringify(invalid, null, 4)
+          );
+
+          return;
+        }
+      }
+    }
+
+    if (this.soruCevapBilgileri.length >= 0) {
+      const promiseSoruCevap = this.beyanServis
+        .restoreVergi(
+          this.soruCevapBilgileri.value,
+          this.kalemInternalNo,
+          this._beyanSession.beyanInternalNo
+        )
+        .toPromise();
+      promiseSoruCevap.then(
+        (result) => {
+          // const servisSonuc = new ServisDto();
+          // servisSonuc.init(result);
+          // this.odemeForm.disable();
+        },
+        (err) => {
+          this.openSnackBar(err, "Tamam");
+        }
+      );
+    }
+  }
+  //#endregion Soru Cevap
 }

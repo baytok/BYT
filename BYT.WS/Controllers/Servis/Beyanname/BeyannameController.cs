@@ -289,6 +289,99 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
+        [Route("api/BYT/Servis/Vergi/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbVergi>> GetVergiler(string IslemInternalNo)
+        {
+            List<DbVergi> _vergi = new List<DbVergi>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var _vergiValues = await _beyannameContext.DbVergi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _vergi = _vergiValues;
+                }
+
+                return _vergi;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/Belge/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbBelge>> GetBelge(string IslemInternalNo)
+        {
+            List<DbBelge> _belge = new List<DbBelge>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var _belgeValues = await _beyannameContext.DbBelge.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _belge = _belgeValues;
+                }
+
+                return _belge;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/SoruCevap/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbSoruCevap>> GetSoruCevap(string IslemInternalNo)
+        {
+            List<DbSoruCevap> _soruCevap = new List<DbSoruCevap>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var _soruCevapValues = await _beyannameContext.DbSoruCevap.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _soruCevap = _soruCevapValues;
+                }
+
+                return _soruCevap;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         [Route("api/BYT/Servis/KiymetBildirim/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
         public async Task<List<DbKiymetBildirim>> GetKiymet(string IslemInternalNo)

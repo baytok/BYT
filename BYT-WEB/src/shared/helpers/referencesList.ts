@@ -181,6 +181,31 @@ export const rejim= [
   
   ];
 
+  export const VergiKodu= [
+    { kod:'', aciklama: '' },
+    { kod:'10', aciklama: 'GMV' },
+    { kod:'40', aciklama: 'KDV' },
+    { kod:'89', aciklama: 'Damga Vergisi' },
+    { kod:'52', aciklama: 'ÖTV' },
+  
+  ];
 
+  export const BelgeKodu= [
+    { kod:'', aciklama: '' },
+    { kod:'0100', aciklama: 'Fatura' },
+    { kod:'0321', aciklama: 'ATR1' },
+    { kod:'0886', aciklama: 'E-Fatura' },
+    { kod:'9999', aciklama: 'Diğer' },
+  
+  ];
+
+  export const SoruKodu= [
+    { kod:'', aciklama: '' },
+    { kod:'3658', aciklama: 'Atr mi?' },
+    { kod:'2010', aciklama: 'ATR ?' },
+    { kod:'1689', aciklama: 'E-Fatura mı?' },
+    { kod:'2555', aciklama: 'Diğer' },
+  
+  ];
 
 //TODO: Dosyadan okumaya çalışalım

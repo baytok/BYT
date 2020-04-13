@@ -653,7 +653,99 @@ export class BeyannameServiceProxy {
         acma,httpOptions  
         );
   }
+  getVergi(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+    const httpOptions = {
+     headers: headers_object
+    };
 
+    return this.http.get(
+      this.baseUrl + "Servis/Vergi/Beyanname/" + IslemInternalNo, httpOptions
+    );
+  }
+  restoreVergi(vergi: VergiDto[], kalemInternalNo:string , beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/VergiOlusturma/"+kalemInternalNo+"/"+beyanInternalNo, 
+        vergi,httpOptions  
+        );
+  }
+  getBelge(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/Belge/Beyanname/" + IslemInternalNo, httpOptions
+    );
+  }
+  restoreBelge(belge: BelgeDto[], kalemInternalNo:string , beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/BelgeOlusturma/"+kalemInternalNo+"/"+beyanInternalNo, 
+        belge,httpOptions  
+        );
+  }
+  getSoruCevap(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/SoruCevap/Beyanname/" + IslemInternalNo, httpOptions
+    );
+  }
+  restoreSoruCevap(belge: SoruCevapDto[], kalemInternalNo:string , beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/SoruCevapOlusturma/"+kalemInternalNo+"/"+beyanInternalNo, 
+        belge,httpOptions  
+        );
+  }
   getKiymet(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -2574,6 +2666,121 @@ export class BeyannameAcmaDto {
   static fromJS(data: any): BeyannameAcmaDto {
     data = typeof data === "object" ? data : {};
     let result = new BeyannameAcmaDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class VergiDto {
+  
+  beyanInternalNo: string;
+  kalemInternalNo: string;
+  vergiKodu: number;
+  vergiAciklamasi:string;
+  miktar:number;
+  oran:string;
+  matrah:number;
+  odemeSekli:string;
+
+ 
+  constructor(data?: VergiDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): VergiDto {
+    data = typeof data === "object" ? data : {};
+    let result = new VergiDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class BelgeDto {
+ 
+  beyanInternalNo: string;
+  kalemInternalNo: string;
+  belgeKodu: string;
+  belgeAciklamasi:string;
+  dogrulama:string;
+  referans:string;
+  belgeTarihi:string;
+ 
+  constructor(data?: BelgeDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): BelgeDto {
+    data = typeof data === "object" ? data : {};
+    let result = new BelgeDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class SoruCevapDto {
+  islemInternalNo: string;
+  beyanInternalNo: string;
+  kalemInternalNo: string;
+  soruKodu: string;
+  soruCevap:string;
+  soruAciklamasi:string;
+  tip:string;
+  
+  constructor(data?: SoruCevapDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): SoruCevapDto {
+    data = typeof data === "object" ? data : {};
+    let result = new SoruCevapDto();
 
     result.init(data);
     return result;
