@@ -114,10 +114,10 @@ import {
   selector: "app-kalem",
   templateUrl: "./kalem.component.html",
   styleUrls: ["./kalem.component.scss"],
-  providers: [
-    {provide: DateAdapter, useClass: PickDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
- ]
+//   providers: [
+//     {provide: DateAdapter, useClass: PickDateAdapter},
+//     {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
+//  ]
 })
 export class KalemComponent implements OnInit {
   public form: FormGroup;
