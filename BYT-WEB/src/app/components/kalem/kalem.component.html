@@ -2213,11 +2213,12 @@
                                   placeholder="Vergi Kodu"
                                   formControlName="vergiKodu"
                                   (change)="vergiAd"
+                                  required
                                 >
                                   <option
                                     *ngFor="let s of _vergiList"
                                     [value]="s.kod"
-                                    >{{ s.kod }}:{{s.aciklama}}</option
+                                    >{{ s.kod }} {{s.aciklama}}</option
                                   >
                                 </select>
                               </mat-form-field>
@@ -2271,7 +2272,7 @@
                               <button
                                 mat-mini-fab
                                 color="warn"
-                                [disabled]="!vergiForm.valid"
+                                [disabled]="!kalemForm.valid"
                                 (click)="deleteVergiField(i)"
                               >
                                 <mat-icon>delete forever</mat-icon>
@@ -2283,7 +2284,7 @@
                         <mat-divider></mat-divider
                         ><mat-card-actions
                           ><button
-                            [disabled]="!vergiForm.valid"
+                            [disabled]="!kalemForm.valid"
                             mat-raised-button
                             (click)="addVergiField()"
                           >
@@ -2340,7 +2341,7 @@
                                   <option
                                     *ngFor="let s of _belgeList"
                                     [value]="s.kod"
-                                    >{{ s.kod }}: {{s.aciklama}}</option
+                                    >{{ s.kod }} {{s.aciklama}}</option
                                   >
                                 </select>
                               </mat-form-field>
@@ -2392,7 +2393,7 @@
                               <button
                                 mat-mini-fab
                                 color="warn"
-                                [disabled]="!belgeForm.valid"
+                                [disabled]="!kalemForm.valid"
                                 (click)="deleteBelgeField(i)"
                               >
                                 <mat-icon>delete forever</mat-icon>
@@ -2404,7 +2405,7 @@
                         <mat-divider></mat-divider
                         ><mat-card-actions
                           ><button
-                            [disabled]="!belgeForm.valid"
+                            [disabled]="!kalemForm.valid"
                             mat-raised-button
                             (click)="addBelgeField()"
                           >
@@ -2461,7 +2462,7 @@
                                   <option
                                     *ngFor="let s of _soruList"
                                     [value]="s.kod"
-                                    >{{ s.kod }}: {{s.aciklama}}</option
+                                    >{{ s.kod }} {{s.aciklama}}</option
                                   >
                                 </select>
                               </mat-form-field>
@@ -2498,7 +2499,7 @@
                               <button
                                 mat-mini-fab
                                 color="warn"
-                                [disabled]="!soruCevapForm.valid"
+                                [disabled]="!kalemForm.valid"
                                 (click)="deleteSoruCevapField(i)"
                               >
                                 <mat-icon>delete forever</mat-icon>
@@ -2510,7 +2511,7 @@
                         <mat-divider></mat-divider
                         ><mat-card-actions
                           ><button
-                            [disabled]="!soruCevapForm.valid"
+                            [disabled]="!kalemForm.valid"
                             mat-raised-button
                             (click)="addSoruCevapField()"
                           >

@@ -91,7 +91,7 @@ import { FirmaComponent } from './components/firma/firma.component';
 
    ],
    providers: [
-      SessionServiceProxy,AccountModule
+      SessionServiceProxy,AccountModule,
    ],
     bootstrap: [
         AppComponent,

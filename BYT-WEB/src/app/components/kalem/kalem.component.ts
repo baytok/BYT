@@ -48,6 +48,7 @@ import { UserRoles } from "../../../shared/service-proxies/UserRoles";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
+
 import {
   BeyannameBilgileriDto,
   BeyannameDto,
@@ -62,11 +63,61 @@ import {
   SoruCevapDto,
   ServisDto,
 } from "../../../shared/service-proxies/service-proxies";
+// import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from "@angular/material";
+// import {MatDatepickerModule} from '@angular/material/datepicker'; 
 
+// export const PICK_FORMATS = {
+//   parse: {
+//     dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
+// },
+// display: {
+//     // dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+//     dateInput: 'input',
+//     // monthYearLabel: { month: 'short', year: 'numeric', day: 'numeric' },
+//     monthYearLabel: 'inputMonth',
+//     dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+//     monthYearA11yLabel: {year: 'numeric', month: 'long'},
+// }
+// };
+// class PickDateAdapter extends NativeDateAdapter {
+//   parse(value: any): Date | null {
+//     if ((typeof value === 'string') && (value.indexOf('/') > -1)) {
+//       const str = value.split('/');
+//       const year = Number(str[2]);
+//       const month = Number(str[1]) - 1;
+//       const date = Number(str[0]);
+//       return new Date(year, month, date);
+//     }
+//     const timestamp = typeof value === 'number' ? value : Date.parse(value);
+//     return isNaN(timestamp) ? null : new Date(timestamp);
+//   }
+// format(date: Date, displayFormat: string): string {
+//    if (displayFormat == "input") {
+//       let day = date.getDate();
+//       let month = date.getMonth() + 1;
+//       let year = date.getFullYear();
+//       return this._to2digit(day) + '/' + this._to2digit(month) + '/' + year;
+//    } else if (displayFormat == "inputMonth") {
+//       let month = date.getMonth() + 1;
+//       let year = date.getFullYear();
+//       return  this._to2digit(month) + '/' + year;
+//    } else {
+//        return date.toDateString();
+//    }
+// }
+
+// private _to2digit(n: number) {
+//    return ('00' + n).slice(-2);
+// }
+// }
 @Component({
   selector: "app-kalem",
   templateUrl: "./kalem.component.html",
   styleUrls: ["./kalem.component.scss"],
+  providers: [
+    {provide: DateAdapter, useClass: PickDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
+ ]
 })
 export class KalemComponent implements OnInit {
   public form: FormGroup;
@@ -1370,7 +1421,7 @@ export class KalemComponent implements OnInit {
 
   getVergi() {
     return this._fb.group({
-      vergiKodu: new FormControl(0, [
+      vergiKodu: new FormControl("", [
         Validators.required,
         ValidationService.numberValidator,
       ]),
@@ -1495,9 +1546,6 @@ export class KalemComponent implements OnInit {
           Validators.maxLength(30),
         ]),
         belgeTarihi: new FormControl(klm.belgeTarihi, [
-          Validators.required,
-          Validators.maxLength(12),
-         
         ]),
         belgeAciklamasi: new FormControl(klm.belgeAciklamasi, []),
         beyanInternalNo: new FormControl(klm.beyanInternalNo),
@@ -1542,7 +1590,7 @@ export class KalemComponent implements OnInit {
   }
 
   addBelgeField() {
-    this.belgeBilgileri.push(this.getVergi());
+    this.belgeBilgileri.push(this.getBelge());
   }
 
   deleteBelgeField(index: number) {
@@ -1550,6 +1598,7 @@ export class KalemComponent implements OnInit {
   }
 
   setBelge() {
+   
     if (this.belgeBilgileri.length > 0) {
       for (let klm of this.belgeBilgileri.value) {
         klm.kalemInternalNo = this.kalemInternalNo;
@@ -1577,7 +1626,7 @@ export class KalemComponent implements OnInit {
         }
       }
     }
-
+    console.log(this.belgeBilgileri.value);
     if (this.belgeBilgileri.length >= 0) {
       const promiseBelge = this.beyanServis
         .restoreBelge(
@@ -1656,7 +1705,7 @@ export class KalemComponent implements OnInit {
   }
 
   addSoruCevapField() {
-    this.soruCevapBilgileri.push(this.getVergi());
+    this.soruCevapBilgileri.push(this.getSoruCevap());
   }
 
   deleteSoruCevapField(index: number) {
@@ -1694,7 +1743,7 @@ export class KalemComponent implements OnInit {
 
     if (this.soruCevapBilgileri.length >= 0) {
       const promiseSoruCevap = this.beyanServis
-        .restoreVergi(
+        .restoreSoruCevap(
           this.soruCevapBilgileri.value,
           this.kalemInternalNo,
           this._beyanSession.beyanInternalNo

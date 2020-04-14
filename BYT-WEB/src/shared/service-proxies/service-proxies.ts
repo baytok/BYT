@@ -680,7 +680,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
       return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/VergiOlusturma/"+kalemInternalNo+"/"+beyanInternalNo, 
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/VergiOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
         vergi,httpOptions  
         );
   }
@@ -711,7 +711,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
       return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/BelgeOlusturma/"+kalemInternalNo+"/"+beyanInternalNo, 
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/BelgeOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
         belge,httpOptions  
         );
   }
@@ -742,7 +742,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
       return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/SoruCevapOlusturma/"+kalemInternalNo+"/"+beyanInternalNo, 
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/SoruCevapOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
         belge,httpOptions  
         );
   }

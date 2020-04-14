@@ -687,9 +687,6 @@ namespace BYT.WS.Models
         }
 
     }
-
-
-
     public class BeyannameSonuc
     {
         public string SonucXml { get; set; }
@@ -734,7 +731,6 @@ namespace BYT.WS.Models
 
       
         }
-
     public class DbSonucHatalar
     {
         [Key]
