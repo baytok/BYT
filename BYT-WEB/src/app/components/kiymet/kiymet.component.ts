@@ -25,7 +25,7 @@ import { ValidationService } from "../../../shared/service-proxies/ValidationSer
 import { UserRoles } from "../../../shared/service-proxies/UserRoles";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
-
+import { Router } from "@angular/router";
 import {
  
   ServisDto,
@@ -47,7 +47,9 @@ export class KiymetComponent implements OnInit {
     private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar,
     private _userRoles: UserRoles,
-    private _fb: FormBuilder) 
+    private _fb: FormBuilder,
+    private router:Router,
+    ) 
     {
       (this.kiymetForm = this._fb.group({
         //Genel Bilgiler
@@ -211,11 +213,13 @@ export class KiymetComponent implements OnInit {
     if (
       this._beyanSession.islemInternalNo == undefined ||
       this._beyanSession.islemInternalNo == null
-    )
+    ){
       this.openSnackBar(
-        this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
+        this._beyanSession.islemInternalNo + " ait Kıymet Bulunamadı",
         "Tamam"
       );
+      this.router.navigateByUrl('/app/beyanname');
+    }
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {

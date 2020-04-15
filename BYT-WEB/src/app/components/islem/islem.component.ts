@@ -86,9 +86,9 @@ export class IslemComponent implements OnInit {
     this.beyanServis.getAllIslem(this.kullanici)
     .subscribe( (result: IslemDto[])=>{
           this.islemlerDataSource=result;
-          this._beyanSession.guidOf=result[0].guidof;
-          this._beyanSession.islemInternalNo= result[0].islemInternalNo;
-          this._beyanSession.refNo=result[0].refNo;
+          // this._beyanSession.guidOf=result[0].guidof;
+          // this._beyanSession.islemInternalNo= result[0].islemInternalNo;
+          // this._beyanSession.refNo=result[0].refNo;
        
      }, (err)=>{
       this.beyanServis.errorHandel(err);    

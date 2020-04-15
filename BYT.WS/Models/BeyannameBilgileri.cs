@@ -117,7 +117,7 @@ namespace BYT.WS.Models
 
         [StringLength(9)]
         public string AliciSaticiIliskisi { get; set; }
-
+        [Required]
         [StringLength(20)]
         public string AliciVergiNo { get; set; }
 
@@ -130,8 +130,10 @@ namespace BYT.WS.Models
         [StringLength(9)]
         public string BasitlestirilmisUsul { get; set; }
 
+        [Required]
         [StringLength(16)]
         public string BankaKodu { get; set; }
+        [Required]
         [StringLength(20)]
         public string BeyanSahibiVergiNo { get; set; }
 
@@ -165,6 +167,7 @@ namespace BYT.WS.Models
         [StringLength(9)]
         public string GirisGumrukIdaresi { get; set; }
 
+        [Required]
         [StringLength(20)]
         public string GondericiVergiNo { get; set; }
 
@@ -779,8 +782,8 @@ namespace BYT.WS.Models
         public string Ozellik { get; set; }
 
 
-        //[StringLength(12)]
-        //public string ReferansTarihi { get; set; }
+        [StringLength(12)]
+        public string ReferansTarihi { get; set; }
 
 
         [StringLength(20)]

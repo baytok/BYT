@@ -33,9 +33,7 @@ import {
     ],
    
     providers: [
-        // { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/"}, 
-        // { provide: LoggedToken, useValue: ""},           
-        GirisService,AppSessionService,BeyannameServiceProxy,SessionServiceProxy,AppConsts
+       GirisService,AppSessionService,BeyannameServiceProxy,SessionServiceProxy,AppConsts
     ],
     entryComponents: [
        

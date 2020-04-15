@@ -342,14 +342,17 @@ type = "ball-8bits">
                         class="button"
                         *ngIf="element.islemDurumu === 'Sonuclandi'"
                       >
+                      <!-- (click)="
+                      getBeyannameSonuc(
+                        element.guid,
+                        element.islemInternalNo
+                      )
+                    " -->
                         <button
                           mat-icon-button
                           color="warn"
                           (click)="
-                            getBeyannameSonuc(
-                              element.guid,
-                              element.islemInternalNo
-                            )
+                          getMessageSonucSorgula(element.guid)
                           "
                         >
                           <mat-icon>apps</mat-icon>
@@ -359,6 +362,7 @@ type = "ball-8bits">
                         class="button"
                         *ngIf="element.islemDurumu === 'Islemde'"
                       >
+                 
                         <button
                           mat-icon-button
                           color="primary"

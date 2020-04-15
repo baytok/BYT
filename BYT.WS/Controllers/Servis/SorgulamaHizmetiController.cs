@@ -126,7 +126,7 @@ namespace BYT.WS.Controllers.Servis
                         _beyanname.BeyannameNo = sonucObj.Beyanname_no;
                         if(!string.IsNullOrWhiteSpace(sonucObj.Tescil_tarihi))
                         _beyanname.TescilTarihi =   Convert.ToDateTime(sonucObj.Tescil_tarihi) ;
-                        _beyanname.TescilStatu ="Tescil Edildi";
+                      //  _beyanname.TescilStatu ="Tescil Edildi";
 
                         _beyannameContext.Entry(_beyanname).State = EntityState.Modified;
                         await _beyannameContext.SaveChangesAsync();
@@ -373,21 +373,19 @@ namespace BYT.WS.Controllers.Servis
                             _soru.SoruAciklamasi = Aciklama;
                             _soru.Tip = Tip;
                             _soru.Cevaplar = lstCvp.ToString();
+                            _beyannameSonucTarihcecontext.Entry(_soru).State = EntityState.Added;
 
                             var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
-                            var KalemInternalNo = kalemValues.KalemInternalNo;
-                            //soruCevap.Guid = GuidOf;
-                            soruCevap.BeyanInternalNo = BeyanInternalNo;
-                            soruCevap.KalemInternalNo = KalemInternalNo;
-                            //soruCevap.GonderimNo = GonderimNo;
-                            //soruCevap.IslemInternalNo = InternalNo;
-                            //soruCevap.KalemNo = Kalem_no;
+                            if(kalemValues!=null)
+                                soruCevap.KalemInternalNo = kalemValues.KalemInternalNo;
+                           else soruCevap.KalemInternalNo = BeyanInternalNo+"|1";
+
+                            soruCevap.BeyanInternalNo = BeyanInternalNo;                          
                             soruCevap.SoruKodu = Kod;
                             soruCevap.SoruAciklamasi = Aciklama;
                             soruCevap.Tip = Tip;
                             soruCevap.Cevaplar = lstCvp.ToString();
-
-                            _beyannameSonucTarihcecontext.Entry(_soru).State = EntityState.Added;
+                          
                             _beyannameSonucTarihcecontext.Entry(soruCevap).State = EntityState.Added;
 
 
@@ -492,22 +490,23 @@ namespace BYT.WS.Controllers.Servis
                                 _belge.Dogrulama = Dogrulama;
                                 _belge.Referans = Referans;
                                 _belge.BelgeTarihi = Tamamlama_tarih;
+                                _beyannameSonucTarihcecontext.Entry(_belge).State = EntityState.Added;
+
 
                                 var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
-                                var KalemInternalNo = kalemValues.KalemInternalNo;
-                              //  belge.Guid = GuidOf;
-                                belge.BeyanInternalNo = BeyanInternalNo;
-                                belge.KalemInternalNo = KalemInternalNo;
-                             //   belge.GonderimNo = GonderimNo;
-                             //   belge.IslemInternalNo = InternalNo;
-                             //   belge.KalemNo = Kalem_no;
+                             
+                                if (kalemValues != null)
+                                    belge.KalemInternalNo = kalemValues.KalemInternalNo;
+                                else belge.KalemInternalNo = BeyanInternalNo + "|1";
+
+                                belge.BeyanInternalNo = BeyanInternalNo;                             
                                 belge.BelgeKodu = Kod;
                                 belge.BelgeAciklamasi = Aciklama;
                                 belge.Dogrulama = Dogrulama;
                                 belge.Referans = Referans;
                                 belge.BelgeTarihi = Tamamlama_tarih;
 
-                                _beyannameSonucTarihcecontext.Entry(_belge).State = EntityState.Added;
+                               
                                 _beyannameSonucTarihcecontext.Entry(belge).State = EntityState.Added;
 
                             }
@@ -567,15 +566,15 @@ namespace BYT.WS.Controllers.Servis
                                 _vergi.OdemeSekli = Odeme_sekli;
                                 _vergi.Oran = Oran;
                                 _vergi.Matrah = Matrah;
+                                _beyannameSonucTarihcecontext.Entry(_vergi).State = EntityState.Added;
 
-                                var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo  && v.KalemSiraNo== Kalem_no);
-                                var KalemInternalNo = kalemValues.KalemInternalNo;
-                              //  vergi.Guid = GuidOf;
-                                vergi.BeyanInternalNo = BeyanInternalNo;
-                                vergi.KalemInternalNo = KalemInternalNo;
-                              //  vergi.GonderimNo = GonderimNo;
-                             //   vergi.IslemInternalNo = InternalNo;
-                             //   vergi.KalemNo = Kalem_no;
+                                var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
+
+                                if (kalemValues != null)
+                                    vergi.KalemInternalNo = kalemValues.KalemInternalNo;
+                                else vergi.KalemInternalNo = BeyanInternalNo + "|1";
+
+                                vergi.BeyanInternalNo = BeyanInternalNo;                              
                                 vergi.VergiKodu =Convert.ToInt32(Kod);
                                 vergi.VergiAciklamasi = Aciklama;
                                 vergi.Miktar =Convert.ToDecimal(Miktar);
@@ -583,7 +582,7 @@ namespace BYT.WS.Controllers.Servis
                                 vergi.Oran = Oran;
                                 vergi.Matrah = Convert.ToDecimal(Matrah);
 
-                                _beyannameSonucTarihcecontext.Entry(_vergi).State = EntityState.Added;
+                             
                                 _beyannameSonucTarihcecontext.Entry(vergi).State = EntityState.Added;
 
                             }

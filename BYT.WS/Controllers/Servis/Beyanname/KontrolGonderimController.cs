@@ -84,6 +84,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 _beyan.Cikistaki_aracin_tipi = beyanValues.CikistakiAracinTipi;
                 _beyan.Cikistaki_aracin_ulkesi = beyanValues.CikistakiAracinUlkesi;
                 _beyan.Esyanin_bulundugu_yer = beyanValues.EsyaninBulunduguYer;
+                _beyan.FazlaMesaiID = "";
                 _beyan.Gidecegi_sevk_ulkesi = beyanValues.GidecegiSevkUlkesi;
                 _beyan.Gidecegi_ulke = beyanValues.GidecegiUlke;
                 _beyan.Giris_gumruk_idaresi = beyanValues.GirisGumrukIdaresi;
@@ -99,11 +100,11 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 _beyan.mail3 = beyanValues.Mail3;
                 _beyan.mobil1 = beyanValues.Mobil1;
                 _beyan.mobil2 = beyanValues.Mobil2;
-                _beyan.Musavir_referansi = islemValues.RefNo;
+                _beyan.Musavir_referansi = beyanValues.MusavirReferansNo;
                 _beyan.Musavir_vergi_no = beyanValues.MusavirVergiNo;
                 _beyan.Odeme = "PESIN";
                 //  _beyan.Odeme_araci = beyanValues.OdemeAraci;
-                _beyan.Referans_no = beyanValues.MusavirReferansNo;
+                _beyan.Referans_no = beyanValues.RefNo;
                 _beyan.Referans_tarihi = beyanValues.ReferansTarihi;
                 _beyan.Rejim = beyanValues.Rejim;
                 _beyan.Sinirdaki_aracin_kimligi = beyanValues.SinirdakiAracinKimligi;
@@ -180,14 +181,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _kalem.Net_agirlik = item.NetAgirlik != null ? item.NetAgirlik : 0;
                         _kalem.Numara = item.Numara;
                         _kalem.Ozellik = item.Ozellik;
-                        // _kalem.Referans_Tarihi = item.ReferansTarihi;
+                        _kalem.Referans_Tarihi = "";
                         _kalem.Satir_no = item.SatirNo;
                         _kalem.Sigorta_miktari = item.SigortaMiktari != null ? item.NavlunMiktari : 0;
                         _kalem.Sigorta_miktarinin_dovizi = item.SigortaMiktariDovizi;
                         _kalem.Sinir_gecis_ucreti = item.SinirGecisUcreti != null ? item.SinirGecisUcreti : 0;
                         _kalem.STM_IlKodu = item.StmIlKodu;
                         _kalem.Tamamlayici_olcu_birimi = item.TamamlayiciOlcuBirimi;
-                        // _kalem.Tarifedeki_tanimi = item.TarifeTanimi;
+                        _kalem.Tarifedeki_tanimi = "";
                         _kalem.Ticari_tanimi = item.TicariTanimi;
                         _kalem.Teslim_sekli = item.TeslimSekli;
                         _kalem.Uluslararasi_anlasma = item.UluslararasiAnlasma;

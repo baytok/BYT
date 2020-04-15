@@ -77,7 +77,7 @@ export const rejim= [
   export const dovizCinsi= [
     { kod:'', aciklama: '' },
     { kod:'USD', aciklama: '' },
-    { kod:'EURO', aciklama: '' },
+    { kod:'EUR', aciklama: '' },
     { kod:'TRY', aciklama: '' },
   ];
   export const kullanilmisEsya= [

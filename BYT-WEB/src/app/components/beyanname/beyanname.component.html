@@ -1,6 +1,6 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
   <form class="example-form">
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="islem-no">
       <input matInput placeholder="İşlem No" #islemNo />
     </mat-form-field>
     <button
@@ -18,6 +18,7 @@
       <mat-form-field >
         <mat-label>Beyanname No</mat-label>
         <input
+        class="islem-no"
           matInput
           readonly
          [(ngModel)]="_beyanname.beyanInternalNo"
@@ -61,7 +62,7 @@
                       <select
                         matNativeControl
                         formControlName="gumruk"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.gumruk.errors
                         }"
@@ -83,15 +84,15 @@
                   <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Rejim</mat-label>
-                      <select
+                      <select                     
                         matNativeControl
                         formControlName="rejim"
-                        class="form-control"
+                        (change)="rejimSelect($event.target.value)"
                         [ngClass]="{
                           'is-invalid': submitted && focus.rejim.errors
                         }"
                       >
-                        <option *ngFor="let r of _rejimList" [value]="r.kod">{{
+                        <option  *ngFor="let r of _rejimList" [value]="r.kod" [disabled]="editable">{{
                           r.kod
                         }}</option>
                       </select>
@@ -111,7 +112,7 @@
                       <select
                         matNativeControl
                         formControlName="basitlestirilmisUsul"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid':
                             submitted && focus.basitlestirilmisUsul.errors
@@ -133,7 +134,7 @@
                       <select
                         matNativeControl
                         formControlName="aliciSaticiIliskisi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid':
                             submitted && focus.aliciSaticiIliskisi.errors
@@ -161,7 +162,7 @@
                       <select
                         matNativeControl
                         formControlName="isleminNiteligi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid':
                             submitted && focus.isleminNiteligi.errors
@@ -190,7 +191,7 @@
                         matNativeControl
                         type="text"
                         formControlName="kapAdedi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.kapAdedi.errors
                         }"
@@ -205,23 +206,23 @@
                     <mat-form-field>
                       <mat-label>Referans Tarihi</mat-label>
                       <input
-                        readonly
+                        
                         matNativeControl
-                        [matDatepicker]="referansTarihi"
+                       
                         formControlName="referansTarihi"
-                        class="form-control "
+                       
                          [ngClass]="{'is-invalid':submitted && focus.referansTarihi.errors}"
                       />
-                      <mat-datepicker-toggle matSuffix [for]="referansTarihi"></mat-datepicker-toggle>
-                      <mat-datepicker touchUi="true" #referansTarihi></mat-datepicker>
+                      <!-- <mat-datepicker-toggle matSuffix [for]="referansTarihi"></mat-datepicker-toggle>
+                      <mat-datepicker touchUi="true" #referansTarihi></mat-datepicker> -->
                    
                       <div
                         *ngIf="submitted && focus.referansTarihi.errors"
                         class="invalid-feedback"
                       >
-                      <div *ngIf="focus.referansTarihi.invalid && (focus.referansTarihi.dirty||focus.referansTarihi.touched)" class="alert alert-danger">
+                      <!-- <div *ngIf="focus.referansTarihi.invalid && (focus.referansTarihi.dirty||focus.referansTarihi.touched)" class="alert alert-danger">
                         Referans Tarihi Zorunlu
-                       </div>
+                       </div> -->
                       
                     </div>
                     </mat-form-field>
@@ -233,7 +234,7 @@
                         readonly
                         matNativeControl
                         formControlName="tescilTarihi"
-                        class="form-control "
+                     
                          [ngClass]="{'is-invalid':submitted && focus.tescilTarihi.errors}"
                       />
                   
@@ -253,7 +254,7 @@
                         matNativeControl
                         type="text"
                         formControlName="refNo"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.refNo.errors
                         }"
@@ -268,11 +269,11 @@
                     <mat-form-field>
                       <mat-label>Birlik Kayıt Numarası</mat-label>
                       <input
-                        
+                      [readonly]="!ihracatEditable"
                         matNativeControl
                         type="text"
                         formControlName="birlikKayitNumarasi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.birlikKayitNumarasi.errors
                         }"
@@ -287,11 +288,11 @@
                     <mat-form-field>
                       <mat-label>Birlik Kriptosu</mat-label>
                       <input
-                        
+                      [readonly]="!ihracatEditable"
                         matNativeControl
                         type="text"
                         formControlName="birlikKriptoNumarasi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.birlikKriptoNumarasi.errors
                         }"
@@ -313,7 +314,7 @@
                             matNativeControl
                             type="text"
                             formControlName="kullanici"
-                            class="form-control"
+                           
                             [ngClass]="{
                               'is-invalid': submitted && focus.kullanici.errors
                             }"
@@ -331,7 +332,7 @@
                           matNativeControl
                           type="text"
                           formControlName="aliciVergiNo"
-                          class="form-control"
+                         
                           [ngClass]="{
                             'is-invalid': submitted && focus.aliciVergiNo.errors
                           }"
@@ -349,7 +350,7 @@
                           matNativeControl
                           type="text"
                           formControlName="gondericiVergiNo"
-                          class="form-control"
+                         
                           [ngClass]="{
                             'is-invalid': submitted && focus.gondericiVergiNo.errors
                           }"
@@ -367,7 +368,7 @@
                           matNativeControl
                           type="text"
                           formControlName="beyanSahibiVergiNo"
-                          class="form-control"
+                         
                           [ngClass]="{
                             'is-invalid': submitted && focus.beyanSahibiVergiNo.errors
                           }"
@@ -389,7 +390,7 @@
                           matNativeControl
                           type="text"
                           formControlName="musavirVergiNo"
-                          class="form-control"
+                         
                           [ngClass]="{
                             'is-invalid': submitted && focus.musavirVergiNo.errors
                           }"
@@ -407,7 +408,7 @@
                           matNativeControl
                           type="text"
                           formControlName="asilSorumluVergiNo"
-                          class="form-control"
+                         
                           [ngClass]="{
                             'is-invalid': submitted && focus.asilSorumluVergiNo.errors
                           }"
@@ -422,10 +423,11 @@
                       <mat-form-field>
                         <mat-label>Müşavir Referans No</mat-label>
                         <input
+                        readonly
                           matNativeControl
                           type="text"
                           formControlName="musavirReferansNo"
-                          class="form-control"
+                         
                           [ngClass]="{
                             'is-invalid': submitted && focus.musavirReferansNo.errors
                           }"
@@ -450,12 +452,12 @@
                         <select
                         matNativeControl
                         formControlName="cikisUlkesi"
-                        class="form-control"
+                        [readonly]="!ihracatEditable"
                         [ngClass]="{
                           'is-invalid': submitted && focus.cikisUlkesi.errors
                         }"
                       >
-                        <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
+                        <option *ngFor="let u of _ulkeList" [value]="u.kod" [disabled]="ihracatEditable">{{
                           u.kod
                         }}</option>
                       </select>
@@ -474,12 +476,12 @@
                         <select
                         matNativeControl
                         formControlName="gidecegiUlke"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.gumruk.errors
                         }"
                       >
-                        <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
+                        <option *ngFor="let u of _ulkeList" [value]="u.kod" [disabled]="ithalatEditable">{{
                           u.kod
                         }}</option>
                         </select>
@@ -499,7 +501,7 @@
                         <select
                         matNativeControl
                         formControlName="ticaretUlkesi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.gumruk.errors
                         }"
@@ -524,7 +526,7 @@
                         <select
                         matNativeControl
                         formControlName="gidecegiSevkUlkesi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.gumruk.errors
                         }"
@@ -575,7 +577,7 @@
                     <select
                       matNativeControl
                       formControlName="teslimSekli"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.teslimSekli.errors
                       }"
@@ -601,7 +603,7 @@
                       matNativeControl
                       type="text"
                       formControlName="teslimSekliYeri"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.teslimSekliYeri.errors
                       }"
@@ -623,7 +625,7 @@
                       matNativeControl
                       type="text"
                       formControlName="bankaKodu"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.bankaKodu.errors
                       }"
@@ -641,7 +643,7 @@
                       matNativeControl
                       type="text"
                       formControlName="telafiEdiciVergi"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.telafiEdiciVergi.errors
                       }"
@@ -658,7 +660,7 @@
                     <select
                       matNativeControl
                       formControlName="toplamYurtDisiHarcamalarDovizi"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.toplamYurtDisiHarcamalarDovizi.errors
                       }"
@@ -681,7 +683,7 @@
                       matNativeControl
                       type="text"
                       formControlName="toplamYurtDisiHarcamalar"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.toplamYurtDisiHarcamalar.errors
                       }"
@@ -701,7 +703,7 @@
                       matNativeControl
                       type="text"
                       formControlName="toplamYurtIciHarcamalar"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.toplamYurtIciHarcamalar.errors
                       }"
@@ -721,7 +723,7 @@
                     <select
                       matNativeControl
                       formControlName="toplamFaturaDovizi"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.toplamFaturaDovizi.errors
                       }"
@@ -747,7 +749,7 @@
                       matNativeControl
                       type="text"
                       formControlName="toplamFatura"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.toplamFatura.errors
                       }"
@@ -770,7 +772,7 @@
                       <select
                         matNativeControl
                         formControlName="toplamNavlunDovizi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.toplamNavlunDovizi.errors
                         }"
@@ -794,7 +796,7 @@
                         matNativeControl
                         type="text"
                         formControlName="toplamNavlun"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.toplamNavlun.errors
                         }"
@@ -815,7 +817,7 @@
                       <select
                         matNativeControl
                         formControlName="toplamSigortaDovizi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.toplamSigortaDovizi.errors
                         }"
@@ -839,7 +841,7 @@
                         matNativeControl
                         type="text"
                         formControlName="toplamSigorta"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.toplamSigorta.errors
                         }"
@@ -865,7 +867,7 @@
                       matNativeControl
                       type="text"
                       formControlName="antrepoKodu"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid': submitted && focus.antrepoKodu.errors
                       }"
@@ -883,7 +885,7 @@
                     matNativeControl
                     type="text"
                     formControlName="limanKodu"
-                    class="form-control"
+                   
                     [ngClass]="{
                       'is-invalid': submitted && focus.limanKodu.errors
                     }"
@@ -900,7 +902,7 @@
                   <select
                     matNativeControl
                     formControlName="girisGumrukIdaresi"
-                    class="form-control"
+                   
                     [ngClass]="{
                       'is-invalid': submitted && focus.girisGumrukIdaresi.errors
                     }"
@@ -925,7 +927,7 @@
                   <select
                     matNativeControl
                     formControlName="varisGumrukIdaresi"
-                    class="form-control"
+                   
                     [ngClass]="{
                       'is-invalid': submitted && focus.varisGumrukIdaresi.errors
                     }"
@@ -951,7 +953,7 @@
                     matNativeControl
                     type="text"
                     formControlName="tasarlananGuzergah"
-                    class="form-control"
+                   
                     [ngClass]="{
                       'is-invalid': submitted && focus.tasarlananGuzergah.errors
                     }"
@@ -969,7 +971,7 @@
                     matNativeControl
                     type="text"
                     formControlName="esyaninBulunduguYer"
-                    class="form-control"
+                   
                     [ngClass]="{
                       'is-invalid': submitted && focus.esyaninBulunduguYer.errors
                     }"
@@ -987,7 +989,7 @@
                     matNativeControl
                     type="text"
                     formControlName="yuklemeBosaltmaYeri"
-                    class="form-control"
+                   
                     [ngClass]="{
                       'is-invalid': submitted && focus.yuklemeBosaltmaYeri.errors
                     }"
@@ -1005,7 +1007,7 @@
                     matNativeControl
                     type="text"
                     formControlName="yukBelgeleriSayisi"
-                    class="form-control"
+                   
                     [ngClass]="{
                       'is-invalid': submitted && focus.yukBelgeleriSayisi.errors
                     }"
@@ -1024,7 +1026,7 @@
                         <select
                         matNativeControl
                         formControlName="sinirdakiTasimaSekli"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid':
                             submitted && focus.sinirdakiTasimaSekli.errors
@@ -1053,7 +1055,7 @@
                       <select
                       matNativeControl
                       formControlName="cikistakiAracinTipi"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid':
                           submitted && focus.cikistakiAracinTipi.errors
@@ -1082,7 +1084,7 @@
                         matNativeControl
                         type="text"
                         formControlName="cikistakiAracinKimligi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.cikistakiAracinKimligi.errors
                         }"
@@ -1102,7 +1104,7 @@
                       <select
                         matNativeControl
                         formControlName="cikistakiAracinUlkesi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.cikistakiAracinUlkesi.errors
                         }"
@@ -1127,7 +1129,7 @@
                       <select
                       matNativeControl
                       formControlName="sinirdakiAracinTipi"
-                      class="form-control"
+                     
                       [ngClass]="{
                         'is-invalid':
                           submitted && focus.sinirdakiAracinTipi.errors
@@ -1157,7 +1159,7 @@
                         matNativeControl
                         type="text"
                         formControlName="sinirdakiAracinKimligi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.sinirdakiAracinKimligi.errors
                         }"
@@ -1178,7 +1180,7 @@
                       <select
                         matNativeControl
                         formControlName="sinirdakiAracinUlkesi"
-                        class="form-control"
+                       
                         [ngClass]="{
                           'is-invalid': submitted && focus.sinirdakiAracinUlkesi.errors
                         }"
@@ -1214,7 +1216,7 @@
                     matNativeControl
                     type="text"
                     formControlName="mobil1"
-                    class="form-control"
+                   
                     [ngClass]="{
                       'is-invalid': submitted && focus.mobil1.errors
                     }"
@@ -1236,7 +1238,7 @@
                     matNativeControl
                     type="text"
                     formControlName="mail1"
-                    class="form-control"
+                   
                     [ngClass]="{
                       'is-invalid': submitted && focus.mail1.errors
                     }"

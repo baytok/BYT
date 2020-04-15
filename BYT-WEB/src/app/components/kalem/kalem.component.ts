@@ -4,7 +4,7 @@ import {
   ViewChild,
   Inject,
   Injector,
-  ElementRef,
+  ElementRef,Injectable
 } from "@angular/core";
 import {
   MatListOption,
@@ -47,7 +47,7 @@ import { ValidationService } from "../../../shared/service-proxies/ValidationSer
 import { UserRoles } from "../../../shared/service-proxies/UserRoles";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
-
+import { Router } from "@angular/router";
 
 import {
   BeyannameBilgileriDto,
@@ -63,61 +63,63 @@ import {
   SoruCevapDto,
   ServisDto,
 } from "../../../shared/service-proxies/service-proxies";
-// import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from "@angular/material";
-// import {MatDatepickerModule} from '@angular/material/datepicker'; 
 
-// export const PICK_FORMATS = {
-//   parse: {
-//     dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
-// },
-// display: {
-//     // dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
-//     dateInput: 'input',
-//     // monthYearLabel: { month: 'short', year: 'numeric', day: 'numeric' },
-//     monthYearLabel: 'inputMonth',
-//     dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-//     monthYearA11yLabel: {year: 'numeric', month: 'long'},
-// }
-// };
-// class PickDateAdapter extends NativeDateAdapter {
-//   parse(value: any): Date | null {
-//     if ((typeof value === 'string') && (value.indexOf('/') > -1)) {
-//       const str = value.split('/');
-//       const year = Number(str[2]);
-//       const month = Number(str[1]) - 1;
-//       const date = Number(str[0]);
-//       return new Date(year, month, date);
-//     }
-//     const timestamp = typeof value === 'number' ? value : Date.parse(value);
-//     return isNaN(timestamp) ? null : new Date(timestamp);
-//   }
-// format(date: Date, displayFormat: string): string {
-//    if (displayFormat == "input") {
-//       let day = date.getDate();
-//       let month = date.getMonth() + 1;
-//       let year = date.getFullYear();
-//       return this._to2digit(day) + '/' + this._to2digit(month) + '/' + year;
-//    } else if (displayFormat == "inputMonth") {
-//       let month = date.getMonth() + 1;
-//       let year = date.getFullYear();
-//       return  this._to2digit(month) + '/' + year;
-//    } else {
-//        return date.toDateString();
-//    }
-// }
+import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
+import {MatDatepickerModule,} from '@angular/material/datepicker'; 
 
-// private _to2digit(n: number) {
-//    return ('00' + n).slice(-2);
-// }
-// }
+export const PICK_FORMATS = {
+  parse: {
+    dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
+},
+display: {
+    // dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+    dateInput: 'input',
+    // monthYearLabel: { month: 'short', year: 'numeric', day: 'numeric' },
+    monthYearLabel: 'inputMonth',
+    dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+    monthYearA11yLabel: {year: 'numeric', month: 'long'},
+}
+};
+@Injectable() 
+class PickDateAdapter extends NativeDateAdapter {
+  parse(value: any): Date | null {
+    if ((typeof value === 'string') && (value.indexOf('/') > -1)) {
+      const str = value.split('/');
+      const year = Number(str[2]);
+      const month = Number(str[1]) - 1;
+      const date = Number(str[0]);
+      return new Date(year, month, date);
+    }
+    const timestamp = typeof value === 'number' ? value : Date.parse(value);
+    return isNaN(timestamp) ? null : new Date(timestamp);
+  }
+format(date: Date, displayFormat: string): string {
+   if (displayFormat == "input") {
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      return this._to2digit(day) + '/' + this._to2digit(month) + '/' + year;
+   } else if (displayFormat == "inputMonth") {
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      return  this._to2digit(month) + '/' + year;
+   } else {
+       return date.toDateString();
+   }
+}
+
+  private _to2digit(n: number) {
+    return ('00' + n).slice(-2);
+  }
+}
 @Component({
   selector: "app-kalem",
   templateUrl: "./kalem.component.html",
   styleUrls: ["./kalem.component.scss"],
-//   providers: [
-//     {provide: DateAdapter, useClass: PickDateAdapter},
-//     {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
-//  ]
+  providers: [
+    {provide: DateAdapter, useClass: PickDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
+ ]
 })
 export class KalemComponent implements OnInit {
   public form: FormGroup;
@@ -174,7 +176,8 @@ export class KalemComponent implements OnInit {
     private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar,
     private _userRoles: UserRoles,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private router:Router,
   ) {
     (this.kalemForm = this._fb.group({
       //Genel Bilgiler
@@ -366,11 +369,13 @@ export class KalemComponent implements OnInit {
       this._beyanSession.islemInternalNo == undefined ||
       this._beyanSession.islemInternalNo == null
     )
+    {
       this.openSnackBar(
         this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
         "Tamam"
       );
-
+      this.router.navigateByUrl('/app/beyanname');
+      }
     this.getKalemler(this._beyanSession.islemInternalNo);
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(
@@ -412,42 +417,40 @@ export class KalemComponent implements OnInit {
     this.vergiForm.reset();
     this.belgeForm.reset();
     this.soruCevapForm.reset();
-
+    
     const formOdemeArray = this.odemeForm.get("odemeArry") as FormArray;
     formOdemeArray.clear();
     this.odemeForm.setControl("odemeArry", formOdemeArray);
-
-    const formKonteynerArray = this.odemeForm.get("konteynerArry") as FormArray;
+    
+    const formKonteynerArray = this.konteynerForm.get("konteynerArry") as FormArray;
     formKonteynerArray.clear();
     this.konteynerForm.setControl("konteynerArry", formKonteynerArray);
-
-    const formTamamlayiciArray = this.tamamlayiciForm.get(
-      "tamamlayiciArry"
-    ) as FormArray;
+   
+    const formTamamlayiciArray = this.tamamlayiciForm.get("tamamlayiciArry") as FormArray;
     formTamamlayiciArray.clear();
     this.tamamlayiciForm.setControl("tamamlayiciArry", formTamamlayiciArray);
-
+   
     const formMarkaArray = this.markaForm.get("markaArry") as FormArray;
     formMarkaArray.clear();
     this.markaForm.setControl("markaArry", formMarkaArray);
-
+   
     const formAcmaArray = this.beyannameAcmaForm.get("acmaArry") as FormArray;
     formAcmaArray.clear();
     this.beyannameAcmaForm.setControl("acmaArry", formAcmaArray);
-
+  
     const formVergiArray = this.vergiForm.get("vergiArry") as FormArray;
     formVergiArray.clear();
     this.vergiForm.setControl("vergiArry", formVergiArray);
-
+ 
     const formBelgeArray = this.belgeForm.get("belgeArry") as FormArray;
     formBelgeArray.clear();
     this.belgeForm.setControl("belgeArry", formBelgeArray);
-
-    const formSoruCevapArray = this.soruCevapForm.get(
-      "soruCevapArry"
-    ) as FormArray;
+  
+    const formSoruCevapArray = this.soruCevapForm.get("soruCevapArry") as FormArray;
     formSoruCevapArray.clear();
     this.soruCevapForm.setControl("soruCevapArry", formSoruCevapArray);
+
+   
   }
   getKalemler(islemInternalNo: string) {
     this.beyanServis.getKalem(islemInternalNo).subscribe(
@@ -844,7 +847,7 @@ export class KalemComponent implements OnInit {
       renk: new FormControl("", [Validators.maxLength(30)]),
       referansNo: new FormControl("", [Validators.maxLength(100)]),
       silindirAdet: new FormControl(0, [ValidationService.numberValidator]),
-      vites: new FormControl(0, [Validators.maxLength(20)]),
+      vites: new FormControl("", [Validators.maxLength(20)]),
 
       beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
         Validators.required,
@@ -907,7 +910,7 @@ export class KalemComponent implements OnInit {
         }
       }
     }
-
+  console.log( this.markaBilgileri.value);
     if (this.markaBilgileri.length >= 0) {
       const promiseMarka = this.beyanServis
         .restoreMarka(
@@ -1545,7 +1548,8 @@ export class KalemComponent implements OnInit {
           Validators.required,
           Validators.maxLength(30),
         ]),
-        belgeTarihi: new FormControl(klm.belgeTarihi, [
+        belgeTarihi: new FormControl(klm.belgeTarihi, [    Validators.required,      
+          ValidationService.tarihValidation
         ]),
         belgeAciklamasi: new FormControl(klm.belgeAciklamasi, []),
         beyanInternalNo: new FormControl(klm.beyanInternalNo),
@@ -1573,8 +1577,8 @@ export class KalemComponent implements OnInit {
         Validators.maxLength(30),
       ]),
       belgeTarihi: new FormControl("", [
-        Validators.required,
-        Validators.maxLength(12),
+        Validators.required,      
+        ValidationService.tarihValidation
       ]),
       beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
         Validators.required,
@@ -1601,7 +1605,8 @@ export class KalemComponent implements OnInit {
    
     if (this.belgeBilgileri.length > 0) {
       for (let klm of this.belgeBilgileri.value) {
-        klm.kalemInternalNo = this.kalemInternalNo;
+        klm.kalemInternalNo = this.kalemInternalNo;       
+      //  klm.belgeTarihi= <Date>klm.belgeTarihi.toISOString().substring(0, 10);
       }
 
       this.initBelgeFormArray(this.belgeBilgileri.value);

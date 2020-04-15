@@ -14,6 +14,7 @@ import {
  
  } from '../../shared/service-proxies/service-proxies';
 import { KullaniciModel, KullaniciSonucModel, } from './giris-service-proxies';
+
 import { strict } from 'assert';
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
 
@@ -28,15 +29,14 @@ export class GirisService {
       kullaniciSonuc=new KullaniciSonucModel;
      
     constructor(
-     
+ 
        @Inject(HttpClient) http: HttpClient,       
        private router:Router,
        @Optional()@Inject(API_BASE_URL) baseUrl?: string            
     ) {
       this.http = http;
      this.baseUrl = baseUrl ? baseUrl : "https://localhost:44345/api/BYT/";
-    //
-     this.baseUrl = baseUrl ? baseUrl : "http://servis.byt.com/BYTServis/api/BYT/";
+    // this.baseUrl = baseUrl ? baseUrl : "http://servis.byt.com/BYTServis/api/BYT/";
     }
   
     getKullaniciGiris(KullaniciKod:string, KullaniciSifre:string) {
@@ -66,10 +66,11 @@ export class GirisService {
       return localStorage.getItem('kullaniciInfo') !==  null;
     }
     public get loggedKullanici(): string{
+     // return this.kullaniciSonuc.kullaniciKod;
       var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
         var user = currentUser.user;
       return user ;
-      return this.kullaniciSonuc.kullaniciKod;
+     
     }
 
     public get loggedToken(): string{

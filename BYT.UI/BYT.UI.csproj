@@ -456,6 +456,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\KontrolHizmeti\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="GetKpsClient.cs" />
     <Compile Include="Connected Services\KpsWs\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -498,6 +503,10 @@
       <Link>Raven.Studio.Html5.zip</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Connected Services\KontrolHizmeti\BYT.UI.KontrolHizmeti.KontrolSoapOut.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\KontrolHizmeti\KontrolHizmeti.wsdl" />
     <None Include="Connected Services\KpsWs\BYT.UI.KpsWs.AdresSorgulaOUT.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -608,6 +617,7 @@
     </None>
     <None Include="Connected Services\KpsWs\KpsWS.wsdl" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -632,6 +642,7 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\KontrolHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\KpsWs\" />
   </ItemGroup>
   <ItemGroup>
@@ -642,6 +653,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\KpsWs\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\KontrolHizmeti\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\KontrolHizmeti\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\KontrolHizmeti\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -17,6 +17,7 @@ export class ValidationService {
       alphaNumericAllowed: "Only apha numeric input is allowed",
       numericAllowed: "Only numeric values are allowed",
       emailTaken: "Email id already taken",
+      tarihAllowed: "Tarih value is allowed.",
       minlength: `Minimum length should be ${validatorValue.requiredLength} characters`,
       maxlength: `Maximum length should be ${validatorValue.requiredLength} characters`
     };
@@ -103,9 +104,21 @@ export class ValidationService {
     if (!control.value) {
         return null;
       }
-    const regex = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$");
+   // const regex = new RegExp(/^\+(\d{3}\d{9})$/);
+   const regex = new RegExp(/^\+905(\d{9})$/);
     const valid = regex.test(control.value);
     return valid ? null : { telefonAllowed: true };
+
+  }
+
+  static tarihValidation(control: AbstractControl) {
+    if (!control.value) {
+        return null;
+      }
+   
+   const regex = new RegExp(/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/);
+    const valid = regex.test(control.value);
+    return valid ? null : { tarihAllowed: true };
 
   }
 

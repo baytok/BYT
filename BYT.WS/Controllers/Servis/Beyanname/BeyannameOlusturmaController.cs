@@ -171,7 +171,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     try
                     {
 
-                        var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo && v.TescilStatu != "Tescil Edilmiş");
+                        var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo && v.TescilStatu != "Tescil Edildi");
                         var beyannameContext = new BeyannameDataContext(options);
                         if (beyanValues != null)
                         {
@@ -361,7 +361,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
               .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
               .Options;
-
+        
             var kalemValues = await _beyannameContext.DbKalem.FirstOrDefaultAsync(v => v.KalemInternalNo == kalem.KalemInternalNo && v.BeyanInternalNo == kalem.BeyanInternalNo);
             var beyannameContext = new BeyannameDataContext(options);
             using (var transaction = beyannameContext.Database.BeginTransaction())
@@ -375,17 +375,32 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     }
                     else
                     {
-                        var maxKalemNo = (from u in _beyannameContext.DbKalem
+                        var countKalemNo = (from u in _beyannameContext.DbKalem
                                           where u.BeyanInternalNo == kalem.BeyanInternalNo
-                                          select (u.KalemSiraNo)).Max();
-                        var maxKalemInternalNo = (from u in _beyannameContext.DbKalem
-                                                  where u.BeyanInternalNo == kalem.BeyanInternalNo
-                                                  select (u.KalemInternalNo)).Max();
+                                          select (u.KalemSiraNo)).Count();
 
-                        kalem.KalemSiraNo = Convert.ToInt32(maxKalemNo) + 1;
+                        if (countKalemNo>0)
+                        {
+                            var maxKalemNo = (from u in _beyannameContext.DbKalem
+                                              where u.BeyanInternalNo == kalem.BeyanInternalNo
+                                              select (u.KalemSiraNo)).Max();
+                            var maxKalemInternalNo = (from u in _beyannameContext.DbKalem
+                                                      where u.BeyanInternalNo == kalem.BeyanInternalNo
+                                                      select (u.KalemInternalNo)).Max();
 
-                        int klNo = Convert.ToInt32(maxKalemInternalNo.Split('|')[1].ToString()) + 1;
-                        kalem.KalemInternalNo = kalem.BeyanInternalNo + "|" + klNo;
+                            kalem.KalemSiraNo = Convert.ToInt32(maxKalemNo) + 1;
+                            int klNo = Convert.ToInt32(maxKalemInternalNo.Split('|')[1].ToString()) + 1;
+                            kalem.KalemInternalNo = kalem.BeyanInternalNo + "|" + klNo;
+                        }
+                        else
+                        {
+                            kalem.KalemSiraNo =1;
+                            kalem.KalemInternalNo = kalem.BeyanInternalNo + "|1";
+                        }
+                       
+
+                   
+                       
                         beyannameContext.Entry(kalem).State = EntityState.Added;
                     }
 
@@ -1067,6 +1082,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in belgeBilgiList)
                         {
+                          
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -1120,6 +1136,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
 
         }
+
 
         [Route("api/BYT/Servis/Beyanname/[controller]/SoruCevapOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]

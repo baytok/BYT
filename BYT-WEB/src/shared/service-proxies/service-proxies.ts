@@ -908,6 +908,7 @@ export class SessionServiceProxy {
   public islemInternalNo: string;
   public beyanInternalNo: string;
   public beyanStatu: string;
+  public token: string;
 
   public Kalemler: KalemDto[];
   protected jsonParseReviver:
@@ -2195,7 +2196,7 @@ export class BeyannameDto {
       this.mail3=data["maimail3l1"]!=null ? data["mail3"] : "";
       this.mobil1=data["mobil1"]!=null ? data["mobil1"] : "";
       this.mobil2=data["mobil2"]!=null ? data["mobil2"] : "";
-      this.musavirVergiNo=data["islemmusavirVergiNoinNiteligi"]!=null ? data["musavirVergiNo"] : "";
+      this.musavirVergiNo=data["musavirVergiNo"]!=null ? data["musavirVergiNo"] : "";
       this.odemeAraci=data["odemeAraci"]!=null ? data["odemeAraci"] : "";
       this.musavirReferansNo=data["musavirReferansNo"]!=null ? data["musavirReferansNo"] : "";
       this.referansTarihi=data["referansTarihi"]!=null ? data["referansTarihi"] : "";

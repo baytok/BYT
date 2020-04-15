@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Injector,ViewChild,ElementRef } from "@angular/core";
+import { Component, OnInit, Inject, Injector,ViewChild,ElementRef,Injectable } from "@angular/core";
 import { AbstractControl } from '@angular/forms';
 import {
   HttpClient,
@@ -51,16 +51,81 @@ import {
   KalemDto,
   ServisDto
 } from "../../../shared/service-proxies/service-proxies";
+import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
+import {MatDatepickerModule,} from '@angular/material/datepicker'; 
 
+export const PICK_FORMATS = {
+  parse: {
+    dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
+},
+display: {
+    // dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+    dateInput: 'input',
+    // monthYearLabel: { month: 'short', year: 'numeric', day: 'numeric' },
+    monthYearLabel: 'inputMonth',
+    dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+    monthYearA11yLabel: {year: 'numeric', month: 'long'},
+}
+};
+@Injectable() 
+class PickDateAdapter extends NativeDateAdapter {
+  parse(value: any): Date | null {
+    if ((typeof value === 'string') && (value.indexOf('/') > -1)) {
+      const str = value.split('/');
+      const year = Number(str[2]);
+      const month = Number(str[1]) - 1;
+      const date = Number(str[0]);
+      return new Date(year, month, date);
+    }
+    const timestamp = typeof value === 'number' ? value : Date.parse(value);
+    return isNaN(timestamp) ? null : new Date(timestamp);
+  }
+format(date: Date, displayFormat: string): string {
+   if (displayFormat == "input") {
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      return this._to2digit(day) + '/' + this._to2digit(month) + '/' + year;
+   } else if (displayFormat == "inputMonth") {
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      return  this._to2digit(month) + '/' + year;
+   } else {
+       return date.toDateString();
+   }
+}
+
+  private _to2digit(n: number) {
+    return ('00' + n).slice(-2);
+  }
+}
+
+export const ihracatRejim=[
+  {rejim:'1000'},
+  {rejim:'2300'},
+  {rejim:'3151'}
+  ]
+export const ithalatRejim=[
+  {rejim:'4000'},
+  {rejim:'7100'},
+  {rejim:'5100'}
+  ]
 @Component({
   selector: "app-beyanname",
   templateUrl: "./beyanname.component.html",
-  styleUrls: ["./beyanname.component.scss"]
+  styleUrls: ["./beyanname.component.scss"],
+  providers: [
+    {provide: DateAdapter, useClass: PickDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
+ ]
 })
 export class BeyannameComponent implements OnInit {
   @ViewChild('islemNo', {static: true}) private islemInput: ElementRef;
   beyannameForm: FormGroup;
   submitted: boolean = false;
+  ihracatEditable: boolean = false;
+  ithalatEditable: boolean = false;
+  editable: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
   _beyannameBilgileri: BeyannameBilgileriDto;
@@ -86,6 +151,7 @@ export class BeyannameComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _fb: FormBuilder,
     private  girisService: GirisService,  
+  
   ) {
     
    
@@ -110,7 +176,7 @@ export class BeyannameComponent implements OnInit {
         ]),
         aliciVergiNo: new FormControl("", [Validators.maxLength(20)]),
         gondericiVergiNo: new FormControl("", [Validators.maxLength(20)]),
-        musavirVergiNo:  new FormControl("", [Validators.maxLength(20)]),
+        musavirVergiNo:  new FormControl("", [Validators.required,Validators.maxLength(20)]),
         beyanSahibiVergiNo: new FormControl("", [
           Validators.required,
           Validators.maxLength(20)
@@ -128,7 +194,7 @@ export class BeyannameComponent implements OnInit {
           Validators.pattern("^[a-zA-Z0-9]*$")
         ]),
         cikisUlkesi: new FormControl("",  [
-          Validators.required,
+         
           Validators.minLength(2),
           Validators.maxLength(9),
           Validators.pattern("^[a-zA-Z0-9]*$")
@@ -140,18 +206,22 @@ export class BeyannameComponent implements OnInit {
           Validators.pattern("^[a-zA-Z0-9]*$")
         ]),
         gidecegiUlke:  new FormControl("", [
-          Validators.required,
+        
           Validators.minLength(3),
           Validators.maxLength(30),
           Validators.pattern("^[a-zA-Z0-9]*$")
         ]),       
-        birlikKayitNumarasi: new FormControl("", [Validators.maxLength(30)]),
-        birlikKriptoNumarasi: new FormControl("", [Validators.maxLength(30)]),
+        birlikKayitNumarasi: new FormControl("", [
+        
+          Validators.maxLength(30)]),
+        birlikKriptoNumarasi: new FormControl("", [
+          
+          Validators.maxLength(30)]),
         isleminNiteligi:new FormControl("", [Validators.required,Validators.maxLength(9)]),   
       //  kapAdedi: new FormControl("", [Validators.pattern("^[0-9]*$")]),   
         kapAdedi: new FormControl("", [ValidationService.numberValidator]),
         musavirReferansNo: new FormControl("", [Validators.required,Validators.maxLength(12)]),     
-        referansTarihi: [],
+        referansTarihi: new FormControl("",[ ValidationService.tarihValidation]),
         tescilStatu: [],
         tescilTarihi:[],
         refNo: new FormControl("", [Validators.maxLength(30)]),
@@ -237,8 +307,7 @@ export class BeyannameComponent implements OnInit {
         mobil1: new FormControl("", [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(12),
-          Validators.pattern("^[0-9]*$")
+          ValidationService.telefonValidation
         ]),
        
         mail1: new FormControl("", [
@@ -261,7 +330,8 @@ export class BeyannameComponent implements OnInit {
     }
     this.buildForm();
     this.beyannameForm.disable();
-    this._beyanSession.islemInternalNo = "11111111100DBKG000011";
+
+   
     if (this._beyanSession.islemInternalNo != undefined) {
       this.islemInput.nativeElement.value=this._beyanSession.islemInternalNo;
       this.getBeyannameFromIslem(this._beyanSession.islemInternalNo);
@@ -274,6 +344,50 @@ export class BeyannameComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000
     });
+  }
+  rejimSelect(rejim){
+    let ticaret= ihracatRejim.findIndex(x=>x.rejim==rejim)>=0?'E':ithalatRejim.findIndex(x=>x.rejim==rejim)>=0?'I':'';
+   
+   if(ticaret=='E')
+   {
+    this.beyannameForm.controls['gondericiVergiNo'].setValidators([Validators.required]);
+    this.beyannameForm.controls['gondericiVergiNo'].updateValueAndValidity();
+    this.beyannameForm.controls['birlikKayitNumarasi'].setValidators([Validators.required]);
+    this.beyannameForm.controls['birlikKayitNumarasi'].updateValueAndValidity();
+    this.beyannameForm.controls['birlikKriptoNumarasi'].setValidators([Validators.required]);
+    this.beyannameForm.controls['birlikKriptoNumarasi'].updateValueAndValidity();
+    this.beyannameForm.controls['cikisUlkesi'].setValue("");
+    this.beyannameForm.controls['cikisUlkesi'].clearValidators();
+    this.beyannameForm.controls['cikisUlkesi'].updateValueAndValidity();
+    this.beyannameForm.controls['gidecegiUlke'].setValidators([Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(9),
+      Validators.pattern("^[a-zA-Z0-9]*$")]);
+    this.beyannameForm.controls['gidecegiUlke'].updateValueAndValidity();
+    this.ihracatEditable=true;
+    this.ithalatEditable=false;
+   }
+    else{
+      this.beyannameForm.controls['birlikKayitNumarasi'].clearValidators();
+      this.beyannameForm.controls['birlikKayitNumarasi'].updateValueAndValidity();
+      this.beyannameForm.controls['birlikKriptoNumarasi'].clearValidators();
+      this.beyannameForm.controls['birlikKriptoNumarasi'].updateValueAndValidity();
+      this.beyannameForm.controls['aliciVergiNo'].setValidators([Validators.required]);
+      this.beyannameForm.controls['aliciVergiNo'].updateValueAndValidity();
+      this.beyannameForm.controls['gidecegiUlke'].setValue("");
+      this.beyannameForm.controls['gidecegiUlke'].clearValidators();
+      this.beyannameForm.controls['gidecegiUlke'].updateValueAndValidity();
+      this.beyannameForm.controls['cikisUlkesi'].setValidators([Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(9),
+        Validators.pattern("^[a-zA-Z0-9]*$")]);
+      this.beyannameForm.controls['cikisUlkesi'].updateValueAndValidity();
+       this.ihracatEditable=false;
+       this.ithalatEditable=true;
+    }
+
+    if(ticaret !='')
+     this.editable=true;
   }
   getBeyannameFromIslem(islemInternalNo:string) {  
 
@@ -433,13 +547,16 @@ export class BeyannameComponent implements OnInit {
   }
   yeniBeyanname() {
     this._beyanname.beyanInternalNo='Boş';
-  
     this._beyanname.tescilStatu='';
     this.beyannameForm.reset();
     this.beyannameForm.enable();
-    this.submitted = false;
     this.islemInput.nativeElement.value="";
     this.beyannameForm.markAllAsTouched();
+    this.submitted = false;
+    this.ihracatEditable = false;
+    this.ithalatEditable = false;
+    this.editable=false;
+   
   } 
   duzeltBeyanname() {
    
@@ -462,97 +579,7 @@ export class BeyannameComponent implements OnInit {
     }
   }
 
-  deneme(){
-    this.beyannameForm.setValue({
-      aciklamalar: "deneme",
-      aliciSaticiIliskisi: "0",
-      aliciVergiNo: "11111",
-      antrepoKodu: "c99991",
-      asilSorumluVergiNo: "1111",
-      bankaKodu: "999999999",
-      basitlestirilmisUsul: "1",
-      beyanInternalNo: "11111111100DB000011",
-      beyannameNo: null,
-      beyanSahibiVergiNo: "11111",
-      birlikKayitNumarasi: "12345",
-      birlikKriptoNumarasi: "abcde",
-      cikistakiAracinKimligi: "araba 34abc123",
-      cikistakiAracinTipi: "4",
-      cikistakiAracinUlkesi: "052",
-      cikisUlkesi: "001",
-      esyaninBulunduguYer: "garaj",
-      gidecegiSevkUlkesi: "052",
-      gidecegiUlke: "052",
-      girisGumrukIdaresi: "067777",
-      gondericiVergiNo: "11111",
-      gumruk: "067777",
-      isleminNiteligi: "11",
-      kapAdedi: 120,
-      konteyner: "EVET",
-      kullanici: "11111111100",
-      limanKodu: "",
-      mail1: "abc@ggg.com",
-     // mail2: undefined,
-     // mail3: undefined,
-      mobil1: "05051234567",
-    //  mobil2: undefined,
-      musavirReferansNo: "000002",
-      musavirVergiNo: "11111",
-      odemeAraci: "7",
-      referansTarihi: "",
-      refNo: "11111111100|1000|000011",
-      rejim: "1000",
-      sinirdakiAracinKimligi: "34abc123",
-      sinirdakiAracinTipi: "4",
-      sinirdakiAracinUlkesi: "052",
-      sinirdakiTasimaSekli: "40",
-      tasarlananGuzergah: "",
-      telafiEdiciVergi: 0,
-      tescilStatu: "Güncellendi",
-      tescilTarihi: "",
-      teslimSekli: "FOB",
-      teslimSekliYeri: "Garaj",
-      ticaretUlkesi: "052",
-      toplamFatura: 6500.55,
-      toplamFaturaDovizi: "USD",
-      toplamNavlun: 50.2,
-      toplamNavlunDovizi: "USD",
-      toplamSigorta: 0,
-      toplamSigortaDovizi: "",
-      toplamYurtDisiHarcamalar: 0,
-      toplamYurtDisiHarcamalarDovizi: "",
-      toplamYurtIciHarcamalar: 0,
-      varisGumrukIdaresi: "",
-      yukBelgeleriSayisi: 10,
-      yuklemeBosaltmaYeri: "Ev"
-    })
-   
-  let yeniislemInternalNo: string;
-  let yeniBeyanname=new BeyannameDto();
-  yeniBeyanname.initalBeyan(this.beyannameForm.value);
-  console.log(yeniBeyanname);
-  const promise = this.beyanServis
-    .setBeyanname(yeniBeyanname)
-    .toPromise();
-  promise.then(
-    result => {
-    
-      const servisSonuc = new ServisDto();
-      servisSonuc.init(result);
-      yeniislemInternalNo = servisSonuc.Bilgiler[0].referansNo;
-       
-      if (yeniislemInternalNo != null) {
-        this.islemInput.nativeElement.value=yeniislemInternalNo;
-        this._beyanSession.islemInternalNo=yeniislemInternalNo;
-        this.openSnackBar(servisSonuc.Sonuc, "Tamam");
-      
-      }
-    },
-    err => {
-      
-    }
-  );
-  }
+
   onbeyannameFormSubmit() {
     this.submitted = true;
 
@@ -574,11 +601,11 @@ export class BeyannameComponent implements OnInit {
     }
     this.beyannameForm.get("beyanInternalNo").setValue(this._beyanname.beyanInternalNo);
     this.beyannameForm.get("kullanici").setValue(this.girisService.loggedKullanici);
-   
+    console.log(this.beyannameForm);
     let yeniislemInternalNo: string;
     let yeniBeyanname=new BeyannameDto();
     yeniBeyanname.initalBeyan(this.beyannameForm.value);
-     console.log(yeniBeyanname);
+    
       const promise = this.beyanServis
         .setBeyanname(yeniBeyanname)
         .toPromise();

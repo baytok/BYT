@@ -82,7 +82,7 @@ namespace BYT.UI
                 UserInfo = userinfo,
                 TCKimlikNo = tckn
             };
-
+          
             KpsWs.TCKKBilgisiOUT tckkOut = GetKimlikBilgiServiceClient().TCKKBilgisi(tckkBilgi);
             return tckkOut.TCKKBilgisi;
         }

@@ -19,7 +19,7 @@ import {
 } from "../../../shared/service-proxies/service-proxies";
 import { ValidationService } from "../../../shared/service-proxies/ValidationService";
 import { UserRoles } from "../../../shared/service-proxies/UserRoles";
-
+import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 import {
@@ -46,7 +46,8 @@ export class FirmaComponent implements OnInit {
     private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar,
     private _userRoles: UserRoles,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private router:Router,
   ) {
     this.firmaForm = this._fb.group({
       firmaArry: this._fb.array([this.getFirma()]),
@@ -64,11 +65,13 @@ export class FirmaComponent implements OnInit {
     if (
       this._beyanSession.islemInternalNo == undefined ||
       this._beyanSession.islemInternalNo == null
-    )
+    ){
       this.openSnackBar(
-        this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
+        this._beyanSession.islemInternalNo + " ait Firma Bulunamadı",
         "Tamam"
       );
+      this.router.navigateByUrl('/app/beyanname');
+    }
     this.getFirmaBilgileri();
   }
 
