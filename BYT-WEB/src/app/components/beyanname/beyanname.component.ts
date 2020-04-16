@@ -476,7 +476,7 @@ export class BeyannameComponent implements OnInit {
         girisGumrukIdaresi: this._beyanname.girisGumrukIdaresi,              
         isleminNiteligi: this._beyanname.isleminNiteligi,
         kapAdedi: this._beyanname.kapAdedi,
-        konteyner: this._beyanname.konteyner,
+        konteyner: this._beyanname.konteyner==="EVET"?true:false,
         
         limanKodu: this._beyanname.limanKodu,
         mail1: this._beyanname.mail1,
@@ -561,6 +561,7 @@ export class BeyannameComponent implements OnInit {
   duzeltBeyanname() {
    
     this.beyannameForm.enable();
+    this.rejimSelect(this.beyannameForm.get("rejim").value);
     this.beyannameForm.markAllAsTouched();
    
     if (this.beyannameForm.invalid) {
@@ -601,7 +602,11 @@ export class BeyannameComponent implements OnInit {
     }
     this.beyannameForm.get("beyanInternalNo").setValue(this._beyanname.beyanInternalNo);
     this.beyannameForm.get("kullanici").setValue(this.girisService.loggedKullanici);
-    console.log(this.beyannameForm);
+
+    let konteyner =this.beyannameForm.get("konteyner").value ===true ?"EVET":"HAYIR";
+    this.beyannameForm.get("konteyner").setValue(konteyner);
+  
+  
     let yeniislemInternalNo: string;
     let yeniBeyanname=new BeyannameDto();
     yeniBeyanname.initalBeyan(this.beyannameForm.value);

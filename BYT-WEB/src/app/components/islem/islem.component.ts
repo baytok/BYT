@@ -126,13 +126,13 @@ export class IslemComponent implements OnInit {
    getMessageSonucSorgula(guid:string)
    {
     this.loading = true; 
-  
+    const Servissonuc = new ServisDto;
     const promise=this.beyanServis.getSonucSorgula(guid).toPromise();
     promise.then( (result)=>{
-      const sonuc_ = new ServisDto;
-      sonuc_.init(result);
+      
+      Servissonuc.init(result);
       this.loading = false; 
-      this.openSnackBar(sonuc_.Bilgiler[0].referansNo +"-" +sonuc_.Bilgiler[0].sonuc ,'Tamam')
+      this.openSnackBar(Servissonuc.Sonuc ,'Tamam')
       this.yenileTarihce();    
      
       this.loading = false;

@@ -1332,9 +1332,11 @@ export class ServisDto {
         this.Hatalar = [] as any;
         for (let item of data["hatalar"]) this.Hatalar.push(item);
       }
-    
+     
       this.ServisDurumKodu = data["servisDurumKodlari"];
       this.Sonuc=this.getSonuc();
+
+      if (this.Bilgiler!=undefined && Array.isArray( this.Bilgiler))
       this.SonucVeriler= JSON.stringify(this.Bilgiler[0].sonucVeriler);
     
     }
@@ -1373,11 +1375,12 @@ export class ServisDto {
   getSonuc():string
   {
     let result={};
-  
+
+   
    if(this.ServisDurumKodu===1)
    {
-    if (Array.isArray( this.Bilgiler)) {
- 
+    if (this.Bilgiler!=undefined && Array.isArray( this.Bilgiler)) {
+    
       for (let item of this.Bilgiler) 
       {
       result={
@@ -1392,8 +1395,8 @@ export class ServisDto {
    }
    else
    {
-    if (this.Hatalar) {
-     
+    if (this.Hatalar!=undefined && this.Hatalar) {
+    
       for (let item of this.Hatalar) 
       {
         result={

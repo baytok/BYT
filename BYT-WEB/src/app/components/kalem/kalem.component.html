@@ -2254,18 +2254,13 @@
                             fxLayoutAlign="center"
                           >
                             <mat-form-field fxFlex="10%">
-                              <select
-                                matNativeControl
-                                placeholder="Belge Kodu"
-                                formControlName="belgeKodu"
-                                required
-                              >
-                                <option
-                                  *ngFor="let s of _belgeList"
-                                  [value]="s.kod"
-                                  >{{ s.kod }} {{ s.aciklama }}</option
-                                >
-                              </select>
+                              <input
+                              
+                              matNativeControl
+                              placeholder="Belge Kodu"
+                              formControlName="belgeKodu"
+                            />
+                             
                             </mat-form-field>
 
                             <mat-form-field fxFlex="30%">
@@ -2284,6 +2279,7 @@
                                 formControlName="dogrulama"
                                 required
                               >
+                              <option value=""></option>
                                 <option value="V">Var</option>
                                 <option value="S">Sonradan</option>
                                 <option value="Y">Yok</option>
@@ -2359,7 +2355,7 @@
                     fxLayoutAlign="left"
                   >
                     <mat-card formArrayName="soruCevapArry"
-                      ><mat-card-title>Soru ve Cevap Bilgileri</mat-card-title
+                      ><mat-card-title>Soru,Cevap ve Açıklama Bilgileri</mat-card-title
                       ><mat-divider></mat-divider>
 
                       <div
@@ -2384,17 +2380,13 @@
                             fxLayoutAlign="center"
                           >
                             <mat-form-field fxFlex="10%">
-                              <select
-                                matNativeControl
-                                placeholder="Soru Kodu"
-                                formControlName="soruKodu"
-                              >
-                                <option
-                                  *ngFor="let s of _soruList"
-                                  [value]="s.kod"
-                                  >{{ s.kod }} {{ s.aciklama }}</option
-                                >
-                              </select>
+                              <input
+                              
+                              matNativeControl
+                              placeholder="Soru Kodu"
+                              formControlName="soruKodu"
+                            />
+                             
                             </mat-form-field>
                             <mat-form-field fxFlex="10%">
                               <select
@@ -2402,11 +2394,20 @@
                                 placeholder="Cevap"
                                 formControlName="soruCevap"
                               >
+                                <option value=""></option>
                                 <option value="Evet">Evet</option>
                                 <option value="Hayir">Hayir</option>
                               </select>
                             </mat-form-field>
-                            <mat-form-field fxFlex="30%">
+                            <mat-form-field fxFlex="10%">
+                              <input
+                                readonly
+                                matNativeControl
+                                placeholder="Tip"
+                                formControlName="tip"
+                              />
+                            </mat-form-field>
+                            <mat-form-field fxFlex="70%">
                               <input
                                 readonly
                                 matNativeControl
@@ -2415,14 +2416,7 @@
                               />
                             </mat-form-field>
 
-                            <mat-form-field fxFlex="30%">
-                              <input
-                                readonly
-                                matNativeControl
-                                placeholder="Tip"
-                                formControlName="tip"
-                              />
-                            </mat-form-field>
+                          
                             <button
                               mat-mini-fab
                               color="warn"

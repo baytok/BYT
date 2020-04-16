@@ -201,9 +201,9 @@ export class KalemComponent implements OnInit {
       ikincilIslem: [false],
       imalatciFirmaBilgisi: [false],
       mahraceIade: [false],
-      kalemIslemNiteligi: new FormControl("", [Validators.maxLength(9)]),
+      kalemIslemNiteligi: new FormControl("", [ Validators.maxLength(9)]),
       kullanilmisEsya: new FormControl("", [Validators.maxLength(9)]),
-      ozellik: new FormControl("", [Validators.maxLength(9)]),
+      ozellik: new FormControl("", [ Validators.required,Validators.maxLength(9)]),
       muafiyetler1: new FormControl("", [Validators.maxLength(9)]),
       muafiyetler2: new FormControl("", [Validators.maxLength(9)]),
       muafiyetler3: new FormControl("", [Validators.maxLength(9)]),
@@ -278,6 +278,7 @@ export class KalemComponent implements OnInit {
         Validators.maxLength(9),
       ]),
       istatistikiKiymet: new FormControl("", [
+        Validators.required,
         ValidationService.decimalValidation,
       ]),
       faturaMiktari: new FormControl("", [
@@ -493,14 +494,14 @@ export class KalemComponent implements OnInit {
       girisCikisAmaci: this._kalemler[kalemNo - 1].girisCikisAmaci,
       girisCikisAmaciAciklama: this._kalemler[kalemNo - 1]
         .girisCikisAmaciAciklama,
-      ikincilIslem: this._kalemler[kalemNo - 1].ikincilIslem,
-      imalatciFirmaBilgisi: this._kalemler[kalemNo - 1].imalatciFirmaBilgisi,
+      ikincilIslem: this._kalemler[kalemNo - 1].ikincilIslem==="EVET"?true:false,
+      imalatciFirmaBilgisi: this._kalemler[kalemNo - 1].imalatciFirmaBilgisi==="EVET"?true:false,
       imalatciVergiNo: this._kalemler[kalemNo - 1].imalatciVergiNo,
       istatistikiKiymet: this._kalemler[kalemNo - 1].istatistikiKiymet,
       istatistikiMiktar: this._kalemler[kalemNo - 1].istatistikiMiktar,
       kalemIslemNiteligi: this._kalemler[kalemNo - 1].kalemIslemNiteligi,
       kullanilmisEsya: this._kalemler[kalemNo - 1].kullanilmisEsya,
-      mahraceIade: this._kalemler[kalemNo - 1].mahraceIade,
+      mahraceIade: this._kalemler[kalemNo - 1].mahraceIade==="EVET"?true:false,
       marka: this._kalemler[kalemNo - 1].marka,
       menseiUlke: this._kalemler[kalemNo - 1].menseiUlke,
       miktar: this._kalemler[kalemNo - 1].miktar,
@@ -736,12 +737,22 @@ export class KalemComponent implements OnInit {
       );
       return;
     }
-
+    
     this.kalemForm
       .get("beyanInternalNo")
       .setValue(this._beyanSession.beyanInternalNo);
     this.kalemForm.get("kalemSiraNo").setValue(this.kalemNo);
     this.kalemForm.get("kalemInternalNo").setValue(this.kalemInternalNo);
+    let ikincilIslem =this.kalemForm.get("ikincilIslem").value ===true ?"EVET":"";
+    this.kalemForm.get("ikincilIslem").setValue(ikincilIslem);
+
+    let imalatciFirmaBilgisi =this.kalemForm.get("imalatciFirmaBilgisi").value ===true ?"EVET":"";
+    this.kalemForm.get("imalatciFirmaBilgisi").setValue(imalatciFirmaBilgisi);
+
+    let mahraceIade =this.kalemForm.get("mahraceIade").value ===true ?"EVET":"";
+    this.kalemForm.get("mahraceIade").setValue(mahraceIade);
+
+
     let yenikalemInternalNo: string;
     let yeniKalem = new KalemDto();
     yeniKalem.init(this.kalemForm.value);
@@ -1545,7 +1556,7 @@ export class KalemComponent implements OnInit {
           Validators.maxLength(10),
         ]),
         referans: new FormControl(klm.referans, [
-          Validators.required,
+      
           Validators.maxLength(30),
         ]),
         belgeTarihi: new FormControl(klm.belgeTarihi, [    Validators.required,      
@@ -1573,7 +1584,7 @@ export class KalemComponent implements OnInit {
         Validators.maxLength(10),
       ]),
       referans: new FormControl("", [
-        Validators.required,
+     
         Validators.maxLength(30),
       ]),
       belgeTarihi: new FormControl("", [
@@ -1664,9 +1675,9 @@ export class KalemComponent implements OnInit {
           Validators.maxLength(10),
         ]),
         soruAciklamasi: new FormControl(klm.soruAciklamasi, []),
-        soruCevap: new FormControl(klm.soruCevap, [
-          Validators.required,
+        soruCevap: new FormControl(klm.soruCevap, [       
           Validators.maxLength(10),
+          klm.tip==="Soru"? Validators.required: Validators.nullValidator
         ]),
         tip: new FormControl(klm.tip, [
           Validators.required,

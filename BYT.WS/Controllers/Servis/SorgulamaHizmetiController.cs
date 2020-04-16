@@ -14,7 +14,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace BYT.WS.Controllers.Servis
@@ -25,14 +27,13 @@ namespace BYT.WS.Controllers.Servis
     public class SorgulamaHizmetiController : ControllerBase
     {
         private IslemTarihceDataContext _islemTarihceContext;
-        private BeyannameSonucDataContext _beyannameSonucTarihcecontext;
         private BeyannameDataContext _beyannameContext;
         private readonly ServisCredential _servisCredential;
-
-        public SorgulamaHizmetiController(IslemTarihceDataContext islemTarihcecontext, BeyannameDataContext beyannameContex,  BeyannameSonucDataContext beyannameSonucTarihcecontext, IOptions<ServisCredential> servisCredential)
+        public IConfiguration Configuration { get; }
+        public SorgulamaHizmetiController(IslemTarihceDataContext islemTarihcecontext, BeyannameDataContext beyannameContex, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
+            Configuration = configuration;
             _islemTarihceContext = islemTarihcecontext;
-            _beyannameSonucTarihcecontext = beyannameSonucTarihcecontext;
             _beyannameContext = beyannameContex;
             _servisCredential = new ServisCredential();
             _servisCredential.username = servisCredential.Value.username;
@@ -55,6 +56,7 @@ namespace BYT.WS.Controllers.Servis
 
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(snc.Nodes[1].FirstNode.ToString());
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("tr-TR", false);
                 string sonucXml = "", gelenXml = "", gidenXml = "";
                 if (doc.HasChildNodes)
                 {
@@ -87,68 +89,74 @@ namespace BYT.WS.Controllers.Servis
                     }
                 }
 
-               
-
-                using (var transaction = _islemTarihceContext.Database.BeginTransaction())
+                try
                 {
-                    try
+                    var _tarihce = await _islemTarihceContext.Tarihce.FirstOrDefaultAsync(v => v.Guid == Guid);
+                    var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.Kullanici == _tarihce.Kullanici && v.RefNo == _tarihce.RefNo);
+                    var _beyanname = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == _islem.BeyanInternalNo);
+
+
+                    var sonucObj = SonuclariTopla(gidenXml, Guid, _islem.IslemInternalNo, _tarihce.GonderimNo, _islem.BeyanInternalNo);
+                    // GonderilenVeriler(gelenXml);
+                    if (sonucObj.Result != null)
                     {
-                        var _tarihce = await _islemTarihceContext.Tarihce.FirstOrDefaultAsync(v => v.Guid == Guid);
-                        var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.Kullanici == _tarihce.Kullanici && v.RefNo == _tarihce.RefNo);
-                        var _beyanname = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == _islem.BeyanInternalNo);
-
-
-                        var sonucObj= SonuclariTopla(gidenXml, Guid, _islem.IslemInternalNo,_tarihce.GonderimNo, _islem.BeyanInternalNo);
-                        // GonderilenVeriler(gelenXml);
-                      
 
                         _tarihce.IslemDurumu = "Sonuclandi";
                         _tarihce.SonucZamani = DateTime.Now;
                         _tarihce.SonucVeri = gidenXml;
                         _tarihce.ServistekiVeri = gelenXml;
-                        _tarihce.BeyanNo = sonucObj.Beyanname_no;
-                        
+                        _tarihce.BeyanNo = sonucObj.Result.Beyanname_no;
 
                         _islemTarihceContext.Entry(_tarihce).State = EntityState.Modified;
                         await _islemTarihceContext.SaveChangesAsync();
 
-                     
 
-                       // _islem.IslemDurumu = "Sonuclandi";
+                        // _islem.IslemDurumu = "Sonuclandi";
                         _islem.IslemZamani = DateTime.Now;
-                        _tarihce.BeyanNo = sonucObj.Beyanname_no;
+                        _tarihce.BeyanNo = sonucObj.Result.Beyanname_no;
 
 
                         _islemTarihceContext.Entry(_islem).State = EntityState.Modified;
                         await _islemTarihceContext.SaveChangesAsync();
 
-                   
-                        _beyanname.BeyannameNo = sonucObj.Beyanname_no;
-                        if(!string.IsNullOrWhiteSpace(sonucObj.Tescil_tarihi))
-                        _beyanname.TescilTarihi =   Convert.ToDateTime(sonucObj.Tescil_tarihi) ;
-                      //  _beyanname.TescilStatu ="Tescil Edildi";
+
+                        _beyanname.BeyannameNo = sonucObj.Result.Beyanname_no;
+                        if (!string.IsNullOrWhiteSpace(sonucObj.Result.Tescil_tarihi))
+                            _beyanname.TescilTarihi = Convert.ToDateTime(sonucObj.Result.Tescil_tarihi);
+                        //  _beyanname.TescilStatu ="Tescil Edildi";
 
                         _beyannameContext.Entry(_beyanname).State = EntityState.Modified;
                         await _beyannameContext.SaveChangesAsync();
-                     
-                        transaction.Commit();
 
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        transaction.Rollback();
                         _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
                         List<Internal.Hata> lsthtt = new List<Internal.Hata>();
 
-                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = "Sonuç Bilgileri Oluşmadı"};
                         lsthtt.Add(ht);
                         _servisDurum.Hatalar = lsthtt;
-                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                       
                         return _servisDurum;
                     }
+
+                }
+                catch (Exception ex)
+                {
+
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lsthtt = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lsthtt.Add(ht);
+                    _servisDurum.Hatalar = lsthtt;
+                    var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                    return _servisDurum;
                 }
 
-             
+
+
 
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
@@ -184,713 +192,791 @@ namespace BYT.WS.Controllers.Servis
 
         }
 
-       private BeyannameXmlSonuc SonuclariTopla(string XML, string GuidOf, string InternalNo, int GonderimNo, string BeyanInternalNo)
+        private async Task<BeyannameXmlSonuc> SonuclariTopla(string XML, string GuidOf, string InternalNo, int GonderimNo, string BeyanInternalNo)
         {
-
+            var options = new DbContextOptionsBuilder<BeyannameSonucDataContext>()
+            .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+            .Options;
+            var _beyannameSonucTarihcecontext = new BeyannameSonucDataContext(options);
             XmlDocument xd = new XmlDocument();
             BeyannameXmlSonuc sonucObj = new BeyannameXmlSonuc();
-         
-            
-            try
+
+
+
+            using (var transaction = _beyannameSonucTarihcecontext.Database.BeginTransaction())
             {
-          
-                xd.LoadXml(XML);
-
-                XmlNodeList XmlNodeListObjhata = xd.GetElementsByTagName("Error");
-                if (XmlNodeListObjhata[0] != null)
+                try
                 {
-                    // XmlNodeListObjhata[0].ChildNodes[0].Value;
-                    return sonucObj;
-                }
-                sonucObj.SonucXml = XML;
-                XmlNodeList XmlNodeListObj1 = xd.GetElementsByTagName("Beyanname_no");
-                XmlNodeList XmlNodeListObj2 = xd.GetElementsByTagName("Tip");
-                XmlNodeList XmlNodeListObj3 = xd.GetElementsByTagName("Tescil_tarihi");
-                XmlNodeList XMLhatalar = xd.GetElementsByTagName("Hatalar");
-                XmlNodeList XMLsorular = xd.GetElementsByTagName("Sorular");
-                XmlNodeList XMLbelgeler = xd.GetElementsByTagName("Belgeler");
-                XmlNodeList XMLvergiler = xd.GetElementsByTagName("Vergiler");
-                XmlNodeList XMLsorularacevap = xd.GetElementsByTagName("Soru_cevap");
-                XmlNodeList XMLtoplamvergiler = xd.GetElementsByTagName("Toplam_vergiler");
-                XmlNodeList XMLtoplananvergiler = xd.GetElementsByTagName("Toplanan_vergiler");
-                XmlNodeList XMLhesapdetaylari = xd.GetElementsByTagName("Hesap_detaylari");
-                XmlNodeList XMLozetbeyanlar = xd.GetElementsByTagName("Ozetbeyan_bilgi");
-                XmlNodeList XMLgumrukkiymetleri = xd.GetElementsByTagName("Gumruk_kiymetleri");
-                XmlNodeList XMListatistikikiymetler = xd.GetElementsByTagName("Istatistiki_kiymetleri");
-                XmlNodeList XMLdovizkurualis = xd.GetElementsByTagName("Doviz_kuru_alis");
-                XmlNodeList XMLdovizkurusatis = xd.GetElementsByTagName("Doviz_kuru_satis");
-                XmlNodeList XMKontrolkodu = xd.GetElementsByTagName("Cikti_kontrol_kodu");
-                XmlNodeList XMMuayeneMemuru = xd.GetElementsByTagName("Muayene_memuru");
-                XmlNodeList XMMLKalanKontor = xd.GetElementsByTagName("KalanKontor");
+                    xd.LoadXml(XML);
 
-                if (XmlNodeListObj1[0] != null)
-                {
-                    if (XmlNodeListObj1[0].ChildNodes[0] != null)
-                        sonucObj.Beyanname_no = XmlNodeListObj1[0].ChildNodes[0].Value;
-
-                }
-
-                if (XmlNodeListObj2[0] != null)
-                {
-                    if (XmlNodeListObj2[0].ChildNodes[0] != null)
-                        sonucObj.Tip = XmlNodeListObj2[0].ChildNodes[0].Value;
-                }
-                if (XmlNodeListObj3[0] != null)
-                {
-                    if (XmlNodeListObj3[0].ChildNodes[0] != null)
-                        sonucObj.Tescil_tarihi = XmlNodeListObj3[0].ChildNodes[0].Value;
-                }
-
-                #region Hatalar
-
-                if (XMLhatalar[0].ChildNodes.Count > 0)
-                {
-                    XmlNodeList xHata = XMLhatalar[0].ChildNodes;
-
-                    List<HataMesaji> shatalar = new List<HataMesaji>();
-                   
-                    int hata_kodu;
-                    string hata_aciklamasi;
-                    foreach (XmlNode var in xHata)
+                    XmlNodeList XmlNodeListObjhata = xd.GetElementsByTagName("Error");
+                    if (XmlNodeListObjhata[0] != null)
                     {
-                        hata_kodu = !string.IsNullOrWhiteSpace(var.ChildNodes[0].InnerText) ? Convert.ToInt32(var.ChildNodes[0].InnerText):0;
-                        hata_aciklamasi = var.ChildNodes[1].InnerText;
+                        // XmlNodeListObjhata[0].ChildNodes[0].Value;
+                        return sonucObj;
+                    }
+                    sonucObj.SonucXml = XML;
+                    XmlNodeList XmlNodeListObj1 = xd.GetElementsByTagName("Beyanname_no");
+                    XmlNodeList XmlNodeListObj2 = xd.GetElementsByTagName("Tip");
+                    XmlNodeList XmlNodeListObj3 = xd.GetElementsByTagName("Tescil_tarihi");
+                    XmlNodeList XMLhatalar = xd.GetElementsByTagName("Hatalar");
+                    XmlNodeList XMLsorular = xd.GetElementsByTagName("Sorular");
+                    XmlNodeList XMLbelgeler = xd.GetElementsByTagName("Belgeler");
+                    XmlNodeList XMLvergiler = xd.GetElementsByTagName("Vergiler");
+                    XmlNodeList XMLsorularacevap = xd.GetElementsByTagName("Soru_cevap");
+                    XmlNodeList XMLtoplamvergiler = xd.GetElementsByTagName("Toplam_vergiler");
+                    XmlNodeList XMLtoplananvergiler = xd.GetElementsByTagName("Toplanan_vergiler");
+                    XmlNodeList XMLhesapdetaylari = xd.GetElementsByTagName("Hesap_detaylari");
+                    XmlNodeList XMLozetbeyanlar = xd.GetElementsByTagName("Ozetbeyan_bilgi");
+                    XmlNodeList XMLgumrukkiymetleri = xd.GetElementsByTagName("Gumruk_kiymetleri");
+                    XmlNodeList XMListatistikikiymetler = xd.GetElementsByTagName("Istatistiki_kiymetleri");
+                    XmlNodeList XMLdovizkurualis = xd.GetElementsByTagName("Doviz_kuru_alis");
+                    XmlNodeList XMLdovizkurusatis = xd.GetElementsByTagName("Doviz_kuru_satis");
+                    XmlNodeList XMKontrolkodu = xd.GetElementsByTagName("Cikti_kontrol_kodu");
+                    XmlNodeList XMMuayeneMemuru = xd.GetElementsByTagName("Muayene_memuru");
+                    XmlNodeList XMMLKalanKontor = xd.GetElementsByTagName("KalanKontor");
 
-                        HataMesaji hataObj = new HataMesaji();
-                        hataObj.HataKodu = hata_kodu;
-                        hataObj.HataAciklamasi = hata_aciklamasi;
-
-                        shatalar.Add(hataObj);
-
-                        DbSonucHatalar _hata = new DbSonucHatalar();
-                     
-                        _hata.Guid = GuidOf;
-                        _hata.GonderimNo = GonderimNo;
-                        _hata.IslemInternalNo = InternalNo;
-                        _hata.HataKodu = hata_kodu;
-                        _hata.HataAciklamasi = hata_aciklamasi;
-                      
-
-                        _beyannameSonucTarihcecontext.Entry(_hata).State = EntityState.Added;
-                      
+                    if (XmlNodeListObj1[0] != null)
+                    {
+                        if (XmlNodeListObj1[0].ChildNodes[0] != null)
+                            sonucObj.Beyanname_no = XmlNodeListObj1[0].ChildNodes[0].Value;
 
                     }
-                    _beyannameSonucTarihcecontext.SaveChangesAsync();
-                    sonucObj.Hatalar = shatalar;
-                 
-                   
-                   
-                    
-                   
 
-                }
-
-                #endregion
-
-                else
-                {
-
-                    #region Sorular
-                    if (XMLsorular[0].ChildNodes.Count > 0)
+                    if (XmlNodeListObj2[0] != null)
                     {
-                        XmlNodeList xSoru = XMLsorular[0].ChildNodes;
-                        List<Soru> ssorular = new List<Soru>();
-                      
-                        string Aciklama;
-                        string Kod;
-                        string Tip;
-                        int Kalem_no;
-                        foreach (XmlNode var in xSoru)
+                        if (XmlNodeListObj2[0].ChildNodes[0] != null)
+                            sonucObj.Tip = XmlNodeListObj2[0].ChildNodes[0].Value;
+                    }
+                    if (XmlNodeListObj3[0] != null)
+                    {
+                        if (XmlNodeListObj3[0].ChildNodes[0] != null)
+                            sonucObj.Tescil_tarihi = XmlNodeListObj3[0].ChildNodes[0].Value;
+                    }
+
+                    #region Hatalar
+
+                    if (XMLhatalar[0].ChildNodes.Count > 0)
+                    {
+                        XmlNodeList xHata = XMLhatalar[0].ChildNodes;
+
+                        List<HataMesaji> shatalar = new List<HataMesaji>();
+
+                        int hata_kodu;
+                        string hata_aciklamasi;
+                        foreach (XmlNode var in xHata)
                         {
-                            Kod = var.ChildNodes[0].InnerText;
-                            Aciklama = var.ChildNodes[1].InnerText;
-                            Kalem_no = Convert.ToInt32(var.ChildNodes[2].InnerText);
-                            Tip = var.ChildNodes[3].InnerText;
-                            string a = var.ChildNodes[2].InnerText;
-                            XmlNode cevaplar = var.ChildNodes[4];
-                            XmlNode evetler = var.ChildNodes[4].ChildNodes[0];
-                            XmlNode hayirlar = var.ChildNodes[4].ChildNodes[1];
+                            hata_kodu = !string.IsNullOrWhiteSpace(var.ChildNodes[0].InnerText) ? Convert.ToInt32(var.ChildNodes[0].InnerText) : 0;
+                            hata_aciklamasi = var.ChildNodes[1].InnerText;
 
-                            Cevaplar lstCvp = new Cevaplar();
+                            HataMesaji hataObj = new HataMesaji();
+                            hataObj.HataKodu = hata_kodu;
+                            hataObj.HataAciklamasi = hata_aciklamasi;
 
-                            if (cevaplar.ChildNodes[0] != null)
-                            {
+                            shatalar.Add(hataObj);
 
-                                if (evetler.ChildNodes[0] != null)
-                                {
-                                    //      for (int j = 0; j < evetler; j++)
-                                    foreach (XmlNode lstevetler in evetler)
-                                    {
-                                        //  XmlNodeList varlstevetler = lstevetler.ChildNodes;
-                                        Evet lstevet = new Evet();
-                                        string evet_sira = lstevetler.ChildNodes[0].InnerText;
-                                        string evet_kodu = lstevetler.ChildNodes[1].InnerText;
-                                        string evet_aciklamasi = lstevetler.ChildNodes[2].InnerText;
-                                        lstevet.Kodu = evet_kodu;
-                                        lstevet.Sira = evet_sira;
-                                        lstevet.Aciklamasi = evet_aciklamasi;
+                            DbSonucHatalar _hata = new DbSonucHatalar();
 
-                                        lstCvp.Evetler.Add(lstevet);
-                                                   }
-                                }
-                            }
-                            if (cevaplar.ChildNodes[1] != null)
-                            {
-                                if (hayirlar.ChildNodes[0] != null)
-                                {
-                                    //  XmlNodeList lsthayirlar = hayirlar.ChildNodes[1].ChildNodes;
-                                    //    for (int j = 0; j < hayirlar.Count; j++)
-                                    foreach (XmlNode lsthayirlar in hayirlar)
-                                    {
-                                        Hayir lsthayir = new Hayir();
-                                        string hayir_sira = lsthayirlar.ChildNodes[0].InnerText;
-                                        string hayir_kodu = lsthayirlar.ChildNodes[1].InnerText;
-                                        string hayir_aciklamasi = lsthayirlar.ChildNodes[2].InnerText;
-                                        lsthayir.Kodu = hayir_kodu;
-                                        lsthayir.Sira = hayir_sira;
-                                        lsthayir.Aciklamasi = hayir_aciklamasi;
-                                        lstCvp.Hayirlar.Add(lsthayir);
-                                     }
-                                }
-                            }
+                            _hata.Guid = GuidOf;
+                            _hata.GonderimNo = GonderimNo;
+                            _hata.IslemInternalNo = InternalNo;
+                            _hata.HataKodu = hata_kodu;
+                            _hata.HataAciklamasi = hata_aciklamasi;
 
-
-                            Soru soruObj = new Soru();
-                            soruObj.Aciklama = Aciklama;
-                            soruObj.Kalem_no = Kalem_no;
-                            soruObj.Kod = Kod;
-                            soruObj.Tip = Tip;
-                            soruObj.Cevaplar = (lstCvp);
-                            ssorular.Add(soruObj);
-
-                            DbSonucSorular _soru = new DbSonucSorular();
-                            DbSoruCevap soruCevap = new DbSoruCevap();
-                            _soru.Guid = GuidOf;
-                            _soru.GonderimNo = GonderimNo;
-                            _soru.IslemInternalNo = InternalNo;
-                            _soru.KalemNo = Kalem_no;
-                            _soru.SoruKodu = Kod;
-                            _soru.SoruAciklamasi = Aciklama;
-                            _soru.Tip = Tip;
-                            _soru.Cevaplar = lstCvp.ToString();
-                            _beyannameSonucTarihcecontext.Entry(_soru).State = EntityState.Added;
-
-                            var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
-                            if(kalemValues!=null)
-                                soruCevap.KalemInternalNo = kalemValues.KalemInternalNo;
-                           else soruCevap.KalemInternalNo = BeyanInternalNo+"|1";
-
-                            soruCevap.BeyanInternalNo = BeyanInternalNo;                          
-                            soruCevap.SoruKodu = Kod;
-                            soruCevap.SoruAciklamasi = Aciklama;
-                            soruCevap.Tip = Tip;
-                            soruCevap.Cevaplar = lstCvp.ToString();
-                          
-                            _beyannameSonucTarihcecontext.Entry(soruCevap).State = EntityState.Added;
+                            _beyannameSonucTarihcecontext.Entry(_hata).State = EntityState.Added;
 
 
                         }
-                        _beyannameSonucTarihcecontext.SaveChangesAsync();
-                        sonucObj.Sorular = ssorular;
+                        await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                        sonucObj.Hatalar = shatalar;
+
                     }
 
                     #endregion
 
-                    #region Soru Cevap
+                    else
                     {
-                        if (XMLsorularacevap[0].ChildNodes != null)
+
+                        #region Sorular
+                        if (XMLsorular[0].ChildNodes.Count > 0)
                         {
-                            if (XMLsorularacevap[0].ChildNodes.Count > 0)
-                            {
-                                XmlNodeList xSrCvp = XMLsorularacevap[0].ChildNodes;
+                            XmlNodeList xSoru = XMLsorular[0].ChildNodes;
+                            List<Soru> ssorular = new List<Soru>();
 
-                                List<Soru_Cevap> sorucevap = new List<Soru_Cevap>();
-                                string soru_no;
-                                string cevap;
-                                int Kalem_no;
-
-                                foreach (XmlNode var in xSrCvp)
-                                {
-                                    Kalem_no = Convert.ToInt32(var.ChildNodes[0].InnerText);
-                                    soru_no = var.ChildNodes[1].InnerText;
-                                    cevap = var.ChildNodes[2].InnerText;
-
-
-
-                                    Soru_Cevap sorucevapObj = new Soru_Cevap();
-                                    sorucevapObj.Soru_no = soru_no;
-                                    sorucevapObj.Cevap = cevap;
-                                    sorucevapObj.Kalem_no = Kalem_no;
-
-                                    sorucevap.Add(sorucevapObj);
-
-
-                                    DbSonucSoruCevaplar _soruCevap = new DbSonucSoruCevaplar();
-                                    _soruCevap.Guid = GuidOf;
-                                    _soruCevap.GonderimNo = GonderimNo;
-                                    _soruCevap.IslemInternalNo = InternalNo;
-                                    _soruCevap.KalemNo = Kalem_no;
-                                    _soruCevap.SoruKodu = soru_no;
-                                    _soruCevap.SoruCevap = cevap;
-                                  
-                                   
-
-                                    _beyannameSonucTarihcecontext.Entry(_soruCevap).State = EntityState.Added;
-                                 
-                                }
-                                _beyannameSonucTarihcecontext.SaveChangesAsync();
-                                sonucObj.Soru_cevap = sorucevap;
-                            }
-                        }
-                        
-                    }
-
-                    #endregion
-
-                    #region Belgeler
-                    {
-                        if (XMLbelgeler[0].ChildNodes.Count > 0)
-                        {
-                            XmlNodeList xBelge = XMLbelgeler[0].ChildNodes;
-
-                            List<Belge> sBelgeler = new List<Belge>();
                             string Aciklama;
-                            string Dogrulama;
                             string Kod;
-                            string Referans;
-                            string Tamamlama_tarih;
+                            string Tip;
                             int Kalem_no;
-                            foreach (XmlNode var in xBelge)
-                            {
-                                Kalem_no = Convert.ToInt32(var.ChildNodes[0].InnerText);
-                                Kod = var.ChildNodes[1].InnerText;
-                                Aciklama = var.ChildNodes[2].InnerText;
-                                Dogrulama = var.ChildNodes[3].InnerText;
-                                Referans = var.ChildNodes[4].InnerText;
-                                Tamamlama_tarih = var.ChildNodes[5].InnerText;
-
-                                Belge belgeObj = new Belge();
-                                belgeObj.Aciklama = Aciklama;
-                                belgeObj.Dogrulama = Dogrulama;
-                                belgeObj.Kalem_no = Kalem_no;
-                                belgeObj.Kod = Kod;
-                                belgeObj.Referans = Referans;
-                                belgeObj.Belge_tarihi = Tamamlama_tarih;
-
-                                sBelgeler.Add(belgeObj);
-
-                                DbSonucBelgeler _belge = new DbSonucBelgeler();
-                                DbBelge belge = new DbBelge();
-                                _belge.Guid = GuidOf;
-                                _belge.GonderimNo = GonderimNo;
-                                _belge.IslemInternalNo = InternalNo;
-                                _belge.KalemNo = Kalem_no;
-                                _belge.BelgeKodu = Kod;
-                                _belge.BelgeAciklamasi = Aciklama;
-                                _belge.Dogrulama = Dogrulama;
-                                _belge.Referans = Referans;
-                                _belge.BelgeTarihi = Tamamlama_tarih;
-                                _beyannameSonucTarihcecontext.Entry(_belge).State = EntityState.Added;
-
-
-                                var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
-                             
-                                if (kalemValues != null)
-                                    belge.KalemInternalNo = kalemValues.KalemInternalNo;
-                                else belge.KalemInternalNo = BeyanInternalNo + "|1";
-
-                                belge.BeyanInternalNo = BeyanInternalNo;                             
-                                belge.BelgeKodu = Kod;
-                                belge.BelgeAciklamasi = Aciklama;
-                                belge.Dogrulama = Dogrulama;
-                                belge.Referans = Referans;
-                                belge.BelgeTarihi = Tamamlama_tarih;
-
-                               
-                                _beyannameSonucTarihcecontext.Entry(belge).State = EntityState.Added;
-
-                            }
-                            _beyannameSonucTarihcecontext.SaveChangesAsync();
-                            sonucObj.Belgeler = sBelgeler;
-                        }
-                     
-                    }
-
-                    #endregion
-
-                    #region Vergiler
-                    {
-                        if (XMLvergiler[0].ChildNodes.Count > 0)
-                        {
-                            XmlNodeList xVergi = XMLvergiler[0].ChildNodes;
-
-                            List<Vergi> sVergiler = new List<Vergi>();
-                            string Aciklama;
-                            string Kod;
-                            string Miktar;
-                            string Odeme_sekli;
-                            string Oran;
-                            string Matrah;
-                            int Kalem_no;
-
-                            foreach (XmlNode var in xVergi)
-                            {
-                                Kalem_no = Convert.ToInt32(var.ChildNodes[0].InnerText);
-                                Kod = var.ChildNodes[1].InnerText;
-                                Aciklama = var.ChildNodes[2].InnerText;
-                                Miktar = var.ChildNodes[3].InnerText;
-                                Oran = var.ChildNodes[4].InnerText;
-                                Odeme_sekli = var.ChildNodes[5].InnerText;
-                                Matrah = var.ChildNodes[6].InnerText;
-
-                                Vergi vergiObj = new Vergi();
-                                vergiObj.Aciklama = Aciklama;
-                                vergiObj.Kod = Kod;
-                                vergiObj.Kalem_no = Kalem_no;
-                                vergiObj.Miktar = Miktar.Replace(".", ",");
-                                vergiObj.Odeme_sekli = Odeme_sekli;
-                                vergiObj.Oran = Oran;
-                                vergiObj.Matrah = Matrah;
-
-                                sVergiler.Add(vergiObj);
-
-                                DbSonucVergiler _vergi = new DbSonucVergiler();
-                                DbVergi vergi = new DbVergi();
-                                _vergi.Guid = GuidOf;
-                                _vergi.GonderimNo = GonderimNo;
-                                _vergi.IslemInternalNo = InternalNo;
-                                _vergi.KalemNo = Kalem_no;
-                                _vergi.VergiKodu = Kod;
-                                _vergi.VergiAciklamasi = Aciklama;
-                                _vergi.Miktar = Miktar;
-                                _vergi.OdemeSekli = Odeme_sekli;
-                                _vergi.Oran = Oran;
-                                _vergi.Matrah = Matrah;
-                                _beyannameSonucTarihcecontext.Entry(_vergi).State = EntityState.Added;
-
-                                var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
-
-                                if (kalemValues != null)
-                                    vergi.KalemInternalNo = kalemValues.KalemInternalNo;
-                                else vergi.KalemInternalNo = BeyanInternalNo + "|1";
-
-                                vergi.BeyanInternalNo = BeyanInternalNo;                              
-                                vergi.VergiKodu =Convert.ToInt32(Kod);
-                                vergi.VergiAciklamasi = Aciklama;
-                                vergi.Miktar =Convert.ToDecimal(Miktar);
-                                vergi.OdemeSekli = Odeme_sekli;
-                                vergi.Oran = Oran;
-                                vergi.Matrah = Convert.ToDecimal(Matrah);
-
-                             
-                                _beyannameSonucTarihcecontext.Entry(vergi).State = EntityState.Added;
-
-                            }
-                            _beyannameSonucTarihcecontext.SaveChangesAsync();
-                            sonucObj.Vergiler = sVergiler;
-                        }
-                       
-                    }
-
-                    #endregion
-
-                    #region Toplam Vergiler
-                    {
-                        if (XMLtoplamvergiler[0].ChildNodes.Count > 0)
-                        {
-                            XmlNodeList xtVergi = XMLtoplamvergiler[0].ChildNodes;
-
-                            List<Toplam_Vergi> stVergiler = new List<Toplam_Vergi>();
-                            string Aciklama;
-                            string Kod;
-                            string Miktar;
-                            string Odeme_sekli;
-
-
-                            foreach (XmlNode var in xtVergi)
+                            foreach (XmlNode var in xSoru)
                             {
                                 Kod = var.ChildNodes[0].InnerText;
                                 Aciklama = var.ChildNodes[1].InnerText;
-                                Miktar = var.ChildNodes[2].InnerText;
-                                Odeme_sekli = var.ChildNodes[3].InnerText;
+                                Kalem_no = Convert.ToInt32(var.ChildNodes[2].InnerText);
+                                Tip = var.ChildNodes[3].InnerText;
+                                string a = var.ChildNodes[2].InnerText;
+                                XmlNode cevaplar = var.ChildNodes[4];
+                                XmlNode evetler = var.ChildNodes[4].ChildNodes[0];
+                                XmlNode hayirlar = var.ChildNodes[4].ChildNodes[1];
 
-                                Toplam_Vergi tvergiObj = new Toplam_Vergi();
-                                tvergiObj.Aciklama = Aciklama;
-                                tvergiObj.Kod = Kod;
-                                tvergiObj.Miktar = Miktar;
-                                tvergiObj.Odeme_sekli = Odeme_sekli;
+                                Cevaplar lstCvp = new Cevaplar();
 
-                                stVergiler.Add(tvergiObj);
+                                if (cevaplar.ChildNodes[0] != null)
+                                {
 
-                                DbSonucToplamVergiler _tvergi = new DbSonucToplamVergiler();
-                                _tvergi.Guid = GuidOf;
-                                _tvergi.GonderimNo = GonderimNo;
-                                _tvergi.IslemInternalNo = InternalNo;
-                                _tvergi.VergiKodu = Kod;
-                                _tvergi.VergiAciklamasi = Aciklama;
-                                _tvergi.Miktar = Miktar;
-                                _tvergi.OdemeSekli = Odeme_sekli;
-                        
-                                _beyannameSonucTarihcecontext.Entry(_tvergi).State = EntityState.Added;
+                                    if (evetler.ChildNodes[0] != null)
+                                    {
+                                        //      for (int j = 0; j < evetler; j++)
+                                        foreach (XmlNode lstevetler in evetler)
+                                        {
+                                            //  XmlNodeList varlstevetler = lstevetler.ChildNodes;
+                                            Evet lstevet = new Evet();
+                                            string evet_sira = lstevetler.ChildNodes[0].InnerText;
+                                            string evet_kodu = lstevetler.ChildNodes[1].InnerText;
+                                            string evet_aciklamasi = lstevetler.ChildNodes[2].InnerText;
+                                            lstevet.Kodu = evet_kodu;
+                                            lstevet.Sira = evet_sira;
+                                            lstevet.Aciklamasi = evet_aciklamasi;
+
+                                            lstCvp.Evetler.Add(lstevet);
+                                        }
+                                    }
+                                }
+                                if (cevaplar.ChildNodes[1] != null)
+                                {
+                                    if (hayirlar.ChildNodes[0] != null)
+                                    {
+                                        //  XmlNodeList lsthayirlar = hayirlar.ChildNodes[1].ChildNodes;
+                                        //    for (int j = 0; j < hayirlar.Count; j++)
+                                        foreach (XmlNode lsthayirlar in hayirlar)
+                                        {
+                                            Hayir lsthayir = new Hayir();
+                                            string hayir_sira = lsthayirlar.ChildNodes[0].InnerText;
+                                            string hayir_kodu = lsthayirlar.ChildNodes[1].InnerText;
+                                            string hayir_aciklamasi = lsthayirlar.ChildNodes[2].InnerText;
+                                            lsthayir.Kodu = hayir_kodu;
+                                            lsthayir.Sira = hayir_sira;
+                                            lsthayir.Aciklamasi = hayir_aciklamasi;
+                                            lstCvp.Hayirlar.Add(lsthayir);
+                                        }
+                                    }
+                                }
+
+
+                                Soru soruObj = new Soru();
+                                soruObj.Aciklama = Aciklama;
+                                soruObj.Kalem_no = Kalem_no;
+                                soruObj.Kod = Kod;
+                                soruObj.Tip = Tip;
+                                soruObj.Cevaplar = (lstCvp);
+                                ssorular.Add(soruObj);
+
+                                DbSonucSorular _soru = new DbSonucSorular();
+
+                                _soru.Guid = GuidOf;
+                                _soru.GonderimNo = GonderimNo;
+                                _soru.IslemInternalNo = InternalNo;
+                                _soru.KalemNo = Kalem_no;
+                                _soru.SoruKodu = Kod;
+                                _soru.SoruAciklamasi = Aciklama;
+                                _soru.Tip = Tip;
+                                _soru.Cevaplar = lstCvp.ToString();
+                                _beyannameSonucTarihcecontext.Entry(_soru).State = EntityState.Added;
+
+
+
+
                             }
-                            _beyannameSonucTarihcecontext.SaveChangesAsync();
-                            sonucObj.Toplam_vergiler = stVergiler;
+                            await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                            sonucObj.Sorular = ssorular;
                         }
-                    }
-
-                    #endregion
-
-                    #region Toplanan Vergiler
-                    {
-                        if (XMLtoplamvergiler[0].ChildNodes.Count > 0)
+                        if (XMLsorular[0].ChildNodes.Count > 0)
                         {
-                            XmlNodeList xtoplananVergi = XMLtoplananvergiler[0].ChildNodes;
-
-                            List<Toplanan_Vergi> stoplananVergiler = new List<Toplanan_Vergi>();
-
-                            string Miktar;
-                            string Odeme_sekli;
+                            XmlNodeList xSoru = XMLsorular[0].ChildNodes;
 
 
-                            foreach (XmlNode var in xtoplananVergi)
-                            {
-
-                                Odeme_sekli = var.ChildNodes[1].InnerText;
-                                Miktar = var.ChildNodes[0].InnerText;
-
-                                Toplanan_Vergi toplananvergiObj = new Toplanan_Vergi();
-
-                                toplananvergiObj.Miktar = Miktar;
-                                toplananvergiObj.Odeme_sekli = Odeme_sekli;
-
-                                stoplananVergiler.Add(toplananvergiObj);
-
-                                DbSonucToplananVergiler _ttvergi = new DbSonucToplananVergiler();
-                                _ttvergi.Guid = GuidOf;
-                                _ttvergi.GonderimNo = GonderimNo;
-                                _ttvergi.IslemInternalNo = InternalNo;
-                                _ttvergi.Miktar = Miktar;
-                                _ttvergi.OdemeSekli = Odeme_sekli;
-
-                                _beyannameSonucTarihcecontext.Entry(_ttvergi).State = EntityState.Added;
-                            }
-                            _beyannameSonucTarihcecontext.SaveChangesAsync();
-                            sonucObj.Toplanan_vergiler = stoplananVergiler;
-                        }
-                    }
-
-                    #endregion
-
-                    #region Hesap Detayları
-                    {
-                        if (XMLhesapdetaylari[0].ChildNodes.Count > 0)
-                        {
-                            XmlNodeList xtHesap = XMLhesapdetaylari[0].ChildNodes;
-
-                            List<Hesap_detay> stHesap = new List<Hesap_detay>();
                             string Aciklama;
-                            string Miktar;
-
-
-                            foreach (XmlNode var in xtHesap)
+                            string Kod;
+                            string Tip;
+                            int Kalem_no;
+                            foreach (XmlNode var in xSoru)
                             {
+                                Kod = var.ChildNodes[0].InnerText;
+                                Aciklama = var.ChildNodes[1].InnerText;
+                                Kalem_no = Convert.ToInt32(var.ChildNodes[2].InnerText);
+                                Tip = var.ChildNodes[3].InnerText;
 
-                                Aciklama = var.ChildNodes[0].InnerText;
-                                Miktar = var.ChildNodes[1].InnerText;
+                                DbSoruCevap soruCevap = new DbSoruCevap();
 
-                                Hesap_detay thesapObj = new Hesap_detay();
-                                thesapObj.Aciklama = Aciklama;
-                                thesapObj.Miktar = Miktar;
+                                var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
+                                if (kalemValues != null)
+                                    soruCevap.KalemInternalNo = kalemValues.KalemInternalNo;
+                                else soruCevap.KalemInternalNo = BeyanInternalNo + "|1";
 
-                                stHesap.Add(thesapObj);
+                                soruCevap.BeyanInternalNo = BeyanInternalNo;
+                                soruCevap.SoruKodu = Kod;
+                                soruCevap.SoruAciklamasi = Aciklama;
+                                soruCevap.SoruCevap = "";
+                                soruCevap.Tip = Tip;
+                                soruCevap.Cevaplar = "";
+                                _beyannameSonucTarihcecontext.Entry(soruCevap).State = EntityState.Added;
 
-                                DbSonucHesapDetaylar _hesap = new DbSonucHesapDetaylar();
-                                _hesap.Guid = GuidOf;
-                                _hesap.GonderimNo = GonderimNo;
-                                _hesap.IslemInternalNo = InternalNo;
-                                _hesap.Miktar = Miktar;
-                                _hesap.Aciklama = Aciklama;
-
-
-                                _beyannameSonucTarihcecontext.Entry(_hesap).State = EntityState.Added;
                             }
-                            _beyannameSonucTarihcecontext.SaveChangesAsync();
-                            sonucObj.Hesap_detaylari = stHesap;
+                            await _beyannameSonucTarihcecontext.SaveChangesAsync();
                         }
-                    }
-                    #endregion
+                        #endregion
 
-                    #region Gümrük Kıymeti
-                    {
-                        if (XMLgumrukkiymetleri[0].ChildNodes.Count > 0)
+                        #region Soru Cevap
                         {
-                            XmlNodeList xtGKiymet = XMLgumrukkiymetleri[0].ChildNodes;
-
-                            List<Gumruk_Kiymeti> stGKiymet = new List<Gumruk_Kiymeti>();
-                            int Kalem_No;
-                            string Miktar;
-
-
-                            foreach (XmlNode var in xtGKiymet)
+                            if (XMLsorularacevap[0].ChildNodes != null)
                             {
+                                if (XMLsorularacevap[0].ChildNodes.Count > 0)
+                                {
+                                    XmlNodeList xSrCvp = XMLsorularacevap[0].ChildNodes;
 
-                                Kalem_No = Convert.ToInt16(var.ChildNodes[0].InnerText);
-                                Miktar = var.ChildNodes[1].InnerText;
+                                    List<Soru_Cevap> sorucevap = new List<Soru_Cevap>();
+                                    string soru_no;
+                                    string cevap;
+                                    int Kalem_no;
 
-                                Gumruk_Kiymeti tgkiymetObj = new Gumruk_Kiymeti();
-                                tgkiymetObj.Kalem_no = Kalem_No;
-                                tgkiymetObj.Miktar = Miktar;
+                                    foreach (XmlNode var in xSrCvp)
+                                    {
+                                        Kalem_no = Convert.ToInt32(var.ChildNodes[0].InnerText);
+                                        soru_no = var.ChildNodes[1].InnerText;
+                                        cevap = var.ChildNodes[2].InnerText;
 
-                                stGKiymet.Add(tgkiymetObj);
 
-                                DbSonucGumrukKiymeti _kiymet = new DbSonucGumrukKiymeti();
-                                _kiymet.Guid = GuidOf;
-                                _kiymet.GonderimNo = GonderimNo;
-                                _kiymet.IslemInternalNo = InternalNo;
-                                _kiymet.KalemNo = Kalem_No;
-                                _kiymet.Miktar = Miktar;
-                              
-                                _beyannameSonucTarihcecontext.Entry(_kiymet).State = EntityState.Added;
+
+                                        Soru_Cevap sorucevapObj = new Soru_Cevap();
+                                        sorucevapObj.Soru_no = soru_no;
+                                        sorucevapObj.Cevap = cevap;
+                                        sorucevapObj.Kalem_no = Kalem_no;
+
+                                        sorucevap.Add(sorucevapObj);
+
+
+                                        DbSonucSoruCevaplar _soruCevap = new DbSonucSoruCevaplar();
+                                        _soruCevap.Guid = GuidOf;
+                                        _soruCevap.GonderimNo = GonderimNo;
+                                        _soruCevap.IslemInternalNo = InternalNo;
+                                        _soruCevap.KalemNo = Kalem_no;
+                                        _soruCevap.SoruKodu = soru_no;
+                                        _soruCevap.SoruCevap = cevap;
+
+
+
+                                        _beyannameSonucTarihcecontext.Entry(_soruCevap).State = EntityState.Added;
+
+                                    }
+                                    await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                                    sonucObj.Soru_cevap = sorucevap;
+                                }
                             }
-                            _beyannameSonucTarihcecontext.SaveChangesAsync();
-                            sonucObj.Gumruk_kiymetleri = stGKiymet;
+
                         }
-                    }
 
-                    #endregion
+                        #endregion
 
-                    #region İstatistiki Kıymeti
-                    {
-                        if (XMListatistikikiymetler[0].ChildNodes.Count > 0)
+                        #region Belgeler
                         {
-                            XmlNodeList xtIKiymet = XMListatistikikiymetler[0].ChildNodes;
-
-                            List<Istatistiki_Kiymeti> stIKiymet = new List<Istatistiki_Kiymeti>();
-                            int Kalem_No;
-                            string Miktar;
-
-
-                            foreach (XmlNode var in xtIKiymet)
+                            if (XMLbelgeler[0].ChildNodes.Count > 0)
                             {
+                                XmlNodeList xBelge = XMLbelgeler[0].ChildNodes;
 
-                                Kalem_No = Convert.ToInt16(var.ChildNodes[0].InnerText);
-                                Miktar = var.ChildNodes[1].InnerText;
+                                List<Belge> sBelgeler = new List<Belge>();
+                                string Aciklama;
+                                string Dogrulama;
+                                string Kod;
+                                string Referans;
+                                string Tamamlama_tarih;
+                                int Kalem_no;
+                                foreach (XmlNode var in xBelge)
+                                {
+                                    Kalem_no = Convert.ToInt32(var.ChildNodes[0].InnerText);
+                                    Kod = var.ChildNodes[1].InnerText;
+                                    Aciklama = var.ChildNodes[2].InnerText;
+                                    Dogrulama = var.ChildNodes[3].InnerText;
+                                    Referans = var.ChildNodes[4].InnerText;
+                                    Tamamlama_tarih = var.ChildNodes[5].InnerText;
 
-                                Istatistiki_Kiymeti tikiymetObj = new Istatistiki_Kiymeti();
-                                tikiymetObj.Kalem_no = Kalem_No;
-                                tikiymetObj.Miktar = Miktar;
+                                    Belge belgeObj = new Belge();
+                                    belgeObj.Aciklama = Aciklama;
+                                    belgeObj.Dogrulama = Dogrulama;
+                                    belgeObj.Kalem_no = Kalem_no;
+                                    belgeObj.Kod = Kod;
+                                    belgeObj.Referans = Referans;
+                                    belgeObj.Belge_tarihi = Tamamlama_tarih;
 
-                                stIKiymet.Add(tikiymetObj);
+                                    sBelgeler.Add(belgeObj);
 
-                                DbSonucIstatistikiKiymet _istk = new DbSonucIstatistikiKiymet();
-                                _istk.Guid = GuidOf;
-                                _istk.GonderimNo = GonderimNo;
-                                _istk.IslemInternalNo = InternalNo;
-                                _istk.KalemNo = Kalem_No;
-                                _istk.Miktar = Miktar;
+                                    DbSonucBelgeler _belge = new DbSonucBelgeler();
 
-                                _beyannameSonucTarihcecontext.Entry(_istk).State = EntityState.Added;
+                                    _belge.Guid = GuidOf;
+                                    _belge.GonderimNo = GonderimNo;
+                                    _belge.IslemInternalNo = InternalNo;
+                                    _belge.KalemNo = Kalem_no;
+                                    _belge.BelgeKodu = Kod;
+                                    _belge.BelgeAciklamasi = Aciklama;
+                                    _belge.Dogrulama = Dogrulama;
+                                    _belge.Referans = Referans;
+                                    _belge.BelgeTarihi = Tamamlama_tarih;
+                                    _beyannameSonucTarihcecontext.Entry(_belge).State = EntityState.Added;
+
+
+                                }
+                                await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                                sonucObj.Belgeler = sBelgeler;
                             }
-                            _beyannameSonucTarihcecontext.SaveChangesAsync();
-                            sonucObj.Istatistiki_kiymetleri = stIKiymet;
+                            if (XMLbelgeler[0].ChildNodes.Count > 0)
+                            {
+                                XmlNodeList xBelge = XMLbelgeler[0].ChildNodes;
+
+                                string Aciklama;
+                                string Dogrulama;
+                                string Kod;
+                                string Referans;
+                                string Tamamlama_tarih;
+                                int Kalem_no;
+                                foreach (XmlNode var in xBelge)
+                                {
+                                    Kalem_no = Convert.ToInt32(var.ChildNodes[0].InnerText);
+                                    Kod = var.ChildNodes[1].InnerText;
+                                    Aciklama = var.ChildNodes[2].InnerText;
+                                    Dogrulama = var.ChildNodes[3].InnerText;
+                                    Referans = var.ChildNodes[4].InnerText;
+                                    Tamamlama_tarih = var.ChildNodes[5].InnerText;
+
+
+
+                                    DbBelge belge = new DbBelge();
+
+                                    var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
+
+                                    if (kalemValues != null)
+                                        belge.KalemInternalNo = kalemValues.KalemInternalNo;
+                                    else belge.KalemInternalNo = BeyanInternalNo + "|1";
+
+                                    belge.BeyanInternalNo = BeyanInternalNo;
+                                    belge.BelgeKodu = Kod;
+                                    belge.BelgeAciklamasi = Aciklama;
+                                    belge.Dogrulama = Dogrulama;
+                                    belge.Referans = Referans;
+                                    belge.BelgeTarihi = Tamamlama_tarih;
+
+
+                                    _beyannameSonucTarihcecontext.Entry(belge).State = EntityState.Added;
+
+                                }
+                                await _beyannameSonucTarihcecontext.SaveChangesAsync();
+
+                            }
                         }
-                    }
 
-                    #endregion
+                        #endregion
 
-                    #region Özet Beyanlar
-
-                    if (XMLozetbeyanlar[0].ChildNodes.Count > 0)
-                    {
-                        XmlNodeList xOzet = XMLozetbeyanlar[0].ChildNodes;
-
-                        List<ozetbeyantescilbilgi> sozbler = new List<ozetbeyantescilbilgi>();
-                        string ozetbeyanno;
-                        string tesciltarihi;
-                        foreach (XmlNode var in xOzet)
+                        #region Vergiler
                         {
-                            ozetbeyanno = var.ChildNodes[0].InnerText;
-                            tesciltarihi = var.ChildNodes[1].InnerText;
+                            if (XMLvergiler[0].ChildNodes.Count > 0)
+                            {
+                                XmlNodeList xVergi = XMLvergiler[0].ChildNodes;
 
-                            ozetbeyantescilbilgi ozbyObj = new ozetbeyantescilbilgi();
-                            ozbyObj.Ozetbeyan_no = ozetbeyanno;
-                            ozbyObj.Tescil_tarihi = tesciltarihi;
+                                List<Vergi> sVergiler = new List<Vergi>();
+                                string Aciklama;
+                                string Kod;
+                                string Miktar;
+                                string Odeme_sekli;
+                                string Oran;
+                                string Matrah;
+                                int Kalem_no;
 
-                            sozbler.Add(ozbyObj);
+                                foreach (XmlNode var in xVergi)
+                                {
+                                    Kalem_no = Convert.ToInt32(var.ChildNodes[0].InnerText);
+                                    Kod = var.ChildNodes[1].InnerText;
+                                    Aciklama = var.ChildNodes[2].InnerText;
+                                    Miktar = var.ChildNodes[3].InnerText;
+                                    Oran = var.ChildNodes[4].InnerText;
+                                    Odeme_sekli = var.ChildNodes[5].InnerText;
+                                    Matrah = var.ChildNodes[6].InnerText;
 
-                            DbSonucOzetBeyan _ozetB = new DbSonucOzetBeyan();
-                            _ozetB.Guid = GuidOf;
-                            _ozetB.GonderimNo = GonderimNo;
-                            _ozetB.IslemInternalNo = InternalNo;
-                            _ozetB.OzetBeyanNo = ozetbeyanno;
-                            _ozetB.TescilTarihi = tesciltarihi;
+                                    Vergi vergiObj = new Vergi();
+                                    vergiObj.Aciklama = Aciklama;
+                                    vergiObj.Kod = Kod;
+                                    vergiObj.Kalem_no = Kalem_no;
+                                    vergiObj.Miktar = Miktar.Replace(".", ",");
+                                    vergiObj.Odeme_sekli = Odeme_sekli;
+                                    vergiObj.Oran = Oran;
+                                    vergiObj.Matrah = Matrah;
 
-                            _beyannameSonucTarihcecontext.Entry(_ozetB).State = EntityState.Added;
+                                    sVergiler.Add(vergiObj);
+
+                                    DbSonucVergiler _vergi = new DbSonucVergiler();
+
+                                    _vergi.Guid = GuidOf;
+                                    _vergi.GonderimNo = GonderimNo;
+                                    _vergi.IslemInternalNo = InternalNo;
+                                    _vergi.KalemNo = Kalem_no;
+                                    _vergi.VergiKodu = Kod;
+                                    _vergi.VergiAciklamasi = Aciklama;
+                                    _vergi.Miktar = Miktar;
+                                    _vergi.OdemeSekli = Odeme_sekli;
+                                    _vergi.Oran = Oran;
+                                    _vergi.Matrah = Matrah;
+                                    _beyannameSonucTarihcecontext.Entry(_vergi).State = EntityState.Added;
+
+
+                                }
+                                await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                                sonucObj.Vergiler = sVergiler;
+                            }
+                            if (XMLvergiler[0].ChildNodes.Count > 0)
+                            {
+                                XmlNodeList xVergi = XMLvergiler[0].ChildNodes;
+
+                                string Aciklama;
+                                string Kod;
+                                string Miktar;
+                                string Odeme_sekli;
+                                string Oran;
+                                string Matrah;
+                                int Kalem_no;
+
+                                foreach (XmlNode var in xVergi)
+                                {
+                                    Kalem_no = Convert.ToInt32(var.ChildNodes[0].InnerText);
+                                    Kod = var.ChildNodes[1].InnerText;
+                                    Aciklama = var.ChildNodes[2].InnerText;
+                                    Miktar = var.ChildNodes[3].InnerText;
+                                    Oran = var.ChildNodes[4].InnerText;
+                                    Odeme_sekli = var.ChildNodes[5].InnerText;
+                                    Matrah = var.ChildNodes[6].InnerText;
+
+
+                                    DbVergi vergi = new DbVergi();
+
+                                    var kalemValues = _beyannameContext.DbKalem.FirstOrDefault(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemSiraNo == Kalem_no);
+
+                                    if (kalemValues != null)
+                                        vergi.KalemInternalNo = kalemValues.KalemInternalNo;
+                                    else vergi.KalemInternalNo = BeyanInternalNo + "|1";
+
+                                    vergi.BeyanInternalNo = BeyanInternalNo;
+                                    vergi.VergiKodu = Convert.ToInt32(Kod);
+                                    vergi.VergiAciklamasi = Aciklama;
+                                    vergi.Miktar = Convert.ToDecimal(Miktar);
+                                    vergi.OdemeSekli = Odeme_sekli;
+                                    vergi.Oran = Oran;
+                                    vergi.Matrah = Convert.ToDecimal(Matrah);
+
+
+                                    _beyannameSonucTarihcecontext.Entry(vergi).State = EntityState.Added;
+
+                                }
+                                await _beyannameSonucTarihcecontext.SaveChangesAsync();
+
+                            }
                         }
-                        _beyannameSonucTarihcecontext.SaveChangesAsync();
-                        sonucObj.Ozetbeyan_bilgi = sozbler;
+
+                        #endregion
+
+                        #region Toplam Vergiler
+                        {
+                            if (XMLtoplamvergiler[0].ChildNodes.Count > 0)
+                            {
+                                XmlNodeList xtVergi = XMLtoplamvergiler[0].ChildNodes;
+
+                                List<Toplam_Vergi> stVergiler = new List<Toplam_Vergi>();
+                                string Aciklama;
+                                string Kod;
+                                string Miktar;
+                                string Odeme_sekli;
+
+
+                                foreach (XmlNode var in xtVergi)
+                                {
+                                    Kod = var.ChildNodes[0].InnerText;
+                                    Aciklama = var.ChildNodes[1].InnerText;
+                                    Miktar = var.ChildNodes[2].InnerText;
+                                    Odeme_sekli = var.ChildNodes[3].InnerText;
+
+                                    Toplam_Vergi tvergiObj = new Toplam_Vergi();
+                                    tvergiObj.Aciklama = Aciklama;
+                                    tvergiObj.Kod = Kod;
+                                    tvergiObj.Miktar = Miktar;
+                                    tvergiObj.Odeme_sekli = Odeme_sekli;
+
+                                    stVergiler.Add(tvergiObj);
+
+                                    DbSonucToplamVergiler _tvergi = new DbSonucToplamVergiler();
+                                    _tvergi.Guid = GuidOf;
+                                    _tvergi.GonderimNo = GonderimNo;
+                                    _tvergi.IslemInternalNo = InternalNo;
+                                    _tvergi.VergiKodu = Kod;
+                                    _tvergi.VergiAciklamasi = Aciklama;
+                                    _tvergi.Miktar = Miktar;
+                                    _tvergi.OdemeSekli = Odeme_sekli;
+
+                                    _beyannameSonucTarihcecontext.Entry(_tvergi).State = EntityState.Added;
+                                }
+                                await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                                sonucObj.Toplam_vergiler = stVergiler;
+                            }
+                        }
+
+                        #endregion
+
+                        #region Toplanan Vergiler
+                        {
+                            if (XMLtoplamvergiler[0].ChildNodes.Count > 0)
+                            {
+                                XmlNodeList xtoplananVergi = XMLtoplananvergiler[0].ChildNodes;
+
+                                List<Toplanan_Vergi> stoplananVergiler = new List<Toplanan_Vergi>();
+
+                                string Miktar;
+                                string Odeme_sekli;
+
+
+                                foreach (XmlNode var in xtoplananVergi)
+                                {
+
+                                    Odeme_sekli = var.ChildNodes[1].InnerText;
+                                    Miktar = var.ChildNodes[0].InnerText;
+
+                                    Toplanan_Vergi toplananvergiObj = new Toplanan_Vergi();
+
+                                    toplananvergiObj.Miktar = Miktar;
+                                    toplananvergiObj.Odeme_sekli = Odeme_sekli;
+
+                                    stoplananVergiler.Add(toplananvergiObj);
+
+                                    DbSonucToplananVergiler _ttvergi = new DbSonucToplananVergiler();
+                                    _ttvergi.Guid = GuidOf;
+                                    _ttvergi.GonderimNo = GonderimNo;
+                                    _ttvergi.IslemInternalNo = InternalNo;
+                                    _ttvergi.Miktar = Miktar;
+                                    _ttvergi.OdemeSekli = Odeme_sekli;
+
+                                    _beyannameSonucTarihcecontext.Entry(_ttvergi).State = EntityState.Added;
+                                }
+                                await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                                sonucObj.Toplanan_vergiler = stoplananVergiler;
+                            }
+                        }
+
+                        #endregion
+
+                        #region Hesap Detayları
+                        {
+                            if (XMLhesapdetaylari[0].ChildNodes.Count > 0)
+                            {
+                                XmlNodeList xtHesap = XMLhesapdetaylari[0].ChildNodes;
+
+                                List<Hesap_detay> stHesap = new List<Hesap_detay>();
+                                string Aciklama;
+                                string Miktar;
+
+
+                                foreach (XmlNode var in xtHesap)
+                                {
+
+                                    Aciklama = var.ChildNodes[0].InnerText;
+                                    Miktar = var.ChildNodes[1].InnerText;
+
+                                    Hesap_detay thesapObj = new Hesap_detay();
+                                    thesapObj.Aciklama = Aciklama;
+                                    thesapObj.Miktar = Miktar;
+
+                                    stHesap.Add(thesapObj);
+
+                                    DbSonucHesapDetaylar _hesap = new DbSonucHesapDetaylar();
+                                    _hesap.Guid = GuidOf;
+                                    _hesap.GonderimNo = GonderimNo;
+                                    _hesap.IslemInternalNo = InternalNo;
+                                    _hesap.Miktar = Miktar;
+                                    _hesap.Aciklama = Aciklama;
+
+
+                                    _beyannameSonucTarihcecontext.Entry(_hesap).State = EntityState.Added;
+                                }
+                                await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                                sonucObj.Hesap_detaylari = stHesap;
+                            }
+                        }
+                        #endregion
+
+                        #region Gümrük Kıymeti
+                        {
+                            if (XMLgumrukkiymetleri[0].ChildNodes.Count > 0)
+                            {
+                                XmlNodeList xtGKiymet = XMLgumrukkiymetleri[0].ChildNodes;
+
+                                List<Gumruk_Kiymeti> stGKiymet = new List<Gumruk_Kiymeti>();
+                                int Kalem_No;
+                                string Miktar;
+
+
+                                foreach (XmlNode var in xtGKiymet)
+                                {
+
+                                    Kalem_No = Convert.ToInt16(var.ChildNodes[0].InnerText);
+                                    Miktar = var.ChildNodes[1].InnerText;
+
+                                    Gumruk_Kiymeti tgkiymetObj = new Gumruk_Kiymeti();
+                                    tgkiymetObj.Kalem_no = Kalem_No;
+                                    tgkiymetObj.Miktar = Miktar;
+
+                                    stGKiymet.Add(tgkiymetObj);
+
+                                    DbSonucGumrukKiymeti _kiymet = new DbSonucGumrukKiymeti();
+                                    _kiymet.Guid = GuidOf;
+                                    _kiymet.GonderimNo = GonderimNo;
+                                    _kiymet.IslemInternalNo = InternalNo;
+                                    _kiymet.KalemNo = Kalem_No;
+                                    _kiymet.Miktar = Miktar;
+
+                                    _beyannameSonucTarihcecontext.Entry(_kiymet).State = EntityState.Added;
+                                }
+                                await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                                sonucObj.Gumruk_kiymetleri = stGKiymet;
+                            }
+                        }
+
+                        #endregion
+
+                        #region İstatistiki Kıymeti
+                        {
+                            if (XMListatistikikiymetler[0].ChildNodes.Count > 0)
+                            {
+                                XmlNodeList xtIKiymet = XMListatistikikiymetler[0].ChildNodes;
+
+                                List<Istatistiki_Kiymeti> stIKiymet = new List<Istatistiki_Kiymeti>();
+                                int Kalem_No;
+                                string Miktar;
+
+
+                                foreach (XmlNode var in xtIKiymet)
+                                {
+
+                                    Kalem_No = Convert.ToInt16(var.ChildNodes[0].InnerText);
+                                    Miktar = var.ChildNodes[1].InnerText;
+
+                                    Istatistiki_Kiymeti tikiymetObj = new Istatistiki_Kiymeti();
+                                    tikiymetObj.Kalem_no = Kalem_No;
+                                    tikiymetObj.Miktar = Miktar;
+
+                                    stIKiymet.Add(tikiymetObj);
+
+                                    DbSonucIstatistikiKiymet _istk = new DbSonucIstatistikiKiymet();
+                                    _istk.Guid = GuidOf;
+                                    _istk.GonderimNo = GonderimNo;
+                                    _istk.IslemInternalNo = InternalNo;
+                                    _istk.KalemNo = Kalem_No;
+                                    _istk.Miktar = Miktar;
+
+                                    _beyannameSonucTarihcecontext.Entry(_istk).State = EntityState.Added;
+                                }
+                                await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                                sonucObj.Istatistiki_kiymetleri = stIKiymet;
+                            }
+                        }
+
+                        #endregion
+
+                        #region Özet Beyanlar
+
+                        if (XMLozetbeyanlar[0].ChildNodes.Count > 0)
+                        {
+                            XmlNodeList xOzet = XMLozetbeyanlar[0].ChildNodes;
+
+                            List<ozetbeyantescilbilgi> sozbler = new List<ozetbeyantescilbilgi>();
+                            string ozetbeyanno;
+                            string tesciltarihi;
+                            foreach (XmlNode var in xOzet)
+                            {
+                                ozetbeyanno = var.ChildNodes[0].InnerText;
+                                tesciltarihi = var.ChildNodes[1].InnerText;
+
+                                ozetbeyantescilbilgi ozbyObj = new ozetbeyantescilbilgi();
+                                ozbyObj.Ozetbeyan_no = ozetbeyanno;
+                                ozbyObj.Tescil_tarihi = tesciltarihi;
+
+                                sozbler.Add(ozbyObj);
+
+                                DbSonucOzetBeyan _ozetB = new DbSonucOzetBeyan();
+                                _ozetB.Guid = GuidOf;
+                                _ozetB.GonderimNo = GonderimNo;
+                                _ozetB.IslemInternalNo = InternalNo;
+                                _ozetB.OzetBeyanNo = ozetbeyanno;
+                                _ozetB.TescilTarihi = tesciltarihi;
+
+                                _beyannameSonucTarihcecontext.Entry(_ozetB).State = EntityState.Added;
+                            }
+                            await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                            sonucObj.Ozetbeyan_bilgi = sozbler;
+                        }
+
+                        #endregion
+
+
                     }
 
-                    #endregion
+                    //Diğer Bilgiler
+                    if (XMLdovizkurualis[0] != null)
+                    {
+                        if (XMLdovizkurualis[0].ChildNodes.Count > 0)
+                            sonucObj.Doviz_kuru_alis = XMLdovizkurualis[0].ChildNodes[0].Value;
+                    }
+                    if (XMLdovizkurusatis[0] != null)
+                    {
+                        if (XMLdovizkurusatis[0].ChildNodes.Count > 0)
+                            sonucObj.Doviz_kuru_satis = XMLdovizkurusatis[0].ChildNodes[0].Value;
+                    }
+                    if (XMKontrolkodu[0] != null)
+                    {
+                        if (XMKontrolkodu[0].ChildNodes.Count > 0)
+                            sonucObj.Cikti_kontrol_kodu = XMKontrolkodu[0].ChildNodes[0].Value;
+                    }
+
+                    if (XMMuayeneMemuru[0] != null)
+                    {
+                        if (XMMuayeneMemuru[0].ChildNodes.Count > 0)
+                            sonucObj.Muayene_memuru = XMMuayeneMemuru[0].ChildNodes[0].Value;
+                    }
+
+                    if (XMMLKalanKontor[0] != null)
+                    {
+                        if (XMMLKalanKontor[0].ChildNodes.Count > 0)
+                            sonucObj.Kalan_kontor = XMMLKalanKontor[0].ChildNodes[0].Value;
+                    }
 
 
+
+                    DbSonucDigerBilgiler _digerB = new DbSonucDigerBilgiler();
+                    _digerB.Guid = GuidOf;
+                    _digerB.GonderimNo = GonderimNo;
+                    _digerB.IslemInternalNo = InternalNo;
+                    _digerB.DovizKuruAlis = sonucObj.Doviz_kuru_alis;
+                    _digerB.DovizKuruSatis = sonucObj.Doviz_kuru_satis;
+                    _digerB.CiktiSeriNo = sonucObj.Cikti_kontrol_kodu;
+                    _digerB.KalanKontor = sonucObj.Kalan_kontor;
+                    _digerB.MuayeneMemuru = sonucObj.Muayene_memuru;
+
+                    _beyannameSonucTarihcecontext.Entry(_digerB).State = EntityState.Added;
+                    await _beyannameSonucTarihcecontext.SaveChangesAsync();
+                    transaction.Commit();
                 }
-
-                //Diğer Bilgiler
-                if (XMLdovizkurualis[0] != null)
+                catch (Exception EX)
                 {
-                    if (XMLdovizkurualis[0].ChildNodes.Count > 0)
-                        sonucObj.Doviz_kuru_alis = XMLdovizkurualis[0].ChildNodes[0].Value;
+                    transaction.Rollback();
+                    return null;
                 }
-                if (XMLdovizkurusatis[0] != null)
-                {
-                    if (XMLdovizkurusatis[0].ChildNodes.Count > 0)
-                        sonucObj.Doviz_kuru_satis = XMLdovizkurusatis[0].ChildNodes[0].Value;
-                }
-                if (XMKontrolkodu[0] != null)
-                {
-                    if (XMKontrolkodu[0].ChildNodes.Count > 0)
-                        sonucObj.Cikti_kontrol_kodu = XMKontrolkodu[0].ChildNodes[0].Value;
-                }
-                
-                if (XMMuayeneMemuru[0] != null)
-                {
-                    if (XMMuayeneMemuru[0].ChildNodes.Count > 0)
-                        sonucObj.Muayene_memuru = XMMuayeneMemuru[0].ChildNodes[0].Value;
-                }
-
-                if (XMMLKalanKontor[0] != null)
-                {
-                    if (XMMLKalanKontor[0].ChildNodes.Count > 0)
-                        sonucObj.Kalan_kontor = XMMLKalanKontor[0].ChildNodes[0].Value;
-                }
-
-                
-
-                DbSonucDigerBilgiler _digerB = new DbSonucDigerBilgiler();
-                _digerB.Guid = GuidOf;
-                _digerB.GonderimNo = GonderimNo;
-                _digerB.IslemInternalNo = InternalNo;
-                _digerB.DovizKuruAlis = sonucObj.Doviz_kuru_alis;
-                _digerB.DovizKuruSatis = sonucObj.Doviz_kuru_satis;
-                _digerB.CiktiSeriNo = sonucObj.Cikti_kontrol_kodu;
-                _digerB.KalanKontor = sonucObj.Kalan_kontor;
-                _digerB.MuayeneMemuru = sonucObj.Muayene_memuru;
-
-                _beyannameSonucTarihcecontext.Entry(_digerB).State = EntityState.Added;
-                _beyannameSonucTarihcecontext.SaveChangesAsync();
-
-                return sonucObj;
             }
-            catch (Exception EX)
-            {
+            return sonucObj;
 
-                return sonucObj;
-            }
 
 
         }
-         void GonderilenVeriler(string gXML)
+        void GonderilenVeriler(string gXML)
         {
             List<Soru_Cevap> cevaptanGelenSoruCevap;
             List<Belge> cevaptanGelenBelgeler;

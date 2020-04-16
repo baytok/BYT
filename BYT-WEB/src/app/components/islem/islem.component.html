@@ -1,4 +1,7 @@
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '10px' }" ></ngx-loading>
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '10px' }"
+></ngx-loading>
 <!-- <ngx-spinner
 bdColor = "rgba(51, 51, 51, 0.8)"
 size = "large"
@@ -33,28 +36,25 @@ type = "ball-8bits">
               <div class="example-box">
                 <mat-table
                   [dataSource]="islemlerDataSource"
-                  class="mat-elevation-z8 "
+                  class="mat-elevation-z8"
                 >
-                 <ng-container matColumnDef="detay" > 
-                  <mat-cell *matHeaderCellDef>
-                   
-                  </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="beyanTipi">
-                  <mat-header-cell
-                    [style.flex]="'0 0 120px'"
-                    *matHeaderCellDef
-                  >
-                    Beyan Tipi
-                  </mat-header-cell>
-                  <mat-cell
-                    [style.flex]="'0 0 120px'"
-                    *matCellDef="let element"
-                  >
-                    {{ element.beyanTipi }}
-                  </mat-cell>
-                 
-                </ng-container>
+                  <ng-container matColumnDef="detay">
+                    <mat-cell *matHeaderCellDef> </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="beyanTipi">
+                    <mat-header-cell
+                      [style.flex]="'0 0 120px'"
+                      *matHeaderCellDef
+                    >
+                      Beyan Tipi
+                    </mat-header-cell>
+                    <mat-cell
+                      [style.flex]="'0 0 120px'"
+                      *matCellDef="let element"
+                    >
+                      {{ element.beyanTipi }}
+                    </mat-cell>
+                  </ng-container>
 
                   <ng-container matColumnDef="islemTipi">
                     <mat-header-cell
@@ -70,7 +70,6 @@ type = "ball-8bits">
                       {{ element.islemTipi }}
                     </mat-cell>
                   </ng-container>
-                
 
                   <ng-container matColumnDef="islemDurumu">
                     <mat-header-cell
@@ -159,12 +158,20 @@ type = "ball-8bits">
                         </button>
                       </mat-menu>
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let element"
-                      ngbTooltip="Referans No:{{element.refNo}}, Gönderim No:{{ element.gonderimSayisi }},
-                      Oluşturma Zaman:{{element.olusturmaZamani}},  Sonuç: {{element.islemSonucu}} "
-                      [openDelay]="1000" [closeDelay]="3000" tooltipClass="my-custom-class">
-                      {{element.islemInternalNo}}
-               
+                    <mat-cell
+                      *matCellDef="let element"
+                      ngbTooltip="Referans No:{{
+                        element.refNo
+                      }}, Gönderim No:{{ element.gonderimSayisi }},
+                      Oluşturma Zaman:{{ element.olusturmaZamani }},  Sonuç: {{
+                        element.islemSonucu
+                      }} "
+                      [openDelay]="1000"
+                      [closeDelay]="3000"
+                      tooltipClass="my-custom-class"
+                    >
+                      {{ element.islemInternalNo }}
+
                       <button mat-button [matMenuTriggerFor]="aboveMenu">
                         <mat-icon>menu</mat-icon>
                       </button>
@@ -204,12 +211,12 @@ type = "ball-8bits">
                   <mat-row
                     *matRowDef="let row; columns: displayedColumnsIslem"
                   ></mat-row>
-                </mat-table>               
-              </div>           
+                </mat-table>
+              </div>
             </mat-card>
           </div>
         </div>
-    
+
         <div class="row mt-4" *ngIf="tarihceDataSource.data?.length >= 1">
           <div class="col-md-12">
             <div class="example-header">
@@ -224,7 +231,6 @@ type = "ball-8bits">
             </div>
             <mat-card class="mat-card">
               <div class="example-box">
-                
                 <mat-table
                   [dataSource]="tarihceDataSource"
                   class="mat-elevation-z8"
@@ -252,9 +258,15 @@ type = "ball-8bits">
                     <mat-cell
                       [style.flex]="'0 0 250px'"
                       *matCellDef="let element"
-                      ngbTooltip="Referans No:{{element.refNo}}, Ticaret Tipi:{{ element.ticaretTipi }},
-                      Gümrük :{{element.gumruk}}, Rejim:{{element.rejim}}, İşlem Sonuç: {{element.islemSonucu}} "
-                      [openDelay]="1000" [closeDelay]="3000" tooltipClass="my-custom-class"
+                      ngbTooltip="Referans No:{{
+                        element.refNo
+                      }}, Ticaret Tipi:{{ element.ticaretTipi }},
+                      Gümrük :{{ element.gumruk }}, Rejim:{{
+                        element.rejim
+                      }}, İşlem Sonuç: {{ element.islemSonucu }} "
+                      [openDelay]="1000"
+                      [closeDelay]="3000"
+                      tooltipClass="my-custom-class"
                     >
                       {{ element.islemInternalNo }}
                     </mat-cell>
@@ -334,7 +346,7 @@ type = "ball-8bits">
                       {{ element.sonucZamani }}
                     </mat-cell>
                   </ng-container>
-                 
+
                   <ng-container matColumnDef="guid">
                     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                     <mat-cell *matCellDef="let element">
@@ -342,17 +354,29 @@ type = "ball-8bits">
                         class="button"
                         *ngIf="element.islemDurumu === 'Sonuclandi'"
                       >
-                      <!-- (click)="
-                      getBeyannameSonuc(
-                        element.guid,
-                        element.islemInternalNo
-                      )
-                    " -->
+                      <!-- geçici
+                         <button
+                          mat-icon-button
+                          color="primary"
+                          (click)="getMessageSonucSorgula(element.guid)"
+                        >
+                          <span
+                            class="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
+                          İşlemde...
+                          <mat-icon>cached</mat-icon>
+                        </button>
+                      -->
                         <button
                           mat-icon-button
                           color="warn"
                           (click)="
-                          getMessageSonucSorgula(element.guid)
+                            getBeyannameSonuc(
+                              element.guid,
+                              element.islemInternalNo
+                            )
                           "
                         >
                           <mat-icon>apps</mat-icon>
@@ -362,7 +386,6 @@ type = "ball-8bits">
                         class="button"
                         *ngIf="element.islemDurumu === 'Islemde'"
                       >
-                 
                         <button
                           mat-icon-button
                           color="primary"
@@ -387,8 +410,7 @@ type = "ball-8bits">
                     *matRowDef="let row; columns: displayedColumnsTarihce"
                   ></mat-row>
                 </mat-table>
-               
-             
+
                 <!-- <mat-table
                       [dataSource]="tarihceDataSource"
                       multiTemplateDataRows
