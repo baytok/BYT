@@ -1,0 +1,58 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+  {
+    "kod": "10",
+    "aciklama": "Deniz yolu ile taşıma"
+
+  },
+  {
+    "kod": "12",
+    "aciklama": "Deniz aracında demiryolu vagonu"
+  },
+  {
+    "kod": "16",
+    "aciklama": "Deniz aracında motorlu karayolu taşıma aracı"
+  },
+  {
+    "kod": "17",
+    "aciklama": "Deniz aracında römork veya yarı römork"
+  },
+  {
+    "kod": "18",
+    "aciklama": "Deniz aracında, içsularda taşımaya özgü araç"
+  },
+  {
+    "kod": "20",
+    "aciklama": "Demiryolu ile yapılan taşıma"
+  },
+  {
+    "kod": "23",
+    "aciklama": "Demiryolu vagonunda karayolu taşıma aracı"
+  },
+  {
+    "kod": "30",
+    "aciklama": "Karayolu ile yapılan taşıma "
+  },
+  {
+    "kod": "40",
+    "aciklama": "Havayolu ile yapılan taşıma"
+  },
+  {
+    "kod": "50",
+    "aciklama": "Posta ile yapılan taşıma"
+  },
+  {
+    "kod": "70",
+    "aciklama": "Sabit taşıma tesisatı"
+  },
+  {
+    "kod": "80",
+    "aciklama": "İçsularda yapılan taşıma"
+  }, {
+    "kod": "90",
+    "aciklama": "Kendinden hareketli"
+  }
+]

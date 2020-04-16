@@ -35,7 +35,9 @@ import {
  } from "../shared/service-proxies/service-proxies";
 import { TeminatComponent } from './components/teminat/teminat.component';
 import { FirmaComponent } from './components/firma/firma.component';
-
+import {
+   ReferansService
+ } from "../shared/helpers/ReferansService";
 
 @NgModule({
    declarations: [
@@ -91,7 +93,7 @@ import { FirmaComponent } from './components/firma/firma.component';
 
    ],
    providers: [
-      SessionServiceProxy,AccountModule,
+      SessionServiceProxy,AccountModule,ReferansService
    ],
     bootstrap: [
         AppComponent,

@@ -69,7 +69,7 @@
                       >
                         <option *ngFor="let g of _gumrukList" [value]="g.kod">{{
                           g.kod
-                        }}</option>
+                        }} {{g.aciklama}}</option>
                       </select>
                       <div
                         *ngIf="submitted && focus.gumruk.errors"
@@ -94,7 +94,7 @@
                       >
                         <option  *ngFor="let r of _rejimList" [value]="r.kod" [disabled]="editable">{{
                           r.kod
-                        }}</option>
+                        }} {{r.aciklama}}</option>
                       </select>
                       <div
                         *ngIf="submitted && focus.rejim.errors"
@@ -120,7 +120,7 @@
                       >
                         <option *ngFor="let b of _bsList" [value]="b.kod">{{
                           b.kod
-                        }}</option>
+                        }} {{b.aciklama}}</option>
                       </select>
                       <div
                         *ngIf="submitted && focus.basitlestirilmisUsul.errors"
@@ -143,7 +143,7 @@
                         <option
                           *ngFor="let s of _aliciSaticiList"
                           [value]="s.kod"
-                          >{{ s.kod }}</option
+                          >{{ s.kod }} {{s.aciklama}}</option
                         >
                       </select>
                       <div
@@ -171,7 +171,7 @@
                         <option
                           *ngFor="let s of _isleminNiteligiList"
                           [value]="s.kod"
-                          >{{ s.kod }}</option
+                          >{{ s.kod }} {{s.aciklama}}</option
                         >
                       </select>
                       <div
@@ -459,7 +459,7 @@
                       >
                         <option *ngFor="let u of _ulkeList" [value]="u.kod" [disabled]="ihracatEditable">{{
                           u.kod
-                        }}</option>
+                        }} {{u.aciklama}}</option>
                       </select>
                         <div
                           *ngIf="submitted && focus.cikisUlkesi.errors"
@@ -483,7 +483,7 @@
                       >
                         <option *ngFor="let u of _ulkeList" [value]="u.kod" [disabled]="ithalatEditable">{{
                           u.kod
-                        }}</option>
+                        }} {{u.aciklama}}</option>
                         </select>
                         <div
                           *ngIf="submitted && focus.gidecegiUlke.errors"
@@ -508,7 +508,7 @@
                       >
                         <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
                           u.kod
-                        }}</option>
+                        }} {{u.aciklama}}</option>
                         </select>
                         <div
                           *ngIf="submitted && focus.ticaretUlkesi.errors"
@@ -533,7 +533,7 @@
                       >
                         <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
                           u.kod
-                        }}</option>
+                        }} {{u.aciklama}}</option>
                         </select>
                         <div
                           *ngIf="submitted && focus.gidecegiSevkUlkesi.errors"
@@ -584,7 +584,7 @@
                     >
                       <option *ngFor="let g of _teslimList" [value]="g.kod">{{
                         g.kod
-                      }}</option>
+                      }} {{g.aciklama}}</option>
                     </select>
                     <div
                       *ngIf="submitted && focus.teslimSekli.errors"
@@ -667,7 +667,7 @@
                     >
                       <option *ngFor="let g of _dovizList" [value]="g.kod">{{
                         g.kod
-                      }}</option>
+                      }} {{g.aciklama}}</option>
                     </select>
                     <div
                       *ngIf="submitted && focus.toplamYurtDisiHarcamalarDovizi.errors"
@@ -730,7 +730,7 @@
                     >
                       <option *ngFor="let g of _dovizList" [value]="g.kod">{{
                         g.kod
-                      }}</option>
+                      }} {{g.aciklama}}</option>
                     </select>
                     <div
                       *ngIf="submitted && focus.toplamFaturaDovizi.errors"
@@ -779,7 +779,7 @@
                       >
                         <option *ngFor="let g of _dovizList" [value]="g.kod">{{
                           g.kod
-                        }}</option>
+                        }} {{g.aciklama}}</option>
                       </select>
                       <div
                         *ngIf="submitted && focus.toplamNavlunDovizi.errors"
@@ -824,7 +824,7 @@
                       >
                         <option *ngFor="let g of _dovizList" [value]="g.kod">{{
                           g.kod
-                        }}</option>
+                        }} {{g.aciklama}}</option>
                       </select>
                       <div
                         *ngIf="submitted && focus.toplamSigortaDovizi.errors"
@@ -909,7 +909,7 @@
                   >
                     <option *ngFor="let g of _gumrukList" [value]="g.kod">{{
                       g.kod
-                    }}</option>
+                    }} {{g.aciklama}}</option>
                   </select>
                   <div
                     *ngIf="submitted && focus.girisGumrukIdaresi.errors"
@@ -934,7 +934,7 @@
                   >
                     <option *ngFor="let g of _gumrukList" [value]="g.kod">{{
                       g.kod
-                    }}</option>
+                    }} {{g.aciklama}}</option>
                   </select>
                   <div
                     *ngIf="submitted && focus.varisGumrukIdaresi.errors"
@@ -1035,7 +1035,7 @@
                         <option
                           *ngFor="let t of _tasimaSekliList"
                           [value]="t.kod"
-                          >{{ t.kod }}</option
+                          >{{ t.kod }} {{t.aciklama}}</option
                         >
                       </select>
                       
@@ -1064,7 +1064,7 @@
                       <option
                         *ngFor="let c of _aracTipiList"
                         [value]="c.kod"
-                        >{{ c.kod }}</option
+                        >{{ c.kod }} {{c.aciklama}}</option
                       >
                     </select>
                     
@@ -1111,7 +1111,7 @@
                       >
                         <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
                           u.kod
-                        }}</option>
+                        }} {{u.aciklama}}</option>
                       </select>
                       <div
                         *ngIf="submitted && focus.cikistakiAracinUlkesi.errors"
@@ -1138,7 +1138,7 @@
                       <option
                         *ngFor="let s of _aracTipiList"
                         [value]="s.kod"
-                        >{{ s.kod }}</option
+                        >{{ s.kod }} {{s.aciklama}}</option
                       >
                     </select>
                      
@@ -1187,7 +1187,7 @@
                       >
                         <option *ngFor="let u of _ulkeList" [value]="u.kod">{{
                           u.kod
-                        }}</option>
+                        }} {{u.aciklama}}</option>
                       </select>
                       <div
                         *ngIf="submitted && focus.sinirdakiAracinUlkesi.errors"

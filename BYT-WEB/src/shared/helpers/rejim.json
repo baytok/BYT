@@ -1,0 +1,19 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+  {
+    "kod": "1000",
+    "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın kesin ihracatı"
+
+  },
+  {
+    "kod": "2300",
+    "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın ihraç edildiği şekli ile geri gelmek üzere geçici ihracatı"
+  },
+  {
+    "kod": "4000",
+    "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın muafiyete tabi olmadan serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+  }
+]

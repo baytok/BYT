@@ -1,0 +1,64 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+  {
+    "kod": "EXW",
+    "aciklama": "EXW"
+
+  },
+  {
+    "kod": "FCA",
+    "aciklama": "FCA"
+  },
+  {
+    "kod": "CPT",
+    "aciklama": "CPT"
+  },
+  {
+    "kod": "CIP",
+    "aciklama": "CIP"
+  },
+  {
+    "kod": "DAT",
+    "aciklama": "DAT"
+  },
+  {
+    "kod": "DAP",
+    "aciklama": "DAP"
+  },
+  {
+    "kod": "DDP",
+    "aciklama": "DDP"
+  },
+  {
+    "kod": "DDU",
+    "aciklama": "DDU"
+  },
+  {
+    "kod": "FAS",
+    "aciklama": "FAS"
+  },
+  {
+    "kod": "FOB",
+    "aciklama": "FOB"
+  },
+  {
+    "kod": "CFR",
+    "aciklama": "CFR"
+  },
+  {
+    "kod": "CIF",
+    "aciklama": "CIF"
+  },
+  {
+    "kod": "DES",
+    "aciklama": "DES"
+  },
+  {
+    "kod": "DEQ",
+    "aciklama": "DEQ"
+  }
+
+]

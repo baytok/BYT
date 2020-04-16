@@ -1170,7 +1170,7 @@
                     </mat-form-field>
                   </div>
                 </div>
-                <div class="card m-15">
+                <div class="card m-10">
                   <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Yurt Dışı Demuraj Dövizi</mat-label>
@@ -2348,7 +2348,7 @@
            
                 <form [formGroup]="soruCevapForm" novalidate>
                   <div
-                    fxLayout="row"
+                    fxLayout="row wrap"
                     fxLayout.xs="column"
                     fxLayoutWrap
                     fxLayoutGap="3.5%"
@@ -2373,11 +2373,11 @@
 
                         <div [formGroupName]="i">
                           <div
-                            fxLayout="row"
+                            fxLayout="row wrap"
                             fxLayout.xs="column"
                             fxLayoutWrap
-                            fxLayoutGap="3.5%"
-                            fxLayoutAlign="center"
+                            fxLayoutGap="5.5%"
+                            fxLayoutAlign="space-around"
                           >
                             <mat-form-field fxFlex="10%">
                               <input
@@ -2408,12 +2408,15 @@
                               />
                             </mat-form-field>
                             <mat-form-field fxFlex="70%">
-                              <input
+                              <textarea
+                             
+                              type="text"
+                              rows="3"                              
                                 readonly
                                 matNativeControl
                                 placeholder="Soru Açıklaması"
                                 formControlName="soruAciklamasi"
-                              />
+                              ></textarea>
                             </mat-form-field>
 
                           

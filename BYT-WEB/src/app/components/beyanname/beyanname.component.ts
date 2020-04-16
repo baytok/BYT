@@ -18,7 +18,9 @@ import {
   NgForm
 } from "@angular/forms";
 import { MustMatch } from "../../../shared/helpers/must-match.validator";
-
+import {
+  ReferansService
+} from "../../../shared/helpers/ReferansService";
 import {
   rejim,
   bs,
@@ -131,19 +133,20 @@ export class BeyannameComponent implements OnInit {
   _beyannameBilgileri: BeyannameBilgileriDto;
   _beyanname: BeyannameDto = new BeyannameDto();
   _kalemler: KalemDto[];
-  _rejimList = rejim;
-  _bsList = bs;
-  _gumrukList = gumruk;
-  _ulkeList = ulke;
-  _aliciSaticiList = aliciSatici;
-  _tasimaSekliList = tasimaSekli;
-  _isleminNiteligiList = isleminNiteligi;
-  _aracTipiList = aracTipi;
-  _teslimList = teslimSekli;
-  _dovizList=dovizCinsi;
+  _rejimList = this.referansService.getRejimJSON();
+  _bsList = this.referansService.getBsJSON();
+  _gumrukList =this.referansService.getGumrukJSON();
+  _ulkeList = this.referansService.getUlkeJSON();
+  _aliciSaticiList = this.referansService.getaliciSaticiJSON();
+  _tasimaSekliList = this.referansService.gettasimaSekliJSON();
+  _isleminNiteligiList = this.referansService.getisleminNiteligiJSON();
+  _aracTipiList = this.referansService.getaracTipiJSON();;
+  _teslimList = this.referansService.getteslimSekliJSON();;
+  _dovizList=this.referansService.getdovizCinsiJSON();;
 
 
   constructor(
+    private referansService:ReferansService,
     private beyanServis: BeyannameServiceProxy,
     private _beyanSession: SessionServiceProxy,
     private _userRoles:UserRoles,
@@ -322,7 +325,7 @@ export class BeyannameComponent implements OnInit {
   }
  
   ngOnInit() {
-
+  
     if(!this._userRoles.canBeyannameRoles())
     {
       this.openSnackBar("Beyanname Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
@@ -619,7 +622,9 @@ export class BeyannameComponent implements OnInit {
         
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);
-          yeniislemInternalNo = servisSonuc.Bilgiler[0].referansNo;
+          var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());
+          yeniislemInternalNo = beyanServisSonuc.ReferansNo;
+        
            
           if (yeniislemInternalNo != null) {
             this.islemInput.nativeElement.value=yeniislemInternalNo;

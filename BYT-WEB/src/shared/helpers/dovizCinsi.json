@@ -1,0 +1,19 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+  {
+    "kod": "USD",
+    "aciklama": "USD"
+
+  },
+  {
+    "kod": "EUR",
+    "aciklama": "EURO"
+  },
+  {
+    "kod": "TRY",
+    "aciklama": "TÜRK LİRASI"
+  }
+]

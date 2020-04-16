@@ -1,5 +1,4 @@
 ﻿
-
 export const rejim= [
   { kod:'', aciklama: '' },
     { kod: 1000, aciklama: 'İhracat' },
@@ -207,5 +206,5 @@ export const rejim= [
     { kod:'2555', aciklama: 'Diğer' },
   
   ];
-
-//TODO: Dosyadan okumaya çalışalım
+  
+ 

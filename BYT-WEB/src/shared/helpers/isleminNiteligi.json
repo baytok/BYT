@@ -1,0 +1,19 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+  {
+    "kod": "11",
+    "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler-Doğrudan Satın Alma veya Satma "
+
+  },
+  {
+    "kod": "12",
+    "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler- Konsinye Satış veya Komisyoncu Aracılığı ile Satış "
+  },
+  {
+    "kod": "99",
+    "aciklama": "Diğer Ticari İşlemler "
+  }
+]

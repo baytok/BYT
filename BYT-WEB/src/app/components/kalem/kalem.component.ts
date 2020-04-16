@@ -762,8 +762,9 @@ export class KalemComponent implements OnInit {
       (result) => {
         const servisSonuc = new ServisDto();
         servisSonuc.init(result);
-        yenikalemInternalNo = servisSonuc.Bilgiler[0].referansNo;
-
+        var kalemServisSonuc = JSON.parse(servisSonuc.getSonuc());
+        yenikalemInternalNo = kalemServisSonuc.ReferansNo;
+      
         if (yenikalemInternalNo != null) {
           this.kalemInternalNo = yenikalemInternalNo;
           this.setOdeme();

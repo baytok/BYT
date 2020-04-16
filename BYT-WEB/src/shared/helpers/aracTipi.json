@@ -1,0 +1,34 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+  {
+    "kod": "1",
+    "aciklama": "BORU"
+
+  },
+  {
+    "kod": "2",
+    "aciklama": "TEL"
+  },
+  {
+    "kod": "3",
+    "aciklama": "GEMİ"
+  }
+  ,
+  {
+    "kod": "4",
+    "aciklama": "KAMYON"
+  }
+  ,
+  {
+    "kod": "5",
+    "aciklama": "UÇAK"
+  }
+  ,
+  {
+    "kod": "6",
+    "aciklama": "VAGON"
+  }
+]
