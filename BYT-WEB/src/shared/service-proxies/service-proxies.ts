@@ -777,6 +777,68 @@ export class BeyannameServiceProxy {
         kiymet,httpOptions  
         );
   }
+  removeKiymet(kiymetInternalNo,beyanInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KiymetSil/"+kiymetInternalNo+"/"+beyanInternalNo, httpOptions        
+      );
+  }
+  getOzetBeyanAcma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/OzetBeyanAcma/Beyanname/" + IslemInternalNo,httpOptions
+    );
+  }
+  restoreOzetBeyanAcma(ozetBeyanAcma: OzetBeyanAcmaDto) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/OzetBeyanAcmaOlustur/", 
+        ozetBeyanAcma,httpOptions  
+        );
+  }
+  removeOzetBeyanAcma(ozetBeyanInternalNo,beyanInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/OzetBeyanAcmaSil/"+ozetBeyanInternalNo+"/"+beyanInternalNo, httpOptions        
+      );
+  }
+  
 
   getTeminat(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
@@ -2792,11 +2854,26 @@ export class SoruCevapDto {
 }
 export class KiymetDto {
   beyanInternalNo: string;
-  kalemInternalNo: string;
-  gtip: string;
-  bilgi:string;
-  oran:string;
-  constructor(data?: TamamlayiciBilgiDto) {
+  kiymetInternalNo: string;
+  aliciSatici: string;
+  aliciSaticiAyrintilar:string;
+  edim:string;
+  emsal:string;
+  faturaTarihiSayisi:string;
+  gumrukIdaresiKarari:string;
+  kisitlamalar:string;
+  kisitlamalarAyrintilar:string;
+  munasebet:string;
+  royalti:string;
+  royaltiKosullar:string;
+  saticiyaIntikal:string;
+  saticiyaIntikalKosullar:string;
+  sehirYer:string;
+  sozlesmeTarihiSayisi:string;
+  taahhutname:string;
+  teslimSekli:string;
+
+  constructor(data?: KiymetDto) {
     if (data) {
     
       for (var property in data) {
@@ -2816,9 +2893,9 @@ export class KiymetDto {
   }
 
 
-  static fromJS(data: any): TamamlayiciBilgiDto {
+  static fromJS(data: any): KiymetDto {
     data = typeof data === "object" ? data : {};
-    let result = new TamamlayiciBilgiDto();
+    let result = new KiymetDto();
 
     result.init(data);
     return result;
@@ -2899,6 +2976,44 @@ export class FirmaDto {
   static fromJS(data: any): FirmaDto {
     data = typeof data === "object" ? data : {};
     let result = new FirmaDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class OzetBeyanAcmaDto {
+  beyanInternalNo: string;
+  ozetBeyanInternalNo: string;
+  ozetBeyanNo: string;
+  islemKapsami:string;
+  ambar:string;
+  baskaRejim:string;
+  aciklama:string;
+ 
+
+  constructor(data?: OzetBeyanAcmaDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): OzetBeyanAcmaDto {
+    data = typeof data === "object" ? data : {};
+    let result = new OzetBeyanAcmaDto();
 
     result.init(data);
     return result;

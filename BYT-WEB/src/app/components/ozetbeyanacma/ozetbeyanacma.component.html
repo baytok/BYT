@@ -1,0 +1,207 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="card m-3">
+    <h5 class="card-header text-center">Özet Beyan Açma Bilgileri</h5>
+    <div class="card-body text-center">
+      <mat-form-field>
+        <mat-label>Geçici Beyanname No</mat-label>
+        <input matInput readonly #BeyannameNo [(ngModel)]="beyanInternalNo" />
+      </mat-form-field>
+
+      <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
+      </mat-cell>
+      <mat-label>{{ beyanStatu }}</mat-label>
+
+      <mat-menu #ozetBeyanheaderMenu="matMenu">
+        <button
+          mat-menu-item
+          (click)="yukleOzetBeyan()"
+          [disabled]="
+            beyanStatu !== ('Olusturuldu' || 'Güncellendi') ? false : true
+          "
+        >
+          <mat-icon>refresh</mat-icon>
+          <span>Listeyi Yenile</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="yeniOzetBeyan()"
+          [disabled]="
+            beyanStatu !== ('Olusturuldu' || 'Güncellendi') ? false : true
+          "
+        >
+          <mat-icon>add</mat-icon>
+          <span>Yeni Özet Beyan</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="duzeltOzetBeyan()"
+          [disabled]="
+            beyanStatu !== ('Olusturuldu' || 'Güncellendi') && ozetBeyanInternalNo
+              ? false
+              : true
+          "
+        >
+          <mat-icon>sync</mat-icon>
+          <span>Özet Beyan Düzeltme</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="silOzetBeyan(ozetBeyanInternalNo)"
+          [disabled]="
+            beyanStatu !== ('Olusturuldu' || 'Güncellendi') && ozetBeyanInternalNo
+              ? false
+              : true
+          "
+        >
+          <mat-icon>remove</mat-icon>
+          <span>Özet Beyan Sil</span>
+        </button>
+      </mat-menu>
+
+      <h6 class="card-header text-left">Özet Beyanlar</h6>
+      <div class="card m-2">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="ozetBeyanheaderMenu"
+          class="header-dropdown-mat-icon-button"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-selection-list #OzetBeyanList multiple="false">
+          <mat-list-option
+            *ngFor="let kalem of _ozetBeyanlar; let i = index"
+            [value]="kalem"
+            [disableRipple]="true"
+            (click)="getOzetBeyan(kalem.ozetBeyanInternalNo)"
+          >
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div style="display: flex; align-items: center;">
+                <mat-icon matListAvatar>folder</mat-icon>
+                <div style="display: flex; flex-direction: column;">
+                  <h5 matLine>{{ i+1 }}</h5>
+                  <!-- <p matLine>
+                    {{ i }}
+                  </p> -->
+                </div>
+              </div>
+            </div>
+          </mat-list-option> 
+        </mat-selection-list>
+      </div>
+      <form [formGroup]="ozetBeyanForm" >
+        <mat-card class="mat-card">
+          <div class="example-box">
+                <div class="form-row">               
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>İşlem Kapsamı</mat-label>
+                      <input
+                        matNativeControl
+                        type="text"
+                        formControlName="islemKapsami"                        
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.islemKapsami.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.islemKapsami.errors"
+                        class="invalid-feedback"
+                      ><div *ngIf="focus.islemKapsami.errors.required">
+                        Özet Beyan No Zorunlu
+                      </div></div>
+                    </mat-form-field>
+                  </div> 
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Özet Beyan No</mat-label>
+                      <input
+                        matNativeControl
+                        type="text"
+                        formControlName="ozetBeyanNo"                        
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.ozetbeyanNo.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.ozetbeyanNo.errors"
+                        class="invalid-feedback"
+                      ><div *ngIf="focus.ozetbeyanNo.errors.required">
+                        Özet Beyan No Zorunlu
+                      </div></div>
+                    </mat-form-field>
+                  </div> 
+                  <div class="form-group col">
+                    <div class="form-group form-check">
+                      <input
+                        type="checkbox"
+                        formControlName="ambar"
+                        id="ambar"
+                        class="form-check-input"
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.ambar.errors
+                        }"
+                      />
+                      <mat-label for="ambar" class="form-check-label"
+                        >Ambar İçindemi?</mat-label
+                      >
+                    </div>
+                  </div>       
+                  <div class="form-group col">
+                    <div class="form-group form-check">
+                      <input
+                        type="checkbox"
+                        formControlName="baskaRejim"
+                        id="baskaRejim"
+                        class="form-check-input"
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.baskaRejim.errors
+                        }"
+                      />
+                      <mat-label for="baskaRejim" class="form-check-label"
+                        >Başka Rejim ile Açılacakmı</mat-label
+                      >
+                    </div>
+                  </div>       
+                  <div class="card m-2">
+                    <div class="form-group col">
+                      <mat-label>Açıklama</mat-label>
+                      <textarea
+                        type="text"
+                        rows="3"
+                        formControlName="aciklama"
+                        class="form-control"
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted && focus.aciklama.errors
+                        }"
+                      ></textarea>
+  
+                      <div
+                        *ngIf="submitted && focus.aciklama.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </div>
+                  </div>
+                 
+                   
+                </div>                    
+          </div>
+        </mat-card>
+        <div class="text-right">
+          <button [disabled]="!ozetBeyanForm.valid" class="btn btn-primary mr-1" (click)="onOzetBeyanFormSubmit()">
+            Kaydet
+          </button>
+          <!-- <button class="btn btn-secondary" type="reset" (click)="onReset()">
+            İptal
+          </button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

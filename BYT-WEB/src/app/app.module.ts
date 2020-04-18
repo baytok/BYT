@@ -35,6 +35,7 @@ import {
  } from "../shared/service-proxies/service-proxies";
 import { TeminatComponent } from './components/teminat/teminat.component';
 import { FirmaComponent } from './components/firma/firma.component';
+import { OzetbeyanacmaComponent } from './components/ozetbeyanacma/ozetbeyanacma.component';
 import {
    ReferansService
  } from "../shared/helpers/ReferansService";
@@ -63,7 +64,8 @@ import {
       YeniYetkiComponent,
       KiymetComponent,
       TeminatComponent,
-      FirmaComponent
+      FirmaComponent,
+      OzetbeyanacmaComponent
       
     
    ],

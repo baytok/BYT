@@ -386,7 +386,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         [HttpGet("{IslemInternalNo}")]
         public async Task<List<DbKiymetBildirim>> GetKiymet(string IslemInternalNo)
         {
-            List<DbKiymetBildirim> _marka = new List<DbKiymetBildirim>();
+            List<DbKiymetBildirim> _kiymet = new List<DbKiymetBildirim>();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
                  .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                  .Options;
@@ -399,10 +399,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                     var kiymetValues = await _beyannameContext.DbKiymetBildirim.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
-                    _marka = kiymetValues;
+                    _kiymet = kiymetValues;
                 }
 
-                return _marka;
+                return _kiymet;
 
             }
             catch (Exception)
@@ -465,6 +465,37 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 }
 
                 return _firma;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/OzetBeyanAcma/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbOzetbeyanAcma>> GetOzetBeyanAcma(string IslemInternalNo)
+        {
+            List<DbOzetbeyanAcma> _ozbyAcma = new List<DbOzetbeyanAcma>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var ozetBeyanAcmaValues = await _beyannameContext.DbOzetbeyanAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _ozbyAcma = ozetBeyanAcmaValues;
+                }
+
+                return _ozbyAcma;
 
             }
             catch (Exception)

@@ -450,15 +450,17 @@ namespace BYT.WS.Models
         [StringLength(300)]
         public string SaticiyaIntikalKosullar { get; set; }
 
+        [Required]
         [StringLength(300)]
         public string SehirYer { get; set; }
 
+        [Required]
         [StringLength(300)]
         public string SozlesmeTarihiSayisi { get; set; }
 
         [Required]
         [StringLength(9)]
-        public string Taahutname { get; set; }
+        public string Taahhutname { get; set; }
 
         [Required]
         [StringLength(9)]
@@ -549,7 +551,7 @@ namespace BYT.WS.Models
         [StringLength(20)]
         public string BaskaRejim { get; set; }
 
-        [Required]
+        
         [StringLength(1500)]
         public string Aciklama { get; set; }
 

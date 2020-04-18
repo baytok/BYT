@@ -489,7 +489,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _kiymet.SaticiyaIntikalKosullar = kiymet.SaticiyaIntikalKosullar;
                         _kiymet.SehirYer = kiymet.SehirYer;
                         _kiymet.SozlesmeTarihiSayisi = kiymet.SozlesmeTarihiSayisi;
-                        _kiymet.Taahutname = kiymet.Taahutname;
+                        _kiymet.Taahutname = kiymet.Taahhutname;
                         _kiymet.TeslimSekli = kiymet.TeslimSekli;
 
                         var kiymetKalemValues = await _beyannameContext.DbKiymetBildirimKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.KiymetInternalNo == kiymet.KiymetInternalNo).ToListAsync();

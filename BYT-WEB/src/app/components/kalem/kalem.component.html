@@ -2140,7 +2140,7 @@
                                 matNativeControl
                                 placeholder="Vergi Kodu"
                                 formControlName="vergiKodu"
-                                (change)="(vergiAd)"
+                                (change)="(vergiAd($event.target.value))"
                                 required
                               >
                                 <option

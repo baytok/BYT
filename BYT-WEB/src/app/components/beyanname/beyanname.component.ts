@@ -140,9 +140,9 @@ export class BeyannameComponent implements OnInit {
   _aliciSaticiList = this.referansService.getaliciSaticiJSON();
   _tasimaSekliList = this.referansService.gettasimaSekliJSON();
   _isleminNiteligiList = this.referansService.getisleminNiteligiJSON();
-  _aracTipiList = this.referansService.getaracTipiJSON();;
-  _teslimList = this.referansService.getteslimSekliJSON();;
-  _dovizList=this.referansService.getdovizCinsiJSON();;
+  _aracTipiList = this.referansService.getaracTipiJSON();
+  _teslimList = this.referansService.getteslimSekliJSON();
+  _dovizList=this.referansService.getdovizCinsiJSON();
 
 
   constructor(

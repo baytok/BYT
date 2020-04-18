@@ -417,7 +417,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             SaticiyaIntikalKosullar=k.SaticiyaIntikalKosullar,
                             SehirYer=k.SehirYer,
                             SozlesmeTarihiSayisi=k.SozlesmeTarihiSayisi,
-                            Taahutname=k.Taahutname,
+                            Taahhutname = k.Taahhutname,
                             TeslimSekli=k.TeslimSekli
                           
                         };

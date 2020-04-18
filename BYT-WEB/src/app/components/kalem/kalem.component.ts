@@ -48,7 +48,9 @@ import { UserRoles } from "../../../shared/service-proxies/UserRoles";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-
+import {
+  ReferansService
+} from "../../../shared/helpers/ReferansService";
 import {
   BeyannameBilgileriDto,
   BeyannameDto,
@@ -151,7 +153,7 @@ export class KalemComponent implements OnInit {
   _vergiler: VergiDto[];
   _soruCevaplar: SoruCevapDto[];
   _ulkeList = ulke;
-  _teslimList = teslimSekli;
+  _teslimList = this.referansService.getteslimSekliJSON();
   _dovizList = dovizCinsi;
   _kullanilmisList = kullanilmisEsya;
   _girisCikisAmaciList = girisCikisAmaci;
@@ -172,6 +174,7 @@ export class KalemComponent implements OnInit {
   @ViewChild("BeyannameNo", { static: true }) private _beyannameNo: ElementRef;
 
   constructor(
+    private referansService:ReferansService,
     private beyanServis: BeyannameServiceProxy,
     private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar,
@@ -922,7 +925,7 @@ export class KalemComponent implements OnInit {
         }
       }
     }
-  console.log( this.markaBilgileri.value);
+
     if (this.markaBilgileri.length >= 0) {
       const promiseMarka = this.beyanServis
         .restoreMarka(
@@ -1474,15 +1477,16 @@ export class KalemComponent implements OnInit {
   deleteVergiField(index: number) {
     this.vergiBilgileri.removeAt(index);
   }
-  get vergiAd(): string {
-    let vergiKod= this.vergiBilgileri ? this.vergiBilgileri.value.get('vergiKodu') : '';
-    console.log(vergiKod);
-    if(vergiKod==='')
-    return '';
-    let selected = this._vergiList.find(c=> c.kod == vergiKod);
-    this.vergiBilgileri.get("vergiAciklamasi").setValue(selected.aciklama);
- 
-    return selected.aciklama;
+  vergiAd(vergi) {  
+    if (this.vergiBilgileri.length > 0) {
+      for (let klm of this.vergiBilgileri.value) {
+        if(klm.vergiKodu===vergi)
+        {     
+        let selected = this._vergiList.find(c=> c.kod == klm.vergiKodu);
+        klm.vergiAciklamasi=selected.aciklama;
+        }       
+      }
+    }  
   }
   setVergi() {
     if (this.vergiBilgileri.length > 0) {
@@ -1520,7 +1524,7 @@ export class KalemComponent implements OnInit {
         }
       }
     }
-
+  
     if (this.vergiBilgileri.length >= 0) {
       const promiseVergi = this.beyanServis
         .restoreVergi(
@@ -1643,7 +1647,7 @@ export class KalemComponent implements OnInit {
         }
       }
     }
-    console.log(this.belgeBilgileri.value);
+
     if (this.belgeBilgileri.length >= 0) {
       const promiseBelge = this.beyanServis
         .restoreBelge(

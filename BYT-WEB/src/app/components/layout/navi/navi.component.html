@@ -23,9 +23,10 @@
         <mat-icon>account_balance</mat-icon><span class="nav-caption">Account Actions</span>
     </a>  -->    
    
-      <mat-menu #beyan="matMenu">        
+      <mat-menu #beyan="matMenu">     
+        <!-- <button mat-menu-item [matMenuTriggerFor]="kalem" routerLink="/app/kalem">Kalemler</button>    -->
         <button mat-menu-item routerLink="/app/kalem">Kalemler</button>
-        <button mat-menu-item [matMenuTriggerFor]="amphibians">Özet Beyan Açma</button>
+       <button mat-menu-item routerLink="/app/ozetbeyanacma">Özet Beyan Açma</button>
         <button mat-menu-item  routerLink="/app/kiymet">Kıymet Bildirim</button>
         <button mat-menu-item routerLink="/app/teminat">Teminat</button>
         <button mat-menu-item routerLink="/app/firma">Firma</button>
