@@ -20,7 +20,7 @@ namespace BYT.WS.Models
         public List<DbKonteyner> konteyner { get; set; }
         public List<DbOdemeSekli> odemeSekli { get; set; }
         public List<DbOzetbeyanAcma> ozetBeyanAcma { get; set; }
-        public List<DbTasimaSenedi> tasimaSenetleri { get; set; }
+        public List<DbTasimaSenet> tasimaSenetleri { get; set; }
         public List<DbTasimaSatir> tasimaSatirlari { get; set; }
         public List<DbFirma> firma { get; set; }
         public List<DbTeminat> teminat { get; set; }
@@ -537,7 +537,7 @@ namespace BYT.WS.Models
 
         [Required]
         [StringLength(30)]
-        public string OzetbeyanNo { get; set; }
+        public string OzetBeyanNo { get; set; }
 
         [Required]
         [StringLength(9)]
@@ -557,7 +557,7 @@ namespace BYT.WS.Models
 
     }
 
-    public class DbTasimaSenedi
+    public class DbTasimaSenet
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -573,7 +573,7 @@ namespace BYT.WS.Models
 
         [Required]
         [StringLength(30)]
-        public string TasimaInternalNo { get; set; }
+        public string TasimaSenetInternalNo { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -601,9 +601,9 @@ namespace BYT.WS.Models
 
         [Required]
         [StringLength(30)]
-        public string TasimaInternalNo { get; set; }
+        public string TasimaSenetInternalNo { get; set; }
 
-        [Required]
+     
         [StringLength(9)]
         public string AmbarKodu { get; set; }
 

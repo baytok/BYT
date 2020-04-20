@@ -24,7 +24,7 @@ namespace BYT.WS.Data
         public DbSet<DbFirma> DbFirma { get; set; }
         public DbSet<DbTeminat> DbTeminat { get; set; }
         public DbSet<DbOzetbeyanAcma> DbOzetbeyanAcma { get; set; }
-        public DbSet<DbTasimaSenedi> DbTasimaSenedi { get; set; }
+        public DbSet<DbTasimaSenet> DbTasimaSenet { get; set; }
         public DbSet<DbTasimaSatir> DbTasimaSatir { get; set; }
         public DbSet<DbKiymetBildirim> DbKiymetBildirim { get; set; }
         public DbSet<DbKiymetBildirimKalem> DbKiymetBildirimKalem { get; set; }

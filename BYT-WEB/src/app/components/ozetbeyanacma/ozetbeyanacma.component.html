@@ -101,22 +101,30 @@
                   <div class="form-group col">
                     <mat-form-field>
                       <mat-label>İşlem Kapsamı</mat-label>
-                      <input
-                        matNativeControl
-                        type="text"
-                        formControlName="islemKapsami"                        
-                        [ngClass]="{
-                          'is-invalid': submitted && focus.islemKapsami.errors
-                        }"
-                      />
+                      <select
+                      matNativeControl
+                      formControlName="islemKapsami"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted && focus.islemKapsami.errors
+                      }"
+                    >
+                    <option value=""></option>
+                    <option value="2">Özet Beyanın Bir Kısmı</option>
+                    <option value="3">Taşıma Senedinin Bir Kısmı</option>
+                   
+                      >
+                    </select>
                       <div
                         *ngIf="submitted && focus.islemKapsami.errors"
                         class="invalid-feedback"
                       ><div *ngIf="focus.islemKapsami.errors.required">
-                        Özet Beyan No Zorunlu
+                        İşlem Kapsamı Zorunlu
                       </div></div>
                     </mat-form-field>
                   </div> 
+                
                   <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Özet Beyan No</mat-label>
@@ -125,13 +133,13 @@
                         type="text"
                         formControlName="ozetBeyanNo"                        
                         [ngClass]="{
-                          'is-invalid': submitted && focus.ozetbeyanNo.errors
+                          'is-invalid': submitted && focus.ozetBeyanNo.errors
                         }"
                       />
                       <div
-                        *ngIf="submitted && focus.ozetbeyanNo.errors"
+                        *ngIf="submitted && focus.ozetBeyanNo.errors"
                         class="invalid-feedback"
-                      ><div *ngIf="focus.ozetbeyanNo.errors.required">
+                      ><div *ngIf="focus.ozetBeyanNo.errors.required">
                         Özet Beyan No Zorunlu
                       </div></div>
                     </mat-form-field>
@@ -190,11 +198,120 @@
                   </div>
                  
                    
-                </div>                    
+                </div>                 
+                          
           </div>
+        </mat-card>  
+          <mat-divider></mat-divider>
+        <mat-card class="mat-card">  
+            <form [formGroup]="tasimaSenetiForm" novalidate>
+            <div
+              fxLayout="row wrap"
+              fxLayout.xs="column"
+              fxLayoutWrap
+              fxLayoutGap="3.5%"
+              fxLayoutAlign="left"
+            >
+              <mat-card formArrayName="tasimaSenetiArry"
+                ><mat-card-title>Taşıma Seneti Bilgileri</mat-card-title
+                ><mat-divider></mat-divider>
+
+                <div
+                  *ngFor="
+                    let unit of tasimaSenetiBilgileri.controls;
+                    let i = index
+                  "
+                >
+                  <mat-divider
+                    *ngIf="
+                    tasimaSenetiBilgileri.controls.length > 1 && i > 0
+                    "
+                  ></mat-divider
+                  ><br />
+
+                  <div [formGroupName]="i">
+                    <div
+                      fxLayout="row wrap"
+                      fxLayout.xs="column"
+                      fxLayoutWrap
+                      fxLayoutGap="5.5%"
+                      fxLayoutAlign="space-around"
+                    >
+                    <mat-list>                 
+                      <div mat-subheader>Notes</div>
+                      <mat-list-item *ngFor="let note of tasimaSenetiBilgileri.controls">
+                        <mat-icon mat-list-icon>note</mat-icon>
+                        <div mat-line>{{note.tasimaSenediNo}}</div>
+                     
+                      </mat-list-item>
+                    </mat-list>        
+                    
+                    <mat-selection-list #OzetBeyanList multiple="false">
+                      <mat-list-option
+                        *ngFor="let kalem of tasimaSenetiBilgileri; let i = index"
+                        [value]="kalem"
+                        [disableRipple]="true"
+                        (click)="getTasimaSenet(kalem.tasimaSenetInternalNo)"
+                      >
+                        <div
+                          style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                          "
+                        >
+                          <div style="display: flex; align-items: center;">
+                            <mat-icon matListAvatar>Notes</mat-icon>
+                            <div style="display: flex; flex-direction: column;">
+                              <h5 matLine>{{ kalem.tasimaSenediNo }}</h5>
+                              <!-- <p matLine>
+                                {{ i }}
+                              </p> -->
+                            </div>
+                          </div>
+                        </div>
+                      </mat-list-option> 
+                    </mat-selection-list>
+
+                      <mat-form-field fxFlex="10%">
+                        <input                              
+                        matNativeControl
+                        placeholder="Taşıma Sneti No"
+                        formControlName="tasimaSenediNo"
+                      />                             
+                      </mat-form-field>
+                   
+
+                      <button
+                        mat-mini-fab
+                        color="warn"
+                        [disabled]="!ozetBeyanForm.valid"
+                        (click)="deleteTasimaSenetiField(i)"
+                      >
+                        <mat-icon>delete forever</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <mat-divider></mat-divider
+                ><mat-card-actions
+                  ><button
+                    [disabled]="!ozetBeyanForm.valid"
+                    mat-raised-button
+                    (click)="addTasimaSenetiField()"
+                  >
+                    <mat-icon>add box</mat-icon>
+                   Taşıma Seneti Ekle
+                  </button></mat-card-actions
+                ></mat-card
+              >
+              <div></div>
+            </div>
+          </form>      
         </mat-card>
         <div class="text-right">
-          <button [disabled]="!ozetBeyanForm.valid" class="btn btn-primary mr-1" (click)="onOzetBeyanFormSubmit()">
+          <button [disabled]="!(ozetBeyanForm.valid && tasimaSenetiBilgileri.valid && tasimaSatiriBilgileri.valid)" class="btn btn-primary mr-1" (click)="onOzetBeyanFormSubmit()">
             Kaydet
           </button>
           <!-- <button class="btn btn-secondary" type="reset" (click)="onReset()">

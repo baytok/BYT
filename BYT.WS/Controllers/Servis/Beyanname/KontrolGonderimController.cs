@@ -347,14 +347,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     foreach (var ozetbeyan in ozetBeyanAcmaValues)
                     {
                         _ozetBeyan = new KontrolHizmeti.Ozetbeyan();
-                        _ozetBeyan.Ozetbeyan_no = ozetbeyan.OzetbeyanNo;
+                        _ozetBeyan.Ozetbeyan_no = ozetbeyan.OzetBeyanNo;
                         _ozetBeyan.Ozetbeyan_islem_kapsami = ozetbeyan.IslemKapsami;
                         _ozetBeyan.Ambar_ici = ozetbeyan.Ambar;
                         _ozetBeyan.Baska_rejim = ozetbeyan.BaskaRejim;
                         _ozetBeyan.Aciklama = ozetbeyan.Aciklama;
 
 
-                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenedi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetbeyanNo).ToListAsync();
+                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetBeyanNo).ToListAsync();
 
                         if (ozetBeyanAcmaTasimaSenediValues != null && ozetBeyanAcmaTasimaSenediValues.Count > 0)
                         {
@@ -365,7 +365,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                 _ozetBeyanTasimaSenedi = new KontrolHizmeti.tasimasenetleri();
                                 _ozetBeyanTasimaSenedi.Tasima_senedi_no = tasimaSenedi.TasimaSenediNo;
 
-                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetbeyanNo && v.TasimaInternalNo == tasimaSenedi.TasimaInternalNo).ToListAsync();
+                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetBeyanNo && v.TasimaSenetInternalNo == tasimaSenedi.TasimaSenetInternalNo).ToListAsync();
 
                                 if (ozetBeyanAcmaTasimaSatirValues != null && ozetBeyanAcmaTasimaSatirValues.Count > 0)
                                 {

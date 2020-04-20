@@ -108,15 +108,15 @@ export class IslemComponent implements OnInit {
 
    }
    getTarihce(IslemInternalNo:string){  
-   
+
     this._beyanSession.islemInternalNo=IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo)
-    .subscribe( (result: TarihceDto[])=>{
-      
+    .subscribe( (result: TarihceDto[])=>{   
    
        this.tarihceDataSource.data=result;
        this.tarihceDataSource.paginator = this.paginator;
        this.tarihceDataSource.sort = this.sort;
+       console.log(this.tarihceDataSource);
       }, (err)=>{
         this.beyanServis.errorHandel(err);    
      });
@@ -162,6 +162,7 @@ export class IslemComponent implements OnInit {
          this._beyanSession.guidOf=sonuc_.Bilgiler[0].guid;
          this.loading = false; 
          this.getAllIslem();
+         this.getTarihce(islemInternalNo);
               this.openSnackBar( sonuc_.ServisDurumKodu===AppServisDurumKodlari.Available ? this._beyanSession.guidOf +"-"+sonuc_.Bilgiler[0].sonuc
                 :sonuc_.Hatalar[0].hataKodu+"-"+sonuc_.Hatalar[0].hataAciklamasi ,'Tamam');
       }, (err)=>{

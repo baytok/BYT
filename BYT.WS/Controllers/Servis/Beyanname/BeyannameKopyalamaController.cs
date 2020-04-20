@@ -69,7 +69,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     List<DbMarka> lstMarka = new List<DbMarka>();
                     List<DbBeyannameAcma> lstBeyannameAcma = new List<DbBeyannameAcma>();
                     List<DbOzetbeyanAcma> lstOzetBeyan = new List<DbOzetbeyanAcma>();
-                    List<DbTasimaSenedi> lstTasimaSenedi = new List<DbTasimaSenedi>();
+                    List<DbTasimaSenet> lstTasimaSenedi = new List<DbTasimaSenet>();
                     List<DbTasimaSatir> lstTasimaSatiri = new List<DbTasimaSatir>();
                     List<DbKiymetBildirim> lstKiymet = new List<DbKiymetBildirim>();
                     List<DbKiymetBildirimKalem> lstKiymetKalem = new List<DbKiymetBildirimKalem>();
@@ -349,27 +349,27 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             Ambar = o.Ambar,
                             BaskaRejim = o.BaskaRejim,
                             IslemKapsami = o.IslemKapsami,
-                            OzetbeyanNo = o.OzetbeyanNo,
+                            OzetBeyanNo = o.OzetBeyanNo,
                             BeyanInternalNo = newbeyanValues.BeyanInternalNo,
-                            OzetBeyanInternalNo = newbeyanValues.BeyanInternalNo + "|" + o.OzetbeyanNo
+                            OzetBeyanInternalNo = newbeyanValues.BeyanInternalNo + "|" + o.OzetBeyanNo
                         };
 
-                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenedi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo).ToListAsync();
+                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo).ToListAsync();
 
                         if (ozetBeyanAcmaTasimaSenediValues.Count > 0)
                         {
                             foreach (var t in ozetBeyanAcmaTasimaSenediValues)
                             {
-                                DbTasimaSenedi tasima = new DbTasimaSenedi
+                                DbTasimaSenet tasima = new DbTasimaSenet
                                 {
                                     BeyanInternalNo = ozet.BeyanInternalNo,
                                     OzetBeyanInternalNo = ozet.OzetBeyanInternalNo,
                                     TasimaSenediNo = t.TasimaSenediNo,
-                                    TasimaInternalNo = ozet.OzetBeyanInternalNo + "|" + t.TasimaSenediNo
+                                    TasimaSenetInternalNo = ozet.OzetBeyanInternalNo + "|" + t.TasimaSenediNo
 
                                 };
 
-                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo && v.TasimaInternalNo == t.TasimaInternalNo).ToListAsync();
+                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo && v.TasimaSenetInternalNo == t.TasimaSenetInternalNo).ToListAsync();
                                 if (ozetBeyanAcmaTasimaSatirValues.Count > 0)
                                 {
                                     foreach (var s in ozetBeyanAcmaTasimaSatirValues)
@@ -379,7 +379,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                             AmbarKodu = s.AmbarKodu,
                                             BeyanInternalNo = ozet.BeyanInternalNo,
                                             OzetBeyanInternalNo = ozet.OzetBeyanInternalNo,
-                                            TasimaInternalNo = tasima.TasimaInternalNo,
+                                            TasimaSenetInternalNo = tasima.TasimaSenetInternalNo,
                                             TasimaSatirNo = s.TasimaSatirNo,
                                             Miktar = s.Miktar
                                         };

@@ -65,7 +65,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     var konteynerValues = await _beyannameContext.DbKonteyner.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     var odemeValues = await _beyannameContext.DbOdemeSekli.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     var ozetBeyanAcmaValues = await _beyannameContext.DbOzetbeyanAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-                    var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenedi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     var firmaValues = await _beyannameContext.DbFirma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     var teminatValues = await _beyannameContext.DbTeminat.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
@@ -413,6 +413,37 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
+        [Route("api/BYT/Servis/KiymetKalem/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbKiymetBildirimKalem>> GetKiymetKalemi(string IslemInternalNo)
+        {
+            List<DbKiymetBildirimKalem> _kalem = new List<DbKiymetBildirimKalem>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var _kalemValues = await _beyannameContext.DbKiymetBildirimKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _kalem = _kalemValues;
+                }
+
+                return _kalem;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         [Route("api/BYT/Servis/Teminat/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
         public async Task<List<DbTeminat>> GetTeminat(string IslemInternalNo)
@@ -496,6 +527,67 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 }
 
                 return _ozbyAcma;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/TasimaSenet/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbTasimaSenet>> GetTasimaSenet(string IslemInternalNo)
+        {
+            List<DbTasimaSenet> _tasimaSenet = new List<DbTasimaSenet>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var _tasimaSenetValues = await _beyannameContext.DbTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _tasimaSenet = _tasimaSenetValues;
+                }
+
+                return _tasimaSenet;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        [Route("api/BYT/Servis/TasimaSatir/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<DbTasimaSatir>> GetTasimaSatir(string IslemInternalNo)
+        {
+            List<DbTasimaSatir> _tasimaSatir = new List<DbTasimaSatir>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var __tasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _tasimaSatir = __tasimaSatirValues;
+                }
+
+                return _tasimaSatir;
 
             }
             catch (Exception)
