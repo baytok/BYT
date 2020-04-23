@@ -1,6 +1,16 @@
+<button 
+mat-mini-fab
+type="button"  
+color="primary"
+class="close pull-right" (click)="close(false)">
+<mat-icon>close</mat-icon>
+</button>
+<br/>
 <form [formGroup]="kullaniciForm" (ngSubmit)="save()">
+
   <div class="card m-2">
     <h5 class="card-header text-center">Yeni Kullanıcı</h5>
+    
     <div class="form-row">   
   
         <div class="form-group col">

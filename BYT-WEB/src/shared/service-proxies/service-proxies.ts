@@ -900,7 +900,7 @@ export class BeyannameServiceProxy {
       this.baseUrl + "Servis/TasimaSatir/Beyanname/" + IslemInternalNo, httpOptions
     );
   }
-  restoreTasimaSatir(tasimaSatir: TasimaSatirDto[],ozetBeyanInternalNo:string , beyanInternalNo:string) {
+  restoreTasimaSatir(tasimaSatir: TasimaSatirDto[],ozetBeyanInternalNo:string ,tasimaSenetInternalNo:string, beyanInternalNo:string) {
    
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -912,7 +912,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
       return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/TasimaSatirOlustur/"+ozetBeyanInternalNo+"/"+beyanInternalNo, 
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/TasimaSatirOlustur/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo+"/"+beyanInternalNo, 
         tasimaSatir,httpOptions  
         );
   }

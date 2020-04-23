@@ -33,3 +33,11 @@
   .mat-radio-button.mat-accent .mat-radio-inner-circle {
       background-color: rgba(200, 210, 90, 0.7);
   }
+  .mat-menu-panel .custom {
+    background-color: darkgrey;
+    border-radius: 0px;
+  }
+
+  .dashboard-toolbar-mat-menu-panel {
+    max-width: 100% !important;
+  }

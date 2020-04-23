@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import {
   MatListOption,
   MatSelectionList,
@@ -35,27 +35,31 @@ import {
 import {
   ReferansService
 } from "../../../shared/helpers/ReferansService";
-
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   @Component({
     selector: 'app-ozetbeyan',
     templateUrl: './ozetbeyanacma.component.html',
-    styleUrls: ['./ozetbeyanacma.component.css']
+    styleUrls: ['./ozetbeyanacma.component.css'],
+    encapsulation: ViewEncapsulation.None
   })
 export class OzetbeyanacmaComponent implements OnInit {
   ozetBeyanInternalNo: string;
   tasimaSenetInternalNo: string;
+  tasimaSenediNo:string;
   ozetBeyanForm: FormGroup;
   tasimaSenetiForm: FormGroup;
   tasimaSatiriForm: FormGroup; 
   _ozetBeyanlar:OzetBeyanAcmaDto[];
   _tasimaSenetleri:TasimaSenetDto[];
   _tasimaSatirlari:TasimaSatirDto[];
+  tasimaSatirGoster:boolean=false;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
-  
+  title = 'Taşıma Satırları';  
+  closeResult: string;
   constructor(    
     private referansService:ReferansService,
     private beyanServis: BeyannameServiceProxy,
@@ -64,6 +68,7 @@ export class OzetbeyanacmaComponent implements OnInit {
     private _userRoles: UserRoles,
     private _fb: FormBuilder,
     private router:Router,
+    private modalService: NgbModal,
     ) 
     {
       (this.ozetBeyanForm = this._fb.group({
@@ -127,20 +132,21 @@ export class OzetbeyanacmaComponent implements OnInit {
 
   yukleOzetBeyan(){
     this.getOzetBeyanlar(this._beyanSession.islemInternalNo);
+    this.ozetBeyanInternalNo = "";
   }
   getOzetBeyanlar(islemInternalNo: string) {
     this.beyanServis.getOzetBeyanAcma(islemInternalNo).subscribe(
       (result: OzetBeyanAcmaDto[]) => {
         this._ozetBeyanlar = result;
         this.ozetBeyanForm.disable();
-       
+        this.tasimaSenetiForm.disable();
       },
       (err) => {
         this.beyanServis.errorHandel(err);
       }
     );
   }
-  getOzetBeyan(ozetBeyanInternalNo) {
+  getOzetBeyanBilgileri(ozetBeyanInternalNo) {
     let siraNo=null;
     for (let i in this._ozetBeyanlar) {
      if (this._ozetBeyanlar[i].ozetBeyanInternalNo === ozetBeyanInternalNo)
@@ -169,16 +175,19 @@ export class OzetbeyanacmaComponent implements OnInit {
         );
         this.initTasimaSenetiFormArray(this._tasimaSenetleri);
         this.tasimaSenetiForm.disable();
-
-        //Tasima Satir çağır   this.beyanServis.restoreTasimaSatir
+        this.tasimaSenetInternalNo="";
       },
       (err) => {
         this.beyanServis.errorHandel(err);
       }
     );
-
-
+    this.tasimaSatiriForm.disable();
+    this.tasimaSenetiForm.disable();
     this.ozetBeyanForm.disable();
+   
+    if (this.ozetBeyanForm.get("islemKapsami").value==="3")
+    this.tasimaSatirGoster=true;
+    else this.tasimaSatirGoster=false;
   }
 
   yeniOzetBeyan(){
@@ -190,17 +199,14 @@ export class OzetbeyanacmaComponent implements OnInit {
     this.tasimaSenetiForm.reset();
     this.tasimaSenetiForm.enable();
     this.tasimaSenetiForm.markAllAsTouched();
-    this.tasimaSatiriForm.reset();
-    this.tasimaSatiriForm.enable();
-    this.tasimaSatiriForm.markAllAsTouched();
+    this.tasimaSatirGoster=false;
   }
   duzeltOzetBeyan(){
     this.ozetBeyanForm.enable();
     this.ozetBeyanForm.markAllAsTouched();
     this.tasimaSenetiForm.enable();
     this.tasimaSenetiForm.markAllAsTouched();
-    this.tasimaSatiriForm.enable();
-    this.tasimaSatiriForm.markAllAsTouched();
+    this.tasimaSatirGoster=false;
   }
   silOzetBeyan(ozetBeyanInternalNo){
     if (
@@ -215,11 +221,11 @@ export class OzetbeyanacmaComponent implements OnInit {
           servisSonuc.init(result);
           this.ozetBeyanForm.disable();
           this.ozetBeyanForm.reset();
-          this.tasimaSatiriForm.disable();
-          this.tasimaSatiriForm.reset();
+         
           this.tasimaSenetiForm.disable();
           this.tasimaSenetiForm.reset();
           this.yukleOzetBeyan();
+          this.tasimaSatirGoster=false;
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
         },
         (err) => {
@@ -280,10 +286,13 @@ export class OzetbeyanacmaComponent implements OnInit {
       
         if (yeniOzetBeyanInternalNo != null) {
           this.ozetBeyanInternalNo = yeniOzetBeyanInternalNo;
-         this.setTasimaSeneti();
+          this.setTasimaSeneti();
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
-          this.ozetBeyanForm.disable();
+          this.ozetBeyanForm.disable(); 
+           this.ozetBeyanForm.reset();
           this.yukleOzetBeyan();
+        
+        
         }
       },
       (err) => {
@@ -297,6 +306,9 @@ export class OzetbeyanacmaComponent implements OnInit {
     formArray.clear();
     for (let klm of tasimaSenet) {
       let formGroup: FormGroup = new FormGroup({
+        id:new FormControl(klm.id, [
+          Validators.required,        
+        ]),     
         tasimaSenediNo: new FormControl(klm.tasimaSenediNo, [
           Validators.required,
           Validators.maxLength(50),
@@ -311,10 +323,12 @@ export class OzetbeyanacmaComponent implements OnInit {
     this.tasimaSenetiForm.setControl("tasimaSenetiArry", formArray);
   
   }
-  getTasimaSenet(tasimaSenetInternalNo) {
-   
+  getTasimaSenetBilgileri(content, index:number) {
+    
+    let tasimaSenetInternalNo= this.tasimaSenetiBilgileri.controls[index].get("tasimaSenetInternalNo").value;   
     this.tasimaSenetInternalNo = tasimaSenetInternalNo;
-  
+    console.log(this.tasimaSenetInternalNo);
+    this.tasimaSenediNo=this.tasimaSenetiBilgileri.controls[index].get("tasimaSenediNo").value;   
     this.beyanServis.getTasimaSatir(this._beyanSession.islemInternalNo).subscribe(
       (result: TasimaSatirDto[]) => {
        
@@ -323,18 +337,24 @@ export class OzetbeyanacmaComponent implements OnInit {
             x.tasimaSenetInternalNo === this.tasimaSenetInternalNo
         );
         this.initTasimaSatiriFormArray(this._tasimaSatirlari);
-        this.tasimaSenetiForm.disable();
-
+       this.tasimaSatiriForm.disable();
       
       },
       (err) => {
         this.beyanServis.errorHandel(err);
       }
     );
-    this.tasimaSenetiForm.disable();
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  
   }
   getTasimaSeneti() {
-    return this._fb.group({     
+    
+    return this._fb.group({    
+      id:new FormControl(0, [Validators.required]), 
       tasimaSenediNo: new FormControl("", [Validators.required,
         Validators.maxLength(50),]),
       beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
@@ -343,12 +363,15 @@ export class OzetbeyanacmaComponent implements OnInit {
       ozetBeyanInternalNo: new FormControl(this.ozetBeyanInternalNo, [
         Validators.required,
       ]),
-      tasimaSenetInternalNo: new FormControl(this.tasimaSenetInternalNo, [
+      tasimaSenetInternalNo: new FormControl("Boş", [
         Validators.required,
       ]),
     });
   }
-
+  tasimaSatirIslemOzetBeyan()
+  {
+    this.tasimaSatiriForm.enable();
+  }
   get tasimaSenetiBilgileri() {
     return this.tasimaSenetiForm.get("tasimaSenetiArry") as FormArray;
   }
@@ -363,11 +386,11 @@ export class OzetbeyanacmaComponent implements OnInit {
 
   setTasimaSeneti() {
     if (this.tasimaSenetiBilgileri.length > 0) {
-      for (let klm of this.tasimaSenetiBilgileri.value) {
-        klm.ozetBeyanInternalNo = this.ozetBeyanInternalNo;
-        klm.tasimaSenetInternalNo = this.tasimaSenetInternalNo;
-      }
-      this.initTasimaSenetiFormArray(this.tasimaSenetiBilgileri.value);
+      // for (let klm of this.tasimaSenetiBilgileri.value) {
+      //   klm.ozetBeyanInternalNo = this.ozetBeyanInternalNo;
+      //   klm.tasimaSenetInternalNo = this.tasimaSenetInternalNo;
+      // }
+  
 
       if (this.tasimaSenetiBilgileri.invalid) {
         const invalid = [];
@@ -401,7 +424,7 @@ export class OzetbeyanacmaComponent implements OnInit {
         (result) => {
           // const servisSonuc = new ServisDto();
           // servisSonuc.init(result);
-           this.tasimaSenetiForm.disable();
+         
         },
         (err) => {
           this.openSnackBar(err, "Tamam");
@@ -434,6 +457,7 @@ export class OzetbeyanacmaComponent implements OnInit {
       formArray.push(formGroup);
     }
     this.tasimaSatiriForm.setControl("tasimaSatiriArry", formArray);
+  
   }
 
   getTasimaSatiri() {
@@ -462,15 +486,15 @@ export class OzetbeyanacmaComponent implements OnInit {
   }
 
   get tasimaSatiriBilgileri() {
-    return this.tasimaSatiriForm.get("tasimaSatiriForm") as FormArray;
+    return this.tasimaSatiriForm.get("tasimaSatiriArry") as FormArray;
   }
 
   addTasimaSatiriField() {
-    this.tasimaSenetiBilgileri.push(this.getTasimaSeneti());
+    this.tasimaSatiriBilgileri.push(this.getTasimaSatiri());
   }
 
   deleteTasimaSatiriField(index: number) {
-    this.tasimaSenetiBilgileri.removeAt(index);
+    this.tasimaSatiriBilgileri.removeAt(index);
   }
 
   setTasimaSatiri() {
@@ -486,7 +510,7 @@ export class OzetbeyanacmaComponent implements OnInit {
       
       }
       this.initTasimaSatiriFormArray(this.tasimaSatiriBilgileri.value);
-
+    
       if (this.tasimaSatiriBilgileri.invalid) {
         const invalid = [];
         const controls = this.tasimaSatiriBilgileri.controls;
@@ -506,12 +530,13 @@ export class OzetbeyanacmaComponent implements OnInit {
         }
       }
     }
-
+   
     if (this.tasimaSatiriBilgileri.length >= 0) {
       const promiseMarka = this.beyanServis
         .restoreTasimaSatir(
           this.tasimaSatiriBilgileri.value,
           this.ozetBeyanInternalNo,
+          this.tasimaSenetInternalNo,
           this._beyanSession.beyanInternalNo
         )
         .toPromise();
@@ -519,7 +544,8 @@ export class OzetbeyanacmaComponent implements OnInit {
         (result) => {
           // const servisSonuc = new ServisDto();
           // servisSonuc.init(result);
-           this.tasimaSenetiForm.disable();
+           this.tasimaSatiriForm.disable();
+           this.tasimaSatiriForm.reset();
         },
         (err) => {
           this.openSnackBar(err, "Tamam");
@@ -530,5 +556,20 @@ export class OzetbeyanacmaComponent implements OnInit {
 
   onReset() {
     this.submitted = false;
+  }
+
+
+  private getDismissReason(reason: any): string {
+    console.log(reason);
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else if (reason === "Save Click") {
+      this.setTasimaSatiri();
+    } else {
+           return  `with: ${reason}`;
+    }
+   
   }
 }

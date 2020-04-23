@@ -128,10 +128,10 @@ export class KullanicilarComponent    implements OnInit {
     }
 
     sonucDialog.afterClosed().subscribe(result => {
-        if (result) {
-        
+        if (result) {       
             this.yenileKullanicilar();
         }
+      
     });
 }
  
