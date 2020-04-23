@@ -4,13 +4,16 @@ import {
   ViewChild,
   Inject,
   Injector,
-  ElementRef,Injectable
+  ElementRef,
+  Injectable,
 } from "@angular/core";
 import {
   MatListOption,
   MatSelectionList,
   MatSelectionListChange,
 } from "@angular/material/list";
+import { Observable } from "rxjs";
+import { map, filter } from "rxjs/operators";
 import {
   FormGroup,
   FormBuilder,
@@ -48,9 +51,7 @@ import { UserRoles } from "../../../shared/service-proxies/UserRoles";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import {
-  ReferansService
-} from "../../../shared/helpers/ReferansService";
+import { ReferansService } from "../../../shared/helpers/ReferansService";
 import {
   BeyannameBilgileriDto,
   BeyannameDto,
@@ -64,54 +65,60 @@ import {
   BelgeDto,
   SoruCevapDto,
   ServisDto,
+  ReferansDto,
 } from "../../../shared/service-proxies/service-proxies";
 
-import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
-import {MatDatepickerModule,} from '@angular/material/datepicker'; 
+import {
+  NativeDateAdapter,
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MatDateFormats,
+} from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 
 export const PICK_FORMATS = {
   parse: {
-    dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
-},
-display: {
+    dateInput: { month: "short", year: "numeric", day: "numeric" },
+  },
+  display: {
     // dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
-    dateInput: 'input',
+    dateInput: "input",
     // monthYearLabel: { month: 'short', year: 'numeric', day: 'numeric' },
-    monthYearLabel: 'inputMonth',
-    dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-    monthYearA11yLabel: {year: 'numeric', month: 'long'},
-}
+    monthYearLabel: "inputMonth",
+    dateA11yLabel: { year: "numeric", month: "long", day: "numeric" },
+    monthYearA11yLabel: { year: "numeric", month: "long" },
+  },
 };
-@Injectable() 
+@Injectable()
 class PickDateAdapter extends NativeDateAdapter {
   parse(value: any): Date | null {
-    if ((typeof value === 'string') && (value.indexOf('/') > -1)) {
-      const str = value.split('/');
+    if (typeof value === "string" && value.indexOf("/") > -1) {
+      const str = value.split("/");
       const year = Number(str[2]);
       const month = Number(str[1]) - 1;
       const date = Number(str[0]);
       return new Date(year, month, date);
     }
-    const timestamp = typeof value === 'number' ? value : Date.parse(value);
+    const timestamp = typeof value === "number" ? value : Date.parse(value);
     return isNaN(timestamp) ? null : new Date(timestamp);
   }
-format(date: Date, displayFormat: string): string {
-   if (displayFormat == "input") {
+  format(date: Date, displayFormat: string): string {
+    if (displayFormat == "input") {
       let day = date.getDate();
       let month = date.getMonth() + 1;
       let year = date.getFullYear();
-      return this._to2digit(day) + '/' + this._to2digit(month) + '/' + year;
-   } else if (displayFormat == "inputMonth") {
+      return this._to2digit(day) + "/" + this._to2digit(month) + "/" + year;
+    } else if (displayFormat == "inputMonth") {
       let month = date.getMonth() + 1;
       let year = date.getFullYear();
-      return  this._to2digit(month) + '/' + year;
-   } else {
-       return date.toDateString();
-   }
-}
+      return this._to2digit(month) + "/" + year;
+    } else {
+      return date.toDateString();
+    }
+  }
 
   private _to2digit(n: number) {
-    return ('00' + n).slice(-2);
+    return ("00" + n).slice(-2);
   }
 }
 @Component({
@@ -119,9 +126,9 @@ format(date: Date, displayFormat: string): string {
   templateUrl: "./kalem.component.html",
   styleUrls: ["./kalem.component.scss"],
   providers: [
-    {provide: DateAdapter, useClass: PickDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
- ]
+    { provide: DateAdapter, useClass: PickDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
+  ],
 })
 export class KalemComponent implements OnInit {
   public form: FormGroup;
@@ -152,35 +159,35 @@ export class KalemComponent implements OnInit {
   _belgeler: BelgeDto[];
   _vergiler: VergiDto[];
   _soruCevaplar: SoruCevapDto[];
-  _ulkeList = ulke;
+  _ulkeList = this.referansService.getUlkeJSON();
   _teslimList = this.referansService.getteslimSekliJSON();
-  _dovizList = dovizCinsi;
+  _dovizList = this.referansService.getdovizCinsiJSON();
   _kullanilmisList = kullanilmisEsya;
   _girisCikisAmaciList = girisCikisAmaci;
-  _anlasmaList = anlasma;
-  _muafiyetList = muafiyet;
+  _anlasmaList = this.referansService.getanlasmaJSON();
+  _muafiyetList = this.referansService.getmuafiyetJSON();
   _ozellikList = ozellik;
   _isleminNiteligiList = kalemIsleminNiteligi;
   _stmIlKodList = stmIlKod;
-  _cinsList = cins;
-  _olcuList = olcu;
+  _cinsList = this.referansService.getkapCinsiJSON();
+  _olcuList = this.referansService.getolcuJSON();
   _algilamaList = algilama;
-  _vergiList = VergiKodu;
-  _belgeList = BelgeKodu;
+  _vergiList = this.referansService.getvergiKoduJSON();
+  _belgeList = this.referansService.getbelgeKoduJSON();
   _soruList = SoruKodu;
-  _odemeList = odeme;
+  _odemeList = this.referansService.getodemeSekliJSON();
   @ViewChild("KalemList", { static: true })
   private selectionList: MatSelectionList;
   @ViewChild("BeyannameNo", { static: true }) private _beyannameNo: ElementRef;
 
   constructor(
-    private referansService:ReferansService,
+    private referansService: ReferansService,
     private beyanServis: BeyannameServiceProxy,
     private _beyanSession: SessionServiceProxy,
     private snackBar: MatSnackBar,
     private _userRoles: UserRoles,
     private _fb: FormBuilder,
-    private router:Router,
+    private router: Router
   ) {
     (this.kalemForm = this._fb.group({
       //Genel Bilgiler
@@ -204,9 +211,12 @@ export class KalemComponent implements OnInit {
       ikincilIslem: [false],
       imalatciFirmaBilgisi: [false],
       mahraceIade: [false],
-      kalemIslemNiteligi: new FormControl("", [ Validators.maxLength(9)]),
+      kalemIslemNiteligi: new FormControl("", [Validators.maxLength(9)]),
       kullanilmisEsya: new FormControl("", [Validators.maxLength(9)]),
-      ozellik: new FormControl("", [ Validators.required,Validators.maxLength(9)]),
+      ozellik: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(9),
+      ]),
       muafiyetler1: new FormControl("", [Validators.maxLength(9)]),
       muafiyetler2: new FormControl("", [Validators.maxLength(9)]),
       muafiyetler3: new FormControl("", [Validators.maxLength(9)]),
@@ -372,14 +382,13 @@ export class KalemComponent implements OnInit {
     if (
       this._beyanSession.islemInternalNo == undefined ||
       this._beyanSession.islemInternalNo == null
-    )
-    {
+    ) {
       this.openSnackBar(
         this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
         "Tamam"
       );
-      this.router.navigateByUrl('/app/beyanname');
-      }
+      this.router.navigateByUrl("/app/beyanname");
+    }
     this.getKalemler(this._beyanSession.islemInternalNo);
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(
@@ -421,40 +430,44 @@ export class KalemComponent implements OnInit {
     this.vergiForm.reset();
     this.belgeForm.reset();
     this.soruCevapForm.reset();
-    
+
     const formOdemeArray = this.odemeForm.get("odemeArry") as FormArray;
     formOdemeArray.clear();
     this.odemeForm.setControl("odemeArry", formOdemeArray);
-    
-    const formKonteynerArray = this.konteynerForm.get("konteynerArry") as FormArray;
+
+    const formKonteynerArray = this.konteynerForm.get(
+      "konteynerArry"
+    ) as FormArray;
     formKonteynerArray.clear();
     this.konteynerForm.setControl("konteynerArry", formKonteynerArray);
-   
-    const formTamamlayiciArray = this.tamamlayiciForm.get("tamamlayiciArry") as FormArray;
+
+    const formTamamlayiciArray = this.tamamlayiciForm.get(
+      "tamamlayiciArry"
+    ) as FormArray;
     formTamamlayiciArray.clear();
     this.tamamlayiciForm.setControl("tamamlayiciArry", formTamamlayiciArray);
-   
+
     const formMarkaArray = this.markaForm.get("markaArry") as FormArray;
     formMarkaArray.clear();
     this.markaForm.setControl("markaArry", formMarkaArray);
-   
+
     const formAcmaArray = this.beyannameAcmaForm.get("acmaArry") as FormArray;
     formAcmaArray.clear();
     this.beyannameAcmaForm.setControl("acmaArry", formAcmaArray);
-  
+
     const formVergiArray = this.vergiForm.get("vergiArry") as FormArray;
     formVergiArray.clear();
     this.vergiForm.setControl("vergiArry", formVergiArray);
- 
+
     const formBelgeArray = this.belgeForm.get("belgeArry") as FormArray;
     formBelgeArray.clear();
     this.belgeForm.setControl("belgeArry", formBelgeArray);
-  
-    const formSoruCevapArray = this.soruCevapForm.get("soruCevapArry") as FormArray;
+
+    const formSoruCevapArray = this.soruCevapForm.get(
+      "soruCevapArry"
+    ) as FormArray;
     formSoruCevapArray.clear();
     this.soruCevapForm.setControl("soruCevapArry", formSoruCevapArray);
-
-   
   }
   getKalemler(islemInternalNo: string) {
     this.beyanServis.getKalem(islemInternalNo).subscribe(
@@ -497,14 +510,19 @@ export class KalemComponent implements OnInit {
       girisCikisAmaci: this._kalemler[kalemNo - 1].girisCikisAmaci,
       girisCikisAmaciAciklama: this._kalemler[kalemNo - 1]
         .girisCikisAmaciAciklama,
-      ikincilIslem: this._kalemler[kalemNo - 1].ikincilIslem==="EVET"?true:false,
-      imalatciFirmaBilgisi: this._kalemler[kalemNo - 1].imalatciFirmaBilgisi==="EVET"?true:false,
+      ikincilIslem:
+        this._kalemler[kalemNo - 1].ikincilIslem === "EVET" ? true : false,
+      imalatciFirmaBilgisi:
+        this._kalemler[kalemNo - 1].imalatciFirmaBilgisi === "EVET"
+          ? true
+          : false,
       imalatciVergiNo: this._kalemler[kalemNo - 1].imalatciVergiNo,
       istatistikiKiymet: this._kalemler[kalemNo - 1].istatistikiKiymet,
       istatistikiMiktar: this._kalemler[kalemNo - 1].istatistikiMiktar,
       kalemIslemNiteligi: this._kalemler[kalemNo - 1].kalemIslemNiteligi,
       kullanilmisEsya: this._kalemler[kalemNo - 1].kullanilmisEsya,
-      mahraceIade: this._kalemler[kalemNo - 1].mahraceIade==="EVET"?true:false,
+      mahraceIade:
+        this._kalemler[kalemNo - 1].mahraceIade === "EVET" ? true : false,
       marka: this._kalemler[kalemNo - 1].marka,
       menseiUlke: this._kalemler[kalemNo - 1].menseiUlke,
       miktar: this._kalemler[kalemNo - 1].miktar,
@@ -740,21 +758,23 @@ export class KalemComponent implements OnInit {
       );
       return;
     }
-    
+
     this.kalemForm
       .get("beyanInternalNo")
       .setValue(this._beyanSession.beyanInternalNo);
     this.kalemForm.get("kalemSiraNo").setValue(this.kalemNo);
     this.kalemForm.get("kalemInternalNo").setValue(this.kalemInternalNo);
-    let ikincilIslem =this.kalemForm.get("ikincilIslem").value ===true ?"EVET":"";
+    let ikincilIslem =
+      this.kalemForm.get("ikincilIslem").value === true ? "EVET" : "";
     this.kalemForm.get("ikincilIslem").setValue(ikincilIslem);
 
-    let imalatciFirmaBilgisi =this.kalemForm.get("imalatciFirmaBilgisi").value ===true ?"EVET":"";
+    let imalatciFirmaBilgisi =
+      this.kalemForm.get("imalatciFirmaBilgisi").value === true ? "EVET" : "";
     this.kalemForm.get("imalatciFirmaBilgisi").setValue(imalatciFirmaBilgisi);
 
-    let mahraceIade =this.kalemForm.get("mahraceIade").value ===true ?"EVET":"";
+    let mahraceIade =
+      this.kalemForm.get("mahraceIade").value === true ? "EVET" : "";
     this.kalemForm.get("mahraceIade").setValue(mahraceIade);
-
 
     let yenikalemInternalNo: string;
     let yeniKalem = new KalemDto();
@@ -767,7 +787,7 @@ export class KalemComponent implements OnInit {
         servisSonuc.init(result);
         var kalemServisSonuc = JSON.parse(servisSonuc.getSonuc());
         yenikalemInternalNo = kalemServisSonuc.ReferansNo;
-      
+
         if (yenikalemInternalNo != null) {
           this.kalemInternalNo = yenikalemInternalNo;
           this.setOdeme();
@@ -1411,7 +1431,7 @@ export class KalemComponent implements OnInit {
           Validators.required,
           ValidationService.numberValidator,
         ]),
-        vergiAciklamasi: new FormControl(klm.vergiAciklamasi, []),        
+        vergiAciklamasi: new FormControl(klm.vergiAciklamasi, []),
         miktar: new FormControl(klm.miktar, [
           Validators.required,
           ValidationService.decimalValidation,
@@ -1451,7 +1471,7 @@ export class KalemComponent implements OnInit {
         Validators.required,
         ValidationService.decimalValidation,
       ]),
-      vergiAciklamasi:[],
+      vergiAciklamasi: [],
       oran: new FormControl("", [Validators.required, Validators.maxLength(5)]),
       odemeSekli: new FormControl("", [
         Validators.required,
@@ -1477,16 +1497,18 @@ export class KalemComponent implements OnInit {
   deleteVergiField(index: number) {
     this.vergiBilgileri.removeAt(index);
   }
-  vergiAd(vergi) {  
+  vergiAd(vergi) {
     if (this.vergiBilgileri.length > 0) {
       for (let klm of this.vergiBilgileri.value) {
-        if(klm.vergiKodu===vergi)
-        {     
-        let selected = this._vergiList.find(c=> c.kod == klm.vergiKodu);
-        klm.vergiAciklamasi=selected.aciklama;
-        }       
+        if (klm.vergiKodu === vergi) {
+          for (let blg of this._vergiList) {
+            if (blg["kod"] === vergi) {
+              klm.vergiAciklamasi = blg["aciklama"];
+            }
+          }
+        }
       }
-    }  
+    }
   }
   setVergi() {
     if (this.vergiBilgileri.length > 0) {
@@ -1524,7 +1546,7 @@ export class KalemComponent implements OnInit {
         }
       }
     }
-  
+
     if (this.vergiBilgileri.length >= 0) {
       const promiseVergi = this.beyanServis
         .restoreVergi(
@@ -1560,12 +1582,10 @@ export class KalemComponent implements OnInit {
           Validators.required,
           Validators.maxLength(10),
         ]),
-        referans: new FormControl(klm.referans, [
-      
-          Validators.maxLength(30),
-        ]),
-        belgeTarihi: new FormControl(klm.belgeTarihi, [    Validators.required,      
-          ValidationService.tarihValidation
+        referans: new FormControl(klm.referans, [Validators.maxLength(30)]),
+        belgeTarihi: new FormControl(klm.belgeTarihi, [
+          Validators.required,
+          ValidationService.tarihValidation,
         ]),
         belgeAciklamasi: new FormControl(klm.belgeAciklamasi, []),
         beyanInternalNo: new FormControl(klm.beyanInternalNo),
@@ -1576,25 +1596,34 @@ export class KalemComponent implements OnInit {
     }
     this.belgeForm.setControl("belgeArry", formArray);
   }
-
+  belgeAd(belge) {
+    if (this.belgeBilgileri.length > 0) {
+      for (let klm of this.belgeBilgileri.value) {
+        if (klm.belgeKodu === belge) {
+          for (let blg of this._belgeList) {
+            if (blg["kod"] === belge) {
+              klm.belgeAciklamasi = blg["aciklama"];
+            }
+          }
+        }
+      }
+    }
+  }
   getBelge() {
     return this._fb.group({
       belgeKodu: new FormControl("", [
         Validators.required,
         Validators.maxLength(10),
       ]),
-      belgeAciklamasi:[],
+      belgeAciklamasi: [],
       dogrulama: new FormControl("", [
         Validators.required,
         Validators.maxLength(10),
       ]),
-      referans: new FormControl("", [
-     
-        Validators.maxLength(30),
-      ]),
+      referans: new FormControl("", [Validators.maxLength(30)]),
       belgeTarihi: new FormControl("", [
-        Validators.required,      
-        ValidationService.tarihValidation
+        Validators.required,
+        ValidationService.tarihValidation,
       ]),
       beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
         Validators.required,
@@ -1618,11 +1647,9 @@ export class KalemComponent implements OnInit {
   }
 
   setBelge() {
-   
     if (this.belgeBilgileri.length > 0) {
       for (let klm of this.belgeBilgileri.value) {
-        klm.kalemInternalNo = this.kalemInternalNo;       
-      //  klm.belgeTarihi= <Date>klm.belgeTarihi.toISOString().substring(0, 10);
+        klm.kalemInternalNo = this.kalemInternalNo;
       }
 
       this.initBelgeFormArray(this.belgeBilgileri.value);
@@ -1680,9 +1707,9 @@ export class KalemComponent implements OnInit {
           Validators.maxLength(10),
         ]),
         soruAciklamasi: new FormControl(klm.soruAciklamasi, []),
-        soruCevap: new FormControl(klm.soruCevap, [       
+        soruCevap: new FormControl(klm.soruCevap, [
           Validators.maxLength(10),
-          klm.tip==="Soru"? Validators.required: Validators.nullValidator
+          klm.tip === "Soru" ? Validators.required : Validators.nullValidator,
         ]),
         tip: new FormControl(klm.tip, [
           Validators.required,
@@ -1703,7 +1730,7 @@ export class KalemComponent implements OnInit {
         Validators.required,
         Validators.maxLength(10),
       ]),
-      soruAciklamasi:[],
+      soruAciklamasi: [],
       soruCevap: new FormControl("", [
         Validators.required,
         Validators.maxLength(10),

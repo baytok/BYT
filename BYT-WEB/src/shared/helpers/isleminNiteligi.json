@@ -3,17 +3,86 @@
   "aciklama": ""
 
 },
-  {
-    "kod": "11",
-    "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler-Doğrudan Satın Alma veya Satma "
+      {
+          "kod": "11",
+          "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler-Doğrudan Satın Alma veya Satma "
+      },
+      {
+          "kod": "12",
+          "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler- Konsinye Satış veya Komisyoncu Aracılığı ile Satış "
+      },
+      {
+          "kod": "13",
+          "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler- Trampa "
+      },
+      {
+          "kod": "14",
+          "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler- Yolcuların Şahsi Satın Almaları "
+      },
+      {
+          "kod": "15",
+          "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler- Finansal Kiralama "
+      },
+      {
+          "kod": "19",
+          "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler- Diğer 21 Eşyanın İade Edilmesi-Geri Gelen Eşya 22 İade Edilen Eşyanın Değiştirilmesi "
+      },
+      {
+          "kod": "23",
+          "aciklama": "İade Edilen Eşyanın Eşya Gönderilmeksizin Değiştirilmesi (Örnek: Garanti Kapsamında) 29 Eşyanın İade Edilmesi-Mahrece İade "
+      },
+      {
+          "kod": "31",
+          "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılık Alınmaksızın Devredildiği İşlemler-Tamamen veya Kısmen AB Tarafından Finanse Edilen Yardım Programları "
+      },
+      {
+          "kod": "32",
+          "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılık Alınmaksızın Devredildiği İşlemler-Genel Devlet Yardım Programları (Kamu Tüzel Kişileri) "
+      },
+      {
+          "kod": "33",
+          "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılık Alınmaksızın Devredildiği İşlemler-Diğer Yardım Programları (Özel hukuk tüzel kişileri, gerçek kişiler ve sivil toplum kuruluşları) "
+      },
+      {
+          "kod": "41",
+          "aciklama": "İşlenmek Üzere Gelen/Gönderilen ve İlk İhraç Ülkesine Dönmesi Beklenen Eşya (Eşyanın Mülkiyeti Devredilmeksizin ve Sözleşmeli Olarak) "
+      },
+      {
+          "kod": "42",
+          "aciklama": "İşlenmek Üzere Gelen/Gönderilen ve İlk İhraç Ülkesine Dönmesi Beklenmeyen Eşya (Eşyanın Mülkiyeti Devredilmeksizin ve Sözleşmeli Olarak) "
+      },
+      {
+          "kod": "51",
+          "aciklama": "İşlendikten Sonra Gelen/Gönderilen ve İlk İhraç Ülkesine Dönen Eşya (Eşyanın Mülkiyeti Devredilmeksizin ve Sözleşmeli Olarak) "
+      },
+      {
+          "kod": "52",
+          "aciklama": "İşlendikten Sonra Gelen/Gönderilen ve İlk İhraç Ülkesinden Başka Bir Ülkeye Dönen Eşya (Eşyanın Mülkiyeti Devredilmeksizin ve Sözleşmeli Olarak) 60 Ödeme Karşılığında Bakım Onarım Görmek Üzere Gelen/Gönderilen Eşya "
+      },
+      {
+          "kod": "61",
+          "aciklama": "Ödeme Karşılığında Bakım Onarım Sonrası Gelen/Gönderilen Eşyanın Geri Dönüşü 62 Bir Ödeme Olmaksızın Bakım Onarım Görmek Üzere Gelen/Gönderilen Eşya "
+      },
+      {
+          "kod": "63",
+          "aciklama": "Bir Ödeme Olmaksızın Bakım Onarım Sonrası Gelen/Gönderilen Eşyanın Geri Dönüşü 64 Sergi ve Fuar Amaçlı Geçici Olarak Gelen/Gönderilen Eşya 65 Sergi ve Fuar Amaçlı Geçici Olarak Gelen/Gönderilen Eşyanın Geri Dönüşü 66 Test, Kontrol, Numune Amaçlı Geçici Olarak Gelen/Gönderilen Eşya "
+      },
+      {
+          "kod": "67",
+          "aciklama": "Test, Kontrol, Numune Amaçlı Geçici Olarak Gelen/Gönderilen Eşyanın Geri Dönüşü "
+      },
+      {
+          "kod": "70",
+          "aciklama": "Ortak Savunma Projeleri ve Hükümetler Arası Üretim Programlarına İlişkin İşlemler "
+      },
+      {
+          "kod": "80",
+          "aciklama": "Eşyanın Ayrı Ayrı Faturalandırılması Gerekmeyen; Tüm Sözleşme İçin Tek Faturanın Düzenlendiği, İnşaat Malzemesi ve Teknik Ekipman Tedariğini İçeren Genel Bir İnşaat veya Mühendislik Sözleşmesi Kapsamı İşlemler "
+      },
+      {
+          "kod": "91",
+          "aciklama": "Diğer Ticari İşlemler-Kiralama, Ödünç ve 24 Aydan Uzun Süreli Operasyonel Kiralama 99 Diğer Ticari İşlemler "
+      }
+    
+  ]
 
-  },
-  {
-    "kod": "12",
-    "aciklama": "Eşyanın Mülkiyetinin Parasal veya Başka Bir Karşılıkla Devredildiği İşlemler- Konsinye Satış veya Komisyoncu Aracılığı ile Satış "
-  },
-  {
-    "kod": "99",
-    "aciklama": "Diğer Ticari İşlemler "
-  }
-]

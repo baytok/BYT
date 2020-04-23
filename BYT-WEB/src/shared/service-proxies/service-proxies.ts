@@ -3244,4 +3244,8 @@ export class TasimaSatirDto {
     return result;
   }
 }
+export class ReferansDto { 
+  kod: string;
+  aciklama: string; 
+}
 

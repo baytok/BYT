@@ -12,6 +12,15 @@
   import * as aracTipiData from '../../shared/helpers/aracTipi.json';
   import * as teslimSekliData from '../../shared/helpers/teslimSekli.json';
   import * as dovizCinsiData from '../../shared/helpers/dovizCinsi.json';
+  import * as vergiKoduData from '../../shared/helpers/vergiKodu.json';
+  import * as anlasmaData from '../../shared/helpers/anlasma.json';
+  import * as muafiyetData from '../../shared/helpers/muafiyet.json';
+  import * as olcuData from '../../shared/helpers/olcu.json';
+  import * as belgeKodData from '../../shared/helpers/belgeKodu.json';
+  import * as kapCinsiData from '../../shared/helpers/kapCinsi.json';
+  import * as odemeSekliData from '../../shared/helpers/odemeSekli.json';
+  
+  
 @Injectable()
 export class ReferansService  {
  
@@ -25,6 +34,14 @@ export class ReferansService  {
   private aracTipi: any = (aracTipiData as any).default;
   private teslimSekli: any = (teslimSekliData as any).default;
   private dovizCinsi: any = (dovizCinsiData as any).default;
+  private vergiKodu: any = (vergiKoduData as any).default;
+  private anlasma: any = (anlasmaData as any).default;
+  private muafiyet: any = (muafiyetData as any).default;
+  private olcu: any = (olcuData as any).default;
+  private belgeKod: any = (belgeKodData as any).default;
+  private kapCinsi: any = (kapCinsiData as any).default;
+  private odemeSekli: any = (odemeSekliData as any).default;
+  
   constructor() {
    
 }
@@ -59,6 +76,26 @@ public getteslimSekliJSON(): Observable<any> {
 public getdovizCinsiJSON(): Observable<any> {
   return this.dovizCinsi;
 }
-
+public getvergiKoduJSON(): [] {
+  return this.vergiKodu;
+}
+public getanlasmaJSON(): Observable<any> {
+  return this.anlasma;
+}
+public getmuafiyetJSON(): Observable<any> {
+  return this.muafiyet;
+}
+public getolcuJSON(): Observable<any> {
+  return this.olcu;
+}
+public getbelgeKoduJSON(): [] {
+  return this.belgeKod;
+}
+public getkapCinsiJSON(): Observable<any> {
+  return this.kapCinsi;
+}
+public getodemeSekliJSON(): Observable<any> {
+  return this.odemeSekli;
+}
 
 }

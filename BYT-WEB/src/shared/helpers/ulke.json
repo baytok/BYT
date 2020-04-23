@@ -3,22 +3,1030 @@
   "aciklama": ""
 
 },
-  {
-    "kod": "001",
-    "aciklama": "FRANSA"
+{
+  "kod": "001",
+  "aciklama": "Fransa "
+},
+{
+  "kod": "003",
+  "aciklama": "Hollanda"
+},
+{
+  "kod": "004",
+  "aciklama": "Almanya "
+},
+{
+  "kod": "005",
+  "aciklama": "İtalya "
+},
+{
+  "kod": "006",
+  "aciklama": "Birleşik Krallık "
+},
+{
+  "kod": "007",
+  "aciklama": "İrlanda"
+},
+{
+  "kod": "008",
+  "aciklama": "Danimarka"
+},
+{
+  "kod": "009",
+  "aciklama": "Yunanistan"
+},
+{
+  "kod": "010",
+  "aciklama": "Portekiz "
+},
+{
+  "kod": "011",
+  "aciklama": "İspanya"
+},
+{
+  "kod": "017",
+  "aciklama": "Belçika"
+},
+{
+  "kod": "018",
+  "aciklama": "Lüksemburg"
+},
+{
+  "kod": "021",
+  "aciklama": "Septe"
+},
+{
+  "kod": "023",
+  "aciklama": "Melilla "
+},
+{
+  "kod": "024",
+  "aciklama": "İzlanda"
+},
+{
+  "kod": "028",
+  "aciklama": "Norveç "
+},
+{
+  "kod": "030",
+  "aciklama": "İsveç"
+},
+{
+  "kod": "032",
+  "aciklama": "Finlandiya"
+},
+{
+  "kod": "037",
+  "aciklama": "Lihtenştayn"
+},
+{
+  "kod": "038",
+  "aciklama": "Avusturya"
+},
+{
+  "kod": "039",
+  "aciklama": "İsviçre"
+},
+{
+  "kod": "041",
+  "aciklama": "Faroe Adaları"
+},
+{
+  "kod": "044",
+  "aciklama": "Cebelitarık"
+},
+{
+  "kod": "045",
+  "aciklama": "Vatikan "
+},
+{
+  "kod": "046",
+  "aciklama": "Malta "
+},
+{
+  "kod": "047",
+  "aciklama": "San Marino"
+},
+{
+  "kod": "052",
+  "aciklama": "Türkiye"
+},
+{
+  "kod": "053",
+  "aciklama": "Estonya"
+},
+{
+  "kod": "054",
+  "aciklama": "Letonya"
+},
+{
+  "kod": "055",
+  "aciklama": "Litvanya"
+},
+{
+  "kod": "060",
+  "aciklama": "Polonya"
+},
+{
+  "kod": "061",
+  "aciklama": "Çek Cumhuriyeti"
+},
+{
+  "kod": "063",
+  "aciklama": "Slovakya"
+},
+{
+  "kod": "064",
+  "aciklama": "Macaristan"
+},
+{
+  "kod": "066",
+  "aciklama": "Romanya"
+},
+{
+  "kod": "068",
+  "aciklama": "Bulgaristan"
+},
+{
+  "kod": "070",
+  "aciklama": "Arnavutluk"
+},
+{
+  "kod": "072",
+  "aciklama": "Ukrayna"
+},
+{
+  "kod": "073",
+  "aciklama": "Belarus"
+},
+{
+  "kod": "074",
+  "aciklama": "Moldova Cumhuriyeti"
+},
+{
+  "kod": "075",
+  "aciklama": "Rusya Federasyonu "
+},
+{
+  "kod": "076",
+  "aciklama": "Gürcistan"
+},
+{
+  "kod": "077",
+  "aciklama": "Ermenistan"
+},
+{
+  "kod": "078",
+  "aciklama": "Azerbaycan"
+},
+{
+  "kod": "079",
+  "aciklama": "Kazakistan"
+},
+{
+  "kod": "080",
+  "aciklama": "Türkmenistan"
+},
+{
+  "kod": "081",
+  "aciklama": "Özbekistan"
+},
+{
+  "kod": "082",
+  "aciklama": "Tacikistan"
+},
+{
+  "kod": "083",
+  "aciklama": "Kırgızistan"
+},
+{
+  "kod": "091",
+  "aciklama": "Slovenya"
+},
+{
+  "kod": "092",
+  "aciklama": "Hırvatistan"
+},
+{
+  "kod": "093",
+  "aciklama": "Bosna ve Hersek"
+},
+{
+  "kod": "096",
+  "aciklama": "Makedonya Eski Yugoslav Cumhuriyeti "
+},
+{
+  "kod": "097",
+  "aciklama": "Karadağ"
+},
+{
+  "kod": "098",
+  "aciklama": "Sırbistan"
+},
+{
+  "kod": "204",
+  "aciklama": "Fas"
+},
+{
+  "kod": "208",
+  "aciklama": "Cezayir"
+},
+{
+  "kod": "212",
+  "aciklama": "Tunus"
+},
+{
+  "kod": "216",
+  "aciklama": "Libya Cemahiriyesi"
+},
+{
+  "kod": "220",
+  "aciklama": "Mısır"
+},
+{
+  "kod": "224",
+  "aciklama": "Sudan"
+},
+{
+  "kod": "225",
+  "aciklama": "Güney Sudan"
+},
+{
+  "kod": "228",
+  "aciklama": "Moritanya"
+},
+{
+  "kod": "232",
+  "aciklama": "Mali"
+},
+{
+  "kod": "236",
+  "aciklama": "Burkina Faso"
+},
+{
+  "kod": "240",
+  "aciklama": "Nijer"
+},
+{
+  "kod": "244",
+  "aciklama": "Çad"
+},
+{
+  "kod": "247",
+  "aciklama": "Cape Verde"
+},
+{
+  "kod": "248",
+  "aciklama": "Senegal"
+},
+{
+  "kod": "252",
+  "aciklama": "Gambiya"
+},
+{
+  "kod": "257",
+  "aciklama": "Gine-Bissau"
+},
+{
+  "kod": "260",
+  "aciklama": "Gine"
+},
+{
+  "kod": "264",
+  "aciklama": "Sierra Leone"
+},
+{
+  "kod": "268",
+  "aciklama": "Liberya"
+},
+{
+  "kod": "272",
+  "aciklama": "Fildişi Sahili"
+},
+{
+  "kod": "276",
+  "aciklama": "Gana"
+},
+{
+  "kod": "280",
+  "aciklama": "Togo"
+},
+{
+  "kod": "284",
+  "aciklama": "Benin"
+},
+{
+  "kod": "288",
+  "aciklama": "Nijerya"
+},
+{
+  "kod": "302",
+  "aciklama": "Kamerun"
+},
+{
+  "kod": "306",
+  "aciklama": "Orta Afrika Cumhuriyeti"
+},
+{
+  "kod": "310",
+  "aciklama": "Ekvator Ginesi"
+},
+{
+  "kod": "311",
+  "aciklama": "Sao Tome ve Principe"
+},
+{
+  "kod": "314",
+  "aciklama": "Gabon"
+},
+{
+  "kod": "318",
+  "aciklama": "Kongo"
+},
+{
+  "kod": "322",
+  "aciklama": "Kongo, Demokratik Cumhuriyeti"
+},
+{
+  "kod": "324",
+  "aciklama": "Ruanda"
+},
+{
+  "kod": "328",
+  "aciklama": "Burundi"
+},
+{
+  "kod": "329",
+  "aciklama": "Saint Helena "
+},
+{
+  "kod": "330",
+  "aciklama": "Angola "
+},
+{
+  "kod": "334",
+  "aciklama": "Etiyopya"
+},
+{
+  "kod": "336",
+  "aciklama": "Eritre"
+},
+{
+  "kod": "338",
+  "aciklama": "Cibuti"
+},
+{
+  "kod": "342",
+  "aciklama": "Somali"
+},
+{
+  "kod": "346",
+  "aciklama": "Kenya"
+},
+{
+  "kod": "350",
+  "aciklama": "Uganda"
+},
+{
+  "kod": "352",
+  "aciklama": "Tanzanya Birleşik Cumhuriyeti"
+},
+{
+  "kod": "355",
+  "aciklama": "Seyşeller "
+},
+{
+  "kod": "357",
+  "aciklama": "İngiliz Hint Okyanusu Toprağı"
+},
+{
+  "kod": "366",
+  "aciklama": "Mozambik"
+},
+{
+  "kod": "370",
+  "aciklama": "Madagaskar"
+},
+{
+  "kod": "373",
+  "aciklama": "Mauritius "
+},
+{
+  "kod": "375",
+  "aciklama": "Komor"
+},
+{
+  "kod": "377",
+  "aciklama": "Mayot"
+},
+{
+  "kod": "378",
+  "aciklama": "Zambia"
+},
+{
+  "kod": "382",
+  "aciklama": "Zimbabve"
+},
+{
+  "kod": "386",
+  "aciklama": "Malavi"
+},
+{
+  "kod": "388",
+  "aciklama": "Güney Afrika"
+},
+{
+  "kod": "389",
+  "aciklama": "Namibya"
+},
+{
+  "kod": "391",
+  "aciklama": "Botsvana"
+},
+{
+  "kod": "393",
+  "aciklama": "Svaziland"
+},
+{
+  "kod": "395",
+  "aciklama": "Lesotho"
+},
+{
+  "kod": "400",
+  "aciklama": "Birleşik Devletler "
+},
+{
+  "kod": "404",
+  "aciklama": "Kanada"
+},
+{
+  "kod": "406",
+  "aciklama": "Grönland"
+},
+{
+  "kod": "408",
+  "aciklama": "Saint Pierre ve Mikelon"
+},
+{
+  "kod": "412",
+  "aciklama": "Meksika"
+},
+{
+  "kod": "413",
+  "aciklama": "Bermuda"
+},
+{
+  "kod": "416",
+  "aciklama": "Guatemala"
+},
+{
+  "kod": "421",
+  "aciklama": "Belize"
+},
+{
+  "kod": "424",
+  "aciklama": "Honduras "
+},
+{
+  "kod": "428",
+  "aciklama": "El Salvador"
+},
+{
+  "kod": "432",
+  "aciklama": "Nikaragua "
+},
+{
+  "kod": "436",
+  "aciklama": "Kosta Rika"
+},
+{
+  "kod": "442",
+  "aciklama": "Panama "
+},
+{
+  "kod": "446",
+  "aciklama": "Anguilla"
+},
+{
+  "kod": "448",
+  "aciklama": "Küba"
+},
+{
+  "kod": "449",
+  "aciklama": "St Kitts ve Nevis"
+},
+{
+  "kod": "452",
+  "aciklama": "Haiti"
+},
+{
+  "kod": "453",
+  "aciklama": "Bahamalar"
+},
+{
+  "kod": "454",
+  "aciklama": "Turks ve Caicos Adaları"
+},
+{
+  "kod": "456",
+  "aciklama": "Dominik Cumhuriyeti"
+},
+{
+  "kod": "457",
+  "aciklama": "Virjin Adaları (ABD)"
+},
+{
+  "kod": "459",
+  "aciklama": "Antigua ve Barbuda"
+},
+{
+  "kod": "460",
+  "aciklama": "Dominika"
+},
+{
+  "kod": "463",
+  "aciklama": "Kayman Adaları"
+},
+{
+  "kod": "464",
+  "aciklama": "Jamaika"
+},
+{
+  "kod": "465",
+  "aciklama": "St Lucia"
+},
+{
+  "kod": "467",
+  "aciklama": "St Vincent ve Grenadinler"
+},
+{
+  "kod": "468",
+  "aciklama": "Virjin Adaları (İngiliz)"
+},
+{
+  "kod": "469",
+  "aciklama": "Barbados"
+},
+{
+  "kod": "470",
+  "aciklama": "Montserrat"
+},
+{
+  "kod": "472",
+  "aciklama": "Trinidad ve Tobago"
+},
+{
+  "kod": "473",
+  "aciklama": "Grenada "
+},
+{
+  "kod": "474",
+  "aciklama": "Aruba"
+},
+{
+  "kod": "478",
+  "aciklama": "Hollanda Antilleri"
+},
+{
+  "kod": "480",
+  "aciklama": "Kolombiya"
+},
+{
+  "kod": "484",
+  "aciklama": "Venezuela"
+},
+{
+  "kod": "488",
+  "aciklama": "Guyana"
+},
+{
+  "kod": "492",
+  "aciklama": "Surinam"
+},
+{
+  "kod": "500",
+  "aciklama": "Ekvator "
+},
+{
+  "kod": "504",
+  "aciklama": "Peru "
+},
+{
+  "kod": "508",
+  "aciklama": "Brezilya"
+},
+{
+  "kod": "512",
+  "aciklama": "Şili"
+},
+{
+  "kod": "516",
+  "aciklama": "Bolivya"
+},
+{
+  "kod": "520",
+  "aciklama": "Paraguay"
+},
+{
+  "kod": "524",
+  "aciklama": "Uruguay"
+},
+{
+  "kod": "528",
+  "aciklama": "Arjantin"
+},
+{
+  "kod": "529",
+  "aciklama": "Falkland Adaları"
+},
+{
+  "kod": "600",
+  "aciklama": "Kıbrıs Rum Kesimi"
+},
+{
+  "kod": "601",
+  "aciklama": "Kuzey Kıbrıs Türk Cumhuriyeti"
+},
+{
+  "kod": "604",
+  "aciklama": "Lübnan"
+},
+{
+  "kod": "608",
+  "aciklama": "Suriye Arap Cumhuriyeti "
+},
+{
+  "kod": "612",
+  "aciklama": "Irak"
+},
+{
+  "kod": "616",
+  "aciklama": "İran, İslam Cumhuriyeti"
+},
+{
+  "kod": "624",
+  "aciklama": "İsrail"
+},
+{
+  "kod": "625",
+  "aciklama": "İşgal altındaki Filistin Toprağı"
+},
+{
+  "kod": "626",
+  "aciklama": "Doğu Timor"
+},
+{
+  "kod": "628",
+  "aciklama": "Ürdün"
+},
+{
+  "kod": "632",
+  "aciklama": "Suudi Arabistan"
+},
+{
+  "kod": "636",
+  "aciklama": "Kuveyt"
+},
+{
+  "kod": "640",
+  "aciklama": "Bahreyn"
+},
+{
+  "kod": "644",
+  "aciklama": "Katar"
+},
+{
+  "kod": "647",
+  "aciklama": "Birleşik Arap Emirlikleri"
+},
+{
+  "kod": "649",
+  "aciklama": "Umman"
+},
+{
+  "kod": "653",
+  "aciklama": "Yemen "
+},
+{
+  "kod": "660",
+  "aciklama": "Afganistan"
+},
+{
+  "kod": "662",
+  "aciklama": "Pakistan"
+},
+{
+  "kod": "664",
+  "aciklama": "Hindistan"
+},
+{
+  "kod": "666",
+  "aciklama": "Bangladeş"
+},
+{
+  "kod": "667",
+  "aciklama": "Maldivler"
+},
+{
+  "kod": "669",
+  "aciklama": "Sri Lanka"
+},
+{
+  "kod": "672",
+  "aciklama": "Nepal"
+},
+{
+  "kod": "675",
+  "aciklama": "Bhutan"
+},
+{
+  "kod": "676",
+  "aciklama": "Myanmar "
+},
+{
+  "kod": "680",
+  "aciklama": "Tayland"
+},
+{
+  "kod": "684",
+  "aciklama": "Laos Halk Demokratik Cumhuriyeti "
+},
+{
+  "kod": "690",
+  "aciklama": "Vietnam"
+},
+{
+  "kod": "696",
+  "aciklama": "Kamboçya"
+},
+{
+  "kod": "700",
+  "aciklama": "Endonezya"
+},
+{
+  "kod": "701",
+  "aciklama": "Malezya "
+},
+{
+  "kod": "703",
+  "aciklama": "Brunei Darussalam "
+},
+{
+  "kod": "706",
+  "aciklama": "Singapur"
+},
+{
+  "kod": "708",
+  "aciklama": "Filipinler"
+},
+{
+  "kod": "716",
+  "aciklama": "Moğolistan"
+},
+{
+  "kod": "720",
+  "aciklama": "Çin (Halk Cumhuriyeti)"
+},
+{
+  "kod": "724",
+  "aciklama": "Kore, Demokratik Halk Cumhuriyeti"
+},
+{
+  "kod": "728",
+  "aciklama": "Kore Cumhuriyeti"
+},
+{
+  "kod": "732",
+  "aciklama": "Japonya"
+},
+{
+  "kod": "736",
+  "aciklama": "Tayvan "
+},
+{
+  "kod": "740",
+  "aciklama": "Hong Kong "
+},
+{
+  "kod": "743",
+  "aciklama": "Makao "
+},
+{
+  "kod": "800",
+  "aciklama": "Avustralya"
+},
+{
+  "kod": "801",
+  "aciklama": "Papua Yeni Gine "
+},
+{
+  "kod": "803",
+  "aciklama": "Nauru"
+},
+{
+  "kod": "804",
+  "aciklama": "Yeni Zelanda"
+},
+{
+  "kod": "806",
+  "aciklama": "Solomon Adaları"
+},
+{
+  "kod": "807",
+  "aciklama": "Tuvalu"
+},
+{
+  "kod": "809",
+  "aciklama": "Yeni Kaledonya "
+},
+{
+  "kod": "811",
+  "aciklama": "Wallis ve Futuna"
+},
+{
+  "kod": "812",
+  "aciklama": "Kiribati"
+},
+{
+  "kod": "813",
+  "aciklama": "Pitcairn "
+},
+{
+  "kod": "815",
+  "aciklama": "Fiji"
+},
+{
+  "kod": "816",
+  "aciklama": "Vanuatu"
+},
+{
+  "kod": "817",
+  "aciklama": "Tonga"
+},
+{
+  "kod": "819",
+  "aciklama": "Samoa "
+},
+{
+  "kod": "820",
+  "aciklama": "Kuzey Mariana Adaları"
+},
+{
+  "kod": "822",
+  "aciklama": "Fransız Polinezyası"
+},
+{
+  "kod": "823",
+  "aciklama": "Mikronezya (Federal Devletleri)"
+},
+{
+  "kod": "824",
+  "aciklama": "Marshall Adaları"
+},
+{
+  "kod": "825",
+  "aciklama": "Palau"
+},
+{
+  "kod": "830",
+  "aciklama": "Amerikan Samoası"
+},
+{
+  "kod": "831",
+  "aciklama": "Guam"
+},
+{
+  "kod": "832",
+  "aciklama": "Birleşik Devletler Minor Outlying"
+},
+{
+  "kod": "833",
+  "aciklama": "Kokos (Keeling) Adaları "
+},
+{
+  "kod": "834",
+  "aciklama": "Christmas Adası "
+},
+{
+  "kod": "835",
+  "aciklama": "Heard Adası ve McDonald"
+},
+{
+  "kod": "836",
+  "aciklama": "Norfolk Adası "
+},
+{
+  "kod": "837",
+  "aciklama": "Cook Adaları"
+},
+{
+  "kod": "838",
+  "aciklama": "Niue"
+},
+{
+  "kod": "839",
+  "aciklama": "Tokelau"
+},
+{
+  "kod": "891",
+  "aciklama": "Antartika "
+},
+{
+  "kod": "892",
+  "aciklama": "Bouvet Adası "
+},
+{
+  "kod": "893",
+  "aciklama": "Güney Georgia ve Güney"
+},
+{
+  "kod": "894",
+  "aciklama": "Fransız Güney Toprakları"
+},
+{
+  "kod": "043",
+  "aciklama": "Andora"
+},
+{
+  "kod": "F01",
+  "aciklama": " ANTALYA SERBEST BÖLGE"
+},
+{
+  "kod": "F02",
+  "aciklama": " AHL SERBEST BÖLGE"
+},
+{
+  "kod": "F03",
+  "aciklama": " İSTANBUL DERİ SERBEST BÖLGE"
+},
+{
+  "kod": "F04",
+  "aciklama": " EGE SERBEST BÖLGE"
+},
+{
+  "kod": "F05",
+  "aciklama": " MERSİN SERBEST BÖLGE"
+},
+{
+  "kod": "F06",
+  "aciklama": " TRAKYA SERBEST BÖLGE"
+},
+{
+  "kod": "F07",
+  "aciklama": " TRABZON SERBEST BÖLGE"
+},
+{
+  "kod": "F08",
+  "aciklama": " DOĞU ANADOLU SERBEST BÖLGE"
+},
+{
+  "kod": "F09",
+  "aciklama": " MARDİN SERBEST BÖLGE"
+},
+{
+  "kod": "F10",
+  "aciklama": " RİZE SERBEST BÖLGE"
+},
+{
+  "kod": "F11",
+  "aciklama": " SAMSUN SERBEST BÖLGE"
+},
+{
+  "kod": "F12",
+  "aciklama": " KAYSERİ SERBEST BÖLGE"
+},
+{
+  "kod": "F13",
+  "aciklama": " AVRUPA SERBEST BÖLGE"
+},
+{
+  "kod": "F14",
+  "aciklama": " GAZİANTEP SERBEST BÖLGE"
+},
+{
+  "kod": "F15",
+  "aciklama": " MENEMEN DERİ SERBEST BÖLGE"
+},
+{
+  "kod": "F16",
+  "aciklama": " BURSA SERBEST BÖLGE"
+},
+{
+  "kod": "F17 ",
+  "aciklama": " ADANA YUMURTALIK SERBEST BÖLGE"
+},
+{
+  "kod": "F18",
+  "aciklama": " TÜBİTAK MAM TEKNOLOJİ SERBEST BÖLGESİ"
+},
+{
+  "kod": "F19",
+  "aciklama": " KOCAELİ SERBEST BÖLGE"
+},
+{
+  "kod": "F20",
+  "aciklama": " DENİZLİ SERBEST BÖLGE"
+}
 
-  },
-  {
-    "kod": "004",
-    "aciklama": "ALMANYA"
-  },
-  {
-    "kod": "052",
-    "aciklama": "TÜRKİYE"
-  }
-  ,
-  {
-    "kod": "720",
-    "aciklama": "Çin (Halk Cumhuriyeti)"
-  }
+
 ]

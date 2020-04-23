@@ -1,0 +1,1519 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+      {
+          "kod": "TI",
+          "aciklama": "42 galonluk fıçı"
+      },
+      {
+          "kod": "NT",
+          "aciklama": "Ağ"
+      },
+      {
+          "kod": "NV",
+          "aciklama": "Ağ, boru, dokuma kumaş"
+      },
+      {
+          "kod": "NU",
+          "aciklama": "Ağ, boru, plastik"
+      },
+      {
+          "kod": "CK",
+          "aciklama": "Ahşap varil"
+      },
+      {
+          "kod": "PK",
+          "aciklama": "Ambalaj"
+      },
+      {
+          "kod": "IE",
+          "aciklama": "Ambalaj, gösterişli"
+      },
+      {
+          "kod": "ID",
+          "aciklama": "Ambalaj, gösterişli, metal"
+      },
+      {
+          "kod": "IB",
+          "aciklama": "Ambalaj, gösterişli, mukavva"
+      },
+      {
+          "kod": "IC",
+          "aciklama": "Ambalaj, gösterişli, plastik"
+      },
+      {
+          "kod": "IA",
+          "aciklama": "Ambalaj, gösterişli, tahta"
+      },
+      {
+          "kod": "IF",
+          "aciklama": "Ambalaj, kabarık"
+      },
+      {
+          "kod": "IG",
+          "aciklama": "Ambalaj, kağıt sarılı"
+      },
+      {
+          "kod": "IK",
+          "aciklama": "Ambalaj, mukavva, üstten tutmak için delikli "
+      },
+      {
+          "kod": "AP",
+          "aciklama": "Ampul, korumalı"
+      },
+      {
+          "kod": "AM",
+          "aciklama": "Ampul, korumasız"
+      },
+      {
+          "kod": "VN",
+          "aciklama": "Araç"
+      },
+      {
+          "kod": "LE",
+          "aciklama": "Bagaj"
+      },
+      {
+          "kod": "CE",
+          "aciklama": "Balık sepeti"
+      },
+      {
+          "kod": "BP",
+          "aciklama": "Balon, korumalı"
+      },
+      {
+          "kod": "BF",
+          "aciklama": "Balon, korumasız"
+      },
+      {
+          "kod": "BN",
+          "aciklama": "Balya, sıkıştırılmamış"
+      },
+      {
+          "kod": "BL",
+          "aciklama": "Balya, sıkıştırılmış"
+      },
+      {
+          "kod": "SU",
+          "aciklama": "Bavul"
+      },
+      {
+          "kod": "3A",
+          "aciklama": "Beş galonluk bidon, çelik"
+      },
+      {
+          "kod": "QL",
+          "aciklama": "Beş galonluk bidon, çelik, çıkartılabilir kafa"
+      },
+      {
+          "kod": "QK",
+          "aciklama": "Beş galonluk bidon, çelik, çıkartılamayan kafa"
+      },
+      {
+          "kod": "JC",
+          "aciklama": "Beş galonluk bidon, dikdörtgen"
+      },
+      {
+          "kod": "3H",
+          "aciklama": "Beş galonluk bidon, plastik"
+      },
+      {
+          "kod": "QN",
+          "aciklama": "Beş galonluk bidon, plastik, çıkartılabilir kafa"
+      },
+      {
+          "kod": "QM",
+          "aciklama": "Beş galonluk bidon, plastik, çıkartılamayan kafa "
+      },
+      {
+          "kod": "JY",
+          "aciklama": "Beş galonluk bidon, silindirik"
+      },
+      {
+          "kod": "YR",
+          "aciklama": "Birleşik ambalaj, alüminyum kasa içinde cam muhafaza"
+      },
+      {
+          "kod": "YD",
+          "aciklama": "Birleşik ambalaj, alüminyum kasa içinde plastik muhafaza"
+      },
+      {
+          "kod": "YQ",
+          "aciklama": "Birleşik ambalaj, alüminyum tambur içinde cam muhafaza"
+      },
+      {
+          "kod": "YC",
+          "aciklama": "Birleşik ambalaj, alüminyum tambur içinde plastik muhafaza"
+      },
+      {
+          "kod": "6P",
+          "aciklama": "Birleşik ambalaj, cam muhafaza"
+      },
+      {
+          "kod": "YB",
+          "aciklama": "Birleşik ambalaj, çelik kasa kutu içinde plastik muhafaza"
+      },
+      {
+          "kod": "YP",
+          "aciklama": "Birleşik ambalaj, çelik sandık kutu içinde cam muhafaza"
+      },
+      {
+          "kod": "YN",
+          "aciklama": "Birleşik ambalaj, çelik tambur içinde cam muhafaza"
+      },
+      {
+          "kod": "YA",
+          "aciklama": "Birleşik ambalaj, çelik tambur içinde plastik muhafaza"
+      },
+      {
+          "kod": "YY",
+          "aciklama": "Birleşik ambalaj, dayanıklı olmayan plastik çıkın içinde cam muhafaza"
+      },
+      {
+          "kod": "YW",
+          "aciklama": "Birleşik ambalaj, elyaf tambur içinde cam muhafaza"
+      },
+      {
+          "kod": "YJ",
+          "aciklama": "Birleşik ambalaj, elyaf tambur içinde plastik muhafaza"
+      },
+      {
+          "kod": "YV",
+          "aciklama": "Birleşik ambalaj, hasır kapaklı sepet içinde cam muhafaza"
+      },
+      {
+          "kod": "YH",
+          "aciklama": "Birleşik ambalaj, kontrplak kutu içinde plastik muhafaza"
+      },
+      {
+          "kod": "YT",
+          "aciklama": "Birleşik ambalaj, kontrplak tambur içinde cam muhafaza"
+      },
+      {
+          "kod": "YG",
+          "aciklama": "Birleşik ambalaj, kontrplak tambur içinde plastik muhafaza"
+      },
+      {
+          "kod": "6H",
+          "aciklama": "Birleşik ambalaj, plastik muhafaza"
+      },
+      {
+          "kod": "YL",
+          "aciklama": "Birleşik ambalaj, plastik tambur içinde plastik muhafaza"
+      },
+      {
+          "kod": "YZ",
+          "aciklama": "Birleşik ambalaj, sağlam plastik denk içinde cam muhafaza"
+      },
+      {
+          "kod": "YM",
+          "aciklama": "Birleşik ambalaj, sağlam plastik kutu içinde plastik muhafaza"
+      },
+      {
+          "kod": "YX",
+          "aciklama": "Birleşik ambalaj, sıkıştırılmış liflerden yapılmış tahta kutu içinde cam muhafaza"
+      },
+      {
+          "kod": "YK",
+          "aciklama": "Birleşik ambalaj, sıkıştırılmış liflerden yapılmış tahta kutu içinde plastik muhafaza"
+      },
+      {
+          "kod": "YS",
+          "aciklama": "Birleşik ambalaj, tahta kutu içinde cam muhafaza"
+      },
+      {
+          "kod": "YF",
+          "aciklama": "Birleşik ambalaj, tahtadan kutu içinde plastik muhafaza"
+      },
+      {
+          "kod": "OK",
+          "aciklama": "Blok"
+      },
+      {
+          "kod": "BB",
+          "aciklama": "Bobin"
+      },
+      {
+          "kod": "SO",
+          "aciklama": "Bobin"
+      },
+      {
+          "kod": "BE",
+          "aciklama": "Bohça"
+      },
+      {
+          "kod": "8C",
+          "aciklama": "Bohça, tahta"
+      },
+      {
+          "kod": "PI",
+          "aciklama": "Boru"
+      },
+      {
+          "kod": "PV",
+          "aciklama": "Boru, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "TT",
+          "aciklama": "Büyük el çantası"
+      },
+      {
+          "kod": "TR",
+          "aciklama": "Büyük eşya sandığı"
+      },
+      {
+          "kod": "BU",
+          "aciklama": "Büyük fıçı"
+      },
+      {
+          "kod": "HG",
+          "aciklama": "Büyük fıçı"
+      },
+      {
+          "kod": "TO",
+          "aciklama": "Büyük fıçı "
+      },
+      {
+          "kod": "BT",
+          "aciklama": "Cıvata"
+      },
+      {
+          "kod": "CZ",
+          "aciklama": "Çadır bezi"
+      },
+      {
+          "kod": "BG",
+          "aciklama": "Çanta"
+      },
+      {
+          "kod": "JB",
+          "aciklama": "Çanta, büyük boy"
+      },
+      {
+          "kod": "MB",
+          "aciklama": "Çanta, büyüyen"
+      },
+      {
+          "kod": "43",
+          "aciklama": "Çanta, çok hacimli"
+      },
+      {
+          "kod": "GY",
+          "aciklama": "Çanta, çuval"
+      },
+      {
+          "kod": "5L",
+          "aciklama": "Çanta, dokuma kumaş"
+      },
+      {
+          "kod": "XF",
+          "aciklama": "Çanta, dokuma kumaş, astarsız"
+      },
+      {
+          "kod": "XG",
+          "aciklama": "Çanta, dokuma kumaş, dayanaklı"
+      },
+      {
+          "kod": "XH",
+          "aciklama": "Çanta, dokuma kumaş, su geçirmez"
+      },
+      {
+          "kod": "FX",
+          "aciklama": "Çanta, esnek hazne"
+      },
+      {
+          "kod": "ZB",
+          "aciklama": "Çanta, geniş"
+      },
+      {
+          "kod": "5M",
+          "aciklama": "Çanta, kağıt"
+      },
+      {
+          "kod": "XJ",
+          "aciklama": "Çanta, kağıt, katmanlı"
+      },
+      {
+          "kod": "XK",
+          "aciklama": "Çanta, kağıt, katmanlı, su geçirmez"
+      },
+      {
+          "kod": "EC",
+          "aciklama": "Çanta, plastik"
+      },
+      {
+          "kod": "5H",
+          "aciklama": "Çanta, plastik dokuma"
+      },
+      {
+          "kod": "XA",
+          "aciklama": "Çanta, plastik dokuma, astarsız"
+      },
+      {
+          "kod": "XB",
+          "aciklama": "Çanta, plastik dokuma, dayanaklı"
+      },
+      {
+          "kod": "XC",
+          "aciklama": "Çanta, plastik dokuma, su geçirmez"
+      },
+      {
+          "kod": "XD",
+          "aciklama": "Çanta, plastik tabakalı"
+      },
+      {
+          "kod": "44",
+          "aciklama": "Çanta, şeffaf plastik"
+      },
+      {
+          "kod": "TC",
+          "aciklama": "Çay sandığı"
+      },
+      {
+          "kod": "SW",
+          "aciklama": "Çekme-sarma"
+      },
+      {
+          "kod": "FR",
+          "aciklama": "Çerçeve"
+      },
+      {
+          "kod": "PT",
+          "aciklama": "Çömlek"
+      },
+      {
+          "kod": "BR",
+          "aciklama": "Çubuk"
+      },
+      {
+          "kod": "RD",
+          "aciklama": "Çubuk"
+      },
+      {
+          "kod": "BZ",
+          "aciklama": "Çubuk, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "RZ",
+          "aciklama": "Çubuk, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "SA",
+          "aciklama": "Çuval"
+      },
+      {
+          "kod": "MS",
+          "aciklama": "Çuval, çok katmanlı"
+      },
+      {
+          "kod": "CP",
+          "aciklama": "Damacana, korumalı"
+      },
+      {
+          "kod": "DP",
+          "aciklama": "Damacana, korumalı"
+      },
+      {
+          "kod": "CO",
+          "aciklama": "Damacana, korumasız "
+      },
+      {
+          "kod": "DJ",
+          "aciklama": "Damacana, korumasız"
+      },
+      {
+          "kod": "FL",
+          "aciklama": "Dar küçük şişe"
+      },
+      {
+          "kod": "DR",
+          "aciklama": "Davul"
+      },
+      {
+          "kod": "1B",
+          "aciklama": "Davul, alüminyum"
+      },
+      {
+          "kod": "QD",
+          "aciklama": "Davul, alüminyum, çıkartılabilir kafa"
+      },
+      {
+          "kod": "QC",
+          "aciklama": "Davul, alüminyum, çıkartılamayan kafa"
+      },
+      {
+          "kod": "1A",
+          "aciklama": "Davul, çelik"
+      },
+      {
+          "kod": "QB",
+          "aciklama": "Davul, çelik, çıkartılabilir kafa"
+      },
+      {
+          "kod": "QA",
+          "aciklama": "Davul, çelik, çıkartılamayan kafa"
+      },
+      {
+          "kod": "DI",
+          "aciklama": "Davul, demir"
+      },
+      {
+          "kod": "1G",
+          "aciklama": "Davul, elyaf"
+      },
+      {
+          "kod": "1D",
+          "aciklama": "Davul, kontrplak"
+      },
+      {
+          "kod": "IH",
+          "aciklama": "Davul, plastik"
+      },
+      {
+          "kod": "QG",
+          "aciklama": "Davul, plastik, çıkartılabilir kafa"
+      },
+      {
+          "kod": "QF",
+          "aciklama": "Davul, plastik, çıkartılamayan kafa"
+      },
+      {
+          "kod": "1W",
+          "aciklama": "Davul, tahta"
+      },
+      {
+          "kod": "TS",
+          "aciklama": "Demet"
+      },
+      {
+          "kod": "BH",
+          "aciklama": "Deste"
+      },
+      {
+          "kod": "GI",
+          "aciklama": "Direk"
+      },
+      {
+          "kod": "GZ",
+          "aciklama": "Direk, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "DN",
+          "aciklama": "Dispenser"
+      },
+      {
+          "kod": "VG",
+          "aciklama": "Dökme, gaz (1031 mbar ve 15oC’de)"
+      },
+      {
+          "kod": "VS",
+          "aciklama": "Dökme, hurda metal"
+      },
+      {
+          "kod": "VO",
+          "aciklama": "Dökme, katı, büyük parçacıklar (yumrular)"
+      },
+      {
+          "kod": "VR",
+          "aciklama": "Dökme, katı, granüllü parçacıklar (tahıllar)"
+      },
+      {
+          "kod": "VY",
+          "aciklama": "Dökme, katı, ince parçacıklar (toz)"
+      },
+      {
+          "kod": "VL",
+          "aciklama": "Dökme, sıvı"
+      },
+      {
+          "kod": "VQ",
+          "aciklama": "Dökme, sıvılaştırılmış gaz (normal olmayan  ısı/basınçta)"
+      },
+      {
+          "kod": "NA",
+          "aciklama": "Elde mevcut olmayan"
+      },
+      {
+          "kod": "FB",
+          "aciklama": "Esnek çanta"
+      },
+      {
+          "kod": "FE",
+          "aciklama": "Esnek tank"
+      },
+      {
+          "kod": "SX",
+          "aciklama": "Fide"
+      },
+      {
+          "kod": "FP",
+          "aciklama": "Film paketi"
+      },
+      {
+          "kod": "CU",
+          "aciklama": "Fincan"
+      },
+      {
+          "kod": "FT",
+          "aciklama": "Foodtainer"
+      },
+      {
+          "kod": "VK",
+          "aciklama": "Furgon ambalajı"
+      },
+      {
+          "kod": "SE",
+          "aciklama": "Gemici sandığı"
+      },
+      {
+          "kod": "PL",
+          "aciklama": "Gerdel"
+      },
+      {
+          "kod": "RG",
+          "aciklama": "Halka"
+      },
+      {
+          "kod": "MT",
+          "aciklama": "Hasır "
+      },
+      {
+          "kod": "PH",
+          "aciklama": "İbrik"
+      },
+      {
+          "kod": "SD",
+          "aciklama": "İğ"
+      },
+      {
+          "kod": "JT",
+          "aciklama": "Jüt çuval"
+      },
+      {
+          "kod": "CG",
+          "aciklama": "Kafes"
+      },
+      {
+          "kod": "RK",
+          "aciklama": "Kafes"
+      },
+      {
+          "kod": "RJ",
+          "aciklama": "Kafes, çengelli"
+      },
+      {
+          "kod": "DG",
+          "aciklama": "Kafes, Milletler Topluluğu Elleçleme Ekipman Havuzu (CHEP)"
+      },
+      {
+          "kod": "CW",
+          "aciklama": "Kafes, rulo"
+      },
+      {
+          "kod": "UC",
+          "aciklama": "Kafesli olmayan"
+      },
+      {
+          "kod": "PN",
+          "aciklama": "Kalas"
+      },
+      {
+          "kod": "PZ",
+          "aciklama": "Kalas, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "HN",
+          "aciklama": "Kanca"
+      },
+      {
+          "kod": "CL",
+          "aciklama": "Kangal "
+      },
+      {
+          "kod": "BI",
+          "aciklama": "Kap"
+      },
+      {
+          "kod": "HR",
+          "aciklama": "Kapaklı sepet"
+      },
+      {
+          "kod": "NE",
+          "aciklama": "Kapsız veya ambalajlanmamış"
+      },
+      {
+          "kod": "NG",
+          "aciklama": "Kapsız veya ambalajlanmamış, çoklu birim"
+      },
+      {
+          "kod": "NF",
+          "aciklama": "Kapsız veya ambalajlanmamış, tek birim"
+      },
+      {
+          "kod": "AV",
+          "aciklama": "Kapsül"
+      },
+      {
+          "kod": "CT",
+          "aciklama": "Karton"
+      },
+      {
+          "kod": "CQ",
+          "aciklama": "Kartuş"
+      },
+      {
+          "kod": "CS",
+          "aciklama": "Kasa"
+      },
+      {
+          "kod": "CB",
+          "aciklama": "Kasa, bira"
+      },
+      {
+          "kod": "SS",
+          "aciklama": "Kasa, çelik"
+      },
+      {
+          "kod": "FD",
+          "aciklama": "Kasa, çerçeveli"
+      },
+      {
+          "kod": "DC",
+          "aciklama": "Kasa, çok katmanlı, mukavva"
+      },
+      {
+          "kod": "DA",
+          "aciklama": "Kasa, çok katmanlı, plastik"
+      },
+      {
+          "kod": "DB",
+          "aciklama": "Kasa, çok katmanlı, tahta"
+      },
+      {
+          "kod": "DK",
+          "aciklama": "Kasa, hacimli, mukavva"
+      },
+      {
+          "kod": "DL",
+          "aciklama": "Kasa, hacimli, plastik"
+      },
+      {
+          "kod": "DM",
+          "aciklama": "Kasa, hacimli, tahta"
+      },
+      {
+          "kod": "7A",
+          "aciklama": "Kasa, hareketli"
+      },
+      {
+          "kod": "SK",
+          "aciklama": "Kasa, iskeletli"
+      },
+      {
+          "kod": "EI",
+          "aciklama": "Kasa, izotermik"
+      },
+      {
+          "kod": "MA",
+          "aciklama": "Kasa, metal"
+      },
+      {
+          "kod": "FC",
+          "aciklama": "Kasa, meyve"
+      },
+      {
+          "kod": "ED",
+          "aciklama": "Kasa, palet tabanlı"
+      },
+      {
+          "kod": "EH",
+          "aciklama": "Kasa, palet tabanlı, metal"
+      },
+      {
+          "kod": "EF",
+          "aciklama": "Kasa, palet tabanlı, mukavva"
+      },
+      {
+          "kod": "EG",
+          "aciklama": "Kasa, palet tabanlı, plastik"
+      },
+      {
+          "kod": "EE",
+          "aciklama": "Kasa, palet tabanlı, tahtadan"
+      },
+      {
+          "kod": "SC",
+          "aciklama": "Kasa, sığ"
+      },
+      {
+          "kod": "MC",
+          "aciklama": "Kasa, süt"
+      },
+      {
+          "kod": "7B",
+          "aciklama": "Kasa, tahta"
+      },
+      {
+          "kod": "8B",
+          "aciklama": "Kasa, tahta"
+      },
+      {
+          "kod": "JR",
+          "aciklama": "Kavanoz"
+      },
+      {
+          "kod": "B4",
+          "aciklama": "Kayış"
+      },
+      {
+          "kod": "PO",
+          "aciklama": "Kese"
+      },
+      {
+          "kod": "CV",
+          "aciklama": "Kılıf"
+      },
+      {
+          "kod": "SI",
+          "aciklama": "Kızak"
+      },
+      {
+          "kod": "MX",
+          "aciklama": "Kibrit kutusu"
+      },
+      {
+          "kod": "SH",
+          "aciklama": "Koku torbası"
+      },
+      {
+          "kod": "OU",
+          "aciklama": "Konteyner, dış"
+      },
+      {
+          "kod": "1F",
+          "aciklama": "Konteyner, esnek"
+      },
+      {
+          "kod": "GL",
+          "aciklama": "Konteyner, galon"
+      },
+      {
+          "kod": "ME",
+          "aciklama": "Konteyner, metal"
+      },
+      {
+          "kod": "CN",
+          "aciklama": "Konteyner, taşıma ekipmanı olarak başka şekilde belirtilmedikçe"
+      },
+      {
+          "kod": "BJ",
+          "aciklama": "Kova"
+      },
+      {
+          "kod": "BX",
+          "aciklama": "Kutu"
+      },
+      {
+          "kod": "4B",
+          "aciklama": "Kutu, alüminyum"
+      },
+      {
+          "kod": "4A",
+          "aciklama": "Kutu, çelik"
+      },
+      {
+          "kod": "4C",
+          "aciklama": "Kutu, doğal tahta"
+      },
+      {
+          "kod": "4D",
+          "aciklama": "Kutu, kontrplak"
+      },
+      {
+          "kod": "DH",
+          "aciklama": "Kutu, Milletler Topluluğu Elleçleme Ekipman Havuzu (CHEP), Eurobox "
+      },
+      {
+          "kod": "4H",
+          "aciklama": "Kutu, plastik"
+      },
+      {
+          "kod": "QR",
+          "aciklama": "Kutu, plastik, genişletilmiş"
+      },
+      {
+          "kod": "QS",
+          "aciklama": "Kutu, plastik, sağlam"
+      },
+      {
+          "kod": "4G",
+          "aciklama": "Kutu, sıkılaştırılmış liflerden yapılmış tahta"
+      },
+      {
+          "kod": "BW",
+          "aciklama": "Kutu, sıvılar için "
+      },
+      {
+          "kod": "QP",
+          "aciklama": "Kutu, tahtadan, doğal tahta, basit"
+      },
+      {
+          "kod": "QQ",
+          "aciklama": "Kutu, tahtadan, doğal tahta, dayanıklı dış yüzey"
+      },
+      {
+          "kod": "4F",
+          "aciklama": "Kutu, yeniden düzenlenmiş tahta"
+      },
+      {
+          "kod": "KG",
+          "aciklama": "Küçük fıçı"
+      },
+      {
+          "kod": "FO",
+          "aciklama": "Küçük sandık"
+      },
+      {
+          "kod": "AJ",
+          "aciklama": "Külah"
+      },
+      {
+          "kod": "IN",
+          "aciklama": "Külçe"
+      },
+      {
+          "kod": "IZ",
+          "aciklama": "Külçe, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "AL",
+          "aciklama": "Küre"
+      },
+      {
+          "kod": "LG",
+          "aciklama": "Kütük"
+      },
+      {
+          "kod": "LZ",
+          "aciklama": "Kütük, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "BM",
+          "aciklama": "Leğen"
+      },
+      {
+          "kod": "SB",
+          "aciklama": "Levha"
+      },
+      {
+          "kod": "LV",
+          "aciklama": "Liftvan"
+      },
+      {
+          "kod": "RL",
+          "aciklama": "Makara"
+      },
+      {
+          "kod": "CM",
+          "aciklama": "Mukavva"
+      },
+      {
+          "kod": "WA",
+          "aciklama": "Orta boy büyüklükte konteyner"
+      },
+      {
+          "kod": "WD",
+          "aciklama": "Orta boy büyüklükte konteyner, alüminyum"
+      },
+      {
+          "kod": "WH",
+          "aciklama": "Orta boy büyüklükte konteyner, alüminyum, basınçlı > 10 kpa"
+      },
+      {
+          "kod": "WL",
+          "aciklama": "Orta boy büyüklükte konteyner, alüminyum, sıvı"
+      },
+      {
+          "kod": "ZS",
+          "aciklama": "Orta boy büyüklükte konteyner, bileşik"
+      },
+      {
+          "kod": "ZP",
+          "aciklama": "Orta boy büyüklükte konteyner, bileşik, esnek plastik, basınçlı"
+      },
+      {
+          "kod": "ZM",
+          "aciklama": "Orta boy büyüklükte konteyner, bileşik, esnek plastik, sağlam"
+      },
+      {
+          "kod": "ZR",
+          "aciklama": "Orta boy büyüklükte konteyner, bileşik, esnek plastik, sıvı"
+      },
+      {
+          "kod": "ZN",
+          "aciklama": "Orta boy büyüklükte konteyner, bileşik, sert plastik, basınçlı"
+      },
+      {
+          "kod": "ZL",
+          "aciklama": "Orta boy büyüklükte konteyner, bileşik, sert plastik, sağlam"
+      },
+      {
+          "kod": "ZQ",
+          "aciklama": "Orta boy büyüklükte konteyner, bileşik, sert plastik, sıvı"
+      },
+      {
+          "kod": "WC",
+          "aciklama": "Orta boy büyüklükte konteyner, çelik"
+      },
+      {
+          "kod": "WG",
+          "aciklama": "Orta boy büyüklükte konteyner, çelik, basınçlı > 10 kpa"
+      },
+      {
+          "kod": "WK",
+          "aciklama": "Orta boy büyüklükte konteyner, çelik, sıvı"
+      },
+      {
+          "kod": "WT",
+          "aciklama": "Orta boy büyüklükte konteyner, dış astarlı dokuma kumaş"
+      },
+      {
+          "kod": "ZW",
+          "aciklama": "Orta boy büyüklükte konteyner, doğal tahta"
+      },
+      {
+          "kod": "WU",
+          "aciklama": "Orta boy büyüklükte konteyner, doğal tahta, astarlı"
+      },
+      {
+          "kod": "WW",
+          "aciklama": "Orta boy büyüklükte konteyner, dokuma kumaş, astarlı"
+      },
+      {
+          "kod": "WV",
+          "aciklama": "Orta boy büyüklükte konteyner, dokuma kumaş, kaplamalı"
+      },
+      {
+          "kod": "WX",
+          "aciklama": "Orta boy büyüklükte konteyner, dokuma kumaş, kaplamalı ve astarlı"
+      },
+      {
+          "kod": "ZU",
+          "aciklama": "Orta boy büyüklükte konteyner, esnek"
+      },
+      {
+          "kod": "ZA",
+          "aciklama": "Orta boy büyüklükte konteyner, kağıt, çok katmanlı"
+      },
+      {
+          "kod": "ZC",
+          "aciklama": "Orta boy büyüklükte konteyner, kağıt, çok katmanlı, su geçirmez"
+      },
+      {
+          "kod": "WF",
+          "aciklama": "Orta boy büyüklükte konteyner, metal"
+      },
+      {
+          "kod": "WJ",
+          "aciklama": "Orta boy büyüklükte konteyner, metal, basınç 10 kpa"
+      },
+      {
+          "kod": "ZV",
+          "aciklama": "Orta boy büyüklükte konteyner, metal, çelik dışında"
+      },
+      {
+          "kod": "WM",
+          "aciklama": "Orta boy büyüklükte konteyner, metal, sıvı"
+      },
+      {
+          "kod": "WQ",
+          "aciklama": "Orta boy büyüklükte konteyner, örme plastik, astarlı"
+      },
+      {
+          "kod": "WP",
+          "aciklama": "Orta boy büyüklükte konteyner, örme plastik, kaplamalı"
+      },
+      {
+          "kod": "WR",
+          "aciklama": "Orta boy büyüklükte konteyner, örme plastik, kaplamalı ve astarlı"
+      },
+      {
+          "kod": "WN",
+          "aciklama": "Orta boy büyüklükte konteyner, örme plastik, kaplamalı ve astarlı olmayan"
+      },
+      {
+          "kod": "WS",
+          "aciklama": "Orta boy büyüklükte konteyner, plastik film"
+      },
+      {
+          "kod": "AA",
+          "aciklama": "Orta boy büyüklükte konteyner, sert plastik"
+      },
+      {
+          "kod": "ZH",
+          "aciklama": "Orta boy büyüklükte konteyner, sert plastik, müstakil, basınçlı"
+      },
+      {
+          "kod": "ZF",
+          "aciklama": "Orta boy büyüklükte konteyner, sert plastik, müstakil, sağlam"
+      },
+      {
+          "kod": "ZK",
+          "aciklama": "Orta boy büyüklükte konteyner, sert plastik, müstakil, sıvı"
+      },
+      {
+          "kod": "ZG",
+          "aciklama": "Orta boy büyüklükte konteyner, sert plastik, teçhizatlı, basınçlı"
+      },
+      {
+          "kod": "ZD",
+          "aciklama": "Orta boy büyüklükte konteyner, sert plastik, teçhizatlı, sağlam"
+      },
+      {
+          "kod": "ZJ",
+          "aciklama": "Orta boy büyüklükte konteyner, sert plastik, teçhizatlı, sıvı"
+      },
+      {
+          "kod": "ZT",
+          "aciklama": "Orta boy büyüklükte konteyner, sıkıştırılmış liflerden yapılmış tahta"
+      },
+      {
+          "kod": "ZX",
+          "aciklama": "Orta boy büyüklükte konteyner, sıkıştırılmış liflerden yapılmış tahta"
+      },
+      {
+          "kod": "WY",
+          "aciklama": "Orta boy büyüklükte konteyner, sıkıştırılmış liflerden yapılmış tahta, astarlı"
+      },
+      {
+          "kod": "ZY",
+          "aciklama": "Orta boy büyüklükte konteyner, yeniden düzenlenmiş tahta"
+      },
+      {
+          "kod": "WZ",
+          "aciklama": "Orta boy büyüklükte konteyner, yeniden düzenlenmiş tahta, astarlı"
+      },
+      {
+          "kod": "ZZ",
+          "aciklama": "Ortaklaşa tanımlanmış"
+      },
+      {
+          "kod": "PA",
+          "aciklama": "Paket"
+      },
+      {
+          "kod": "PC",
+          "aciklama": "Paket"
+      },
+      {
+          "kod": "PX",
+          "aciklama": "Palet"
+      },
+      {
+          "kod": "AH",
+          "aciklama": "Palet, 100 cm x 110 cm"
+      },
+      {
+          "kod": "OC",
+          "aciklama": "Palet, 100 cm x 120 cm"
+      },
+      {
+          "kod": "OE",
+          "aciklama": "Palet, 110 cm x 110 cm"
+      },
+      {
+          "kod": "OD",
+          "aciklama": "Palet, 115.5 cm x 116.5 cm."
+      },
+      {
+          "kod": "OA",
+          "aciklama": "Palet, 40 cm x 60 cm"
+      },
+      {
+          "kod": "OB",
+          "aciklama": "Palet, 80 cm x 120 cm"
+      },
+      {
+          "kod": "PD",
+          "aciklama": "Palet, birimsel, yakalık 80 cm x 100 cm"
+      },
+      {
+          "kod": "PE",
+          "aciklama": "Palet, birimsel, yakalık 80 cm x 120 cm"
+      },
+      {
+          "kod": "AF",
+          "aciklama": "Palet, birimsel, yakalık 80 cm x 60 cm"
+      },
+      {
+          "kod": "PB",
+          "aciklama": "Palet, kutu"
+      },
+      {
+          "kod": "AG",
+          "aciklama": "Palet, küçültülerek sarılmış"
+      },
+      {
+          "kod": "TW",
+          "aciklama": "Palet, mukavva"
+      },
+      {
+          "kod": "8A",
+          "aciklama": "Palet, tahta"
+      },
+      {
+          "kod": "PB",
+          "aciklama": "Palet, ucu açık kutu ve paletin birleşimi kutu"
+      },
+      {
+          "kod": "LT",
+          "aciklama": "Parça"
+      },
+      {
+          "kod": "PP",
+          "aciklama": "Parça"
+      },
+      {
+          "kod": "PF",
+          "aciklama": "Pen"
+      },
+      {
+          "kod": "PG",
+          "aciklama": "Plaka"
+      },
+      {
+          "kod": "PY",
+          "aciklama": "Plaka, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "OF",
+          "aciklama": "Platform, belirsiz ağırlık veya boyut"
+      },
+      {
+          "kod": "PJ",
+          "aciklama": "Punnet"
+      },
+      {
+          "kod": "AT",
+          "aciklama": "Püskürgeç"
+      },
+      {
+          "kod": "RT",
+          "aciklama": "Rednet"
+      },
+      {
+          "kod": "RO",
+          "aciklama": "Rulo"
+      },
+      {
+          "kod": "CH",
+          "aciklama": "Sandık"
+      },
+      {
+          "kod": "CF",
+          "aciklama": "Sandık"
+      },
+      {
+          "kod": "VA",
+          "aciklama": "Sarnıç"
+      },
+      {
+          "kod": "OT",
+          "aciklama": "Sekizgen karton kutu"
+      },
+      {
+          "kod": "BK",
+          "aciklama": "Sepet"
+      },
+      {
+          "kod": "HC",
+          "aciklama": "Sepet, kulplu, karton"
+      },
+      {
+          "kod": "HA",
+          "aciklama": "Sepet, kulplu, plastik"
+      },
+      {
+          "kod": "HB",
+          "aciklama": "Sepet, kulplu, tahtadan"
+      },
+      {
+          "kod": "WB",
+          "aciklama": "Sepetli şişe"
+      },
+      {
+          "kod": "KI",
+          "aciklama": "Set"
+      },
+      {
+          "kod": "CY",
+          "aciklama": "Silindir"
+      },
+      {
+          "kod": "AE",
+          "aciklama": "Sprey (Aerosol)"
+      },
+      {
+          "kod": "AI",
+          "aciklama": "Süt güğümü"
+      },
+      {
+          "kod": "BC",
+          "aciklama": "Şişe kasası"
+      },
+      {
+          "kod": "GB",
+          "aciklama": "Şişe, gaz"
+      },
+      {
+          "kod": "BQ",
+          "aciklama": "Şişe, korumalı, silindirik"
+      },
+      {
+          "kod": "BV",
+          "aciklama": "Şişe, korumalı, soğan şeklinde"
+      },
+      {
+          "kod": "BO",
+          "aciklama": "Şişe, korumasız, silindirik "
+      },
+      {
+          "kod": "BS",
+          "aciklama": "Şişe, korumasız, soğan şeklinde"
+      },
+      {
+          "kod": "T1",
+          "aciklama": "Tablet"
+      },
+      {
+          "kod": "CJ",
+          "aciklama": "Tabut"
+      },
+      {
+          "kod": "BD",
+          "aciklama": "Tahta"
+      },
+      {
+          "kod": "CR",
+          "aciklama": "Tahta kasa"
+      },
+      {
+          "kod": "LU",
+          "aciklama": "Tahta Kasa (meyve, sebze)"
+      },
+      {
+          "kod": "BY",
+          "aciklama": "Tahta, tomar/deste/demet halinde "
+      },
+      {
+          "kod": "TG",
+          "aciklama": "Tank konteyner (sıvı ve gaz)"
+      },
+      {
+          "kod": "TK",
+          "aciklama": "Tank, dikdörtgen "
+      },
+      {
+          "kod": "TY",
+          "aciklama": "Tank, silindirik "
+      },
+      {
+          "kod": "P2",
+          "aciklama": "Tava"
+      },
+      {
+          "kod": "TE",
+          "aciklama": "Tekerlek"
+      },
+      {
+          "kod": "SY",
+          "aciklama": "Tel"
+      },
+      {
+          "kod": "CI",
+          "aciklama": "Teneke kutu"
+      },
+      {
+          "kod": "TN",
+          "aciklama": "Teneke kutu"
+      },
+      {
+          "kod": "CA",
+          "aciklama": "Teneke kutu, dikdörtgen"
+      },
+      {
+          "kod": "CD",
+          "aciklama": "Teneke kutu, kulplu ve oluklu"
+      },
+      {
+          "kod": "CX",
+          "aciklama": "Teneke kutu, silindirik"
+      },
+      {
+          "kod": "PU",
+          "aciklama": "Tepsi"
+      },
+      {
+          "kod": "DY",
+          "aciklama": "Tepsi, iki katmanlı, kapaksız, mukavva"
+      },
+      {
+          "kod": "DW",
+          "aciklama": "Tepsi, iki katmanlı, kapaksız, plastik tepsi"
+      },
+      {
+          "kod": "DX",
+          "aciklama": "Tepsi, iki katmanlı, kapaksız, yün"
+      },
+      {
+          "kod": "IL",
+          "aciklama": "Tepsi, sabit, kapaklı istiflenebilir (CEN TS 14482:2002)"
+      },
+      {
+          "kod": "DV",
+          "aciklama": "Tepsi, tek katmanlı, kapaksız, mukavva"
+      },
+      {
+          "kod": "DS",
+          "aciklama": "Tepsi, tek katmanlı, kapaksız, plastik"
+      },
+      {
+          "kod": "DU",
+          "aciklama": "Tepsi, tek katmanlı, kapaksız, polisitrin"
+      },
+      {
+          "kod": "DT",
+          "aciklama": "Tepsi, tek katmanlı, kapaksız, yün"
+      },
+      {
+          "kod": "GU",
+          "aciklama": "Tepsi, yatay istiflenmiş düz kalemleri-eşyayı içeren"
+      },
+      {
+          "kod": "JG",
+          "aciklama": "Testi, sürahi"
+      },
+      {
+          "kod": "TU",
+          "aciklama": "Tüp"
+      },
+      {
+          "kod": "TV",
+          "aciklama": "Tüp, hortumlu"
+      },
+      {
+          "kod": "TD",
+          "aciklama": "Tüp, portatif"
+      },
+      {
+          "kod": "TZ",
+          "aciklama": "Tüp, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "VI",
+          "aciklama": "Ufak şişe"
+      },
+      {
+          "kod": "FI",
+          "aciklama": "Ufak yağ fıçısı"
+      },
+      {
+          "kod": "UN",
+          "aciklama": "Ünite"
+      },
+      {
+          "kod": "VP",
+          "aciklama": "Vakumlu paket"
+      },
+      {
+          "kod": "BA",
+          "aciklama": "Varil"
+      },
+      {
+          "kod": "2C",
+          "aciklama": "Varil, tahtadan"
+      },
+      {
+          "kod": "QJ",
+          "aciklama": "Varil, tahtadan, sökülebilir kafalı"
+      },
+      {
+          "kod": "QH",
+          "aciklama": "Varil, tahtadan, tıpa şeklinde"
+      },
+      {
+          "kod": "ST",
+          "aciklama": "Yaprak"
+      },
+      {
+          "kod": "SM",
+          "aciklama": "Yaprak, metal"
+      },
+      {
+          "kod": "SP",
+          "aciklama": "Yaprak, plastik geçirilmiş"
+      },
+      {
+          "kod": "SZ",
+          "aciklama": "Yaprak, tomar/deste/demet halinde"
+      },
+      {
+          "kod": "TB",
+          "aciklama": "Yarım fıçı"
+      },
+      {
+          "kod": "TL",
+          "aciklama": "Yarım fıçı, kapaklı"
+      },
+      {
+          "kod": "CC",
+          "aciklama": "Yayık"
+      },
+      {
+          "kod": "SL",
+          "aciklama": "Yeni basılmış kağıtların arasına konulan boş kağıt"
+      },
+      {
+          "kod": "NS",
+          "aciklama": "Yuva"
+      },
+      {
+          "kod": "EN",
+          "aciklama": "Zarf"
+      },
+      {
+          "kod": "GR",
+          "aciklama": "Zarf, cam"
+      },
+      {
+          "kod": "SV",
+          "aciklama": "Zarf, çelik"
+      },
+      {
+          "kod": "AB",
+          "aciklama": "Zarf, elyaf"
+      },
+      {
+          "kod": "AC",
+          "aciklama": "Zarf, kağıt"
+      },
+      {
+          "kod": "MR",
+          "aciklama": "Zarf, metal"
+      },
+      {
+          "kod": "PR",
+          "aciklama": "Zarf, plastik"
+      },
+      {
+          "kod": "MW",
+          "aciklama": "Zarf, plastik geçirilmiş"
+      },
+      {
+          "kod": "AD",
+          "aciklama": "Zarf, yün"
+      }
+  
+]

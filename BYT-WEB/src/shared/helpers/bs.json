@@ -3,17 +3,40 @@
   "aciklama": ""
 
 },
-  {
-    "kod": "1",
-    "aciklama": "Daha "
-
-  },
-  {
-    "kod": "2",
-    "aciklama": "Daha "
-  },
-  {
-    "kod": "3",
-    "aciklama": "Daha"
-  }
+{
+  "kod": "1",
+  "aciklama": "NORMAL BAS. USÜL"
+},
+{
+  "kod": "2 ",
+  "aciklama": "REF. TARİHİ İLE BAS. USUL"
+},
+{
+  "kod": "3",
+  "aciklama": "SUPALAN"
+},
+{
+  "kod": "4",
+  "aciklama": "Boru/Tel ile taşıma - 6 Seri No.lu Güm. Gen. Teb.(SDG)"
+},
+{
+  "kod": "5",
+  "aciklama": "EKSİK BEYANLI YAYGIN BASİTLEŞTİRİLMİŞ USÜL"
+},
+{
+  "kod": "8 ",
+  "aciklama": "Hava Yolu Ticaret"
+},
+{
+  "kod": "10",
+  "aciklama": "İhracatta Yerinde Gümrükleme"
+},
+{
+  "kod": "11",
+  "aciklama": "İzinli Gönderici"
+},
+{
+  "kod": "16",
+  "aciklama": "Tamamlayıcı Beyan"
+}
 ]

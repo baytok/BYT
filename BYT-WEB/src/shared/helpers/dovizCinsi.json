@@ -3,17 +3,753 @@
   "aciklama": ""
 
 },
-  {
-    "kod": "USD",
-    "aciklama": "USD"
+      {
+          "kod": "USD",
+          "aciklama": "ABD Doları"
+      },
+      {
+          "kod": "AFN",
+          "aciklama": "Afganistan Afganisi"
+      },
+      {
+          "kod": "XAU",
+          "aciklama": "Altın (ons)"
+      },
+      {
+          "kod": "AOA",
+          "aciklama": "Angola Kvanzası"
+      },
+      {
+          "kod": "XCD",
+          "aciklama": "Anguila, Doğu Karayip Doları"
+      },
+      {
+          "kod": "XCD",
+          "aciklama": "Antigua ve Barbuda, Doğu Karayip Doları"
+      },
+      {
+          "kod": "ARS",
+          "aciklama": "Arjantin Pezosu"
+      },
+      {
+          "kod": "ALL",
+          "aciklama": "Arnavutluk Leki"
+      },
+      {
+          "kod": "AWG",
+          "aciklama": "Aruba Guldeni"
+      },
+      {
+          "kod": "AUD",
+          "aciklama": "Avustralya Doları"
+      },
+      {
+          "kod": "AZN",
+          "aciklama": "Azerbaycan Manatı"
+      },
+      {
+          "kod": "BSD",
+          "aciklama": "Bahama Doları"
+      },
+      {
+          "kod": "BHD",
+          "aciklama": "Bahreyn Dinarı"
+      },
+      {
+          "kod": "BDT",
+          "aciklama": "Bangladeş Takası"
+      },
+      {
+          "kod": "BBD",
+          "aciklama": "Barbados Doları"
+      },
+      {
+          "kod": "BZD",
+          "aciklama": "Belize Doları"
+      },
+      {
+          "kod": "XOF",
+          "aciklama": "Benin, CFA Frangı BCEAO"
+      },
+      {
+          "kod": "BMD",
+          "aciklama": "Bermuda Doları"
+      },
+      {
+          "kod": "BYR",
+          "aciklama": "Beyaz Rusya Rublesi"
+      },
+      {
+          "kod": "BTN",
+          "aciklama": "Bhutan Ngultrumu"
+      },
+      {
+          "kod": "AED",
+          "aciklama": "Birleşik Arap Emirlikleri Dirhemi"
+      },
+      {
+          "kod": "BOB",
+          "aciklama": "Bolivya Bolivyanosu"
+      },
+      {
+          "kod": "BOV",
+          "aciklama": "Bolivya Mudolu"
+      },
+      {
+          "kod": "BAM",
+          "aciklama": "Bosna Hersek Konvertibıl Markı"
+      },
+      {
+          "kod": "BWP",
+          "aciklama": "Botsvana Pulası"
+      },
+      {
+          "kod": "BRL",
+          "aciklama": "Brezilya Reali"
+      },
+      {
+          "kod": "BND",
+          "aciklama": "Brunei Doları"
+      },
+      {
+          "kod": "BGN",
+          "aciklama": "Bulgar Levası"
+      },
+      {
+          "kod": "XOF",
+          "aciklama": "Burkino Faso, CFA Frangı BCEAO"
+      },
+      {
+          "kod": "BIF",
+          "aciklama": "Burundi Frangı"
+      },
+      {
+          "kod": "GIP",
+          "aciklama": "Cebelitarık Paundu"
+      },
+      {
+          "kod": "DZD",
+          "aciklama": "Cezayir Dinarı"
+      },
+      {
+          "kod": "DJF",
+          "aciklama": "Cibuti Frangı"
+      },
+      {
+          "kod": "XAF",
+          "aciklama": "Çad, CFA Frangı BEAC"
+      },
+      {
+          "kod": "CZK",
+          "aciklama": "Çek Kronu"
+      },
+      {
+          "kod": "CNY",
+          "aciklama": "Çin Yuan Renminbisi"
+      },
+      {
+          "kod": "DKK",
+          "aciklama": "Danimarka Kronu"
+      },
+      {
+          "kod": "DOP",
+          "aciklama": "Dominik Pezosu"
+      },
+      {
+          "kod": "XCD",
+          "aciklama": "Dominik, Doğu Karayip Doları"
+      },
+      {
+          "kod": "XAF",
+          "aciklama": "Ekvatoral Gine, CFA Frangı BEAC"
+      },
+      {
+          "kod": "SVC",
+          "aciklama": "El Salvador Kolonu"
+      },
+      {
+          "kod": "IDR",
+          "aciklama": "Endonezya Rupyası"
+      },
+      {
+          "kod": "ERN",
+          "aciklama": "Eritre, Nakfa"
+      },
+      {
+          "kod": "AMD",
+          "aciklama": "Ermenistan Dramı"
+      },
+      {
+          "kod": "ETB",
+          "aciklama": "Etiyopya Biri"
+      },
+      {
+          "kod": "EUR",
+          "aciklama": "Euro"
+      },
+      {
+          "kod": "FKP",
+          "aciklama": "Falkland Adaları Paundu"
+      },
+      {
+          "kod": "MAD",
+          "aciklama": "Fas Dirhemi"
+      },
+      {
+          "kod": "FJD",
+          "aciklama": "Fiji Doları"
+      },
+      {
+          "kod": "XOF",
+          "aciklama": "Fildişi Sahili, CFA Frangı BCEAO"
+      },
+      {
+          "kod": "PHP",
+          "aciklama": "Filipinler Pezosu"
+      },
+      {
+          "kod": "XPF",
+          "aciklama": "Fransız Polinezyası, CFP Frankı"
+      },
+      {
+          "kod": "XAF",
+          "aciklama": "Gabon, CFA Frangı BEAC"
+      },
+      {
+          "kod": "GMD",
+          "aciklama": "Gambiya Dalasisi"
+      },
+      {
+          "kod": "GHS",
+          "aciklama": "Gana Cedisi"
+      },
+      {
+          "kod": "GNF",
+          "aciklama": "Gine Frangı"
+      },
+      {
+          "kod": "XOF",
+          "aciklama": "Gine-Bissau, CFA Frangı BCEAO"
+      },
+      {
+          "kod": "XCD",
+          "aciklama": "Grenada, Doğu Karayip Doları"
+      },
+      {
+          "kod": "GTQ",
+          "aciklama": "Guatemala Kuetzalı"
+      },
+      {
+          "kod": "GYD",
+          "aciklama": "Guyana Doları"
+      },
+      {
+          "kod": "XAG",
+          "aciklama": "Gümüş (ons)"
+      },
+      {
+          "kod": "ZAR",
+          "aciklama": "Güney Afrika Randı"
+      },
+      {
+          "kod": "SSP",
+          "aciklama": "Güney Sudan Poundu"
+      },
+      {
+          "kod": "GEL",
+          "aciklama": "Gürcistan Larisi"
+      },
+      {
+          "kod": "HTG",
+          "aciklama": "Haiti Gurdesi"
+      },
+      {
+          "kod": "HRK",
+          "aciklama": "Hırvatistan Kunası"
+      },
+      {
+          "kod": "INR",
+          "aciklama": "Hindistan Rupisi"
+      },
+      {
+          "kod": "ANG",
+          "aciklama": "Hollanda Antilleri Florini"
+      },
+      {
+          "kod": "HNL",
+          "aciklama": "Honduras Lempirası"
+      },
+      {
+          "kod": "HKD",
+          "aciklama": "Hong Kong Doları"
+      },
+      {
+          "kod": "IQD",
+          "aciklama": "Irak Dinarı"
+      },
+      {
+          "kod": "GBP",
+          "aciklama": "İngiliz Sterlini"
+      },
+      {
+          "kod": "IRR",
+          "aciklama": "İran Riyali"
+      },
+      {
+          "kod": "ILS",
+          "aciklama": "İsrail Yeni Şekeli"
+      },
+      {
+          "kod": "SEK",
+          "aciklama": "İsveç Kronu"
+      },
+      {
+          "kod": "CHF",
+          "aciklama": "İsviçre Frangı"
+      },
+      {
+          "kod": "ISK",
+          "aciklama": "İzlanda Kronu"
+      },
+      {
+          "kod": "JMD",
+          "aciklama": "Jamaika Doları"
+      },
+      {
+          "kod": "JPY",
+          "aciklama": "Japon Yeni"
+      },
+      {
+          "kod": "KHR",
+          "aciklama": "Kamboçya Rieli"
+      },
+      {
+          "kod": "XAF",
+          "aciklama": "Kamerun, CFA Frangı BEAC"
+      },
+      {
+          "kod": "CAD",
+          "aciklama": "Kanada Doları"
+      },
+      {
+          "kod": "QAR",
+          "aciklama": "Katar Riyali"
+      },
+      {
+          "kod": "KYD",
+          "aciklama": "Kayman Adaları Doları"
+      },
+      {
+          "kod": "KZT",
+          "aciklama": "Kazakistan Tengesi"
+      },
+      {
+          "kod": "KES",
+          "aciklama": "Kenya Şilini"
+      },
+      {
+          "kod": "KGS",
+          "aciklama": "Kırgızistan Somu"
+      },
+      {
+          "kod": "COP",
+          "aciklama": "Kolombiya Pezosu"
+      },
+      {
+          "kod": "KMF",
+          "aciklama": "Komor Frangı"
+      },
+      {
+          "kod": "CDF",
+          "aciklama": "Kongo Demokratik Cumhuriyeti, Kongo Frankı"
+      },
+      {
+          "kod": "XAF",
+          "aciklama": "Kongo, CFA Frangı BEAC"
+      },
+      {
+          "kod": "KRW",
+          "aciklama": "Kore, Von"
+      },
+      {
+          "kod": "CRC",
+          "aciklama": "Kosta Rika Kolonu"
+      },
+      {
+          "kod": "KWD",
+          "aciklama": "Kuveyt Dinarı"
+      },
+      {
+          "kod": "KPW",
+          "aciklama": "Kuzey Kore Vonu"
+      },
+      {
+          "kod": "CUC",
+          "aciklama": "Küba Konvertibıl Pezosu"
+      },
+      {
+          "kod": "CUP",
+          "aciklama": "Küba Pezosu"
+      },
+      {
+          "kod": "LAK",
+          "aciklama": "Laos Kipi"
+      },
+      {
+          "kod": "LSL",
+          "aciklama": "Lesotho Lotisi"
+      },
+      {
+          "kod": "LVL",
+          "aciklama": "Letonya Latsı"
+      },
+      {
+          "kod": "LRD",
+          "aciklama": "Liberya Doları"
+      },
+      {
+          "kod": "LYD",
+          "aciklama": "Libya Dinarı"
+      },
+      {
+          "kod": "LTL",
+          "aciklama": "Litvanya Litusu"
+      },
+      {
+          "kod": "LBP",
+          "aciklama": "Lübnan Paundu"
+      },
+      {
+          "kod": "HUF",
+          "aciklama": "Macar Forinti"
+      },
+      {
+          "kod": "MGA",
+          "aciklama": "Madagaskar Doları"
+      },
+      {
+          "kod": "MOP",
+          "aciklama": "Makau Patacası"
+      },
+      {
+          "kod": "MKD",
+          "aciklama": "Makedonya Dinarı"
+      },
+      {
+          "kod": "MWK",
+          "aciklama": "Malavi Kvakası"
+      },
+      {
+          "kod": "MVR",
+          "aciklama": "Maldiv Rufiyası"
+      },
+      {
+          "kod": "MYR",
+          "aciklama": "Malezya Ringiti"
+      },
+      {
+          "kod": "XOF",
+          "aciklama": "Mali, CFA Frangı BCEAO"
+      },
+      {
+          "kod": "MUR",
+          "aciklama": "Mauritus Rupisi"
+      },
+      {
+          "kod": "MXN",
+          "aciklama": "Meksika Pezosu"
+      },
+      {
+          "kod": "EGP",
+          "aciklama": "Mısır Paundu"
+      },
+      {
+          "kod": "MNT",
+          "aciklama": "Moğolistan Tugriki"
+      },
+      {
+          "kod": "MDL",
+          "aciklama": "Moldova Leyi"
+      },
+      {
+          "kod": "XCD",
+          "aciklama": "Montserrat, Doğu Karayip Doları"
+      },
+      {
+          "kod": "MRO",
+          "aciklama": "Moritanya Ouguiyası"
+      },
+      {
+          "kod": "MZN",
+          "aciklama": "Mozambik Metikali"
+      },
+      {
+          "kod": "MMK",
+          "aciklama": "Myanmar Kyatı"
+      },
+      {
+          "kod": "NAD",
+          "aciklama": "Namibya Doları"
+      },
+      {
+          "kod": "ZAR",
+          "aciklama": "Namibya Randı"
+      },
+      {
+          "kod": "NPR",
+          "aciklama": "Nepal Rupisi"
+      },
+      {
+          "kod": "XOF",
+          "aciklama": "Nijer, CFA Frangı BCEAO"
+      },
+      {
+          "kod": "NGN",
+          "aciklama": "Nijerya Nairası"
+      },
+      {
+          "kod": "NIO",
+          "aciklama": "Nikaragua Kordoba Orosu"
+      },
+      {
+          "kod": "NOK",
+          "aciklama": "Norveç Kronu"
+      },
+      {
+          "kod": "XAF",
+          "aciklama": "Orta Afrika Cumhuriyeti, CFA Frangı BEAC"
+      },
+      {
+          "kod": "UZS",
+          "aciklama": "Özbekistan Sumu"
+      },
+      {
+          "kod": "PKR",
+          "aciklama": "Pakistan Rupisi"
+      },
+      {
+          "kod": "XPD",
+          "aciklama": "Paladyum (ons)"
+      },
+      {
+          "kod": "PAB",
+          "aciklama": "Panama Balboası"
+      },
+      {
+          "kod": "PGK",
+          "aciklama": "Papua Yeni Gine Kinası"
+      },
+      {
+          "kod": "PYG",
+          "aciklama": "Paraguay Guaranisi"
+      },
+      {
+          "kod": "PEN",
+          "aciklama": "Peru Yeni Solu"
+      },
+      {
+          "kod": "XPT",
+          "aciklama": "Platin (ons)"
+      },
+      {
+          "kod": "PLN",
+          "aciklama": "Polonya, Ziloti"
+      },
+      {
+          "kod": "RWF",
+          "aciklama": "Ruanda Frangı"
+      },
+      {
+          "kod": "RUB",
+          "aciklama": "Rus Rublesi"
+      },
+      {
+          "kod": "WST",
+          "aciklama": "Samoa Talası"
+      },
+      {
+          "kod": "STD",
+          "aciklama": "Sao Tome ve Principe Dobrası"
+      },
+      {
+          "kod": "XOF",
+          "aciklama": "Senegal, CFA Frangı BCEAO"
+      },
+      {
+          "kod": "SCR",
+          "aciklama": "Seyşeller Rupisi"
+      },
+      {
+          "kod": "RSD",
+          "aciklama": "Sırp Dinarı"
+      },
+      {
+          "kod": "SLL",
+          "aciklama": "Sierra Leone Leonu"
+      },
+      {
+          "kod": "SGD",
+          "aciklama": "Singapur Doları"
+      },
+      {
+          "kod": "SBD",
+          "aciklama": "Solomon Adaları Doları"
+      },
+      {
+          "kod": "SOS",
+          "aciklama": "Somali Şilini"
+      },
+      {
+          "kod": "LKR",
+          "aciklama": "Sri Lanka Rupisi"
+      },
+      {
+          "kod": "SHP",
+          "aciklama": "St. Helena Paundu"
+      },
+      {
+          "kod": "XCD",
+          "aciklama": "St. Kitts ve Nevis, Doğu Karayip Doları"
+      },
+      {
+          "kod": "XCD",
+          "aciklama": "St. Lucia, Doğu Karayip Doları"
+      },
+      {
+          "kod": "XCD",
+          "aciklama": "St. Vincent ve Grenadines, Doğu Karayip Doları"
+      },
+      {
+          "kod": "SDG",
+          "aciklama": "Sudan Dinarı"
+      },
+      {
+          "kod": "SRD",
+          "aciklama": "Surinam Doları"
+      },
+      {
+          "kod": "SYP",
+          "aciklama": "Suriye Lirası"
+      },
+      {
+          "kod": "SAR",
+          "aciklama": "Suudi Arabistan Riyali"
+      },
+      {
+          "kod": "SZL",
+          "aciklama": "Svaziland Lilangenisi"
+      },
+      {
+          "kod": "CLP",
+          "aciklama": "Şili Pezosu"
+      },
+      {
+          "kod": "TJS",
+          "aciklama": "Tacikistan Somonisi"
+      },
+      {
+          "kod": "TZS",
+          "aciklama": "Tanzanya Şilini"
+      },
+      {
+          "kod": "THB",
+          "aciklama": "Tayland Bahtı"
+      },
+      {
+          "kod": "TWD",
+          "aciklama": "Tayvan Yeni Doları"
+      },
+      {
+          "kod": "XOF",
+          "aciklama": "Togo, CFA Frangı BCEAO"
+      },
+      {
+          "kod": "TOP",
+          "aciklama": "Tonga Pa'angası"
+      },
+      {
+          "kod": "TTD",
+          "aciklama": "Trinidad ve Tobago Doları"
+      },
+      {
+          "kod": "TND",
+          "aciklama": "Tunus Dinarı"
+      },
+      {
+          "kod": "TRY",
+          "aciklama": "Türk Lirası"
+      },
+      {
+          "kod": "TMT",
+          "aciklama": "Türkmenistan Yeni Manatı"
+      },
+      {
+          "kod": "UGX",
+          "aciklama": "Uganda Şilini"
+      },
+      {
+          "kod": "UAH",
+          "aciklama": "Ukrayna Hryvniası"
+      },
+      {
+          "kod": "OMR",
+          "aciklama": "Umman Riyali"
+      },
+      {
+          "kod": "UYU",
+          "aciklama": "Uruguay Pezosu"
+      },
+      {
+          "kod": "JOD",
+          "aciklama": "Ürdün Dinarı"
+      },
+      {
+          "kod": "VUV",
+          "aciklama": "Vanuatu Vatusu"
+      },
+      {
+          "kod": "VEF",
+          "aciklama": "Venezuela Bolivarı"
+      },
+      {
+          "kod": "VND",
+          "aciklama": "Vietnam Dongu"
+      },
+      {
+          "kod": "XPF",
+          "aciklama": "Wallis ve Futuna, CFP Frankı"
+      },
+      {
+          "kod": "YER",
+          "aciklama": "Yemen Riyali"
+      },
+      {
+          "kod": "XPF",
+          "aciklama": "Yeni Kaledonya, CFP Frankı"
+      },
+      {
+          "kod": "RON",
+          "aciklama": "Yeni Romen Leyi"
+      },
+      {
+          "kod": "NZD",
+          "aciklama": "Yeni Zelanda Doları"
+      },
+      {
+          "kod": "CVE",
+          "aciklama": "Yeşil Burun Eskudosu"
+      },
+      {
+          "kod": "ZMK",
+          "aciklama": "Zambiya Kvakhası"
+      },
+      {
+          "kod": "ZWL",
+          "aciklama": "Zimbabve Doları"
+      },
+      {
+          "kod": "XXX",
+          "aciklama": "Diğer"
+      }
 
-  },
-  {
-    "kod": "EUR",
-    "aciklama": "EURO"
-  },
-  {
-    "kod": "TRY",
-    "aciklama": "TÜRK LİRASI"
-  }
 ]

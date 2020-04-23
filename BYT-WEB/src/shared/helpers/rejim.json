@@ -3,17 +3,382 @@
   "aciklama": ""
 
 },
-  {
-    "kod": "1000",
-    "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın kesin ihracatı"
 
-  },
-  {
-    "kod": "2300",
-    "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın ihraç edildiği şekli ile geri gelmek üzere geçici ihracatı"
-  },
-  {
-    "kod": "4000",
-    "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın muafiyete tabi olmadan serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
-  }
-]
+      {
+          "kod": "1000",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın kesin ihracatı "
+      },
+      {
+          "kod": "1021",
+          "aciklama": "Hariçte işleme rejimi kapsamında geçici ihraç edilen eşyanın kesin ihracatı"
+      },
+      {
+          "kod": "1023",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere geçici ihraç edilen eşyanın kesin ihracatı"
+      },
+      {
+          "kod": "1040",
+          "aciklama": "Muafiyete tabi olmadan serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın kesin ihracatı"
+      },
+      {
+          "kod": "1042",
+          "aciklama": "Muafiyete tabi olarak serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın kesin ihracatı"
+      },
+      {
+          "kod": "1072",
+          "aciklama": "Antrepoya alınan serbest dolaşımda bulunan eşyanın kesin ihracatı"
+      },
+      {
+          "kod": "1091",
+          "aciklama": "Gümrük kontrolü altında işleme rejimine tabi tutulan eşyanın kesin ihracatı"
+      },
+      {
+          "kod": "2100",
+          "aciklama": "Serbest dolaşımda bulunan eşyanın hariçte işleme rejimi kapsamında geçici ihracatı"
+      },
+      {
+          "kod": "2123",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere geçici ihraç edilen eşyanın hariçte işleme rejimi kapsamında geçici ihracatı"
+      },
+      {
+          "kod": "2141",
+          "aciklama": "Dahilde işleme rejimi geri ödeme sistemi çerçevesinde serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın hariçte işleme rejimi kapsamında geçici ihracatı"
+      },
+      {
+          "kod": "2151",
+          "aciklama": "Dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulan eşyanın hariçte işleme rejimi kapsamında geçici ihracatı "
+      },
+      {
+          "kod": "2152",
+          "aciklama": "51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi eşyanın hariçte işleme rejimi kapsamında geçici ihracatı"
+      },
+      {
+          "kod": "2153",
+          "aciklama": "Geçici ithalat rejimi kapsamında ithal edilen eşyanın hariçte işleme rejimi kapsamında geçici ihracatı "
+      },
+      {
+          "kod": "2172",
+          "aciklama": "Antrepoya alınan serbest dolaşımda bulunan eşyanın hariçte işleme rejimi kapsamında geçici ihracatı"
+      },
+      {
+          "kod": "2191",
+          "aciklama": "Gümrük kontrolü altında işleme rejimine tabi tutulan eşyanın hariçte işleme rejimi kapsamında geçici ihracatı"
+      },
+      {
+          "kod": "2300",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın ihraç edildiği şekli ile geri gelmek üzere geçici ihracatı"
+      },
+      {
+          "kod": "2340",
+          "aciklama": "Muafiyete tabi olmadan serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın ihraç edildiği şekli ile geri gelmek üzere geçici ihracatı"
+      },
+      {
+          "kod": "2341",
+          "aciklama": "Dahilde işleme rejimi geri ödeme sistemi çerçevesinde serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın ihraç edildiği şekli ile geri gelmek üzere geçici ihracatı"
+      },
+      {
+          "kod": "2342",
+          "aciklama": "Muafiyete tabi olarak serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın ihraç edildiği şekli ile geri gelmek üzere geçici ihracatı"
+      },
+      {
+          "kod": "2351",
+          "aciklama": "Dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulan eşyanın ihraç edildiği şekli ile geri gelmek üzere geçici ihracatı"
+      },
+      {
+          "kod": "2352",
+          "aciklama": "51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi tutulan eşyanın ihraç edildiği şekli ile geri gelmek üzere geçici ihracatı"
+      },
+      {
+          "kod": "2353",
+          "aciklama": "Geçici ithalat rejimi kapsamında ithal edilen eşyanın ihraç edildiği şekli ile geri gelmek üzere geçici ihracatı"
+      },
+      {
+          "kod": "2600",
+          "aciklama": "ATA Karnesi kapsamında eşyanın geçici ihracatı "
+      },
+      {
+          "kod": "3141",
+          "aciklama": "Dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın yeniden ihracatı"
+      },
+      {
+          "kod": "3151",
+          "aciklama": "Dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulan eşyanın yeniden ihracatı"
+      },
+      {
+          "kod": "3152",
+          "aciklama": "51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi tutulan eşyanın yeniden ihracatı"
+      },
+      {
+          "kod": "3153",
+          "aciklama": "Geçici ithalat rejimi kapsamında ithal edilen eşyanın yeniden ihracatı"
+      },
+      {
+          "kod": "3158",
+          "aciklama": "ATA Karnesi kapsamında geçici ithal edilen eşyanın yeniden ihracatı "
+      },
+      {
+          "kod": "3171",
+          "aciklama": "Gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulan serbest dolaşımda bulunmayan eşyanın yeniden ihracatı"
+      },
+      {
+          "kod": "4000",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın muafiyete tabi olmadan serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4010",
+          "aciklama": "İhraç edilen eşyanın muafiyete tabi olmadan serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4051",
+          "aciklama": "Dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulan eşyanın muafiyete tabi olmadan serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4053",
+          "aciklama": "Geçici ithalat rejimi kapsamında ithal edilen eşyanın muafiyete tabi olmadan serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4058",
+          "aciklama": "ATA Karnesi kapsamında geçici ithal edilen eşyanın muafiyete tabi olmadan serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı "
+      },
+      {
+          "kod": "4071",
+          "aciklama": "Gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulan serbest dolaşımda bulunmayan eşyanın  muafiyete tabi olmadan serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4072",
+          "aciklama": "Antrepo rejimine tabi tutulan serbest dolaşımdaki eşyanın Türkiye Gümrük Bölgesine girişi"
+      },
+      {
+          "kod": "4091",
+          "aciklama": "Gümrük kontrolü altında işleme rejimine tabi tutulan eşyanın muafiyete tabi olmadan serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4100",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4121",
+          "aciklama": "Hariçte işleme rejimi kapsamında geçici ihraç edilen eşyanın dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4123",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere geçici ihraç edilen eşyanın dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı "
+      },
+      {
+          "kod": "4171",
+          "aciklama": "Gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulan serbest dolaşımda bulunmayan eşyanın dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4191",
+          "aciklama": "Gümrük kontrolü altında işleme rejimine tabi tutulan eşyanın dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4200",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın muafiyete tabi olarak serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4210",
+          "aciklama": "İhraç edilen eşyanın muafiyete tabi olarak serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4251",
+          "aciklama": "Dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulan eşyanın muafiyete tabi olarak serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4253",
+          "aciklama": "Geçici ithalat rejimi kapsamında ithal edilen eşyanın muafiyete tabi olarak serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4258",
+          "aciklama": "ATA Karnesi kapsamında geçici ithal edilen eşyanın muafiyete tabi olarak serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4271",
+          "aciklama": "Gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulan  serbest dolaşımda bulunmayan eşyanın muafiyete tabi olarak serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "4291",
+          "aciklama": "Gümrük kontrolü altında işleme rejimine tabi tutulan eşyanın muafiyete tabi olarak serbest dolaşıma girişi ile eş zamanlı yurtiçi kullanımı"
+      },
+      {
+          "kod": "5100",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulması"
+      },
+      {
+          "kod": "5121",
+          "aciklama": "Hariçte işleme rejimi kapsamında geçici ihraç edilen eşyanın dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulması "
+      },
+      {
+          "kod": "5123",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere geçici ihraç edilen eşyanın dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulması "
+      },
+      {
+          "kod": "5141",
+          "aciklama": "Dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulması"
+      },
+      {
+          "kod": "5171",
+          "aciklama": "Gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulan serbest dolaşımda bulunmayan eşyanın dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulması"
+      },
+      {
+          "kod": "5191",
+          "aciklama": "Gümrük kontrolü altında işleme rejimine tabi tutulan eşyanın dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulması "
+      },
+      {
+          "kod": "5200",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın 51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi tutulması"
+      },
+      {
+          "kod": "5221",
+          "aciklama": "Hariçte işleme rejimi kapsamında geçici ihraç edilen eşyanın 51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi tutulması"
+      },
+      {
+          "kod": "5223",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere geçici ihraç edilen eşyanın 51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi tutulması "
+      },
+      {
+          "kod": "5271",
+          "aciklama": "Gümrük kontrolü altındaki yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulan serbest dolaşımda bulunmayan eşyanın 51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi tutulması"
+      },
+      {
+          "kod": "5291",
+          "aciklama": "Gümrük kontrolü altında işleme rejimine tabi tutulan eşyanın 51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi tutulması"
+      },
+      {
+          "kod": "5300",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın geçici ithalat rejimi kapsamında ithalatı"
+      },
+      {
+          "kod": "5321",
+          "aciklama": "Hariçte işleme rejimi kapsamında geçici ihraç edilen eşyanın geçici ithalat rejimi kapsamında ithalatı"
+      },
+      {
+          "kod": "5323",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere geçici ihraç edilen eşyanın geçici ithalat rejimi kapsamında ithalatı"
+      },
+      {
+          "kod": "5341",
+          "aciklama": "Dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın geçici ithalat rejimi kapsamında ithalatı"
+      },
+      {
+          "kod": "5351",
+          "aciklama": "Dahilde işleme rejimi şartlı muafiyet rejimine tabi tutulan eşyanın geçici ithalat rejimi kapsamında ithalatı"
+      },
+      {
+          "kod": "5352",
+          "aciklama": "51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi tutulan eşyanın geçici ithalat rejimi kapsamında ithalatı"
+      },
+      {
+          "kod": "5353",
+          "aciklama": "Geçici ithalat rejimine tabi tutulan eşyanın devrini müteakiben geçici ithalat rejimine tabi tutulması"
+      },
+      {
+          "kod": "5358",
+          "aciklama": "ATA Karnesi kapsamında geçici ithalatı yapılan eşyanın devrini müteakiben geçici ithalat rejimine tabi tutulması"
+      },
+      {
+          "kod": "5371",
+          "aciklama": "Gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulan serbest dolaşımda bulunmayan eşyanın geçici ithalat rejimi kapsamında ithalatı"
+      },
+      {
+          "kod": "5391",
+          "aciklama": "Gümrük kontrolü altında işleme rejimine tabi tutulan eşyanın geçici ithalat rejimi kapsamında ithalatı"
+      },
+      {
+          "kod": "5800",
+          "aciklama": "ATA Karnesi kapsamında geçici ithalat "
+      },
+      {
+          "kod": "6121",
+          "aciklama": "Hariçte işleme rejimi kapsamında geçici ihraç edilen eşyanın vergi muafiyeti uygulanmaksızın yeniden ithalatı"
+      },
+      {
+          "kod": "6123",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere geçici ihraç edilen eşyanın vergi muafiyeti uygulanmaksızın yeniden ithalatı "
+      },
+      {
+          "kod": "6321",
+          "aciklama": "Hariçte işleme rejimi kapsamında geçici ihraç edilen eşyanın vergi muafiyeti ile serbest dolaşım ve yurtiçi kullanıma eş zamanlı girerek yeniden ithalatı"
+      },
+      {
+          "kod": "6323",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere geçici ihraç edilen eşyanın vergi muafiyeti ile serbest dolaşım ve yurtiçi kullanıma eş zamanlı girerek yeniden ithalatı"
+      },
+      {
+          "kod": "6326",
+          "aciklama": "ATA Karnesi kapsamında geçici ihraç edilen eşyanın yeniden ithalatı "
+      },
+      {
+          "kod": "6521",
+          "aciklama": "Hariçte işleme rejimi kapsamında geçici ihraç edilen eşyanın 51 no.lu kodda belirtilenin dışında dahilde işleme rejimi ve serbest dolaşıma eş zamanlı giren eşyanın yeniden ithalatı "
+      },
+      {
+          "kod": "6523",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere ihraç edilen eşyanın 51 no.lu kodda belirtilenin dışında dahilde işleme rejimi ve serbest dolaşıma eş zamanlı giren eşyanın yeniden ithalatı"
+      },
+      {
+          "kod": "6771",
+          "aciklama": "Geçici ihraç edildikten sonra yurda dönen ve antrepo rejimine tabi tutulan eşyanın yeniden ithalatı"
+      },
+      {
+          "kod": "7100",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulması "
+      },
+      {
+          "kod": "7121",
+          "aciklama": "Hariçte işleme rejimi kapsamında geçici ihraç edilen eşyanın gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulması "
+      },
+      {
+          "kod": "7123",
+          "aciklama": "İhraç edildiği şekli ile geri gelmek üzere ihraç edilen eşyanın gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulması"
+      },
+      {
+          "kod": "7141",
+          "aciklama": "Dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren eşyanın gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulması"
+      },
+      {
+          "kod": "7151",
+          "aciklama": "Dahilde işleme rejimi şartlı muafiyet sistemine tabi tutulan eşyanın gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulması"
+      },
+      {
+          "kod": "7153",
+          "aciklama": "Geçici ithalat rejimi kapsamında ithal edilen eşyanın gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulması"
+      },
+      {
+          "kod": "7158",
+          "aciklama": "ATA Karnesi kapsamında geçici ithal edilen eşyanın antrepo rejimine tabi tutulması "
+      },
+      {
+          "kod": "7171",
+          "aciklama": "Gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulan eşyanın; aynı gümrük idaresi denetimindeki başka bir yer veya antrepoya konulması ya da aynı antrepoda başkasına satış suretiyle devredilmesi"
+      },
+      {
+          "kod": "7191",
+          "aciklama": "Gümrük kontrolü altında işleme rejimine tabi tutulan eşyanın gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulması"
+      },
+      {
+          "kod": "7200",
+          "aciklama": "Serbest dolaşımda bulunan eşyanın antrepoya konulması"
+      },
+      {
+          "kod": "7241",
+          "aciklama": "Dahilde işleme rejimi geri ödeme sistemi kapsamında serbest dolaşım ile eş zamanlı yurtiçi kullanıma giren serbest dolaşımda bulunan eşyanın antrepoya konulması"
+      },
+      {
+          "kod": "7252",
+          "aciklama": "51 no.lu kodda belirtilenin dışında dahilde işleme rejimine tabi tutulan serbest dolaşımda bulunan eşyanın antrepoya konulması"
+      },
+      {
+          "kod": "7272",
+          "aciklama": "Antrepoya konulan serbest dolaşımda bulunan eşyanın aynı gümrük idaresinin denetimindeki başka bir antrepoya konulması"
+      },
+      {
+          "kod": "9100",
+          "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın gümrük kontrolü altında işleme rejimine tabi tutulması "
+      },
+      {
+          "kod": "9171",
+          "aciklama": "Gümrük idaresince eşya konulmasına izin verilen yerler dahil olmak üzere gümrük antrepo rejimine tabi tutulan eşyanın gümrük kontrolü altında işleme rejimine tabi tutulması"
+      }
+  ]
+

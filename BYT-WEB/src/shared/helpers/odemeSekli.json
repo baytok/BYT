@@ -1,0 +1,59 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+      {
+          "kod": "1",
+          "aciklama": "Mal Mukabili"
+      },
+      {
+          "kod": "11",
+          "aciklama": "Özel Takas"
+      },
+      {
+          "kod": "12",
+          "aciklama": "Akreditif"
+      },
+      {
+          "kod": "13",
+          "aciklama": "Bağlı Muamele"
+      },
+      {
+          "kod": "14",
+          "aciklama": "Kabul Kredili Akreditif"
+      },
+      {
+          "kod": "15",
+          "aciklama": "Kabul Kredili Vesaik Mükabili"
+      },
+      {
+          "kod": "16",
+          "aciklama": "Kabul Kredili Mal Mükabili"
+      },
+      {
+          "kod": "17",
+          "aciklama": "Özel Hesap"
+      },
+      {
+          "kod": "2",
+          "aciklama": "Peşin"
+      },
+      {
+          "kod": "3",
+          "aciklama": "Vesaik Mükabili"
+      },
+      {
+          "kod": "6",
+          "aciklama": "Vadeli Akreditif"
+      },
+      {
+          "kod": "7",
+          "aciklama": "Bedelsiz"
+      },
+      {
+          "kod": "4",
+          "aciklama": "Peşin (Kağıt Ortamı) "
+      }
+  
+]

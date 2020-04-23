@@ -1,0 +1,152 @@
+[
+  {
+    "kod": "10",
+    "aciklama": "Gümrük Vergisi"
+},
+{
+    "kod": "100",
+    "aciklama": "Ek Tahakkuk"
+},
+{
+    "kod": "12",
+    "aciklama": "Tek ve Maktu Vergi"
+},
+{
+    "kod": "16",
+    "aciklama": "GÜMRÜK VERGİSİ-TEMİNAT"
+},
+{
+    "kod": "19",
+    "aciklama": "Gumruk Vergisi (Nihai Kullanim)"
+},
+{
+    "kod": "20",
+    "aciklama": "Dampinge Karşı Vergi"
+},
+{
+    "kod": "21",
+    "aciklama": "Sübvansiyona Karşı Vergi"
+},
+{
+    "kod": "22",
+    "aciklama": "6552 s. Kanuna göre Geç Ödeme Zammı"
+},
+{
+    "kod": "23",
+    "aciklama": "6552 s. K. Göre TÜFE/ÜFE tutarı"
+},
+{
+    "kod": "24",
+    "aciklama": "6552 S. K. Göre Katsayı Tutarı"
+},
+{
+    "kod": "29",
+    "aciklama": "Çevre katkı payı"
+},
+{
+    "kod": "32",
+    "aciklama": "Teminatlı antidamping için geçici"
+},
+{
+    "kod": "33",
+    "aciklama": "Antidamping KDV"
+},
+{
+    "kod": "34",
+    "aciklama": "Ek mali yükümlülük adet"
+},
+{
+    "kod": "36",
+    "aciklama": "EK MALİ YÜKÜMLÜLÜK-TEMİNAT"
+},
+{
+    "kod": "37",
+    "aciklama": "Ek mali yükümlülük ÖTV"
+},
+{
+    "kod": "38",
+    "aciklama": "Ek mali yükümlülük KDV"
+},
+{
+    "kod": "39",
+    "aciklama": "Ek mali yükümlülük"
+},
+{
+    "kod": "40",
+    "aciklama": "Katma Değer Vergisi"
+},
+{
+    "kod": "44",
+    "aciklama": "Ek Fon"
+},
+{
+    "kod": "46",
+    "aciklama": "KATMA DEĞER VERGİSİ-TEMİNAT"
+},
+{
+    "kod": "49",
+    "aciklama": "KDV (Nihai Kullanim)"
+},
+{
+    "kod": "50",
+    "aciklama": "Özel Tüketim Vergisi liste-II"
+},
+{
+    "kod": "51",
+    "aciklama": "Özel Tüketim Vergisi liste-III"
+},
+{
+    "kod": "52",
+    "aciklama": "Özel Tüketim Vergisi liste-IV"
+},
+{
+    "kod": "56",
+    "aciklama": "ÖZEL TÜKETİM VERGİSİ-TEMİNAT"
+},
+{
+    "kod": "58",
+    "aciklama": "İGV Nihai Kullanım\r\n"
+},
+{
+    "kod": "59",
+    "aciklama": "İlave gümrük vergisi"
+},
+{
+    "kod": "60",
+    "aciklama": "TRT Bandrol Ticari"
+},
+{
+    "kod": "61",
+    "aciklama": "Telafi Edici Vergi(ihracat)"
+},
+{
+    "kod": "69",
+    "aciklama": "Toplu Konut Fonu (Nihai Kullanim)"
+},
+{
+    "kod": "70",
+    "aciklama": "Toplu Konut Fonu"
+},
+{
+    "kod": "72",
+    "aciklama": "Tütün Fonu"
+},
+{
+    "kod": "75",
+    "aciklama": "TRT Bandrol"
+},
+{
+    "kod": "89",
+    "aciklama": "Damga Vergisi"
+},
+{
+    "kod": "93",
+    "aciklama": "Özel Tüketim Vergisi liste-I"
+},
+{
+    "kod": "991",
+    "aciklama": "Kaynak Kullanımı Destekleme Fonu"
+}
+]
+
+

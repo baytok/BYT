@@ -1,0 +1,798 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+      {
+          "kod": "97AKS",
+          "aciklama": "2009/15481 s BKK 97-2 Maddesi Aksam-Parça Muafiyeti"
+      },
+      {
+          "kod": "AADDK",
+          "aciklama": "6550 sayılı Araş. Alty. Dest. Dair Kanunun 16.maddesi"
+      },
+      {
+          "kod": "ABDBG",
+          "aciklama": "30.6.1954-6426 Kanun ABD'ye tanınan muafiyet (Bağış)"
+      },
+      {
+          "kod": "ABDSV",
+          "aciklama": "30.6.1954-6427 Kanun ABD'ye tanınan muafiyet (Sivil Unsur)"
+      },
+      {
+          "kod": "AFETG",
+          "aciklama": "Umumi Hayata Müessir  Afetler Dol. Alı. Ted. Yap. Yar. geçici madde 20"
+      },
+      {
+          "kod": "AHSKA",
+          "aciklama": "3835 sayılı Kanun-Ahıska Türklerine Tanınan Muafiyet"
+      },
+      {
+          "kod": "AR-GE",
+          "aciklama": "AR-GE ve Tasarım Merkezleri Muafiyet -5746 sayılı Kanun kapsamında"
+      },
+      {
+          "kod": "ASKR",
+          "aciklama": "Askeri malzeme muafiyeti"
+      },
+      {
+          "kod": "ATOM",
+          "aciklama": "8.5.1973-1722 Kanun TAEK'e tanınan muafiyet"
+      },
+      {
+          "kod": "BILIM",
+          "aciklama": "Egt Bil Arş için Kitap/Bas Yay Muafiyeti (2009/15481-BKK 100/1-ö Md)"
+      },
+      {
+          "kod": "BK972",
+          "aciklama": "2009/15481 S BKK 97-2 MADDESİ MUAFİYETİ"
+      },
+      {
+          "kod": "BK97A",
+          "aciklama": "2009/15481 S BKK 97/1-A MUAFİYETİ"
+      },
+      {
+          "kod": "BK97B",
+          "aciklama": "2009/15481 S BKK 97/1-b MADDESİ MUAFİYETİ"
+      },
+      {
+          "kod": "BM1",
+          "aciklama": "15.3.1950-5598 Kanun Birleşmiş Milletlere tanınan muafiyet"
+      },
+      {
+          "kod": "BM2",
+          "aciklama": "29.6.1951-5801 Kanun Birleşmiş Milletler'e tanınan ayrıcalık"
+      },
+      {
+          "kod": "BM3",
+          "aciklama": "3.7.1953-6114 FAO, ILO, ICAO ve WHO'ye tanınan muafiyet"
+      },
+      {
+          "kod": "BM4",
+          "aciklama": "10.3.1954-6367 Kanun Birleşmiş Milletlere tanınan muafiyet"
+      },
+      {
+          "kod": "BMWHO",
+          "aciklama": "15.2.1956-6666 Kanun BM'e tanınan muafiyet (Sağlık Örgütü)"
+      },
+      {
+          "kod": "BSGDCGENL",
+          "aciklama": "Demir Çelik ürünlerinde EMY için Genel Tarife Kontenjanı"
+      },
+      {
+          "kod": "BSGDCULKE",
+          "aciklama": "Demir Çelik ürünlerinde EMY için Belirli Ülkeler Tarife Kontenjanı"
+      },
+      {
+          "kod": "BSGTY",
+          "aciklama": "Tarife Kontenjanında Beyanname Sırasına Göre Tahsis Yöntemi"
+      },
+      {
+          "kod": "BSİZ",
+          "aciklama": "Bedelsiz"
+      },
+      {
+          "kod": "BTC",
+          "aciklama": "Bakü-Tiflis-Ceyhan (BTC) Ham Petrol Boru Hattı Projesi"
+      },
+      {
+          "kod": "BYNBK",
+          "aciklama": "27.3.1992-92/2877 BKK Bayın. ve  İskan Bakanlığı'na tanınan muafiyet"
+      },
+      {
+          "kod": "CEVR1",
+          "aciklama": "Çevre Katkı Payı(atık veya yakıt)"
+      },
+      {
+          "kod": "CEVR2",
+          "aciklama": "Çevre Katkı Payı(hurda)"
+      },
+      {
+          "kod": "COGAL",
+          "aciklama": "İRK I s Lst Dipnot GTHB İthal Ön İzin Yazısı Kull Amacı Çoğaltım Olan"
+      },
+      {
+          "kod": "CTŞ",
+          "aciklama": "C Tipi Şeker İçeren Eşya"
+      },
+      {
+          "kod": "D1A",
+          "aciklama": "DİR Şartlı muafiyet"
+      },
+      {
+          "kod": "D1B",
+          "aciklama": "DIR Eşdeğer Eşya uygulaması çerçevesinde ihracat ve ithalat için"
+      },
+      {
+          "kod": "D1C",
+          "aciklama": "DİR İşletme malzemesi -KDV pesin alinir"
+      },
+      {
+          "kod": "D3",
+          "aciklama": "DİR ihracat sayılan satış ve teslimler için"
+      },
+      {
+          "kod": "D3A",
+          "aciklama": " DİR ihracat sayılan satış ve teslimler için -KDV teminata bağlanır"
+      },
+      {
+          "kod": "D3B",
+          "aciklama": "DİR ihracat sayılan satış teslimler-ÖTV Kan. I say. liste kapsamı esya"
+      },
+      {
+          "kod": "D5",
+          "aciklama": "DYR-Geri Ödeme Sistemi"
+      },
+      {
+          "kod": "D5A",
+          "aciklama": "DİR-Geri Öd.Sis.-2008/14162 say. BKK Tic. Pol. Önl. Uygulanmaz"
+      },
+      {
+          "kod": "DENTV",
+          "aciklama": "14.1.1982-2581 Kanun Deniz tic.Muaf ve 89/14239-15.6.1989 BKK(Tşvk)"
+      },
+      {
+          "kod": "DIIG",
+          "aciklama": "2006/12 teb. 14. mad. Kaps. Geri öd. Sis. Güm. İd. verilen izin"
+      },
+      {
+          "kod": "DIIGA",
+          "aciklama": "DIRTeb.14.mdGeriÖd.St.Kap.İzin-2008/14162say.BKK.Tic.Pol.Önl.Uygulnmaz"
+      },
+      {
+          "kod": "DIZIN",
+          "aciklama": "2006/12 s. teb. 14. mad. yer alan, ş. muaf. kap. güm. İd. ver. izin"
+      },
+      {
+          "kod": "DMGV",
+          "aciklama": "Damga Vergisi Muafiyeti"
+      },
+      {
+          "kod": "DOK",
+          "aciklama": "1SeriNo.lu Gümrük GenelTebl.(Posta ve Hızlı Kargo Taşıma) kaps.döküman"
+      },
+      {
+          "kod": "DSİ",
+          "aciklama": "9.10.1989-89/14620 BKK DSİ Genel Müdürlüğüne tanınan muafiyet"
+      },
+      {
+          "kod": "DİPL",
+          "aciklama": "Diplamatik Eşya"
+      },
+      {
+          "kod": "EKKTJ",
+          "aciklama": "Ek mali yükümlülük tarife kontenjanı"
+      },
+      {
+          "kod": "EUMETSAT",
+          "aciklama": "Avrupa Meteoroloji Uyduları İşletme Teşkilatı andlaşması"
+      },
+      {
+          "kod": "EXBNK",
+          "aciklama": "EXİMBANK Muafiyeti."
+      },
+      {
+          "kod": "FATIH",
+          "aciklama": "3065 s KDV Kanunu Geçici 38. Madde Muafiyeti"
+      },
+      {
+          "kod": "FNSFC",
+          "aciklama": "1.10.1986-86/11063 BKK Uluslararası Finans Kurumuna tanınan muafiyet"
+      },
+      {
+          "kod": "GEMIMF",
+          "aciklama": "6770 sayılı Kanunun 38 nci maddesi Muafiyeti"
+      },
+      {
+          "kod": "GGE",
+          "aciklama": "Geri Gelen Eşya"
+      },
+      {
+          "kod": "GIHR",
+          "aciklama": "Geçici ihracat muafiyeti"
+      },
+      {
+          "kod": "GK1",
+          "aciklama": "4458/167-1 Zat ve ev eşyası muafiyeti (Cumhurbaşkanı)"
+      },
+      {
+          "kod": "GK10",
+          "aciklama": "4458/167-10 Gerçek ve tüzel kişilere tanınan muaf. veya eşya. muaf."
+      },
+      {
+          "kod": "GK10C",
+          "aciklama": "4458/167-10.c Ticari değeri olmayan çeşitli bel. ve eşya (KHK 110.a-s)"
+      },
+      {
+          "kod": "GK11",
+          "aciklama": "4458/167-11 Eşyanın muafiyeti (Cenaze ve cenaze ile ilgili eşya. ith.)"
+      },
+      {
+          "kod": "GK12A",
+          "aciklama": "Engellilerin toplu taşınması için ithal edilen tertibatlı araç"
+      },
+      {
+          "kod": "GK12B",
+          "aciklama": "Bizzat engelli kişi tarafından kullanılan özel tertibatlı araç"
+      },
+      {
+          "kod": "GK12C",
+          "aciklama": "Bizzat engelli kişi tarafından kullanılamayan özel tertibatlı araç"
+      },
+      {
+          "kod": "GK12D",
+          "aciklama": "Engelliler tarafından ith ed. özel ter. aracın veraset yoluyla int.\r\r\n"
+      },
+      {
+          "kod": "GK12E",
+          "aciklama": "Engellilerin kullanımına mahsus diğer eşya \r\r\n"
+      },
+      {
+          "kod": "GK12F",
+          "aciklama": "Afet ve kriz hallerinden zarar görenlere gönd. eşya (4458/167-12b) \r\r\n"
+      },
+      {
+          "kod": "GK12G",
+          "aciklama": "Türkiye'de düz u.a.spor müs.da kul. üzere getirilen ecz. Ür. (167-12c)"
+      },
+      {
+          "kod": "GK168",
+          "aciklama": "Geri gelen eşya muafiyeti"
+      },
+      {
+          "kod": "GK171",
+          "aciklama": "4458/171-a ve b fıkralarına istinaden ithalat vergilerinden muafiyet"
+      },
+      {
+          "kod": "GK2",
+          "aciklama": "4458/167-2 Diplomatik muafiyetler"
+      },
+      {
+          "kod": "GK3",
+          "aciklama": "4458/167-3 Gerçek ve tüzel kişilere tanınan muafiyet"
+      },
+      {
+          "kod": "GK4",
+          "aciklama": "4458/167-4 Esyanin muafiyeti (Degeri 150 Avro yu geçmeyen esya)"
+      },
+      {
+          "kod": "GK5A",
+          "aciklama": "4458/167-5.a Zat ve ev eşyası muafiyeti"
+      },
+      {
+          "kod": "GK5B",
+          "aciklama": "4458/167-5.b Zat ve ev eşyası muafiyeti"
+      },
+      {
+          "kod": "GK5C",
+          "aciklama": "4458/167-5.c Zat ve ev eşyası muafiyeti"
+      },
+      {
+          "kod": "GK5D",
+          "aciklama": "4458/167-5.d Zat ve ev eşyası muafiyeti"
+      },
+      {
+          "kod": "GK5E",
+          "aciklama": "4458/167-5.e Zat ve ev eşyası muafiyeti"
+      },
+      {
+          "kod": "GK5F",
+          "aciklama": "4458/167-5.f Zat ve ev eşyası muafiyeti"
+      },
+      {
+          "kod": "GK5G",
+          "aciklama": "4458/167-5.g Zat ve ev eşyası muafiyeti"
+      },
+      {
+          "kod": "GK6",
+          "aciklama": "4458/167-6 Gerçek kişilere tanınan muafiyet"
+      },
+      {
+          "kod": "GK7",
+          "aciklama": "4458/167-7 Tüzel kişilere tanınan muafiyet"
+      },
+      {
+          "kod": "GK7B",
+          "aciklama": "4458/167-7.b Tüzel kişilere tanınan muafiyet (hibe yoluyla gelen eşya)"
+      },
+      {
+          "kod": "GK7D",
+          "aciklama": "4458/167-7d İnsan kay. ted. mad. ile kan grup. ve doku tip ayır. bel."
+      },
+      {
+          "kod": "GK7F",
+          "aciklama": "4458/167-7.f Tüzel kişilere tanınan muafiyet (AR-GE eşyası)"
+      },
+      {
+          "kod": "GK8",
+          "aciklama": "4458/167-8 Gerçek ve tüzel kişilere tanınan muafiyet veya eşya. muaf."
+      },
+      {
+          "kod": "GK8DI",
+          "aciklama": "4458/167-8.d i Önemli değeri olmayan numunelik eşya ve modeller"
+      },
+      {
+          "kod": "GK9",
+          "aciklama": "4458/167-9 Eşyanın muafiyeti (Ulaştırmacılıkta kullanılan eşya)"
+      },
+      {
+          "kod": "GKDER",
+          "aciklama": "Güney Kore - Derogasyon"
+      },
+      {
+          "kod": "GUMKONTM",
+          "aciklama": "Gümrük Kontrolü Altında İşleme Rejimi Muafiyeti"
+      },
+      {
+          "kod": "GİTH",
+          "aciklama": "2009/15481 sayılı BKK'nin 41/2 maddesine ilişkin muafiyet"
+      },
+      {
+          "kod": "HAYMF",
+          "aciklama": "27.12.1982-82/5907 Kanun Hayvancılık projesi muafiyeti (Muaf)"
+      },
+      {
+          "kod": "HIRMF",
+          "aciklama": "2007/11864 s. Hariçte İşleme Rejim Kararı 10/2 maddesi."
+      },
+      {
+          "kod": "HK18",
+          "aciklama": "2009/15481 sayılı BKK Md62/1/a kapsamı eşya-%18"
+      },
+      {
+          "kod": "HK20",
+          "aciklama": "2009/15481 sayılı BKK Md62/1/b kapsamı eşya-%20"
+      },
+      {
+          "kod": "HVYKT",
+          "aciklama": "Teminatsız Hava Yakıt Alım Sertifika haiz  yükümlü tanınan ÖTV teminat"
+      },
+      {
+          "kod": "ILHM1",
+          "aciklama": "2012/2931 Sayılı BKK. Sağlık Bakanlığı KDV indirimli oran"
+      },
+      {
+          "kod": "ILHM2",
+          "aciklama": "2012/2931 Sayılı BKK. Gıda Tarım ve Hay. Bak. KDV indirimli oran"
+      },
+      {
+          "kod": "INF3",
+          "aciklama": "INF 3 Kapsamında İthal  Edilen Eşyaya İlişikin Muafiyet Kodu"
+      },
+      {
+          "kod": "IPA",
+          "aciklama": "Türkiye - AB Katılım Öncesi Yardım Aracı"
+      },
+      {
+          "kod": "KD13A",
+          "aciklama": "3065 s. Kanun KDV Kanunu 13/a\r\n"
+      },
+      {
+          "kod": "KD13C",
+          "aciklama": "3065 sayılı KDV Kanunu 13/c maddesine ilişkin muafiyet."
+      },
+      {
+          "kod": "KD13E",
+          "aciklama": "3065 s. KDV Kanunu 13/e uyarınca KDV muafiyeti"
+      },
+      {
+          "kod": "KD13F",
+          "aciklama": "3065 sayılı KDV kan. 13/f mad. ilişkin muafiyet"
+      },
+      {
+          "kod": "KD13IG",
+          "aciklama": "3065 s. KDV K. 13/I mad. Ist. Gübreye KDV Muafiyeti"
+      },
+      {
+          "kod": "KD13IH",
+          "aciklama": "3065 s. KDV K. 13/I mad. Ist. Gübre Hammaddesine KDV Muafiyeti"
+      },
+      {
+          "kod": "KD13IY",
+          "aciklama": "3065 s. KDV K. 13/I mad. Ist. Yemlere KDV Muafiyeti"
+      },
+      {
+          "kod": "KD13M",
+          "aciklama": "3065 s KDV Kanunu 13/m Madde Muafiyeti"
+      },
+      {
+          "kod": "KD17B",
+          "aciklama": "3065 s. KDV Kanunu17/2-(b) uyarınca KDV muafiyeti"
+      },
+      {
+          "kod": "KD17D",
+          "aciklama": "3065 s. KDV Kanunu 17/2-d maddesi uyarınca KDV muafiyeti"
+      },
+      {
+          "kod": "KD17G",
+          "aciklama": "3065 s. kanun 17/g maddesine göre muafiyet"
+      },
+      {
+          "kod": "KD17M",
+          "aciklama": "3065 s. KDV Kanunu 17/4-m uyarınca KDV Muafiyeti"
+      },
+      {
+          "kod": "KD17S",
+          "aciklama": "3065 sayılı KDV Kanununun 17.maddesinin 4.fıkrasının (s) bendi  kap.eş"
+      },
+      {
+          "kod": "KDG15",
+          "aciklama": "KDV K. geç. 15. m. ist. kon. yapı kop. yap. inş. taah. işl. tan. muaf."
+      },
+      {
+          "kod": "KDG23",
+          "aciklama": "KDV Kanununun Geçici 23. maddesine ilişkin muafiyet"
+      },
+      {
+          "kod": "KDGAR",
+          "aciklama": "Garanti sözleşmesi kapsaminda bedelsiz ith. KDV Muafiyeti"
+      },
+      {
+          "kod": "KDV13H",
+          "aciklama": "Kızılay İçin KDV Muafiyeti"
+      },
+      {
+          "kod": "KDV13J",
+          "aciklama": "\"KDV Kanunu 13/j mad.(OSB için)\r\"\r"
+      },
+      {
+          "kod": "KDV13N",
+          "aciklama": "3065 s. KDV K. 13/n mad. Kaps.(basılı kitap-süreli yayın)"
+      },
+      {
+          "kod": "KDVG29",
+          "aciklama": "3065 s. KDV Kanunu geçici 29. maddesi uyarınca KDV Muafiyeti"
+      },
+      {
+          "kod": "KDVG39",
+          "aciklama": "3065 s KDV Kanunu Geçici 39. Madde Muafiyeti"
+      },
+      {
+          "kod": "KIHR",
+          "aciklama": "Kati Ihracat muafiyeti"
+      },
+      {
+          "kod": "KISM",
+          "aciklama": "Kismi muafiyet"
+      },
+      {
+          "kod": "KITH",
+          "aciklama": "Kati Ithalat muafiyeti"
+      },
+      {
+          "kod": "KKDFM",
+          "aciklama": "KKDF Muafiyeti"
+      },
+      {
+          "kod": "KNGRP",
+          "aciklama": "30.4.1964-464 Kanun Kan grup reaktifleri muafiyeti"
+      },
+      {
+          "kod": "KOBİ",
+          "aciklama": "19.9.1996-96/8615 BKK KOBİ muafiyeti"
+      },
+      {
+          "kod": "KOSGB",
+          "aciklama": "4.3.1994-91/1568 BKK KOSGEB muafiyeti"
+      },
+      {
+          "kod": "KTP",
+          "aciklama": "150 Avro ve altı Kitap Muafiyeti (2009/15481-BKK 45 Md)"
+      },
+      {
+          "kod": "KTP8",
+          "aciklama": "1500 Avro ve altı 30 kg Kitap Muafiyeti (2009/15481-BKK 62/c Md)"
+      },
+      {
+          "kod": "LST81",
+          "aciklama": "V. Sayılı listede vergi oranı sıfır olan GTİP için kullanılır"
+      },
+      {
+          "kod": "LST82",
+          "aciklama": "V. Sayılı listede vergi oranı sıfırdan farklı olanlar"
+      },
+      {
+          "kod": "LİBYA",
+          "aciklama": "Türkiye-Libya Ort Tar ve Hay AŞ ye 2001/3052 sa. BKK ile tan. muaf."
+      },
+      {
+          "kod": "MAPRO",
+          "aciklama": "Mavi Akım Projesi: 4573 sayılı kanun 13.06.2002/24078 s. R.G"
+      },
+      {
+          "kod": "MEDA",
+          "aciklama": "MEDA Pr. ve Av Yt Bn Akd. Ül Di Ma An Çr. Ma. ve Tk. İş. Uy İl Çr An"
+      },
+      {
+          "kod": "MI",
+          "aciklama": "Mahrece İade"
+      },
+      {
+          "kod": "MÜZE",
+          "aciklama": "1.5.1993-93/4417 BKK  Kültür Bakanlığına tanınan muafiyet."
+      },
+      {
+          "kod": "MİT",
+          "aciklama": "01.11.1983-2937 Kanun MİT'e tanınan muafiyet"
+      },
+      {
+          "kod": "NATO1",
+          "aciklama": "2.7.1953-6095 Kanun NATO'ya tanınan muafiyet"
+      },
+      {
+          "kod": "NATO2",
+          "aciklama": "10.3.1954-6375 Kanun Nato'ya tanınan muafiyet"
+      },
+      {
+          "kod": "NATO3",
+          "aciklama": "20.12.1985-85/10191 BKK NATO'ya tanınan muafiyet"
+      },
+      {
+          "kod": "NATOS",
+          "aciklama": "5.12.1956-6860 Kanun General ve Amirallere tanınan muafiyet(Unsurları)"
+      },
+      {
+          "kod": "NKIST",
+          "aciklama": "V s. liste Nihai Kullanım kaps. olmayan eşya"
+      },
+      {
+          "kod": "NKUL",
+          "aciklama": "Nihai Kullanim"
+      },
+      {
+          "kod": "NKUL1",
+          "aciklama": "Nihai Kul.- indirimli Gumruk Vergisi"
+      },
+      {
+          "kod": "NKULT",
+          "aciklama": "Toplu Konut Fonu (Nihai Kullanim)"
+      },
+      {
+          "kod": "NUM",
+          "aciklama": "Numune"
+      },
+      {
+          "kod": "OLMPT",
+          "aciklama": "30.4.1992-3796 Kanun Olimpiyatlar için tanınan muafiyet"
+      },
+      {
+          "kod": "ORMAN",
+          "aciklama": "16.11.1992-92/3725 BKK Orman Bakanlığına tanıanan muafiyet"
+      },
+      {
+          "kod": "OTV1",
+          "aciklama": "ÖTV kanunu 5,6,7 madde muafiyeti"
+      },
+      {
+          "kod": "OTV2",
+          "aciklama": "ÖTV kanunu ek listelerde haric tutulan esya"
+      },
+      {
+          "kod": "OTVKAMU",
+          "aciklama": "Teminat Aranılmayacak Kurum ve Kuruluşlar İçin OTV Teminatı Muafiyeti"
+      },
+      {
+          "kod": "OTVSIZ",
+          "aciklama": "OTVye tabi olmayan Eşya"
+      },
+      {
+          "kod": "PETR1",
+          "aciklama": "6491 sayılı Türk Petrol Kanunu Muafiyeti(ARAMA)"
+      },
+      {
+          "kod": "PETR2",
+          "aciklama": "6491 sayılı Türk Petrol Kanunu Muafiyeti(İŞLEM)"
+      },
+      {
+          "kod": "SAĞLK",
+          "aciklama": "14.1.1991-91/1400 BKK Sağlık Bak. Tanınan muafiyet"
+      },
+      {
+          "kod": "SBSDE",
+          "aciklama": "Ser.Dolaşımda İken Ser. Böl.İhr. Edilen ve Tekrar İth. Edil. İst. Eşya"
+      },
+      {
+          "kod": "SGKNT",
+          "aciklama": "Sağlık Bakanlığı Kontrol Belgesi (Güm.vergisi muafiyeti)"
+      },
+      {
+          "kod": "SINDER1",
+          "aciklama": "Singapur Derogasyonu 125 tonluk kota\r\r\n"
+      },
+      {
+          "kod": "SINDER2",
+          "aciklama": "Singapur Derogasyonu 100 tonluk kota\r\r\n"
+      },
+      {
+          "kod": "SINDER3",
+          "aciklama": "Singapur Derogasyonu 90 tonluk kota\r\r\n"
+      },
+      {
+          "kod": "STEX",
+          "aciklama": "2008/14451 sayılı Sınır Ticaret.Düzen. İlişkin Karar Kap.yap.işl.ihrc"
+      },
+      {
+          "kod": "STIM",
+          "aciklama": "2008/14451 sayılı Sınır Ticar. Düzen.İlişkin Karar Kaps.yap.işl.ith."
+      },
+      {
+          "kod": "SVLSV",
+          "aciklama": "6.2.1991-91/1462 BKK İçişleri Bak. tanınan muafiyet(Sivil Savunma)"
+      },
+      {
+          "kod": "TAMM",
+          "aciklama": "Tam  muafiyet"
+      },
+      {
+          "kod": "TANAP",
+          "aciklama": "Trans Anadolu Doğal Gaz Boru Hattı (TANAP) Projesi"
+      },
+      {
+          "kod": "TCMB",
+          "aciklama": "27.11.1995-95/7536 TCMB muafiyeti"
+      },
+      {
+          "kod": "TFKTJ",
+          "aciklama": "Tarife Kontenjani"
+      },
+      {
+          "kod": "TFKTJGTHB",
+          "aciklama": "GTHB Kapsamı Tarife Kontenjanı"
+      },
+      {
+          "kod": "TGB",
+          "aciklama": "Teknoloji Geliştirme Bölgeleri Muafiyeti-4691 sayılı Kanun kapsamında"
+      },
+      {
+          "kod": "TOHUM",
+          "aciklama": "2008/13262sayı.İthalat Rejimi Kararı"
+      },
+      {
+          "kod": "TPAY",
+          "aciklama": "Sağ. Bak. Kont. Bel.Kaps. Tar. Payı 0-İRK III s. Lis. III -III n. dip."
+      },
+      {
+          "kod": "TRM19",
+          "aciklama": "Tarim Ürünleri 19 Sayılı tebliğ (Taahhütname ile çekme işlemi)"
+      },
+      {
+          "kod": "TRTBND",
+          "aciklama": "TRT Bandrol ücreti muafiyeti"
+      },
+      {
+          "kod": "TRTBNDT",
+          "aciklama": "TRT Bandrol ücreti teminat mektubu ile"
+      },
+      {
+          "kod": "TSK",
+          "aciklama": "2.7.1992-3833 Kanun TSK'ye tanınan muafiyet"
+      },
+      {
+          "kod": "TSPA-HAR",
+          "aciklama": "Teşvik, sübvansiyon veya parasal iadeye ya da ayniyat tespitine konu o"
+      },
+      {
+          "kod": "TTY",
+          "aciklama": "Tarife Kontenjanında Talep Toplama Yöntemi"
+      },
+      {
+          "kod": "TURKAKIM",
+          "aciklama": "TürkAkım Gaz Boru Hattı Projesi"
+      },
+      {
+          "kod": "TUSA1",
+          "aciklama": "27.3.1984-84/7847 BBK TUSAŞ'a tanınan muafiyet"
+      },
+      {
+          "kod": "TUSA2",
+          "aciklama": "25.12.1984-84/8902  BKK TUSAŞ'a tanınan muafiyet"
+      },
+      {
+          "kod": "TUTUN",
+          "aciklama": "Türk menşeli tütünün ithali"
+      },
+      {
+          "kod": "YABAS",
+          "aciklama": "6.10.1987-87/12201 BKK Yabancı basına tanınan muafiyet."
+      },
+      {
+          "kod": "YARDIM",
+          "aciklama": "İnsani Yardım Muafiyeti"
+      },
+      {
+          "kod": "YASAK",
+          "aciklama": "İthali yasak olup, istisnai/sınırlı hallerde ithal edilebilen eşyalar"
+      },
+      {
+          "kod": "YENIPAZAR",
+          "aciklama": "Sırbistan'dan Tarife Kontenjanı Kapsamı Yeni Pazar Mantısı muafiyeti"
+      },
+      {
+          "kod": "YLC0",
+          "aciklama": "Yolcu Eşyası Vergiye Tabi Olmayan-%0"
+      },
+      {
+          "kod": "YLC18",
+          "aciklama": "Yolcu Eşyası Vergiye Tabi Olan-%18"
+      },
+      {
+          "kod": "YLC20",
+          "aciklama": "Yolcu Eşyası Vergiye Tabi Olan-%20"
+      },
+      {
+          "kod": "YNGOR",
+          "aciklama": "8.8.1997-97/9804 BKK Orman Bakanlığına tanınan ayrıcalık  (Yangın)"
+      },
+      {
+          "kod": "YTTS2",
+          "aciklama": "Yatırım Teşvik İşlemi (KDV teminata Bağlanır)"
+      },
+      {
+          "kod": "YTTS3",
+          "aciklama": "Yatırım Teşvik (tüm vergilerin Teminata Bağlandığı durumlarda)"
+      },
+      {
+          "kod": "YTTS4",
+          "aciklama": "Yatırım Teşvik (Sadece KDV teminat olarak alınır)"
+      },
+      {
+          "kod": "YTTS5",
+          "aciklama": "Yatırım teşvik ( Sadece KDV nin peşinat olarak alındığı durumlarda )"
+      },
+      {
+          "kod": "YTTS6",
+          "aciklama": "Yatırım Tesvik Muafiyeti(KDV iptal)"
+      },
+      {
+          "kod": "YTTSV",
+          "aciklama": "Yatırım teşvik kapsamında yapılan ithalat"
+      },
+      {
+          "kod": "YÖK",
+          "aciklama": "20.6.1990-90/637 BKK YÖK'e tanınan muafiyet"
+      },
+      {
+          "kod": "ZİRAİ",
+          "aciklama": "2.2.1993-93/4005 BKK Zirai muafiyet"
+      },
+      {
+          "kod": "İLAÇ1",
+          "aciklama": "21.1.1993-93/4002  BKK İlaç muafiyeti"
+      },
+      {
+          "kod": "İLAÇ2",
+          "aciklama": "22.4.1993-93/4416 BKK İlaç muafiyeti"
+      },
+      {
+          "kod": "İLAÇ3",
+          "aciklama": "2007/13033 BKK ilaç,bitki koruma ürünü,veteriner müstahzari KDV orani"
+      },
+      {
+          "kod": "BSGNYLIP",
+          "aciklama": "Naylon İplik Tarife Kontenjanı Muafiyeti (22/10/2019 tarihli ve 30926 sayılı ReGa 1676 sayılı Cumh. Kararı)"
+      },
+      {
+          "kod": "DKVMF",
+          "aciklama": "Dampinge Karşı Vergi Muafiyeti"
+      }
+]

@@ -1,0 +1,187 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+      {
+          "kod": "-",
+          "aciklama": "-"
+      },
+      {
+          "kod": "AYR",
+          "aciklama": "ALTIN AYARI"
+      },
+      {
+          "kod": "BAS",
+          "aciklama": "BAS"
+      },
+      {
+          "kod": "B32",
+          "aciklama": "KG-METRE KARE"
+      },
+      {
+          "kod": "CCT",
+          "aciklama": "TON BAŞINA TAŞIMA KAPASİTESİ"
+      },
+      {
+          "kod": "CPR",
+          "aciklama": "ADET-ÇİFT"
+      },
+      {
+          "kod": "C62",
+          "aciklama": "ADET(UNIT)"
+      },
+      {
+          "kod": "D30",
+          "aciklama": "BRÜT KALORİ DEĞERİ"
+      },
+      {
+          "kod": "D40",
+          "aciklama": "BİN LİTRE"
+      },
+      {
+          "kod": "GFI",
+          "aciklama": "FISSILE İZOTOP GRAMI"
+      },
+      {
+          "kod": "GMS",
+          "aciklama": "GÜMÜŞ"
+      },
+      {
+          "kod": "GRM",
+          "aciklama": "GRAM"
+      },
+      {
+          "kod": "GT",
+          "aciklama": "GROSS TON"
+      },
+      {
+          "kod": "H62",
+          "aciklama": "YÜZ ADET"
+      },
+      {
+          "kod": "KFO",
+          "aciklama": "DİFOSFOR PENTAOKSİT KİLOGRAMI"
+      },
+      {
+          "kod": "KGM",
+          "aciklama": "KİLOGRAM"
+      },
+      {
+          "kod": "KHO",
+          "aciklama": "HİDROJEN PEROKSİT KİLOGRAMI"
+      },
+      {
+          "kod": "KH6",
+          "aciklama": "KİLOGRAM-BAŞ"
+      },
+      {
+          "kod": "KMA",
+          "aciklama": "METİL AMİNLERİN KİLOGRAMI"
+      },
+      {
+          "kod": "KNI",
+          "aciklama": "AZOTUN KİLOGRAMI"
+      },
+      {
+          "kod": "KOH",
+          "aciklama": "KİLOGRAM POTASYUM HİDROKSİT"
+      },
+      {
+          "kod": "KPH",
+          "aciklama": "Kg POTASYUM OKSİD"
+      },
+      {
+          "kod": "KPR",
+          "aciklama": "KİLOGRAM-ÇİFT"
+      },
+      {
+          "kod": "KSD",
+          "aciklama": "%90 KURU ÜRÜN KİLOGRAMI"
+      },
+      {
+          "kod": "KSH",
+          "aciklama": "SODYUM HİDROKSİT KİLOGRAMI"
+      },
+      {
+          "kod": "KUR",
+          "aciklama": "URANYUM KİLOGRAMI"
+      },
+      {
+          "kod": "KWH",
+          "aciklama": "KİLOWATT SAAT"
+      },
+      {
+          "kod": "KWT",
+          "aciklama": "KİLOWATT"
+      },
+      {
+          "kod": "K20",
+          "aciklama": "KİLOGRAM POTASYUM OKSİT"
+      },
+      {
+          "kod": "K58",
+          "aciklama": "KURUTULMUŞ NET AĞIRLIKLI KİLOGRAMI"
+      },
+      {
+          "kod": "K62",
+          "aciklama": "KİLOGRAM-ADET"
+      },
+      {
+          "kod": "LPA",
+          "aciklama": "SAF ALKOL LİTRESİ"
+      },
+      {
+          "kod": "LTR",
+          "aciklama": "LİTRE"
+      },
+      {
+          "kod": "MTK",
+          "aciklama": "METRE KARE"
+      },
+      {
+          "kod": "MTQ",
+          "aciklama": "METRE KÜP"
+      },
+      {
+          "kod": "MTR",
+          "aciklama": "METRE"
+      },
+      {
+          "kod": "NCL",
+          "aciklama": "HÜCRE ADEDİ"
+      },
+      {
+          "kod": "NCR",
+          "aciklama": "KARAT"
+      },
+      {
+          "kod": "OMV",
+          "aciklama": "OTV Maktu Vergi"
+      },
+      {
+          "kod": "OTB",
+          "aciklama": "OTV birim fiyatı"
+      },
+      {
+          "kod": "PR",
+          "aciklama": "ÇİFT"
+      },
+      {
+          "kod": "R9",
+          "aciklama": "BİN METRE KÜP"
+      },
+      {
+          "kod": "SET",
+          "aciklama": "SET"
+      },
+      {
+          "kod": "TWH",
+          "aciklama": "BİN KİLOWATT SAAT"
+      },
+      {
+          "kod": "T3",
+          "aciklama": "BİN ADET"
+      }
+  ]
+

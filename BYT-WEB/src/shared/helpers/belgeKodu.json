@@ -1,0 +1,1014 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+
+      {
+          "kod": "0100",
+          "aciklama": "Fatura"
+      },
+      {
+          "kod": "0101",
+          "aciklama": "Navlun Makbuzu"
+      },
+      {
+          "kod": "0102",
+          "aciklama": "Sigorta Poliçesi"
+      },
+      {
+          "kod": "0103",
+          "aciklama": "İthal eşyasına ait Kıymet Bildirim Formu"
+      },
+      {
+          "kod": "0104",
+          "aciklama": "Taşıma senedi- Konişmento"
+      },
+      {
+          "kod": "0105",
+          "aciklama": "Banka Yazısı"
+      },
+      {
+          "kod": "0200",
+          "aciklama": "İlk rejime İlişkin Gümrük Beyannamesi"
+      },
+      {
+          "kod": "0201",
+          "aciklama": "Supalan İstek Kağıdı "
+      },
+      {
+          "kod": "0202",
+          "aciklama": "Çetele kağıdı"
+      },
+      {
+          "kod": "0203",
+          "aciklama": "Ayrıntılı Eşya Faturası "
+      },
+      {
+          "kod": "0204",
+          "aciklama": "Çeki listesi"
+      },
+      {
+          "kod": "0205",
+          "aciklama": "İşlenmiş Tarım Ürünleri Beyan Formu/Analiz Sonuç Raporu"
+      },
+      {
+          "kod": "0209",
+          "aciklama": "Müze Müdürlüğü nün Çıkış Eşyası İçin Uygunluk Yazısı"
+      },
+      {
+          "kod": "0215",
+          "aciklama": "Hariçte İşleme izin belgesi"
+      },
+      {
+          "kod": "0217",
+          "aciklama": "Finansal Kiralama Sözleşmesi"
+      },
+      {
+          "kod": "0225",
+          "aciklama": "Tür. Güm. Böl. Dış. Alıc. veya Tür. Güm. Böl.Dış. Yet. Kur. Alın. Bel.\r\n"
+      },
+      {
+          "kod": "0237",
+          "aciklama": "Takrir"
+      },
+      {
+          "kod": "0241",
+          "aciklama": "Sanayi Sicil Belgesi"
+      },
+      {
+          "kod": "0245",
+          "aciklama": "Ticaret ve Sanayi Odalarınca Verilecek Ekspertiz Raporu"
+      },
+      {
+          "kod": "0247",
+          "aciklama": "Serbest Bölge İşlem Formu"
+      },
+      {
+          "kod": "0249",
+          "aciklama": "Kumanya Listesi"
+      },
+      {
+          "kod": "0253",
+          "aciklama": "Dahilde İşleme İzin Belgesi"
+      },
+      {
+          "kod": "0254",
+          "aciklama": "ATA Karnesi"
+      },
+      {
+          "kod": "0255",
+          "aciklama": "DFIF Prim Kesintisi Makbuzu"
+      },
+      {
+          "kod": "0300",
+          "aciklama": "Menşe Şahadetnamesi"
+      },
+      {
+          "kod": "0301",
+          "aciklama": "A.TR Dolaşım Belgesi"
+      },
+      {
+          "kod": "0302",
+          "aciklama": "EUR.1 Dolaşım Belgesi"
+      },
+      {
+          "kod": "0304",
+          "aciklama": "TPS-INF1 Bilgi Formu"
+      },
+      {
+          "kod": "0305",
+          "aciklama": "TPS-INF2 Bilgi Formu"
+      },
+      {
+          "kod": "0306",
+          "aciklama": "INF.3 Belgesi"
+      },
+      {
+          "kod": "0307",
+          "aciklama": "EUR.MED Dolaşım Belgesi"
+      },
+      {
+          "kod": "0424",
+          "aciklama": "Ulaştırma, Den. Ve Hab. Bak.lığı Uygunluk Belgesi"
+      },
+      {
+          "kod": "0460",
+          "aciklama": "Harita Gn.Kom. Uygunluk Yazısı"
+      },
+      {
+          "kod": "0462",
+          "aciklama": "Milli Savunma Bakanlığı Ön İzin Belgesi"
+      },
+      {
+          "kod": "0478",
+          "aciklama": " Gıda, Tarım ve Hayvancılık Bakanlığı Ön İzin Belgesi"
+      },
+      {
+          "kod": "0495",
+          "aciklama": "Sağlık Bakanlığı Kontrol Belgesi"
+      },
+      {
+          "kod": "0533",
+          "aciklama": " Yatırım Teşvik Belgesi"
+      },
+      {
+          "kod": "0538",
+          "aciklama": "Fatura/Menşe Beyanı"
+      },
+      {
+          "kod": "0689",
+          "aciklama": "Komutanlıklardan alınan resmi yazı"
+      },
+      {
+          "kod": "0696",
+          "aciklama": "Form A Menşe Belgesi"
+      },
+      {
+          "kod": "0701",
+          "aciklama": "Onceki rejime iliskin TCGB"
+      },
+      {
+          "kod": "0705",
+          "aciklama": "Ekspertiz Raporu"
+      },
+      {
+          "kod": "0710",
+          "aciklama": "Üretici Belgesi"
+      },
+      {
+          "kod": "0718",
+          "aciklama": "Hazine Müsteşarlığı Onaylı İthal Listesi"
+      },
+      {
+          "kod": "0722",
+          "aciklama": "Deniz Kuv. Kom. /M.S.B. Uygunluk Belgesi"
+      },
+      {
+          "kod": "0735",
+          "aciklama": "TPS-Şeker Kurumu Ön İzin Belgesi"
+      },
+      {
+          "kod": "0737",
+          "aciklama": "Sağ.Bak.lığı Kont. Tabi Mad. İth. Mahsus Ruhsatnamenin D Nüshası"
+      },
+      {
+          "kod": "0738",
+          "aciklama": "Sağlık Bak.Kont.Tabi Madde. İhracına mahsus Ruhsatname İhracat Permisi"
+      },
+      {
+          "kod": "0739",
+          "aciklama": "C 13 analiz raporu"
+      },
+      {
+          "kod": "0740",
+          "aciklama": "İthalatçı Beyanı"
+      },
+      {
+          "kod": "0744",
+          "aciklama": "Kont.Tabi Kim.Mad. Fiili İth. Güm. İdar.Kullanılmaya Mahsus Ruhsatname"
+      },
+      {
+          "kod": "0745",
+          "aciklama": "Doğal Arı Balı Analiz Belgesi"
+      },
+      {
+          "kod": "0746",
+          "aciklama": "Lisanslı Cihazlar İçin Geçici Gümrük Giriş-Çıkış İzni "
+      },
+      {
+          "kod": "0753",
+          "aciklama": "yararlanıcı tar.onaylanmış ve ith.AT söz.kap.olduğunu belirten liste "
+      },
+      {
+          "kod": "0754",
+          "aciklama": "ilgili vergi dairesince düzenlenmiş sertifika"
+      },
+      {
+          "kod": "0755",
+          "aciklama": "MEDA ÖTV muafiyeti için AT sözleşmesi örneği"
+      },
+      {
+          "kod": "0760",
+          "aciklama": "TPS-Şeker Kurumu Uygunluk Yazısı"
+      },
+      {
+          "kod": "0761",
+          "aciklama": "Hibe yazısı/KDV istisna Belgesi"
+      },
+      {
+          "kod": "0766",
+          "aciklama": "TPS-Borsa İstanbul Uygunluk Yazısı (Ham Elmas İthalatı ve İhracatı)"
+      },
+      {
+          "kod": "0770",
+          "aciklama": "BTB Referans Numarası"
+      },
+      {
+          "kod": "0772",
+          "aciklama": "Analiz Raporu"
+      },
+      {
+          "kod": "0784",
+          "aciklama": "İhr. sırasında yararl. hak menfaatlerin iade edild. dair tevsik ed.bel"
+      },
+      {
+          "kod": "0785",
+          "aciklama": "Güvenlik Sertifikası"
+      },
+      {
+          "kod": "0786",
+          "aciklama": "Gümrük Müşaviri Raporu"
+      },
+      {
+          "kod": "0795",
+          "aciklama": "KDV Gn Uyg Tebliği EK11A Güm İdaresine Muhatap Yazı"
+      },
+      {
+          "kod": "0796",
+          "aciklama": "KDV Gn Uyg Tebliği EK11C İstisna Belgesi"
+      },
+      {
+          "kod": "0797",
+          "aciklama": "KDV Gn Uyg Tebliği EK11B Onaylı Liste"
+      },
+      {
+          "kod": "0798",
+          "aciklama": "Çevre Katkı Payının Ödendiğine Dair Belge"
+      },
+      {
+          "kod": "0803",
+          "aciklama": "LABORATUVAR TAHLİL RAPORU (EMSAL) (GÜM.YÖN. 196-2.B)"
+      },
+      {
+          "kod": "0804",
+          "aciklama": "LABORATUVAR TAHLİL RAPORU (EMSAL) (GÜM.YÖN. 196-2.C)"
+      },
+      {
+          "kod": "0805",
+          "aciklama": "Trafik Tescil Kuruluşları Tarafından Düzenlenen İlişik Kesme Belgesi"
+      },
+      {
+          "kod": "0807",
+          "aciklama": "EUR.MED Fatura/Menşe Beyanı"
+      },
+      {
+          "kod": "0814",
+          "aciklama": "Uygunsuzluk Belgesi"
+      },
+      {
+          "kod": "0815",
+          "aciklama": "Geçici İhracat Beyannamesi ve Taahhütnamesi"
+      },
+      {
+          "kod": "0816",
+          "aciklama": "Milli Savunma Bakanlığı İzin Belgesi"
+      },
+      {
+          "kod": "0818",
+          "aciklama": "2001/3485  say.  B.K.K.nın 22.  maddesinde belirtilen belgelerden biri"
+      },
+      {
+          "kod": "0819",
+          "aciklama": "Tedarikçi Beyanı veya Uz. Dön. Ted. Beyanı"
+      },
+      {
+          "kod": "0820",
+          "aciklama": "CITES Belgesi"
+      },
+      {
+          "kod": "0821",
+          "aciklama": "Gümrük Statü Belgesi"
+      },
+      {
+          "kod": "0822",
+          "aciklama": "İçişleri Bak.lığı(Emniyet Genel Müdürlüğü) Ön İzin Belgesi"
+      },
+      {
+          "kod": "0823",
+          "aciklama": "Sağlık Bakanlığı Ön İzin Belgesi"
+      },
+      {
+          "kod": "0824",
+          "aciklama": "Türkiye Atom Enerjisi Kurumu Ön İzin Belgesi"
+      },
+      {
+          "kod": "0826",
+          "aciklama": "TPS-INF5 Bilgi Formu"
+      },
+      {
+          "kod": "0827",
+          "aciklama": "TPS-INF6 Bilgi Formu"
+      },
+      {
+          "kod": "0828",
+          "aciklama": "TPS-INF7 Bilgi Formu"
+      },
+      {
+          "kod": "0829",
+          "aciklama": "TPS-INF8 Bilgi Formu"
+      },
+      {
+          "kod": "0830",
+          "aciklama": "TPS-INF9 Bilgi Formu"
+      },
+      {
+          "kod": "0832",
+          "aciklama": "Transit Rejimi Taahhütname"
+      },
+      {
+          "kod": "0833",
+          "aciklama": "Sağ. Bak.lığı Kont. Tabi Kim.Mad. İth.Güm.İd.Kul. Mah.Kayıt Belgesi"
+      },
+      {
+          "kod": "0840",
+          "aciklama": "Sağlık Bakanlığı Muafiyet Yazısı/Uygunluk Belgesi/Ruhsatnamesi"
+      },
+      {
+          "kod": "0841",
+          "aciklama": "GTHB Ruhsatnamesi/Uygunluk Belgesi"
+      },
+      {
+          "kod": "0842",
+          "aciklama": "Menşe Beyanı "
+      },
+      {
+          "kod": "0843",
+          "aciklama": "TPS-Akaryakıt Harici Petrol Ürünleri Uygunluk Yazısı"
+      },
+      {
+          "kod": "0844",
+          "aciklama": "TPS-GTHB Kimyevi Gübrelere İlişkin İthalat Uygunluk Yazısı "
+      },
+      {
+          "kod": "0845",
+          "aciklama": "TPS - İleri Tedavi Ürünleri Kayıt Belgesi"
+      },
+      {
+          "kod": "0846",
+          "aciklama": "TPS-Organik Gübre İhracat İzin Belgesi"
+      },
+      {
+          "kod": "0848",
+          "aciklama": "TPS-İthal Araç Uygunluk Yazısı"
+      },
+      {
+          "kod": "0850",
+          "aciklama": "TPS-Yasal Metroloji İthal İzni (Ölçü Aletleri)Belgesi "
+      },
+      {
+          "kod": "0851",
+          "aciklama": "TPS- Sağlık Bakanlığı Kontrol  Belgesi(Tıbbi Beşeri Ürün) "
+      },
+      {
+          "kod": "0852",
+          "aciklama": "TPS-TAEK Uygunluk Yazısı (Düşümlü)"
+      },
+      {
+          "kod": "0853",
+          "aciklama": "Form-1 Belgesi"
+      },
+      {
+          "kod": "0854",
+          "aciklama": "TPS-SHGM Uygunluk Yazısı"
+      },
+      {
+          "kod": "0855",
+          "aciklama": "TPS-ÇSGB Kontrol Belgesi"
+      },
+      {
+          "kod": "0856",
+          "aciklama": "TPS-İhraç İzin Belgesi(Eti Maden)"
+      },
+      {
+          "kod": "0857",
+          "aciklama": "TPS-ÇŞB Metal Hurda İthalatçı Belgesi"
+      },
+      {
+          "kod": "0858",
+          "aciklama": "TPS-Bitki Koruma Ürünleri/Hammaddeleri İthal İzin Belgesi"
+      },
+      {
+          "kod": "0860",
+          "aciklama": "TPS-EGM İthalat Uygunluk Yazısı"
+      },
+      {
+          "kod": "0861",
+          "aciklama": "TPS-EGM İhracat Uygunluk Yazısı"
+      },
+      {
+          "kod": "0862",
+          "aciklama": "TPS-Yabancı Madeni Para Çıkışı İzin Yazısı"
+      },
+      {
+          "kod": "0865",
+          "aciklama": "TPS-Ekspertiz Belgesi"
+      },
+      {
+          "kod": "0866",
+          "aciklama": "Menşe İspat Belgesi"
+      },
+      {
+          "kod": "0867",
+          "aciklama": "TPS-PİGM Uygunluk Yazısı"
+      },
+      {
+          "kod": "0869",
+          "aciklama": "Üretici Belgesi ve Analiz Sertifikası"
+      },
+      {
+          "kod": "0870",
+          "aciklama": "Bandrol yükümlülüğünün yerine getirildiğine ilişkin TRT yazısı"
+      },
+      {
+          "kod": "0871",
+          "aciklama": "Sağlık ya da Gıda, Tarım ve  Hayvancılık  Bakanlığı Ruhsat  Belgesi"
+      },
+      {
+          "kod": "0872",
+          "aciklama": "TPS-EEE Üretici Kayıt Belgesi"
+      },
+      {
+          "kod": "0873",
+          "aciklama": "TPS-Kişisel Koruyucu Donanım İthalat İzni"
+      },
+      {
+          "kod": "0874",
+          "aciklama": "Teminatsız Hava Yakıtı Alımı Sertifikası"
+      },
+      {
+          "kod": "0875",
+          "aciklama": "TPS-KSS İthalat İzni"
+      },
+      {
+          "kod": "0876",
+          "aciklama": "Menşe Belgesi"
+      },
+      {
+          "kod": "0877",
+          "aciklama": "TPS-Kayıt Belgesi"
+      },
+      {
+          "kod": "0878",
+          "aciklama": "TPS-Dâhilde İşleme İzni"
+      },
+      {
+          "kod": "0879",
+          "aciklama": "TPS-Veteriner İlaç İthalat Uygunluk Belgesi"
+      },
+      {
+          "kod": "0880",
+          "aciklama": "TPS-Veteriner Biyolojik Ürün İthalat Uygunluk Belgesi"
+      },
+      {
+          "kod": "0881",
+          "aciklama": "TPS-Veteriner İlaç Hammaddesi İthalat Uygunluk Belgesi"
+      },
+      {
+          "kod": "0882",
+          "aciklama": "TPS–Kayıt Belgesi (Su Ürünleri)"
+      },
+      {
+          "kod": "0883",
+          "aciklama": "TPS–Banka Teminat Mektubu "
+      },
+      {
+          "kod": "0884",
+          "aciklama": "TPS-Yatırım Teşvik Belgesi(Miktar)"
+      },
+      {
+          "kod": "0885",
+          "aciklama": "TPS-Teminatlı Ön İzin Belgesi(miktar)"
+      },
+      {
+          "kod": "0886",
+          "aciklama": "TPS E-Fatura"
+      },
+      {
+          "kod": "0887",
+          "aciklama": "Transfer Bildirim Formu"
+      },
+      {
+          "kod": "0888",
+          "aciklama": "TPS-Kültür Fonu"
+      },
+      {
+          "kod": "0889",
+          "aciklama": "TPS-SPK Uygunluk Yazısı"
+      },
+      {
+          "kod": "0891",
+          "aciklama": "GTH Bakanlığı Gübre Tescil Belgesi"
+      },
+      {
+          "kod": "0892",
+          "aciklama": "TPS-IRIS "
+      },
+      {
+          "kod": "0893",
+          "aciklama": "TPS-TAEK Uygunluk Yazısı (Tek Kullanım)"
+      },
+      {
+          "kod": "0894",
+          "aciklama": "TPS-Borsa İstanbul Üyelik Yazısı (İşlenmemiş Altın ve Gümüş)"
+      },
+      {
+          "kod": "0895",
+          "aciklama": "TPS-Borsa İst. Üyelik Yazısı (İşlenmemiş Standart Dışı Altın ve Gümüş)"
+      },
+      {
+          "kod": "0896",
+          "aciklama": "TPS-Borsa İstanbul Üyelik Yazısı (İşlenmemiş Platin ve Paladyum)"
+      },
+      {
+          "kod": "0897",
+          "aciklama": "TPS-Borsa İst Üyelik Yazısı (İşlenmemiş Stand Dışı Platin ve Paladyum)"
+      },
+      {
+          "kod": "0898",
+          "aciklama": "TPS-Borsa İstanbul Üyelik Yazısı (Kıymetli Taşlar)"
+      },
+      {
+          "kod": "0900",
+          "aciklama": "TPS-ÇŞB Tehlikesiz Atık İhracat İzni"
+      },
+      {
+          "kod": "0901",
+          "aciklama": "TPS-ÇŞB Tehlikeli Atık İhracat İzni"
+      },
+      {
+          "kod": "0902",
+          "aciklama": "TPS-GTHB Uygunluk Yazısı (Bitkisel Gıda ve Yem)  "
+      },
+      {
+          "kod": "0903",
+          "aciklama": "TPS-GTHB Uygunluk Yazısı (Bitki Karantinası)  "
+      },
+      {
+          "kod": "0904",
+          "aciklama": "TPS-Kültür Fonu Kapsam Dışı Yazısı"
+      },
+      {
+          "kod": "0906",
+          "aciklama": "TPS-GTHB Gübre İthalatçı Kayıt Belgesi"
+      },
+      {
+          "kod": "0907",
+          "aciklama": "TPS-BSTB Ar-Ge Belgesi"
+      },
+      {
+          "kod": "0908",
+          "aciklama": "INF 4 Bilgi Formu"
+      },
+      {
+          "kod": "0909",
+          "aciklama": "Geri Gelen Eşya Yazısı (GTHB)"
+      },
+      {
+          "kod": "0910",
+          "aciklama": "TPS-Geçici İthalat İzni"
+      },
+      {
+          "kod": "0911",
+          "aciklama": "TPS-GTHB Kimyevi Gübre Harici Ürünlere İlişkin İthalat Uygunluk Yazısı"
+      },
+      {
+          "kod": "0912",
+          "aciklama": "TPS-GTHB Kimyevi Gübre Harici Ürünlere İlişkin İth. Kapsam Dışı Yazısı"
+      },
+      {
+          "kod": "0913",
+          "aciklama": "TPS-GTHB Kimyevi Gübre Harici Ürünlere İlişkin numune ithalat yazısı "
+      },
+      {
+          "kod": "0914",
+          "aciklama": "TPS-GTHB Kimyevi Gübrelere İlişkin İthalat Kapsam Dışı Yazısı TSE"
+      },
+      {
+          "kod": "0915",
+          "aciklama": "TPS-GTHB Kimyevi Gübrelere İlişkin İthalat Kapsam Dışı Yazısı GTHB"
+      },
+      {
+          "kod": "0916",
+          "aciklama": "TPS-GTHB Kimyevi Gübrelere İlişkin İthalat Parti Teşkil Etmez Yazısı"
+      },
+      {
+          "kod": "0917",
+          "aciklama": "TPS-GTHB Kimyevi Gübreler Dışı Ürünlere İlişkin İhracat Ön İzni"
+      },
+      {
+          "kod": "0918",
+          "aciklama": "TPS-TAPDK Alkol İthalata Uygunluk Belgesi\r\r\n"
+      },
+      {
+          "kod": "0919",
+          "aciklama": "TPS-TAPDK Alkol Numune ve Özel İthalat İzni\r\r\n"
+      },
+      {
+          "kod": "0920",
+          "aciklama": " TPS-TAPDK Tütün İhracatı Uygunluk Belgesi\r\r\n"
+      },
+      {
+          "kod": "0921",
+          "aciklama": "TPS-TAPDK Tütün İthalatı Uygunluk Belgesi"
+      },
+      {
+          "kod": "0922",
+          "aciklama": "TPS-TAPDK Tütün Mamulleri İthalatı Uygunluk Belgesi"
+      },
+      {
+          "kod": "0923",
+          "aciklama": "TPS-TAPDK Tütün Mamulleri Makaron İthalatı Uygunluk Belgesi"
+      },
+      {
+          "kod": "0924",
+          "aciklama": "TPS-TAPDK Tütün Mamulleri Makine İthalatı Uygunluk Belgesi"
+      },
+      {
+          "kod": "0925",
+          "aciklama": "TPS-TAPDK Tütün Mamulleri Makine Yurtdışı Edilmesi Belgesi"
+      },
+      {
+          "kod": "0926",
+          "aciklama": "TPS-TAPDK Tütün Mamulleri Yaprak Sigara Kâğıdı İthalatı Uygunluk Belge"
+      },
+      {
+          "kod": "0927",
+          "aciklama": "TPS-TAPDK Tütün Piyasası Kapsam Dışı Yazısı"
+      },
+      {
+          "kod": "0928",
+          "aciklama": "TPS-Oyuncak İthalat İzni"
+      },
+      {
+          "kod": "0929",
+          "aciklama": "TPS-Telsiz-Telekom İthalat İzni"
+      },
+      {
+          "kod": "0930",
+          "aciklama": "TPS-Yapı Malzemeleri İthalat İzni"
+      },
+      {
+          "kod": "0931",
+          "aciklama": "TPS-İthalat Uygunluk Belgesi(Sınır Ticareti)"
+      },
+      {
+          "kod": "0932",
+          "aciklama": "TPS-Sınır Ticareti Belgesi(İhracat)"
+      },
+      {
+          "kod": "0933",
+          "aciklama": "TPS-Nihai Kullanım İzni"
+      },
+      {
+          "kod": "0934",
+          "aciklama": "TPS-GTHB Uygunluk Yazısı (Hayvansal Ürün)"
+      },
+      {
+          "kod": "0935",
+          "aciklama": "TPS-GTHB  Uygunluk Yazısı (Hayvansal Yem)"
+      },
+      {
+          "kod": "0936",
+          "aciklama": "TPS-GTHB  Uygunluk Yazısı (Hayvansal Yan Ürün)"
+      },
+      {
+          "kod": "0937",
+          "aciklama": "TPS-GTHB  Uygunluk Yazısı (Gemi Kumanyacılığı-Hayvansal Ürün)"
+      },
+      {
+          "kod": "0938",
+          "aciklama": "TPS-GTHB  Uygunluk Yazısı (Canlı Hayvan)"
+      },
+      {
+          "kod": "0940",
+          "aciklama": "TPS-Vergi Dairesi İstisna Belgesi\r\r\n"
+      },
+      {
+          "kod": "0941",
+          "aciklama": "TPS-Tıbbi Cihaz Uygunluk Yazısı\r\r\n"
+      },
+      {
+          "kod": "0942",
+          "aciklama": "TPS-Pil-Akü Uygunluk Yazısı\r\r\n"
+      },
+      {
+          "kod": "0943",
+          "aciklama": "TPS-ÇŞB OTİM Kontrol Belgesi "
+      },
+      {
+          "kod": "0944",
+          "aciklama": "TPS-Ayakkabı Uygunluk Yazısı"
+      },
+      {
+          "kod": "0945",
+          "aciklama": "TPS-ÇŞB-Atık İthalatı Uygunluk Yazısı"
+      },
+      {
+          "kod": "0946",
+          "aciklama": "TPS-ÇŞB Atık İthalatı Kapsam Dışı Yazısı"
+      },
+      {
+          "kod": "0948",
+          "aciklama": "TPS-ÇŞB Katı Yakıt İthalatı Uygunluk Yazısı "
+      },
+      {
+          "kod": "0949",
+          "aciklama": "TPS-ÇŞB Katı Yakıt İthalatı Muafiyet Yazısı"
+      },
+      {
+          "kod": "0951",
+          "aciklama": "TPS-İthal Lisansı (Korunma-Otonom)"
+      },
+      {
+          "kod": "0952",
+          "aciklama": "TPS-KSS İhracat Uygunluk Yazısı"
+      },
+      {
+          "kod": "0953",
+          "aciklama": "TPS-Bedelsiz İhracat İzni "
+      },
+      {
+          "kod": "0954",
+          "aciklama": "TPS-İthal lisansı (Tarım-Otonom)"
+      },
+      {
+          "kod": "0955",
+          "aciklama": "TPS-İthal Lisansı (KİM-MET)"
+      },
+      {
+          "kod": "0956",
+          "aciklama": "TPS-İthal Lisansı (Tarım - Ülke Bazlı)"
+      },
+      {
+          "kod": "0957",
+          "aciklama": "TPS-İthal Lisansı (Korunma - Ülke Bazlı)"
+      },
+      {
+          "kod": "0958",
+          "aciklama": "TPS-İthal Lisansı (Ozon)"
+      },
+      {
+          "kod": "0959",
+          "aciklama": "TPS-Hariçte Kullanım İzni\r\r\n"
+      },
+      {
+          "kod": "0960",
+          "aciklama": "TPS-GTHB Gübre İhracatçı Kayıt Belgesi"
+      },
+      {
+          "kod": "0961",
+          "aciklama": "TPS-SBİF"
+      },
+      {
+          "kod": "0962",
+          "aciklama": "TPS-Kullanılmış Eşya İzin Belgesi (Liste Dışı)"
+      },
+      {
+          "kod": "0963",
+          "aciklama": "TPS-Gözetim Belgesi (Tarım)"
+      },
+      {
+          "kod": "0964",
+          "aciklama": "TPS-Gözetim Belgesi (Sanayi)"
+      },
+      {
+          "kod": "0965",
+          "aciklama": "TPS-Kati İthalat İzin Belgesi"
+      },
+      {
+          "kod": "0966",
+          "aciklama": "TPS-İthal Lisansı (Tekstil)"
+      },
+      {
+          "kod": "0967",
+          "aciklama": "TPS-İthal Lisansı (MAK-ELEKT-ELEKTR)"
+      },
+      {
+          "kod": "0968",
+          "aciklama": "TPS-Standartlara Uygunluk Belgesi"
+      },
+      {
+          "kod": "0969",
+          "aciklama": "TPS-CE Gerektiren Ürünler Belgesi"
+      },
+      {
+          "kod": "0970",
+          "aciklama": "TPS-Kullanılmış Eşya Belgesi"
+      },
+      {
+          "kod": "0971",
+          "aciklama": "TPS-Gümrük Kontrolu Altında İşleme İzni"
+      },
+      {
+          "kod": "0972",
+          "aciklama": "TPS-Standartlara Uygunluk Belgesi/Düşümlü\r\r\n"
+      },
+      {
+          "kod": "0973",
+          "aciklama": "TPS-CE Gerektiren Ürünler Belgesi/Düşümlü "
+      },
+      {
+          "kod": "0974",
+          "aciklama": "D-8 Menşe İspat Belgesi"
+      },
+      {
+          "kod": "0975",
+          "aciklama": "TPS-Bakliyat, Yağlar, Kuru Ürünler ve Bal İthalatı"
+      },
+      {
+          "kod": "0976",
+          "aciklama": "TPS- Bakliyat, Yağlar, Kuru Ürünler ve Bal İhracatı"
+      },
+      {
+          "kod": "0977",
+          "aciklama": "TPS-Yaş Meyve Sebze, Yumurta ve Zeytin İthalatı"
+      },
+      {
+          "kod": "0978",
+          "aciklama": "TPS-Yaş Meyve Sebze, Yumurta ve Zeytin İhracatı"
+      },
+      {
+          "kod": "0979",
+          "aciklama": "TPS-Pamuk İthalatı"
+      },
+      {
+          "kod": "0980",
+          "aciklama": "TPS-Pamuk İhracatı"
+      },
+      {
+          "kod": "0981",
+          "aciklama": "TPS-Yatırım Teşvik Belgesi(tutar)"
+      },
+      {
+          "kod": "0982",
+          "aciklama": "TPS-Teminatlı Ön İzin Belgesi(tutar)"
+      },
+      {
+          "kod": "0983",
+          "aciklama": "TPS- Kıymetli Kağıt İthalat İzin belgesi"
+      },
+      {
+          "kod": "0984",
+          "aciklama": "GTS Fatura Beyanı"
+      },
+      {
+          "kod": "0985",
+          "aciklama": "TPS-BSTB-TGB Muafiyet Belgesi "
+      },
+      {
+          "kod": "0986",
+          "aciklama": "TPS-BSTB-ARGE ve Tasarım Merkezleri Muafiyet Belgesi "
+      },
+      {
+          "kod": "0987",
+          "aciklama": "İlaç Hammaddesi Muafiyet Belgesi"
+      },
+      {
+          "kod": "0988",
+          "aciklama": "TPS-Kıymetli Maden Ekspertiz Raporu(İhracat)"
+      },
+      {
+          "kod": "0989",
+          "aciklama": "TPS-Kıymetli Maden Ekspertiz Raporu (İthalat)"
+      },
+      {
+          "kod": "0990",
+          "aciklama": "TPS-TANAP Muafiyet Belgesi"
+      },
+      {
+          "kod": "0991",
+          "aciklama": "TPS-Takas İşlemleri Takip Formu"
+      },
+      {
+          "kod": "0992",
+          "aciklama": "TPS-SBİF (5.000 USD ve Altı Sarf ve Demirbaş Mlz)"
+      },
+      {
+          "kod": "0993",
+          "aciklama": "İş Makinaları İlişik Kesme Belgesi"
+      },
+      {
+          "kod": "0995",
+          "aciklama": "Türkakım Muafiyet yazısı"
+      },
+      {
+          "kod": "0996",
+          "aciklama": "TPS-Geri Gelen Eşyaya İlişin Vergi Dairesi Yazısı"
+      },
+      {
+          "kod": "0997",
+          "aciklama": "İthalat 2017/1 veya cari yıl tebliği’nin 31. maddesi kaps. taahhütname"
+      },
+      {
+          "kod": "0998",
+          "aciklama": "KDV Gn Uyg Tebliği EK25 Istisna Belgesi"
+      },
+      {
+          "kod": "0999",
+          "aciklama": "TPS-Ozel Fatura"
+      },
+      {
+          "kod": "1000",
+          "aciklama": "İhracatçı Beyanı"
+      },
+      {
+          "kod": "9999",
+          "aciklama": "Diğer"
+      },
+      {
+          "kod": "0321",
+          "aciklama": "DB A.TR Dolaşım Belgesi"
+      },
+      {
+          "kod": "0322",
+          "aciklama": "DB EUR.1 Dolaşım Belgesi"
+      },
+      {
+          "kod": "0323",
+          "aciklama": "DB EUR.MED Dolaşım Belgesi"
+      },
+      {
+          "kod": "0324",
+          "aciklama": "DB Menşe Şahadetnamesi"
+      },
+      {
+          "kod": "0325",
+          "aciklama": "DB Form A Menşe Belgesi"
+      },
+      {
+          "kod": "0326",
+          "aciklama": "DB Menşe İspat Belgesi(İran)"
+      },
+      {
+          "kod": "0327",
+          "aciklama": "DB Menşe Belgesi(Malezya)"
+      },
+      {
+          "kod": "0328",
+          "aciklama": "DB D-8 Menşe İspat Belgesi"
+      },
+      {
+          "kod": "1005",
+          "aciklama": "TPS-Tareks Araç Parçaları İzni"
+      },
+      {
+          "kod": "1006",
+          "aciklama": "TPS-Hariçte İşleme İzni(Ticari Tamir Amaçlı)"
+      },
+      {
+          "kod": "1008",
+          "aciklama": "Tarım ve Orman Bak.lığı Sağlık Sertifikası"
+      },
+      {
+          "kod": "1009",
+          "aciklama": "Birki Sağlık Sertifikası"
+      },
+      
+      {
+          "kod": "1031",
+          "aciklama": "TPS-BTK Cihaz (IMEI) Ihracat Uygunluk Yazisi  "
+      }
+  ]
+
+
