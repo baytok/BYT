@@ -39,6 +39,7 @@ import { OzetbeyanacmaComponent } from './components/ozetbeyanacma/ozetbeyanacma
 import {
    ReferansService
  } from "../shared/helpers/ReferansService";
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
    declarations: [
@@ -65,7 +66,7 @@ import {
       KiymetComponent,
       TeminatComponent,
       FirmaComponent,
-      OzetbeyanacmaComponent
+      OzetbeyanacmaComponent,TestComponent
       
     
    ],

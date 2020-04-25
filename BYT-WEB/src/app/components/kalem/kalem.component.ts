@@ -1674,7 +1674,7 @@ export class KalemComponent implements OnInit {
         }
       }
     }
-
+  console.log( this.belgeBilgileri.value);
     if (this.belgeBilgileri.length >= 0) {
       const promiseBelge = this.beyanServis
         .restoreBelge(

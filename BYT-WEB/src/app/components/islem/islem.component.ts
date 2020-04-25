@@ -11,7 +11,18 @@ import {AppServisDurumKodlari} from '../../../shared/AppEnums';
 import { Router } from "@angular/router";
 import { AppSessionService } from '../../../shared/session/app-session.service';
 import { GirisService } from '../../../account/giris/giris.service';
-
+import {SelectionModel} from '@angular/cdk/collections';
+import { Subscribable } from 'rxjs/Observable';
+import { Observable, Subscription } from 'rxjs';
+export interface Element {
+  checked: boolean;
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+  highlighted?: boolean;
+  hovered?: boolean;
+}
 
 import {
    IslemDto,
@@ -39,16 +50,19 @@ import {
 })
 
 export class IslemComponent implements OnInit {
- 
+
   kullanici="";
   public loading = false;
   islemlerDataSource: IslemDto []=[];
-  tarihceDataSource = new MatTableDataSource(ELEMENT_DATA);
+  tarihceDataSource = new MatTableDataSource<TarihceDto>(ELEMENT_DATA);
   displayedColumnsIslem: string[] = ['beyanTipi','islemTipi','islemDurumu','islemZamani','islemInternalNo'];
   displayedColumnsTarihce: string[] = ['islemInternalNo','gonderimNo','islemTipi','islemDurumu','gondermeZamani','sonucZamani', 'guid'];
   expandedElement: TarihceDto | null;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild('tarihceOrdersPaginator',{static: true}) paginator: MatPaginator;
+   @ViewChild(MatSort, {static: false}) sort: MatSort;
+   selectionIslem = new SelectionModel<IslemDto>(false, []);
+   selectionTarihce = new SelectionModel<TarihceDto>(false, []);
+   
   constructor(
     private beyanServis: BeyannameServiceProxy,
     private  girisService: GirisService,  
@@ -61,12 +75,14 @@ export class IslemComponent implements OnInit {
      }
    
   ngOnInit() {
-
+  
    this.kullanici=this.girisService.loggedKullanici;
  
    this.yenileIslemler();
+ 
   
   }
+ 
   yenileIslemler(): void {
     this.getAllIslem();
   }
@@ -101,12 +117,13 @@ export class IslemComponent implements OnInit {
     .subscribe( (result: IslemDto[])=>{
       this.openSnackBar(refNo.value,'Tamam')
       this.islemlerDataSource=result;
-      // console.log(this.islemler);
+    
      }, (err)=>{
       this.beyanServis.errorHandel(err);    
      });
 
    }
+   
    getTarihce(IslemInternalNo:string){  
 
     this._beyanSession.islemInternalNo=IslemInternalNo;
@@ -114,9 +131,7 @@ export class IslemComponent implements OnInit {
     .subscribe( (result: TarihceDto[])=>{   
    
        this.tarihceDataSource.data=result;
-       this.tarihceDataSource.paginator = this.paginator;
-       this.tarihceDataSource.sort = this.sort;
-       console.log(this.tarihceDataSource);
+     
       }, (err)=>{
         this.beyanServis.errorHandel(err);    
      });
@@ -191,6 +206,15 @@ export class IslemComponent implements OnInit {
     }   
    }
 
+   rowClick (index) {
+   
+  }
+  getMoreInformationIslem(row): string {
+    return 'Referans No : '+row.refNo+
+    ' \n  Gönderim No :'+ row.gonderimSayisi+
+    ' \n Oluşturma Zaman:'+ row.olusturmaZamani+
+    ' \n Sonuç: '+row.islemSonucu;
+  }
     applyTarihceFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.tarihceDataSource.filter = filterValue.trim().toLowerCase();

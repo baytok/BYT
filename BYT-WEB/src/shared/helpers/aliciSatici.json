@@ -5,15 +5,11 @@
 },
   {
     "kod": "0",
-    "aciklama": ""
+    "aciklama": "Var"
 
   },
   {
     "kod": "6",
-    "aciklama": ""
-  },
-  {
-    "kod": "12",
-    "aciklama": ""
+    "aciklama": "Yok"
   }
 ]

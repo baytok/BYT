@@ -28,8 +28,9 @@ type = "ball-8bits">
             </button>
           </form>
         </div>
-        <div class="card main-content">
-          <div class="header">
+
+        <!-- <div class="card main-content">
+         <div class="header">
             <h2>İşlemler</h2>
             <ul class="header-dropdown m-r--5">
               <li>
@@ -48,8 +49,8 @@ type = "ball-8bits">
                 </mat-menu>
               </li>
             </ul>
-          </div>
-          <div class="body table-responsive">
+          </div> 
+         <div class="body table-responsive">
             <table class="table table-hover table-striped">
               <thead>
                 <tr>
@@ -107,9 +108,8 @@ type = "ball-8bits">
               </tbody>
             </table>
           </div>
-        </div>
-        <!-- <div class="row mt-4">
-          <div class="col-md-12">
+        </div> -->
+        <div class="body table-responsive">              
             <mat-card class="mat-card">
               <h5>İşlemler</h5>
               <div class="example-box">
@@ -165,7 +165,6 @@ type = "ball-8bits">
                     </mat-cell>
                   </ng-container>
 
-
                   <ng-container matColumnDef="islemZamani">
                     <mat-header-cell
                       [style.flex]="'0 0 150px'"
@@ -181,7 +180,6 @@ type = "ball-8bits">
                     </mat-cell>
                   </ng-container>
 
-
                   <ng-container matColumnDef="islemInternalNo">
                     <mat-header-cell *matHeaderCellDef>
                       <button
@@ -195,21 +193,11 @@ type = "ball-8bits">
                         <button mat-menu-item (click)="yenileIslemler()">
                           <mat-icon>refresh</mat-icon>
                           <span>Yenile</span>
-                        
                         </button>
                       </mat-menu>
                     </mat-header-cell>
                     <mat-cell
-                      *matCellDef="let element"
-                      ngbTooltip="Referans No:{{
-                        element.refNo
-                      }}, Gönderim No:{{ element.gonderimSayisi }},
-                      Oluşturma Zaman:{{ element.olusturmaZamani }},  Sonuç: {{
-                        element.islemSonucu
-                      }} "
-                      [openDelay]="1000"
-                      [closeDelay]="3000"
-                      tooltipClass="my-custom-class"
+                      *matCellDef="let element"                     
                     >
                       {{ element.islemInternalNo }}
 
@@ -251,14 +239,18 @@ type = "ball-8bits">
                   ></mat-header-row>
                   <mat-row
                     *matRowDef="let row; columns: displayedColumnsIslem"
-                  ></mat-row>
+                     (click)="selectionIslem.toggle(row)" 
+                    [ngClass]="{hovered: row.hovered, highlighted: selectionIslem.isSelected(row)}"
+                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" (click)="rowClick(row)"
+                    matTooltip="{{getMoreInformationIslem(row)}}">
+                  </mat-row >
                 </mat-table>
               </div>
             </mat-card>
-          </div>
-        </div> -->
+        
+        </div>
 
-        <div
+        <!-- <div
           class="card main-content"
           *ngIf="tarihceDataSource.data?.length >= 1"
         >
@@ -357,12 +349,19 @@ type = "ball-8bits">
                 </tr>
                 
               </tbody>
-            
+              <mat-paginator
+              [length]="tarihceDataSource.data?.length"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25]"
+              showFirstLastButtons
+              #tarihceOrdersPaginator
+            >
+            </mat-paginator>
             </table>
           </div>
-        </div>
-        <!-- <div class="row mt-4" *ngIf="tarihceDataSource.data?.length >= 1">
-          <div class="col-md-12">
+        </div> -->
+     
+          <div class="body table-responsive" *ngIf="tarihceDataSource.data?.length >= 1">
             <div class="example-header">
               <mat-form-field>
                 <mat-label>Filter</mat-label>
@@ -374,6 +373,7 @@ type = "ball-8bits">
               </mat-form-field>
             </div>
             <mat-card class="mat-card">
+              <h5>Tarihçe</h5>
               <div class="example-box">
                 <mat-table
                   [dataSource]="tarihceDataSource"
@@ -402,15 +402,7 @@ type = "ball-8bits">
                     <mat-cell
                       [style.flex]="'0 0 250px'"
                       *matCellDef="let element"
-                      ngbTooltip="Referans No:{{
-                        element.refNo
-                      }}, Ticaret Tipi:{{ element.ticaretTipi }},
-                      Gümrük :{{ element.gumruk }}, Rejim:{{
-                        element.rejim
-                      }}, İşlem Sonuç: {{ element.islemSonucu }} "
-                      [openDelay]="1000"
-                      [closeDelay]="3000"
-                      tooltipClass="my-custom-class"
+                     
                     >
                       {{ element.islemInternalNo }}
                     </mat-cell>
@@ -498,7 +490,6 @@ type = "ball-8bits">
                         class="button"
                         *ngIf="element.islemDurumu === 'Sonuclandi'"
                       >
-                    
                         <button
                           mat-icon-button
                           color="warn"
@@ -538,8 +529,18 @@ type = "ball-8bits">
                   ></mat-header-row>
                   <mat-row
                     *matRowDef="let row; columns: displayedColumnsTarihce"
+                    (click)="selectionTarihce.toggle(row)" 
+                    [ngClass]="{hovered: row.hovered, highlighted: selectionTarihce.isSelected(row)}"
+                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                    matTooltip="Referans No:{{
+                      row.refNo
+                    }}, Ticaret Tipi:{{ row.ticaretTipi }},
+                    Gümrük :{{ row.gumruk }}, Rejim:{{
+                      row.rejim
+                    }}, İşlem Sonuç: {{ row.islemSonucu }} "
+                   >
                   ></mat-row>
-                </mat-table>           
+                </mat-table>
               </div>
               <mat-paginator
                 [length]="tarihceDataSource.data?.length"
@@ -550,7 +551,7 @@ type = "ball-8bits">
               </mat-paginator>
             </mat-card>
           </div>
-        </div> -->
+       
       </div>
     </div>
   </div>

@@ -14,6 +14,7 @@ import { KiymetComponent } from './components/kiymet/kiymet.component';
 import { TeminatComponent } from './components/teminat/teminat.component';
 import { FirmaComponent } from './components/firma/firma.component';
 import { OzetbeyanacmaComponent } from './components/ozetbeyanacma/ozetbeyanacma.component';
+import { TestComponent } from './components/test/test.component';
 
  @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { OzetbeyanacmaComponent } from './components/ozetbeyanacma/ozetbeyanacma
               { path: 'ozetbeyanacma', component: OzetbeyanacmaComponent,canActivate : [AuthGuard] },            
               { path: 'kullanicilar', component: KullanicilarComponent,canActivate : [AuthGuard] },      
               { path: 'musteriler', component: MusterilerComponent,canActivate : [AuthGuard] }, 
-              { path: 'yetkiler', component: YetkilerComponent,canActivate : [AuthGuard] },                         
+              { path: 'yetkiler', component: YetkilerComponent,canActivate : [AuthGuard] },     
+              { path: 'test', component: TestComponent },                         
           ],
           
       }

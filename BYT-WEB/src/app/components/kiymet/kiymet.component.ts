@@ -70,7 +70,10 @@ export class KiymetComponent implements OnInit {
       aliciSaticiAyrintilar: new FormControl("", [Validators.maxLength(300)]),
       edim: new FormControl("", [Validators.maxLength(9)]),
       emsal: new FormControl("", [Validators.maxLength(9)]),
-      faturaTarihiSayisi: new FormControl("", [Validators.maxLength(300)]),
+      faturaTarihiSayisi: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(300),
+      ]),
       gumrukIdaresiKarari: new FormControl("", [
         Validators.required,
         Validators.maxLength(300),
@@ -90,14 +93,14 @@ export class KiymetComponent implements OnInit {
         Validators.required,
         Validators.maxLength(300),
       ]),
-      taahhutname: [false],
+      taahhutname: [true],
 
       teslimSekli: new FormControl("", [
         Validators.required,
         Validators.maxLength(9),
       ]),
     })),
-    (this.kalemForm = this._fb.group({
+      (this.kalemForm = this._fb.group({
         kalemArry: this._fb.array([this.getKalem()]),
       }));
   }
@@ -182,12 +185,10 @@ export class KiymetComponent implements OnInit {
       .subscribe(
         (result: KiymetKalemDto[]) => {
           this._kalemler = result.filter(
-            (x) =>
-              x.kiymetInternalNo ===
-              this.kiymetInternalNo
+            (x) => x.kiymetInternalNo === this.kiymetInternalNo
           );
           this.initkalemFormArray(this._kalemler);
-         
+
           this.kalemForm.disable();
         },
         (err) => {
@@ -362,6 +363,54 @@ export class KiymetComponent implements OnInit {
       }
     );
   }
+
+  kisitlamaSelect(kisitlama) {
+    if (kisitlama == "Evet") {
+      this.kiymetForm.controls["kisitlamalarAyrintilar"].setValidators([
+        Validators.required,
+      ]);
+      this.kiymetForm.controls[
+        "kisitlamalarAyrintilar"
+      ].updateValueAndValidity();
+    } else {
+      this.kiymetForm.controls["kisitlamalarAyrintilar"].clearValidators();
+      this.kiymetForm.controls[
+        "kisitlamalarAyrintilar"
+      ].updateValueAndValidity();
+    }
+  }
+
+  saticiyaIntikalSelect(intikal) {
+    if (intikal == "Evet") {
+      this.kiymetForm.controls["saticiyaIntikalKosullar"].setValidators([
+        Validators.required,
+      ]);
+      this.kiymetForm.controls[
+        "saticiyaIntikalKosullar"
+      ].updateValueAndValidity();
+    } else {
+      this.kiymetForm.controls["saticiyaIntikalKosullar"].clearValidators();
+      this.kiymetForm.controls[
+        "saticiyaIntikalKosullar"
+      ].updateValueAndValidity();
+    }
+  }
+
+  royaltiSelect(royalti) {
+    if (royalti == "Evet") {
+      this.kiymetForm.controls["royaltiKosullar"].setValidators([
+        Validators.required,
+      ]);
+      this.kiymetForm.controls[
+        "royaltiKosullar"
+      ].updateValueAndValidity();
+    } else {
+      this.kiymetForm.controls["royaltiKosullar"].clearValidators();
+      this.kiymetForm.controls[
+        "royaltiKosullar"
+      ].updateValueAndValidity();
+    }
+  }
   initkalemFormArray(kalem: KiymetKalemDto[]) {
     const formArray = this.kalemForm.get("kalemArry") as FormArray;
     formArray.clear();
@@ -398,7 +447,7 @@ export class KiymetComponent implements OnInit {
         ]),
         ithalaUretimTuketimMalzemesi: new FormControl(
           klm.ithalaUretimTuketimMalzemesi,
-          [ ValidationService.decimalValidation]
+          [ValidationService.decimalValidation]
         ),
         kapAmbalajBedeli: new FormControl(klm.kapAmbalajBedeli, [
           ValidationService.decimalValidation,
@@ -424,7 +473,7 @@ export class KiymetComponent implements OnInit {
         tellaliye: new FormControl(klm.tellaliye, [
           ValidationService.decimalValidation,
         ]),
-        vergiHarcFon: new FormControl(klm.vergiHarcFon, [        
+        vergiHarcFon: new FormControl(klm.vergiHarcFon, [
           ValidationService.decimalValidation,
         ]),
         beyanInternalNo: new FormControl(klm.beyanInternalNo),

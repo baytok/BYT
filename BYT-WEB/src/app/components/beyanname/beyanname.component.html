@@ -106,13 +106,13 @@
                       </div>
                     </mat-form-field>
                   </div>
-                 <div class="form-group col">
+                  <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Basitleştirilmiş Usul</mat-label>
                       <select
                         matNativeControl
                         formControlName="basitlestirilmisUsul"
-                       
+                        (change)="bsSelect($event.target.value)"
                         [ngClass]="{
                           'is-invalid':
                             submitted && focus.basitlestirilmisUsul.errors
@@ -653,70 +653,8 @@
                       class="invalid-feedback"
                     ></div>
                   </mat-form-field>
-                </div>
-                <div class="form-group col-sm-4">
-                  <mat-form-field>
-                    <mat-label>Yurt Dışı Harcamalar Dövizi</mat-label>
-                    <select
-                      matNativeControl
-                      formControlName="toplamYurtDisiHarcamalarDovizi"
-                     
-                      [ngClass]="{
-                        'is-invalid': submitted && focus.toplamYurtDisiHarcamalarDovizi.errors
-                      }"
-                    >
-                      <option *ngFor="let g of _dovizList" [value]="g.kod">{{
-                        g.kod
-                      }} {{g.aciklama}}</option>
-                    </select>
-                    <div
-                      *ngIf="submitted && focus.toplamYurtDisiHarcamalarDovizi.errors"
-                      class="invalid-feedback"
-                    >                   
-                    </div>
-                  </mat-form-field>
-                </div>
-                <div class="form-group col-sm-4">
-                  <mat-form-field>
-                    <mat-label>Yurt Dışı Harcamalar Tutarı</mat-label>
-                    <input
-                      matNativeControl
-                      type="text"
-                      formControlName="toplamYurtDisiHarcamalar"
-                     
-                      [ngClass]="{
-                        'is-invalid': submitted && focus.toplamYurtDisiHarcamalar.errors
-                      }"
-                    />
-                    <div
-                      *ngIf="submitted && focus.toplamYurtDisiHarcamalar.errors"
-                      class="invalid-feedback"
-                    >
-                   
-                  </div>
-                  </mat-form-field>
-                </div>
-                <div class="form-group col-sm-4">
-                  <mat-form-field>
-                    <mat-label>Yurt İçi Harcamalar Tutarı</mat-label>
-                    <input
-                      matNativeControl
-                      type="text"
-                      formControlName="toplamYurtIciHarcamalar"
-                     
-                      [ngClass]="{
-                        'is-invalid': submitted && focus.toplamYurtIciHarcamalar.errors
-                      }"
-                    />
-                    <div
-                      *ngIf="submitted && focus.toplamYurtIciHarcamalar.errors"
-                      class="invalid-feedback"
-                    >
-                   
-                  </div>
-                  </mat-form-field>
-                </div>
-                <div class="card m-3">
+                </div>              
+                <div class="card m-2">
                 <div class="form-group col">
                   <mat-form-field>
                     <mat-label>Fatura Dövizi</mat-label>
@@ -765,7 +703,7 @@
                   </mat-form-field>
                 </div>
                 </div>
-                <div class="card m-3">
+                <div class="card m-2">
                   <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Navlun Dövizi</mat-label>
@@ -810,7 +748,7 @@
                     </mat-form-field>
                   </div>
                  </div>
-                 <div class="card m-3">
+                 <div class="card m-2">
                   <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Sigorta Dövizi</mat-label>
@@ -854,7 +792,70 @@
                     </div>
                     </mat-form-field>
                   </div>
-                 </div>
+                
+                </div>
+                 <div class="form-group col">
+                  <mat-form-field>
+                    <mat-label>Yurt Dışı Harcamalar Dövizi</mat-label>
+                    <select
+                      matNativeControl
+                      formControlName="toplamYurtDisiHarcamalarDovizi"
+                     
+                      [ngClass]="{
+                        'is-invalid': submitted && focus.toplamYurtDisiHarcamalarDovizi.errors
+                      }"
+                    >
+                      <option *ngFor="let g of _dovizList" [value]="g.kod">{{
+                        g.kod
+                      }} {{g.aciklama}}</option>
+                    </select>
+                    <div
+                      *ngIf="submitted && focus.toplamYurtDisiHarcamalarDovizi.errors"
+                      class="invalid-feedback"
+                    >                   
+                    </div>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col">
+                  <mat-form-field>
+                    <mat-label>Yurt Dışı Harcamalar Tutarı</mat-label>
+                    <input
+                      matNativeControl
+                      type="text"
+                      formControlName="toplamYurtDisiHarcamalar"
+                     
+                      [ngClass]="{
+                        'is-invalid': submitted && focus.toplamYurtDisiHarcamalar.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && focus.toplamYurtDisiHarcamalar.errors"
+                      class="invalid-feedback"
+                    >
+                   
+                  </div>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col">
+                  <mat-form-field>
+                    <mat-label>Yurt İçi Harcamalar Tutarı</mat-label>
+                    <input
+                      matNativeControl
+                      type="text"
+                      formControlName="toplamYurtIciHarcamalar"
+                     
+                      [ngClass]="{
+                        'is-invalid': submitted && focus.toplamYurtIciHarcamalar.errors
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && focus.toplamYurtIciHarcamalar.errors"
+                      class="invalid-feedback"
+                    >
+                   
+                  </div>
+                  </mat-form-field>
+                </div>
               </div>
               </mat-tab>
               <mat-tab label="Taşıma Bilgiler"> 

@@ -1147,7 +1147,7 @@ namespace BYT.WS.Models
         [StringLength(10)]
         public string Dogrulama { get; set; }
 
-        [Required]
+       
         [StringLength(30)]
         public string Referans { get; set; }
 

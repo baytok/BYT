@@ -392,6 +392,18 @@ export class BeyannameComponent implements OnInit {
     if(ticaret !='')
      this.editable=true;
   }
+  bsSelect(bs){
+      
+   if(bs=='2')
+   {
+    this.beyannameForm.controls['referansTarihi'].setValidators([Validators.required]);
+    this.beyannameForm.controls['referansTarihi'].updateValueAndValidity();
+   }
+   else{
+    this.beyannameForm.controls['referansTarihi'].clearValidators();
+    this.beyannameForm.controls['referansTarihi'].updateValueAndValidity();
+  }
+  }
   getBeyannameFromIslem(islemInternalNo:string) {  
 
     this.beyanServis.getBeyanname(islemInternalNo).subscribe(

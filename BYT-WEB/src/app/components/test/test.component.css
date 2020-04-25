@@ -8,12 +8,6 @@
         margin-bottom: 15px;      
     }
   }
-
-  
-  .mat-table {
-    overflow: auto;
-    max-height: 500px;
-  }
   
   .example-list {
     border: solid 1px #ccc;
@@ -167,33 +161,4 @@
 }
 .my-custom-class .arrow::before {
   border-top-color: darkgreen;
-}
-.loading-spinner{
-  display: flex; 
-  justify-content: center; 
-  align-items: center;
-}
-
-.buttons-spacer {
-  flex: 1 1 auto;
-}
-
-.mat-dialog-actions {
-  justify-content: flex-end;
-}
-
-.basic-container {
-  padding: 5px;
-}
-
-.mat-row.hovered {
-  background: #eee;
-}
-
-.mat-row.highlighted {
-  background: #999;
-}
-
-mat-cell.mat-cell, mat-header-cell.mat-header-cell {
-  overflow: visible; 
 }
