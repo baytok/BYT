@@ -13,6 +13,7 @@ type = "ball-8bits">
   <div class="container">
     <div class="row clearfix">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    
         <div class="col-md-6">
           <form class="example-form">
             <mat-form-field class="example-full-width">
@@ -378,6 +379,9 @@ type = "ball-8bits">
                 <mat-table
                   [dataSource]="tarihceDataSource"
                   class="mat-elevation-z8"
+                  mat-table
+                  matSort
+                 
                 >
                   <ng-container matColumnDef="islemInternalNo">
                     <mat-header-cell
@@ -540,18 +544,20 @@ type = "ball-8bits">
                     }}, İşlem Sonuç: {{ row.islemSonucu }} "
                    >
                   ></mat-row>
-                </mat-table>
-              </div>
-              <mat-paginator
-                [length]="tarihceDataSource.data?.length"
-                [pageSize]="5"
-                [pageSizeOptions]="[5, 10, 25]"
-                showFirstLastButtons
-              >
-              </mat-paginator>
+                </mat-table>               
+              </div>        
             </mat-card>
-          </div>
-       
+          </div>        
+            <div class="wrapper">             
+              <mat-paginator
+              [length]="tarihceDataSource.data?.length"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 25]"
+              showFirstLastButtons
+            >
+            </mat-paginator>              
+            </div>
+         
       </div>
     </div>
   </div>

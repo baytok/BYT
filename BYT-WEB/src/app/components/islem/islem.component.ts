@@ -23,17 +23,31 @@ export interface Element {
   highlighted?: boolean;
   hovered?: boolean;
 }
-
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+const ELEMENT_DATA: PeriodicElement[] = [
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+];
 import {
    IslemDto,
    TarihceDto,
    ServisDto
   } from '../../../shared/service-proxies/service-proxies';
 
-  
-  const ELEMENT_DATA: TarihceDto[] = [
-   
-  ];
+ 
 
 @Component({
   selector: 'app-islem',
@@ -51,15 +65,18 @@ import {
 
 export class IslemComponent implements OnInit {
 
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = new MatTableDataSource();
+
   kullanici="";
   public loading = false;
   islemlerDataSource: IslemDto []=[];
-  tarihceDataSource = new MatTableDataSource<TarihceDto>(ELEMENT_DATA);
+  tarihceDataSource = new MatTableDataSource();
   displayedColumnsIslem: string[] = ['beyanTipi','islemTipi','islemDurumu','islemZamani','islemInternalNo'];
   displayedColumnsTarihce: string[] = ['islemInternalNo','gonderimNo','islemTipi','islemDurumu','gondermeZamani','sonucZamani', 'guid'];
   expandedElement: TarihceDto | null;
-  @ViewChild('tarihceOrdersPaginator',{static: true}) paginator: MatPaginator;
-   @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
    selectionIslem = new SelectionModel<IslemDto>(false, []);
    selectionTarihce = new SelectionModel<TarihceDto>(false, []);
    
@@ -80,7 +97,8 @@ export class IslemComponent implements OnInit {
  
    this.yenileIslemler();
  
-  
+   this.tarihceDataSource.paginator = this.paginator;
+   this.tarihceDataSource.sort = this.sort;
   }
  
   yenileIslemler(): void {
@@ -131,7 +149,7 @@ export class IslemComponent implements OnInit {
     .subscribe( (result: TarihceDto[])=>{   
    
        this.tarihceDataSource.data=result;
-     
+    
       }, (err)=>{
         this.beyanServis.errorHandel(err);    
      });
@@ -206,8 +224,8 @@ export class IslemComponent implements OnInit {
     }   
    }
 
-   rowClick (index) {
-   
+  rowClick (index) {
+   //TODO: satır seçildiğinde birşey yapmak istersek
   }
   getMoreInformationIslem(row): string {
     return 'Referans No : '+row.refNo+
@@ -215,10 +233,13 @@ export class IslemComponent implements OnInit {
     ' \n Oluşturma Zaman:'+ row.olusturmaZamani+
     ' \n Sonuç: '+row.islemSonucu;
   }
-    applyTarihceFilter(event: Event) {
+  applyTarihceFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.tarihceDataSource.filter = filterValue.trim().toLowerCase();
-   }
+  }
+  ngAfterViewInit() {
+    this.tarihceDataSource.paginator = this.paginator;
+  }
 }
 
 

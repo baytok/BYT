@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit,ElementRef  } from "@angular/core";
 import {
   MatListOption,
   MatSelectionList,
@@ -56,7 +56,8 @@ export class KiymetComponent implements OnInit {
     private snackBar: MatSnackBar,
     private _userRoles: UserRoles,
     private _fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private el: ElementRef
   ) {
     (this.kiymetForm = this._fb.group({
       id: [],
@@ -74,10 +75,8 @@ export class KiymetComponent implements OnInit {
         Validators.required,
         Validators.maxLength(300),
       ]),
-      gumrukIdaresiKarari: new FormControl("", [
-        Validators.required,
-        Validators.maxLength(300),
-      ]),
+      gumrukIdaresiKarari: ["", { validators: [Validators.required,Validators.maxLength(300)], updateOn: "blur" }],
+     
       kisitlamalar: new FormControl("", [Validators.maxLength(9)]),
       kisitlamalarAyrintilar: new FormControl("", [Validators.maxLength(9)]),
       munasebet: new FormControl("", [Validators.maxLength(9)]),
@@ -99,7 +98,9 @@ export class KiymetComponent implements OnInit {
         Validators.required,
         Validators.maxLength(9),
       ]),
-    })),
+    },
+    // { updateOn: "submit" }
+    )),
       (this.kalemForm = this._fb.group({
         kalemArry: this._fb.array([this.getKalem()]),
       }));
@@ -143,6 +144,7 @@ export class KiymetComponent implements OnInit {
       (result: KiymetDto[]) => {
         this._kiymetler = result;
         this.kiymetForm.disable();
+        this.kalemForm.disable();
       },
       (err) => {
         this.beyanServis.errorHandel(err);
@@ -204,9 +206,11 @@ export class KiymetComponent implements OnInit {
     this.kiymetForm.reset();
     this.kiymetForm.enable();
     this.kalemForm.reset();
-    this.kalemForm.enable();
     this.kiymetForm.markAllAsTouched();
-    this.kalemForm.markAllAsTouched();
+     this.kalemForm.enable();    
+     const forKalemArray = this.kalemForm.get("kalemArry") as FormArray;
+     forKalemArray.clear();
+     this.kalemForm.setControl("odemeArry", forKalemArray);
   }
   duzeltKiymet() {
     this.kiymetForm.enable();
@@ -241,6 +245,11 @@ export class KiymetComponent implements OnInit {
 
   onkiymetFormSubmit() {
     this.submitted = true;
+    const invalidControl = this.el.nativeElement.querySelector('.ng-invalid');
+    if (invalidControl) {
+        invalidControl.focus();
+      return;
+    }
 
     if (this.kiymetForm.invalid) {
       const invalid = [];
@@ -355,6 +364,7 @@ export class KiymetComponent implements OnInit {
           this.setKalem();
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
           this.kiymetForm.disable();
+          this.kalemForm.disable();    
           this.yukleKiymet();
         }
       },

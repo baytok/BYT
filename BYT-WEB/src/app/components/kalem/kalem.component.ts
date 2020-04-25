@@ -187,7 +187,8 @@ export class KalemComponent implements OnInit {
     private snackBar: MatSnackBar,
     private _userRoles: UserRoles,
     private _fb: FormBuilder,
-    private router: Router
+    private router: Router,
+  
   ) {
     (this.kalemForm = this._fb.group({
       //Genel Bilgiler
@@ -741,7 +742,7 @@ export class KalemComponent implements OnInit {
 
   onkalemFormSubmit() {
     this.submitted = true;
-
+   
     // stop here if form is invalid
     if (this.kalemForm.invalid) {
       const invalid = [];
@@ -811,6 +812,10 @@ export class KalemComponent implements OnInit {
   onReset() {
     this.submitted = false;
   }
+  gtipLeave(gtip){
+    console.log("gtip leave:"+gtip);
+  }
+
   //#region Marka
 
   initMarkaFormArray(marka: MarkaDto[]) {
@@ -926,6 +931,7 @@ export class KalemComponent implements OnInit {
       }
       this.initMarkaFormArray(this.markaBilgileri.value);
 
+     
       if (this.markaBilgileri.invalid) {
         const invalid = [];
         const controls = this.markaBilgileri.controls;
@@ -1674,7 +1680,7 @@ export class KalemComponent implements OnInit {
         }
       }
     }
-  console.log( this.belgeBilgileri.value);
+ 
     if (this.belgeBilgileri.length >= 0) {
       const promiseBelge = this.beyanServis
         .restoreBelge(

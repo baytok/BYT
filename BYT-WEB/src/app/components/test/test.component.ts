@@ -44,4 +44,7 @@ export class TestComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+}
 }
