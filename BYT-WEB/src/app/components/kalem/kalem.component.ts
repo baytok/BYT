@@ -149,6 +149,7 @@ export class KalemComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
+ 
   _beyannameBilgileri: BeyannameBilgileriDto;
   _kalemler: KalemDto[];
   _odemeler: OdemeDto[];
@@ -391,6 +392,7 @@ export class KalemComponent implements OnInit {
       this.router.navigateByUrl("/app/beyanname");
     }
     this.getKalemler(this._beyanSession.islemInternalNo);
+    console.log(this.beyanStatu);
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(
       (s: MatSelectionListChange) => {
@@ -475,6 +477,8 @@ export class KalemComponent implements OnInit {
       (result: KalemDto[]) => {
         this._kalemler = result;
         this.disableItem();
+        if(this._kalemler.length>0)
+        this.getKalem(1);
       },
       (err) => {
         this.beyanServis.errorHandel(err);
@@ -488,6 +492,7 @@ export class KalemComponent implements OnInit {
     });
   }
   getKalem(kalemNo) {
+   
     this.kalemInternalNo = this._kalemler[kalemNo - 1].kalemInternalNo;
     this.kalemNo = this._kalemler[kalemNo - 1].kalemSiraNo;
     this.kalemForm.setValue({

@@ -16,7 +16,7 @@
           mat-menu-item
           (click)="yukleOzetBeyan()"
           [disabled]="
-            beyanStatu !== ('Olusturuldu' || 'Güncellendi') ? false : true
+            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
           "
         >
           <mat-icon>refresh</mat-icon>
@@ -26,7 +26,7 @@
           mat-menu-item
           (click)="yeniOzetBeyan()"
           [disabled]="
-            beyanStatu !== ('Olusturuldu' || 'Güncellendi') ? false : true
+            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
           "
         >
           <mat-icon>add</mat-icon>
@@ -36,7 +36,7 @@
           mat-menu-item
           (click)="duzeltOzetBeyan()"
           [disabled]="
-            beyanStatu !== ('Olusturuldu' || 'Güncellendi') &&
+            beyanStatu == ('Olusturuldu' || 'Güncellendi') &&
             ozetBeyanInternalNo
               ? false
               : true
@@ -49,7 +49,7 @@
           mat-menu-item
           (click)="silOzetBeyan(ozetBeyanInternalNo)"
           [disabled]="
-            beyanStatu !== ('Olusturuldu' || 'Güncellendi') &&
+            beyanStatu == ('Olusturuldu' || 'Güncellendi') &&
             ozetBeyanInternalNo
               ? false
               : true

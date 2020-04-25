@@ -21,7 +21,7 @@
         class="islem-no"
           matInput
           readonly
-         [(ngModel)]="_beyanname.beyanInternalNo"
+         [(ngModel)]="beyanInternalNo"
         />
       </mat-form-field>
       <button
@@ -36,19 +36,19 @@
           <mat-icon>add</mat-icon>
           <span>Yeni Beyanname</span>
         </button>
-        <button mat-menu-item (click)="duzeltBeyanname()" [disabled]="_beyanname.tescilStatu === 'Olusturuldu' || _beyanname.tescilStatu === 'Güncellendi' ? false : true" >
+        <button mat-menu-item (click)="duzeltBeyanname()" [disabled]="beyanStatu === 'Olusturuldu' || beyanStatu === 'Güncellendi' ? false : true" >
           <mat-icon>sync</mat-icon>
           <span>Beyanname Düzeltme</span>
         </button>
 
-        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)" [disabled]="_beyanname.tescilStatu ==='Olusturuldu' || _beyanname.tescilStatu === 'Güncellendi' ? false : true" >
+        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)" [disabled]="beyanStatu ==='Olusturuldu' || beyanStatu === 'Güncellendi' ? false : true" >
           <mat-icon>file_copy</mat-icon>
           <span>Beyanname Kopyala</span>
         </button>
       </mat-menu>
       <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
       </mat-cell>
-      <mat-label>{{_beyanname.tescilStatu}}</mat-label>
+      <mat-label>{{beyanStatu}}</mat-label>
       
       <form [formGroup]="beyannameForm" (ngSubmit)="onbeyannameFormSubmit()">
         <mat-card class="mat-card">

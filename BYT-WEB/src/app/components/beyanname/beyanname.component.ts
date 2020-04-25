@@ -127,6 +127,8 @@ export class BeyannameComponent implements OnInit {
   submitted: boolean = false;
   ihracatEditable: boolean = false;
   ithalatEditable: boolean = false;
+  beyanInternalNo:string;
+  beyanStatu:string;
   editable: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
@@ -412,9 +414,16 @@ export class BeyannameComponent implements OnInit {
         this._beyannameBilgileri = new BeyannameBilgileriDto();
         this._beyannameBilgileri.init(result);
         
-        this._beyanname = this._beyannameBilgileri.Beyanname;       
+        this._beyanname = this._beyannameBilgileri.Beyanname;     
+    
         if (this._beyanname == null) {
           this.openSnackBar(islemInternalNo + "  Bulunamadı", "Tamam");
+          this.beyanInternalNo="";
+          this.beyanStatu= "" ;
+          this._beyanSession.islemInternalNo = "";
+          this._beyanSession.beyanInternalNo= "" ;
+          this._beyanSession.beyanStatu= "" ;
+      
           return;
         }
         else{
@@ -422,9 +431,12 @@ export class BeyannameComponent implements OnInit {
           this._beyanSession.islemInternalNo = islemInternalNo;
           this._beyanSession.Kalemler= this._kalemler;
           this._beyanSession.beyanInternalNo= this._beyanname.beyanInternalNo ;
-          this._beyanSession.beyanStatu= this._beyanname.tescilStatu ;
+          this._beyanSession.beyanStatu= this._beyanname.tescilStatu ; 
+          this.beyanInternalNo=this._beyanname.beyanInternalNo;
+          this.beyanStatu= this._beyanname.tescilStatu ;
+          this.loadBeyannameForm();
         }
-        this.loadBeyannameForm();
+     
       
       },
       err => {
@@ -440,9 +452,16 @@ export class BeyannameComponent implements OnInit {
         this._beyannameBilgileri = new BeyannameBilgileriDto();
         this._beyannameBilgileri.init(result);
         
-        this._beyanname = this._beyannameBilgileri.Beyanname;       
+        this._beyanname = this._beyannameBilgileri.Beyanname;   
+     
         if (this._beyanname == null) {
-          this.openSnackBar(islemInternalNo.value + "  Bulunamadı", "Tamam");
+           this.openSnackBar(islemInternalNo.value + "  Bulunamadı", "Tamam");
+           this.beyanInternalNo="";
+           this.beyanStatu= "" ;
+           this._beyanSession.islemInternalNo = "";
+           this._beyanSession.beyanInternalNo= "" ;
+           this._beyanSession.beyanStatu= "" ;
+      
           return;
         }
         else{
@@ -451,6 +470,8 @@ export class BeyannameComponent implements OnInit {
           this._beyanSession.Kalemler= this._kalemler;
           this._beyanSession.beyanInternalNo= this._beyanname.beyanInternalNo ;
           this._beyanSession.beyanStatu= this._beyanname.tescilStatu ;
+          this.beyanInternalNo=this._beyanname.beyanInternalNo;
+          this.beyanStatu= this._beyanname.tescilStatu ;
           this.loadBeyannameForm();
           // islemInternalNo.value ="";
         }
@@ -541,17 +562,18 @@ export class BeyannameComponent implements OnInit {
         .getBeyannameKopyalama(islemInternalNo.value)
         .toPromise();
       promise.then(
-        result => {
-          console.log(result);
+        result => {         
           const servisSonuc = new ServisDto();
-          servisSonuc.init(result);
-          yeniislemInternalNo = servisSonuc.Bilgiler[0].referansNo;
-        
-          if (this._beyanname == null) {
+          servisSonuc.init(result);    
+         
+          var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());
+          yeniislemInternalNo = beyanServisSonuc.ReferansNo;
+         
+          if (yeniislemInternalNo != "") {
             islemInternalNo.value = yeniislemInternalNo;
             this.islemInput.nativeElement.value=islemInternalNo.value;
-            this.openSnackBar(yeniislemInternalNo, "Tamam");
-            this.getBeyanname(islemInternalNo);
+            this.openSnackBar(servisSonuc.getSonuc(), "Tamam");
+            this.getBeyannameFromIslem(yeniislemInternalNo);
           }
         },
         err => {

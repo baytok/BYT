@@ -200,6 +200,10 @@ export class OzetbeyanacmaComponent implements OnInit {
     this.tasimaSenetiForm.enable();
     this.tasimaSenetiForm.markAllAsTouched();
     this.tasimaSatirGoster=false;
+
+    const formSenetArray = this.tasimaSenetiForm.get("tasimaSenetiArry") as FormArray;
+    formSenetArray.clear();
+    this.tasimaSenetiForm.setControl("tasimaSenetiArry", formSenetArray);
   }
   duzeltOzetBeyan(){
     this.ozetBeyanForm.enable();

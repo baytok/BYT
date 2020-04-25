@@ -3,7 +3,7 @@
     <h5 class="card-header text-center">Kıymet Bildirim Bilgileri</h5>
     <div class="card-body text-center">
       <mat-form-field>
-        <mat-label>Geçici Beyanname No</mat-label>
+        <mat-label> Beyanname No</mat-label>
         <input matInput readonly #BeyannameNo [(ngModel)]="beyanInternalNo" />
       </mat-form-field>
 
@@ -16,7 +16,7 @@
           mat-menu-item
           (click)="yukleKiymet()"
           [disabled]="
-            beyanStatu !== ('Olusturuldu' || 'Güncellendi') ? false : true
+            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
           "
         >
           <mat-icon>refresh</mat-icon>
@@ -26,7 +26,7 @@
           mat-menu-item
           (click)="yeniKiymet()"
           [disabled]="
-            beyanStatu !== ('Olusturuldu' || 'Güncellendi') ? false : true
+            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
           "
         >
           <mat-icon>add</mat-icon>
@@ -36,7 +36,7 @@
           mat-menu-item
           (click)="duzeltKiymet()"
           [disabled]="
-            beyanStatu !== ('Olusturuldu' || 'Güncellendi') && kiymetInternalNo
+            beyanStatu == ('Olusturuldu' || 'Güncellendi') && kiymetInternalNo
               ? false
               : true
           "
@@ -48,7 +48,7 @@
           mat-menu-item
           (click)="silKiymet(kiymetInternalNo)"
           [disabled]="
-            beyanStatu !== ('Olusturuldu' || 'Güncellendi') && kiymetInternalNo
+            beyanStatu == ('Olusturuldu' || 'Güncellendi') && kiymetInternalNo
               ? false
               : true
           "

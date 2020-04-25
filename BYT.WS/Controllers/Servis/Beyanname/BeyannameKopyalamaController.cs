@@ -60,7 +60,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
                     var internalrefid = _beyannameContext.GetRefIdNextSequenceValue(beyanValues.Rejim);
-                    string InternalNo = beyanValues.Kullanici + "DB" + internalrefid.ToString().PadLeft(6, '0');
+                    string InternalNo = beyanValues.Rejim+beyanValues.Kullanici + "DB" + internalrefid.ToString().PadLeft(5, '0');
+                    
 
                     List<DbKalem> lstKalem = new List<DbKalem>();
                     List<DbOdemeSekli> lstOdeme = new List<DbOdemeSekli>();
@@ -116,7 +117,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         SinirdakiTasimaSekli = beyanValues.SinirdakiTasimaSekli,
                         TasarlananGuzergah = beyanValues.TasarlananGuzergah,
                         TelafiEdiciVergi = beyanValues.TelafiEdiciVergi,
-                        TescilStatu = "OLUSTURULDU",
+                        TescilStatu = "Olusturuldu",
                         //TescilTarihi = beyanValues.TescilTarihi,
                         TeslimSekli = beyanValues.TeslimSekli,
                         TeslimSekliYeri = beyanValues.TeslimSekliYeri,
@@ -133,7 +134,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         VarisGumrukIdaresi = beyanValues.VarisGumrukIdaresi,
                         YukBelgeleriSayisi = beyanValues.YukBelgeleriSayisi,
                         YuklemeBosaltmaYeri = beyanValues.YuklemeBosaltmaYeri,
-                        RefNo = beyanValues.Kullanici + "|" + beyanValues.Rejim + "|" + internalrefid.ToString().PadLeft(6, '0'),
+                        RefNo = InternalNo,
                         BeyanInternalNo = InternalNo,
                         Rejim = beyanValues.Rejim,
                     };

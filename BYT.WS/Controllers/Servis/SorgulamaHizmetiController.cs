@@ -134,7 +134,7 @@ namespace BYT.WS.Controllers.Servis
                         _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
                         List<Internal.Hata> lsthtt = new List<Internal.Hata>();
 
-                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = "Sonuç Bilgileri Oluşmadı"};
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = "Sonuç Bilgileri Oluşmamış"};
                         lsthtt.Add(ht);
                         _servisDurum.Hatalar = lsthtt;
                        

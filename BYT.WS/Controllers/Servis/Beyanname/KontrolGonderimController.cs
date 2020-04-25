@@ -616,7 +616,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _tarihce.IslemDurumu = IslemDurumu;
                         _tarihce.IslemSonucu = islemSonucu;
                         _tarihce.IslemTipi = "1";
-                        _tarihce.TicaretTipi = "EX";
+                        _tarihce.TicaretTipi = "EX"; //TODO rejime göre ayarlanacak
                         _tarihce.GonderilenVeri = gelen.ToString();
                         _tarihce.GondermeZamani = DateTime.Now;
                         _tarihce.GonderimNo = islemValues.GonderimSayisi;

@@ -190,14 +190,15 @@ export class IslemComponent implements OnInit {
     
      const promise=this.beyanServis.KontrolGonderimi(islemInternalNo,this.kullanici).toPromise();
      promise.then( (result)=>{  
-        const sonuc_ = new ServisDto();
-        sonuc_.init(result);
-         this._beyanSession.guidOf=sonuc_.Bilgiler[0].guid;
+        const servisSonuc = new ServisDto();
+        servisSonuc.init(result);
+        var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());        
+         this._beyanSession.guidOf=beyanServisSonuc.Guid;
          this.loading = false; 
          this.getAllIslem();
          this.getTarihce(islemInternalNo);
-              this.openSnackBar( sonuc_.ServisDurumKodu===AppServisDurumKodlari.Available ? this._beyanSession.guidOf +"-"+sonuc_.Bilgiler[0].sonuc
-                :sonuc_.Hatalar[0].hataKodu+"-"+sonuc_.Hatalar[0].hataAciklamasi ,'Tamam');
+        
+              this.openSnackBar(servisSonuc.getSonuc() ,'Tamam');
       }, (err)=>{
         this.beyanServis.errorHandel(err);    
      });
