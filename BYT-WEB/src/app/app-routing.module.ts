@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { KalemComponent } from './components/kalem/kalem.component';
 import { KullanicilarComponent } from './components/kullanici/kullanicilar/kullanicilar.component';
 import { MusterilerComponent } from './components/musteri/musteriler/musteriler.component';
-import { YetkilerComponent } from './components/yetki/yetkiler/yetkiler.component';
+import { YetkilerComponent } from './components/yetki/yetkiler.component';
 import { IslemComponent } from './components/islem/islem.component';
 import { BeyannameComponent } from './components/beyanname/beyanname.component';
 import { GenelComponent } from './components/genel/genel.component';

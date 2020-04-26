@@ -9,9 +9,10 @@ import {
   KullaniciServisDto
  } from '../../shared/service-proxies/service-proxies';
  import { MatSnackBar } from "@angular/material/snack-bar";
-
+ import { accountModuleAnimation } from '../../shared/animations/routerTransition';
 @Component({
   selector: 'app-giris',
+  animations: [accountModuleAnimation()],
   templateUrl: './giris.component.html',
   styleUrls: ['./giris.component.scss']
 })

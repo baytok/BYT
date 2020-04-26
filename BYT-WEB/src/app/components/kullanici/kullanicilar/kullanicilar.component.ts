@@ -20,8 +20,10 @@ import {
  import {
   UserRoles
 } from "../../../../shared/service-proxies/UserRoles";
+import { appModuleAnimation } from '../../../../shared/animations/routerTransition';
 @Component({
   selector: 'app-kullanicilar',
+  animations: [appModuleAnimation()],
   templateUrl: './kullanicilar.component.html',
   styleUrls: ['./kullanicilar.component.css']
 })

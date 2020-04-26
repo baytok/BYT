@@ -20,8 +20,10 @@ import {
  import {
   UserRoles
 } from "../../../../shared/service-proxies/UserRoles";
+import { appModuleAnimation } from '../../../../shared/animations/routerTransition';
  @Component({
   selector: 'app-musteriler',
+  animations: [appModuleAnimation()],
   templateUrl: './musteriler.component.html',
   styleUrls: ['./musteriler.component.css']
 })

@@ -36,7 +36,7 @@ export class GirisService {
     ) {
       this.http = http;
      this.baseUrl = baseUrl ? baseUrl : "https://localhost:44345/api/BYT/";
-    // this.baseUrl = baseUrl ? baseUrl : "http://servis.byt.com/BYTServis/api/BYT/";
+   //  this.baseUrl = baseUrl ? baseUrl : "http://servis.byt.com/BYTServis/api/BYT/";
     }
   
     getKullaniciGiris(KullaniciKod:string, KullaniciSifre:string) {

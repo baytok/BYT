@@ -1,8 +1,8 @@
 
 import { Component, Injector, Optional, Inject, OnInit } from '@angular/core';
-import { AppComponentBase } from '../../../../shared/app-component-base';
-import { YeniYetkiComponent } from '../yeniYetki/yeniYetki.component';
-import { DegistirYetkiComponent } from '../degistirYetki/degistirYetki.component';
+import { AppComponentBase } from '../../../shared/app-component-base';
+import { YeniYetkiComponent } from './yeniYetki/yeniYetki.component';
+import { DegistirYetkiComponent } from './degistirYetki/degistirYetki.component';
 import {
   FormGroup,
   FormBuilder,
@@ -13,13 +13,15 @@ import {
 } from "@angular/forms";
 import {
   YetkiDto, ServisDto
- } from '../../../../shared/service-proxies/service-proxies';
- import {AppServisDurumKodlari} from '../../../../shared/AppEnums';
- import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../../shared/service-proxies/service-proxies';
+ } from '../../../shared/service-proxies/service-proxies';
+ import {AppServisDurumKodlari} from '../../../shared/AppEnums';
+ import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../shared/service-proxies/service-proxies';
  import { MatDialog } from '@angular/material/dialog';
  import { MatSnackBar } from "@angular/material/snack-bar";
+ import { appModuleAnimation } from '../../../shared/animations/routerTransition';
 @Component({
   selector: 'app-yetkiler',
+  animations: [appModuleAnimation()],
   templateUrl: './yetkiler.component.html',
   styleUrls: ['./yetkiler.component.css']
 })
