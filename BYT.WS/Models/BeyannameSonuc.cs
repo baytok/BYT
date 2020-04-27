@@ -1136,6 +1136,9 @@ namespace BYT.WS.Models
         public string KalemInternalNo { get; set; }
 
         [Required]
+        public int KalemNo { get; set; }
+
+        [Required]
         [StringLength(10)]
         public string BelgeKodu { get; set; }
 
@@ -1168,7 +1171,9 @@ namespace BYT.WS.Models
         [StringLength(30)]
         public string KalemInternalNo { get; set; }
 
-     
+        [Required]
+        public int KalemNo { get; set; }
+
         [Required]     
         public int VergiKodu { get; set; }
 
@@ -1204,7 +1209,9 @@ namespace BYT.WS.Models
         [StringLength(30)]
         public string KalemInternalNo { get; set; }
 
-       
+        [Required]
+        public int KalemNo { get; set; }
+
         [Required]
         [StringLength(10)]
         public string SoruKodu { get; set; }

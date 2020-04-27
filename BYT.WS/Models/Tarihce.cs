@@ -62,6 +62,11 @@ namespace BYT.WS.Models
         [StringLength(10)]
         public string Rejim { get; set; }
 
+        [StringLength(int.MaxValue)]
+        public string GonderilecekVeri { get; set; }
+
+        public DateTime OlusturmaZamani { get; set; }
+
 
         [StringLength(int.MaxValue)]
         public string GonderilenVeri { get; set; }
@@ -78,8 +83,9 @@ namespace BYT.WS.Models
         [StringLength(int.MaxValue)]
         public string ServistekiVeri { get; set; }
 
-
-
+        [StringLength(int.MaxValue)]
+        public string ImzaliVeri { get; set; }
+        
 
 
     }

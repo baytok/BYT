@@ -367,3 +367,12 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.sourcelink.json
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.csproj.CopyComplete
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.exe
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.pdb
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\ArnicaCS_VPI.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\crypto.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\ImzaDogrulamaKutuphanesi.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\SearchableControls.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\SmartcardLibraryWrapper.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\SmartcardLibrary_x64.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\SmartcardLibrary_x86.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\XmlRender.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.BYTIslemler.resources

@@ -399,6 +399,42 @@ export class BeyannameServiceProxy {
     
   }
 
+  TescilMesajiHazirla(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/TescilGonderim/" +
+        IslemInternalNo + "/" + Kullanici,null,httpOptions  
+        );
+   
+    
+  }
+
+  TescilGonderimi(IslemInternalNo, Kullanici, imzaliVeri) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/TescilGonderim/" +
+        IslemInternalNo + "/" + Kullanici+"/"+imzaliVeri,null,httpOptions  
+        );
+   
+    
+  }
+
   getSonucSorgula(Guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -1207,10 +1243,15 @@ export class TarihceDto implements ITarihceDto {
   IslemSonucu: string;
   Gumruk: string;
   Rejim: string;
+  OlusturmaZamani:Date;
+  GonderilecekVeri:string;
   GonderilenVeri: string;
+  GondermeZamani:Date;
   SonucVeri: string;
   SonucZamani: Date;
   ServistekiVeri: string;
+  ImzaliVeri:string;
+ 
 
   constructor(data?: ITarihceDto) {
     if (data) {
@@ -1236,10 +1277,14 @@ export class TarihceDto implements ITarihceDto {
       this.IslemSonucu = data["IslemSonucu"];
       this.Gumruk = data["Gumruk"];
       this.Rejim = data["Rejim"];
+      this.OlusturmaZamani = data["OlusturmaZamani"];
+      this.GonderilecekVeri = data["GonderilecekVeri"];
+      this.GondermeZamani = data["GondermeZamani"];
       this.GonderilenVeri = data["GonderilenVeri"];
       this.SonucVeri = data["SonucVeri"];
       this.SonucZamani = data["SonucZamani"];
       this.ServistekiVeri = data["ServistekiVeri"];
+      this.ImzaliVeri= data["ImzaliVeri"];
     }
   }
 
@@ -1266,10 +1311,14 @@ export class TarihceDto implements ITarihceDto {
     data["IslemSonucu"] = this.IslemSonucu;
     data["Gumruk"] = this.Gumruk;
     data["Rejim"] = this.Rejim;
-    data["GonderilenVeri"] = this.GonderilenVeri;
-    data["SonucVeri"] = this.SonucVeri;
-    data["SonucZamani"] = this.SonucZamani;
-    data["ServistekiVeri"] = this.ServistekiVeri;
+     data["OlusturmaZamani"]=this.OlusturmaZamani ;
+     data["GonderilecekVeri"]= this.GonderilecekVeri ;
+     data["GondermeZamani"]= this.GondermeZamani;
+     data["GonderilenVeri"]= this.GonderilenVeri;
+     data["SonucVeri"] = this.SonucVeri;
+     data["SonucZamani"]=this.SonucZamani;
+     data["ServistekiVeri"]= this.ServistekiVeri;
+     data["ImzaliVeri"]= this.ImzaliVeri;
     return data;
   }
 
@@ -1295,10 +1344,15 @@ export interface ITarihceDto {
   IslemSonucu: string;
   Gumruk: string;
   Rejim: string;
+  OlusturmaZamani:Date;
+  GonderilecekVeri:string;
   GonderilenVeri: string;
+  GondermeZamani:Date;
   SonucVeri: string;
   SonucZamani: Date;
   ServistekiVeri: string;
+  ImzaliVeri:string;
+
 }
 
 export class SonucDto implements ISonucDto {
@@ -2835,6 +2889,7 @@ export class VergiDto {
   
   beyanInternalNo: string;
   kalemInternalNo: string;
+  kalemNo:number;
   vergiKodu: number;
   vergiAciklamasi:string;
   miktar:number;
@@ -2875,6 +2930,7 @@ export class BelgeDto {
  
   beyanInternalNo: string;
   kalemInternalNo: string;
+  kalemNo:number;
   belgeKodu: string;
   belgeAciklamasi:string;
   dogrulama:string;
@@ -2913,6 +2969,7 @@ export class SoruCevapDto {
   islemInternalNo: string;
   beyanInternalNo: string;
   kalemInternalNo: string;
+  kalemNo:number;
   soruKodu: string;
   soruCevap:string;
   soruAciklamasi:string;

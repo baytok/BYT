@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
 using BYT.WS.AltYapi;
 using BYT.WS.Controllers.api;
 using BYT.WS.Data;
@@ -31,7 +34,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         string[] IM = {"4000","4010","4051","4053","4058","4071","4072","4091","4100","4121","4123","4171","4191","4200","4210","4251","4253","4258",
             "4271","4291","5100","5121","5123","5141","5171","5191","5200","5221","5223","5271","5291","5300","5321","5323","5341","5351","5352","5353",
             "5358","5371","5391","5800","6121","6123","6321","6323","6326","6521","6523","6771","9100","9171"};
-        string[] AN = {"7100","7121","7123","7141","7151","7153","7158","7171","7191","7200","7241","7252","7272"};
+        string[] AN = {"7100","7121","7123","7141","7151","7153","7158","7171","7191","7200","7241","7252","7272","7300"};
         string[] DG = { "8100", "8200"};
         private IslemTarihceDataContext _islemTarihceContext;
 
@@ -623,8 +626,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _tarihce.IslemSonucu = islemSonucu;
                         _tarihce.IslemTipi = "1";
                         _tarihce.TicaretTipi = EX.Contains(beyanValues.Rejim) ? "EX" : IM.Contains(beyanValues.Rejim) ? "IM" : AN.Contains(beyanValues.Rejim) ? "AN" : DG.Contains(beyanValues.Rejim) ? "DG" : "";
-                        _tarihce.GonderilenVeri = gelen.ToString();
-                        _tarihce.GondermeZamani = DateTime.Now;
+                        _tarihce.GonderilenVeri = _tarihce.GonderilenVeri = SerializeToXML(gelen);
+                        _tarihce.GondermeZamani = _tarihce.OlusturmaZamani = DateTime.Now;
                         _tarihce.GonderimNo = islemValues.GonderimSayisi;
 
 
@@ -684,6 +687,27 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             }
 
 
+        }
+        public static string SerializeToXML(object responseObject)
+        {
+            //DefaultNamespace of XSD
+            //We have to Namespace compulsory, if XSD using any namespace.
+
+            XmlSerializer xmlObj = new XmlSerializer(responseObject.GetType());
+            String XmlizedString = null;
+
+            MemoryStream memoryStream = new MemoryStream();
+            XmlTextWriter XmlObjWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
+            XmlObjWriter.Formatting = Formatting.Indented;
+            xmlObj.Serialize(XmlObjWriter, responseObject);
+            memoryStream = (MemoryStream)XmlObjWriter.BaseStream;
+
+            UTF8Encoding encoding = new UTF8Encoding();
+            XmlizedString = encoding.GetString(memoryStream.ToArray());
+            XmlObjWriter.Close();
+            XmlizedString = XmlizedString.Substring(1);
+
+            return XmlizedString;
         }
 
     }

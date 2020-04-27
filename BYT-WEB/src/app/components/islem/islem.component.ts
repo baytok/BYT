@@ -206,7 +206,52 @@ export class IslemComponent implements OnInit {
     }
     
    }
-
+   sendingTescilMessages(islemInternalNo:string){
+    this._beyanSession.islemInternalNo=islemInternalNo;  
+    if(confirm('Tescil Gönderimi Yapamak İstediğinizden Eminmisiniz?')){
+      this.loading = true; 
+    
+     const promise=this.beyanServis.TescilGonderimi(islemInternalNo,this.kullanici,"").toPromise();
+     promise.then( (result)=>{  
+        const servisSonuc = new ServisDto();
+        servisSonuc.init(result);
+        var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());        
+         this._beyanSession.guidOf=beyanServisSonuc.Guid;
+         this.loading = false; 
+         this.getAllIslem();
+         this.getTarihce(islemInternalNo);
+        
+              this.openSnackBar(servisSonuc.getSonuc() ,'Tamam');
+      }, (err)=>{
+        this.beyanServis.errorHandel(err);    
+     });
+    
+    }
+    
+   }
+   sendingTescilMessagesSet(islemInternalNo:string){
+    this._beyanSession.islemInternalNo=islemInternalNo;  
+    if(confirm('Tescil Mesajı Hazırlanacak, Eminmisiniz?')){
+      this.loading = true; 
+    
+     const promise=this.beyanServis.TescilMesajiHazirla(islemInternalNo,this.kullanici).toPromise();
+     promise.then( (result)=>{  
+        const servisSonuc = new ServisDto();
+        servisSonuc.init(result);
+        var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());        
+         this._beyanSession.guidOf=beyanServisSonuc.Guid;
+         this.loading = false; 
+         this.getAllIslem();
+         this.getTarihce(islemInternalNo);
+        
+              this.openSnackBar(servisSonuc.getSonuc() ,'Tamam');
+      }, (err)=>{
+        this.beyanServis.errorHandel(err);    
+     });
+    
+    }
+    
+   }
    
    showSonucDialog(id?: number, guid?: string,  islemInternalNo?: string): void {
     let sonucDialog;

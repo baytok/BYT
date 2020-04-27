@@ -410,3 +410,4 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.RazorT
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.csproj.CopyComplete
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.pdb
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Connected Services\Microsoft WCF Web Service Reference Provider\ConnectedService.json

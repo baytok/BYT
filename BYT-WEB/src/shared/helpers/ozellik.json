@@ -1,0 +1,72 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+
+      {
+          "kod": "01",
+          "aciklama": "Bedelli"
+      },
+      {
+          "kod": "02",
+          "aciklama": "Bedelsiz"
+      },
+      {
+          "kod": "03",
+          "aciklama": "Dökme Eşya"
+      },
+      {
+          "kod": "04",
+          "aciklama": "Konteyner"
+      },
+      {
+          "kod": "05",
+          "aciklama": "Aksam/parça/teçhizat"
+      },
+      {
+          "kod": "06",
+          "aciklama": "Konteyner ve aksam/parça/teçhizat"
+      },
+      {
+          "kod": "70",
+          "aciklama": "Finansal Kiralama"
+      },
+      {
+          "kod": "08",
+          "aciklama": "İhraç"
+      },
+      {
+          "kod": "09",
+          "aciklama": "Satış"
+      },
+      {
+          "kod": "10",
+          "aciklama": "Devir"
+      },
+      {
+          "kod": "11",
+          "aciklama": "%5 yedek parça"
+      },
+      {
+          "kod": "12",
+          "aciklama": "Kullanılmış komple tesis"
+      },
+      {
+          "kod": "13",
+          "aciklama": "Kullanılmış münferit makine"
+      },
+      {
+          "kod": "14",
+          "aciklama": "CKD"
+      },
+      {
+          "kod": "15",
+          "aciklama": "BEDELSIZ"
+      },
+      {
+          "kod": "88",
+          "aciklama": "Mutabakat Zaptı"
+      }
+  
+]

@@ -373,6 +373,22 @@
           "aciklama": "Antrepoya konulan serbest dolaşımda bulunan eşyanın aynı gümrük idaresinin denetimindeki başka bir antrepoya konulması"
       },
       {
+        "kod": "7300",
+        "aciklama": ""
+      },
+      {
+        "kod": "7373",
+        "aciklama": ""
+      },
+      {
+        "kod": "8100",
+        "aciklama": ""
+      },
+      {
+        "kod": "8200",
+        "aciklama": ""
+      },
+      {
           "kod": "9100",
           "aciklama": "Daha önce bir rejime tabi tutulmamış eşyanın gümrük kontrolü altında işleme rejimine tabi tutulması "
       },

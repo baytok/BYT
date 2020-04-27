@@ -906,6 +906,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in vergiBilgiList)
                         {
+                            //TODO: kalem numarası 0 ise kalem numarası bulunacak
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -1006,7 +1007,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in belgeBilgiList)
                         {
-
+                            //TODO: kalem numarası 0 ise kalem numarası bulunacak
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -1108,6 +1109,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in soruCevapBilgiList)
                         {
+                            //TODO: kalem numarası 0 ise kalem numarası bulunacak
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }

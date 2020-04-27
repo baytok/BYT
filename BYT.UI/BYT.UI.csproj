@@ -41,6 +41,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ArnicaCS_VPI">
+      <HintPath>E:\Try\BizTalkUygulama\BizTalkIslemler\BizTalkIslemler\bin\Debug\ArnicaCS_VPI.dll</HintPath>
+    </Reference>
+    <Reference Include="crypto">
+      <HintPath>E:\Try\BizTalkUygulama\BizTalkIslemler\BizTalkIslemler\bin\Debug\crypto.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.8.6.1\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
@@ -49,6 +55,13 @@
     </Reference>
     <Reference Include="FluentValidation.DependencyInjectionExtensions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.DependencyInjectionExtensions.8.6.1\lib\netstandard2.0\FluentValidation.DependencyInjectionExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="ImzaDogrulamaKutuphanesi">
+      <HintPath>E:\Try\BizTalkUygulama\BizTalkIslemler\BizTalkIslemler\bin\Debug\ImzaDogrulamaKutuphanesi.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.MSXML2">
+      <HintPath>E:\Try\BizTalkUygulama\BizTalkIslemler\BizTalkIslemler\bin\Debug\Interop.MSXML2.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Antiforgery, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Antiforgery.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Antiforgery.dll</HintPath>
@@ -254,6 +267,18 @@
     <Reference Include="Raven.Database, Version=3.5.9.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB.Database.3.5.9\lib\net45\Raven.Database.dll</HintPath>
     </Reference>
+    <Reference Include="SearchableControls">
+      <HintPath>E:\Try\BizTalkUygulama\BizTalkIslemler\BizTalkIslemler\bin\Debug\SearchableControls.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartcardLibraryWrapper">
+      <HintPath>E:\Try\BizTalkUygulama\BizTalkIslemler\BizTalkIslemler\bin\Debug\SmartcardLibraryWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartcardLibrary_x64">
+      <HintPath>E:\Try\BizTalkUygulama\BizTalkIslemler\BizTalkIslemler\bin\Debug\SmartcardLibrary_x64.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartcardLibrary_x86">
+      <HintPath>E:\Try\BizTalkUygulama\BizTalkIslemler\BizTalkIslemler\bin\Debug\SmartcardLibrary_x86.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.AppContext.4.3.0\lib\net463\System.AppContext.dll</HintPath>
@@ -454,15 +479,34 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="XmlRender, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\XmlRender.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BYTIslemler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BYTIslemler.Designer.cs">
+      <DependentUpon>BYTIslemler.cs</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\KontrolHizmeti\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="GetKpsClient.cs" />
     <Compile Include="Connected Services\KpsWs\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\SorgulamaHizmeti\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\TescilHizmeti\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -473,10 +517,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Imzala.cs" />
     <Compile Include="Internal\Enum.cs" />
     <Compile Include="Internal\ServisDurum.cs" />
     <Compile Include="Internal\ServisSonuc.cs" />
     <Compile Include="Internal\Sonuc.cs" />
+    <Compile Include="kokler.cs" />
     <Compile Include="Models\Dto\DbBeyan.cs" />
     <Compile Include="Models\Dto\DbFirma.cs" />
     <Compile Include="Models\Dto\DbKalem.cs" />
@@ -486,7 +532,11 @@
     <Compile Include="Models\Tarihce.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServisClient\ServisHelper.cs" />
     <Compile Include="ServisManager.cs" />
+    <EmbeddedResource Include="BYTIslemler.resx">
+      <DependentUpon>BYTIslemler.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -616,7 +666,14 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\KpsWs\KpsWS.wsdl" />
+    <None Include="Connected Services\SorgulamaHizmeti\EGE_GUMRUK_WS_TEST.wsdl" />
+    <None Include="Connected Services\TescilHizmeti\BYT.UI.TescilHizmeti.TescilSoapOut.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TescilHizmeti\TescilHizmeti.wsdl" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <None Include="Properties\DataSources\System.Xml.Linq.XElement.datasource" />
     <None Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -644,6 +701,8 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\KontrolHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\KpsWs\" />
+    <WCFMetadataStorage Include="Connected Services\SorgulamaHizmeti\" />
+    <WCFMetadataStorage Include="Connected Services\TescilHizmeti\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\KpsWs\configuration91.svcinfo" />
@@ -668,6 +727,30 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ArnicaCS_VPI.dll" />
+    <None Include="Connected Services\SorgulamaHizmeti\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\SorgulamaHizmeti\configuration.svcinfo" />
+    <None Include="Connected Services\SorgulamaHizmeti\configuration91.svcinfo" />
+    <None Include="Connected Services\TescilHizmeti\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\TescilHizmeti\configuration.svcinfo" />
+    <None Include="Connected Services\TescilHizmeti\configuration91.svcinfo" />
+    <Content Include="crypto.dll" />
+    <Content Include="ImzaDogrulamaKutuphanesi.dll" />
+    <Content Include="Interop.MSXML2.dll" />
+    <Content Include="KontrolIslemleri.dll" />
+    <Content Include="SearchableControls.dll" />
+    <Content Include="SmartcardLibraryWrapper.dll" />
+    <Content Include="SmartcardLibrary_x64.dll" />
+    <Content Include="SmartcardLibrary_x86.dll" />
+    <Content Include="XmlRender.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

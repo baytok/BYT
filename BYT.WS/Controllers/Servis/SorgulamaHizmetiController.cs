@@ -414,6 +414,7 @@ namespace BYT.WS.Controllers.Servis
 
                                 soruCevap.BeyanInternalNo = BeyanInternalNo;
                                 soruCevap.SoruKodu = Kod;
+                                soruCevap.KalemNo = Kalem_no;
                                 soruCevap.SoruAciklamasi = Aciklama;
                                 soruCevap.SoruCevap = "";
                                 soruCevap.Tip = Tip;
@@ -556,6 +557,7 @@ namespace BYT.WS.Controllers.Servis
                                     else belge.KalemInternalNo = BeyanInternalNo + "|1";
 
                                     belge.BeyanInternalNo = BeyanInternalNo;
+                                    belge.KalemNo = Kalem_no;
                                     belge.BelgeKodu = Kod;
                                     belge.BelgeAciklamasi = Aciklama;
                                     belge.Dogrulama = Dogrulama;
@@ -660,6 +662,7 @@ namespace BYT.WS.Controllers.Servis
                                     else vergi.KalemInternalNo = BeyanInternalNo + "|1";
 
                                     vergi.BeyanInternalNo = BeyanInternalNo;
+                                    vergi.KalemNo = Kalem_no;
                                     vergi.VergiKodu = Convert.ToInt32(Kod);
                                     vergi.VergiAciklamasi = Aciklama;
                                     vergi.Miktar = Convert.ToDecimal(Miktar);

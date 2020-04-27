@@ -228,9 +228,20 @@ type = "ball-8bits">
                         >
                           Kontrol Gönder
                         </button>
-                        <button mat-menu-item disabled>
-                          Tescil Gönder
+                        <button  
+                        mat-menu-item
+                        (click)="
+                        sendingTescilMessagesSet(element.islemInternalNo)
+                        ">
+                          Tescil Mesajı Hazırla
                         </button>
+                        <!-- <button  
+                        mat-menu-item
+                        (click)="
+                        sendingTescilMessages(element.islemInternalNo)
+                        ">
+                          Tescil Gönder
+                        </button> -->
                       </mat-menu>
                     </mat-cell>
                   </ng-container>

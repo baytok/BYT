@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="IslemSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IslemTipi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSonucu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BasIslemGunu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSorgula1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IslemTipi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BasIslemGunu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSorgula1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSorgula1Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSorgula2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BasIslemGunu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSorgula2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSorgula2Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSorgula3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BasIslemGunu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSorgula3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSorgula3Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetir">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUIDof" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetirResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSonucGetirResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetir1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetir1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSonucGetir1Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetir2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUIDof" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetir2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSonucGetir2Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetir3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetir3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSonucGetir3Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetir4">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUIDof" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemSonucGetir4Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemSonucGetir4Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SonuclanmamisIslemdekiMesajiIptalet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SonuclanmamisIslemdekiMesajiIptaletResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SonuclanmamisIslemdekiMesajiIptaletResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemdeKalmisGeciciNumaraSil">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Beyanname_No" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IslemdeKalmisGeciciNumaraSilResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IslemdeKalmisGeciciNumaraSilResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TescilSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gumruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Müsavir_referansi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TescilSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TescilSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ozetBeyanTescilSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gumruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tarih" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ozetBeyanTescilSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ozetBeyanTescilSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ozetBeyanTescilSorgulaEmsg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gumruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tarih" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ozetBeyanTescilSorgulaEmsgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ozetBeyanTescilSorgulaEmsgResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ozetBeyanDurumSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gumruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TescilNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ozetBeyanDurumSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ozetBeyanDurumSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ozbyMuayeneMemuruAdiSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gumruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TescilNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ozbyMuayeneMemuruAdiSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ozbyMuayeneMemuruAdiSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="tasinanOzbyBilgiSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gumruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VergiNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TasitNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReferansNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BasTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BitTarihi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="tasinanOzbyBilgiSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tasinanOzbyBilgiSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="tasinanOzbyBilgiSorgulaTsNoyaGore">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gumruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TasimaSenediNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="tasinanOzbyBilgiSorgulaTsNoyaGoreResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tasinanOzbyBilgiSorgulaTsNoyaGoreResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="mesajSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gumruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TescilNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="mesajSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mesajSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="IslemSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:IslemSorgula" />
+  </wsdl:message>
+  <wsdl:message name="IslemSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:IslemSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IslemSorgula1SoapIn">
+    <wsdl:part name="parameters" element="tns:IslemSorgula1" />
+  </wsdl:message>
+  <wsdl:message name="IslemSorgula1SoapOut">
+    <wsdl:part name="parameters" element="tns:IslemSorgula1Response" />
+  </wsdl:message>
+  <wsdl:message name="IslemSorgula2SoapIn">
+    <wsdl:part name="parameters" element="tns:IslemSorgula2" />
+  </wsdl:message>
+  <wsdl:message name="IslemSorgula2SoapOut">
+    <wsdl:part name="parameters" element="tns:IslemSorgula2Response" />
+  </wsdl:message>
+  <wsdl:message name="IslemSorgula3SoapIn">
+    <wsdl:part name="parameters" element="tns:IslemSorgula3" />
+  </wsdl:message>
+  <wsdl:message name="IslemSorgula3SoapOut">
+    <wsdl:part name="parameters" element="tns:IslemSorgula3Response" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetirSoapIn">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetir" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetirSoapOut">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetirResponse" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetir1SoapIn">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetir1" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetir1SoapOut">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetir1Response" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetir2SoapIn">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetir2" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetir2SoapOut">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetir2Response" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetir3SoapIn">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetir3" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetir3SoapOut">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetir3Response" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetir4SoapIn">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetir4" />
+  </wsdl:message>
+  <wsdl:message name="IslemSonucGetir4SoapOut">
+    <wsdl:part name="parameters" element="tns:IslemSonucGetir4Response" />
+  </wsdl:message>
+  <wsdl:message name="SonuclanmamisIslemdekiMesajiIptaletSoapIn">
+    <wsdl:part name="parameters" element="tns:SonuclanmamisIslemdekiMesajiIptalet" />
+  </wsdl:message>
+  <wsdl:message name="SonuclanmamisIslemdekiMesajiIptaletSoapOut">
+    <wsdl:part name="parameters" element="tns:SonuclanmamisIslemdekiMesajiIptaletResponse" />
+  </wsdl:message>
+  <wsdl:message name="IslemdeKalmisGeciciNumaraSilSoapIn">
+    <wsdl:part name="parameters" element="tns:IslemdeKalmisGeciciNumaraSil" />
+  </wsdl:message>
+  <wsdl:message name="IslemdeKalmisGeciciNumaraSilSoapOut">
+    <wsdl:part name="parameters" element="tns:IslemdeKalmisGeciciNumaraSilResponse" />
+  </wsdl:message>
+  <wsdl:message name="TescilSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:TescilSorgula" />
+  </wsdl:message>
+  <wsdl:message name="TescilSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:TescilSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ozetBeyanTescilSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:ozetBeyanTescilSorgula" />
+  </wsdl:message>
+  <wsdl:message name="ozetBeyanTescilSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:ozetBeyanTescilSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ozetBeyanTescilSorgulaEmsgSoapIn">
+    <wsdl:part name="parameters" element="tns:ozetBeyanTescilSorgulaEmsg" />
+  </wsdl:message>
+  <wsdl:message name="ozetBeyanTescilSorgulaEmsgSoapOut">
+    <wsdl:part name="parameters" element="tns:ozetBeyanTescilSorgulaEmsgResponse" />
+  </wsdl:message>
+  <wsdl:message name="ozetBeyanDurumSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:ozetBeyanDurumSorgula" />
+  </wsdl:message>
+  <wsdl:message name="ozetBeyanDurumSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:ozetBeyanDurumSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ozbyMuayeneMemuruAdiSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:ozbyMuayeneMemuruAdiSorgula" />
+  </wsdl:message>
+  <wsdl:message name="ozbyMuayeneMemuruAdiSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:ozbyMuayeneMemuruAdiSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="tasinanOzbyBilgiSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:tasinanOzbyBilgiSorgula" />
+  </wsdl:message>
+  <wsdl:message name="tasinanOzbyBilgiSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:tasinanOzbyBilgiSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="tasinanOzbyBilgiSorgulaTsNoyaGoreSoapIn">
+    <wsdl:part name="parameters" element="tns:tasinanOzbyBilgiSorgulaTsNoyaGore" />
+  </wsdl:message>
+  <wsdl:message name="tasinanOzbyBilgiSorgulaTsNoyaGoreSoapOut">
+    <wsdl:part name="parameters" element="tns:tasinanOzbyBilgiSorgulaTsNoyaGoreResponse" />
+  </wsdl:message>
+  <wsdl:message name="mesajSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:mesajSorgula" />
+  </wsdl:message>
+  <wsdl:message name="mesajSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:mesajSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GumrukWSSoap">
+    <wsdl:operation name="IslemSorgula">
+      <wsdl:input message="tns:IslemSorgulaSoapIn" />
+      <wsdl:output message="tns:IslemSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IslemSorgula1">
+      <wsdl:input message="tns:IslemSorgula1SoapIn" />
+      <wsdl:output message="tns:IslemSorgula1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IslemSorgula2">
+      <wsdl:input message="tns:IslemSorgula2SoapIn" />
+      <wsdl:output message="tns:IslemSorgula2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IslemSorgula3">
+      <wsdl:input message="tns:IslemSorgula3SoapIn" />
+      <wsdl:output message="tns:IslemSorgula3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir">
+      <wsdl:input message="tns:IslemSonucGetirSoapIn" />
+      <wsdl:output message="tns:IslemSonucGetirSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir1">
+      <wsdl:input message="tns:IslemSonucGetir1SoapIn" />
+      <wsdl:output message="tns:IslemSonucGetir1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir2">
+      <wsdl:input message="tns:IslemSonucGetir2SoapIn" />
+      <wsdl:output message="tns:IslemSonucGetir2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir3">
+      <wsdl:input message="tns:IslemSonucGetir3SoapIn" />
+      <wsdl:output message="tns:IslemSonucGetir3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir4">
+      <wsdl:input message="tns:IslemSonucGetir4SoapIn" />
+      <wsdl:output message="tns:IslemSonucGetir4SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SonuclanmamisIslemdekiMesajiIptalet">
+      <wsdl:input message="tns:SonuclanmamisIslemdekiMesajiIptaletSoapIn" />
+      <wsdl:output message="tns:SonuclanmamisIslemdekiMesajiIptaletSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IslemdeKalmisGeciciNumaraSil">
+      <wsdl:input message="tns:IslemdeKalmisGeciciNumaraSilSoapIn" />
+      <wsdl:output message="tns:IslemdeKalmisGeciciNumaraSilSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TescilSorgula">
+      <wsdl:input message="tns:TescilSorgulaSoapIn" />
+      <wsdl:output message="tns:TescilSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ozetBeyanTescilSorgula">
+      <wsdl:input message="tns:ozetBeyanTescilSorgulaSoapIn" />
+      <wsdl:output message="tns:ozetBeyanTescilSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ozetBeyanTescilSorgulaEmsg">
+      <wsdl:input message="tns:ozetBeyanTescilSorgulaEmsgSoapIn" />
+      <wsdl:output message="tns:ozetBeyanTescilSorgulaEmsgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ozetBeyanDurumSorgula">
+      <wsdl:input message="tns:ozetBeyanDurumSorgulaSoapIn" />
+      <wsdl:output message="tns:ozetBeyanDurumSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ozbyMuayeneMemuruAdiSorgula">
+      <wsdl:input message="tns:ozbyMuayeneMemuruAdiSorgulaSoapIn" />
+      <wsdl:output message="tns:ozbyMuayeneMemuruAdiSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="tasinanOzbyBilgiSorgula">
+      <wsdl:input message="tns:tasinanOzbyBilgiSorgulaSoapIn" />
+      <wsdl:output message="tns:tasinanOzbyBilgiSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="tasinanOzbyBilgiSorgulaTsNoyaGore">
+      <wsdl:input message="tns:tasinanOzbyBilgiSorgulaTsNoyaGoreSoapIn" />
+      <wsdl:output message="tns:tasinanOzbyBilgiSorgulaTsNoyaGoreSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="mesajSorgula">
+      <wsdl:input message="tns:mesajSorgulaSoapIn" />
+      <wsdl:output message="tns:mesajSorgulaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GumrukWSSoap" type="tns:GumrukWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IslemSorgula">
+      <soap:operation soapAction="http://tempuri.org/IslemSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSorgula1">
+      <soap:operation soapAction="http://tempuri.org/IslemSorgula1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSorgula2">
+      <soap:operation soapAction="http://tempuri.org/IslemSorgula2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSorgula3">
+      <soap:operation soapAction="http://tempuri.org/IslemSorgula3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir">
+      <soap:operation soapAction="http://tempuri.org/IslemSonucGetir" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir1">
+      <soap:operation soapAction="http://tempuri.org/IslemSonucGetir1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir2">
+      <soap:operation soapAction="http://tempuri.org/IslemSonucGetir2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir3">
+      <soap:operation soapAction="http://tempuri.org/IslemSonucGetir3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir4">
+      <soap:operation soapAction="http://tempuri.org/IslemSonucGetir4" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SonuclanmamisIslemdekiMesajiIptalet">
+      <soap:operation soapAction="http://tempuri.org/SonuclanmamisIslemdekiMesajiIptalet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemdeKalmisGeciciNumaraSil">
+      <soap:operation soapAction="http://tempuri.org/IslemdeKalmisGeciciNumaraSil" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TescilSorgula">
+      <soap:operation soapAction="http://tempuri.org/TescilSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ozetBeyanTescilSorgula">
+      <soap:operation soapAction="http://tempuri.org/ozetBeyanTescilSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ozetBeyanTescilSorgulaEmsg">
+      <soap:operation soapAction="http://tempuri.org/ozetBeyanTescilSorgulaEmsg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ozetBeyanDurumSorgula">
+      <soap:operation soapAction="http://tempuri.org/ozetBeyanDurumSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ozbyMuayeneMemuruAdiSorgula">
+      <soap:operation soapAction="http://tempuri.org/ozbyMuayeneMemuruAdiSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="tasinanOzbyBilgiSorgula">
+      <soap:operation soapAction="http://tempuri.org/tasinanOzbyBilgiSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="tasinanOzbyBilgiSorgulaTsNoyaGore">
+      <soap:operation soapAction="http://tempuri.org/tasinanOzbyBilgiSorgulaTsNoyaGore" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mesajSorgula">
+      <soap:operation soapAction="http://tempuri.org/mesajSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GumrukWSSoap12" type="tns:GumrukWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="IslemSorgula">
+      <soap12:operation soapAction="http://tempuri.org/IslemSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSorgula1">
+      <soap12:operation soapAction="http://tempuri.org/IslemSorgula1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSorgula2">
+      <soap12:operation soapAction="http://tempuri.org/IslemSorgula2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSorgula3">
+      <soap12:operation soapAction="http://tempuri.org/IslemSorgula3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir">
+      <soap12:operation soapAction="http://tempuri.org/IslemSonucGetir" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir1">
+      <soap12:operation soapAction="http://tempuri.org/IslemSonucGetir1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir2">
+      <soap12:operation soapAction="http://tempuri.org/IslemSonucGetir2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir3">
+      <soap12:operation soapAction="http://tempuri.org/IslemSonucGetir3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemSonucGetir4">
+      <soap12:operation soapAction="http://tempuri.org/IslemSonucGetir4" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SonuclanmamisIslemdekiMesajiIptalet">
+      <soap12:operation soapAction="http://tempuri.org/SonuclanmamisIslemdekiMesajiIptalet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IslemdeKalmisGeciciNumaraSil">
+      <soap12:operation soapAction="http://tempuri.org/IslemdeKalmisGeciciNumaraSil" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TescilSorgula">
+      <soap12:operation soapAction="http://tempuri.org/TescilSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ozetBeyanTescilSorgula">
+      <soap12:operation soapAction="http://tempuri.org/ozetBeyanTescilSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ozetBeyanTescilSorgulaEmsg">
+      <soap12:operation soapAction="http://tempuri.org/ozetBeyanTescilSorgulaEmsg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ozetBeyanDurumSorgula">
+      <soap12:operation soapAction="http://tempuri.org/ozetBeyanDurumSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ozbyMuayeneMemuruAdiSorgula">
+      <soap12:operation soapAction="http://tempuri.org/ozbyMuayeneMemuruAdiSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="tasinanOzbyBilgiSorgula">
+      <soap12:operation soapAction="http://tempuri.org/tasinanOzbyBilgiSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="tasinanOzbyBilgiSorgulaTsNoyaGore">
+      <soap12:operation soapAction="http://tempuri.org/tasinanOzbyBilgiSorgulaTsNoyaGore" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mesajSorgula">
+      <soap12:operation soapAction="http://tempuri.org/mesajSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GumrukWS">
+    <wsdl:port name="GumrukWSSoap" binding="tns:GumrukWSSoap">
+      <soap:address location="http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/GumrukWS" />
+    </wsdl:port>
+    <wsdl:port name="GumrukWSSoap12" binding="tns:GumrukWSSoap12">
+      <soap12:address location="http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/GumrukWS" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

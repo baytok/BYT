@@ -167,12 +167,12 @@ export class KalemComponent implements OnInit {
   _girisCikisAmaciList = girisCikisAmaci;
   _anlasmaList = this.referansService.getanlasmaJSON();
   _muafiyetList = this.referansService.getmuafiyetJSON();
-  _ozellikList = ozellik;
-  _isleminNiteligiList = kalemIsleminNiteligi;
-  _stmIlKodList = stmIlKod;
+  _ozellikList = this.referansService.getozellikJSON();;
+  _isleminNiteligiList = this.referansService.getisleminNiteligiJSON();
+  _stmIlKodList =this.referansService.getstmilJSON() ;
   _cinsList = this.referansService.getkapCinsiJSON();
   _olcuList = this.referansService.getolcuJSON();
-  _algilamaList = algilama;
+  _algilamaList = this.referansService.getolcuJSON();
   _vergiList = this.referansService.getvergiKoduJSON();
   _belgeList = this.referansService.getbelgeKoduJSON();
   _soruList = SoruKodu;
@@ -1461,6 +1461,7 @@ export class KalemComponent implements OnInit {
         ]),
         beyanInternalNo: new FormControl(klm.beyanInternalNo),
         kalemInternalNo: new FormControl(klm.kalemInternalNo),
+        kalemNo: new FormControl(klm.kalemNo),
       });
 
       formArray.push(formGroup);
@@ -1494,6 +1495,9 @@ export class KalemComponent implements OnInit {
       kalemInternalNo: new FormControl(this.kalemInternalNo, [
         Validators.required,
       ]),
+      kalemNo: new FormControl(this.kalemNo, [
+        Validators.required,
+      ]),
     });
   }
 
@@ -1525,6 +1529,7 @@ export class KalemComponent implements OnInit {
     if (this.vergiBilgileri.length > 0) {
       for (let klm of this.vergiBilgileri.value) {
         klm.kalemInternalNo = this.kalemInternalNo;
+        klm.kalemNo = this.kalemNo;
         klm.vergiKodu =
           typeof klm.vergiKodu == "string"
             ? parseFloat(klm.vergiKodu)
@@ -1601,6 +1606,7 @@ export class KalemComponent implements OnInit {
         belgeAciklamasi: new FormControl(klm.belgeAciklamasi, []),
         beyanInternalNo: new FormControl(klm.beyanInternalNo),
         kalemInternalNo: new FormControl(klm.kalemInternalNo),
+        kalemNo: new FormControl(klm.kalemNo),
       });
 
       formArray.push(formGroup);
@@ -1642,6 +1648,10 @@ export class KalemComponent implements OnInit {
       kalemInternalNo: new FormControl(this.kalemInternalNo, [
         Validators.required,
       ]),
+      kalemNo: new FormControl(this.kalemNo, [
+        Validators.required,
+      ]),
+    
     });
   }
 
@@ -1661,6 +1671,7 @@ export class KalemComponent implements OnInit {
     if (this.belgeBilgileri.length > 0) {
       for (let klm of this.belgeBilgileri.value) {
         klm.kalemInternalNo = this.kalemInternalNo;
+        klm.kalemNo = this.kalemNo;
       }
 
       this.initBelgeFormArray(this.belgeBilgileri.value);
@@ -1726,8 +1737,10 @@ export class KalemComponent implements OnInit {
           Validators.required,
           Validators.maxLength(10),
         ]),
+       
         beyanInternalNo: new FormControl(klm.beyanInternalNo),
         kalemInternalNo: new FormControl(klm.kalemInternalNo),
+        kalemNo: new FormControl(klm.kalemNo),
       });
 
       formArray.push(formGroup);
@@ -1756,6 +1769,10 @@ export class KalemComponent implements OnInit {
       kalemInternalNo: new FormControl(this.kalemInternalNo, [
         Validators.required,
       ]),
+      kalemNo: new FormControl(this.kalemNo, [
+        Validators.required,
+      ]),
+    
     });
   }
 
@@ -1775,6 +1792,7 @@ export class KalemComponent implements OnInit {
     if (this.soruCevapBilgileri.length > 0) {
       for (let klm of this.soruCevapBilgileri.value) {
         klm.kalemInternalNo = this.kalemInternalNo;
+        klm.kalemNo = this.kalemNo;
       }
 
       this.initSoruCevapFormArray(this.soruCevapBilgileri.value);

@@ -19,6 +19,8 @@
   import * as belgeKodData from '../../shared/helpers/belgeKodu.json';
   import * as kapCinsiData from '../../shared/helpers/kapCinsi.json';
   import * as odemeSekliData from '../../shared/helpers/odemeSekli.json';
+  import * as ozellikData from '../../shared/helpers/ozellik.json';
+  import * as stmilData from '../../shared/helpers/stmil.json';
   
   
 @Injectable()
@@ -41,7 +43,8 @@ export class ReferansService  {
   private belgeKod: any = (belgeKodData as any).default;
   private kapCinsi: any = (kapCinsiData as any).default;
   private odemeSekli: any = (odemeSekliData as any).default;
-  
+  private ozellik: any = (ozellikData as any).default;
+  private stmil: any = (stmilData as any).default;
   constructor() {
    
 }
@@ -96,6 +99,12 @@ public getkapCinsiJSON(): Observable<any> {
 }
 public getodemeSekliJSON(): Observable<any> {
   return this.odemeSekli;
+}
+public getozellikJSON(): Observable<any> {
+  return this.ozellik;
+}
+public getstmilJSON(): Observable<any> {
+  return this.stmil;
 }
 
 }
