@@ -5,7 +5,7 @@
           mat-menu-item
           (click)="yukleKalemler()"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
+          !BeyanStatu
           "
         >
           <mat-icon>refresh</mat-icon>
@@ -15,7 +15,7 @@
           mat-menu-item
           (click)="yeniKalem()"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
+          !BeyanStatu
           "
         >
           <mat-icon>add</mat-icon>
@@ -25,7 +25,7 @@
           mat-menu-item
           (click)="duzeltKalem()"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') && kalemInternalNo
+          !BeyanStatu && kalemInternalNo
               ? false
               : true
           "
@@ -37,7 +37,7 @@
           mat-menu-item
           (click)="silKalem(kalemInternalNo)"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') && kalemInternalNo
+          !BeyanStatu && kalemInternalNo
               ? false
               : true
           "
@@ -994,7 +994,7 @@
                         >
                           <option *ngFor="let g of _teslimList" [value]="g.kod">{{
                             g.kod
-                          }} {{g.aciklama}}</option>
+                          }} </option>
                         </select>
                         <div
                           *ngIf="submitted && focus.teslimSekli.errors"

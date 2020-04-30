@@ -61,7 +61,7 @@
     </Reference>
     <Reference Include="Interop.MSXML2">
       <HintPath>E:\Try\BizTalkUygulama\BizTalkIslemler\BizTalkIslemler\bin\Debug\Interop.MSXML2.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Antiforgery, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Antiforgery.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Antiforgery.dll</HintPath>

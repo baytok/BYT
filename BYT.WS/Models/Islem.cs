@@ -59,7 +59,9 @@ namespace BYT.WS.Models
 
         public int GonderimSayisi { get; set; }
 
-        
+        public DateTime? SonIslemZamani { get; set; }
+
+
 
     }
 

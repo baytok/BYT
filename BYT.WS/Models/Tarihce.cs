@@ -85,7 +85,9 @@ namespace BYT.WS.Models
 
         [StringLength(int.MaxValue)]
         public string ImzaliVeri { get; set; }
-        
+
+        public DateTime? SonIslemZamani { get; set; }
+
 
 
     }

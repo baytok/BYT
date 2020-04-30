@@ -16,7 +16,7 @@
           mat-menu-item
           (click)="yukleKiymet()"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
+          !BeyanStatu
           "
         >
           <mat-icon>refresh</mat-icon>
@@ -26,7 +26,7 @@
           mat-menu-item
           (click)="yeniKiymet()"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
+          !BeyanStatu
           "
         >
           <mat-icon>add</mat-icon>
@@ -36,9 +36,7 @@
           mat-menu-item
           (click)="duzeltKiymet()"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') && kiymetInternalNo
-              ? false
-              : true
+          !BeyanStatu
           "
         >
           <mat-icon>sync</mat-icon>
@@ -48,9 +46,7 @@
           mat-menu-item
           (click)="silKiymet(kiymetInternalNo)"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') && kiymetInternalNo
-              ? false
-              : true
+          !BeyanStatu
           "
         >
           <mat-icon>remove</mat-icon>

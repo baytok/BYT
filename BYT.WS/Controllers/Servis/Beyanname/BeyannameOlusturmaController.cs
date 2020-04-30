@@ -88,13 +88,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo);
 
                             beyan.TescilStatu = "Güncellendi";
+                            beyan.SonIslemZamani = DateTime.Now;
                             beyannameContext.Entry(beyan).State = EntityState.Modified;
                             await beyannameContext.SaveChangesAsync();
 
 
                             _islem.IslemDurumu = "Güncellendi";
                             _islem.OlusturmaZamani = DateTime.Now;
-
+                            _islem.SonIslemZamani = DateTime.Now;
                             _islemTarihceContext.Entry(_islem).State = EntityState.Modified;
                             await _islemTarihceContext.SaveChangesAsync();
 
@@ -109,6 +110,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             beyan.RefNo = InternalNo;
                             beyan.MusavirReferansNo = "BYT" + beyan.MusavirReferansNo;
                             beyan.TescilStatu = "Olusturuldu";
+                            beyan.OlsuturulmaTarihi = DateTime.Now;
+                            beyan.SonIslemZamani = DateTime.Now;
                             beyannameContext.Entry(beyan).State = EntityState.Added;
                             await beyannameContext.SaveChangesAsync();
 
@@ -121,6 +124,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             _islem.BeyanInternalNo = beyan.BeyanInternalNo;
                             _islem.IslemInternalNo = beyan.BeyanInternalNo;
                             _islem.OlusturmaZamani = DateTime.Now;
+                            _islem.SonIslemZamani = DateTime.Now;
                             _islem.GonderimSayisi = 0;
 
                             _islemTarihceContext.Entry(_islem).State = EntityState.Added;
@@ -229,7 +233,28 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                         var tammalayiciValues = await _beyannameContext.DbTamamlayiciBilgi.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
                         if (tammalayiciValues.Count > 0)
-                            foreach (var item in markaValues)
+                            foreach (var item in tammalayiciValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+
+                        var vergiValues = await _beyannameContext.DbVergi.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                        if (vergiValues.Count > 0)
+                            foreach (var item in vergiValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+
+                        var belgeValues = await _beyannameContext.DbBelge.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                        if (belgeValues.Count > 0)
+                            foreach (var item in belgeValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+
+                        var soruCevapValues = await _beyannameContext.DbSoruCevap.Where(v => v.KalemInternalNo == kalemInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                        if (soruCevapValues.Count > 0)
+                            foreach (var item in soruCevapValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
                             }
@@ -294,7 +319,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 {
                     if (kalemValues != null)
                     {
-
+                        kalem.SonIslemZamani = DateTime.Now;
                         beyannameContext.Entry(kalem).State = EntityState.Modified;
                     }
                     else
@@ -314,11 +339,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                             kalem.KalemSiraNo = Convert.ToInt32(maxKalemNo) + 1;
                             int klNo = Convert.ToInt32(maxKalemInternalNo.Split('|')[1].ToString()) + 1;
+                            kalem.SonIslemZamani = DateTime.Now;
                             kalem.KalemInternalNo = kalem.BeyanInternalNo + "|" + klNo;
                         }
                         else
                         {
                             kalem.KalemSiraNo = 1;
+                            kalem.SonIslemZamani = DateTime.Now;
                             kalem.KalemInternalNo = kalem.BeyanInternalNo + "|1";
                         }
 
@@ -406,6 +433,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in odemeBilgiList)
                         {
+                            item.SonIslemZamani = DateTime.Now;
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -506,6 +534,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in konteynerBilgiList)
                         {
+                            item.SonIslemZamani = DateTime.Now;
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -606,6 +635,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in tamamlayiciBilgiList)
                         {
+                            item.SonIslemZamani = DateTime.Now;
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -706,6 +736,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in markaBilgiList)
                         {
+                            item.SonIslemZamani = DateTime.Now;
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -806,6 +837,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in acmaBilgiList)
                         {
+                            item.SonIslemZamani = DateTime.Now;
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -889,7 +921,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
             //    return result;
             //}
-
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+           .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+           .Options;
+            var beyannameContext = new BeyannameDataContext(options);
             try
             {
 
@@ -906,7 +941,12 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in vergiBilgiList)
                         {
-                            //TODO: kalem numarası 0 ise kalem numarası bulunacak
+                            if (item.KalemNo == 0)
+                            {
+                                var kalemNo = await beyannameContext.DbKalem.FirstOrDefaultAsync(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemInternalNo == KalemInternalNo);
+                                item.KalemNo = kalemNo.KalemSiraNo;
+                                item.SonIslemZamani = DateTime.Now;
+                            }
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -990,7 +1030,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
             //    return result;
             //}
-
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+           .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+           .Options;
+            var beyannameContext = new BeyannameDataContext(options);
             try
             {
 
@@ -1007,7 +1050,12 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in belgeBilgiList)
                         {
-                            //TODO: kalem numarası 0 ise kalem numarası bulunacak
+                            if (item.KalemNo == 0)
+                            {
+                                var kalemNo = await beyannameContext.DbKalem.FirstOrDefaultAsync(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemInternalNo == KalemInternalNo);
+                                item.KalemNo = kalemNo.KalemSiraNo;
+                                item.SonIslemZamani = DateTime.Now;
+                            }
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -1092,7 +1140,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             //    var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
             //    return result;
             //}
-
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+             .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+             .Options;
+             var beyannameContext = new BeyannameDataContext(options);
             try
             {
 
@@ -1109,7 +1160,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in soruCevapBilgiList)
                         {
-                            //TODO: kalem numarası 0 ise kalem numarası bulunacak
+                         
+                            if(item.KalemNo==0)
+                            {
+                                var kalemNo = await beyannameContext.DbKalem.FirstOrDefaultAsync(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemInternalNo == KalemInternalNo);
+                                item.KalemNo = kalemNo.KalemSiraNo;
+                                item.SonIslemZamani = DateTime.Now;
+                            }
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -1210,6 +1267,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in teminatList)
                         {
+                            item.SonIslemZamani = DateTime.Now;
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -1310,6 +1368,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         foreach (var item in firmaList)
                         {
+                            item.SonIslemZamani = DateTime.Now;
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }
@@ -1381,7 +1440,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 {
                     if (kiymetValues != null)
                     {
-
+                        kiymet.SonIslemZamani = DateTime.Now;
                         beyannameContext.Entry(kiymet).State = EntityState.Modified;
                     }
                     else
@@ -1398,13 +1457,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                                       where u.BeyanInternalNo == kiymet.BeyanInternalNo
                                                       select (u.KiymetInternalNo)).Max();
 
-
+                            kiymet.SonIslemZamani = DateTime.Now;
                             int klNo = Convert.ToInt32(maxKalemInternalNo.Split('|')[1].ToString()) + 1;
                             kiymet.KiymetInternalNo = kiymet.BeyanInternalNo + "|" + klNo;
                         }
                         else
                         {
-
+                            kiymet.SonIslemZamani = DateTime.Now;
                             kiymet.KiymetInternalNo = kiymet.BeyanInternalNo + "|1";
                         }
 
@@ -1564,7 +1623,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         int i = 1;
                         foreach (var item in kalemList)
                         {
-
+                            item.SonIslemZamani = DateTime.Now;
                             item.KiymetKalemNo = i;
                             _beyannameContext.Entry(item).State = EntityState.Added;
                             i++;
@@ -1637,7 +1696,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 {
                     if (ozbyAcmaValues != null)
                     {
-
+                        ozbyAcma.SonIslemZamani = DateTime.Now;
                         beyannameContext.Entry(ozbyAcma).State = EntityState.Modified;
                     }
                     else
@@ -1654,13 +1713,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                                       where u.BeyanInternalNo == ozbyAcma.BeyanInternalNo
                                                       select (u.OzetBeyanInternalNo)).Max();
 
-
+                            ozbyAcma.SonIslemZamani = DateTime.Now;
                             int klNo = Convert.ToInt32(maxKalemInternalNo.Split('|')[1].ToString()) + 1;
                             ozbyAcma.OzetBeyanInternalNo = ozbyAcma.BeyanInternalNo + "|" + klNo;
                         }
                         else
                         {
-
+                            ozbyAcma.SonIslemZamani = DateTime.Now;
                             ozbyAcma.OzetBeyanInternalNo = ozbyAcma.BeyanInternalNo + "|1";
                         }
 
@@ -1751,6 +1810,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                 var tasima = tasimaSenetValues.Where(x => x.TasimaSenetInternalNo == item.TasimaSenetInternalNo).FirstOrDefault();
                                 if (tasima != null)
                                 {
+                                    item.SonIslemZamani = DateTime.Now;
                                     beyannameContext.Entry(item).State = EntityState.Modified;
                                    
                                 }
@@ -1763,7 +1823,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
 
                                     int klNo = Convert.ToInt32(maxTasimaSenetInternalNo.Split('|')[2].ToString()) + 1;
-
+                                    item.SonIslemZamani = DateTime.Now;
                                     item.TasimaSenetInternalNo = item.OzetBeyanInternalNo + "|" + klNo.ToString();
                                     beyannameContext.Entry(item).State = EntityState.Added;
 
@@ -1790,6 +1850,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             int i = 1;
                             foreach (var item in tasimaSenetList)
                             {
+                                item.SonIslemZamani = DateTime.Now;
                                 item.TasimaSenetInternalNo = item.OzetBeyanInternalNo + "|" + i.ToString();
                                 beyannameContext.Entry(item).State = EntityState.Added;
                                 i++;
@@ -1894,7 +1955,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                         foreach (var item in tasimaSatirList)
                         {
-
+                            item.SonIslemZamani = DateTime.Now;
                             _beyannameContext.Entry(item).State = EntityState.Added;
 
                         }

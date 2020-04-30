@@ -18,9 +18,7 @@
           mat-menu-item
           (click)="islemTeminat()"
           [disabled]="
-            beyanStatu === 'Olusturuldu' || beyanStatu === 'Güncellendi'
-              ? false
-              : true
+          !BeyanStatu
           "
         >
           <mat-icon>sync</mat-icon>

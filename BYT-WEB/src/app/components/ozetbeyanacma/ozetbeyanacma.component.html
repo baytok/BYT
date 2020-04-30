@@ -16,7 +16,7 @@
           mat-menu-item
           (click)="yukleOzetBeyan()"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
+          !BeyanStatu
           "
         >
           <mat-icon>refresh</mat-icon>
@@ -26,7 +26,7 @@
           mat-menu-item
           (click)="yeniOzetBeyan()"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') ? false : true
+          !BeyanStatu
           "
         >
           <mat-icon>add</mat-icon>
@@ -36,8 +36,8 @@
           mat-menu-item
           (click)="duzeltOzetBeyan()"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') &&
-            ozetBeyanInternalNo
+          !BeyanStatu &&
+            ozetBeyanInternalNo!=''
               ? false
               : true
           "
@@ -49,8 +49,8 @@
           mat-menu-item
           (click)="silOzetBeyan(ozetBeyanInternalNo)"
           [disabled]="
-            beyanStatu == ('Olusturuldu' || 'Güncellendi') &&
-            ozetBeyanInternalNo
+          !BeyanStatu &&
+            ozetBeyanInternalNo!=''
               ? false
               : true
           "
@@ -311,7 +311,7 @@
             <div class="card m-2">             
               <mat-selection-list #OzetBeyanList multiple="false">
                 <mat-list-option
-                  [disabled]="beyanStatu !== ('Olusturuldu' || 'Güncellendi') &&
+                  [disabled]="!BeyanStatu &&
                   ozetBeyanInternalNo && tasimaSenetInternalNo
                     ? false
                     : true"

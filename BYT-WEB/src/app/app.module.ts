@@ -40,6 +40,7 @@ import {
    ReferansService
  } from "../shared/helpers/ReferansService";
 import { TestComponent } from './components/test/test.component';
+import {NgxChildProcessModule} from 'ngx-childprocess';
 
 @NgModule({
    declarations: [
@@ -77,6 +78,7 @@ import { TestComponent } from './components/test/test.component';
       HttpClientModule,
       FormsModule,
       NgbModule,
+      NgxChildProcessModule,
       ServiceProxyModule,   
       ReactiveFormsModule,
         NgxLoadingModule.forRoot({

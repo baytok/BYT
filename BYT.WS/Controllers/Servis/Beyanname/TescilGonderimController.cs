@@ -654,6 +654,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         islemValues.IslemDurumu = "Tescil Mesajı Oluşturuldu";
                         islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
                         islemValues.IslemZamani = DateTime.Now;
+                        islemValues.SonIslemZamani = DateTime.Now;
                         islemValues.IslemSonucu = "İmzalamaya Hazır";
                         islemValues.Guidof = guidOf;
                         islemValues.IslemTipi = "Tescil";
@@ -678,10 +679,16 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _tarihce.GonderilecekVeri = imzasizMesaj;
                         _tarihce.OlusturmaZamani = DateTime.Now;
                         _tarihce.GonderimNo = islemValues.GonderimSayisi;
-
+                        _tarihce.SonIslemZamani = DateTime.Now;
 
                         _islemTarihceContext.Entry(_tarihce).State = EntityState.Added;
+
+                        beyanValues.SonIslemZamani = DateTime.Now;
+                        beyanValues.TescilStatu = "Tescil Mesajı Oluşturuldu";
+                        _beyannameContext.Entry(beyanValues).State = EntityState.Modified;
+
                         await _islemTarihceContext.SaveChangesAsync();
+                        await _beyannameContext.SaveChangesAsync();
 
                         transaction.Commit();
 
@@ -801,6 +808,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         islemValues.IslemDurumu = "Gonderildi";
                         islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
                         islemValues.IslemZamani = DateTime.Now;
+                        islemValues.SonIslemZamani = DateTime.Now;
                         islemValues.IslemSonucu = islemSonucu;
                         islemValues.Guidof = guidOf;
                         islemValues.IslemTipi = "Tescil";
@@ -824,6 +832,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _tarihce.TicaretTipi = EX.Contains(beyanValues.Rejim) ? "EX" : IM.Contains(beyanValues.Rejim) ? "IM" : AN.Contains(beyanValues.Rejim) ? "AN" : DG.Contains(beyanValues.Rejim) ? "DG" : "";
                         _tarihce.GonderilenVeri = imzaliVeri;
                         _tarihce.GondermeZamani = DateTime.Now;
+                        _tarihce.SonIslemZamani = DateTime.Now;
                         _tarihce.GonderimNo = islemValues.GonderimSayisi;
 
 

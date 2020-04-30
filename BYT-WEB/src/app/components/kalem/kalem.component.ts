@@ -2,44 +2,29 @@ import {
   Component,
   OnInit,
   ViewChild,
-  Inject,
-  Injector,
+
   ElementRef,
   Injectable,
 } from "@angular/core";
 import {
-  MatListOption,
+
   MatSelectionList,
   MatSelectionListChange,
 } from "@angular/material/list";
-import { Observable } from "rxjs";
-import { map, filter } from "rxjs/operators";
+
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
   FormArray,
-  NgForm,
+ 
 } from "@angular/forms";
-import { MustMatch } from "../../../shared/helpers/must-match.validator";
+
 import {
-  ulke,
-  teslimSekli,
-  dovizCinsi,
+ 
   kullanilmisEsya,
   girisCikisAmaci,
-  anlasma,
-  muafiyet,
-  ozellik,
-  kalemIsleminNiteligi,
-  stmIlKod,
-  cins,
-  olcu,
-  algilama,
-  odeme,
-  VergiKodu,
-  BelgeKodu,
   SoruKodu,
 } from "../../../shared/helpers/referencesList";
 import {
@@ -48,13 +33,11 @@ import {
 } from "../../../shared/service-proxies/service-proxies";
 import { ValidationService } from "../../../shared/service-proxies/ValidationService";
 import { UserRoles } from "../../../shared/service-proxies/UserRoles";
-import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { ReferansService } from "../../../shared/helpers/ReferansService";
 import {
   BeyannameBilgileriDto,
-  BeyannameDto,
   KalemDto,
   OdemeDto,
   KonteynerDto,
@@ -65,16 +48,14 @@ import {
   BelgeDto,
   SoruCevapDto,
   ServisDto,
-  ReferansDto,
-} from "../../../shared/service-proxies/service-proxies";
+ } from "../../../shared/service-proxies/service-proxies";
 
 import {
   NativeDateAdapter,
   DateAdapter,
   MAT_DATE_FORMATS,
-  MatDateFormats,
 } from "@angular/material/core";
-import { MatDatepickerModule } from "@angular/material/datepicker";
+
 
 export const PICK_FORMATS = {
   parse: {
@@ -400,6 +381,15 @@ export class KalemComponent implements OnInit {
         s.option.selected = true;
       }
     );
+  }
+
+  get BeyanStatu():boolean {
+    console.log(this.beyanStatu);
+    if(this.beyanStatu==='undefined' || this.beyanStatu===null)
+    return false;
+    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+     return true;
+    else return false;
   }
   disableItem() {
     this.kalemForm.disable();

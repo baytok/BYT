@@ -81,7 +81,14 @@ export class TeminatComponent implements OnInit {
         duration: 2000,
       });
     }
-
+    get BeyanStatu():boolean {
+      console.log(this.beyanStatu);
+      if(this.beyanStatu==='undefined' || this.beyanStatu===null)
+      return false;
+      if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+       return true;
+      else return false;
+    }
  islemTeminat(){
   this.teminatForm.enable();
   this.teminatForm.markAllAsTouched();

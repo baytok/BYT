@@ -12,11 +12,16 @@ namespace BYT.UI
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            //string arg1 = args[0];
+            //string arg2 = args[1];
+            string arg1 = "fc229c1e-3572-44c3-bc4f-df72015fed90";
+            string arg2 = "";
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BYTIslemler());
+            Application.Run(new BYTIslemler(arg1, arg2));
+          
         }
     }
 }

@@ -103,6 +103,7 @@ namespace BYT.WS.Controllers.Servis
 
                         _tarihce.IslemDurumu = "Sonuclandi";
                         _tarihce.SonucZamani = DateTime.Now;
+                        _tarihce.SonIslemZamani = DateTime.Now;
                         _tarihce.SonucVeri = gidenXml;
                         _tarihce.ServistekiVeri = gelenXml;
                         _tarihce.BeyanNo = sonucObj.Result.Beyanname_no;
@@ -113,6 +114,7 @@ namespace BYT.WS.Controllers.Servis
 
                         // _islem.IslemDurumu = "Sonuclandi";
                         _islem.IslemZamani = DateTime.Now;
+                        _islem.SonIslemZamani = DateTime.Now;
                         _tarihce.BeyanNo = sonucObj.Result.Beyanname_no;
 
 
@@ -123,6 +125,7 @@ namespace BYT.WS.Controllers.Servis
                         _beyanname.BeyannameNo = sonucObj.Result.Beyanname_no;
                         if (!string.IsNullOrWhiteSpace(sonucObj.Result.Tescil_tarihi))
                             _beyanname.TescilTarihi = Convert.ToDateTime(sonucObj.Result.Tescil_tarihi);
+                        _beyanname.SonIslemZamani = DateTime.Now;
                         //  _beyanname.TescilStatu ="Tescil Edildi";
 
                         _beyannameContext.Entry(_beyanname).State = EntityState.Modified;
@@ -282,7 +285,7 @@ namespace BYT.WS.Controllers.Servis
                             _hata.IslemInternalNo = InternalNo;
                             _hata.HataKodu = hata_kodu;
                             _hata.HataAciklamasi = hata_aciklamasi;
-
+                            _hata.SonIslemZamani = DateTime.Now;
                             _beyannameSonucTarihcecontext.Entry(_hata).State = EntityState.Added;
 
 
@@ -380,6 +383,7 @@ namespace BYT.WS.Controllers.Servis
                                 _soru.SoruAciklamasi = Aciklama;
                                 _soru.Tip = Tip;
                                 _soru.Cevaplar = lstCvp.ToString();
+                                _soru.SonIslemZamani = DateTime.Now;
                                 _beyannameSonucTarihcecontext.Entry(_soru).State = EntityState.Added;
 
 
@@ -419,6 +423,7 @@ namespace BYT.WS.Controllers.Servis
                                 soruCevap.SoruCevap = "";
                                 soruCevap.Tip = Tip;
                                 soruCevap.Cevaplar = "";
+                                soruCevap.SonIslemZamani = DateTime.Now;
                                 _beyannameSonucTarihcecontext.Entry(soruCevap).State = EntityState.Added;
 
                             }
@@ -462,8 +467,7 @@ namespace BYT.WS.Controllers.Servis
                                         _soruCevap.KalemNo = Kalem_no;
                                         _soruCevap.SoruKodu = soru_no;
                                         _soruCevap.SoruCevap = cevap;
-
-
+                                        _soruCevap.SonIslemZamani = DateTime.Now;
 
                                         _beyannameSonucTarihcecontext.Entry(_soruCevap).State = EntityState.Added;
 
@@ -520,6 +524,7 @@ namespace BYT.WS.Controllers.Servis
                                     _belge.Dogrulama = Dogrulama;
                                     _belge.Referans = Referans;
                                     _belge.BelgeTarihi = Tamamlama_tarih;
+                                    _belge.SonIslemZamani = DateTime.Now;
                                     _beyannameSonucTarihcecontext.Entry(_belge).State = EntityState.Added;
 
 
@@ -563,7 +568,7 @@ namespace BYT.WS.Controllers.Servis
                                     belge.Dogrulama = Dogrulama;
                                     belge.Referans = Referans;
                                     belge.BelgeTarihi = Tamamlama_tarih;
-
+                                    belge.SonIslemZamani = DateTime.Now;
 
                                     _beyannameSonucTarihcecontext.Entry(belge).State = EntityState.Added;
 
@@ -623,6 +628,7 @@ namespace BYT.WS.Controllers.Servis
                                     _vergi.OdemeSekli = Odeme_sekli;
                                     _vergi.Oran = Oran;
                                     _vergi.Matrah = Matrah;
+                                    _vergi.SonIslemZamani = DateTime.Now;
                                     _beyannameSonucTarihcecontext.Entry(_vergi).State = EntityState.Added;
 
 
@@ -669,7 +675,7 @@ namespace BYT.WS.Controllers.Servis
                                     vergi.OdemeSekli = Odeme_sekli;
                                     vergi.Oran = Oran;
                                     vergi.Matrah = Convert.ToDecimal(Matrah);
-
+                                    vergi.SonIslemZamani = DateTime.Now;
 
                                     _beyannameSonucTarihcecontext.Entry(vergi).State = EntityState.Added;
 
@@ -717,7 +723,7 @@ namespace BYT.WS.Controllers.Servis
                                     _tvergi.VergiAciklamasi = Aciklama;
                                     _tvergi.Miktar = Miktar;
                                     _tvergi.OdemeSekli = Odeme_sekli;
-
+                                    _tvergi.SonIslemZamani = DateTime.Now;
                                     _beyannameSonucTarihcecontext.Entry(_tvergi).State = EntityState.Added;
                                 }
                                 await _beyannameSonucTarihcecontext.SaveChangesAsync();
@@ -758,7 +764,7 @@ namespace BYT.WS.Controllers.Servis
                                     _ttvergi.IslemInternalNo = InternalNo;
                                     _ttvergi.Miktar = Miktar;
                                     _ttvergi.OdemeSekli = Odeme_sekli;
-
+                                    _ttvergi.SonIslemZamani = DateTime.Now;
                                     _beyannameSonucTarihcecontext.Entry(_ttvergi).State = EntityState.Added;
                                 }
                                 await _beyannameSonucTarihcecontext.SaveChangesAsync();
@@ -797,7 +803,7 @@ namespace BYT.WS.Controllers.Servis
                                     _hesap.IslemInternalNo = InternalNo;
                                     _hesap.Miktar = Miktar;
                                     _hesap.Aciklama = Aciklama;
-
+                                    _hesap.SonIslemZamani = DateTime.Now;
 
                                     _beyannameSonucTarihcecontext.Entry(_hesap).State = EntityState.Added;
                                 }
@@ -836,7 +842,7 @@ namespace BYT.WS.Controllers.Servis
                                     _kiymet.IslemInternalNo = InternalNo;
                                     _kiymet.KalemNo = Kalem_No;
                                     _kiymet.Miktar = Miktar;
-
+                                    _kiymet.SonIslemZamani = DateTime.Now;
                                     _beyannameSonucTarihcecontext.Entry(_kiymet).State = EntityState.Added;
                                 }
                                 await _beyannameSonucTarihcecontext.SaveChangesAsync();
@@ -875,7 +881,7 @@ namespace BYT.WS.Controllers.Servis
                                     _istk.IslemInternalNo = InternalNo;
                                     _istk.KalemNo = Kalem_No;
                                     _istk.Miktar = Miktar;
-
+                                    _istk.SonIslemZamani = DateTime.Now;
                                     _beyannameSonucTarihcecontext.Entry(_istk).State = EntityState.Added;
                                 }
                                 await _beyannameSonucTarihcecontext.SaveChangesAsync();
@@ -911,7 +917,7 @@ namespace BYT.WS.Controllers.Servis
                                 _ozetB.IslemInternalNo = InternalNo;
                                 _ozetB.OzetBeyanNo = ozetbeyanno;
                                 _ozetB.TescilTarihi = tesciltarihi;
-
+                                _ozetB.SonIslemZamani = DateTime.Now;
                                 _beyannameSonucTarihcecontext.Entry(_ozetB).State = EntityState.Added;
                             }
                             await _beyannameSonucTarihcecontext.SaveChangesAsync();
@@ -963,7 +969,7 @@ namespace BYT.WS.Controllers.Servis
                     _digerB.CiktiSeriNo = sonucObj.Cikti_kontrol_kodu;
                     _digerB.KalanKontor = sonucObj.Kalan_kontor;
                     _digerB.MuayeneMemuru = sonucObj.Muayene_memuru;
-
+                    _digerB.SonIslemZamani = DateTime.Now;
                     _beyannameSonucTarihcecontext.Entry(_digerB).State = EntityState.Added;
                     await _beyannameSonucTarihcecontext.SaveChangesAsync();
                     transaction.Commit();

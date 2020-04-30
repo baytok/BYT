@@ -755,6 +755,7 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(1000)]
         public string HataAciklamasi { get; set; }
+        public DateTime? SonIslemZamani { get; set; }
 
 
     }
@@ -792,6 +793,7 @@ namespace BYT.WS.Models
 
         [StringLength(int.MaxValue)]
         public string Cevaplar { get; set; }
+        public DateTime? SonIslemZamani { get; set; }
     }
     public class DbSonucSoruCevaplar
     {
@@ -822,7 +824,7 @@ namespace BYT.WS.Models
         [StringLength(10)]
         public string SoruCevap { get; set; }
 
-    
+        public DateTime? SonIslemZamani { get; set; }
     }
     public class DbSonucBelgeler
     {
@@ -863,6 +865,7 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(12)]
         public string BelgeTarihi { get; set; }
+        public DateTime? SonIslemZamani { get; set; }
     }
     public class DbSonucVergiler
     {
@@ -906,6 +909,7 @@ namespace BYT.WS.Models
 
         [StringLength(20)]
         public string Matrah { get; set; }
+        public DateTime? SonIslemZamani { get; set; }
     }
     public class DbSonucToplamVergiler
     {
@@ -943,7 +947,7 @@ namespace BYT.WS.Models
         [StringLength(3)]
         public string OdemeSekli { get; set; }
 
-      
+        public DateTime? SonIslemZamani { get; set; }
     }
     public class DbSonucToplananVergiler
     {
@@ -971,7 +975,7 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(3)]
         public string OdemeSekli { get; set; }
-
+        public DateTime? SonIslemZamani { get; set; }
 
     }
     public class DbSonucHesapDetaylar
@@ -999,7 +1003,7 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(100)]
         public string Aciklama { get; set; }
-
+        public DateTime? SonIslemZamani { get; set; }
 
     }
     public class DbSonucGumrukKiymeti
@@ -1026,7 +1030,7 @@ namespace BYT.WS.Models
         [StringLength(20)]
         public string Miktar { get; set; }
 
-
+        public DateTime? SonIslemZamani { get; set; }
 
 
     }
@@ -1055,7 +1059,7 @@ namespace BYT.WS.Models
         public string Miktar { get; set; }
 
 
-
+        public DateTime? SonIslemZamani { get; set; }
 
     }
     public class DbSonucOzetBeyan
@@ -1081,7 +1085,7 @@ namespace BYT.WS.Models
 
         [StringLength(20)]
         public string TescilTarihi { get; set; }
-
+        public DateTime? SonIslemZamani { get; set; }
 
     }
 
@@ -1118,118 +1122,10 @@ namespace BYT.WS.Models
         [StringLength(10)]
         public string KalanKontor { get; set; }
 
-
+        public DateTime? SonIslemZamani { get; set; }
 
     }
 
-    public class DbBelge
-    {
-        [Key]
-        public int ID { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string BeyanInternalNo { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string KalemInternalNo { get; set; }
-
-        [Required]
-        public int KalemNo { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string BelgeKodu { get; set; }
-
-     
-        [StringLength(1000)]
-        public string BelgeAciklamasi { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string Dogrulama { get; set; }
-
-       
-        [StringLength(30)]
-        public string Referans { get; set; }
-
-        [Required]
-        [StringLength(12)]
-        public string BelgeTarihi { get; set; }
-    }
-    public class DbVergi
-    {
-        [Key]
-        public int ID { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string BeyanInternalNo { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string KalemInternalNo { get; set; }
-
-        [Required]
-        public int KalemNo { get; set; }
-
-        [Required]     
-        public int VergiKodu { get; set; }
-
-      
-        [StringLength(1000)]
-        public string VergiAciklamasi { get; set; }
-
-        [Required]
-        public decimal Miktar { get; set; }
-
-        [Required]
-        [StringLength(5)]
-        public string Oran { get; set; }
-
-        [Required]
-        [StringLength(3)]
-        public string OdemeSekli { get; set; }
-
-        [Required]
-        public decimal Matrah { get; set; }
-    }
-    public class DbSoruCevap
-    {
-        [Key]
-        public int ID { get; set; }
-
-      
-        [Required]
-        [StringLength(30)]
-        public string BeyanInternalNo { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string KalemInternalNo { get; set; }
-
-        [Required]
-        public int KalemNo { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string SoruKodu { get; set; }
-
-        
-        [StringLength(10)]
-        public string SoruCevap { get; set; }
-
-       
-        [StringLength(1000)]
-        public string SoruAciklamasi { get; set; }
-
-        [Required]
-        [StringLength(10)]
-        public string Tip { get; set; }
-
-        [StringLength(int.MaxValue)]
-        public string Cevaplar { get; set; }
-    }
+   
 
 }

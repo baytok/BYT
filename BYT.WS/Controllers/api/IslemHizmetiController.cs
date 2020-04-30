@@ -140,6 +140,7 @@ namespace BYT.WS.Controllers.api
                 _islem.RefNo = "000002";
                 _islem.IslemInternalNo = Kullanici+"G"+"000002"; //TODO: sequence sayı alıp 6 ya tamamlayalım
                 _islem.OlusturmaZamani = DateTime.Now;
+                _islem.SonIslemZamani = DateTime.Now;
                 _islem.GonderimSayisi=0;
 
                 _islemContext.Entry(_islem).State = EntityState.Added;
@@ -174,7 +175,7 @@ namespace BYT.WS.Controllers.api
             try
             {
                
-
+                _islem.SonIslemZamani = DateTime.Now;
                 _islemContext.Entry(_islem).State = EntityState.Added;
                 await _islemContext.SaveChangesAsync();
 

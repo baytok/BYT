@@ -18,9 +18,7 @@
           mat-menu-item
           (click)="islemFirma()"
           [disabled]="
-            beyanStatu === 'Olusturuldu' || beyanStatu === 'Güncellendi'
-              ? false
-              : true
+          !BeyanStatu
           "
         >
           <mat-icon>sync</mat-icon>
@@ -69,7 +67,7 @@
                               <option
                                 *ngFor="let s of _ulkeList"
                                 [value]="s.kod"
-                                >{{ s.kod }}</option
+                                >{{ s.kod }} {{ s.aciklama }}</option
                               >
                             </select>
                        </mat-form-field> 

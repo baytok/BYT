@@ -21,7 +21,9 @@ import { ValidationService } from "../../../shared/service-proxies/ValidationSer
 import { UserRoles } from "../../../shared/service-proxies/UserRoles";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
-
+import {
+  ReferansService
+} from "../../../shared/helpers/ReferansService";
 import {
   FirmaDto,
   ServisDto,
@@ -38,7 +40,7 @@ export class FirmaComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
-  _ulkeList = ulke;
+  _ulkeList = this.referansService.getUlkeJSON();;
   _firmaTipiList = firmaTipi;
   _kimlikTuruList = kimlikTuru;
   constructor(
@@ -48,6 +50,7 @@ export class FirmaComponent implements OnInit {
     private _userRoles: UserRoles,
     private _fb: FormBuilder,
     private router:Router,
+    private referansService:ReferansService,
   ) {
     this.firmaForm = this._fb.group({
       firmaArry: this._fb.array([this.getFirma()]),
@@ -80,7 +83,14 @@ export class FirmaComponent implements OnInit {
       duration: 2000,
     });
   }
-
+  get BeyanStatu():boolean {
+    console.log(this.beyanStatu);
+    if(this.beyanStatu==='undefined' || this.beyanStatu===null)
+    return false;
+    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+     return true;
+    else return false;
+  }
   islemFirma() {
     this.firmaForm.enable();
     this.firmaForm.markAllAsTouched();

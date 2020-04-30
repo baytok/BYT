@@ -462,44 +462,70 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                             _beyannameContext.Entry(newbeyanValues).State = EntityState.Added;
                             foreach (var item in lstKalem)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstOdeme)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstTamam)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstBeyannameAcma)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstMarka)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstKonteyner)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in teminatValues)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in firmaValues)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstOzetBeyan)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstTasimaSenedi)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstTasimaSatiri)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstKiymet)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             foreach (var item in lstKiymetKalem)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
-
+                            }
                             await _beyannameContext.SaveChangesAsync();
 
 
@@ -512,6 +538,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             _islem.BeyanInternalNo = newbeyanValues.BeyanInternalNo;
                             _islem.IslemInternalNo = newbeyanValues.BeyanInternalNo;
                             _islem.OlusturmaZamani = DateTime.Now;
+                            _islem.SonIslemZamani = DateTime.Now;
                             _islem.GonderimSayisi = 0;
 
                             _islemTarihceContext.Entry(_islem).State = EntityState.Added;

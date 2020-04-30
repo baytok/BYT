@@ -2364,6 +2364,8 @@ export class BeyannameDto {
   varisGumrukIdaresi: string;
   yukBelgeleriSayisi: number;
   yuklemeBosaltmaYeri: string;
+  olsuturulmaTarihi:string;
+  sonIslemZamani:string;
 
   constructor(data?: BeyannameDto) {
     if (data) {
@@ -2377,7 +2379,7 @@ export class BeyannameDto {
   initalBeyan(data?: any) {
     if (data) {
       this.beyanInternalNo=data["beyanInternalNo"]!=null ? data["beyanInternalNo"] : "";
-      this.beyannameNo=data["beyannameNo"];
+      this.beyannameNo=data["beyannameNo"]!=null ? data["beyannameNo"]:"";
       this.rejim=data["rejim"]!=null ? data["rejim"] : "";
       this.aciklamalar=data["aciklamalar"]!=null ? data["aciklamalar"] : "";
       this.aliciSaticiIliskisi=data["aliciSaticiIliskisi"]!=null ? data["aliciSaticiIliskisi"] : "";
@@ -2437,7 +2439,8 @@ export class BeyannameDto {
       this.varisGumrukIdaresi=data["varisGumrukIdaresi"]!=null ? data["varisGumrukIdaresi"] : "";
       this.yukBelgeleriSayisi=data["yukBelgeleriSayisi"]!=null ?parseFloat(data["yukBelgeleriSayisi"]):0;
       this.yuklemeBosaltmaYeri=data["yuklemeBosaltmaYeri"]!=null ? data["yuklemeBosaltmaYeri"] : "";
-      
+      this.olsuturulmaTarihi= "0001-01-01T00:00:00";
+      this.sonIslemZamani=  "0001-01-01T00:00:00";
     }
   }
 

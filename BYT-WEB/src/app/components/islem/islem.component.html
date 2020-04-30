@@ -113,6 +113,13 @@ type = "ball-8bits">
         <div class="body table-responsive">              
             <mat-card class="mat-card">
               <h5>İşlemler</h5>
+              <button  
+              mat-menu-item
+              (click)="
+              callBytIslemler('GUID')
+              ">
+                BTY
+              </button>
               <div class="example-box">
                 <mat-table
                   [dataSource]="islemlerDataSource"

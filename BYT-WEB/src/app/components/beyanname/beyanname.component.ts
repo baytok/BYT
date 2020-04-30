@@ -21,25 +21,13 @@ import { MustMatch } from "../../../shared/helpers/must-match.validator";
 import {
   ReferansService
 } from "../../../shared/helpers/ReferansService";
-import {
-  rejim,
-  bs,
-  gumruk,
-  ulke,
-  aliciSatici,
-  tasimaSekli,
-  isleminNiteligi,
-  aracTipi,
-  teslimSekli,
-  dovizCinsi
-} from "../../../shared/helpers/referencesList";
+
 import {
   BeyannameServiceProxy,
   SessionServiceProxy,
 } from "../../../shared/service-proxies/service-proxies";
 import { GirisService } from '../../../account/giris/giris.service';
-import { MatDialog } from "@angular/material/dialog";
-import { MatInput } from "@angular/material/input";
+
 import { MatSnackBar } from "@angular/material/snack-bar";
 import {
   UserRoles
@@ -54,7 +42,7 @@ import {
   ServisDto
 } from "../../../shared/service-proxies/service-proxies";
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
-import {MatDatepickerModule,} from '@angular/material/datepicker'; 
+
 
 export const PICK_FORMATS = {
   parse: {
@@ -319,7 +307,7 @@ export class BeyannameComponent implements OnInit {
         isleminNiteligi:new FormControl("", [Validators.required,Validators.maxLength(9)]),   
       //  kapAdedi: new FormControl("", [Validators.pattern("^[0-9]*$")]),   
         kapAdedi: new FormControl("", [ValidationService.numberValidator]),
-        musavirReferansNo: new FormControl("", [Validators.required,Validators.maxLength(12)]),     
+        musavirReferansNo: new FormControl("", [Validators.required,Validators.maxLength(9)]),     
         referansTarihi: new FormControl("",[ ValidationService.tarihValidation]),
         tescilStatu: [],
         tescilTarihi:[],
@@ -649,6 +637,14 @@ export class BeyannameComponent implements OnInit {
       this.beyannameForm.disable();
 
   }
+  get BeyanStatu():boolean {
+    console.log(this.beyanStatu);
+    if(this.beyanStatu==='undefined' || this.beyanStatu===null)
+    return false;
+    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+     return true;
+    else return false;
+  }
   getBeyannameKopyalama(islemInternalNo) {
     if (confirm("Beyannameyi Kopyalamakta Eminmisiniz?")) {
       let yeniislemInternalNo: string;
@@ -710,8 +706,6 @@ export class BeyannameComponent implements OnInit {
      
     }
   }
-
-
   onbeyannameFormSubmit() {
     this.submitted = true;
 
@@ -741,7 +735,7 @@ export class BeyannameComponent implements OnInit {
     let yeniislemInternalNo: string;
     let yeniBeyanname=new BeyannameDto();
     yeniBeyanname.initalBeyan(this.beyannameForm.value);
-    
+    console.log(yeniBeyanname);
       const promise = this.beyanServis
         .setBeyanname(yeniBeyanname)
         .toPromise();

@@ -129,7 +129,16 @@ export class OzetbeyanacmaComponent implements OnInit {
     return this.ozetBeyanForm.controls;
   }
 
+  get BeyanStatu():boolean {
+    console.log(this.beyanStatu);
+    if(this.beyanStatu==='undefined' || this.beyanStatu===null)
+    return false;
+    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+     return true;
+    else return false;
+  }
 
+  
   yukleOzetBeyan(){
     this.getOzetBeyanlar(this._beyanSession.islemInternalNo);
     this.ozetBeyanInternalNo = "";

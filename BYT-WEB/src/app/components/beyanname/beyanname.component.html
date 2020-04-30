@@ -36,12 +36,12 @@
           <mat-icon>add</mat-icon>
           <span>Yeni Beyanname</span>
         </button>
-        <button mat-menu-item (click)="duzeltBeyanname()" [disabled]="beyanStatu === 'Olusturuldu' || beyanStatu === 'Güncellendi' ? false : true" >
+        <button mat-menu-item (click)="duzeltBeyanname()" [disabled]="!BeyanStatu" >
           <mat-icon>sync</mat-icon>
           <span>Beyanname Düzeltme</span>
         </button>
 
-        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)" [disabled]="beyanStatu ==='Olusturuldu' || beyanStatu === 'Güncellendi' ? false : true" >
+        <button mat-menu-item (click)="getBeyannameKopyalama(islemNo)" [disabled]="!BeyanStatu" >
           <mat-icon>file_copy</mat-icon>
           <span>Beyanname Kopyala</span>
         </button>
@@ -423,7 +423,7 @@
                       <mat-form-field>
                         <mat-label>Müşavir Referans No</mat-label>
                         <input
-                        readonly
+                     
                           matNativeControl
                           type="text"
                           formControlName="musavirReferansNo"
@@ -584,7 +584,7 @@
                     >
                       <option *ngFor="let g of _teslimList" [value]="g.kod">{{
                         g.kod
-                      }} {{g.aciklama}}</option>
+                      }} </option>
                     </select>
                     <div
                       *ngIf="submitted && focus.teslimSekli.errors"

@@ -32,13 +32,11 @@
             this.txtsifre = new System.Windows.Forms.TextBox();
             this.xmlSonuc = new XmlRender.XmlBrowser();
             this.xmlGidecekVeri = new XmlRender.XmlBrowser();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnGIN = new System.Windows.Forms.Button();
-            this.buttonETGB = new System.Windows.Forms.Button();
+            this.btnETGB = new System.Windows.Forms.Button();
             this.btnKontrol = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnHat = new System.Windows.Forms.Button();
             this.btnTescil = new System.Windows.Forms.Button();
             this.btnOzet = new System.Windows.Forms.Button();
             this.btnXml = new System.Windows.Forms.Button();
@@ -54,24 +52,28 @@
             this.btnTescilCevabi = new System.Windows.Forms.Button();
             this.TxtDurum = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.TxtGumruk = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.TxtRejim = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.TxtBasTarih = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.TxtGidTarih = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.TxtGuidTarih = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.TxtTip = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.TxtKullanici = new System.Windows.Forms.TextBox();
+            this.TxtTicaret = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtGuid = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.TxtRefID = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.TxtTip = new System.Windows.Forms.TextBox();
             this.rchImza = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.TxtIslemSonucu = new System.Windows.Forms.TextBox();
+            this.btnImzaliVeriKaydet = new System.Windows.Forms.Button();
+            this.btnSonucSorgula = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -80,7 +82,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(113, 683);
+            this.label11.Location = new System.Drawing.Point(43, 683);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(37, 17);
@@ -89,7 +91,7 @@
             // 
             // txtsifre
             // 
-            this.txtsifre.Location = new System.Drawing.Point(158, 680);
+            this.txtsifre.Location = new System.Drawing.Point(88, 680);
             this.txtsifre.Margin = new System.Windows.Forms.Padding(4);
             this.txtsifre.Name = "txtsifre";
             this.txtsifre.PasswordChar = '*';
@@ -98,11 +100,11 @@
             // 
             // xmlSonuc
             // 
-            this.xmlSonuc.Location = new System.Drawing.Point(735, 238);
+            this.xmlSonuc.Location = new System.Drawing.Point(750, 285);
             this.xmlSonuc.Margin = new System.Windows.Forms.Padding(4);
             this.xmlSonuc.MinimumSize = new System.Drawing.Size(27, 25);
             this.xmlSonuc.Name = "xmlSonuc";
-            this.xmlSonuc.Size = new System.Drawing.Size(631, 430);
+            this.xmlSonuc.Size = new System.Drawing.Size(631, 384);
             this.xmlSonuc.TabIndex = 99;
             this.xmlSonuc.XmlDocument = null;
             this.xmlSonuc.XmlDocumentTransformType = XmlRender.XmlBrowser.XslTransformType.XSL;
@@ -110,7 +112,7 @@
             // 
             // xmlGidecekVeri
             // 
-            this.xmlGidecekVeri.Location = new System.Drawing.Point(2, 217);
+            this.xmlGidecekVeri.Location = new System.Drawing.Point(14, 217);
             this.xmlGidecekVeri.Margin = new System.Windows.Forms.Padding(4);
             this.xmlGidecekVeri.MinimumSize = new System.Drawing.Size(27, 25);
             this.xmlGidecekVeri.Name = "xmlGidecekVeri";
@@ -120,35 +122,15 @@
             this.xmlGidecekVeri.XmlDocumentTransformType = XmlRender.XmlBrowser.XslTransformType.XSL;
             this.xmlGidecekVeri.XmlText = "";
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(617, 184);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(77, 28);
-            this.button3.TabIndex = 97;
-            this.button3.Text = "TEXT";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(537, 184);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(77, 28);
-            this.button4.TabIndex = 96;
-            this.button4.Text = "XML";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnGIN);
-            this.groupBox3.Controls.Add(this.buttonETGB);
+            this.groupBox3.Controls.Add(this.btnETGB);
             this.groupBox3.Controls.Add(this.btnKontrol);
-            this.groupBox3.Controls.Add(this.button2);
+            this.groupBox3.Controls.Add(this.btnHat);
             this.groupBox3.Controls.Add(this.btnTescil);
             this.groupBox3.Controls.Add(this.btnOzet);
-            this.groupBox3.Location = new System.Drawing.Point(738, 149);
+            this.groupBox3.Location = new System.Drawing.Point(750, 149);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
@@ -167,16 +149,16 @@
             this.btnGIN.UseVisualStyleBackColor = true;
             this.btnGIN.Click += new System.EventHandler(this.btnGIN_Click);
             // 
-            // buttonETGB
+            // btnETGB
             // 
-            this.buttonETGB.Location = new System.Drawing.Point(429, 18);
-            this.buttonETGB.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonETGB.Name = "buttonETGB";
-            this.buttonETGB.Size = new System.Drawing.Size(100, 28);
-            this.buttonETGB.TabIndex = 48;
-            this.buttonETGB.Text = "ETGB";
-            this.buttonETGB.UseVisualStyleBackColor = true;
-            this.buttonETGB.Click += new System.EventHandler(this.buttonETGB_Click);
+            this.btnETGB.Location = new System.Drawing.Point(429, 18);
+            this.btnETGB.Margin = new System.Windows.Forms.Padding(4);
+            this.btnETGB.Name = "btnETGB";
+            this.btnETGB.Size = new System.Drawing.Size(100, 28);
+            this.btnETGB.TabIndex = 48;
+            this.btnETGB.Text = "ETGB";
+            this.btnETGB.UseVisualStyleBackColor = true;
+            this.btnETGB.Click += new System.EventHandler(this.btnETGB_Click);
             // 
             // btnKontrol
             // 
@@ -189,15 +171,15 @@
             this.btnKontrol.UseVisualStyleBackColor = true;
             this.btnKontrol.Click += new System.EventHandler(this.btnKontrol_Click);
             // 
-            // button2
+            // btnHat
             // 
-            this.button2.Location = new System.Drawing.Point(183, 18);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(83, 28);
-            this.button2.TabIndex = 47;
-            this.button2.Text = "Hat";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnHat.Location = new System.Drawing.Point(183, 18);
+            this.btnHat.Margin = new System.Windows.Forms.Padding(4);
+            this.btnHat.Name = "btnHat";
+            this.btnHat.Size = new System.Drawing.Size(83, 28);
+            this.btnHat.TabIndex = 47;
+            this.btnHat.Text = "Hat";
+            this.btnHat.UseVisualStyleBackColor = true;
             // 
             // btnTescil
             // 
@@ -223,7 +205,7 @@
             // 
             // btnXml
             // 
-            this.btnXml.Location = new System.Drawing.Point(453, 677);
+            this.btnXml.Location = new System.Drawing.Point(383, 677);
             this.btnXml.Margin = new System.Windows.Forms.Padding(4);
             this.btnXml.Name = "btnXml";
             this.btnXml.Size = new System.Drawing.Size(148, 27);
@@ -235,7 +217,7 @@
             // 
             // btnSil
             // 
-            this.btnSil.Location = new System.Drawing.Point(1146, 69);
+            this.btnSil.Location = new System.Drawing.Point(1158, 69);
             this.btnSil.Margin = new System.Windows.Forms.Padding(4);
             this.btnSil.Name = "btnSil";
             this.btnSil.Size = new System.Drawing.Size(220, 28);
@@ -246,7 +228,7 @@
             // 
             // btnSira
             // 
-            this.btnSira.Location = new System.Drawing.Point(1242, 30);
+            this.btnSira.Location = new System.Drawing.Point(1254, 30);
             this.btnSira.Margin = new System.Windows.Forms.Padding(4);
             this.btnSira.Name = "btnSira";
             this.btnSira.Size = new System.Drawing.Size(124, 28);
@@ -257,7 +239,7 @@
             // 
             // btnBeyanname
             // 
-            this.btnBeyanname.Location = new System.Drawing.Point(94, 155);
+            this.btnBeyanname.Location = new System.Drawing.Point(106, 155);
             this.btnBeyanname.Margin = new System.Windows.Forms.Padding(4);
             this.btnBeyanname.Name = "btnBeyanname";
             this.btnBeyanname.Size = new System.Drawing.Size(220, 28);
@@ -268,7 +250,7 @@
             // 
             // btnImza
             // 
-            this.btnImza.Location = new System.Drawing.Point(300, 677);
+            this.btnImza.Location = new System.Drawing.Point(230, 677);
             this.btnImza.Margin = new System.Windows.Forms.Padding(4);
             this.btnImza.Name = "btnImza";
             this.btnImza.Size = new System.Drawing.Size(145, 27);
@@ -280,7 +262,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.comboBoxGonderimTuru);
-            this.groupBox2.Location = new System.Drawing.Point(932, 31);
+            this.groupBox2.Location = new System.Drawing.Point(944, 31);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -307,7 +289,7 @@
             this.txtTescilTarih.BackColor = System.Drawing.Color.Lime;
             this.txtTescilTarih.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.txtTescilTarih.ForeColor = System.Drawing.Color.DarkRed;
-            this.txtTescilTarih.Location = new System.Drawing.Point(317, 20);
+            this.txtTescilTarih.Location = new System.Drawing.Point(329, 20);
             this.txtTescilTarih.Margin = new System.Windows.Forms.Padding(4);
             this.txtTescilTarih.Name = "txtTescilTarih";
             this.txtTescilTarih.ReadOnly = true;
@@ -321,7 +303,7 @@
             this.txtBeyannameNo.BackColor = System.Drawing.Color.Lime;
             this.txtBeyannameNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.txtBeyannameNo.ForeColor = System.Drawing.Color.DarkRed;
-            this.txtBeyannameNo.Location = new System.Drawing.Point(12, 20);
+            this.txtBeyannameNo.Location = new System.Drawing.Point(24, 20);
             this.txtBeyannameNo.Margin = new System.Windows.Forms.Padding(4);
             this.txtBeyannameNo.Name = "txtBeyannameNo";
             this.txtBeyannameNo.ReadOnly = true;
@@ -332,7 +314,7 @@
             // 
             // btnIptal
             // 
-            this.btnIptal.Location = new System.Drawing.Point(1116, 30);
+            this.btnIptal.Location = new System.Drawing.Point(1128, 30);
             this.btnIptal.Margin = new System.Windows.Forms.Padding(4);
             this.btnIptal.Name = "btnIptal";
             this.btnIptal.Size = new System.Drawing.Size(119, 28);
@@ -344,7 +326,7 @@
             // 
             // btnTescilCevabi
             // 
-            this.btnTescilCevabi.Location = new System.Drawing.Point(1186, 105);
+            this.btnTescilCevabi.Location = new System.Drawing.Point(1198, 105);
             this.btnTescilCevabi.Margin = new System.Windows.Forms.Padding(4);
             this.btnTescilCevabi.Name = "btnTescilCevabi";
             this.btnTescilCevabi.Size = new System.Drawing.Size(180, 30);
@@ -358,7 +340,7 @@
             // 
             this.TxtDurum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.TxtDurum.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.TxtDurum.Location = new System.Drawing.Point(462, 20);
+            this.TxtDurum.Location = new System.Drawing.Point(474, 20);
             this.TxtDurum.Margin = new System.Windows.Forms.Padding(4);
             this.TxtDurum.Name = "TxtDurum";
             this.TxtDurum.ReadOnly = true;
@@ -368,21 +350,23 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.TxtGumruk);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.TxtRejim);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.TxtBasTarih);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.TxtGidTarih);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.TxtGuidTarih);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.TxtTip);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.TxtKullanici);
+            this.groupBox1.Controls.Add(this.TxtTicaret);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.TxtGuid);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.TxtRefID);
-            this.groupBox1.Location = new System.Drawing.Point(4, 49);
+            this.groupBox1.Location = new System.Drawing.Point(16, 49);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -390,15 +374,53 @@
             this.groupBox1.TabIndex = 83;
             this.groupBox1.TabStop = false;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(374, 73);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(58, 17);
+            this.label13.TabIndex = 25;
+            this.label13.Text = "Gumruk";
+            // 
+            // TxtGumruk
+            // 
+            this.TxtGumruk.Location = new System.Drawing.Point(449, 71);
+            this.TxtGumruk.Margin = new System.Windows.Forms.Padding(4);
+            this.TxtGumruk.Name = "TxtGumruk";
+            this.TxtGumruk.ReadOnly = true;
+            this.TxtGumruk.Size = new System.Drawing.Size(113, 22);
+            this.TxtGumruk.TabIndex = 24;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(201, 73);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(43, 17);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "Rejim";
+            // 
+            // TxtRejim
+            // 
+            this.TxtRejim.Location = new System.Drawing.Point(246, 71);
+            this.TxtRejim.Margin = new System.Windows.Forms.Padding(4);
+            this.TxtRejim.Name = "TxtRejim";
+            this.TxtRejim.ReadOnly = true;
+            this.TxtRejim.Size = new System.Drawing.Size(113, 22);
+            this.TxtRejim.TabIndex = 22;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(557, 47);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(106, 17);
+            this.label10.Size = new System.Drawing.Size(107, 17);
             this.label10.TabIndex = 21;
-            this.label10.Text = "Başlangıç Tarih";
+            this.label10.Text = "Gönderim Tarih";
             // 
             // TxtBasTarih
             // 
@@ -447,49 +469,29 @@
             this.TxtGuidTarih.Size = new System.Drawing.Size(213, 22);
             this.TxtGuidTarih.TabIndex = 16;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(379, 62);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(28, 17);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Tip";
-            // 
-            // TxtTip
-            // 
-            this.TxtTip.ForeColor = System.Drawing.Color.DarkRed;
-            this.TxtTip.Location = new System.Drawing.Point(441, 58);
-            this.TxtTip.Margin = new System.Windows.Forms.Padding(4);
-            this.TxtTip.Name = "TxtTip";
-            this.TxtTip.ReadOnly = true;
-            this.TxtTip.Size = new System.Drawing.Size(113, 22);
-            this.TxtTip.TabIndex = 14;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(376, 20);
+            this.label6.Location = new System.Drawing.Point(9, 74);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 17);
+            this.label6.Size = new System.Drawing.Size(75, 17);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Kullanıcı";
+            this.label6.Text = "Beyan Tipi";
             // 
-            // TxtKullanici
+            // TxtTicaret
             // 
-            this.TxtKullanici.Location = new System.Drawing.Point(441, 16);
-            this.TxtKullanici.Margin = new System.Windows.Forms.Padding(4);
-            this.TxtKullanici.Name = "TxtKullanici";
-            this.TxtKullanici.ReadOnly = true;
-            this.TxtKullanici.Size = new System.Drawing.Size(113, 22);
-            this.TxtKullanici.TabIndex = 12;
+            this.TxtTicaret.Location = new System.Drawing.Point(84, 72);
+            this.TxtTicaret.Margin = new System.Windows.Forms.Padding(4);
+            this.TxtTicaret.Name = "TxtTicaret";
+            this.TxtTicaret.ReadOnly = true;
+            this.TxtTicaret.Size = new System.Drawing.Size(113, 22);
+            this.TxtTicaret.TabIndex = 12;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 62);
+            this.label5.Location = new System.Drawing.Point(9, 46);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 17);
@@ -498,7 +500,7 @@
             // 
             // TxtGuid
             // 
-            this.TxtGuid.Location = new System.Drawing.Point(55, 58);
+            this.TxtGuid.Location = new System.Drawing.Point(55, 41);
             this.TxtGuid.Margin = new System.Windows.Forms.Padding(4);
             this.TxtGuid.Name = "TxtGuid";
             this.TxtGuid.ReadOnly = true;
@@ -524,56 +526,84 @@
             this.TxtRefID.Size = new System.Drawing.Size(205, 22);
             this.TxtRefID.TabIndex = 8;
             // 
-            // label3
+            // label7
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(0, 677);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 17);
-            this.label3.TabIndex = 82;
-            this.label3.Text = "İmzalı Blgi";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(713, 25);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(40, 17);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "İşlem";
+            // 
+            // TxtTip
+            // 
+            this.TxtTip.ForeColor = System.Drawing.Color.DarkRed;
+            this.TxtTip.Location = new System.Drawing.Point(758, 22);
+            this.TxtTip.Margin = new System.Windows.Forms.Padding(4);
+            this.TxtTip.Name = "TxtTip";
+            this.TxtTip.ReadOnly = true;
+            this.TxtTip.Size = new System.Drawing.Size(50, 22);
+            this.TxtTip.TabIndex = 14;
             // 
             // rchImza
             // 
-            this.rchImza.Location = new System.Drawing.Point(2, 619);
+            this.rchImza.Location = new System.Drawing.Point(14, 619);
             this.rchImza.Margin = new System.Windows.Forms.Padding(4);
             this.rchImza.Name = "rchImza";
-            this.rchImza.Size = new System.Drawing.Size(691, 50);
+            this.rchImza.Size = new System.Drawing.Size(718, 50);
             this.rchImza.TabIndex = 81;
             this.rchImza.Text = "";
             // 
-            // label1
+            // TxtIslemSonucu
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(743, 217);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 17);
-            this.label1.TabIndex = 80;
-            this.label1.Text = "Giden Data";
+            this.TxtIslemSonucu.BackColor = System.Drawing.SystemColors.Control;
+            this.TxtIslemSonucu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.TxtIslemSonucu.ForeColor = System.Drawing.Color.DarkRed;
+            this.TxtIslemSonucu.Location = new System.Drawing.Point(758, 217);
+            this.TxtIslemSonucu.Margin = new System.Windows.Forms.Padding(4);
+            this.TxtIslemSonucu.Name = "TxtIslemSonucu";
+            this.TxtIslemSonucu.ReadOnly = true;
+            this.TxtIslemSonucu.Size = new System.Drawing.Size(620, 24);
+            this.TxtIslemSonucu.TabIndex = 103;
+            this.TxtIslemSonucu.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label4
+            // btnImzaliVeriKaydet
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(0, 196);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 17);
-            this.label4.TabIndex = 79;
-            this.label4.Text = "Gelen Data";
+            this.btnImzaliVeriKaydet.Location = new System.Drawing.Point(539, 677);
+            this.btnImzaliVeriKaydet.Margin = new System.Windows.Forms.Padding(4);
+            this.btnImzaliVeriKaydet.Name = "btnImzaliVeriKaydet";
+            this.btnImzaliVeriKaydet.Size = new System.Drawing.Size(164, 27);
+            this.btnImzaliVeriKaydet.TabIndex = 104;
+            this.btnImzaliVeriKaydet.Text = "İmzalı Veriyi Kaydet";
+            this.btnImzaliVeriKaydet.UseVisualStyleBackColor = true;
+            this.btnImzaliVeriKaydet.Visible = false;
+            this.btnImzaliVeriKaydet.Click += new System.EventHandler(this.btnImzaliVeriKaydet_Click);
+            // 
+            // btnSonucSorgula
+            // 
+            this.btnSonucSorgula.Location = new System.Drawing.Point(758, 249);
+            this.btnSonucSorgula.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSonucSorgula.Name = "btnSonucSorgula";
+            this.btnSonucSorgula.Size = new System.Drawing.Size(620, 28);
+            this.btnSonucSorgula.TabIndex = 105;
+            this.btnSonucSorgula.Text = "Sonuç Sorgula";
+            this.btnSonucSorgula.UseVisualStyleBackColor = true;
             // 
             // BYTIslemler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1404, 717);
+            this.ClientSize = new System.Drawing.Size(1435, 717);
+            this.Controls.Add(this.btnSonucSorgula);
+            this.Controls.Add(this.btnImzaliVeriKaydet);
+            this.Controls.Add(this.TxtIslemSonucu);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtsifre);
             this.Controls.Add(this.xmlSonuc);
             this.Controls.Add(this.xmlGidecekVeri);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.TxtTip);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnXml);
             this.Controls.Add(this.btnSil);
@@ -587,12 +617,10 @@
             this.Controls.Add(this.btnTescilCevabi);
             this.Controls.Add(this.TxtDurum);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.rchImza);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label4);
             this.Name = "BYTIslemler";
             this.Text = "BYTIslemler";
+            this.Load += new System.EventHandler(this.BYTIslemler_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -608,13 +636,11 @@
         private System.Windows.Forms.TextBox txtsifre;
         public XmlRender.XmlBrowser xmlSonuc;
         public XmlRender.XmlBrowser xmlGidecekVeri;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnGIN;
-        private System.Windows.Forms.Button buttonETGB;
+        private System.Windows.Forms.Button btnETGB;
         private System.Windows.Forms.Button btnKontrol;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnHat;
         private System.Windows.Forms.Button btnTescil;
         private System.Windows.Forms.Button btnOzet;
         private System.Windows.Forms.Button btnXml;
@@ -639,14 +665,18 @@
         internal System.Windows.Forms.Label label7;
         public System.Windows.Forms.TextBox TxtTip;
         internal System.Windows.Forms.Label label6;
-        public System.Windows.Forms.TextBox TxtKullanici;
+        public System.Windows.Forms.TextBox TxtTicaret;
         internal System.Windows.Forms.Label label5;
         public System.Windows.Forms.TextBox TxtGuid;
         internal System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox TxtRefID;
-        internal System.Windows.Forms.Label label3;
         public System.Windows.Forms.RichTextBox rchImza;
-        internal System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.Label label4;
+        internal System.Windows.Forms.Label label13;
+        public System.Windows.Forms.TextBox TxtGumruk;
+        internal System.Windows.Forms.Label label12;
+        public System.Windows.Forms.TextBox TxtRejim;
+        public System.Windows.Forms.TextBox TxtIslemSonucu;
+        private System.Windows.Forms.Button btnImzaliVeriKaydet;
+        private System.Windows.Forms.Button btnSonucSorgula;
     }
 }

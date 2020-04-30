@@ -602,9 +602,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     try
                     {
                         islemValues.Kullanici = Kullanici;
-                        islemValues.IslemDurumu = "Gonderildi";
+                        islemValues.IslemDurumu = "Kontrol Gonderildi";
                         islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBKG");
                         islemValues.IslemZamani = DateTime.Now;
+                        islemValues.SonIslemZamani = DateTime.Now;
                         islemValues.IslemSonucu = islemSonucu;
                         islemValues.Guidof = guidOf;
                         islemValues.IslemTipi = "Kontrol";
@@ -626,14 +627,19 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _tarihce.IslemSonucu = islemSonucu;
                         _tarihce.IslemTipi = "1";
                         _tarihce.TicaretTipi = EX.Contains(beyanValues.Rejim) ? "EX" : IM.Contains(beyanValues.Rejim) ? "IM" : AN.Contains(beyanValues.Rejim) ? "AN" : DG.Contains(beyanValues.Rejim) ? "DG" : "";
-                        _tarihce.GonderilenVeri = _tarihce.GonderilenVeri = SerializeToXML(gelen);
+                        _tarihce.GonderilenVeri = _tarihce.GonderilecekVeri = SerializeToXML(gelen);
                         _tarihce.GondermeZamani = _tarihce.OlusturmaZamani = DateTime.Now;
                         _tarihce.GonderimNo = islemValues.GonderimSayisi;
-
+                        _tarihce.SonIslemZamani = DateTime.Now;
 
                         _islemTarihceContext.Entry(_tarihce).State = EntityState.Added;
                         await _islemTarihceContext.SaveChangesAsync();
 
+                        beyanValues.SonIslemZamani = DateTime.Now;
+                        beyanValues.TescilStatu = "Kontrol Gonderildi";
+                        _beyannameContext.Entry(beyanValues).State = EntityState.Modified;
+                        await _islemTarihceContext.SaveChangesAsync();
+                        await _beyannameContext.SaveChangesAsync();
                         transaction.Commit();
 
                     }
