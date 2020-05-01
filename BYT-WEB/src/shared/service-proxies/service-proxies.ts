@@ -417,7 +417,7 @@ export class BeyannameServiceProxy {
     
   }
 
-  TescilGonderimi(IslemInternalNo, Kullanici, imzaliVeri) {
+  TescilGonderimi(IslemInternalNo, Kullanici, guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
@@ -429,7 +429,7 @@ export class BeyannameServiceProxy {
     };
       return this.http.post<any>(
         this.baseUrl + "Servis/Beyanname/BeyannameTescilGonderim/" +
-        IslemInternalNo + "/" + Kullanici+"/"+imzaliVeri,null,httpOptions  
+        IslemInternalNo + "/" + Kullanici+"/"+guid,null,httpOptions  
         );
    
     

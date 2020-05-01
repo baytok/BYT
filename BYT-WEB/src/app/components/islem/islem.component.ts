@@ -194,12 +194,12 @@ export class IslemComponent implements OnInit {
     }
     
    }
-   sendingTescilMessages(islemInternalNo:string){
+   sendingTescilMessages(islemInternalNo:string,guid:string){
     this._beyanSession.islemInternalNo=islemInternalNo;  
     if(confirm('Tescil Gönderimi Yapamak İstediğinizden Eminmisiniz?')){
       this.loading = true; 
     
-     const promise=this.beyanServis.TescilGonderimi(islemInternalNo,this.kullanici,"").toPromise();
+     const promise=this.beyanServis.TescilGonderimi(islemInternalNo,this.kullanici,guid).toPromise();
      promise.then( (result)=>{  
         const servisSonuc = new ServisDto();
         servisSonuc.init(result);

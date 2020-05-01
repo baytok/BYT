@@ -16,7 +16,7 @@ namespace BYT.UI
         {
             //string arg1 = args[0];
             //string arg2 = args[1];
-            string arg1 = "fc229c1e-3572-44c3-bc4f-df72015fed90";
+            string arg1 = "BYT:ca433f52-80e3-46d3-8e85-1356fd436e6f";
             string arg2 = "";
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

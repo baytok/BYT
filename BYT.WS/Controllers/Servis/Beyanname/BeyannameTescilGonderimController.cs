@@ -27,7 +27,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
    // [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OzetBeyanTescilGonderimController : ControllerBase
+    public class BeyannameTescilGonderimController : ControllerBase
     {
         string[] EX = {"1000","1021","1023","1040","1042","1072","1091","2100","2123","2141","2151","2152","2153","2172","2191","2300","2340","2341",
             "2342","2351","2352","2353","2600","3141","3151","3152","3153","3158","3171"};
@@ -41,7 +41,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         private readonly ServisCredential _servisCredential;
         private BeyannameSonucDataContext _sonucContext;
         public IConfiguration Configuration { get; }
-        public OzetBeyanTescilGonderimController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
+        public BeyannameTescilGonderimController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
             _islemTarihceContext = islemTarihcecontext;
             Configuration = configuration;
@@ -628,7 +628,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                 #endregion
 
-                //TODO: Vergi, Belge ve Soru Cevap ta eklenecek
+             
                 var optionss = new DbContextOptionsBuilder<KullaniciDataContext>()
                       .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                       .Options;
@@ -645,23 +645,44 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
 
                 string guidOf = "BYT:" + Guid.NewGuid().ToString();
-
+                string newIslemInternalNo = IslemInternalNo;
                 using (var transaction = _islemTarihceContext.Database.BeginTransaction())
                 {
+                   
                     try
-                    {
-                        islemValues.Kullanici = Kullanici;
-                        islemValues.IslemDurumu = "Tescil Mesajı Oluşturuldu";
-                        islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
-                        islemValues.IslemZamani = DateTime.Now;
-                        islemValues.SonIslemZamani = DateTime.Now;
-                        islemValues.IslemSonucu = "İmzalamaya Hazır";
-                        islemValues.Guidof = guidOf;
-                        islemValues.IslemTipi = "Tescil";
-                        islemValues.GonderimSayisi++;
+                    {                       
 
-
-                        _islemTarihceContext.Entry(islemValues).State = EntityState.Modified;
+                        if (islemValues.IslemTipi == "Tescil")
+                        {
+                         
+                            islemValues.Kullanici = Kullanici;
+                            islemValues.IslemDurumu = "Imzala";
+                            islemValues.IslemZamani = DateTime.Now;
+                            islemValues.SonIslemZamani = DateTime.Now;
+                            islemValues.IslemSonucu = "Tescil Mesajı Oluşturuldu";
+                            islemValues.Guidof = guidOf;
+                            islemValues.GonderimSayisi++;
+                            _islemTarihceContext.Entry(islemValues).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            Islem _islem = new Islem();
+                             newIslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
+                            _islem.Kullanici = islemValues.Kullanici;
+                            _islem.IslemDurumu = "Imzala";
+                            _islem.IslemInternalNo = newIslemInternalNo;
+                            _islem.IslemZamani = DateTime.Now;
+                            _islem.SonIslemZamani = DateTime.Now;
+                            _islem.IslemSonucu = "Tescil Mesajı Oluşturuldu";
+                            _islem.Guidof = guidOf;
+                            _islem.RefNo = islemValues.RefNo;
+                            _islem.BeyanInternalNo = islemValues.BeyanInternalNo;
+                            _islem.BeyanTipi = islemValues.BeyanTipi;
+                            _islem.IslemTipi = "Tescil";
+                            _islem.GonderimSayisi++;
+                            _islemTarihceContext.Entry(_islem).State = EntityState.Added;
+                        }
+                        //TODO: bu guid dışında imzala aşamasında kalmış aynı IslemInternalNo ile ilgili kayıtlar iptal edilsin
                         await _islemTarihceContext.SaveChangesAsync();
 
 
@@ -669,11 +690,11 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _tarihce.Guid = guidOf;
                         _tarihce.Gumruk = beyanValues.Gumruk;
                         _tarihce.Rejim = beyanValues.Rejim;
-                        _tarihce.IslemInternalNo = islemValues.IslemInternalNo;
+                        _tarihce.IslemInternalNo = newIslemInternalNo;
                         _tarihce.Kullanici = Kullanici;
                         _tarihce.RefNo = islemValues.RefNo;
-                        _tarihce.IslemDurumu = "Tescil Mesajı Oluşturuldu";
-                        _tarihce.IslemSonucu = "İmzalamaya Hazır";
+                        _tarihce.IslemDurumu = "Imzala";
+                        _tarihce.IslemSonucu = "Tescil Mesajı Oluşturuldu";
                         _tarihce.IslemTipi = "2";
                         _tarihce.TicaretTipi = EX.Contains(beyanValues.Rejim) ? "EX" : IM.Contains(beyanValues.Rejim) ? "IM" : AN.Contains(beyanValues.Rejim) ? "AN" : DG.Contains(beyanValues.Rejim) ? "DG" : "";
                         _tarihce.GonderilecekVeri = imzasizMesaj;
@@ -738,9 +759,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/{IslemInternalNo}/{Kullanici}/{imzaliVeri}")]
-        [HttpPost("{IslemInternalNo}/{Kullanici}/{imzaliVeri}")]
-        public async Task<ServisDurum> GetTescil(string IslemInternalNo, string Kullanici, [FromBody] string imzaliVeri)
+        [Route("api/BYT/Servis/Beyanname/[controller]/{IslemInternalNo}/{Kullanici}/{Guid}")]
+        [HttpPost("{IslemInternalNo}/{Kullanici}/{Guid}")]
+        public async Task<ServisDurum> GetTescil(string IslemInternalNo, string Kullanici,  string Guid)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -750,14 +771,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             try
             {
 
-                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim());
-                var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
-     
+                var tarihceValues = await _islemTarihceContext.Tarihce.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim() && v.Guid==Guid.Trim() && v.IslemDurumu== "Imzalandi");
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim() && v.Guidof == Guid.Trim() && v.IslemDurumu == "Imzalandi");
+
 
                 string guidOf = "", IslemDurumu = "", islemSonucu = "";
                 XmlDocument xmlDoc = new XmlDocument();
                 XmlElement root = xmlDoc.CreateElement("Root");
-                root.InnerText = imzaliVeri;
+                root.InnerText = tarihceValues.ImzaliVeri;
                 TescilHizmeti.Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient Tescil = ServiceHelper.GetTescilWSClient(_servisCredential.username, _servisCredential.password);
                 await Tescil.TescilAsync(root);
 
@@ -797,9 +818,6 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 }
 
 
-                if (string.IsNullOrWhiteSpace(guidOf))
-                    guidOf = "BYT:" + Guid.NewGuid().ToString();
-
                 using (var transaction = _islemTarihceContext.Database.BeginTransaction())
                 {
                     try
@@ -819,24 +837,16 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         await _islemTarihceContext.SaveChangesAsync();
 
 
-                        Tarihce _tarihce = new Tarihce();
-                        _tarihce.Guid = guidOf;
-                        _tarihce.Gumruk = beyanValues.Gumruk;
-                        _tarihce.Rejim = beyanValues.Rejim;
-                        _tarihce.IslemInternalNo = islemValues.IslemInternalNo;
-                        _tarihce.Kullanici = Kullanici;
-                        _tarihce.RefNo = islemValues.RefNo;
-                        _tarihce.IslemDurumu = IslemDurumu;
-                        _tarihce.IslemSonucu = islemSonucu;
-                        _tarihce.IslemTipi = "2";
-                        _tarihce.TicaretTipi = EX.Contains(beyanValues.Rejim) ? "EX" : IM.Contains(beyanValues.Rejim) ? "IM" : AN.Contains(beyanValues.Rejim) ? "AN" : DG.Contains(beyanValues.Rejim) ? "DG" : "";
-                        _tarihce.GonderilenVeri = imzaliVeri;
-                        _tarihce.GondermeZamani = DateTime.Now;
-                        _tarihce.SonIslemZamani = DateTime.Now;
-                        _tarihce.GonderimNo = islemValues.GonderimSayisi;
+
+                        tarihceValues.Guid = guidOf;
+                        tarihceValues.IslemDurumu = IslemDurumu;
+                        tarihceValues.IslemSonucu = islemSonucu;
+                        tarihceValues.GondermeZamani = DateTime.Now;
+                        tarihceValues.SonIslemZamani = DateTime.Now;
+                        tarihceValues.GonderimNo = islemValues.GonderimSayisi;
 
 
-                        _islemTarihceContext.Entry(_tarihce).State = EntityState.Added;
+                        _islemTarihceContext.Entry(tarihceValues).State = EntityState.Modified;
                         await _islemTarihceContext.SaveChangesAsync();
 
                         transaction.Commit();

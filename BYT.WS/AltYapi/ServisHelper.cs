@@ -51,7 +51,7 @@ namespace BYT.WS.AltYapi
             binding.MaxReceivedMessageSize = 2147483647;
 
 #if (DEBUG)
-            address = new EndpointAddress("https://wstest.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/TescilWS");
+            address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/TescilWS");
 
 #else
              address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/TescilWS");

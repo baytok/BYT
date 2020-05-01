@@ -602,7 +602,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     try
                     {
                         islemValues.Kullanici = Kullanici;
-                        islemValues.IslemDurumu = "Kontrol Gonderildi";
+                        islemValues.IslemDurumu = "KontroleGonderildi";
                         islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBKG");
                         islemValues.IslemZamani = DateTime.Now;
                         islemValues.SonIslemZamani = DateTime.Now;

@@ -1562,8 +1562,8 @@ namespace BYT.UI
 
         private void btnImzaliVeriKaydet_Click(object sender, EventArgs e)
         {
-            string commandTarihceText = "update Tarihce set ImzaliVeri=@ImzaliVeri, SonIslemZamani=@Tarih  Where Guid = @GUID;";
-            string commandIslemText = "update Islem set  SonIslemZamani=@Tarih,IslemZamani=@Tarih, IslemDurumu='İmzalandı' Where guidof = @GUID;";
+            string commandTarihceText = "update Tarihce set ImzaliVeri=@ImzaliVeri, SonIslemZamani=@Tarih, IslemDurumu='Imzalandi',IslemSonucu = 'İmzalama Başarılı'  Where Guid = @GUID;";
+            string commandIslemText = "update Islem set  SonIslemZamani=@Tarih,IslemZamani=@Tarih, IslemDurumu='Imzalandi',IslemSonucu = 'İmzalama Başarılı' Where guidof = @GUID;";
             using (SqlConnection connection = new SqlConnection(sqlconnProd))
             { try
                 {
@@ -1580,7 +1580,7 @@ namespace BYT.UI
                     command2.Parameters.Add("@Tarih", SqlDbType.DateTime2).Value = DateTime.Now; 
                  
                     
-                    //connection.Open();
+                    connection.Open();
                     command.ExecuteNonQuery();
                     command2.ExecuteNonQuery();
                     MessageBox.Show("Kaydetme İşlemi Başarılı");
