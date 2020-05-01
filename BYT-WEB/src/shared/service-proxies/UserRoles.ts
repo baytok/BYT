@@ -33,7 +33,7 @@ export class UserRoles {
  
          for(let role of this.Yetkiler)
          {
-           if(role.id===3 || role.id===2)
+           if(role.id===2 || role.id===3)
             {          
               yetki=true;
               break;
@@ -44,6 +44,28 @@ export class UserRoles {
              }
          return yetki;
      }
+     canOzetBeyanRoles():boolean{
+      
+      if (this.girisService.loggedRoles!=null) {
+        var yetki:boolean;     
+          this.Yetkiler = [] as any;
+          for (let item of this.girisService.loggedRoles)
+           this.Yetkiler.push(item);  
+
+
+       for(let role of this.Yetkiler)
+       {
+         if(role.id===2 || role.id===5)
+          {          
+            yetki=true;
+            break;
+          }
+          else yetki=false;
+       }         
+        //  this.router.navigate(['giris'])
+           }
+       return yetki;
+   }
      canAdminRoles():boolean{
       
       if (this.girisService.loggedRoles!=null) {

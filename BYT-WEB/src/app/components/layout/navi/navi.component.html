@@ -18,6 +18,9 @@
         <a  mat-list-item  *ngIf="BeyannameRole"  routerLink="/app/beyanname" (click)="onSidenavClose()"  [matMenuTriggerFor]="beyan">
             <mat-icon>description</mat-icon> <span class="nav-caption">Beyanname</span>     
         </a>
+        <a  mat-list-item  *ngIf="OzetBeyannRole"  routerLink="/app/ozetbeyan" (click)="onSidenavClose()"  [matMenuTriggerFor]="ozetbeyan">
+            <mat-icon>assignment</mat-icon> <span class="nav-caption">Özet Beyan</span>     
+        </a>
         <a mat-list-item routerLink="/app/islemler" (click)="onSidenavClose()" >
             <mat-icon>list</mat-icon> <span class="nav-caption">İşlemler</span>   
         </a>
@@ -28,10 +31,16 @@
         <mat-menu #beyan="matMenu">     
             <!-- <button mat-menu-item [matMenuTriggerFor]="kalem" routerLink="/app/kalem">Kalemler</button>    -->
             <button mat-menu-item routerLink="/app/kalem">Kalemler</button>
-        <button mat-menu-item routerLink="/app/ozetbeyanacma">Özet Beyan Açma</button>
+             <button mat-menu-item routerLink="/app/dbozetbeyanacma">Özet Beyan Açma</button>
             <button mat-menu-item  routerLink="/app/kiymet">Kıymet Bildirim</button>
-            <button mat-menu-item routerLink="/app/teminat">Teminat</button>
+            <button mat-menu-item routerLink="/app/dbteminat">Teminat</button>
             <button mat-menu-item routerLink="/app/firma">Firma</button>
+        </mat-menu>
+        <mat-menu #ozetbeyan="matMenu">     
+            <button mat-menu-item routerLink="/app/tasimasenet">Taşıma Senet</button>
+            <button mat-menu-item routerLink="/app/obozetbeyanacma">Özet Beyan Açma</button>
+            <button mat-menu-item routerLink="/app/obteminat">Teminat</button>
+          
         </mat-menu>
         <!-- <mat-menu #kalem="matMenu">
             <button mat-menu-item>Marka</button>

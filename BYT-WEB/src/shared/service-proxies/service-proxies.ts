@@ -392,7 +392,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
       return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/KontrolGonderim/" +
+        this.baseUrl + "Servis/Beyanname/BeyannameKontrolGonderim/" +
         IslemInternalNo + "/" + Kullanici,null,httpOptions  
         );
    
@@ -410,7 +410,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
       return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/TescilGonderim/" +
+        this.baseUrl + "Servis/Beyanname/BeyannameTescilGonderim/" +
         IslemInternalNo + "/" + Kullanici,null,httpOptions  
         );
    
@@ -428,7 +428,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
       return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/TescilGonderim/" +
+        this.baseUrl + "Servis/Beyanname/BeyannameTescilGonderim/" +
         IslemInternalNo + "/" + Kullanici+"/"+imzaliVeri,null,httpOptions  
         );
    

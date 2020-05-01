@@ -23,6 +23,9 @@ export class NaviComponent implements OnInit {
   get BeyannameRole() {
         return this.userRoles.canBeyannameRoles();
   }
+  get OzetBeyannRole() {
+    return this.userRoles.canOzetBeyanRoles();
+  }
   get AdminRole() {
     return this.userRoles.canAdminRoles();
 }

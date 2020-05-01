@@ -17,30 +17,30 @@ import {
   FormArray,
   NgForm
 } from "@angular/forms";
-import { MustMatch } from "../../../shared/helpers/must-match.validator";
+import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
   ReferansService
-} from "../../../shared/helpers/ReferansService";
+} from "../../../../shared/helpers/ReferansService";
 
 import {
   BeyannameServiceProxy,
   SessionServiceProxy,
-} from "../../../shared/service-proxies/service-proxies";
-import { GirisService } from '../../../account/giris/giris.service';
+} from "../../../../shared/service-proxies/service-proxies";
+import { GirisService } from '../../../../account/giris/giris.service';
 
 import { MatSnackBar } from "@angular/material/snack-bar";
 import {
   UserRoles
-} from "../../../shared/service-proxies/UserRoles";
+} from "../../../../shared/service-proxies/UserRoles";
 import {
   ValidationService
-} from "../../../shared/service-proxies/ValidationService";
+} from "../../../../shared/service-proxies/ValidationService";
 import {
   BeyannameBilgileriDto,
   BeyannameDto,
   KalemDto,
   ServisDto
-} from "../../../shared/service-proxies/service-proxies";
+} from "../../../../shared/service-proxies/service-proxies";
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
 
 
@@ -195,15 +195,15 @@ export const ithalatRejim=[
   
   ]
 @Component({
-  selector: "app-beyanname",
-  templateUrl: "./beyanname.component.html",
-  styleUrls: ["./beyanname.component.scss"],
+  selector: 'app-ozetbeyan',
+  templateUrl: './ozetbeyan.component.html',
+  styleUrls: ['./ozetbeyan.component.css'],
   providers: [
     {provide: DateAdapter, useClass: PickDateAdapter},
     {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
  ]
 })
-export class BeyannameComponent implements OnInit {
+export class OzetbeyanComponent implements OnInit {
   @ViewChild('islemNo', {static: true}) private islemInput: ElementRef;
   beyannameForm: FormGroup;
   submitted: boolean = false;

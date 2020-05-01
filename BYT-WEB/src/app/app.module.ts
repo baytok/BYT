@@ -10,8 +10,8 @@ import { GenelComponent } from './components/genel/genel.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { UserAreaComponent } from './components/layout/user-area/user-area.component';
 import { IslemComponent } from './components/islem/islem.component';
-import { BeyannameComponent } from './components/beyanname/beyanname.component';
-import { KalemComponent } from './components/kalem/kalem.component';
+import { BeyannameComponent } from './components/DetayliBeyan/beyanname/beyanname.component';
+import { KalemComponent } from './components/DetayliBeyan/kalem/kalem.component';
 import { KullanicilarComponent } from './components/kullanici/kullanicilar/kullanicilar.component';
 import { YeniKullaniciComponent } from './components/kullanici/yeniKullanici/yeniKullanici.component';
 import { DegistirKullaniciComponent } from './components/kullanici/degistirKullanici/degistirKullanici.component';
@@ -21,7 +21,8 @@ import { MusterilerComponent } from './components/musteri/musteriler/musteriler.
 import { YetkilerComponent } from './components/yetki/yetkiler.component';
 import { DegistirYetkiComponent } from './components/yetki/degistirYetki/degistirYetki.component';
 import { YeniYetkiComponent } from './components/yetki/yeniYetki/yeniYetki.component';
-import { KiymetComponent } from './components/kiymet/kiymet.component';
+import { KiymetComponent } from './components/DetayliBeyan/kiymet/kiymet.component';
+import { OzetbeyanComponent } from './components/OzetBeyan/ozetbeyan/ozetbeyan.component';
 import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -33,9 +34,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
     SessionServiceProxy
  } from "../shared/service-proxies/service-proxies";
-import { TeminatComponent } from './components/teminat/teminat.component';
-import { FirmaComponent } from './components/firma/firma.component';
-import { OzetbeyanacmaComponent } from './components/ozetbeyanacma/ozetbeyanacma.component';
+import { DbTeminatComponent } from './components/DetayliBeyan/dbteminat/dbteminat.component';
+import { FirmaComponent } from './components/DetayliBeyan/firma/firma.component';
+import { DbOzetbeyanAcmaComponent } from './components/DetayliBeyan/dbozetbeyanacma/dbozetbeyanacma.component';
+import { TasimaSenetComponent } from './components/OzetBeyan/tasimasenet/tasimasenet.component';
+import { ObOzetBeyanAcmaComponent } from './components/OzetBeyan/obozetbeyanacma/obozetbeyanacma.component';
+import { ObTeminatComponent } from './components/OzetBeyan/obteminat/obteminat.component';
 import {
    ReferansService
  } from "../shared/helpers/ReferansService";
@@ -65,9 +69,14 @@ import {NgxChildProcessModule} from 'ngx-childprocess';
       DegistirYetkiComponent,
       YeniYetkiComponent,
       KiymetComponent,
-      TeminatComponent,
+      DbTeminatComponent,
       FirmaComponent,
-      OzetbeyanacmaComponent,TestComponent
+      DbOzetbeyanAcmaComponent,
+      OzetbeyanComponent,
+      TasimaSenetComponent,
+      ObOzetBeyanAcmaComponent,
+      ObTeminatComponent,
+      TestComponent
       
     
    ],

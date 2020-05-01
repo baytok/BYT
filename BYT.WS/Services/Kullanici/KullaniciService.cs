@@ -73,7 +73,7 @@ namespace BYT.WS.Services.Kullanici
 
                 var yetkiler = from a in _kullaniciContext.KullaniciYetki
                                join b in _kullaniciContext.Yetki on a.YetkiId equals b.ID
-                               where a.Aktif==true && b.Aktif==true
+                               where a.Aktif==true && b.Aktif==true && a.KullaniciKod==KullaniciKod
                                select new { b.ID, b.YetkiAdi };
 
                 //   var yetkiler = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == KullaniciKod  && x.Aktif == true).Select(x=>x.YetkiId).ToArray();

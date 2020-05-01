@@ -26,16 +26,16 @@ import {
   kullanilmisEsya,
   girisCikisAmaci,
   SoruKodu,
-} from "../../../shared/helpers/referencesList";
+} from "../../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
   SessionServiceProxy,
-} from "../../../shared/service-proxies/service-proxies";
-import { ValidationService } from "../../../shared/service-proxies/ValidationService";
-import { UserRoles } from "../../../shared/service-proxies/UserRoles";
+} from "../../../../shared/service-proxies/service-proxies";
+import { ValidationService } from "../../../../shared/service-proxies/ValidationService";
+import { UserRoles } from "../../../../shared/service-proxies/UserRoles";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { ReferansService } from "../../../shared/helpers/ReferansService";
+import { ReferansService } from "../../../../shared/helpers/ReferansService";
 import {
   BeyannameBilgileriDto,
   KalemDto,
@@ -48,7 +48,7 @@ import {
   BelgeDto,
   SoruCevapDto,
   ServisDto,
- } from "../../../shared/service-proxies/service-proxies";
+ } from "../../../../shared/service-proxies/service-proxies";
 
 import {
   NativeDateAdapter,

@@ -22,12 +22,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace BYT.WS.Controllers.Servis.Beyanname
+namespace BYT.WS.Controllers.Servis.OzetBeyan
 {
    // [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class TescilGonderimController : ControllerBase
+    public class OzetBeyanTescilGonderimController : ControllerBase
     {
         string[] EX = {"1000","1021","1023","1040","1042","1072","1091","2100","2123","2141","2151","2152","2153","2172","2191","2300","2340","2341",
             "2342","2351","2352","2353","2600","3141","3151","3152","3153","3158","3171"};
@@ -41,7 +41,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         private readonly ServisCredential _servisCredential;
         private BeyannameSonucDataContext _sonucContext;
         public IConfiguration Configuration { get; }
-        public TescilGonderimController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
+        public OzetBeyanTescilGonderimController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
             _islemTarihceContext = islemTarihcecontext;
             Configuration = configuration;

@@ -12,22 +12,22 @@ import {
   ulke,
   kimlikTuru,
   firmaTipi,
-} from "../../../shared/helpers/referencesList";
+} from "../../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
   SessionServiceProxy,
-} from "../../../shared/service-proxies/service-proxies";
-import { ValidationService } from "../../../shared/service-proxies/ValidationService";
-import { UserRoles } from "../../../shared/service-proxies/UserRoles";
+} from "../../../../shared/service-proxies/service-proxies";
+import { ValidationService } from "../../../../shared/service-proxies/ValidationService";
+import { UserRoles } from "../../../../shared/service-proxies/UserRoles";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import {
   ReferansService
-} from "../../../shared/helpers/ReferansService";
+} from "../../../../shared/helpers/ReferansService";
 import {
   FirmaDto,
   ServisDto,
-} from "../../../shared/service-proxies/service-proxies";
+} from "../../../../shared/service-proxies/service-proxies";
 @Component({
   selector: "app-firma",
   templateUrl: "./firma.component.html",

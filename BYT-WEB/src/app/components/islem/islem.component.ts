@@ -35,8 +35,7 @@ import {
    ServisDto
   } from '../../../shared/service-proxies/service-proxies';
 
- 
-  declare var require: any;
+  
 @Component({
   selector: 'app-islem',
   templateUrl: './islem.component.html',
@@ -66,6 +65,7 @@ export class IslemComponent implements OnInit {
    selectionTarihce = new SelectionModel<TarihceDto>(false, []);
    
   constructor(
+    
     private beyanServis: BeyannameServiceProxy,
     private  girisService: GirisService,  
     private _beyanSession: SessionServiceProxy,
@@ -159,10 +159,13 @@ export class IslemComponent implements OnInit {
      });
     
    }
-   getBeyanname(islemInternalNo: string)
+   getBeyanname(islemInternalNo: string, beyanTipi:string)
    {
-    this._beyanSession.islemInternalNo=islemInternalNo;  
+    this._beyanSession.islemInternalNo=islemInternalNo;
+    if(beyanTipi=="DetayliBeyan")  
     this.router.navigateByUrl('/app/beyanname');
+    if(beyanTipi=="OzetBeyan")  
+    this.router.navigateByUrl('/app/ozetbeyan');
    }
    getBeyannameSonuc(guid:string,islemInternalNo: string)
    {
@@ -272,27 +275,35 @@ export class IslemComponent implements OnInit {
     this.tarihceDataSource.paginator = this.paginator;
   }
 
-  callBytIslemler(Guid)
+  callBytIslemler()
   {
+  
+   var fileName='BYT.UI.exe';
+   var path='C:\\Projeler\\GitHub\\Repositories\\BYT\\BYT.UI\\bin\\Debug';
+   var filepath='C:\\Projeler\\GitHub\\Repositories\\BYT\\BYT.UI\\bin\\Debug\\BYT.UI.exe';
+   const params: string[] = ['H' ,'He'];
 
-    var fileName='BYT.UI.exe';
-    var path='C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug';
-    var filepath='C:\\Projeler\\GitHub\\Repositories\\BYT\\BYT.UI\\bin\\Debug\\BYT.UI.exe';
-    const params: string[] = ['H' ,'He'];
+    var shell = new ActiveXObject("WScript.shell"); 
+    shell.run(filepath,params); 
+    shell.Quit;
     
-  //  var exec = require(fileName).execFile;  
-    var exec = require('child_process').execFile;  
+ 
+  }
+  loadScripts() {   
     
-    function execute(fileName, params, path) {
-      let promise = new Promise((resolve, reject) => {
-          exec(fileName, params, { cwd: path }, (err, data) => {
-              if (err) reject(err);
-              else resolve(data);
-          });  
-      });
-      return promise;
-  }
-  }
+    // This array contains all the files/CDNs 
+    const dynamicScripts = [ 
+       'assets//Js//loadByt.js'
+    ]; 
+    for (let i = 0; i < dynamicScripts.length; i++) { 
+      const node = document.createElement('script'); 
+      node.src = dynamicScripts[i]; 
+      node.type = 'text/javascript'; 
+      node.async = false; 
+       document.getElementsByTagName('head')[0].appendChild(node); 
+    } 
+ } 
+
 }
 
 

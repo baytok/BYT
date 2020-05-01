@@ -12,14 +12,14 @@ import {
   FormArray,
   NgForm,
 } from "@angular/forms";
-import { MustMatch } from "../../../shared/helpers/must-match.validator";
-import { ulke } from "../../../shared/helpers/referencesList";
+import { MustMatch } from "../../../../shared/helpers/must-match.validator";
+import { ulke } from "../../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
   SessionServiceProxy,
-} from "../../../shared/service-proxies/service-proxies";
-import { ValidationService } from "../../../shared/service-proxies/ValidationService";
-import { UserRoles } from "../../../shared/service-proxies/UserRoles";
+} from "../../../../shared/service-proxies/service-proxies";
+import { ValidationService } from "../../../../shared/service-proxies/ValidationService";
+import { UserRoles } from "../../../../shared/service-proxies/UserRoles";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
@@ -27,8 +27,8 @@ import {
   KiymetDto,
   KiymetKalemDto,
   ServisDto,
-} from "../../../shared/service-proxies/service-proxies";
-import { ReferansService } from "../../../shared/helpers/ReferansService";
+} from "../../../../shared/service-proxies/service-proxies";
+import { ReferansService } from "../../../../shared/helpers/ReferansService";
 
 @Component({
   selector: "app-kiymet",

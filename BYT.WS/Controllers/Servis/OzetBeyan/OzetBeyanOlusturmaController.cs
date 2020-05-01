@@ -16,7 +16,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace BYT.WS.Controllers.Servis.Beyanname
+namespace BYT.WS.Controllers.Servis.OzetBeyan
 {
 
     //[Route("api/BYT/Servis/Beyanname/[controller]")]

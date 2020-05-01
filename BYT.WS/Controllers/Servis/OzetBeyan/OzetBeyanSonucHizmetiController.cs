@@ -19,7 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace BYT.WS.Controllers.Servis.Beyanname
+namespace BYT.WS.Controllers.Servis.OzetBeyan
 {
     [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]

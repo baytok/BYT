@@ -12,26 +12,26 @@ import {
 import {
   teminat,
   
-} from "../../../shared/helpers/referencesList";
+} from "../../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
   SessionServiceProxy,
-} from "../../../shared/service-proxies/service-proxies";
-import { ValidationService } from "../../../shared/service-proxies/ValidationService";
-import { UserRoles } from "../../../shared/service-proxies/UserRoles";
+} from "../../../../shared/service-proxies/service-proxies";
+import { ValidationService } from "../../../../shared/service-proxies/ValidationService";
+import { UserRoles } from "../../../../shared/service-proxies/UserRoles";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 import {
   TeminatDto,
   ServisDto,
-} from "../../../shared/service-proxies/service-proxies";
+} from "../../../../shared/service-proxies/service-proxies";
 @Component({
   selector: 'app-teminat',
-  templateUrl: './teminat.component.html',
-  styleUrls: ['./teminat.component.css']
+  templateUrl: './dbteminat.component.html',
+  styleUrls: ['./dbteminat.component.css']
 })
-export class TeminatComponent implements OnInit {
+export class DbTeminatComponent implements OnInit {
 
   teminatForm: FormGroup;
   submitted: boolean = false;

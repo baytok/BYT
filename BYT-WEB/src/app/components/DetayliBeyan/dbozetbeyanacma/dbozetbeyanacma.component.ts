@@ -12,17 +12,17 @@ import {
   FormArray,
   NgForm,
 } from "@angular/forms";
-import { MustMatch } from "../../../shared/helpers/must-match.validator";
+import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
   ulke,
   
-} from "../../../shared/helpers/referencesList";
+} from "../../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
   SessionServiceProxy,
-} from "../../../shared/service-proxies/service-proxies";
-import { ValidationService } from "../../../shared/service-proxies/ValidationService";
-import { UserRoles } from "../../../shared/service-proxies/UserRoles";
+} from "../../../../shared/service-proxies/service-proxies";
+import { ValidationService } from "../../../../shared/service-proxies/ValidationService";
+import { UserRoles } from "../../../../shared/service-proxies/UserRoles";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
@@ -31,18 +31,18 @@ import {
   TasimaSenetDto,
   TasimaSatirDto,
   ServisDto,
-} from "../../../shared/service-proxies/service-proxies";
+} from "../../../../shared/service-proxies/service-proxies";
 import {
   ReferansService
-} from "../../../shared/helpers/ReferansService";
+} from "../../../../shared/helpers/ReferansService";
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   @Component({
-    selector: 'app-ozetbeyan',
-    templateUrl: './ozetbeyanacma.component.html',
-    styleUrls: ['./ozetbeyanacma.component.css'],
+    selector: 'app-dbozetbeyan',
+    templateUrl: './dbozetbeyanacma.component.html',
+    styleUrls: ['./dbozetbeyanacma.component.css'],
     encapsulation: ViewEncapsulation.None
   })
-export class OzetbeyanacmaComponent implements OnInit {
+export class DbOzetbeyanAcmaComponent implements OnInit {
   ozetBeyanInternalNo: string;
   tasimaSenetInternalNo: string;
   tasimaSenediNo:string;

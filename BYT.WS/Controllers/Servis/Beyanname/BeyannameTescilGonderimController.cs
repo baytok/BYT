@@ -27,21 +27,21 @@ namespace BYT.WS.Controllers.Servis.Beyanname
    // [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class KontrolGonderimController : ControllerBase
+    public class OzetBeyanTescilGonderimController : ControllerBase
     {
         string[] EX = {"1000","1021","1023","1040","1042","1072","1091","2100","2123","2141","2151","2152","2153","2172","2191","2300","2340","2341",
             "2342","2351","2352","2353","2600","3141","3151","3152","3153","3158","3171"};
         string[] IM = {"4000","4010","4051","4053","4058","4071","4072","4091","4100","4121","4123","4171","4191","4200","4210","4251","4253","4258",
             "4271","4291","5100","5121","5123","5141","5171","5191","5200","5221","5223","5271","5291","5300","5321","5323","5341","5351","5352","5353",
             "5358","5371","5391","5800","6121","6123","6321","6323","6326","6521","6523","6771","9100","9171"};
-        string[] AN = {"7100","7121","7123","7141","7151","7153","7158","7171","7191","7200","7241","7252","7272","7300"};
-        string[] DG = { "8100", "8200"};
+        string[] AN = { "7100", "7121", "7123", "7141", "7151", "7153", "7158", "7171", "7191", "7200", "7241", "7252", "7272", "7300" };
+        string[] DG = { "8100", "8200" };
         private IslemTarihceDataContext _islemTarihceContext;
 
         private readonly ServisCredential _servisCredential;
         private BeyannameSonucDataContext _sonucContext;
         public IConfiguration Configuration { get; }
-        public KontrolGonderimController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
+        public OzetBeyanTescilGonderimController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
             _islemTarihceContext = islemTarihcecontext;
             Configuration = configuration;
@@ -55,7 +55,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/{IslemInternalNo}/{Kullanici}")]
         [HttpPost("{IslemInternalNo}/{Kullanici}")]
-        public async Task<ServisDurum> GetKontrol(string IslemInternalNo, string Kullanici)
+        public async Task<ServisDurum> GetTescil(string IslemInternalNo, string Kullanici)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -64,13 +64,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             var _beyannameContext = new BeyannameDataContext(options);
             try
             {
+
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim());
                 var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
                 var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
 
                 KontrolHizmeti.Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoapClient Kontrol = ServiceHelper.GetKontrolWsClient(_servisCredential.username, _servisCredential.password);
-
                 KontrolHizmeti.Gelen gelen = new KontrolHizmeti.Gelen();
 
 
@@ -545,6 +545,90 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                 #endregion
 
+                #region Vergi
+
+                var vergiValues = await _beyannameContext.DbVergi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                if (vergiValues != null && vergiValues.Count > 0)
+                {
+                    List<KontrolHizmeti.Vergi> _vergiList = new List<KontrolHizmeti.Vergi>();
+                    KontrolHizmeti.Vergi _vergi;
+                    foreach (var vergi in vergiValues)
+                    {
+                        _vergi = new KontrolHizmeti.Vergi();
+                        _vergi.Kalem_no = vergi.KalemNo;
+                        _vergi.Kod = vergi.VergiKodu.ToString();
+                        _vergi.Miktar = vergi.Miktar;
+                        _vergi.Odeme_sekli = vergi.OdemeSekli;
+                        _vergi.Oran = vergi.Oran;
+                        _vergi.Vergi_matrahi = vergi.Matrah;
+                       
+
+                        _vergiList.Add(_vergi);
+
+                    }
+                    _beyan.Vergiler = _vergiList.ToArray();
+                }
+                else _beyan.Vergiler = new KontrolHizmeti.Vergi[0];
+
+
+                #endregion
+
+                #region Belge
+
+                var belgeValues = await _beyannameContext.DbBelge.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                if (belgeValues != null && belgeValues.Count > 0)
+                {
+                    List<KontrolHizmeti.Dokuman> _belgeList = new List<KontrolHizmeti.Dokuman>();
+                    KontrolHizmeti.Dokuman _belge;
+                    foreach (var belge in belgeValues)
+                    {
+                        _belge = new KontrolHizmeti.Dokuman();
+                        _belge.Kalem_no = belge.KalemNo;
+                        _belge.Kod = belge.BelgeKodu;
+                        _belge.Referans = belge.Referans;
+                        _belge.Dogrulama = belge.Dogrulama;
+                        _belge.Belge_tarihi = belge.BelgeTarihi;
+                        _belge.Vize_Tarihi = "";
+
+
+                        _belgeList.Add(_belge);
+
+                    }
+                    _beyan.Dokumanlar = _belgeList.ToArray();
+                }
+                else _beyan.Dokumanlar = new KontrolHizmeti.Dokuman[0];
+
+
+                #endregion
+
+                #region Soru Cevap
+
+                var soruCevapValues = await _beyannameContext.DbSoruCevap.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                if (soruCevapValues != null && soruCevapValues.Count > 0)
+                {
+                    List<KontrolHizmeti.Soru_Cevap> _soruCevapList = new List<KontrolHizmeti.Soru_Cevap>();
+                    KontrolHizmeti.Soru_Cevap _soruCevap;
+                    foreach (var soruCevap in soruCevapValues)
+                    {
+                        _soruCevap = new KontrolHizmeti.Soru_Cevap();
+                        _soruCevap.Kalem_no = soruCevap.KalemNo;
+                        _soruCevap.Soru_no = soruCevap.SoruKodu;
+                        _soruCevap.Cevap = soruCevap.SoruCevap;
+                      
+                        _soruCevapList.Add(_soruCevap);
+
+                    }
+                    _beyan.Sorular_cevaplar = _soruCevapList.ToArray();
+                }
+                else _beyan.Sorular_cevaplar = new KontrolHizmeti.Soru_Cevap[0];
+
+
+                #endregion
+
+                //TODO: Vergi, Belge ve Soru Cevap ta eklenecek
                 var optionss = new DbContextOptionsBuilder<KullaniciDataContext>()
                       .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                       .Options;
@@ -553,14 +637,133 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                 gelen.KullaniciAdi = "15781158208"; // islemValues.Kullanici;
                 gelen.RefID = islemValues.RefNo;
-                gelen.Sifre =  "19cd21ebad3e08b8f1955b6461bd2f41"; //Md5Helper.getMd5Hash(kullaniciValues.KullaniciSifre);
+                gelen.Sifre = "19cd21ebad3e08b8f1955b6461bd2f41"; //Md5Helper.getMd5Hash(kullaniciValues.KullaniciSifre);
                 gelen.IP = "";
-                gelen.BeyannameBilgi = _beyan;
-                var values = await Kontrol.KontrolAsync(gelen);
+                gelen.BeyannameBilgi = _beyan;               
+               
+                string imzasizMesaj = SerializeToXML(gelen);
+
+
+                string guidOf = "BYT:" + Guid.NewGuid().ToString();
+
+                using (var transaction = _islemTarihceContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        islemValues.Kullanici = Kullanici;
+                        islemValues.IslemDurumu = "Tescil Mesajı Oluşturuldu";
+                        islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
+                        islemValues.IslemZamani = DateTime.Now;
+                        islemValues.SonIslemZamani = DateTime.Now;
+                        islemValues.IslemSonucu = "İmzalamaya Hazır";
+                        islemValues.Guidof = guidOf;
+                        islemValues.IslemTipi = "Tescil";
+                        islemValues.GonderimSayisi++;
+
+
+                        _islemTarihceContext.Entry(islemValues).State = EntityState.Modified;
+                        await _islemTarihceContext.SaveChangesAsync();
+
+
+                        Tarihce _tarihce = new Tarihce();
+                        _tarihce.Guid = guidOf;
+                        _tarihce.Gumruk = beyanValues.Gumruk;
+                        _tarihce.Rejim = beyanValues.Rejim;
+                        _tarihce.IslemInternalNo = islemValues.IslemInternalNo;
+                        _tarihce.Kullanici = Kullanici;
+                        _tarihce.RefNo = islemValues.RefNo;
+                        _tarihce.IslemDurumu = "Tescil Mesajı Oluşturuldu";
+                        _tarihce.IslemSonucu = "İmzalamaya Hazır";
+                        _tarihce.IslemTipi = "2";
+                        _tarihce.TicaretTipi = EX.Contains(beyanValues.Rejim) ? "EX" : IM.Contains(beyanValues.Rejim) ? "IM" : AN.Contains(beyanValues.Rejim) ? "AN" : DG.Contains(beyanValues.Rejim) ? "DG" : "";
+                        _tarihce.GonderilecekVeri = imzasizMesaj;
+                        _tarihce.OlusturmaZamani = DateTime.Now;
+                        _tarihce.GonderimNo = islemValues.GonderimSayisi;
+                        _tarihce.SonIslemZamani = DateTime.Now;
+
+                        _islemTarihceContext.Entry(_tarihce).State = EntityState.Added;
+
+                        beyanValues.SonIslemZamani = DateTime.Now;
+                        beyanValues.TescilStatu = "Tescil Mesajı Oluşturuldu";
+                        _beyannameContext.Entry(beyanValues).State = EntityState.Modified;
+
+                        await _islemTarihceContext.SaveChangesAsync();
+                        await _beyannameContext.SaveChangesAsync();
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lsthtt = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lsthtt.Add(ht);
+                        _servisDurum.Hatalar = lsthtt;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+                }
+
+
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();               
+                Bilgi blg = new Bilgi { IslemTipi = "Tescil Gönderimi", ReferansNo = imzasizMesaj, GUID = guidOf, Sonuc = "Tescil Gönderimi Gerçekleşti", SonucVeriler = null };
+                lstBlg.Add(blg);
+
+                
+                _servisDurum.Bilgiler = lstBlg;
+              
+
+
+
+                return _servisDurum;
+
+            }
+            catch (Exception ex)
+            {
+
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+                Internal.Hata ht = new Internal.Hata { HataKodu = 1, HataAciklamasi = ex.ToString() };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+        [Route("api/BYT/Servis/Beyanname/[controller]/{IslemInternalNo}/{Kullanici}/{imzaliVeri}")]
+        [HttpPost("{IslemInternalNo}/{Kullanici}/{imzaliVeri}")]
+        public async Task<ServisDurum> GetTescil(string IslemInternalNo, string Kullanici, [FromBody] string imzaliVeri)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                   .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                   .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim());
+                var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
+     
+
+                string guidOf = "", IslemDurumu = "", islemSonucu = "";
+                XmlDocument xmlDoc = new XmlDocument();
+                XmlElement root = xmlDoc.CreateElement("Root");
+                root.InnerText = imzaliVeri;
+                TescilHizmeti.Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient Tescil = ServiceHelper.GetTescilWSClient(_servisCredential.username, _servisCredential.password);
+                await Tescil.TescilAsync(root);
 
                 XmlDocument doc = new XmlDocument();
-                doc.LoadXml(values.Root.OuterXml);
-                string guidOf = "", IslemDurumu = "", islemSonucu = "";
+                doc.LoadXml(root.OuterXml);
+
                 if (doc.HasChildNodes)
                 {
                     foreach (XmlNode n in doc.ChildNodes[0].ChildNodes)
@@ -602,13 +805,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     try
                     {
                         islemValues.Kullanici = Kullanici;
-                        islemValues.IslemDurumu = "Kontrol Gonderildi";
-                        islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBKG");
+                        islemValues.IslemDurumu = "Gonderildi";
+                        islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
                         islemValues.IslemZamani = DateTime.Now;
                         islemValues.SonIslemZamani = DateTime.Now;
                         islemValues.IslemSonucu = islemSonucu;
                         islemValues.Guidof = guidOf;
-                        islemValues.IslemTipi = "Kontrol";
+                        islemValues.IslemTipi = "Tescil";
                         islemValues.GonderimSayisi++;
 
 
@@ -625,21 +828,17 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _tarihce.RefNo = islemValues.RefNo;
                         _tarihce.IslemDurumu = IslemDurumu;
                         _tarihce.IslemSonucu = islemSonucu;
-                        _tarihce.IslemTipi = "1";
+                        _tarihce.IslemTipi = "2";
                         _tarihce.TicaretTipi = EX.Contains(beyanValues.Rejim) ? "EX" : IM.Contains(beyanValues.Rejim) ? "IM" : AN.Contains(beyanValues.Rejim) ? "AN" : DG.Contains(beyanValues.Rejim) ? "DG" : "";
-                        _tarihce.GonderilenVeri = _tarihce.GonderilecekVeri = SerializeToXML(gelen);
-                        _tarihce.GondermeZamani = _tarihce.OlusturmaZamani = DateTime.Now;
-                        _tarihce.GonderimNo = islemValues.GonderimSayisi;
+                        _tarihce.GonderilenVeri = imzaliVeri;
+                        _tarihce.GondermeZamani = DateTime.Now;
                         _tarihce.SonIslemZamani = DateTime.Now;
+                        _tarihce.GonderimNo = islemValues.GonderimSayisi;
+
 
                         _islemTarihceContext.Entry(_tarihce).State = EntityState.Added;
                         await _islemTarihceContext.SaveChangesAsync();
 
-                        beyanValues.SonIslemZamani = DateTime.Now;
-                        beyanValues.TescilStatu = "Kontrol Gonderildi";
-                        _beyannameContext.Entry(beyanValues).State = EntityState.Modified;
-                        await _islemTarihceContext.SaveChangesAsync();
-                        await _beyannameContext.SaveChangesAsync();
                         transaction.Commit();
 
                     }
@@ -669,7 +868,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     Internal.Hata ht = new Internal.Hata { HataKodu = 1, HataAciklamasi = islemSonucu };
                     lstht.Add(ht);
                 }
-                Bilgi blg = new Bilgi { IslemTipi = "Kontrol Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Kontrol Gönderimi Gerçekleşti", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "Tescil Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Tescil Gönderimi Gerçekleşti", SonucVeriler = null };
                 lstBlg.Add(blg);
 
 
@@ -715,7 +914,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
             return XmlizedString;
         }
-
     }
+   
 
 }

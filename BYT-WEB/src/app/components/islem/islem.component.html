@@ -9,11 +9,17 @@ color = "#934d4d"
 [fullScreen] = "true"
 type = "ball-8bits">
 </ngx-spinner> -->
+<button  
+mat-raised-button
+color="warn"
+type="submit"
+(click)="callBytIslemler()">
+BYT
+</button>
 <div class="page home">
   <div class="container">
     <div class="row clearfix">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">    
         <div class="col-md-6">
           <form class="example-form">
             <mat-form-field class="example-full-width">
@@ -112,14 +118,8 @@ type = "ball-8bits">
         </div> -->
         <div class="body table-responsive">              
             <mat-card class="mat-card">
-              <h5>İşlemler</h5>
-              <button  
-              mat-menu-item
-              (click)="
-              callBytIslemler('GUID')
-              ">
-                BTY
-              </button>
+              <h5>İşlemler</h5>            
+             
               <div class="example-box">
                 <mat-table
                   [dataSource]="islemlerDataSource"
@@ -216,7 +216,7 @@ type = "ball-8bits">
                         <button
                           mat-menu-item
                           color="warn"
-                          (click)="getBeyanname(element.islemInternalNo)"
+                          (click)="getBeyanname(element.islemInternalNo, element.beyanTipi)"
                         >
                           Beyanname
                         </button>
@@ -580,3 +580,5 @@ type = "ball-8bits">
     </div>
   </div>
 </div>
+
+
