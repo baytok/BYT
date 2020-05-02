@@ -24,13 +24,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
     [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OzetBeyanSonucHizmetiController : ControllerBase
+    public class BeyannameSonucHizmetiController : ControllerBase
     {
 
         private BeyannameSonucDataContext _sonucContext;
         public IConfiguration Configuration { get; }
 
-        public OzetBeyanSonucHizmetiController(BeyannameSonucDataContext sonucContext, IConfiguration configuration)
+        public BeyannameSonucHizmetiController(BeyannameSonucDataContext sonucContext, IConfiguration configuration)
         {
 
             Configuration = configuration;

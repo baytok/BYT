@@ -19,9 +19,9 @@ namespace BYT.WS.Models
         public List<DbMarka> marka { get; set; }
         public List<DbKonteyner> konteyner { get; set; }
         public List<DbOdemeSekli> odemeSekli { get; set; }
-        public List<DbOzetbeyanAcma> ozetBeyanAcma { get; set; }
-        public List<DbTasimaSenet> tasimaSenetleri { get; set; }
-        public List<DbTasimaSatir> tasimaSatirlari { get; set; }
+        public List<DbOzetBeyanAcma> ozetBeyanAcma { get; set; }
+        public List<DbOzetBeyanAcmaTasimaSenet> tasimaSenetleri { get; set; }
+        public List<DbOzetBeyanAcmaTasimaSatir> tasimaSatirlari { get; set; }
         public List<DbFirma> firma { get; set; }
         public List<DbTeminat> teminat { get; set; }
         public List<DbKiymetBildirim> kiymet { get; set; }
@@ -521,7 +521,7 @@ namespace BYT.WS.Models
 
     }
 
-    public class DbOzetbeyanAcma
+    public class DbOzetBeyanAcma
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -557,7 +557,7 @@ namespace BYT.WS.Models
         public DateTime? SonIslemZamani { get; set; }
     }
 
-    public class DbTasimaSenet
+    public class DbOzetBeyanAcmaTasimaSenet
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -585,7 +585,7 @@ namespace BYT.WS.Models
 
     }
 
-    public class DbTasimaSatir
+    public class DbOzetBeyanAcmaTasimaSatir
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

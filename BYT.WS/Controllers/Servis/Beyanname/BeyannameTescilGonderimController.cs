@@ -363,7 +363,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _ozetBeyan.Aciklama = ozetbeyan.Aciklama;
 
 
-                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetBeyanNo).ToListAsync();
+                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetBeyanNo).ToListAsync();
 
                         if (ozetBeyanAcmaTasimaSenediValues != null && ozetBeyanAcmaTasimaSenediValues.Count > 0)
                         {
@@ -374,7 +374,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                 _ozetBeyanTasimaSenedi = new KontrolHizmeti.tasimasenetleri();
                                 _ozetBeyanTasimaSenedi.Tasima_senedi_no = tasimaSenedi.TasimaSenediNo;
 
-                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetBeyanNo && v.TasimaSenetInternalNo == tasimaSenedi.TasimaSenetInternalNo).ToListAsync();
+                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetBeyanNo && v.TasimaSenetInternalNo == tasimaSenedi.TasimaSenetInternalNo).ToListAsync();
 
                                 if (ozetBeyanAcmaTasimaSatirValues != null && ozetBeyanAcmaTasimaSatirValues.Count > 0)
                                 {
@@ -733,7 +733,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
                 List<Bilgi> lstBlg = new List<Bilgi>();               
-                Bilgi blg = new Bilgi { IslemTipi = "Tescil Gönderimi", ReferansNo = imzasizMesaj, GUID = guidOf, Sonuc = "Tescil Gönderimi Gerçekleşti", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "Tescil Gönderimi", ReferansNo = IslemInternalNo, GUID = guidOf, Sonuc = "Tescil Gönderimi Gerçekleşti", SonucVeriler = null };
                 lstBlg.Add(blg);
 
                 

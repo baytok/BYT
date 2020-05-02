@@ -19,7 +19,7 @@ using Microsoft.Extensions.Configuration;
 namespace BYT.WS.Controllers.Servis.OzetBeyan
 {
 
-    //[Route("api/BYT/Servis/Beyanname/[controller]")]
+   
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OzetBeyanOlusturmaController : ControllerBase
@@ -40,7 +40,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameOlustur")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/BeyannameOlustur")]
         [HttpPost]
         public async Task<ServisDurum> PostBeyanname([FromBody]DbBeyan beyan)
         {
@@ -172,7 +172,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
         }
 
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/KalemSil/{kalemInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/KalemSil/{kalemInternalNo}/{BeyanInternalNo}")]
         [HttpDelete("{kalemInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> DeleteKalem(string kalemInternalNo, string BeyanInternalNo)
         {
@@ -302,7 +302,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
         }
 
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/KalemOlustur")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/KalemOlustur")]
         [HttpPost]
         public async Task<ServisDurum> PutKalem([FromBody]DbKalem kalem)
         {
@@ -387,7 +387,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
         }
 
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/OdemeSekliOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/OdemeSekliOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> PostOdeme([FromBody]DbOdemeSekli[] odemeBilgiList, string KalemInternalNo, string BeyanInternalNo)
         {
@@ -488,7 +488,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/KonteynerOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/KonteynerOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> PostKonteyner([FromBody]DbKonteyner[] konteynerBilgiList, string KalemInternalNo, string BeyanInternalNo)
         {
@@ -589,7 +589,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/TamamlayiciBilgiOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/TamamlayiciBilgiOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> PostTamamlayici([FromBody]DbTamamlayiciBilgi[] tamamlayiciBilgiList, string KalemInternalNo, string BeyanInternalNo)
         {
@@ -690,7 +690,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/MarkaOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/MarkaOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> PostMarka([FromBody]DbMarka[] markaBilgiList, string KalemInternalNo, string BeyanInternalNo)
         {
@@ -791,7 +791,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/BeyannameAcmaOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/BeyannameAcmaOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> PostBeyannameAcma([FromBody]DbBeyannameAcma[] acmaBilgiList, string KalemInternalNo, string BeyanInternalNo)
         {
@@ -892,7 +892,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/VergiOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/VergiOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> PostVergiler([FromBody]DbVergi[] vergiBilgiList, string KalemInternalNo, string BeyanInternalNo)
         {
@@ -1001,7 +1001,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/BelgeOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/BelgeOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> PostBelgeler([FromBody]DbBelge[] belgeBilgiList, string KalemInternalNo, string BeyanInternalNo)
         {
@@ -1111,7 +1111,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
         }
 
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/SoruCevapOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/SoruCevapOlustur/{KalemInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> PostSoruCevap([FromBody]DbSoruCevap[] soruCevapBilgiList, string KalemInternalNo, string BeyanInternalNo)
         {
@@ -1221,7 +1221,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/TeminatOlustur/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/TeminatOlustur/{BeyanInternalNo}")]
         [HttpPost("{BeyanInternalNo}")]
         public async Task<ServisDurum> PostTeminat([FromBody]DbTeminat[] teminatList, string BeyanInternalNo)
         {
@@ -1322,7 +1322,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/FirmaOlustur/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/FirmaOlustur/{BeyanInternalNo}")]
         [HttpPost("{BeyanInternalNo}")]
         public async Task<ServisDurum> PostFirma([FromBody]DbFirma[] firmaList, string BeyanInternalNo)
         {
@@ -1423,7 +1423,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/KiymetBildirimOlustur")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/KiymetBildirimOlustur")]
         [HttpPost]
         public async Task<ServisDurum> PutKiymet([FromBody]DbKiymetBildirim kiymet)
         {
@@ -1507,7 +1507,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
         }
 
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/KiymetSil/{kiymetInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/KiymetSil/{kiymetInternalNo}/{BeyanInternalNo}")]
         [HttpDelete("{kiymetInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> DeleteKiymet(string kiymetInternalNo, string BeyanInternalNo)
         {
@@ -1576,7 +1576,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/KiymetKalemOlustur/{KiymetInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/KiymetKalemOlustur/{KiymetInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{KiymetInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> PostKiymetKalemleri([FromBody]DbKiymetBildirimKalem[] kalemList, string KiymetInternalNo, string BeyanInternalNo)
         {
@@ -1679,9 +1679,9 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/OzetBeyanAcmaOlustur")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/OzetBeyanAcmaOlustur")]
         [HttpPost]
-        public async Task<ServisDurum> PutOzetBeyanAcma([FromBody]DbOzetbeyanAcma ozbyAcma)
+        public async Task<ServisDurum> PutOzetBeyanAcma([FromBody]DbOzetBeyanAcma ozbyAcma)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -1759,9 +1759,9 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSenetOlustur/{OzetBeyanInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/TasimaSenetOlustur/{OzetBeyanInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{OzetBeyanInternalNo}/{BeyanInternalNo}")]
-        public async Task<ServisDurum> PostTasimaSenet([FromBody]DbTasimaSenet[] tasimaSenetList, string OzetBeyanInternalNo, string BeyanInternalNo)
+        public async Task<ServisDurum> PostTasimaSenet([FromBody]DbOzetBeyanAcmaTasimaSenet[] tasimaSenetList, string OzetBeyanInternalNo, string BeyanInternalNo)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -1797,7 +1797,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
             try
             {
-                var tasimaSenetValues = await _beyannameContext.DbTasimaSenet.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
+                var tasimaSenetValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSenet.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
 
                 using (var transaction = beyannameContext.Database.BeginTransaction())
                 {
@@ -1816,7 +1816,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                                 }
                                 else
                                 {
-                                    var maxTasimaSenetInternalNo = (from u in beyannameContext.DbTasimaSenet
+                                    var maxTasimaSenetInternalNo = (from u in beyannameContext.DbOzetBeyanAcmaTasimaSenet
                                                                     where u.BeyanInternalNo == BeyanInternalNo &&
                                                                     u.OzetBeyanInternalNo == OzetBeyanInternalNo
                                                                     select (u.TasimaSenetInternalNo)).Max();
@@ -1836,7 +1836,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                                 if (tasima == null)
                                 {
                                     beyannameContext.Entry(item).State = EntityState.Deleted;
-                                    var TasimaSatirValue= await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo && v.TasimaSenetInternalNo== item.TasimaSenetInternalNo).ToListAsync();
+                                    var TasimaSatirValue= await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo && v.TasimaSenetInternalNo== item.TasimaSenetInternalNo).ToListAsync();
                                     foreach (var satir in TasimaSatirValue)
                                     {
                                         beyannameContext.Entry(satir).State = EntityState.Deleted;
@@ -1908,9 +1908,9 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSatirOlustur/{TasimaSenetInternalNo}/{OzetBeyanInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/TasimaSatirOlustur/{TasimaSenetInternalNo}/{OzetBeyanInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{TasimaSenetInternalNo}/{OzetBeyanInternalNo}/{BeyanInternalNo}")]
-        public async Task<ServisDurum> PostTasimaSatir([FromBody]DbTasimaSatir[] tasimaSatirList, string TasimaSenetInternalNo, string OzetBeyanInternalNo, string BeyanInternalNo)
+        public async Task<ServisDurum> PostTasimaSatir([FromBody]DbOzetBeyanAcmaTasimaSatir[] tasimaSatirList, string TasimaSenetInternalNo, string OzetBeyanInternalNo, string BeyanInternalNo)
         {
             ServisDurum _servisDurum = new ServisDurum();
 
@@ -1945,7 +1945,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 {
                     try
                     {
-                        var tasimaSenetValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo && v.TasimaSenetInternalNo == TasimaSenetInternalNo).ToListAsync();
+                        var tasimaSenetValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo && v.TasimaSenetInternalNo == TasimaSenetInternalNo).ToListAsync();
 
                         foreach (var item in tasimaSenetValues)
                         {
@@ -2010,7 +2010,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-        [Route("api/BYT/Servis/Beyanname/[controller]/OzetBeyanAcmaSil/{ozetBeyanInternalNo}/{BeyanInternalNo}")]
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/OzetBeyanAcmaSil/{ozetBeyanInternalNo}/{BeyanInternalNo}")]
         [HttpDelete("{ozetBeyanInternalNo}/{BeyanInternalNo}")]
         public async Task<ServisDurum> DeleteOzetBeyanAcma(string ozetBeyanInternalNo, string BeyanInternalNo)
         {
@@ -2031,12 +2031,12 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         _beyannameContext.Entry(ozbyAcmaValues).State = EntityState.Deleted;
 
 
-                        var tasimaSenetiValues = await _beyannameContext.DbTasimaSenet.Where(v => v.OzetBeyanInternalNo == ozetBeyanInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                        var tasimaSenetiValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSenet.Where(v => v.OzetBeyanInternalNo == ozetBeyanInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
                         if (tasimaSenetiValues.Count > 0)
                             foreach (var item in tasimaSenetiValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
-                                var tasimaSatiriValues = await _beyannameContext.DbTasimaSatir.Where(v => v.OzetBeyanInternalNo == ozetBeyanInternalNo && v.TasimaSenetInternalNo == item.TasimaSenetInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                                var tasimaSatiriValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.OzetBeyanInternalNo == ozetBeyanInternalNo && v.TasimaSenetInternalNo == item.TasimaSenetInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
                                 if (tasimaSatiriValues.Count > 0)
                                     foreach (var satir in tasimaSatiriValues)
                                     {

@@ -21,9 +21,9 @@ namespace BYT.WS.Data
         
         public DbSet<ObBeyan> ObBeyan { get; set; }
         public DbSet<ObTeminat> ObTeminat { get; set; }
-        public DbSet<ObOzetbeyanAcma> ObOzetbeyanAcma { get; set; }
-        public DbSet<ObTasimaSenet> ObTasimaSenet { get; set; }
-        public DbSet<ObTasimaSatir> ObTasimaSatir { get; set; }
+        public DbSet<ObOzetBeyanAcma> ObOzetBeyanAcma { get; set; }
+        public DbSet<ObOzetBeyanAcmaTasimaSenet> ObOzetBeyanAcmaTasimaSenet { get; set; }
+        public DbSet<ObOzetBeyanAcmaTasimaSatir> ObOzetBeyanAcmaTasimaSatir { get; set; }
       
         
         public int GetRefIdNextSequenceValue(string Rejim)

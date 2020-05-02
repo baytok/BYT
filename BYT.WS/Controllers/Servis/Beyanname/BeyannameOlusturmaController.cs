@@ -1681,7 +1681,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/OzetBeyanAcmaOlustur")]
         [HttpPost]
-        public async Task<ServisDurum> PutOzetBeyanAcma([FromBody]DbOzetbeyanAcma ozbyAcma)
+        public async Task<ServisDurum> PutOzetBeyanAcma([FromBody]DbOzetBeyanAcma ozbyAcma)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -1761,7 +1761,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSenetOlustur/{OzetBeyanInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{OzetBeyanInternalNo}/{BeyanInternalNo}")]
-        public async Task<ServisDurum> PostTasimaSenet([FromBody]DbTasimaSenet[] tasimaSenetList, string OzetBeyanInternalNo, string BeyanInternalNo)
+        public async Task<ServisDurum> PostTasimaSenet([FromBody]DbOzetBeyanAcmaTasimaSenet[] tasimaSenetList, string OzetBeyanInternalNo, string BeyanInternalNo)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -1797,7 +1797,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
             try
             {
-                var tasimaSenetValues = await _beyannameContext.DbTasimaSenet.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
+                var tasimaSenetValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSenet.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
 
                 using (var transaction = beyannameContext.Database.BeginTransaction())
                 {
@@ -1816,7 +1816,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                 }
                                 else
                                 {
-                                    var maxTasimaSenetInternalNo = (from u in beyannameContext.DbTasimaSenet
+                                    var maxTasimaSenetInternalNo = (from u in beyannameContext.DbOzetBeyanAcmaTasimaSenet
                                                                     where u.BeyanInternalNo == BeyanInternalNo &&
                                                                     u.OzetBeyanInternalNo == OzetBeyanInternalNo
                                                                     select (u.TasimaSenetInternalNo)).Max();
@@ -1836,7 +1836,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                 if (tasima == null)
                                 {
                                     beyannameContext.Entry(item).State = EntityState.Deleted;
-                                    var TasimaSatirValue= await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo && v.TasimaSenetInternalNo== item.TasimaSenetInternalNo).ToListAsync();
+                                    var TasimaSatirValue= await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo && v.TasimaSenetInternalNo== item.TasimaSenetInternalNo).ToListAsync();
                                     foreach (var satir in TasimaSatirValue)
                                     {
                                         beyannameContext.Entry(satir).State = EntityState.Deleted;
@@ -1910,7 +1910,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/TasimaSatirOlustur/{TasimaSenetInternalNo}/{OzetBeyanInternalNo}/{BeyanInternalNo}")]
         [HttpPost("{TasimaSenetInternalNo}/{OzetBeyanInternalNo}/{BeyanInternalNo}")]
-        public async Task<ServisDurum> PostTasimaSatir([FromBody]DbTasimaSatir[] tasimaSatirList, string TasimaSenetInternalNo, string OzetBeyanInternalNo, string BeyanInternalNo)
+        public async Task<ServisDurum> PostTasimaSatir([FromBody]DbOzetBeyanAcmaTasimaSatir[] tasimaSatirList, string TasimaSenetInternalNo, string OzetBeyanInternalNo, string BeyanInternalNo)
         {
             ServisDurum _servisDurum = new ServisDurum();
 
@@ -1945,7 +1945,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 {
                     try
                     {
-                        var tasimaSenetValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo && v.TasimaSenetInternalNo == TasimaSenetInternalNo).ToListAsync();
+                        var tasimaSenetValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.BeyanInternalNo == BeyanInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo && v.TasimaSenetInternalNo == TasimaSenetInternalNo).ToListAsync();
 
                         foreach (var item in tasimaSenetValues)
                         {
@@ -2031,12 +2031,12 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _beyannameContext.Entry(ozbyAcmaValues).State = EntityState.Deleted;
 
 
-                        var tasimaSenetiValues = await _beyannameContext.DbTasimaSenet.Where(v => v.OzetBeyanInternalNo == ozetBeyanInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                        var tasimaSenetiValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSenet.Where(v => v.OzetBeyanInternalNo == ozetBeyanInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
                         if (tasimaSenetiValues.Count > 0)
                             foreach (var item in tasimaSenetiValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
-                                var tasimaSatiriValues = await _beyannameContext.DbTasimaSatir.Where(v => v.OzetBeyanInternalNo == ozetBeyanInternalNo && v.TasimaSenetInternalNo == item.TasimaSenetInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
+                                var tasimaSatiriValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.OzetBeyanInternalNo == ozetBeyanInternalNo && v.TasimaSenetInternalNo == item.TasimaSenetInternalNo && v.BeyanInternalNo == BeyanInternalNo).ToListAsync();
                                 if (tasimaSatiriValues.Count > 0)
                                     foreach (var satir in tasimaSatiriValues)
                                     {

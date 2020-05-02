@@ -69,9 +69,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     List<DbKonteyner> lstKonteyner = new List<DbKonteyner>();
                     List<DbMarka> lstMarka = new List<DbMarka>();
                     List<DbBeyannameAcma> lstBeyannameAcma = new List<DbBeyannameAcma>();
-                    List<DbOzetbeyanAcma> lstOzetBeyan = new List<DbOzetbeyanAcma>();
-                    List<DbTasimaSenet> lstTasimaSenedi = new List<DbTasimaSenet>();
-                    List<DbTasimaSatir> lstTasimaSatiri = new List<DbTasimaSatir>();
+                    List<DbOzetBeyanAcma> lstOzetBeyan = new List<DbOzetBeyanAcma>();
+                    List<DbOzetBeyanAcmaTasimaSenet> lstTasimaSenedi = new List<DbOzetBeyanAcmaTasimaSenet>();
+                    List<DbOzetBeyanAcmaTasimaSatir> lstTasimaSatiri = new List<DbOzetBeyanAcmaTasimaSatir>();
                     List<DbKiymetBildirim> lstKiymet = new List<DbKiymetBildirim>();
                     List<DbKiymetBildirimKalem> lstKiymetKalem = new List<DbKiymetBildirimKalem>();
                     var newbeyanValues = new DbBeyan
@@ -344,7 +344,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     var ozetBeyanAcmaValues = await _beyannameContext.DbOzetbeyanAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     foreach (var o in ozetBeyanAcmaValues)
                     {
-                        DbOzetbeyanAcma ozet = new DbOzetbeyanAcma
+                        DbOzetBeyanAcma ozet = new DbOzetBeyanAcma
                         {
                             Aciklama = o.Aciklama,
                             Ambar = o.Ambar,
@@ -355,13 +355,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             OzetBeyanInternalNo = newbeyanValues.BeyanInternalNo + "|" + o.OzetBeyanNo
                         };
 
-                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo).ToListAsync();
+                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo).ToListAsync();
 
                         if (ozetBeyanAcmaTasimaSenediValues.Count > 0)
                         {
                             foreach (var t in ozetBeyanAcmaTasimaSenediValues)
                             {
-                                DbTasimaSenet tasima = new DbTasimaSenet
+                                DbOzetBeyanAcmaTasimaSenet tasima = new DbOzetBeyanAcmaTasimaSenet
                                 {
                                     BeyanInternalNo = ozet.BeyanInternalNo,
                                     OzetBeyanInternalNo = ozet.OzetBeyanInternalNo,
@@ -370,12 +370,12 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                                 };
 
-                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo && v.TasimaSenetInternalNo == t.TasimaSenetInternalNo).ToListAsync();
+                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo && v.TasimaSenetInternalNo == t.TasimaSenetInternalNo).ToListAsync();
                                 if (ozetBeyanAcmaTasimaSatirValues.Count > 0)
                                 {
                                     foreach (var s in ozetBeyanAcmaTasimaSatirValues)
                                     {
-                                        DbTasimaSatir satir = new DbTasimaSatir
+                                        DbOzetBeyanAcmaTasimaSatir satir = new DbOzetBeyanAcmaTasimaSatir
                                         {
                                             AmbarKodu = s.AmbarKodu,
                                             BeyanInternalNo = ozet.BeyanInternalNo,

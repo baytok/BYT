@@ -21,7 +21,7 @@ using Newtonsoft.Json;
 
 namespace BYT.WS.Controllers.Servis.OzetBeyan
 {
-    [Route("api/BYT/Servis/Beyanname/[controller]")]
+    [Route("api/BYT/Servis/OzetBeyan/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OzetBeyanSonucHizmetiController : ControllerBase
