@@ -167,7 +167,7 @@ export class OzetbeyanComponent implements OnInit {
         ulkeKoduBos:new FormControl("", [Validators.maxLength(9)]),
         yuklemeBosaltmaYeri:new FormControl("", [Validators.maxLength(20)]),
         varisCikisGumrukIdaresi:new FormControl("", [Validators.maxLength(9)]),
-        varisTarihSaati: new FormControl("",[ ValidationService.tarihValidation]),
+        varisTarihSaati: new FormControl("",[Validators.maxLength(12), ValidationService.tarihValidation]),
         xmlRefId:new FormControl("", [Validators.maxLength(35)]),
         tescilStatu: [],
         tescilTarihi:[],     

@@ -106,7 +106,9 @@ namespace BYT.WS.Models
 
         [StringLength(9)]
         public string VarisCikisGumrukIdaresi { get; set; }
-        public string? VarisTarihSaati { get; set; }
+
+        [StringLength(12)]
+        public string VarisTarihSaati { get; set; }
 
         [StringLength(35)]
         public string XmlRefId { get; set; }
@@ -131,8 +133,9 @@ namespace BYT.WS.Models
         [StringLength(30)]
         public string OzetBeyanInternalNo { get; set; }
 
+        [StringLength(12)]
         [Required]
-        public DateTime? HareketTarihSaati { get; set; }
+        public string HareketTarihSaati { get; set; }
 
         [StringLength(20)]
         [Required]
@@ -315,8 +318,8 @@ namespace BYT.WS.Models
 
         public DateTime? SonIslemZamani { get; set; }
     }
- 
-    public class ObTasimaSenet
+
+    public class ObTeminat
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -324,8 +327,52 @@ namespace BYT.WS.Models
 
         [Required]
         [StringLength(30)]
+        public string BeyanInternalNo { get; set; }
+
+
+        [Required]
+        [StringLength(9)]
+        public string TeminatSekli { get; set; }
+
+        [Required]
+
+        public decimal TeminatOrani { get; set; }
+
+
+        [StringLength(20)]
+        public string GlobalTeminatNo { get; set; }
+
+
+        public decimal BankaMektubuTutari { get; set; }
+
+
+        public decimal NakdiTeminatTutari { get; set; }
+
+
+        public decimal DigerTutar { get; set; }
+
+
+        [StringLength(20)]
+        public string DigerTutarReferansi { get; set; }
+
+
+
+        [StringLength(100)]
+        public string Aciklama { get; set; }
+        public DateTime? SonIslemZamani { get; set; }
+
+    }
+    public class ObTasimaSenet
+    {
+       
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
         public string OzetBeyanInternalNo { get; set; }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
         [StringLength(30)]
         public string TasimaSenetInternalNo { get; set; }
@@ -359,7 +406,7 @@ namespace BYT.WS.Models
         public string DuzenlendigiUlke { get; set; }
 
         [StringLength(9)]
-        public string EmniyetGuvenlikT { get; set; }
+        public string EmniyetGuvenlik { get; set; }
 
         [StringLength(16)]
         public string EsyaninBulunduguYer { get; set; }
@@ -375,10 +422,10 @@ namespace BYT.WS.Models
         public string GondericiVergiNo { get; set; }
 
         [StringLength(9)]
-        public string GrupMu { get; set; }
+        public string Grup { get; set; }
 
         [StringLength(9)]
-        public string KonteynerMi { get; set; }
+        public string Konteyner { get; set; }
 
         [StringLength(9)]
         public string NavlunDoviz { get; set; }
@@ -389,17 +436,19 @@ namespace BYT.WS.Models
 
         [StringLength(20)]
         public string OncekiSeferNumarasi { get; set; }
-        public DateTime OncekiSeferTarihi { get; set; }
+
+        [StringLength(12)]
+        public string OncekiSeferTarihi { get; set; }
 
         [StringLength(20)]
         public string OzetBeyanNo { get; set; }
 
         [StringLength(9)]
-        public string RoroMu { get; set; }
+        public string Roro { get; set; }
         public int SenetSiraNo { get; set; }
 
         [StringLength(9)]
-        public string AktarmaYapilacakMi { get; set; }
+        public string AktarmaYapilacak { get; set; }
 
         [StringLength(20)]
         public string AktarmaTipi { get; set; }
@@ -447,7 +496,7 @@ namespace BYT.WS.Models
         [StringLength(30)]
         public string TasimaSenetInternalNo { get; set; }
 
-        [StringLength(20)]
+        [StringLength(30)]
         public string LimanYerAdi { get; set; }
 
         [StringLength(9)]
@@ -457,8 +506,7 @@ namespace BYT.WS.Models
     }
     public class ObTasimaSatir
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+     
         public int ID { get; set; }
 
         [Required]
@@ -469,6 +517,8 @@ namespace BYT.WS.Models
         [StringLength(30)]
         public string TasimaSenetInternalNo { get; set; }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
         [StringLength(30)]
         public string TasimaSatirInternalNo { get; set; }
@@ -492,13 +542,14 @@ namespace BYT.WS.Models
         [StringLength(9)]
         public string OlcuBirimi { get; set; }
         public int SatirNo { get; set; }
+
+        [StringLength(9)]
         public string KonteynerYukDurumu { get; set; }
 
         [StringLength(9)]
         public DateTime? SonIslemZamani { get; set; }
 
     }
-
     public class ObSatirEsya
     {
         [Key]
@@ -538,49 +589,7 @@ namespace BYT.WS.Models
         public DateTime? SonIslemZamani { get; set; }
     }
     
-    public class ObTeminat
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-
-        [Required]
-        [StringLength(30)]
-        public string BeyanInternalNo { get; set; }
-
-
-        [Required]
-        [StringLength(9)]
-        public string TeminatSekli { get; set; }
-
-        [Required]
-
-        public decimal TeminatOrani { get; set; }
-
-
-        [StringLength(20)]
-        public string GlobalTeminatNo { get; set; }
-
-
-        public decimal BankaMektubuTutari { get; set; }
-
-
-        public decimal NakdiTeminatTutari { get; set; }
-
-
-        public decimal DigerTutar { get; set; }
-
-
-        [StringLength(20)]
-        public string DigerTutarReferansi { get; set; }
-
-
-
-        [StringLength(100)]
-        public string Aciklama { get; set; }
-        public DateTime? SonIslemZamani { get; set; }
-
-    }
+  
 }
 
 

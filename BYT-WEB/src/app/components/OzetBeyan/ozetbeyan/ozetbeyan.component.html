@@ -50,7 +50,7 @@
       </mat-cell>
       <mat-label>{{beyanStatu}}</mat-label>
       
-      <form [formGroup]="ozetBeyanForm" (ngSubmit)="onozetBeyanFormSubmit()">
+      <form [formGroup]="ozetBeyanForm" >
         <mat-card class="mat-card">
           <div class="example-box">
             <mat-tab-group>
@@ -674,7 +674,7 @@
                 </div> 
                 </div>
               </mat-tab>
-            <mat-tab label="Taşıtın Uğradığı Ülke Bilgiler"> 
+            <mat-tab label="Taşıtın Uğradığı Ülke Bilgileri"> 
                      
                 <form [formGroup]="tasitForm" novalidate>
                   <div
@@ -772,7 +772,7 @@
           </div>
         </mat-card>
         <div class="text-right">      
-          <button  [disabled]="!(ozetBeyanForm.valid && tasitBilgileri.valid)" class="btn btn-primary mr-1">Kaydet</button>      
+          <button  [disabled]="!(ozetBeyanForm.valid && tasitBilgileri.valid)" class="btn btn-primary mr-1" (click)="onozetBeyanFormSubmit()">Kaydet</button>      
         
         </div>
       </form>

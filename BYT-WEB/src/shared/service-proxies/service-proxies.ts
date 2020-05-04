@@ -130,7 +130,6 @@ export class BeyannameServiceProxy {
       this.baseUrl + "KullaniciSil/KullaniciHizmeti/"+kullaniciId, httpOptions        
       );
   }
-
   getAllYetki() { 
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -367,7 +366,6 @@ export class BeyannameServiceProxy {
       this.baseUrl + "IslemHizmeti/RefNoIleSorgulama/" + refNo,httpOptions
     );
   }
-
   getTarihce(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -380,7 +378,6 @@ export class BeyannameServiceProxy {
     };
     return this.http.get(this.baseUrl + "TarihceHizmeti/" + IslemInternalNo, httpOptions);
   }
-
   KontrolGonderimi(IslemInternalNo, Kullanici) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -398,7 +395,6 @@ export class BeyannameServiceProxy {
    
     
   }
-
   TescilMesajiHazirla(IslemInternalNo, Kullanici) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -416,7 +412,6 @@ export class BeyannameServiceProxy {
    
     
   }
-
   TescilGonderimi(IslemInternalNo, Kullanici, guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -434,7 +429,6 @@ export class BeyannameServiceProxy {
    
     
   }
-
   getSonucSorgula(Guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -471,8 +465,6 @@ export class BeyannameServiceProxy {
         IslemInternalNo,httpOptions
     );
   }
- 
-
   getKalem(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -937,7 +929,6 @@ export class BeyannameServiceProxy {
         tasimaSatir,httpOptions  
         );
   }
-
   removeOzetBeyanAcma(ozetBeyanInternalNo,beyanInternalNo) {
   
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
@@ -953,8 +944,6 @@ export class BeyannameServiceProxy {
       this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/OzetBeyanAcmaSil/"+ozetBeyanInternalNo+"/"+beyanInternalNo, httpOptions        
       );
   }
-  
-
   getDbTeminat(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -986,7 +975,6 @@ export class BeyannameServiceProxy {
         teminat,httpOptions  
         );
   }
-
   getDbFirma(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -1018,7 +1006,6 @@ export class BeyannameServiceProxy {
         firma,httpOptions  
         );
   }
-
   getDbBeyanname(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -1060,7 +1047,6 @@ export class BeyannameServiceProxy {
         beyanname, httpOptions  
         );
   }
-
   getBeyannameKopyalama(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -1076,7 +1062,6 @@ export class BeyannameServiceProxy {
       this.baseUrl + "Servis/Beyanname/BeyannameKopyalama/" + IslemInternalNo,null,httpOptions
     );
   }
-
   getOzetBeyan(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -1109,7 +1094,6 @@ export class BeyannameServiceProxy {
         beyanname, httpOptions  
         );
   }
-
   getOzetBeyanKopyalama(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -1125,7 +1109,6 @@ export class BeyannameServiceProxy {
       this.baseUrl + "Servis/OzetBeyan/OzetBeyanKopyalama/" + IslemInternalNo,null,httpOptions
     );
   }
-
   getObTasitUgrakUlke(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -1155,6 +1138,145 @@ export class BeyannameServiceProxy {
       return this.http.post<any>(
         this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasitUgrakUlkeOlustur/"+ozetBeyanInternalNo, 
         tasit,httpOptions  
+        );
+  }
+  getObTasimaSenet(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.get(
+      this.baseUrl + "Servis/TasimaSenet/OzetBeyan/" + IslemInternalNo,httpOptions
+    );
+  }
+  removeObTasimaSenet(tasimaSenetInternalNo,ozetBeyanInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSenetSil/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, httpOptions        
+      );
+  }
+  restoreObTasimaSenet(senet: ObTasimaSenetDto) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSenetOlustur/", 
+        senet,httpOptions  
+        );
+  }
+  getObTasimaSatir(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/TasimaSatir/OzetBeyan/" + IslemInternalNo,httpOptions
+    );
+  }
+  restoreObTasimaSatir(satir: ObTasimaSatirDto[], tasimaSenetInternalNo:string , ozetBeyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSatirOlustur/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, 
+        satir,httpOptions  
+        );
+  }
+  getObIhracat(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/Ihracat/OzetBeyan/" + IslemInternalNo,httpOptions
+    );
+  }
+  restoreObIhracat(ihracat: ObIhracatDto[], tasimaSenetInternalNo:string , ozetBeyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/IhracatOlustur/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, 
+        ihracat,httpOptions  
+        );
+  }
+  getObUgrakUlke(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/UgrakUlke/OzetBeyan/" + IslemInternalNo,httpOptions
+    );
+  }
+  restoreObUgrakUlke(ulke: ObUgrakUlkeDto[], tasimaSenetInternalNo:string , ozetBeyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/UgrakUlkeOlustur/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, 
+        ulke,httpOptions  
         );
   }
 
@@ -3514,6 +3636,222 @@ export class TasitUgrakUlkeDto {
   static fromJS(data: any): TasitUgrakUlkeDto {
     data = typeof data === "object" ? data : {};
     let result = new TasitUgrakUlkeDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class ObTasimaSenetDto {
+  ozetBeyanInternalNo: string;
+  tasimaSenetInternalNo:string;
+  tasimaSenediNo:string;
+  acentaAdi: string;
+  acentaVergiNo: string; 
+  aktarmaYapilacak: string;  
+  aktarmaTipi: string;   
+  aliciAdi: string;  
+  aliciVergiNo: string;  
+  ambarHarici: string;  
+  bildirimTarafiAdi: string;  
+  bildirimTarafiVergiNo: string;  
+  duzenlendigiUlke: string;  
+  emniyetGuvenlik: string;  
+  esyaninBulunduguYer: string;  
+  faturaDoviz: string;  
+  faturaToplami: number;  
+  gondericiAdi: string;  
+  gondericiVergiNo: string;  
+  grup: string;  
+  konteyner: string;  
+  navlunDoviz: string;  
+  navlunTutari: number;  
+  odemeSekli: string;  
+  oncekiSeferNumarasi: string;  
+  oncekiSeferTarihi: string;  
+  ozetBeyanNo: string;  
+  roro: string;  
+  senetSiraNo: number;  
+
+  constructor(data?: ObTasimaSenetDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): ObTasimaSenetDto {
+    data = typeof data === "object" ? data : {};
+    let result = new ObTasimaSenetDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class ObUgrakUlkeDto {
+  ozetBeyanInternalNo: string;
+  tasimaSenetInternalNo:string;
+  limanYerAdi: string;
+  ulkeKodu: string;  
+
+  constructor(data?: ObUgrakUlkeDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): ObUgrakUlkeDto {
+    data = typeof data === "object" ? data : {};
+    let result = new ObUgrakUlkeDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class ObIhracatDto {
+  ozetBeyanInternalNo: string;
+  tasimaSenetInternalNo:string;
+  brutAgirlik: number;
+  kapAdedi: number;
+  numarasi:string;
+  parcaliMi:string;
+  tipi:string;
+
+
+  constructor(data?: ObIhracatDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): ObIhracatDto {
+    data = typeof data === "object" ? data : {};
+    let result = new ObIhracatDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class ObTasimaSatirDto {
+  ozetBeyanInternalNo: string;
+  tasimaSenetInternalNo: string;
+  tasimaSatirInternalNo: string;
+  brutAgirlik: number;  
+  kapAdedi:number;
+  kapCinsi:string;
+  konteynerTipi:string;
+  markaNo:string;  
+  muhurNumarasi:string;  
+  netAgirlik:number;  
+  olcuBirimi:string;  
+  satirNo:number;  
+  konteynerYukDurumu:string;  
+
+  constructor(data?: ObTasimaSatirDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): ObTasimaSatirDto {
+    data = typeof data === "object" ? data : {};
+    let result = new ObTasimaSatirDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class ObSatirEsyaDto {
+  ozetBeyanInternalNo: string;
+  tasimaSenetInternalNo: string;
+  tasimaSatirInternalNo: string;
+  bmEsyaKodu: string;
+  brutAgirlik: number;  
+  esyaKodu:string;
+  esyaninTanimi:string;
+  kalemFiyati:number;
+  kalemFiyatiDoviz:string;
+  kalemSiraNo:number;
+  netAgirlik:number;
+  olcuBirimi:string;
+
+  constructor(data?: ObSatirEsyaDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?:[]) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): ObSatirEsyaDto {
+    data = typeof data === "object" ? data : {};
+    let result = new ObSatirEsyaDto();
 
     result.init(data);
     return result;

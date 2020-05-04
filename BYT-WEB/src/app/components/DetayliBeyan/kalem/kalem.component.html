@@ -385,7 +385,7 @@
                           }"
                         >
                           <option
-                            *ngFor="let s of _isleminNiteligiList"
+                            *ngFor="let s of _kullanilmisList"
                             [value]="s.kod"
                             >{{ s.kod }} {{s.aciklama}}</option
                           >
@@ -1623,7 +1623,7 @@
                                     <input
                                       matNativeControl
                                       type="text"
-                                      placeholder="Marka Kıtmeti"
+                                      placeholder="Marka Kıymeti"
                                       formControlName="markaKiymeti"
                                     />
                                   </mat-form-field>
