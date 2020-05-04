@@ -576,7 +576,7 @@ namespace BYT.WS.Models
         public string TasimaSenetInternalNo { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(20)]
         public string TasimaSenediNo { get; set; }
 
         public DateTime? SonIslemZamani { get; set; }

@@ -27,9 +27,9 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import {
-  OzetBeyanAcmaDto,
-  TasimaSenetDto,
-  TasimaSatirDto,
+  DbOzetBeyanAcmaDto,
+  DbOzetBeyanAcmaTasimaSenetDto,
+  DbOzetBeyanAcmaTasimaSatirDto,
   ServisDto,
 } from "../../../../shared/service-proxies/service-proxies";
 import {
@@ -49,9 +49,9 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   ozetBeyanForm: FormGroup;
   tasimaSenetiForm: FormGroup;
   tasimaSatiriForm: FormGroup; 
-  _ozetBeyanlar:OzetBeyanAcmaDto[];
-  _tasimaSenetleri:TasimaSenetDto[];
-  _tasimaSatirlari:TasimaSatirDto[];
+  _ozetBeyanlar:DbOzetBeyanAcmaDto[];
+  _tasimaSenetleri:DbOzetBeyanAcmaTasimaSenetDto[];
+  _tasimaSatirlari:DbOzetBeyanAcmaTasimaSatirDto[];
   tasimaSatirGoster:boolean=false;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
@@ -144,8 +144,8 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     this.ozetBeyanInternalNo = "";
   }
   getOzetBeyanlar(islemInternalNo: string) {
-    this.beyanServis.getOzetBeyanAcma(islemInternalNo).subscribe(
-      (result: OzetBeyanAcmaDto[]) => {
+    this.beyanServis.getDbOzetBeyanAcma(islemInternalNo).subscribe(
+      (result: DbOzetBeyanAcmaDto[]) => {
         this._ozetBeyanlar = result;
         this.ozetBeyanForm.disable();
         this.tasimaSenetiForm.disable();
@@ -175,8 +175,8 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     this.ozetBeyanInternalNo = ozetBeyanInternalNo;
 
   
-    this.beyanServis.getTasimaSenet(this._beyanSession.islemInternalNo).subscribe(
-      (result: TasimaSenetDto[]) => {
+    this.beyanServis.getDbTasimaSenet(this._beyanSession.islemInternalNo).subscribe(
+      (result: DbOzetBeyanAcmaTasimaSenetDto[]) => {
        
         this._tasimaSenetleri = result.filter(
           (x) =>
@@ -286,10 +286,10 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
 
     
     let yeniOzetBeyanInternalNo: string;
-    let yeniOzetBeyanAcma= new OzetBeyanAcmaDto();
+    let yeniOzetBeyanAcma= new DbOzetBeyanAcmaDto();
     yeniOzetBeyanAcma.init(this.ozetBeyanForm.value);
    
-    const promiseKalem = this.beyanServis.restoreOzetBeyanAcma(yeniOzetBeyanAcma).toPromise();
+    const promiseKalem = this.beyanServis.restoreDbOzetBeyanAcma(yeniOzetBeyanAcma).toPromise();
     promiseKalem.then(
       (result) => {
         const servisSonuc = new ServisDto();
@@ -314,7 +314,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     );
   }
 
-  initTasimaSenetiFormArray(tasimaSenet: TasimaSenetDto[]) {
+  initTasimaSenetiFormArray(tasimaSenet: DbOzetBeyanAcmaTasimaSenetDto[]) {
     const formArray = this.tasimaSenetiForm.get("tasimaSenetiArry") as FormArray;
     formArray.clear();
     for (let klm of tasimaSenet) {
@@ -342,8 +342,8 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     this.tasimaSenetInternalNo = tasimaSenetInternalNo;
     console.log(this.tasimaSenetInternalNo);
     this.tasimaSenediNo=this.tasimaSenetiBilgileri.controls[index].get("tasimaSenediNo").value;   
-    this.beyanServis.getTasimaSatir(this._beyanSession.islemInternalNo).subscribe(
-      (result: TasimaSatirDto[]) => {
+    this.beyanServis.getDbTasimaSatir(this._beyanSession.islemInternalNo).subscribe(
+      (result: DbOzetBeyanAcmaTasimaSatirDto[]) => {
        
         this._tasimaSatirlari = result.filter(
           (x) =>
@@ -427,7 +427,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
 
     if (this.tasimaSenetiBilgileri.length >= 0) {
       const promiseMarka = this.beyanServis
-        .restoreTasimaSenet(
+        .restoreDbTasimaSenet(
           this.tasimaSenetiBilgileri.value,
           this.ozetBeyanInternalNo,
           this._beyanSession.beyanInternalNo
@@ -446,7 +446,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     }
   }
 
-  initTasimaSatiriFormArray(tasimaSatir: TasimaSatirDto[]) {
+  initTasimaSatiriFormArray(tasimaSatir: DbOzetBeyanAcmaTasimaSatirDto[]) {
     const formArray = this.tasimaSatiriForm.get("tasimaSatiriArry") as FormArray;
     formArray.clear();
     for (let klm of tasimaSatir) {
@@ -546,7 +546,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
    
     if (this.tasimaSatiriBilgileri.length >= 0) {
       const promiseMarka = this.beyanServis
-        .restoreTasimaSatir(
+        .restoreDbTasimaSatir(
           this.tasimaSatiriBilgileri.value,
           this.ozetBeyanInternalNo,
           this.tasimaSenetInternalNo,

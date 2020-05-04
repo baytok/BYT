@@ -1,8 +1,8 @@
 ﻿
 export const rejim= [
   { kod:'', aciklama: '' },
-    { kod: 1000, aciklama: 'İhracat' },
-    { kod: 4000, aciklama: 'İthalat' }
+    { kod: 'E', aciklama: 'İhracat' },
+    { kod: 'I', aciklama: 'İthalat' }
     
   ];
   export const bs= [

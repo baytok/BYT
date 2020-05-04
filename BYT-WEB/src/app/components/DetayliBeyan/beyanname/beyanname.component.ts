@@ -1,23 +1,13 @@
-import { Component, OnInit, Inject, Injector,ViewChild,ElementRef,Injectable } from "@angular/core";
-import { AbstractControl } from '@angular/forms';
-import {
-  HttpClient,
-  HttpParams,
-  HttpHeaders,
-  HttpResponse,
-  HttpResponseBase,
-  HttpErrorResponse,
-  JsonpInterceptor
-} from "@angular/common/http";
+import { Component, OnInit, ViewChild,ElementRef,Injectable } from "@angular/core";
+
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
-  FormArray,
-  NgForm
+
 } from "@angular/forms";
-import { MustMatch } from "../../../../shared/helpers/must-match.validator";
+
 import {
   ReferansService
 } from "../../../../shared/helpers/ReferansService";
@@ -490,7 +480,7 @@ export class BeyannameComponent implements OnInit {
   }
   getBeyannameFromIslem(islemInternalNo:string) {  
 
-    this.beyanServis.getBeyanname(islemInternalNo).subscribe(
+    this.beyanServis.getDbBeyanname(islemInternalNo).subscribe(
       result => {
        
         this._beyannameBilgileri = new BeyannameBilgileriDto();
@@ -501,10 +491,7 @@ export class BeyannameComponent implements OnInit {
         if (this._beyanname == null) {
           this.openSnackBar(islemInternalNo + "  Bulunamadı", "Tamam");
           this.beyanInternalNo="";
-          this.beyanStatu= "" ;
-          this._beyanSession.islemInternalNo = "";
-          this._beyanSession.beyanInternalNo= "" ;
-          this._beyanSession.beyanStatu= "" ;
+          this.beyanStatu= "" ;        
       
           return;
         }
@@ -528,7 +515,7 @@ export class BeyannameComponent implements OnInit {
   }
   getBeyanname(islemInternalNo) {  
 
-      var result= this.beyanServis.getBeyanname(islemInternalNo.value).subscribe(
+      var result= this.beyanServis.getDbBeyanname(islemInternalNo.value).subscribe(
       result => {
        
         this._beyannameBilgileri = new BeyannameBilgileriDto();
@@ -737,7 +724,7 @@ export class BeyannameComponent implements OnInit {
     yeniBeyanname.initalBeyan(this.beyannameForm.value);
     console.log(yeniBeyanname);
       const promise = this.beyanServis
-        .setBeyanname(yeniBeyanname)
+        .setDbBeyanname(yeniBeyanname)
         .toPromise();
       promise.then(
         result => {

@@ -21,7 +21,7 @@
   import * as odemeSekliData from '../../shared/helpers/odemeSekli.json';
   import * as ozellikData from '../../shared/helpers/ozellik.json';
   import * as stmilData from '../../shared/helpers/stmil.json';
-  
+  import * as beyanTuruData from '../../shared/helpers/beyanTuru.json';
   
 @Injectable()
 export class ReferansService  {
@@ -45,6 +45,7 @@ export class ReferansService  {
   private odemeSekli: any = (odemeSekliData as any).default;
   private ozellik: any = (ozellikData as any).default;
   private stmil: any = (stmilData as any).default;
+  private beyanTuru: any = (beyanTuruData as any).default;
   constructor() {
    
 }
@@ -106,5 +107,7 @@ public getozellikJSON(): Observable<any> {
 public getstmilJSON(): Observable<any> {
   return this.stmil;
 }
-
+public beyanTuruJSON(): Observable<any> {
+  return this.beyanTuru;
+}
 }

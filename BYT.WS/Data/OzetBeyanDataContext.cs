@@ -14,12 +14,19 @@ namespace BYT.WS.Data
     {
        
      
-        public OzetBeyanDataContext(DbContextOptions<BeyannameDataContext> options) : base(options)
+        public OzetBeyanDataContext(DbContextOptions<OzetBeyanDataContext> options) : base(options)
         {
 
         }
         
         public DbSet<ObBeyan> ObBeyan { get; set; }
+        public DbSet<ObTasitUgrakUlke> ObTasitUgrakUlke { get; set; }
+        public DbSet<ObTasiyiciFirma> ObTasiyiciFirma { get; set; }
+        public DbSet<ObTasimaSenet> ObTasimaSenet { get; set; }
+        public DbSet<ObIhracat> ObIhracat { get; set; }
+        public DbSet<ObUgrakUlke> ObUgrakUlke { get; set; }
+        public DbSet<ObTasimaSatir> ObTasimaSatir { get; set; }
+        public DbSet<ObTasimaSatir> ObSatirEsya { get; set; }
         public DbSet<ObTeminat> ObTeminat { get; set; }
         public DbSet<ObOzetBeyanAcma> ObOzetBeyanAcma { get; set; }
         public DbSet<ObOzetBeyanAcmaTasimaSenet> ObOzetBeyanAcmaTasimaSenet { get; set; }

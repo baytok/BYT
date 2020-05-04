@@ -1,0 +1,23 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+{
+  "kod": "VARONC",
+  "aciklama": "Varış Öncesi"
+},
+{
+  "kod": "DENİTH",
+  "aciklama": "Deniz İthalat"
+},
+{
+  "kod": "CIKONC",
+  "aciklama": "Çıkış Öncesi"
+},
+{
+  "kod": "TIRİHR",
+  "aciklama": "Tır İthalat"
+}
+
+]

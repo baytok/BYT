@@ -25,7 +25,7 @@ import {
   ReferansService
 } from "../../../../shared/helpers/ReferansService";
 import {
-  FirmaDto,
+  DbFirmaDto,
   ServisDto,
 } from "../../../../shared/service-proxies/service-proxies";
 @Component({
@@ -131,7 +131,7 @@ export class FirmaComponent implements OnInit {
 
     if (this.firmaBilgileri.length >= 0) {
       const promiseOdeme = this.beyanServis
-        .restoreFirma(
+        .restoreDbFirma(
           this.firmaBilgileri.value,
           this._beyanSession.beyanInternalNo
         )
@@ -149,7 +149,7 @@ export class FirmaComponent implements OnInit {
       );
     }
   }
-  initFirmaFormArray(teminat: FirmaDto[]) {
+  initFirmaFormArray(teminat: DbFirmaDto[]) {
     const formArray = this.firmaForm.get("firmaArry") as FormArray;
     formArray.clear();
     for (let klm of teminat) {
@@ -196,8 +196,8 @@ export class FirmaComponent implements OnInit {
     this.firmaForm.setControl("firmaArry", formArray);
   }
   getFirmaBilgileri() {
-    this.beyanServis.getFirma(this._beyanSession.islemInternalNo).subscribe(
-      (result: FirmaDto[]) => {
+    this.beyanServis.getDbFirma(this._beyanSession.islemInternalNo).subscribe(
+      (result: DbFirmaDto[]) => {
         this.initFirmaFormArray(result);
         this.firmaForm.disable();
       },

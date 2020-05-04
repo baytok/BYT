@@ -1,23 +1,12 @@
 import { Component, OnInit, Inject, Injector,ViewChild,ElementRef,Injectable } from "@angular/core";
-import { AbstractControl } from '@angular/forms';
-import {
-  HttpClient,
-  HttpParams,
-  HttpHeaders,
-  HttpResponse,
-  HttpResponseBase,
-  HttpErrorResponse,
-  JsonpInterceptor
-} from "@angular/common/http";
+
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
-  FormArray,
-  NgForm
+  FormArray
 } from "@angular/forms";
-import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
   ReferansService
 } from "../../../../shared/helpers/ReferansService";
@@ -36,13 +25,14 @@ import {
   ValidationService
 } from "../../../../shared/service-proxies/ValidationService";
 import {
-  BeyannameBilgileriDto,
-  BeyannameDto,
-  KalemDto,
+  OzetBeyanDto,
+  TasitUgrakUlkeDto,
   ServisDto
 } from "../../../../shared/service-proxies/service-proxies";
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
-
+import {
+ rejim
+} from "../../../../shared/helpers/referencesList";
 
 export const PICK_FORMATS = {
   parse: {
@@ -90,110 +80,6 @@ format(date: Date, displayFormat: string): string {
   }
 }
 
-export const ihracatRejim=[
-  {rejim:'1000'},
-  {rejim:'1021'},
-  {rejim:'1023'},
-  {rejim:'1040'},
-  {rejim:'1042'},
-  {rejim:'1072'},
-  {rejim:'1091'},
-  {rejim:'2100'},
-  {rejim:'2123'},
-  {rejim:'2141'},
-  {rejim:'2151'},
-  {rejim:'2152'},
-  {rejim:'2153'},
-  {rejim:'2172'},
-  {rejim:'2191'},
-  {rejim:'2300'},
-  {rejim:'2340'},
-  {rejim:'2341'},
-  {rejim:'2342'},
-  {rejim:'2351'},
-  {rejim:'2352'},
-  {rejim:'2353'},
-  {rejim:'2600'},
-  {rejim:'3141'},
-  {rejim:'3151'},
-  {rejim:'3152'},
-  {rejim:'3153'},
-  {rejim:'3158'},
-  {rejim:'3171'},
-  {rejim:'7200'},
-  {rejim:'7272'},
-  {rejim:'8100'},
-  
-  ]
-export const ithalatRejim=[
-  {rejim:'4000'},
-  {rejim:'4010'},
-  {rejim:'4051'},
-  {rejim:'4053'},
-  {rejim:'4058'},
-  {rejim:'4071'},
-  {rejim:'4072'},
-  {rejim:'4091'},
-  {rejim:'4100'},
-  {rejim:'4121'},
-  {rejim:'4123'},
-  {rejim:'4171'},
-  {rejim:'4191'},
-  {rejim:'4200'},
-  {rejim:'4210'},
-  {rejim:'4251'},
-  {rejim:'4253'},
-  {rejim:'4258'},
-  {rejim:'4271'},
-  {rejim:'4291'},
-  {rejim:'5100'},
-  {rejim:'5121'},
-  {rejim:'5123'},
-  {rejim:'5141'},
-  {rejim:'5171'},
-  {rejim:'5191'},
-  {rejim:'5200'},
-  {rejim:'5221'},
-  {rejim:'5223'},
-  {rejim:'5271'},
-  {rejim:'5291'},
-  {rejim:'5300'},
-  {rejim:'5321'},
-  {rejim:'5323'},
-  {rejim:'5341'},
-  {rejim:'5351'},
-  {rejim:'5352'},
-  {rejim:'5353'},
-  {rejim:'5358'},
-  {rejim:'5371'},
-  {rejim:'5391'},
-  {rejim:'5800'},
-  {rejim:'6121'},
-  {rejim:'6123'},
-  {rejim:'6321'},
-  {rejim:'6323'},
-  {rejim:'6326'},
-  {rejim:'6521'},
-  {rejim:'6523'},
-  {rejim:'6771'},
-  {rejim:'7100'},
-  {rejim:'7121'},
-  {rejim:'7123'},
-  {rejim:'7141'},
-  {rejim:'7151'},
-  {rejim:'7153'},
-  {rejim:'7158'},
-  {rejim:'7171'},
-  {rejim:'7191'}, 
-  {rejim:'7241'},
-  {rejim:'7252'},
-  {rejim:'7300'},
-  {rejim:'7373'},
-  {rejim:'8200'},
-  {rejim:'9100'},
-  {rejim:'9171'},
-  
-  ]
 @Component({
   selector: 'app-ozetbeyan',
   templateUrl: './ozetbeyan.component.html',
@@ -205,23 +91,21 @@ export const ithalatRejim=[
 })
 export class OzetbeyanComponent implements OnInit {
   @ViewChild('islemNo', {static: true}) private islemInput: ElementRef;
-  beyannameForm: FormGroup;
+  ozetBeyanForm: FormGroup;
+  tasitForm: FormGroup;
   submitted: boolean = false;
   ihracatEditable: boolean = false;
   ithalatEditable: boolean = false;
-  beyanInternalNo:string;
+  ozetBeyanInternalNo:string;
   beyanStatu:string;
   editable: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
-  _beyannameBilgileri: BeyannameBilgileriDto;
-  _beyanname: BeyannameDto = new BeyannameDto();
-  _kalemler: KalemDto[];
-  _rejimList = this.referansService.getRejimJSON();
-  _bsList = this.referansService.getBsJSON();
+  _ozetBeyan: OzetBeyanDto = new OzetBeyanDto();
+  _rejimList = rejim;
+  _beyanTuruList = this.referansService.beyanTuruJSON();
   _gumrukList =this.referansService.getGumrukJSON();
   _ulkeList = this.referansService.getUlkeJSON();
-  _aliciSaticiList = this.referansService.getaliciSaticiJSON();
   _tasimaSekliList = this.referansService.gettasimaSekliJSON();
   _isleminNiteligiList = this.referansService.getisleminNiteligiJSON();
   _aracTipiList = this.referansService.getaracTipiJSON();
@@ -244,167 +128,53 @@ export class OzetbeyanComponent implements OnInit {
    
   }
   get focus() {
-    return this.beyannameForm.controls;
+    return this.ozetBeyanForm.controls;
   }
   buildForm(): void {
-    this.beyannameForm = this.formBuilder.group(
+    this.ozetBeyanForm = this.formBuilder.group(
       {
-        //Genel Bilgiler
-        beyannameNo: [],
-        beyanInternalNo: [],
-        kullanici: new FormControl(""),
-        gumruk: new FormControl("", [Validators.required]),
-        rejim: ["", Validators.required],
-        aciklamalar: new FormControl("", [Validators.maxLength(350)]),
-        aliciSaticiIliskisi:new FormControl("",  [
-          Validators.required,
-          Validators.maxLength(9),
-          Validators.pattern("^[0-9]*$")
-        ]),
-        aliciVergiNo: new FormControl("", [Validators.maxLength(20)]),
-        gondericiVergiNo: new FormControl("", [Validators.maxLength(20)]),
-        musavirVergiNo:  new FormControl("", [Validators.required,Validators.maxLength(20)]),
-        beyanSahibiVergiNo: new FormControl("", [
-          Validators.required,
-          Validators.maxLength(20)
-        ]),
-        asilSorumluVergiNo: new FormControl("", [Validators.maxLength(20)]),
-     
-        basitlestirilmisUsul: new FormControl("", [
-          Validators.maxLength(9),
-          Validators.pattern("^[0-9]*$")
-        ]),
-        ticaretUlkesi:  new FormControl("", [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(30),
-          Validators.pattern("^[a-zA-Z0-9]*$")
-        ]),
-        cikisUlkesi: new FormControl("",  [
-         
-          Validators.minLength(2),
-          Validators.maxLength(9),
-          Validators.pattern("^[a-zA-Z0-9]*$")
-        ]),
-        gidecegiSevkUlkesi:  new FormControl("", [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(30),
-          Validators.pattern("^[a-zA-Z0-9]*$")
-        ]),
-        gidecegiUlke:  new FormControl("", [
-        
-          Validators.minLength(3),
-          Validators.maxLength(30),
-          Validators.pattern("^[a-zA-Z0-9]*$")
-        ]),       
-        birlikKayitNumarasi: new FormControl("", [
-        
-          Validators.maxLength(30)]),
-        birlikKriptoNumarasi: new FormControl("", [
-          
-          Validators.maxLength(30)]),
-        isleminNiteligi:new FormControl("", [Validators.required,Validators.maxLength(9)]),   
-      //  kapAdedi: new FormControl("", [Validators.pattern("^[0-9]*$")]),   
-        kapAdedi: new FormControl("", [ValidationService.numberValidator]),
-        musavirReferansNo: new FormControl("", [Validators.required,Validators.maxLength(9)]),     
-        referansTarihi: new FormControl("",[ ValidationService.tarihValidation]),
-        tescilStatu: [],
-        tescilTarihi:[],
-        refNo: new FormControl("", [Validators.maxLength(30)]),
-        //Finansal Bilgiler
-        bankaKodu: new FormControl("", [
-          Validators.required,
-          Validators.maxLength(16),
-          Validators.pattern("^[0-9]*$")
-        ]),        
-        teslimSekli: new FormControl("", [Validators.required,Validators.maxLength(9)]), 
-        teslimSekliYeri:  new FormControl("", [Validators.required,Validators.maxLength(40)]),         
-        telafiEdiciVergi:new FormControl("", [ValidationService.decimalValidation]),
-       // toplamFatura: new FormControl("", [Validators.required,Validators.pattern('[0-9]+(\.[0-9]{0,2}?)?')]),
-        toplamFatura: new FormControl("", [Validators.required,ValidationService.decimalValidation]),
-        toplamFaturaDovizi:new FormControl("", [Validators.required]), 
-        toplamNavlun: new FormControl("", [ValidationService.decimalValidation]),
-        toplamNavlunDovizi: [],
-        toplamSigorta: new FormControl("", [ValidationService.decimalValidation]),
-        toplamSigortaDovizi: [],
-        toplamYurtDisiHarcamalar:new FormControl("", [ValidationService.decimalValidation]),
-        toplamYurtDisiHarcamalarDovizi: [],
-        toplamYurtIciHarcamalar:new FormControl("", [ValidationService.decimalValidation]),
-        odemeAraci:[],       
-      
-        //Taşıma Bilgileri
-        antrepoKodu: new FormControl("", [
-          Validators.maxLength(9),
-          Validators.pattern("^[a-zA-Z0-9]*$")
-        ]),   
-        limanKodu:new FormControl("", [
-          Validators.maxLength(9),
-          Validators.pattern("^[a-zA-Z0-9]*$")
-        ]),               
-        sinirdakiAracinUlkesi: new FormControl("", [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(30),
-          Validators.pattern("^[a-zA-Z0-9]*$")
-        ]),
-        cikistakiAracinUlkesi: new FormControl("", [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(30),
-          Validators.pattern("^[a-zA-Z0-9]*$")
-        ]),
-        cikistakiAracinKimligi: new FormControl("", [
-          Validators.required,
-          Validators.maxLength(35)
-        ]),
-        cikistakiAracinTipi: new FormControl("",[
-          Validators.required,
-          Validators.maxLength(9),
-          Validators.pattern("^[0-9]*$")
-        ]),
-        sinirdakiAracinKimligi: new FormControl("", [
-          Validators.required,
-          Validators.maxLength(35)
-        ]),
-        sinirdakiAracinTipi: new FormControl("", [
-          Validators.required,
-          Validators.maxLength(9),
-          Validators.pattern("^[0-9]*$")
-        ]),
-        sinirdakiTasimaSekli: new FormControl("", [
-          Validators.required,
-          Validators.maxLength(9),
-          Validators.pattern("^[0-9]*$")
-        ]),
-        konteyner: [false],
-        girisGumrukIdaresi:new FormControl("",[
-          Validators.required,
-          Validators.maxLength(9),
-          Validators.pattern("^[0-9]*$")
-        ]),
-        varisGumrukIdaresi:new FormControl("",[
-          Validators.maxLength(9),
-          Validators.pattern("^[0-9]*$")
-        ]),
-        tasarlananGuzergah: new FormControl("", [Validators.maxLength(250)]),       
-        yukBelgeleriSayisi: new FormControl("", [ValidationService.numberValidator]),    
-        yuklemeBosaltmaYeri: new FormControl("", [Validators.maxLength(40)]),    
-        esyaninBulunduguYer: new FormControl("", [Validators.maxLength(40)]),    
-        mobil1: new FormControl("", [
-          Validators.required,
-          Validators.minLength(3),
-          ValidationService.telefonValidation
-        ]),
        
-        mail1: new FormControl("", [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(80),
-          ValidationService.emailValidator
-        ])
-      }
-      
+      	ozetBeyanInternalNo:[],
+	      ozetBeyanNo:[],
+        beyanSahibiVergiNo: new FormControl("", [Validators.maxLength(20)]),
+	      beyanTuru: new FormControl("", [Validators.required,Validators.maxLength(9)]),
+      	diger:new FormControl("", [Validators.maxLength(500)]),
+        dorseNo1:new FormControl("", [Validators.maxLength(25)]),
+        dorseNo1Uyrugu:new FormControl("", [Validators.maxLength(9)]),
+        dorseNo2:new FormControl("", [Validators.maxLength(25)]),
+        dorseNo2Uyrugu:new FormControl("", [Validators.maxLength(9)]),
+        ekBelgeSayisi : new FormControl("", [
+          Validators.maxLength(9),
+          Validators.pattern("^[0-9]*$")
+        ]),
+      	emniyetGuvenlik: [false],
+      	grupTasimaSenediNo:new FormControl("", [Validators.maxLength(20)]),
+	      gumrukIdaresi:new FormControl("", [Validators.required,Validators.maxLength(9)]),
+      	kullaniciKodu: new FormControl(""),
+	      kurye:[false],
+        limanYerAdiBos:new FormControl("", [Validators.maxLength(20)]),
+        limanYerAdiYuk:new FormControl("", [Validators.maxLength(20)]),
+        oncekiBeyanNo:new FormControl("", [Validators.maxLength(20)]),
+        plakaSeferNo:new FormControl("", [Validators.maxLength(25)]),
+        referansNumarasi:new FormControl("", [Validators.maxLength(25)]),
+        rejim:new FormControl("", [Validators.required,Validators.maxLength(9)]),
+        tasimaSekli:new FormControl("", [Validators.maxLength(9)]),
+        tasitinAdi:new FormControl("", [Validators.maxLength(50)]),
+        tasiyiciVergiNo:new FormControl("", [Validators.maxLength(20)]),
+        tirAtaKarneNo:new FormControl("", [Validators.maxLength(20)]),
+        ulkeKodu:new FormControl("", [Validators.maxLength(9)]),
+        ulkeKoduYuk:new FormControl("", [Validators.maxLength(9)]),
+        ulkeKoduBos:new FormControl("", [Validators.maxLength(9)]),
+        yuklemeBosaltmaYeri:new FormControl("", [Validators.maxLength(20)]),
+        varisCikisGumrukIdaresi:new FormControl("", [Validators.maxLength(9)]),
+        varisTarihSaati: new FormControl("",[ ValidationService.tarihValidation]),
+        xmlRefId:new FormControl("", [Validators.maxLength(35)]),
+        tescilStatu: [],
+        tescilTarihi:[],     
+      },
+      (this.tasitForm = this._fb.group({
+        tasitArry: this._fb.array([this.getTasit()]),
+      })),
     )
   }
  
@@ -416,7 +186,7 @@ export class OzetbeyanComponent implements OnInit {
       this.beyanServis.notAuthorizeRole();    
     }
     this.buildForm();
-    this.beyannameForm.disable();
+    this.ozetBeyanForm.disable();
 
    
     if (this._beyanSession.islemInternalNo != undefined) {
@@ -433,90 +203,61 @@ export class OzetbeyanComponent implements OnInit {
     });
   }
   rejimSelect(rejim){
-    let ticaret= ihracatRejim.findIndex(x=>x.rejim==rejim)>=0?'E':ithalatRejim.findIndex(x=>x.rejim==rejim)>=0?'I':'';
+  //   let ticaret= ihracatRejim.findIndex(x=>x.rejim==rejim)>=0?'E':ithalatRejim.findIndex(x=>x.rejim==rejim)>=0?'I':'';
    
-   if(ticaret=='E')
-   {
-    this.beyannameForm.controls['gondericiVergiNo'].setValidators([Validators.required]);
-    this.beyannameForm.controls['gondericiVergiNo'].updateValueAndValidity();
-    this.beyannameForm.controls['birlikKayitNumarasi'].setValidators([Validators.required]);
-    this.beyannameForm.controls['birlikKayitNumarasi'].updateValueAndValidity();
-    this.beyannameForm.controls['birlikKriptoNumarasi'].setValidators([Validators.required]);
-    this.beyannameForm.controls['birlikKriptoNumarasi'].updateValueAndValidity();
-    this.beyannameForm.controls['cikisUlkesi'].setValue("");
-    this.beyannameForm.controls['cikisUlkesi'].clearValidators();
-    this.beyannameForm.controls['cikisUlkesi'].updateValueAndValidity();
-    this.beyannameForm.controls['gidecegiUlke'].setValidators([Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(9),
-      Validators.pattern("^[a-zA-Z0-9]*$")]);
-    this.beyannameForm.controls['gidecegiUlke'].updateValueAndValidity();
-    this.ihracatEditable=true;
-    this.ithalatEditable=false;
-   }
-    else{
-      this.beyannameForm.controls['birlikKayitNumarasi'].clearValidators();
-      this.beyannameForm.controls['birlikKayitNumarasi'].updateValueAndValidity();
-      this.beyannameForm.controls['birlikKriptoNumarasi'].clearValidators();
-      this.beyannameForm.controls['birlikKriptoNumarasi'].updateValueAndValidity();
-      this.beyannameForm.controls['aliciVergiNo'].setValidators([Validators.required]);
-      this.beyannameForm.controls['aliciVergiNo'].updateValueAndValidity();
-      this.beyannameForm.controls['gidecegiUlke'].setValue("");
-      this.beyannameForm.controls['gidecegiUlke'].clearValidators();
-      this.beyannameForm.controls['gidecegiUlke'].updateValueAndValidity();
-      this.beyannameForm.controls['cikisUlkesi'].setValidators([Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(9),
-        Validators.pattern("^[a-zA-Z0-9]*$")]);
-      this.beyannameForm.controls['cikisUlkesi'].updateValueAndValidity();
-       this.ihracatEditable=false;
-       this.ithalatEditable=true;
-    }
+  //  if(ticaret=='E')
+  //  {
+  //   this.ozetBeyanForm.controls['gondericiVergiNo'].setValidators([Validators.required]);
+  //   this.ozetBeyanForm.controls['gondericiVergiNo'].updateValueAndValidity();
+ 
+  //   this.ihracatEditable=true;
+  //   this.ithalatEditable=false;
+  //  }
+  //   else{
+  //     this.ozetBeyanForm.controls['birlikKayitNumarasi'].clearValidators();
+  //     this.ozetBeyanForm.controls['birlikKayitNumarasi'].updateValueAndValidity();
+   
+  //      this.ihracatEditable=false;
+  //      this.ithalatEditable=true;
+  //   }
 
-    if(ticaret !='')
-     this.editable=true;
+  //   if(ticaret !='')
+  //    this.editable=true;
   }
   bsSelect(bs){
       
-   if(bs=='2')
-   {
-    this.beyannameForm.controls['referansTarihi'].setValidators([Validators.required]);
-    this.beyannameForm.controls['referansTarihi'].updateValueAndValidity();
-   }
-   else{
-    this.beyannameForm.controls['referansTarihi'].clearValidators();
-    this.beyannameForm.controls['referansTarihi'].updateValueAndValidity();
+  //  if(bs=='2')
+  //  {
+  //   this.ozetBeyanForm.controls['referansTarihi'].setValidators([Validators.required]);
+  //   this.ozetBeyanForm.controls['referansTarihi'].updateValueAndValidity();
+  //  }
+  //  else{
+  //   this.ozetBeyanForm.controls['referansTarihi'].clearValidators();
+  //   this.ozetBeyanForm.controls['referansTarihi'].updateValueAndValidity();
+  //  }
   }
-  }
-  getBeyannameFromIslem(islemInternalNo:string) {  
 
-    this.beyanServis.getBeyanname(islemInternalNo).subscribe(
+  getBeyannameFromIslem(islemInternalNo:string) {  
+  
+    this.beyanServis.getOzetBeyan(islemInternalNo).subscribe(
       result => {
-       
-        this._beyannameBilgileri = new BeyannameBilgileriDto();
-        this._beyannameBilgileri.init(result);
-        
-        this._beyanname = this._beyannameBilgileri.Beyanname;     
-    
-        if (this._beyanname == null) {
+        this._ozetBeyan = new OzetBeyanDto();
+        this._ozetBeyan.initalBeyan(result);
+        if (this._ozetBeyan == null) {
           this.openSnackBar(islemInternalNo + "  Bulunamadı", "Tamam");
-          this.beyanInternalNo="";
-          this.beyanStatu= "" ;
-          this._beyanSession.islemInternalNo = "";
-          this._beyanSession.beyanInternalNo= "" ;
-          this._beyanSession.beyanStatu= "" ;
+          this.ozetBeyanInternalNo="";
+          this.beyanStatu= "" ;        
       
           return;
         }
         else{
-          this._kalemler=this._beyannameBilgileri.Kalemler;
+         
           this._beyanSession.islemInternalNo = islemInternalNo;
-          this._beyanSession.Kalemler= this._kalemler;
-          this._beyanSession.beyanInternalNo= this._beyanname.beyanInternalNo ;
-          this._beyanSession.beyanStatu= this._beyanname.tescilStatu ; 
-          this.beyanInternalNo=this._beyanname.beyanInternalNo;
-          this.beyanStatu= this._beyanname.tescilStatu ;
-          this.loadBeyannameForm();
+          this._beyanSession.ozetBeyanInternalNo= this._ozetBeyan.ozetBeyanInternalNo ;
+          this._beyanSession.beyanStatu= this._ozetBeyan.tescilStatu ; 
+          this.ozetBeyanInternalNo=this._ozetBeyan.ozetBeyanInternalNo;
+          this.beyanStatu= this._ozetBeyan.tescilStatu ;
+          this.loadozetBeyanForm();
         }
      
       
@@ -527,34 +268,32 @@ export class OzetbeyanComponent implements OnInit {
     );
   }
   getBeyanname(islemInternalNo) {  
-
-      var result= this.beyanServis.getBeyanname(islemInternalNo.value).subscribe(
+   
+      var result= this.beyanServis.getOzetBeyan(islemInternalNo.value).subscribe(
       result => {
        
-        this._beyannameBilgileri = new BeyannameBilgileriDto();
-        this._beyannameBilgileri.init(result);
-        
-        this._beyanname = this._beyannameBilgileri.Beyanname;   
-     
-        if (this._beyanname == null) {
+        this._ozetBeyan = new OzetBeyanDto();
+        this._ozetBeyan.initalBeyan(result);
+       
+        if (this._ozetBeyan == null) {
            this.openSnackBar(islemInternalNo.value + "  Bulunamadı", "Tamam");
-           this.beyanInternalNo="";
+           this.ozetBeyanInternalNo="";
            this.beyanStatu= "" ;
            this._beyanSession.islemInternalNo = "";
-           this._beyanSession.beyanInternalNo= "" ;
+           this._beyanSession.ozetBeyanInternalNo= "" ;
            this._beyanSession.beyanStatu= "" ;
       
           return;
         }
         else{
-          this._kalemler=this._beyannameBilgileri.Kalemler;
-          this._beyanSession.islemInternalNo = islemInternalNo.value;
-          this._beyanSession.Kalemler= this._kalemler;
-          this._beyanSession.beyanInternalNo= this._beyanname.beyanInternalNo ;
-          this._beyanSession.beyanStatu= this._beyanname.tescilStatu ;
-          this.beyanInternalNo=this._beyanname.beyanInternalNo;
-          this.beyanStatu= this._beyanname.tescilStatu ;
-          this.loadBeyannameForm();
+        
+          this._beyanSession.islemInternalNo = islemInternalNo.value;    
+          this._beyanSession.ozetBeyanInternalNo= this._ozetBeyan.ozetBeyanInternalNo ;
+          this._beyanSession.beyanStatu= this._ozetBeyan.tescilStatu ;
+          this.ozetBeyanInternalNo=this._ozetBeyan.ozetBeyanInternalNo;
+          this.beyanStatu= this._ozetBeyan.tescilStatu ;
+          this.loadozetBeyanForm();
+         
           // islemInternalNo.value ="";
         }
     
@@ -565,80 +304,62 @@ export class OzetbeyanComponent implements OnInit {
      
     );
   }
-  loadBeyannameForm()
+  loadozetBeyanForm()
     {
-      this.beyannameForm.setValue({
-        beyanInternalNo: this._beyanname.beyanInternalNo,
-        beyannameNo: this._beyanname.beyannameNo,
-        rejim: this._beyanname.rejim,
-        gumruk: this._beyanname.gumruk,
-        aciklamalar: this._beyanname.aciklamalar,
-        aliciSaticiIliskisi: this._beyanname.aliciSaticiIliskisi,
-        aliciVergiNo: this._beyanname.aliciVergiNo,
-        antrepoKodu: this._beyanname.antrepoKodu,
-        asilSorumluVergiNo: this._beyanname.asilSorumluVergiNo,
-        bankaKodu: this._beyanname.bankaKodu,
-        basitlestirilmisUsul: this._beyanname.basitlestirilmisUsul,
-        beyanSahibiVergiNo: this._beyanname.beyanSahibiVergiNo,
-        kullanici: this._beyanname.kullanici,
-        gondericiVergiNo: this._beyanname.gondericiVergiNo,    
-        birlikKayitNumarasi: this._beyanname.birlikKayitNumarasi,
-        birlikKriptoNumarasi: this._beyanname.birlikKriptoNumarasi,
-        cikistakiAracinKimligi: this._beyanname.cikistakiAracinKimligi,
-        cikistakiAracinTipi: this._beyanname.cikistakiAracinTipi,
-        cikistakiAracinUlkesi: this._beyanname.cikistakiAracinUlkesi,
-        cikisUlkesi: this._beyanname.cikisUlkesi,
-        esyaninBulunduguYer: this._beyanname.esyaninBulunduguYer,
-        gidecegiSevkUlkesi: this._beyanname.gidecegiSevkUlkesi,
-        gidecegiUlke: this._beyanname.gidecegiUlke,
-        girisGumrukIdaresi: this._beyanname.girisGumrukIdaresi,              
-        isleminNiteligi: this._beyanname.isleminNiteligi,
-        kapAdedi: this._beyanname.kapAdedi,
-        konteyner: this._beyanname.konteyner==="EVET"?true:false,
-        
-        limanKodu: this._beyanname.limanKodu,
-        mail1: this._beyanname.mail1,
-        // mail2: this._beyanname.mail2,
-        // mail3: this._beyanname.mail3,
-        mobil1: this._beyanname.mobil1,
-        // mobil2: this._beyanname.mobil2,
-        musavirVergiNo: this._beyanname.musavirVergiNo,
-        odemeAraci: this._beyanname.odemeAraci,
-        musavirReferansNo: this._beyanname.musavirReferansNo,
-        referansTarihi: this._beyanname.referansTarihi,
-        refNo: this._beyanname.refNo,
-        sinirdakiAracinKimligi: this._beyanname.sinirdakiAracinKimligi,
-        sinirdakiAracinTipi: this._beyanname.sinirdakiAracinTipi,
-        sinirdakiAracinUlkesi: this._beyanname.sinirdakiAracinUlkesi,
-        sinirdakiTasimaSekli: this._beyanname.sinirdakiTasimaSekli,
-        tasarlananGuzergah: this._beyanname.tasarlananGuzergah,
-        telafiEdiciVergi: this._beyanname.telafiEdiciVergi,
-        tescilStatu: this._beyanname.tescilStatu,
-        tescilTarihi: this._beyanname.tescilTarihi,
-        teslimSekli: this._beyanname.teslimSekli,
-        teslimSekliYeri: this._beyanname.teslimSekliYeri,
-        ticaretUlkesi: this._beyanname.ticaretUlkesi,
-        toplamFatura: this._beyanname.toplamFatura,
-        toplamFaturaDovizi: this._beyanname.toplamFaturaDovizi,
-        toplamNavlun: this._beyanname.toplamNavlun,
-        toplamNavlunDovizi: this._beyanname.toplamNavlunDovizi,
-        toplamSigorta: this._beyanname.toplamSigorta,
-        toplamSigortaDovizi: this._beyanname.toplamSigortaDovizi,
-        toplamYurtDisiHarcamalar: this._beyanname.toplamYurtDisiHarcamalar,
-        toplamYurtDisiHarcamalarDovizi: this._beyanname
-          .toplamYurtDisiHarcamalarDovizi,
-        toplamYurtIciHarcamalar: this._beyanname.toplamYurtIciHarcamalar,
-        varisGumrukIdaresi: this._beyanname.varisGumrukIdaresi,
-        yukBelgeleriSayisi: this._beyanname.yukBelgeleriSayisi,
-        yuklemeBosaltmaYeri: this._beyanname.yuklemeBosaltmaYeri,
-    
-      });
+
+       this.ozetBeyanForm.setValue({
+      
+        ozetBeyanInternalNo: this._ozetBeyan.ozetBeyanInternalNo,
+	      ozetBeyanNo:this._ozetBeyan.ozetBeyanNo,
+        beyanSahibiVergiNo:this._ozetBeyan.beyanSahibiVergiNo,
+	      beyanTuru:this._ozetBeyan.beyanTuru,
+      	diger:this._ozetBeyan.diger,
+        dorseNo1:this._ozetBeyan.dorseNo1,
+        dorseNo1Uyrugu:this._ozetBeyan.dorseNo1Uyrugu,
+        dorseNo2:this._ozetBeyan.dorseNo2,
+        dorseNo2Uyrugu:this._ozetBeyan.dorseNo2Uyrugu,
+        ekBelgeSayisi : this._ozetBeyan.ekBelgeSayisi,
+      	emniyetGuvenlik: this._ozetBeyan.emniyetGuvenlik==="EVET"?true:false,
+      	grupTasimaSenediNo:this._ozetBeyan.grupTasimaSenediNo,
+	      gumrukIdaresi:this._ozetBeyan.gumrukIdaresi,
+        kullaniciKodu:this._ozetBeyan.kullaniciKodu,
+	      kurye:this._ozetBeyan.kurye==="EVET"?true:false,
+        limanYerAdiBos:this._ozetBeyan.limanYerAdiBos,
+        limanYerAdiYuk:this._ozetBeyan.limanYerAdiYuk,
+        oncekiBeyanNo:this._ozetBeyan.oncekiBeyanNo,
+        plakaSeferNo:this._ozetBeyan.plakaSeferNo,
+        referansNumarasi:this._ozetBeyan.referansNumarasi,
+        rejim:this._ozetBeyan.rejim,
+        tasimaSekli:this._ozetBeyan.tasimaSekli,
+        tasitinAdi:this._ozetBeyan.tasitinAdi,
+        tasiyiciVergiNo:this._ozetBeyan.tasiyiciVergiNo,
+        tirAtaKarneNo:this._ozetBeyan.tirAtaKarneNo,
+        ulkeKodu:this._ozetBeyan.ulkeKodu,
+        ulkeKoduYuk:this._ozetBeyan.ulkeKoduYuk,
+        ulkeKoduBos:this._ozetBeyan.ulkeKoduBos,
+        yuklemeBosaltmaYeri:this._ozetBeyan.yuklemeBosaltmaYeri,
+        varisCikisGumrukIdaresi:this._ozetBeyan.varisCikisGumrukIdaresi,
+        varisTarihSaati:this._ozetBeyan.varisTarihSaati,
+        xmlRefId:this._ozetBeyan.xmlRefId,
+        tescilStatu: this._ozetBeyan.tescilStatu,
+        tescilTarihi:this._ozetBeyan.tescilTarihi,    
+     
+       });
   
-      this.beyannameForm.disable();
+       this.beyanServis.getObTasitUgrakUlke(this._beyanSession.islemInternalNo).subscribe(
+        (result: TasitUgrakUlkeDto[]) => {
+          this.initTasitFormArray(result);
+          this.tasitForm.disable();
+        },
+        (err) => {
+          this.beyanServis.errorHandel(err);
+        }
+      );
+      this.ozetBeyanForm.disable();
 
   }
   get BeyanStatu():boolean {
-    console.log(this.beyanStatu);
+   
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
     if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
@@ -649,7 +370,7 @@ export class OzetbeyanComponent implements OnInit {
     if (confirm("Beyannameyi Kopyalamakta Eminmisiniz?")) {
       let yeniislemInternalNo: string;
       const promise = this.beyanServis
-        .getBeyannameKopyalama(islemInternalNo.value)
+        .getOzetBeyanKopyalama(islemInternalNo.value)
         .toPromise();
       promise.then(
         result => {         
@@ -673,27 +394,36 @@ export class OzetbeyanComponent implements OnInit {
     }
   }
   yeniBeyanname() {
-    this._beyanname.beyanInternalNo='Boş';
-    this._beyanname.tescilStatu='';
-    this.beyannameForm.reset();
-    this.beyannameForm.enable();
+    this.ozetBeyanInternalNo='Boş';
+    this.beyanStatu='';
+    this.ozetBeyanForm.reset();
+    this.ozetBeyanForm.enable();
     this.islemInput.nativeElement.value="";
-    this.beyannameForm.markAllAsTouched();
+    this.ozetBeyanForm.markAllAsTouched();
     this.submitted = false;
     this.ihracatEditable = false;
     this.ithalatEditable = false;
     this.editable=false;
    
+    this.tasitForm.reset();
+    this.tasitForm.enable();
+
+    const formTasitArray = this.tasitForm.get("tasitArry") as FormArray;
+    formTasitArray.clear();
+    this.tasitForm.setControl("tasitArry", formTasitArray);
+
   } 
   duzeltBeyanname() {
    
-    this.beyannameForm.enable();
-    this.rejimSelect(this.beyannameForm.get("rejim").value);
-    this.beyannameForm.markAllAsTouched();
+    this.ozetBeyanForm.enable();
+    this.tasitForm.enable();
+    this.rejimSelect(this.ozetBeyanForm.get("rejim").value);
+    this.ozetBeyanForm.markAllAsTouched();
+    this.tasitForm.markAllAsTouched();
    
-    if (this.beyannameForm.invalid) {
+    if (this.ozetBeyanForm.invalid) {
       const invalid = [];
-      const controls = this.beyannameForm.controls;
+      const controls = this.ozetBeyanForm.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
           invalid.push(name);
@@ -706,13 +436,13 @@ export class OzetbeyanComponent implements OnInit {
      
     }
   }
-  onbeyannameFormSubmit() {
+  onozetBeyanFormSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.beyannameForm.invalid) {
+    if (this.ozetBeyanForm.invalid) {
       const invalid = [];
-      const controls = this.beyannameForm.controls;
+      const controls = this.ozetBeyanForm.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
           invalid.push(name);
@@ -725,19 +455,22 @@ export class OzetbeyanComponent implements OnInit {
      
       return;
     }
-    this.beyannameForm.get("beyanInternalNo").setValue(this._beyanname.beyanInternalNo);
-    this.beyannameForm.get("kullanici").setValue(this.girisService.loggedKullanici);
-
-    let konteyner =this.beyannameForm.get("konteyner").value ===true ?"EVET":"HAYIR";
-    this.beyannameForm.get("konteyner").setValue(konteyner);
-  
+   
+    this.ozetBeyanForm.get("ozetBeyanInternalNo").setValue(this.ozetBeyanInternalNo);    
+    this.ozetBeyanForm.get("kullaniciKodu").setValue(this.girisService.loggedKullanici);
+    
+    let kurye = this.ozetBeyanForm.get("kurye").value ===true ?"EVET":"HAYIR";
+    this.ozetBeyanForm.get("kurye").setValue(kurye);
+       
+    let emniyet =this.ozetBeyanForm.get("emniyetGuvenlik").value ===true ?"EVET":"HAYIR";
+    this.ozetBeyanForm.get("emniyetGuvenlik").setValue(emniyet);
   
     let yeniislemInternalNo: string;
-    let yeniBeyanname=new BeyannameDto();
-    yeniBeyanname.initalBeyan(this.beyannameForm.value);
+    let yeniBeyanname=new OzetBeyanDto();
+    yeniBeyanname.initalBeyan(this.ozetBeyanForm.value);
     console.log(yeniBeyanname);
       const promise = this.beyanServis
-        .setBeyanname(yeniBeyanname)
+        .setOzetBeyan(yeniBeyanname)
         .toPromise();
       promise.then(
         result => {
@@ -746,15 +479,16 @@ export class OzetbeyanComponent implements OnInit {
           servisSonuc.init(result);
           var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());
           yeniislemInternalNo = beyanServisSonuc.ReferansNo;
-        
+          this.setTasit();
            
           if (yeniislemInternalNo != null) {
             this.islemInput.nativeElement.value=yeniislemInternalNo;
-            this._beyanname.beyanInternalNo=yeniislemInternalNo;
+            this._ozetBeyan.ozetBeyanInternalNo=yeniislemInternalNo;
             this._beyanSession.islemInternalNo=yeniislemInternalNo;
-            this.openSnackBar(servisSonuc.Sonuc, "Tamam");
-            this.beyannameForm.disable();
+            this.openSnackBar(servisSonuc.Sonuc, "Tamam");            
           }
+           this.ozetBeyanForm.disable();
+            this.tasitForm.disable();
         },
         err => {
           this.beyanServis.errorHandel(err);    
@@ -762,14 +496,124 @@ export class OzetbeyanComponent implements OnInit {
       );
     
     // alert(
-    //   "SUCCESS!! :-)\n\n" + JSON.stringify(this.beyannameForm.value, null, 4)
+    //   "SUCCESS!! :-)\n\n" + JSON.stringify(this.ozetBeyanForm.value, null, 4)
     // );
 
   
   }
+
+   //#region Taşıtın Uğradığı Ülke
+
+   initTasitFormArray(tasit: TasitUgrakUlkeDto[]) {
+    const formArray = this.tasitForm.get("tasitArry") as FormArray;
+    formArray.clear();
+    for (let klm of tasit) {
+       let formGroup: FormGroup = new FormGroup({
+        ulkeKodu: new FormControl(klm.ulkeKodu, [
+          Validators.required,Validators.maxLength(9)
+        ]),
+        limanYerAdi: new FormControl(klm.limanYerAdi, [
+          Validators.required,
+          Validators.maxLength(20),
+          Validators.pattern("^[a-zA-Z0-9]*$"),
+        ]),
+        hareketTarihSaati: new FormControl(klm.hareketTarihSaati, [
+          Validators.required,
+         ValidationService.tarihValidation,
+        ]),
+        ozetBeyanInternalNo: new FormControl(klm.ozetBeyanInternalNo),
+      
+      });
+
+      formArray.push(formGroup);
+    }
+    this.tasitForm.setControl("tasitArry", formArray);
+  }
+
+  getTasit() {
+    return this._fb.group({
+      ulkeKodu: new FormControl("", [Validators.required,Validators.maxLength(9),]),
+      limanYerAdi: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern("^[a-zA-Z0-9]*$"),
+      ]),
+      hareketTarihSaati: new FormControl("", [
+        Validators.required,
+        ValidationService.tarihValidation,
+      ]),
+      ozetBeyanInternalNo: new FormControl(this._beyanSession.ozetBeyanInternalNo, [
+        Validators.required,
+      ]),
+    
+    });
+  }
+
+  get tasitBilgileri() {
+    return this.tasitForm.get("tasitArry") as FormArray;
+  }
+
+  addTasitField() {
+    this.tasitBilgileri.push(this.getTasit());
+  }
+
+  deleteTasitField(index: number) {
+    this.tasitBilgileri.removeAt(index);
+  }
+
+  setTasit() {
+    if (this.tasitBilgileri.length > 0) {
+      for (let klm of this.tasitBilgileri.value) {
+        klm.ozetBeyanInternalNo = this.ozetBeyanInternalNo;
+       
+      }
+
+      this.initTasitFormArray(this.tasitBilgileri.value);
+
+      if (this.tasitBilgileri.invalid) {
+        const invalid = [];
+        const controls = this.tasitBilgileri.controls;
+
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            invalid.push(name);
+          }
+        }
+
+        if (invalid.length > 0) {
+          alert(
+            "ERROR!! :-)\n\n Taşıt Uğrak Bilgi verilerinin bazılarını değerleri veya formatı yanlış:" +
+              JSON.stringify(invalid, null, 4)
+          );
+
+          return;
+        }
+      }
+    }
+
+    if (this.tasitBilgileri.length >= 0) {
+      const promiseOdeme = this.beyanServis
+        .restoreObTasitUgrakUlke(
+          this.tasitBilgileri.value,
+          this._beyanSession.ozetBeyanInternalNo
+        )
+        .toPromise();
+      promiseOdeme.then(
+        (result) => {
+          // const servisSonuc = new ServisDto();
+          // servisSonuc.init(result);
+          // this.tasitForm.disable();
+        },
+        (err) => {
+          this.openSnackBar(err, "Tamam");
+        }
+      );
+    }
+  }
+  //#endregion Taşıtın Uğradığı Ülke
   onCancel() {
     this.submitted = false;
-    this.beyannameForm.disable();
+    this.ozetBeyanForm.disable();
   }
   
   

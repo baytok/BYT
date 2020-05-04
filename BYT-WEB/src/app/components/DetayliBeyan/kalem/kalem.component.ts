@@ -373,7 +373,7 @@ export class KalemComponent implements OnInit {
       this.router.navigateByUrl("/app/beyanname");
     }
     this.getKalemler(this._beyanSession.islemInternalNo);
-    console.log(this.beyanStatu);
+   
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(
       (s: MatSelectionListChange) => {
@@ -384,7 +384,7 @@ export class KalemComponent implements OnInit {
   }
 
   get BeyanStatu():boolean {
-    console.log(this.beyanStatu);
+   
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
     if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
@@ -485,7 +485,7 @@ export class KalemComponent implements OnInit {
    
     this.kalemInternalNo = this._kalemler[kalemNo - 1].kalemInternalNo;
     this.kalemNo = this._kalemler[kalemNo - 1].kalemSiraNo;
-    this.kalemForm.setValue({
+      this.kalemForm.setValue({
       beyanInternalNo: this._kalemler[kalemNo - 1].beyanInternalNo,
       kalemInternalNo: this._kalemler[kalemNo - 1].kalemInternalNo,
       gtip: this._kalemler[kalemNo - 1].gtip,
@@ -627,7 +627,7 @@ export class KalemComponent implements OnInit {
     );
 
     this.beyanServis
-      .getBeyannameAcma(this._beyanSession.islemInternalNo)
+      .getDbBeyannameAcma(this._beyanSession.islemInternalNo)
       .subscribe(
         (result: BeyannameAcmaDto[]) => {
           this._acmalar = result.filter(
@@ -1284,7 +1284,7 @@ export class KalemComponent implements OnInit {
 
     if (this.acmaBilgileri.length >= 0) {
       const promiseAcma = this.beyanServis
-        .restoreBeyannameAcma(
+        .restoreDbBeyannameAcma(
           this.acmaBilgileri.value,
           this.kalemInternalNo,
           this._beyanSession.beyanInternalNo
