@@ -22,14 +22,14 @@ namespace BYT.WS.Controllers.Servis.Beyanname
     //[Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OzetBeyanOlusturmaController : ControllerBase
+    public class BeyannameOlusturmaController : ControllerBase
     {
 
         private IslemTarihceDataContext _islemTarihceContext;
         private BeyannameDataContext _beyannameContext;
         public IConfiguration Configuration { get; }
 
-        public OzetBeyanOlusturmaController(IslemTarihceDataContext islemTarihceContext, IConfiguration configuration)
+        public BeyannameOlusturmaController(IslemTarihceDataContext islemTarihceContext, IConfiguration configuration)
         {
             Configuration = configuration;
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()

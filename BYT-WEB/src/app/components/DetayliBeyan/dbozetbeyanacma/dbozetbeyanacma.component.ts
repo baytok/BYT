@@ -130,11 +130,19 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   }
 
   get BeyanStatu():boolean {
-    console.log(this.beyanStatu);
+   
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
-     return true;
+    if (  this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+    return true;
+    else return false;
+  }
+  get BeyanSilDuzeltStatu():boolean {
+   
+    if(this.beyanStatu==='undefined' || this.beyanStatu===null)
+    return false;
+    if (( this.ozetBeyanInternalNo==='Boş' || this.ozetBeyanInternalNo===null || this.ozetBeyanInternalNo==='' || this.ozetBeyanInternalNo==='undefined') && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    return true;
     else return false;
   }
 
@@ -335,6 +343,14 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     }
     this.tasimaSenetiForm.setControl("tasimaSenetiArry", formArray);
   
+  }
+  get BeyanSatirStatu():boolean {
+   
+    if(this.beyanStatu==='undefined' || this.beyanStatu===null)
+    return false;
+    if ( this.tasimaSenetInternalNo!=='Boş' && this.tasimaSenetInternalNo!==null && this.tasimaSenetInternalNo!=='' && this.tasimaSenetInternalNo!=='undefined' && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    return true;
+    else return false;
   }
   getTasimaSenetBilgileri(content, index:number) {
     

@@ -218,6 +218,7 @@ type = "ball-8bits">
                       </button>
                       <button
                         mat-menu-item
+                        [disabled]="!kontrolGonderMenu"
                         (click)="
                           sendingKontrolMessages(element.islemInternalNo)
                         "

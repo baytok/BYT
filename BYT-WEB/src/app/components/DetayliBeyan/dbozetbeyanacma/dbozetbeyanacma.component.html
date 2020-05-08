@@ -35,12 +35,7 @@
         <button
           mat-menu-item
           (click)="duzeltOzetBeyan()"
-          [disabled]="
-          !BeyanStatu &&
-            ozetBeyanInternalNo!=''
-              ? false
-              : true
-          "
+          [hidden]="!BeyanSilDuzeltStatu"
         >
           <mat-icon>sync</mat-icon>
           <span>Özet Beyan Düzeltme</span>
@@ -48,12 +43,7 @@
         <button
           mat-menu-item
           (click)="silOzetBeyan(ozetBeyanInternalNo)"
-          [disabled]="
-          !BeyanStatu &&
-            ozetBeyanInternalNo!=''
-              ? false
-              : true
-          "
+          [hidden]="!BeyanSilDuzeltStatu"
         >
           <mat-icon>remove</mat-icon>
           <span>Özet Beyan Sil</span>
@@ -311,10 +301,7 @@
             <div class="card m-2">             
               <mat-selection-list #OzetBeyanList multiple="false">
                 <mat-list-option
-                  [disabled]="!BeyanStatu &&
-                  ozetBeyanInternalNo && tasimaSenetInternalNo
-                    ? false
-                    : true"
+                  [disabled]="!BeyanSatirStatu"
                   (click)="tasimaSatirIslemOzetBeyan()"
                 >
                   <div

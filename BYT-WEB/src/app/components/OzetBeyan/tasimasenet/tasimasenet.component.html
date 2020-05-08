@@ -24,23 +24,15 @@
         <button
           mat-menu-item
           (click)="duzeltSenet()"
-          [disabled]="
-          !BeyanStatu && tasimaSenetInternalNo
-              ? false
-              : true
-          "
+          [hidden]="!BeyanSilDuzeltStatu"
         >
           <mat-icon>sync</mat-icon>
           <span>Taşıma Senet Düzeltme</span>
         </button>
         <button
           mat-menu-item
-          (click)="silSenet(tasimaSenetInternalNo)"
-          [disabled]="
-          !BeyanStatu && tasimaSenetInternalNo
-              ? false
-              : true
-          "
+          (click)="silSenet(tasimaSenetInternalNo,sentNo)"
+          [hidden]="!BeyanSilDuzeltStatu"
         >
           <mat-icon>remove</mat-icon>
           <span>Taşıma Senet Sil</span>
@@ -76,7 +68,7 @@
                 <div style="display: flex; flex-direction: column;">
                   <h5 matLine>{{ kalem.senetSiraNo }}</h5>
                   <p matLine>
-                    {{ kalem.TasimaSenediNo }}
+                    {{ kalem.tasimaSenediNo }}
                   </p>
                 </div>
               </div>
@@ -92,7 +84,7 @@
         <h6 class="card-header text-center">Taşıma Seneti Bilgileri</h6>
         <div class="card-body text-center">     
             <mat-label>Beyanname No</mat-label>
-            <input class="islem-no" matInput readonly #BeyannameNo [(ngModel)]="beyanInternalNo" />
+            <input class="islem-no" matInput readonly #BeyannameNo [(ngModel)]="ozetBeyanInternalNo" />
           
           <mat-label>{{ beyanStatu }}</mat-label>
           <form [formGroup]="senetForm">
@@ -621,6 +613,16 @@
                                   fxLayoutGap="3.5%"
                                   fxLayoutAlign="center"
                                 >
+
+                                <mat-card-actions>
+                                  <button
+                                    mat-raised-button
+                                    (click)="getSatirEsyaBilgileri(tasimaSatirEsyaModel, i)"
+                                  >
+                                    <mat-icon>notes</mat-icon>
+                                    Eşya Bilgileri
+                                  </button></mat-card-actions
+                                >
                                 <mat-form-field fxFlex="30%">
                                   <input
                                    readonly
@@ -747,9 +749,9 @@
                         </div>
                       </form>
                 </mat-tab>
-           <!--       <mat-tab label="İhracat">
+                 <mat-tab label="İhracat">
                 
-                    <form [formGroup]="odemeForm" novalidate>
+                    <form [formGroup]="ihracatForm" novalidate>
                       <div
                         fxLayout="row"
                         fxLayout.xs="column"
@@ -757,18 +759,18 @@
                         fxLayoutGap="3.5%"
                         fxLayoutAlign="left"
                       >
-                        <mat-card formArrayName="odemeArry"
-                          ><mat-card-title>Ödeme Bilgileri</mat-card-title
+                        <mat-card formArrayName="ihracatArry"
+                          ><mat-card-title>İhracat Bilgileri</mat-card-title
                           ><mat-divider></mat-divider>
     
                           <div
                             *ngFor="
-                              let unit of odemeBilgileri.controls;
+                              let unit of ihracatBilgileri.controls;
                               let i = index
                             "
                           >
                             <mat-divider
-                              *ngIf="odemeBilgileri.controls.length > 1 && i > 0"
+                              *ngIf="ihracatBilgileri.controls.length > 1 && i > 0"
                             ></mat-divider
                             ><br />
     
@@ -780,42 +782,59 @@
                                 fxLayoutGap="3.5%"
                                 fxLayoutAlign="center"
                               >
-                                <mat-form-field fxFlex="10%">
+                                
+                                <mat-form-field fxFlex="30%">
+                                  <input
+                                    matNativeControl
+                                    type="text"
+                                    placeholder="Brüt Ağırlık"
+                                    formControlName="brutAgirlik"
+                                  />
+                                </mat-form-field>
+    
+                                <mat-form-field fxFlex="30%">
+                                  <input
+                                    matNativeControl
+                                    type="text"
+                                    placeholder="Kap Adet"
+                                    formControlName="kapAdet"
+                                  />
+                                </mat-form-field>
+                                <mat-form-field fxFlex="30%">
+                                  <input
+                                    matNativeControl
+                                    type="text"
+                                    placeholder="Numara"
+                                    formControlName="numara"
+                                  />
+                                </mat-form-field>
+                                <mat-form-field fxFlex="30%">
+                                  
                                   <select
-                                    matNativeControl
-                                    placeholder="Ödeme Şekli"
-                                    formControlName="odemeSekliKodu"
-                                  >
-                                    <option
-                                      *ngFor="let s of _odemeList"
-                                      [value]="s.kod"
-                                      >{{ s.kod }} {{s.aciklama}}</option
-                                    >
-                                  </select>
+                                  matNativeControl
+                                  placeholder="Tip"
+                                  formControlName="tip"
+                                >
+                                <option *ngFor="let g of _ihracTipiList" [value]="g.kod">{{
+                                  g.kod
+                                }} </option>
+                                </select>
                                 </mat-form-field>
-    
-                                <mat-form-field fxFlex="30%">
-                                  <input
-                                    matNativeControl
-                                    type="text"
-                                    placeholder="Ödeme Tutarı"
-                                    formControlName="odemeTutari"
-                                  />
-                                </mat-form-field>
-    
-                                <mat-form-field fxFlex="30%">
-                                  <input
-                                    matNativeControl
-                                    type="text"
-                                    placeholder="TBF ID"
-                                    formControlName="tbfid"
-                                  />
+                                <mat-form-field fxFlex="30%">                                 
+                                  <select
+                                  matNativeControl
+                                  placeholder="Parçalı"
+                                  formControlName="parcali"
+                                >
+                                  <option value="Evet">Evet</option>
+                                  <option value="Hayir">Hayir</option>
+                                </select>
                                 </mat-form-field>
                                 <button
                                   mat-mini-fab
                                   color="warn"
                                   [disabled]="!senetForm.valid"
-                                  (click)="deleteOdemeField(i)"
+                                  (click)="deleteIhracatField(i)"
                                 >
                                   <mat-icon>delete forever</mat-icon>
                                 </button>
@@ -828,10 +847,10 @@
                             ><button
                               [disabled]="!senetForm.valid"
                               mat-raised-button
-                              (click)="addOdemeField()"
+                              (click)="addIhracatField()"
                             >
                               <mat-icon>add box</mat-icon>
-                              Ödeme Şekli Ekle
+                              İhracat Ekle
                             </button></mat-card-actions
                           ></mat-card
                         >
@@ -842,7 +861,7 @@
                 </mat-tab>
                 <mat-tab label="Ugrak Ülke">
                
-                    <form [formGroup]="konteynerForm" novalidate>
+                    <form [formGroup]="ulkeForm" novalidate>
                       <div
                         fxLayout="row"
                         fxLayout.xs="column"
@@ -850,19 +869,19 @@
                         fxLayoutGap="3.5%"
                         fxLayoutAlign="left"
                       >
-                        <mat-card formArrayName="konteynerArry"
-                          ><mat-card-title>Konteyner Bilgileri</mat-card-title
+                        <mat-card formArrayName="ulkeArry"
+                          ><mat-card-title>Uğradığı Ülke Bilgileri</mat-card-title
                           ><mat-divider></mat-divider>
     
                           <div
                             *ngFor="
-                              let unit of konteynerBilgileri.controls;
+                              let unit of ulkeBilgileri.controls;
                               let i = index
                             "
                           >
                             <mat-divider
                               *ngIf="
-                                konteynerBilgileri.controls.length > 1 && i > 0
+                              ulkeBilgileri.controls.length > 1 && i > 0
                               "
                             ></mat-divider
                             ><br />
@@ -893,8 +912,8 @@
                                   <input
                                     matNativeControl
                                     type="text"
-                                    placeholder="Konteyner No"
-                                    formControlName="konteynerNo"
+                                    placeholder="Liman Yeri"
+                                    formControlName="limanYerAdi"
                                   />
                                 </mat-form-field>
     
@@ -902,7 +921,7 @@
                                   mat-mini-fab
                                   color="warn"
                                   [disabled]="!senetForm.valid"
-                                  (click)="deleteKonteynerField(i)"
+                                  (click)="deleteUlkeField(i)"
                                 >
                                   <mat-icon>delete forever</mat-icon>
                                 </button>
@@ -915,10 +934,10 @@
                             ><button
                               [disabled]="!senetForm.valid"
                               mat-raised-button
-                              (click)="addKonteynerField()"
+                              (click)="addUlkeField()"
                             >
                               <mat-icon>add box</mat-icon>
-                              Konteyner Ekle
+                              Ülke Ekle
                             </button></mat-card-actions
                           ></mat-card
                         >
@@ -931,18 +950,13 @@
               </mat-tab-group>
             </mat-card>
             <div class="text-right">
-                   <!-- &&  konteynerBilgileri.valid
-                &&  odemeBilgileri.valid 
-                &&    markaBilgileri.valid  -->
+                 
               <button
                 [disabled]="
                   !(
-                    senetForm.valid && satirBilgileri.valid                   
-                    
+                    senetForm.valid && satirBilgileri.valid && ihracatBilgileri.valid && ulkeBilgileri.valid    
                   )
-                "
-           
-                class="btn btn-primary mr-1"
+                "class="btn btn-primary mr-1"
                 (click)="onsenetFormSubmit()"
               >
                 Kaydet
@@ -952,7 +966,193 @@
               </button> -->
             </div>
           </form>
+          <ng-template #tasimaSatirEsyaModel let-modal>
         
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Taşıma Satırı</h4>
+              <button
+              type="button"
+              color="primary"
+              class="close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              X
+            </button>
+           
+            </div>
+            <div class="modal-body">
+              <mat-card class="mat-card">
+                <div class="card m-2">             
+                  <mat-selection-list #OzetBeyanList multiple="false">
+                    <mat-list-option
+                      [disabled]="!SatirStatu"
+                      (click)="esyaSatirIslemOzetBeyan()"
+                    >
+                      <div
+                        style="
+                          display: flex;
+                          justify-content: space-between;
+                          align-items: center;
+                        "
+                      >
+                      <div style="display: flex; align-items: center;">
+                        <mat-icon matListAvatar>notes</mat-icon>
+                        <div style="display: flex; flex-direction: column;">
+                          <h5 matLine>{{ sentNo}} - {{ satirNo}} </h5>
+                          <p matLine>
+                            Taşıma Satırı
+                          </p> 
+                        </div>
+                      </div>
+                      </div>
+                    </mat-list-option>
+                  </mat-selection-list>
+                 
+                </div>
+                <form [formGroup]="satirEsyaForm" novalidate>
+                  <div
+                    fxLayout="row wrap"
+                    fxLayout.xs="column"
+                    fxLayoutWrap
+                    fxLayoutGap="3.5%"
+                    fxLayoutAlign="left"
+                  >
+                    <mat-card formArrayName="satirEsyaArry">
+                      <mat-divider></mat-divider>
+                      <div
+                        *ngFor="
+                          let unit of satirEsyaBilgileri.controls;
+                          let i = index
+                        "
+                      >
+                        <mat-divider
+                          *ngIf="satirEsyaBilgileri.controls.length > 1 && i > 0"
+                        ></mat-divider
+                        ><br />
+    
+                        <div [formGroupName]="i">
+                          <div
+                            fxLayout="row wrap"
+                            fxLayout.xs="column"
+                            fxLayoutWrap
+                            fxLayoutGap="5.5%"
+                            fxLayoutAlign="space-around"
+                          >
+                          <mat-form-field fxFlex="10%">
+                            <input
+                              matNativeControl
+                              placeholder="Kalem Sıra No"
+                              formControlName="kalemSiraNo"
+                            />
+                          </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input
+                                matNativeControl
+                                placeholder="BM Eşya Kodu"
+                                formControlName="bmEsyaKodu"
+                              />
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input
+                                matNativeControl
+                                placeholder="Eşya Kodu"
+                                formControlName="esyaKodu"
+                              />
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input
+                                matNativeControl
+                                placeholder="Eşya Tanımı"
+                                formControlName="esyaninTanimi"
+                              />
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input
+                                matNativeControl
+                                placeholder="Brüt Ağırlık"
+                                formControlName="brutAgirlik"
+                              />
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input
+                                matNativeControl
+                                placeholder="Net Ağırlık"
+                                formControlName="netAgirlik"
+                              />
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input
+                                matNativeControl
+                                placeholder="Kalem Fiyatı"
+                                formControlName="kalemFiyati"
+                              />
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <select
+                              matNativeControl
+                              placeholder="Kalem Fiyatı Dövizi"
+                              formControlName="kalemFiyatiDoviz"
+                          
+                              >
+                              <option *ngFor="let g of _dovizList" [value]="g.kod">{{
+                                g.kod
+                              }} {{g.aciklama}}</option>
+                              </select>
+                              
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <select
+                              matNativeControl
+                              placeholder="Ölçü Birimi"
+                              formControlName="olcuBirimi"
+                          
+                              >
+                              <option *ngFor="let g of _olcuList" [value]="g.kod">{{
+                                g.kod
+                              }} {{g.aciklama}}</option>
+                              </select>
+                             
+                            </mat-form-field>
+                            
+                            <button
+                              mat-mini-fab
+                              color="warn"
+                              [disabled]="!satirEsyaForm.valid"
+                              (click)="deleteSatirEsyaField(i)"
+                            >
+                              <mat-icon>delete forever</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+    
+                      <mat-divider></mat-divider>
+                      <mat-card-actions>
+                        <button
+                          [disabled]="!satirEsyaForm.valid"
+                          mat-raised-button
+                          (click)="addSatirEsyaField()"
+                        >
+                          <mat-icon>add box</mat-icon>
+                          Eşya Satırı Ekle
+                        </button></mat-card-actions
+                      >
+                    </mat-card>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-outline-dark"
+                        [disabled]="!satirEsyaBilgileri.valid"
+                        (click)="modal.dismiss('Save Click')"
+                      >
+                        Kaydet
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </mat-card>
+            </div>
+          </ng-template>
         </div>
     </div>   
 </div>

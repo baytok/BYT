@@ -26,7 +26,7 @@ namespace BYT.WS.Data
         public DbSet<ObIhracat> ObIhracat { get; set; }
         public DbSet<ObUgrakUlke> ObUgrakUlke { get; set; }
         public DbSet<ObTasimaSatir> ObTasimaSatir { get; set; }
-        public DbSet<ObTasimaSatir> ObSatirEsya { get; set; }
+        public DbSet<ObSatirEsya> ObSatirEsya { get; set; }
         public DbSet<ObTeminat> ObTeminat { get; set; }
         public DbSet<ObOzetBeyanAcma> ObOzetBeyanAcma { get; set; }
         public DbSet<ObOzetBeyanAcmaTasimaSenet> ObOzetBeyanAcmaTasimaSenet { get; set; }

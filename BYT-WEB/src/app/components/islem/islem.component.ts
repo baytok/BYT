@@ -54,6 +54,7 @@ export class IslemComponent implements OnInit {
 
   kullanici="";
   public loading = false;
+  kontrolGonderMenu:boolean=true;
   islemlerDataSource: IslemDto []=[];
   tarihceDataSource = new MatTableDataSource();
   displayedColumnsIslem: string[] = ['beyanTipi','islemTipi','islemDurumu','islemZamani','islemInternalNo'];

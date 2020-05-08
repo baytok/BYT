@@ -207,4 +207,14 @@ export const rejim= [
   
   ];
   
+  export const IhracatTipi= [
+    { kod:'', aciklama: '' },
+    { kod:'TCGB', aciklama: 'TCGB' },
+    { kod:'OZBY', aciklama: 'OZBY' },
+    { kod:'NCTS', aciklama: 'NCTS' },
+    { kod:'TAKRIR', aciklama: 'TAKRIR' },
+    { kod:'NATO', aciklama: 'NATO' },
+    { kod:'DIGER', aciklama: 'DIGER' },
+  
+  ];
  

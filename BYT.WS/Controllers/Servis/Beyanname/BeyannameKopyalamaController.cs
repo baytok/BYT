@@ -24,7 +24,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
     [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OzetBeyanKopyalamaController : ControllerBase
+    public class BeyannameKopyalamaController : ControllerBase
     {
         private IslemTarihceDataContext _islemTarihceContext;
 
@@ -32,7 +32,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         private BeyannameSonucDataContext _sonucContext;
         public IConfiguration Configuration { get; }
 
-        public OzetBeyanKopyalamaController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
+        public BeyannameKopyalamaController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
             _islemTarihceContext = islemTarihcecontext;
             Configuration = configuration;

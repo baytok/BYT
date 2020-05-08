@@ -1279,6 +1279,37 @@ export class BeyannameServiceProxy {
         ulke,httpOptions  
         );
   }
+  getObSatirEsya(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/TasimaSatirEsya/OzetBeyan/" + IslemInternalNo,httpOptions
+    );
+  }
+  restoreObSatirEsya(esya: ObSatirEsyaDto[], tasimaSatirInternalNo:string, tasimaSenetInternalNo:string , ozetBeyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSatirEsyaOlustur/"+tasimaSatirInternalNo+"/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, 
+        esya,httpOptions  
+        );
+  }
 
   getIstatistik(KullaniciKod) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
@@ -3682,12 +3713,39 @@ export class ObTasimaSenetDto {
     }
   }
   init(data?:[]) {
-    if (data) {
-    
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
+    if (data) { 
+     
+         this.ozetBeyanInternalNo=data["ozetBeyanInternalNo"]!=null ? data["ozetBeyanInternalNo"] : "";
+         this.tasimaSenetInternalNo=data["tasimaSenetInternalNo"]!=null ?data["tasimaSenetInternalNo"]:"";
+         this.senetSiraNo=data["senetSiraNo"]!=null ? parseInt(data["senetSiraNo"]):0;
+         this.tasimaSenediNo=data["tasimaSenediNo"]!=null ?data["tasimaSenediNo"]:"";        
+         this.faturaToplami=data["faturaToplami"]!=null ? parseInt(data["faturaToplami"]):0;     
+         this.navlunTutari=data["navlunTutari"]!=null ?parseFloat(data["navlunTutari"]):0;       
+         this.acentaAdi=data["acentaAdi"]!=null ?data["acentaAdi"]:"";   
+         this.acentaVergiNo=data["acentaVergiNo"]!=null ?data["acentaVergiNo"]:"";   
+         this.aktarmaYapilacak=data["aktarmaYapilacak"]!=null ?data["aktarmaYapilacak"]:"";   
+         this.aktarmaTipi=data["aktarmaTipi"]!=null ?data["aktarmaTipi"]:"";    
+         this.aliciAdi=data["aliciAdi"]!=null ?data["aliciAdi"]:"";    
+         this.aliciVergiNo=data["aliciVergiNo"]!=null ?data["aliciVergiNo"]:"";     
+         this.ambarHarici=data["ambarHarici"]!=null ?data["ambarHarici"]:"";     
+         this.bildirimTarafiAdi=data["bildirimTarafiAdi"]!=null ?data["bildirimTarafiAdi"]:"";    
+         this.bildirimTarafiVergiNo=data["bildirimTarafiVergiNo"]!=null ?data["bildirimTarafiVergiNo"]:"";   
+         this.duzenlendigiUlke=data["duzenlendigiUlke"]!=null ?data["duzenlendigiUlke"]:"";   
+         this.emniyetGuvenlik=data["emniyetGuvenlik"]!=null ?data["emniyetGuvenlik"]:"";     
+         this.esyaninBulunduguYer=data["esyaninBulunduguYer"]!=null ?data["esyaninBulunduguYer"]:"";    
+         this.faturaDoviz=data["faturaDoviz"]!=null ?data["faturaDoviz"]:"";     
+         this.gondericiAdi=data["gondericiAdi"]!=null ?data["gondericiAdi"]:"";     
+         this.gondericiVergiNo=data["gondericiVergiNo"]!=null ?data["gondericiVergiNo"]:"";   
+         this.grup=data["grup"]!=null ?data["grup"]:"";   
+         this.konteyner=data["konteyner"]!=null ?data["konteyner"]:"";   
+         this.navlunDoviz=data["navlunDoviz"]!=null ?data["navlunDoviz"]:"";             
+         this.odemeSekli=data["odemeSekli"]!=null ?data["odemeSekli"]:"";     
+         this.oncekiSeferNumarasi=data["oncekiSeferNumarasi"]!=null ?data["oncekiSeferNumarasi"]:"";   
+         this.oncekiSeferTarihi=data["oncekiSeferTarihi"]!=null ?data["oncekiSeferTarihi"]:"";   
+         this.ozetBeyanNo=data["ozetBeyanNo"]!=null ?data["ozetBeyanNo"]:"";   
+         this.roro=data["roro"]!=null ?data["roro"]:"";   
+       
+         
     }
   }
 
@@ -3738,10 +3796,10 @@ export class ObIhracatDto {
   ozetBeyanInternalNo: string;
   tasimaSenetInternalNo:string;
   brutAgirlik: number;
-  kapAdedi: number;
-  numarasi:string;
-  parcaliMi:string;
-  tipi:string;
+  kapAdet: number;
+  numara:string;
+  parcali:string;
+  tip:string;
 
 
   constructor(data?: ObIhracatDto) {

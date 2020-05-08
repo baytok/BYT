@@ -664,7 +664,8 @@ export class BeyannameComponent implements OnInit {
     this._beyanname.tescilStatu='';
     this.beyannameForm.reset();
     this.beyannameForm.enable();
-    this.islemInput.nativeElement.value="";
+    this.islemInput.nativeElement.value='';
+    this.beyanInternalNo='';
     this.beyannameForm.markAllAsTouched();
     this.submitted = false;
     this.ihracatEditable = false;
@@ -739,6 +740,8 @@ export class BeyannameComponent implements OnInit {
             this.islemInput.nativeElement.value=yeniislemInternalNo;
             this._beyanname.beyanInternalNo=yeniislemInternalNo;
             this._beyanSession.islemInternalNo=yeniislemInternalNo;
+            this.beyanInternalNo=yeniislemInternalNo;
+            this.getBeyanname(yeniislemInternalNo);
             this.openSnackBar(servisSonuc.Sonuc, "Tamam");
             this.beyannameForm.disable();
           }

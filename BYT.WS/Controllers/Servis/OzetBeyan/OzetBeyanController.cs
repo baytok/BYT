@@ -126,6 +126,71 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 return _senet;
 
             }
+            catch (Exception exc)
+            {
+
+                throw exc;
+            }
+
+        }
+
+
+        [Route("api/BYT/Servis/Ihracat/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<ObIhracat>> GetIhracat(string IslemInternalNo)
+        {
+            List<ObIhracat> _ihracat = new List<ObIhracat>();
+            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new OzetBeyanDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var ihracatValues = await _beyannameContext.ObIhracat.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _ihracat = ihracatValues;
+                }
+
+                return _ihracat;
+
+            }
+            catch (Exception exc)
+            {
+
+                throw;
+            }
+
+        }
+
+
+
+        [Route("api/BYT/Servis/UgrakUlke/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<ObUgrakUlke>> GetUgrakUlke(string IslemInternalNo)
+        {
+            List<ObUgrakUlke> _ulke = new List<ObUgrakUlke>();
+            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new OzetBeyanDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var ulkeValues = await _beyannameContext.ObUgrakUlke.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _ulke = ulkeValues;
+                }
+
+                return _ulke;
+
+            }
             catch (Exception)
             {
 
@@ -165,46 +230,12 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-                                    
 
-        [Route("api/BYT/Servis/Ihracat/[controller]/{IslemInternalNo}")]
+        [Route("api/BYT/Servis/TasimaSatirEsya/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
-        public async Task<List<ObIhracat>> GetIhracat(string IslemInternalNo)
+        public async Task<List<ObSatirEsya>> GetTasimaSatirEsya(string IslemInternalNo)
         {
-            List<ObIhracat> _ihracat = new List<ObIhracat>();
-            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
-                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
-                 .Options;
-            var _beyannameContext = new OzetBeyanDataContext(options);
-            try
-            {
-                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
-                if (islemValues != null)
-                {
-                
-                    var ihracatValues = await _beyannameContext.ObIhracat.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-
-                    _ihracat = ihracatValues;
-                }
-
-                return _ihracat;
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-        }
-
-      
-
-        [Route("api/BYT/Servis/UgrakUlke/[controller]/{IslemInternalNo}")]
-        [HttpGet("{IslemInternalNo}")]
-        public async Task<List<ObUgrakUlke>> GetUgrakUlke(string IslemInternalNo)
-        {
-            List<ObUgrakUlke> _ulke = new List<ObUgrakUlke>();
+            List<ObSatirEsya> _satirEsya = new List<ObSatirEsya>();
             var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
                  .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                  .Options;
@@ -215,12 +246,12 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 if (islemValues != null)
                 {
 
-                    var ulkeValues = await _beyannameContext.ObUgrakUlke.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var _satirEsyaValues = await _beyannameContext.ObSatirEsya.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
-                    _ulke = ulkeValues;
+                    _satirEsya = _satirEsyaValues;
                 }
 
-                return _ulke;
+                return _satirEsya;
 
             }
             catch (Exception)
@@ -231,7 +262,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
-      
+
     }
 
 

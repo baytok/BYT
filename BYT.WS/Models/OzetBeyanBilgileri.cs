@@ -297,9 +297,9 @@ namespace BYT.WS.Models
         [StringLength(9)]
         public string AmbarKodu { get; set; }
 
-        public double AmbardakiMiktar { get; set; }
+        public decimal AmbardakiMiktar { get; set; }
 
-        public double AcilacakMiktar { get; set; }
+        public decimal AcilacakMiktar { get; set; }
 
         [StringLength(60)]
         public string MarkaNo { get; set; }
@@ -309,8 +309,8 @@ namespace BYT.WS.Models
 
         [StringLength(9)]
         public string Birim { get; set; }
-        public double ToplamMiktar { get; set; }
-        public double KapatilanMiktar { get; set; }
+        public decimal ToplamMiktar { get; set; }
+        public decimal KapatilanMiktar { get; set; }
 
         [StringLength(9)]
         public string OlcuBirimi { get; set; }
@@ -365,7 +365,6 @@ namespace BYT.WS.Models
     public class ObTasimaSenet
     {
        
-        public int ID { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -413,7 +412,7 @@ namespace BYT.WS.Models
 
         [StringLength(9)]
         public string FaturaDoviz { get; set; }
-        public double FaturaToplami { get; set; }
+        public decimal FaturaToplami { get; set; }
 
         [StringLength(150)]
         public string GondericiAdi { get; set; }
@@ -429,7 +428,7 @@ namespace BYT.WS.Models
 
         [StringLength(9)]
         public string NavlunDoviz { get; set; }
-        public double NavlunTutari { get; set; }
+        public decimal NavlunTutari { get; set; }
 
         [StringLength(9)]
         public string OdemeSekli { get; set; }
@@ -468,17 +467,21 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(30)]
         public string TasimaSenetInternalNo { get; set; }
-        public double BrutAgirlik { get; set; }
-        public int KapAdedi { get; set; }
+        [Required]
+        public decimal BrutAgirlik { get; set; }
+        [Required]
+        public int KapAdet { get; set; }
 
         [StringLength(20)]
-        public string Numarasi { get; set; }
+        [Required]
+        public string Numara { get; set; }
 
         [StringLength(9)]
-        public string ParcaliMi { get; set; }
+        [Required]
+        public string Parcali { get; set; }
 
         [StringLength(9)]
-        public string Tipi { get; set; }
+        public string Tip { get; set; }
 
         public DateTime? SonIslemZamani { get; set; }
     }
@@ -506,8 +509,6 @@ namespace BYT.WS.Models
     }
     public class ObTasimaSatir
     {
-     
-        public int ID { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -523,7 +524,7 @@ namespace BYT.WS.Models
         [StringLength(30)]
         public string TasimaSatirInternalNo { get; set; }
 
-        public double BrutAgirlik { get; set; }
+        public decimal BrutAgirlik { get; set; }
         public int KapAdedi { get; set; }
 
         [StringLength(9)]
@@ -537,7 +538,7 @@ namespace BYT.WS.Models
 
         [StringLength(35)]
         public string MuhurNumarasi { get; set; }
-        public double NetAgirlik { get; set; }
+        public decimal NetAgirlik { get; set; }
 
         [StringLength(9)]
         public string OlcuBirimi { get; set; }
@@ -570,19 +571,19 @@ namespace BYT.WS.Models
 
         [StringLength(15)]
         public string BmEsyaKodu { get; set; }
-        public double BrutAgirlik { get; set; }
+        public decimal BrutAgirlik { get; set; }
 
         [StringLength(12)]
         public string EsyaKodu { get; set; }
 
         [StringLength(150)]
         public string EsyaninTanimi { get; set; }
-        public double KalemFiyati { get; set; }
+        public decimal KalemFiyati { get; set; }
 
         [StringLength(9)]
         public string KalemFiyatiDoviz { get; set; }
         public int KalemSiraNo { get; set; }
-        public double NetAgirlik { get; set; }
+        public decimal NetAgirlik { get; set; }
 
         [StringLength(9)]
         public string OlcuBirimi { get; set; }

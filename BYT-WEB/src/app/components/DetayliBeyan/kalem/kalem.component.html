@@ -24,11 +24,7 @@
         <button
           mat-menu-item
           (click)="duzeltKalem()"
-          [disabled]="
-          !BeyanStatu && kalemInternalNo
-              ? false
-              : true
-          "
+          [hidden]="!BeyanSilDuzeltStatu"
         >
           <mat-icon>sync</mat-icon>
           <span>Kalem Düzeltme</span>
@@ -36,11 +32,7 @@
         <button
           mat-menu-item
           (click)="silKalem(kalemInternalNo)"
-          [disabled]="
-          !BeyanStatu && kalemInternalNo
-              ? false
-              : true
-          "
+          [hidden]="!BeyanSilDuzeltStatu"
         >
           <mat-icon>remove</mat-icon>
           <span>Kalem Sil</span>

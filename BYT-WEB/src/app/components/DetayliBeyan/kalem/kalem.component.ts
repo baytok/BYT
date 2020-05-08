@@ -382,15 +382,26 @@ export class KalemComponent implements OnInit {
       }
     );
   }
-
   get BeyanStatu():boolean {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
-     return true;
+    if (  this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+    return true;
     else return false;
   }
+  get BeyanSilDuzeltStatu():boolean {
+  
+    if(this.beyanStatu==='undefined' || this.beyanStatu===null)
+    return false;
+    if ((this.kalemInternalNo=='' || this.kalemInternalNo=='Boş' || this.kalemInternalNo===null || this.kalemInternalNo==='undefined') && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+      return true;
+     else
+       return false;
+   
+  }
+
+  
   disableItem() {
     this.kalemForm.disable();
     this.odemeForm.disable();
@@ -469,6 +480,7 @@ export class KalemComponent implements OnInit {
         this.disableItem();
         if(this._kalemler.length>0)
         this.getKalem(1);
+        else this.resetItem();
       },
       (err) => {
         this.beyanServis.errorHandel(err);
@@ -980,8 +992,7 @@ export class KalemComponent implements OnInit {
         ]),
         odemeTutari: new FormControl(klm.odemeTutari, [
           Validators.required,
-          Validators.maxLength(10),
-          ValidationService.decimalValidation,
+           ValidationService.decimalValidation,
         ]),
         tbfid: new FormControl(klm.tbfid, [
           Validators.required,
@@ -1002,8 +1013,7 @@ export class KalemComponent implements OnInit {
       odemeSekliKodu: new FormControl("", [Validators.required]),
       odemeTutari: new FormControl(0, [
         Validators.required,
-        Validators.maxLength(10),
-        ValidationService.decimalValidation,
+         ValidationService.decimalValidation,
       ]),
       tbfid: new FormControl("", [
         Validators.required,
