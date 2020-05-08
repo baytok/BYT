@@ -385,12 +385,17 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
                         }
 
-                        var saitValues = await _beyannameContext.ObTasimaSatir.Where(v => v.TasimaSenetInternalNo == TasimaSenetInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
-                        if (saitValues.Count > 0)
-                            foreach (var item in saitValues)
+                        var satirValues = await _beyannameContext.ObTasimaSatir.Where(v => v.TasimaSenetInternalNo == TasimaSenetInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
+                        if (satirValues.Count > 0)
+                            foreach (var item in satirValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
-                                //TODO Esyada silinecek
+                                var satirEsyaValues = await _beyannameContext.ObSatirEsya.Where(v => v.TasimaSatirInternalNo == item.TasimaSatirInternalNo && v.TasimaSenetInternalNo == TasimaSenetInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
+                                if (satirEsyaValues.Count > 0)
+                                    foreach (var itm in satirEsyaValues)
+                                    {
+                                        _beyannameContext.Entry(itm).State = EntityState.Deleted;
+                                    }
                             }
 
                         var ihracatValues = await _beyannameContext.ObIhracat.Where(v => v.TasimaSenetInternalNo == TasimaSenetInternalNo && v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
@@ -405,6 +410,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                             foreach (var item in ulkeValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
+
                             }
                                                
 

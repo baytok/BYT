@@ -244,7 +244,7 @@ export class TasimaSenetComponent implements OnInit {
   
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if ((this.tasimaSenetInternalNo=='' || this.tasimaSenetInternalNo=='Boş' || this.tasimaSenetInternalNo===null || this.tasimaSenetInternalNo==='undefined') && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    if ((this.tasimaSenetInternalNo!='' && this.tasimaSenetInternalNo!='Boş' && this.tasimaSenetInternalNo!=null && this.tasimaSenetInternalNo!='undefined') && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
       return true;
      else
        return false;
@@ -1092,12 +1092,27 @@ setSatirEsya() {
     for (let klm of this.satirEsyaBilgileri.value) {
       klm.ozetBeyanInternalNo = this.ozetBeyanInternalNo;
       klm.tasimaSenetInternalNo = this.tasimaSenetInternalNo;
-      klm.miktar =
-        typeof klm.miktar == "string"
-          ? parseInt(klm.miktar)
-          : klm.miktar;
+      klm.tasimaSatirInternalNo=this.tasimaSatirInternalNo;
+      klm.brutAgirlik =
+        typeof klm.brutAgirlik == "string"
+          ? parseInt(klm.brutAgirlik)
+          : klm.brutAgirlik;
 
-    
+          klm.netAgirlik =
+          typeof klm.netAgirlik == "string"
+            ? parseInt(klm.netAgirlik)
+            : klm.netAgirlik;
+
+            klm.kalemFiyati =
+            typeof klm.kalemFiyati == "string"
+              ? parseInt(klm.kalemFiyati)
+              : klm.kalemFiyati;
+
+              klm.kalemSiraNo =
+              typeof klm.kalemSiraNo == "string"
+                ? parseInt(klm.kalemSiraNo)
+                : klm.kalemSiraNo;
+  
     }
     this.initSatirEsyaFormArray(this.satirEsyaBilgileri.value);
   
@@ -1120,7 +1135,7 @@ setSatirEsya() {
       }
     }
   }
- 
+ console.log( this.satirEsyaBilgileri.value);
   if (this.satirEsyaBilgileri.length >= 0) {
     const promiseEsya = this.beyanServis
       .restoreObSatirEsya(

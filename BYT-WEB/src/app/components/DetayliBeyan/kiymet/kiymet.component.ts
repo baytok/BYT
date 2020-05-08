@@ -137,13 +137,22 @@ export class KiymetComponent implements OnInit {
   }
 
   get BeyanStatu():boolean {
-    console.log(this.beyanStatu);
+   
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
-     return true;
+    if (  this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+    return true;
     else return false;
   }
+  get BeyanSilDuzeltStatu():boolean {
+   
+    if(this.beyanStatu==='undefined' || this.beyanStatu===null)
+    return false;
+    if (this.kiymetInternalNo!='Boş' && this.kiymetInternalNo!=null && this.kiymetInternalNo!='' && this.kiymetInternalNo!='undefined' && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    return true;
+    else return false;
+  }
+
 
   yukleKiymet() {
     this.getKiymetler(this._beyanSession.islemInternalNo);
@@ -242,6 +251,7 @@ export class KiymetComponent implements OnInit {
           this.kiymetForm.reset();
           this.kalemForm.disable();
           this.kalemForm.reset();
+          this.kiymetInternalNo = "Boş";
           this.yukleKiymet();
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
         },

@@ -141,7 +141,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (( this.ozetBeyanInternalNo==='Boş' || this.ozetBeyanInternalNo===null || this.ozetBeyanInternalNo==='' || this.ozetBeyanInternalNo==='undefined') && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    if (this.ozetBeyanInternalNo!='Boş' && this.ozetBeyanInternalNo!=null && this.ozetBeyanInternalNo!='' && this.ozetBeyanInternalNo!='undefined' && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
     return true;
     else return false;
   }
@@ -242,7 +242,8 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
           servisSonuc.init(result);
           this.ozetBeyanForm.disable();
           this.ozetBeyanForm.reset();
-         
+          this.ozetBeyanInternalNo = "Boş";
+          this.tasimaSenetInternalNo = "Boş";
           this.tasimaSenetiForm.disable();
           this.tasimaSenetiForm.reset();
           this.yukleOzetBeyan();
@@ -290,9 +291,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
       ambar:_ambar,
       id:ID!=null?ID:0,
       })
-   
-
-    
+       
     let yeniOzetBeyanInternalNo: string;
     let yeniOzetBeyanAcma= new DbOzetBeyanAcmaDto();
     yeniOzetBeyanAcma.init(this.ozetBeyanForm.value);
@@ -348,7 +347,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if ( this.tasimaSenetInternalNo!=='Boş' && this.tasimaSenetInternalNo!==null && this.tasimaSenetInternalNo!=='' && this.tasimaSenetInternalNo!=='undefined' && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    if ( this.tasimaSenetInternalNo!='Boş' && this.tasimaSenetInternalNo!=null && this.tasimaSenetInternalNo!='' && this.tasimaSenetInternalNo!='undefined' && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
     return true;
     else return false;
   }
@@ -415,10 +414,10 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
 
   setTasimaSeneti() {
     if (this.tasimaSenetiBilgileri.length > 0) {
-      // for (let klm of this.tasimaSenetiBilgileri.value) {
-      //   klm.ozetBeyanInternalNo = this.ozetBeyanInternalNo;
-      //   klm.tasimaSenetInternalNo = this.tasimaSenetInternalNo;
-      // }
+      for (let klm of this.tasimaSenetiBilgileri.value) {
+        klm.ozetBeyanInternalNo = this.ozetBeyanInternalNo;
+        klm.tasimaSenetInternalNo = this.tasimaSenetInternalNo;
+      }
   
 
       if (this.tasimaSenetiBilgileri.invalid) {

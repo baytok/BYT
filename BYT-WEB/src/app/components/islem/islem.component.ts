@@ -129,11 +129,11 @@ export class IslemComponent implements OnInit {
    }
    
    getTarihce(IslemInternalNo:string){  
-
+ 
     this._beyanSession.islemInternalNo=IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo)
     .subscribe( (result: TarihceDto[])=>{   
-   
+      console.log(result);
        this.tarihceDataSource.data=result;
     
       }, (err)=>{

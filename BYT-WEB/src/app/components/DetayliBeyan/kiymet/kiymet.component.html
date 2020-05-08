@@ -35,8 +35,8 @@
         <button
           mat-menu-item
           (click)="duzeltKiymet()"
-          [disabled]="
-          !BeyanStatu
+          [hidden]="
+          !BeyanSilDuzeltStatu
           "
         >
           <mat-icon>sync</mat-icon>
@@ -45,8 +45,8 @@
         <button
           mat-menu-item
           (click)="silKiymet(kiymetInternalNo)"
-          [disabled]="
-          !BeyanStatu
+          [hidden]="
+          !BeyanSilDuzeltStatu
           "
         >
           <mat-icon>remove</mat-icon>

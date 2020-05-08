@@ -391,10 +391,10 @@ export class KalemComponent implements OnInit {
     else return false;
   }
   get BeyanSilDuzeltStatu():boolean {
-  
+   console.log(this.kalemInternalNo);
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if ((this.kalemInternalNo=='' || this.kalemInternalNo=='Boş' || this.kalemInternalNo===null || this.kalemInternalNo==='undefined') && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    if (this.kalemInternalNo!='' && this.kalemInternalNo!='Boş' && this.kalemInternalNo!=null && this.kalemInternalNo!='undefined' && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
       return true;
      else
        return false;
@@ -425,6 +425,7 @@ export class KalemComponent implements OnInit {
     this.soruCevapForm.enable();
   }
   resetItem() {
+    this.kalemInternalNo="Boş";
     this.kalemForm.reset();
     this.odemeForm.reset();
     this.konteynerForm.reset();
