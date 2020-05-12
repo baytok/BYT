@@ -151,7 +151,7 @@ export const rejim= [
   ];
   export const teminat= [
     { kod:'', aciklama: '' },
-    { kod:'DİĞER', aciklama: '' },
+    { kod:'DIGER', aciklama: '' },
     { kod:'BANKA', aciklama: '' },
     { kod:'TOPLU', aciklama: '' },
     { kod:'NAKİT', aciklama: '' },

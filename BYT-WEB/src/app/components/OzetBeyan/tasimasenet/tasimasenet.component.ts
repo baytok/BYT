@@ -802,7 +802,7 @@ setIhracat() {
       }
     }
   }
-console.log(this.ihracatBilgileri.value);
+
   if (this.ihracatBilgileri.length >= 0) {
     const promiseIhracat = this.beyanServis
       .restoreObIhracat(
@@ -940,7 +940,7 @@ get SatirStatu(): boolean {
   else return false;
 }
 getSatirEsyaBilgileri(content, index:number) {
-  console.log( this.satirBilgileri.value);
+ 
   this.tasimaSatirInternalNo = this.satirBilgileri.controls[index].get("tasimaSatirInternalNo").value;  
   this.satirNo=this.satirBilgileri.controls[index].get("satirNo").value;
   this.beyanServis.getObSatirEsya(this._beyanSession.islemInternalNo).subscribe(
@@ -967,7 +967,7 @@ getSatirEsyaBilgileri(content, index:number) {
 }
 
 private getDismissReason(reason: any): string {
-  console.log(reason);
+ 
   if (reason === ModalDismissReasons.ESC) {
     return 'by pressing ESC';
   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -1060,7 +1060,7 @@ getSatirEsya() {
     kalemSiraNo: new FormControl(0, [
       ValidationService.numberValidator
     ]),  
-    olcuBirimi: new FormControl(0, [
+    olcuBirimi: new FormControl("", [
       Validators.maxLength(9),
     ]),
     ozetBeyanInternalNo: new FormControl(this._beyanSession.ozetBeyanInternalNo, [
@@ -1135,7 +1135,7 @@ setSatirEsya() {
       }
     }
   }
- console.log( this.satirEsyaBilgileri.value);
+
   if (this.satirEsyaBilgileri.length >= 0) {
     const promiseEsya = this.beyanServis
       .restoreObSatirEsya(

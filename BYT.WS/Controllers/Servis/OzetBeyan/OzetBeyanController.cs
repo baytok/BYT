@@ -262,7 +262,159 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         }
 
+        [Route("api/BYT/Servis/TasiyiciFirma/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<ObTasiyiciFirma> GetTasiyiciFirma(string IslemInternalNo)
+        {
+            ObTasiyiciFirma _Firma = new ObTasiyiciFirma();
+            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new OzetBeyanDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
 
+                    var __FirmaValues = await _beyannameContext.ObTasiyiciFirma.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
+
+                    _Firma = __FirmaValues;
+                }
+
+                return _Firma;
+
+            }
+            catch (Exception exc)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/OzetBeyanAcma/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<ObOzetBeyanAcma>> GetOzetBeyanAcma(string IslemInternalNo)
+        {
+            List<ObOzetBeyanAcma> _ozbyAcma = new List<ObOzetBeyanAcma>();
+            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new OzetBeyanDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var ozetBeyanAcmaValues = await _beyannameContext.ObOzetBeyanAcma.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _ozbyAcma = ozetBeyanAcmaValues;
+                }
+
+                return _ozbyAcma;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/OzetBeyanAcmaTasimaSenet/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<ObOzetBeyanAcmaTasimaSenet>> GetOzetBeyanAcmaTasimaSenet(string IslemInternalNo)
+        {
+            List<ObOzetBeyanAcmaTasimaSenet> _tasimaSenet = new List<ObOzetBeyanAcmaTasimaSenet>();
+            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new OzetBeyanDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var _tasimaSenetValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _tasimaSenet = _tasimaSenetValues;
+                }
+
+                return _tasimaSenet;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        [Route("api/BYT/Servis/OzetBeyanAcmaTasimaSatir/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<ObOzetBeyanAcmaTasimaSatir>> GetOzetBeyanAcmaTasimaSatir(string IslemInternalNo)
+        {
+            List<ObOzetBeyanAcmaTasimaSatir> _tasimaSatir = new List<ObOzetBeyanAcmaTasimaSatir>();
+            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new OzetBeyanDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var __tasimaSatirValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSatir.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _tasimaSatir = __tasimaSatirValues;
+                }
+
+                return _tasimaSatir;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/Teminat/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<ObTeminat>> GetTeminat(string IslemInternalNo)
+        {
+            List<ObTeminat> _teminat = new List<ObTeminat>();
+            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new OzetBeyanDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var teminatValues = await _beyannameContext.ObTeminat.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _teminat = teminatValues;
+                }
+
+                return _teminat;
+
+            }
+            catch (Exception exc)
+            {
+
+                throw;
+            }
+
+        }
     }
 
 

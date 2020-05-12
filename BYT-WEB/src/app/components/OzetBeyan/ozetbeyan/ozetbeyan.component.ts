@@ -306,9 +306,8 @@ export class OzetbeyanComponent implements OnInit {
   }
   loadozetBeyanForm()
     {
-
-       this.ozetBeyanForm.setValue({
-      
+      this._beyanSession.ozetBeyanInternalNo= this._ozetBeyan.ozetBeyanInternalNo;
+       this.ozetBeyanForm.setValue({      
         ozetBeyanInternalNo: this._ozetBeyan.ozetBeyanInternalNo,
 	      ozetBeyanNo:this._ozetBeyan.ozetBeyanNo,
         beyanSahibiVergiNo:this._ozetBeyan.beyanSahibiVergiNo,
@@ -468,7 +467,7 @@ export class OzetbeyanComponent implements OnInit {
     let yeniislemInternalNo: string;
     let yeniBeyanname=new OzetBeyanDto();
     yeniBeyanname.initalBeyan(this.ozetBeyanForm.value);
-    console.log(yeniBeyanname);
+ 
       const promise = this.beyanServis
         .setOzetBeyan(yeniBeyanname)
         .toPromise();

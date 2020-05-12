@@ -40,6 +40,7 @@ import { DbOzetbeyanAcmaComponent } from './components/DetayliBeyan/dbozetbeyana
 import { TasimaSenetComponent } from './components/OzetBeyan/tasimasenet/tasimasenet.component';
 import { ObOzetBeyanAcmaComponent } from './components/OzetBeyan/obozetbeyanacma/obozetbeyanacma.component';
 import { ObTeminatComponent } from './components/OzetBeyan/obteminat/obteminat.component';
+import { TasiyiciFirmaComponent } from './components/OzetBeyan/tasiyicifirma/tasiyicifirma.component';
 import {
    ReferansService
  } from "../shared/helpers/ReferansService";
@@ -76,6 +77,7 @@ import {NgxChildProcessModule} from 'ngx-childprocess';
       TasimaSenetComponent,
       ObOzetBeyanAcmaComponent,
       ObTeminatComponent,
+      TasiyiciFirmaComponent,
       TestComponent
       
     

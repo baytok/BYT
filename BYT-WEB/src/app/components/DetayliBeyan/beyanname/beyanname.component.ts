@@ -625,7 +625,7 @@ export class BeyannameComponent implements OnInit {
 
   }
   get BeyanStatu():boolean {
-    console.log(this.beyanStatu);
+  
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
     if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
@@ -723,7 +723,7 @@ export class BeyannameComponent implements OnInit {
     let yeniislemInternalNo: string;
     let yeniBeyanname=new BeyannameDto();
     yeniBeyanname.initalBeyan(this.beyannameForm.value);
-    console.log(yeniBeyanname);
+  
       const promise = this.beyanServis
         .setDbBeyanname(yeniBeyanname)
         .toPromise();

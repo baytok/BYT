@@ -84,7 +84,7 @@ export class FirmaComponent implements OnInit {
     });
   }
   get BeyanStatu():boolean {
-    console.log(this.beyanStatu);
+    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
     if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
@@ -104,7 +104,7 @@ export class FirmaComponent implements OnInit {
   }
 
   onFirmaFormSubmit() {
-    console.log(this.firmaBilgileri.value);
+  
     if (this.firmaBilgileri.length > 0) {
       this.initFirmaFormArray(this.firmaBilgileri.value);
 

@@ -1,0 +1,158 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="card m-3">
+    <h5 class="card-header text-center">Taşıyıcı Firma Bilgileri</h5>
+    <div class="card-body text-center">
+      <mat-form-field   class="islem-no">
+        <mat-label> Beyanname No</mat-label>
+        <input
+        
+          matInput
+          readonly
+          #BeyannameNo
+          [(ngModel)]="ozetBeyanInternalNo"
+        />
+      </mat-form-field>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="beyannameheaderMenu"
+        class="header-dropdown-mat-icon-button"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #beyannameheaderMenu="matMenu">
+        <button mat-menu-item (click)="yeniFirma()" [disabled]="!BeyanStatu">
+          <mat-icon>add</mat-icon>
+          <span>Yeni Firma</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="duzeltFirma()"
+          [disabled]="!(BeyanStatu && firmaSaiyisi)"
+        >
+          <mat-icon>sync</mat-icon>
+          <span>Firma Düzeltme</span>
+        </button>
+        <button
+          mat-menu-item
+          (click)="silFirma()"
+          [disabled]="!(BeyanStatu && firmaSaiyisi)"
+        >
+          <mat-icon>sync</mat-icon>
+          <span>Firma Sil</span>
+        </button>
+      </mat-menu>
+      <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
+      </mat-cell>
+      <mat-label>{{ beyanStatu }}</mat-label>
+      <form [formGroup]="firmaForm"  (ngSubmit)=onFirmaFormSubmit()>
+        <mat-card class="mat-card">
+          <div class="example-box">
+            <div class="container">                            
+               
+              <mat-form-field fxFlex="10%">
+                <select
+                  matNativeControl
+                  placeholder="Ülke Kodu"
+                  formControlName="ulkeKodu"
+                >
+                  <option *ngFor="let s of _ulkeList" [value]="s.kod"
+                    >{{ s.kod }} {{ s.aciklama }}</option
+                  >
+                </select>
+              </mat-form-field>
+              <mat-form-field fxFlex="10%">
+                <select
+                  matNativeControl
+                  placeholder="Tip"
+                  formControlName="tip"
+                >
+                <option value="Tasiyici">Taşıyıcı Firma</option>
+            
+                </select>
+              </mat-form-field>
+              <mat-form-field fxFlex="10%">
+                <select
+                  matNativeControl
+                  placeholder="Kimlik Türü"
+                  formControlName="kimlikTuru"
+                >
+                  <option *ngFor="let s of _kimlikTuruList" [value]="s.kod">{{
+                    s.kod
+                  }}</option>
+                </select>
+              </mat-form-field>
+              <mat-form-field fxFlex="30%">
+                <input
+                  matNativeControl
+                  type="text"
+                  placeholder="No"
+                  formControlName="no"
+                />
+              </mat-form-field>
+              <div class="form-group col">
+              <mat-form-field fxFlex="30%">
+                <input
+                  matNativeControl
+                  type="text"
+                  placeholder="Ad Soyad/ Firma Ünvanı"
+                  formControlName="adUnvan"
+                />
+              </mat-form-field>
+              </div>
+              <mat-form-field fxFlex="30%">
+                <input
+                  matNativeControl
+                  type="text"
+                  placeholder="Cadde Sokak No"
+                  formControlName="caddeSokakNo"
+                />
+              </mat-form-field>
+              <mat-form-field fxFlex="30%">
+                <input
+                  matNativeControl
+                  type="text"
+                  placeholder="İl/İlçe"
+                  formControlName="ilIlce"
+                />
+              </mat-form-field>
+              <mat-form-field fxFlex="30%">
+                <input
+                  matNativeControl
+                  type="text"
+                  placeholder="Telefon No"
+                  formControlName="telefon"
+                />
+              </mat-form-field>
+              <mat-form-field fxFlex="30%">
+                <input
+                  matNativeControl
+                  type="text"
+                  placeholder="Faks No"
+                  formControlName="faks"
+                />
+              </mat-form-field>
+              <mat-form-field fxFlex="30%">
+                <input
+                  matNativeControl
+                  type="text"
+                  placeholder="Posta Kodu"
+                  formControlName="postaKodu"
+                />
+              </mat-form-field>
+
+              <div></div>
+            </div>
+          </div>
+        </mat-card>
+        <div class="text-right">
+          <button
+            [disabled]="!firmaForm.valid"
+            class="btn btn-primary mr-1"          
+          >
+            Kaydet
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

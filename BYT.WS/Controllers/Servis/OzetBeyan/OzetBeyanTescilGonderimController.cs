@@ -386,7 +386,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
                                         _ozetBeyanTasimaSatir.Acilacak_miktar = satir.Miktar != null ? satir.Miktar : 0;
                                         _ozetBeyanTasimaSatir.Ambar_kodu = satir.AmbarKodu;
-                                        _ozetBeyanTasimaSatir.Tasima_satir_no = satir.TasimaSatirNo;
+                                        _ozetBeyanTasimaSatir.Tasima_satir_no = satir.TasimaSatirNo.ToString();
 
                                         ozetBeyanAcmaTasimaSatirList.Add(_ozetBeyanTasimaSatir);
                                     }

@@ -610,9 +610,8 @@ namespace BYT.WS.Models
         [Required]
         public decimal Miktar { get; set; }
 
-        [Required]
-        [StringLength(9)]
-        public string TasimaSatirNo { get; set; }
+        [Required]      
+        public int TasimaSatirNo { get; set; }
 
         public DateTime? SonIslemZamani { get; set; }
 

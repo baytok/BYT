@@ -239,7 +239,7 @@ namespace BYT.WS.Models
         [StringLength(1500)]
         public string Aciklama { get; set; }
 
-        [StringLength(30)]
+        [StringLength(20)]
         public string DahiliNoAcma { get; set; }
         public DateTime? SonIslemZamani { get; set; }
 
@@ -267,7 +267,7 @@ namespace BYT.WS.Models
         [StringLength(20)]
         public string TasimaSenediNo { get; set; }
 
-        [Required]
+       
         [StringLength(20)]
         public string DahiliNoAcilanSenet { get; set; }
 
@@ -327,7 +327,7 @@ namespace BYT.WS.Models
 
         [Required]
         [StringLength(30)]
-        public string BeyanInternalNo { get; set; }
+        public string OzetBeyanInternalNo { get; set; }
 
 
         [Required]
