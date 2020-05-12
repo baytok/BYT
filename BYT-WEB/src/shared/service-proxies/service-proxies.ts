@@ -1062,6 +1062,21 @@ export class BeyannameServiceProxy {
       this.baseUrl + "Servis/Beyanname/BeyannameKopyalama/" + IslemInternalNo,null,httpOptions
     );
   }
+  removeBeyanname(IslemInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/Beyanname/BeyannameSilme/"+IslemInternalNo, httpOptions        
+      );
+  }
   getOzetBeyan(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -1108,6 +1123,21 @@ export class BeyannameServiceProxy {
     return this.http.post(
       this.baseUrl + "Servis/OzetBeyan/OzetBeyanKopyalama/" + IslemInternalNo,null,httpOptions
     );
+  }
+  removeOzetBeyan(IslemInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/OzetBeyan/OzetBeyanSilme/"+IslemInternalNo, httpOptions        
+      );
   }
   getObTasitUgrakUlke(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));

@@ -694,6 +694,29 @@ export class BeyannameComponent implements OnInit {
      
     }
   }
+  silBeyanname(islemInternalNo){
+    if (
+      confirm(islemInternalNo.value+ " Beyannameyi Silmek İstediğinizden Eminmisiniz?")
+    ) {
+      const promise = this.beyanServis
+        .removeBeyanname(islemInternalNo.value)
+        .toPromise();
+      promise.then(
+        (result) => {
+          const servisSonuc = new ServisDto();
+          servisSonuc.init(result);
+          this.beyannameForm.reset();
+          this._beyanSession.islemInternalNo="";
+          this.islemInput.nativeElement.value="";
+          this.beyannameForm.disable();
+          this.openSnackBar(servisSonuc.Sonuc, "Tamam");
+        },
+        (err) => {
+          this.beyanServis.errorHandel(err);
+        }
+      );
+    }
+  }
   onbeyannameFormSubmit() {
     this.submitted = true;
 

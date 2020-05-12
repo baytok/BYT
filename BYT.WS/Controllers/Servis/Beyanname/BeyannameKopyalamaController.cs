@@ -74,6 +74,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     List<DbOzetBeyanAcmaTasimaSatir> lstTasimaSatiri = new List<DbOzetBeyanAcmaTasimaSatir>();
                     List<DbKiymetBildirim> lstKiymet = new List<DbKiymetBildirim>();
                     List<DbKiymetBildirimKalem> lstKiymetKalem = new List<DbKiymetBildirimKalem>();
+                
                     var newbeyanValues = new DbBeyan
                     {
                         Aciklamalar = beyanValues.Aciklamalar,
@@ -137,6 +138,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         RefNo = InternalNo,
                         BeyanInternalNo = InternalNo,
                         Rejim = beyanValues.Rejim,
+                        OlsuturulmaTarihi=DateTime.Now
                     };
 
 
@@ -342,8 +344,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
 
                     var ozetBeyanAcmaValues = await _beyannameContext.DbOzetbeyanAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    int i = 1;
                     foreach (var o in ozetBeyanAcmaValues)
                     {
+                      
                         DbOzetBeyanAcma ozet = new DbOzetBeyanAcma
                         {
                             Aciklama = o.Aciklama,
@@ -352,24 +356,26 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             IslemKapsami = o.IslemKapsami,
                             OzetBeyanNo = o.OzetBeyanNo,
                             BeyanInternalNo = newbeyanValues.BeyanInternalNo,
-                            OzetBeyanInternalNo = newbeyanValues.BeyanInternalNo + "|" + o.OzetBeyanNo
+                            OzetBeyanInternalNo = newbeyanValues.BeyanInternalNo + "|" + i.ToString()
                         };
-
+                        i++;
                         var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo).ToListAsync();
 
                         if (ozetBeyanAcmaTasimaSenediValues.Count > 0)
                         {
+                            int j = 1;
                             foreach (var t in ozetBeyanAcmaTasimaSenediValues)
                             {
+                               
                                 DbOzetBeyanAcmaTasimaSenet tasima = new DbOzetBeyanAcmaTasimaSenet
                                 {
                                     BeyanInternalNo = ozet.BeyanInternalNo,
                                     OzetBeyanInternalNo = ozet.OzetBeyanInternalNo,
                                     TasimaSenediNo = t.TasimaSenediNo,
-                                    TasimaSenetInternalNo = ozet.OzetBeyanInternalNo + "|" + t.TasimaSenediNo
+                                    TasimaSenetInternalNo = ozet.OzetBeyanInternalNo + "|" + j.ToString()
 
                                 };
-
+                                j++;
                                 var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo && v.TasimaSenetInternalNo == t.TasimaSenetInternalNo).ToListAsync();
                                 if (ozetBeyanAcmaTasimaSatirValues.Count > 0)
                                 {
@@ -455,6 +461,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         lstKiymet.Add(kiymet);
                     }
 
+               
                     using (var transaction = _beyannameContext.Database.BeginTransaction())
                     {
                         try

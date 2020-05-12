@@ -435,6 +435,31 @@ export class OzetbeyanComponent implements OnInit {
      
     }
   }
+  silBeyanname(islemInternalNo){
+    if (
+      confirm(islemInternalNo.value+ " Beyannameyi Silmek İstediğinizden Eminmisiniz?")
+    ) {
+      const promise = this.beyanServis
+        .removeOzetBeyan(islemInternalNo.value)
+        .toPromise();
+      promise.then(
+        (result) => {
+          const servisSonuc = new ServisDto();
+          servisSonuc.init(result);
+          this.ozetBeyanForm.reset();
+          this._beyanSession.islemInternalNo="";
+          this.islemInput.nativeElement.value="";
+          islemInternalNo.value="";
+          this.ozetBeyanForm.disable();
+          this.tasitForm.disable();
+          this.openSnackBar(servisSonuc.Sonuc, "Tamam");
+        },
+        (err) => {
+          this.beyanServis.errorHandel(err);
+        }
+      );
+    }
+  }
   onozetBeyanFormSubmit() {
     this.submitted = true;
 

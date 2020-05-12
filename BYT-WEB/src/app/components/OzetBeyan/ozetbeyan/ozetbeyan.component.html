@@ -45,6 +45,11 @@
           <mat-icon>file_copy</mat-icon>
           <span>Beyanname Kopyala</span>
         </button>
+
+        <button mat-menu-item (click)="silBeyanname(islemNo)" [disabled]="!BeyanStatu" >
+          <mat-icon>delete</mat-icon>
+          <span>Beyanname Silme</span>
+        </button>
       </mat-menu>
       <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
       </mat-cell>
