@@ -1329,6 +1329,9 @@ namespace BYT.UI
 
         private void btnOzet_Click(object sender, EventArgs e)
         {
+            OzetBeyanHizmeti.Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoapClient cl = ServiceHelper.GetOzetBeyanWSClient("","");
+          
+              
             //    try
             //    {
             //        System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate

@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="E:\Try\IstemciBILGE\Prod\Source\Provider\Web References\SonucServisi\EGE_GUMRUK_WS_TEST.wsdl" Protocol="file" SourceId="1" />
+    <MetadataSource Address="..\Web References\SonucServisi\EGE_GUMRUK_WS_TEST.wsdl" Protocol="file" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="EGE_GUMRUK_WS_TEST.wsdl" MetadataType="Wsdl" ID="1708c8f9-e471-4927-a28a-d930e307ec37" SourceId="1" SourceUrl="file:///E:/Try/IstemciBILGE/Prod/Source/Provider/Web References/SonucServisi/EGE_GUMRUK_WS_TEST.wsdl" />
+    <MetadataFile FileName="EGE_GUMRUK_WS_TEST.wsdl" MetadataType="Wsdl" ID="1708c8f9-e471-4927-a28a-d930e307ec37" SourceId="1" SourceUrl="../Web References/SonucServisi/EGE_GUMRUK_WS_TEST.wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

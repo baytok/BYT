@@ -781,7 +781,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 root.InnerText = tarihceValues.ImzaliVeri;
                 TescilHizmeti.Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient Tescil = ServiceHelper.GetTescilWSClient(_servisCredential.username, _servisCredential.password);
                 await Tescil.TescilAsync(root);
-
+                
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(root.OuterXml);
 

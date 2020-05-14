@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://Gumruk.BizTalk.Integration" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="OzetBeyanHizmeti" targetNamespace="http://Gumruk.BizTalk.Integration" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://Gumruk.BizTalk.Integration" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/BizTalk/2003/Any" />
+      <xs:element name="OzetBeyan">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.microsoft.com/BizTalk/2003/Any" minOccurs="0" maxOccurs="1" ref="q1:Root" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OzetBeyanResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.microsoft.com/BizTalk/2003/Any" minOccurs="0" maxOccurs="1" ref="q2:Root" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/BizTalk/2003/Any" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/BizTalk/2003/Any" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="Root">
+        <xs:complexType mixed="true">
+          <xs:sequence>
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="OzetBeyanSoapIn">
+    <wsdl:part name="parameters" element="tns:OzetBeyan" />
+  </wsdl:message>
+  <wsdl:message name="OzetBeyanSoapOut">
+    <wsdl:part name="parameters" element="tns:OzetBeyanResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoap">
+    <wsdl:operation name="OzetBeyan">
+      <wsdl:input wsaw:Action="http://Gumruk.BizTalk.Integration/Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalep/OzetBeyan" name="OzetBeyanSoapIn" message="tns:OzetBeyanSoapIn" />
+      <wsdl:output wsaw:Action="http://Gumruk.BizTalk.Integration/Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalep/OzetBeyan" name="OzetBeyanSoapOut" message="tns:OzetBeyanSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoap" type="tns:Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="OzetBeyan">
+      <soap:operation soapAction="http://Gumruk.BizTalk.Integration/Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalep/OzetBeyan" style="document" />
+      <wsdl:input name="OzetBeyanSoapIn">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="OzetBeyanSoapOut">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OzetBeyanHizmeti">
+    <wsdl:port name="BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoap" binding="tns:BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoap">
+      <soap:address location="http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/OzetBeyanWS" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="E:\Try\IstemciBILGE\Prod\Source\Provider\Web References\TescilGonderimServisi\TescilHizmeti.wsdl" Protocol="file" SourceId="1" />
+    <MetadataSource Address="..\Web References\TescilGonderimServisi\TescilHizmeti.wsdl" Protocol="file" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="TescilHizmeti.wsdl" MetadataType="Wsdl" ID="9184b2da-0ba7-4368-8357-f1a5c689ec85" SourceId="1" SourceUrl="file:///E:/Try/IstemciBILGE/Prod/Source/Provider/Web References/TescilGonderimServisi/TescilHizmeti.wsdl" />
+    <MetadataFile FileName="TescilHizmeti.wsdl" MetadataType="Wsdl" ID="9184b2da-0ba7-4368-8357-f1a5c689ec85" SourceId="1" SourceUrl="../Web References/TescilGonderimServisi/TescilHizmeti.wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

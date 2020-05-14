@@ -6,7 +6,7 @@
   },
   "ExtendedData": {
     "inputs": [
-      "F:/Try/IstemciBILGE/Prod/Source/Provider/Web References/KontrolServisi/KontrolHizmeti.wsdl"
+      ".../Web References/KontrolServisi/KontrolHizmeti.wsdl"
     ],
     "collectionTypes": [
       "System.Array",

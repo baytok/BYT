@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f8ccd8de-0678-4cf1-9e39-2507be269506" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="381defa0-df13-424a-a777-bedb4d49b2b1" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="..\Servisler\EGE_KONTROL_WS_TEST.WSDL" Protocol="file" SourceId="1" />
+    <MetadataSource Address="..\Web References\OZBYTescilGonderimServisi_Prod\OzetBeyanHizmeti.wsdl" Protocol="file" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="KontrolHizmeti.wsdl" MetadataType="Wsdl" ID="37cd299e-b7b3-45db-ae32-cbe30cdc1117" SourceId="1" SourceUrl="../Servisler/EGE_KONTROL_WS_TEST.WSDL" />
+    <MetadataFile FileName="OzetBeyanHizmeti.wsdl" MetadataType="Wsdl" ID="1649ddfc-4373-4cc0-a80b-290ef151b377" SourceId="1" SourceUrl="../Web References/OZBYTescilGonderimServisi_Prod/OzetBeyanHizmeti.wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

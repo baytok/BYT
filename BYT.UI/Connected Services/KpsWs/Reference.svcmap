@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="C:\Users\Ata\Desktop\GETAPP\Prod\Source\Beyannameler\Service References\KPS\KpsWS.wsdl" Protocol="file" SourceId="1" />
+    <MetadataSource Address="..\Service References\KPS\KpsWS.wsdl" Protocol="file" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="KpsWS.wsdl" MetadataType="Wsdl" ID="859e673c-beab-43e3-9ce2-2e4d3fdcef6e" SourceId="1" SourceUrl="file:///C:/Users/Ata/Desktop/GETAPP/Prod/Source/Beyannameler/Service References/KPS/KpsWS.wsdl" />
+    <MetadataFile FileName="KpsWS.wsdl" MetadataType="Wsdl" ID="859e673c-beab-43e3-9ce2-2e4d3fdcef6e" SourceId="1" SourceUrl="../Service References/KPS/KpsWS.wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

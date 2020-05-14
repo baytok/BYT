@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f8ccd8de-0678-4cf1-9e39-2507be269506" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e33826f4-95a1-4837-80a9-1487154a0113" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="..\Servisler\EGE_KONTROL_WS_TEST.WSDL" Protocol="file" SourceId="1" />
+    <MetadataSource Address="..\Web References\IGHBServisi_Test\IGHBHizmeti.wsdl" Protocol="file" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="KontrolHizmeti.wsdl" MetadataType="Wsdl" ID="37cd299e-b7b3-45db-ae32-cbe30cdc1117" SourceId="1" SourceUrl="../Servisler/EGE_KONTROL_WS_TEST.WSDL" />
+    <MetadataFile FileName="IGHBHizmeti.wsdl" MetadataType="Wsdl" ID="caf86bb7-777e-4a47-87bc-6e055b61da34" SourceId="1" SourceUrl="../Web References/IGHBServisi_Test/IGHBHizmeti.wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
