@@ -138,25 +138,7 @@
                   </div>
                 </mat-form-field>
               </div>
-              <div class="form-group col">
-                <mat-form-field>
-                  <mat-label>Dahili No</mat-label>
-                  <input
-                    matNativeControl
-                    type="text"
-                    formControlName="dahiliNoAcma"
-                    [ngClass]="{
-                      'is-invalid': submitted && focus.dahiliNoAcma.errors
-                    }"
-                  />
-                  <div
-                    *ngIf="submitted && focus.dahiliNoAcma.errors"
-                    class="invalid-feedback"
-                  >
-                   
-                  </div>
-                </mat-form-field>
-              </div>              
+                
               <div class="form-group col">
                 <div class="form-group form-check">
                   <input
@@ -261,14 +243,7 @@
                           formControlName="tasimaSenediNo"
                         />
                       </mat-form-field>
-                      <mat-form-field>
-                         <input
-                          matNativeControl
-                          formControlName="dahiliNoAcilanSenet"
-                          placeholder="Taşıma Sneti Dahili No"
-                        />
-                       
-                      </mat-form-field>
+                      
                       <button
                         mat-mini-fab
                         color="warn"

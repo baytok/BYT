@@ -153,7 +153,32 @@
                         class="invalid-feedback"
                       ></div>
                     </mat-form-field>
-                  </div>   
+                  </div>  
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Varış Gümrük</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="varisCikisGumrukIdaresi"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.varisCikisGumrukIdaresi.errors
+                        }"
+                      >
+                        <option *ngFor="let g of _gumrukList" [value]="g.kod">{{
+                          g.kod
+                        }} {{g.aciklama}}</option>
+                      </select>
+                      <div
+                        *ngIf="submitted && focus.varisCikisGumrukIdaresi.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="focus.varisCikisGumrukIdaresi.errors.required">
+                          Gümrük Zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div> 
                   <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Varış Tarihi</mat-label>
@@ -195,7 +220,25 @@
                     </div>
                     </mat-form-field>
                   </div>    
-              
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Ref No</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="refNo"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.refNo.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.refNo.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
                   <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Referans Numarası</mat-label>
@@ -409,44 +452,6 @@
                   </div>
                   <div class="form-group col">
                     <mat-form-field>
-                      <mat-label>Boşaltma Liman Adı</mat-label>
-                      <input
-                    
-                        matNativeControl
-                        type="text"
-                        formControlName="limanYerAdiBos"
-                       
-                        [ngClass]="{
-                          'is-invalid': submitted && focus.limanYerAdiBos.errors
-                        }"
-                      />
-                      <div
-                        *ngIf="submitted && focus.limanYerAdiBos.errors"
-                        class="invalid-feedback"
-                      ></div>
-                    </mat-form-field>
-                  </div>
-                  <div class="form-group col">
-                    <mat-form-field>
-                      <mat-label>Yükleme Liman Adı</mat-label>
-                      <input
-                    
-                        matNativeControl
-                        type="text"
-                        formControlName="limanYerAdiYuk"
-                       
-                        [ngClass]="{
-                          'is-invalid': submitted && focus.limanYerAdiYuk.errors
-                        }"
-                      />
-                      <div
-                        *ngIf="submitted && focus.limanYerAdiYuk.errors"
-                        class="invalid-feedback"
-                      ></div>
-                    </mat-form-field>
-                  </div>
-                  <div class="form-group col">
-                    <mat-form-field>
                       <mat-label>Önceki Beyan No</mat-label>
                       <input
                     
@@ -571,25 +576,6 @@
                   </div>
                   <div class="form-group col">
                     <mat-form-field>
-                      <mat-label>Yükleme Boşlatma Yeri</mat-label>
-                      <input
-                    
-                        matNativeControl
-                        type="text"
-                        formControlName="yuklemeBosaltmaYeri"
-                       
-                        [ngClass]="{
-                          'is-invalid': submitted && focus.yuklemeBosaltmaYeri.errors
-                        }"
-                      />
-                      <div
-                        *ngIf="submitted && focus.yuklemeBosaltmaYeri.errors"
-                        class="invalid-feedback"
-                      ></div>
-                    </mat-form-field>
-                  </div>
-                  <div class="form-group col">
-                    <mat-form-field>
                       <mat-label>Ülke Kodu</mat-label>
                       <select
                         matNativeControl
@@ -609,6 +595,25 @@
                       >
                       
                       </div>
+                    </mat-form-field>
+                  </div>               
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Yükleme Liman Adı</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="limanYerAdiYuk"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.limanYerAdiYuk.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.limanYerAdiYuk.errors"
+                        class="invalid-feedback"
+                      ></div>
                     </mat-form-field>
                   </div>
                   <div class="form-group col">
@@ -632,6 +637,44 @@
                       >
                       
                       </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Yükleme Boşlatma Yeri</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="yuklemeBosaltmaYeri"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.yuklemeBosaltmaYeri.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.yuklemeBosaltmaYeri.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Boşaltma Liman Adı</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="limanYerAdiBos"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.limanYerAdiBos.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.limanYerAdiBos.errors"
+                        class="invalid-feedback"
+                      ></div>
                     </mat-form-field>
                   </div>
                   <div class="form-group col">

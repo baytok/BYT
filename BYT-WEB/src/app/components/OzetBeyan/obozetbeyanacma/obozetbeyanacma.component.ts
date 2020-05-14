@@ -80,7 +80,7 @@ export class ObOzetBeyanAcmaComponent implements OnInit {
         Validators.required,
         Validators.maxLength(30),
       ]),
-      dahiliNoAcma: new FormControl("", [Validators.maxLength(20)]),
+     
       aciklama: new FormControl("", [Validators.maxLength(1500)]),
       baskaRejim: [false],
       ambar: [false],
@@ -176,7 +176,6 @@ export class ObOzetBeyanAcmaComponent implements OnInit {
         .ozetBeyanAcmaBeyanInternalNo,
       ozetBeyanInternalNo: this._ozetBeyanlar[siraNo].ozetBeyanInternalNo,
       ozetBeyanNo: this._ozetBeyanlar[siraNo].ozetBeyanNo,
-      dahiliNoAcma: this._ozetBeyanlar[siraNo].dahiliNoAcma,
       islemKapsami: this._ozetBeyanlar[siraNo].islemKapsami,
       baskaRejim:
         this._ozetBeyanlar[siraNo].baskaRejim === "Evet" ? true : false,
@@ -302,10 +301,7 @@ export class ObOzetBeyanAcmaComponent implements OnInit {
         this.ozetBeyanForm.get("ozetBeyanNo").value != null
           ? this.ozetBeyanForm.get("ozetBeyanNo").value
           : "",
-      dahiliNoAcma:
-        this.ozetBeyanForm.get("dahiliNoAcma").value != null
-          ? this.ozetBeyanForm.get("dahiliNoAcma").value
-          : "",
+    
       islemKapsami:
         this.ozetBeyanForm.get("islemKapsami").value != null
           ? this.ozetBeyanForm.get("islemKapsami").value
@@ -360,10 +356,6 @@ export class ObOzetBeyanAcmaComponent implements OnInit {
           Validators.required,
           Validators.maxLength(50),
         ]),
-        dahiliNoAcilanSenet: new FormControl(klm.dahiliNoAcilanSenet, [
-          Validators.maxLength(20),
-        ]),
-
         ozetBeyanAcmaBeyanInternalNo: new FormControl(
           klm.ozetBeyanAcmaBeyanInternalNo
         ),
@@ -429,8 +421,6 @@ export class ObOzetBeyanAcmaComponent implements OnInit {
         Validators.required,
         Validators.maxLength(50),
       ]),
-      dahiliNoAcilanSenet: new FormControl("", [Validators.maxLength(20)]),
-
       ozetBeyanInternalNo: new FormControl(
         this._beyanSession.ozetBeyanInternalNo,
         [Validators.required]

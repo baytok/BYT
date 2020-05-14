@@ -104,7 +104,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
                             }
                         
+                            if(firmaValues!=null)
                             _beyannameContext.Entry(firmaValues).State = EntityState.Deleted;
+
                             foreach (var item in ozetBeyanAcmaValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
@@ -117,6 +119,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
                             }
+
                           
                             _islemTarihceContext.Entry(islemValues).State = EntityState.Deleted;
                             foreach (var item in tarihceValues)

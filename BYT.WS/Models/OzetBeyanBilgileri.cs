@@ -75,7 +75,9 @@ namespace BYT.WS.Models
         [StringLength(25)]
         public string ReferansNumarasi { get; set; }
 
-     
+        [StringLength(25)]
+        public string RefNo { get; set; }
+
         [StringLength(9)]
         [Required]
         public string Rejim { get; set; }
@@ -239,8 +241,7 @@ namespace BYT.WS.Models
         [StringLength(1500)]
         public string Aciklama { get; set; }
 
-        [StringLength(20)]
-        public string DahiliNoAcma { get; set; }
+       
         public DateTime? SonIslemZamani { get; set; }
 
     }
@@ -266,10 +267,6 @@ namespace BYT.WS.Models
         [Required]
         [StringLength(20)]
         public string TasimaSenediNo { get; set; }
-
-       
-        [StringLength(20)]
-        public string DahiliNoAcilanSenet { get; set; }
 
         public DateTime? SonIslemZamani { get; set; }
 

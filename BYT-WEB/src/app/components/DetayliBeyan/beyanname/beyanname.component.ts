@@ -491,7 +491,10 @@ export class BeyannameComponent implements OnInit {
         if (this._beyanname == null) {
           this.openSnackBar(islemInternalNo + "  Bulunamadı", "Tamam");
           this.beyanInternalNo="";
-          this.beyanStatu= "" ;        
+          this.beyanStatu= "" ;             
+          this._beyanSession.islemInternalNo = "";
+          this._beyanSession.beyanInternalNo= "" ;
+          this._beyanSession.beyanStatu= "" ;
       
           return;
         }
@@ -764,7 +767,7 @@ export class BeyannameComponent implements OnInit {
             this._beyanname.beyanInternalNo=yeniislemInternalNo;
             this._beyanSession.islemInternalNo=yeniislemInternalNo;
             this.beyanInternalNo=yeniislemInternalNo;
-            this.getBeyanname(yeniislemInternalNo);
+            this.getBeyannameFromIslem(yeniislemInternalNo);
             this.openSnackBar(servisSonuc.Sonuc, "Tamam");
             this.beyannameForm.disable();
           }

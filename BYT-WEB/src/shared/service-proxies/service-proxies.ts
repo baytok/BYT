@@ -3774,7 +3774,8 @@ export class OzetBeyanDto {
 	limanYerAdiYuk:string;
 	oncekiBeyanNo:string;
 	plakaSeferNo:string;
-	referansNumarasi:string;
+  referansNumarasi:string;
+  refNo:string;
 	rejim:string;
 	tasimaSekli:string;
 	tasitinAdi:string;
@@ -3824,6 +3825,7 @@ export class OzetBeyanDto {
       this.oncekiBeyanNo=data["oncekiBeyanNo"]!=null ? data["oncekiBeyanNo"] : "";
       this.plakaSeferNo=data["plakaSeferNo"]!=null ? data["plakaSeferNo"] : "";
       this.referansNumarasi=data["referansNumarasi"]!=null ? data["referansNumarasi"] : "";
+      this.refNo=data["refNo"]!=null ? data["refNo"] : "";
       this.rejim=data["rejim"]!=null ? data["rejim"] : "";
       this.tasimaSekli=data["tasimaSekli"]!=null ? data["tasimaSekli"] : "";
       this.tasitinAdi=data["tasitinAdi"]!=null ? data["tasitinAdi"] : "";
@@ -3834,7 +3836,7 @@ export class OzetBeyanDto {
       this.ulkeKoduBos=data["ulkeKoduBos"]!=null ? data["ulkeKoduBos"] : "";
       this.yuklemeBosaltmaYeri=data["yuklemeBosaltmaYeri"]!=null ? data["yuklemeBosaltmaYeri"] : "";
       this.varisCikisGumrukIdaresi=data["varisCikisGumrukIdaresi"]!=null ? data["varisCikisGumrukIdaresi"] : "";
-      this.varisTarihSaati=data["varisTarihSaati"]!=null ?  data["varisTarihSaati"] : "0001-01-01T00:00:00";
+      this.varisTarihSaati=data["varisTarihSaati"]!=null ?  data["varisTarihSaati"] : "";
       this.xmlRefId=data["xmlRefId"]!=null ? data["xmlRefId"] : "";
       this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
       this.tescilTarihi=data[""]!=null ? data[""] : "0001-01-01T00:00:00";

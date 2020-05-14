@@ -96,6 +96,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         OzetBeyanNo = beyanValues.OzetBeyanNo,
                         PlakaSeferNo = beyanValues.PlakaSeferNo,
                         ReferansNumarasi = beyanValues.ReferansNumarasi,
+                        RefNo = beyanValues.RefNo,
                         Rejim = beyanValues.Rejim,
                         TasimaSekli = beyanValues.TasimaSekli,
                         TasitinAdi = beyanValues.TasitinAdi,
@@ -307,7 +308,6 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                             BaskaRejim = o.BaskaRejim,
                             IslemKapsami = o.IslemKapsami,
                             OzetBeyanNo = o.OzetBeyanNo,
-                            DahiliNoAcma=o.DahiliNoAcma,
                             OzetBeyanInternalNo = newbeyanValues.OzetBeyanInternalNo,
                             OzetBeyanAcmaBeyanInternalNo = newbeyanValues.OzetBeyanInternalNo + "|" + i.ToString(),
                           
@@ -326,8 +326,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                                     OzetBeyanInternalNo = ozet.OzetBeyanInternalNo,
                                     OzetBeyanAcmaBeyanInternalNo = ozet.OzetBeyanAcmaBeyanInternalNo,
                                     TasimaSenediNo = t.TasimaSenediNo,
-                                    DahiliNoAcilanSenet=t.DahiliNoAcilanSenet,
-                                    TasimaSenetInternalNo = ozet.OzetBeyanAcmaBeyanInternalNo + "|" + j.ToString(),
+                                     TasimaSenetInternalNo = ozet.OzetBeyanAcmaBeyanInternalNo + "|" + j.ToString(),
                                 
 
                                 };

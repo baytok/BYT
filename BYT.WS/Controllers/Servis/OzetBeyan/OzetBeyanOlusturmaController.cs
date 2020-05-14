@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using BYT.WS.Controllers.api;
 using BYT.WS.Data;
@@ -81,6 +83,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 {
                     try
                     {
+                     
 
                         var beyanValues = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == beyan.OzetBeyanInternalNo && v.TescilStatu != "Tescil Edildi");
                         var beyannameContext = new OzetBeyanDataContext(options);

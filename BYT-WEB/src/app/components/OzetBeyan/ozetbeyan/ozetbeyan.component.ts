@@ -157,6 +157,7 @@ export class OzetbeyanComponent implements OnInit {
         oncekiBeyanNo:new FormControl("", [Validators.maxLength(20)]),
         plakaSeferNo:new FormControl("", [Validators.maxLength(25)]),
         referansNumarasi:new FormControl("", [Validators.maxLength(25)]),
+        refNo:new FormControl("", [Validators.maxLength(25)]),
         rejim:new FormControl("", [Validators.required,Validators.maxLength(9)]),
         tasimaSekli:new FormControl("", [Validators.maxLength(9)]),
         tasitinAdi:new FormControl("", [Validators.maxLength(50)]),
@@ -246,15 +247,18 @@ export class OzetbeyanComponent implements OnInit {
         if (this._ozetBeyan == null) {
           this.openSnackBar(islemInternalNo + "  Bulunamadı", "Tamam");
           this.ozetBeyanInternalNo="";
-          this.beyanStatu= "" ;        
+          this.beyanStatu= "" ;
+          this._beyanSession.islemInternalNo = "";
+          this._beyanSession.ozetBeyanInternalNo= "" ;
+          this._beyanSession.beyanStatu= "" ;
       
           return;
         }
         else{
          
-          this._beyanSession.islemInternalNo = islemInternalNo;
+          this._beyanSession.islemInternalNo = islemInternalNo;    
           this._beyanSession.ozetBeyanInternalNo= this._ozetBeyan.ozetBeyanInternalNo ;
-          this._beyanSession.beyanStatu= this._ozetBeyan.tescilStatu ; 
+          this._beyanSession.beyanStatu= this._ozetBeyan.tescilStatu ;
           this.ozetBeyanInternalNo=this._ozetBeyan.ozetBeyanInternalNo;
           this.beyanStatu= this._ozetBeyan.tescilStatu ;
           this.loadozetBeyanForm();
@@ -269,12 +273,12 @@ export class OzetbeyanComponent implements OnInit {
   }
   getBeyanname(islemInternalNo) {  
    
-      var result= this.beyanServis.getOzetBeyan(islemInternalNo.value).subscribe(
-      result => {
-       
+     this.beyanServis.getOzetBeyan(islemInternalNo.value).subscribe(
+      result => {       
         this._ozetBeyan = new OzetBeyanDto();
+      
         this._ozetBeyan.initalBeyan(result);
-       
+    
         if (this._ozetBeyan == null) {
            this.openSnackBar(islemInternalNo.value + "  Bulunamadı", "Tamam");
            this.ozetBeyanInternalNo="";
@@ -282,6 +286,7 @@ export class OzetbeyanComponent implements OnInit {
            this._beyanSession.islemInternalNo = "";
            this._beyanSession.ozetBeyanInternalNo= "" ;
            this._beyanSession.beyanStatu= "" ;
+         
       
           return;
         }
@@ -294,7 +299,7 @@ export class OzetbeyanComponent implements OnInit {
           this.beyanStatu= this._ozetBeyan.tescilStatu ;
           this.loadozetBeyanForm();
          
-          // islemInternalNo.value ="";
+        
         }
     
       },
@@ -328,6 +333,7 @@ export class OzetbeyanComponent implements OnInit {
         oncekiBeyanNo:this._ozetBeyan.oncekiBeyanNo,
         plakaSeferNo:this._ozetBeyan.plakaSeferNo,
         referansNumarasi:this._ozetBeyan.referansNumarasi,
+        refNo:this._ozetBeyan.refNo,
         rejim:this._ozetBeyan.rejim,
         tasimaSekli:this._ozetBeyan.tasimaSekli,
         tasitinAdi:this._ozetBeyan.tasitinAdi,
@@ -448,6 +454,10 @@ export class OzetbeyanComponent implements OnInit {
           servisSonuc.init(result);
           this.ozetBeyanForm.reset();
           this._beyanSession.islemInternalNo="";
+          this._beyanSession.ozetBeyanInternalNo="";
+          this.ozetBeyanInternalNo="";
+          this._beyanSession.beyanStatu="";
+          this.beyanStatu="";
           this.islemInput.nativeElement.value="";
           islemInternalNo.value="";
           this.ozetBeyanForm.disable();
@@ -492,7 +502,7 @@ export class OzetbeyanComponent implements OnInit {
     let yeniislemInternalNo: string;
     let yeniBeyanname=new OzetBeyanDto();
     yeniBeyanname.initalBeyan(this.ozetBeyanForm.value);
- 
+    
       const promise = this.beyanServis
         .setOzetBeyan(yeniBeyanname)
         .toPromise();
@@ -503,13 +513,16 @@ export class OzetbeyanComponent implements OnInit {
           servisSonuc.init(result);
           var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());
           yeniislemInternalNo = beyanServisSonuc.ReferansNo;
-          this.setTasit();
+          
            
           if (yeniislemInternalNo != null) {
             this.islemInput.nativeElement.value=yeniislemInternalNo;
             this._ozetBeyan.ozetBeyanInternalNo=yeniislemInternalNo;
             this._beyanSession.islemInternalNo=yeniislemInternalNo;
-            this.openSnackBar(servisSonuc.Sonuc, "Tamam");            
+         
+           this.getBeyannameFromIslem(yeniislemInternalNo);
+            this.openSnackBar(servisSonuc.Sonuc, "Tamam");         
+            this.setTasit();   
           }
            this.ozetBeyanForm.disable();
             this.tasitForm.disable();
@@ -566,7 +579,7 @@ export class OzetbeyanComponent implements OnInit {
         Validators.required,
         ValidationService.tarihValidation,
       ]),
-      ozetBeyanInternalNo: new FormControl(this._beyanSession.ozetBeyanInternalNo, [
+      ozetBeyanInternalNo: new FormControl(this.ozetBeyanInternalNo, [
         Validators.required,
       ]),
     
@@ -588,7 +601,7 @@ export class OzetbeyanComponent implements OnInit {
   setTasit() {
     if (this.tasitBilgileri.length > 0) {
       for (let klm of this.tasitBilgileri.value) {
-        klm.ozetBeyanInternalNo = this.ozetBeyanInternalNo;
+        klm.ozetBeyanInternalNo =  this._ozetBeyan.ozetBeyanInternalNo;
        
       }
 
@@ -614,7 +627,7 @@ export class OzetbeyanComponent implements OnInit {
         }
       }
     }
-
+  
     if (this.tasitBilgileri.length >= 0) {
       const promiseOdeme = this.beyanServis
         .restoreObTasitUgrakUlke(
