@@ -253,7 +253,7 @@ class="close pull-right" (click)="close(false)">
         <div class="checkbox-wrapper">
           <mat-checkbox
             [disabled]="!kullaniciForm.valid"
-            [checked]="isRoleChecked(role.yetkiId)"
+            [checked]="isRoleChecked(role.yetkiKodu)"
             (change)="onRoleChange(role, $event)"
           >
             {{ role.yetkiAdi }}

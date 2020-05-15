@@ -2370,13 +2370,13 @@ export class MusteriDto {
 }
 
 export class YetkiDto {
-  id: number;
+  id:number;
+  yetkiKodu: string;
   yetkiAdi: string;
   aciklama:string;  
   aktif:boolean;
  
-
-  constructor(data?: KullaniciDto) {
+  constructor(data?: YetkiDto) {
     if (data) {
       for (var property in data) {
         if (data.hasOwnProperty(property))
@@ -2386,8 +2386,10 @@ export class YetkiDto {
   }
 
   init(data?: any) {
+    
     if (data) {         
       this.id = data["id"];
+      this.yetkiKodu = data["yetkiKodu"];
       this.yetkiAdi = data["yetkiAdi"];
       this.aciklama = data["aciklama"];
       this.aktif = data["aktif"];
@@ -2395,9 +2397,9 @@ export class YetkiDto {
     }
   }
 
-  static fromJS(data: any): KullaniciDto {
+  static fromJS(data: any): YetkiDto {
     data = typeof data === "object" ? data : {};
-    let result = new KullaniciDto();
+    let result = new YetkiDto();
 
     result.init(data);
     return result;
@@ -2405,17 +2407,17 @@ export class YetkiDto {
 
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};  
-   
+     data["id"]=this.id;
     data["yetkiAdi"]= this.yetkiAdi ;
     data["aciklama"]= this.aciklama ;  
-    data["id"] = this.id;  
+    data["yetkiKodu"] = this.yetkiKodu;  
     data["aktif"]=this.aktif ;
    
     return data;
   }
-  clone(): KullaniciDto {
+  clone(): YetkiDto {
     const json = this.toJSON();
-    let result = new KullaniciDto();
+    let result = new YetkiDto();
     result.init(json);
     return result;
   }
@@ -2424,7 +2426,7 @@ export class YetkiDto {
 export class KullaniciYetkiDto {
   id: number;
   kullaniciKod: string;
-  yetkiId:number;  
+  yetkiKodu:string;  
   aktif:boolean;
  
 
@@ -2441,7 +2443,7 @@ export class KullaniciYetkiDto {
     if (data) {         
       this.id = data["id"];
       this.kullaniciKod = data["kullaniciKod"];
-      this.yetkiId = data["yetkiId"];
+      this.yetkiKodu = data["yetkiKodu"];
       this.aktif = data["aktif"];
     
     }
@@ -2459,7 +2461,7 @@ export class KullaniciYetkiDto {
     data = typeof data === "object" ? data : {};  
    
     data["kullaniciKod"]= this.kullaniciKod ;
-    data["yetkiId"]= this.yetkiId ;  
+    data["yetkiKodu"]= this.yetkiKodu ;  
     data["id"] = this.id;  
     data["aktif"]=this.aktif ;
    
@@ -2714,7 +2716,7 @@ export class KullaniciBilgileriDto {
  
 }
 export class KullaniciYetkileri {
-  id: number;
+  yetkiKodu: string;
   yetkiAdi: string; 
 }
 

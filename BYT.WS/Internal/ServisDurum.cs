@@ -56,7 +56,7 @@ namespace BYT.WS.Internal
     }
     public class KullaniciYetkileri
     {
-        public int ID { get; set; }
+        public string YetkiKodu { get; set; }
         public string YetkiAdi { get; set; }
 
     }

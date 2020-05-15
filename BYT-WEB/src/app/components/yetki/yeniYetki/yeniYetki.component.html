@@ -13,21 +13,25 @@ class="close pull-right" (click)="close(false)">
       <div class="form-group col">
         <mat-form-field>
           <mat-label>Yetki Adı</mat-label>
-          <input
-            matNativeControl
-            formControlName="yetkiAdi"
-            class="form-control "
-            [ngClass]="{
-              'is-invalid': submitted && focus.yetkiAdi.errors
-            }"
-          />
-
+          <select
+          matNativeControl
+          formControlName="yetkiKodu"
+          
+          [ngClass]="{
+            'is-invalid': submitted && focus.yetkiKodu.errors
+          }"
+        >
+          <option *ngFor="let g of _yetkiProjeList" [value]="g.kod">{{
+            g.kod
+          }} {{g.aciklama}}</option>
+        </select>
+        
           <div
-            *ngIf="submitted && focus.yetkiAdi.errors"
+            *ngIf="submitted && focus.yetkiKodu.errors"
             class="invalid-feedback"
           >
-            <div *ngIf="focus.yetkiAdi.errors.required">
-              Yetki Adı Kodu Zorunlu
+            <div *ngIf="focus.yetkiKodu.errors.required">
+              Yetki Zorunlu
             </div>
           </div>
         </mat-form-field>

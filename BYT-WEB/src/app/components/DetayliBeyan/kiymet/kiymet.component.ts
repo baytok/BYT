@@ -12,8 +12,6 @@ import {
   FormArray,
   NgForm,
 } from "@angular/forms";
-import { MustMatch } from "../../../../shared/helpers/must-match.validator";
-import { ulke } from "../../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
   SessionServiceProxy,

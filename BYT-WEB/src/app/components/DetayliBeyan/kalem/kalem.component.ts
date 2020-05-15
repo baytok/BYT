@@ -25,7 +25,7 @@ import {
  
   kullanilmisEsya,
   girisCikisAmaci,
-  SoruKodu,
+  
 } from "../../../../shared/helpers/referencesList";
 import {
   BeyannameServiceProxy,
@@ -156,7 +156,6 @@ export class KalemComponent implements OnInit {
   _algilamaList = this.referansService.getolcuJSON();
   _vergiList = this.referansService.getvergiKoduJSON();
   _belgeList = this.referansService.getbelgeKoduJSON();
-  _soruList = SoruKodu;
   _odemeList = this.referansService.getodemeSekliJSON();
   @ViewChild("KalemList", { static: true })
   private selectionList: MatSelectionList;

@@ -19,6 +19,9 @@ import {
  import { MatDialog } from '@angular/material/dialog';
  import { MatSnackBar } from "@angular/material/snack-bar";
  import { appModuleAnimation } from '../../../shared/animations/routerTransition';
+ import {
+  UserRoles
+} from "../../../shared/service-proxies/UserRoles";
 @Component({
   selector: 'app-yetkiler',
   animations: [appModuleAnimation()],
@@ -35,11 +38,17 @@ export class YetkilerComponent    implements OnInit {
     private _dialog: MatDialog,
     private _fb: FormBuilder,
     private snackBar: MatSnackBar,
+    private _userRoles:UserRoles,
     ) {
     // super(injector);
   }
  
   ngOnInit() {
+    if(!this._userRoles.canAdminRoles())
+    {
+      this.openSnackBar("Bu Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
+      this.beyanServis.notAuthorizeRole();    
+    }
     this.getAllYetki();
 
   }
@@ -103,10 +112,12 @@ export class YetkilerComponent    implements OnInit {
       
       });
     } else {
+     
       sonucDialog = this._dialog.open(DegistirYetkiComponent,{
         width: '700px',
         height:'600px',
         data: {id:yetki.id,
+          yetkiKodu:yetki.yetkiKodu,
           yetkiAdi: yetki.yetkiAdi,
           aciklama:yetki.aciklama,          
           aktif:yetki.aktif,

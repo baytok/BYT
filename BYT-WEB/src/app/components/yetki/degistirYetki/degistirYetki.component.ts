@@ -22,6 +22,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export interface DialogData {
   id: number;
+  yetkiKodu: string;
   yetkiAdi: string;
   aciklama: string;
   aktif:boolean;
@@ -49,6 +50,7 @@ export class DegistirYetkiComponent implements OnInit {
     this.yetkiForm = this._fb.group(
       {    
         id:[], 
+        yetkiKodu: new FormControl(this.data.yetkiKodu, [Validators.required, Validators.maxLength(15),]),
         yetkiAdi: new FormControl("", [Validators.required, Validators.maxLength(50),]),
         aciklama:new FormControl("", [Validators.required,Validators.maxLength(500)]), 
         aktif: [true],
@@ -75,12 +77,13 @@ export class DegistirYetkiComponent implements OnInit {
   loadYetkiForm(){
     this.yetkiForm.setValue({
       id: this.data.id,
+      yetkiKodu:this.data.yetkiKodu,
       yetkiAdi: this.data.yetkiAdi,
       aciklama:this.data.aciklama,
       aktif:this.data.aktif,
      
     });
-  }
+    }
  
   save(){
     this.submitted = true;
@@ -104,7 +107,7 @@ export class DegistirYetkiComponent implements OnInit {
     
     let yetki=new YetkiDto();
     yetki.init(this.yetkiForm.value);
-  
+    
       const promise = this.beyanServis
         .restoreYetki(yetki)
         .toPromise();

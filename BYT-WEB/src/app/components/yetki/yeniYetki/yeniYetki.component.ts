@@ -15,6 +15,9 @@ import {
   BeyannameServiceProxy,
   SessionServiceProxy
 } from "../../../../shared/service-proxies/service-proxies";
+import { 
+  yetkiProjeler, 
+} from "../../../../shared/helpers/referencesList";
 import {
   UserRoles
 } from "../../../../shared/service-proxies/UserRoles";
@@ -31,7 +34,7 @@ export class YeniYetkiComponent implements OnInit {
   yetkiForm:FormGroup;
   submitted: boolean = false;  
   yetkiDataSource: YetkiDto[]=[];
- 
+  _yetkiProjeList=yetkiProjeler;
   constructor(
     public dialogRef: MatDialogRef<YeniYetkiComponent>,
     private _fb: FormBuilder,
@@ -42,11 +45,7 @@ export class YeniYetkiComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(!this._userRoles.canBeyannameRoles())
-    {
-      this.openSnackBar("Bu Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
-      this.beyanServis.notAuthorizeRole();    
-    }
+    
     this.buildForm();
    
   }
@@ -61,8 +60,8 @@ export class YeniYetkiComponent implements OnInit {
  
   buildForm(): void {
     this.yetkiForm = this._fb.group(
-      {     
-        yetkiAdi: new FormControl("", [Validators.required, Validators.maxLength(50),]),
+      { yetkiKodu: new FormControl("", [Validators.required,Validators.maxLength(15),]),
+        yetkiAdi: new FormControl("", [ Validators.maxLength(50),]),
         aciklama:new FormControl("", [Validators.required, Validators.maxLength(500),]),
       
         aktif: [true],
@@ -89,16 +88,19 @@ export class YeniYetkiComponent implements OnInit {
      
       return;
     }
-    
+   
+    let yetkiKodu = this._yetkiProjeList.find(c=> c.kod == this.yetkiForm.get("yetkiKodu").value);
+    this.yetkiForm.get("yetkiAdi").setValue(yetkiKodu.aciklama);
+  
     let yeniYetki=new YetkiDto();
     yeniYetki.init(this.yetkiForm.value);
-  
+
       const promise = this.beyanServis
         .setYetki(yeniYetki)
         .toPromise();
       promise.then(
         result => {
-          console.log(result);
+        
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);       
 

@@ -181,7 +181,7 @@ export class DegistirKullaniciComponent implements OnInit {
 
     for (let item of this.kullaniciYetkileriDataSource) {
       for (let itm of this.yetkiDataSource) {  
-        if(item.yetkiId===itm.id)
+        if(item.yetkiKodu===itm.yetkiKodu)
         {
             this.kullaniciYetkiIsimleriDataSource.push(itm) ;
         }
@@ -190,12 +190,12 @@ export class DegistirKullaniciComponent implements OnInit {
     }
    
   }
-  isRoleChecked(yetkiId: number): boolean {
+  isRoleChecked(yetkiKodu: string): boolean {
     return this.defaultRoleCheckedStatus;
-    if (yetkiId === undefined){  return false;}
+    if (yetkiKodu === undefined){  return false;}
     else {
       for (let item of this.kullaniciYetkileriDataSource) {
-        if (item.yetkiId === yetkiId)
+        if (item.yetkiKodu === yetkiKodu)
             return true;
         
       }
@@ -203,7 +203,7 @@ export class DegistirKullaniciComponent implements OnInit {
     //  return _.includes(this.kullaniciYetkileriDataSource, yetkiId);
   }
   onRoleChange(yetki: YetkiDto, $event) {
-    this.checkedRolesMap[yetki.id] = $event.checked;
+    this.checkedRolesMap[yetki.yetkiKodu] = $event.checked;
   }
 
   
@@ -272,7 +272,7 @@ export class DegistirKullaniciComponent implements OnInit {
     for (let role of this.getCheckedRoles()) {
       let kullaniciYetki = new KullaniciYetkiDto();
 
-      kullaniciYetki.yetkiId = parseInt(role);
+      kullaniciYetki.yetkiKodu = role;
       kullaniciYetki.kullaniciKod = Kullanici.kullaniciKod;
       kullaniciYetki.aktif = true;
       this.kullaniciYetkileri.push(kullaniciYetki);

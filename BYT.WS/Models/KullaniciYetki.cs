@@ -18,16 +18,14 @@ namespace BYT.WS.Models
         [StringLength(15)]
         public string KullaniciKod { get; set; }
 
-        [Required]       
-        public int YetkiId { get; set; }
-               
+        [Required]
+        [StringLength(15)]
+        public string YetkiKodu { get; set; }               
         
        
         [Required]
         public bool Aktif { get; set; }
 
-        
-        [Required]
         public DateTime SonIslemZamani { get; set; }
 
     }

@@ -72,17 +72,18 @@ namespace BYT.WS.Services.Kullanici
                 //Sonuçlarımızı tuple olarak dönüyoruz.
 
                 var yetkiler = from a in _kullaniciContext.KullaniciYetki
-                               join b in _kullaniciContext.Yetki on a.YetkiId equals b.ID
+                               join b in _kullaniciContext.Yetki on a.YetkiKodu equals b.YetkiKodu
                                where a.Aktif==true && b.Aktif==true && a.KullaniciKod==KullaniciKod
-                               select new { b.ID, b.YetkiAdi };
+                               select new { b.YetkiKodu, b.YetkiAdi };
 
                 //   var yetkiler = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == KullaniciKod  && x.Aktif == true).Select(x=>x.YetkiId).ToArray();
                 List<KullaniciYetkileri> lstYetki = new List<KullaniciYetkileri>();
                 foreach (var item in yetkiler)
                 {
                     KullaniciYetkileri Yetki = new KullaniciYetkileri();
-                    Yetki.ID = item.ID;
+                    Yetki.YetkiKodu = item.YetkiKodu;
                     Yetki.YetkiAdi = item.YetkiAdi;
+                  
                     lstYetki.Add(Yetki);
                 }
 
@@ -92,7 +93,7 @@ namespace BYT.WS.Services.Kullanici
                 _kullaniciBilgi.Yetkiler = lstYetki;
                 return _kullaniciBilgi;
             }
-            catch (Exception)
+            catch (Exception exc)
             {
 
                 throw;

@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 
 import {
-  ulke,
+ 
   kimlikTuru,
   firmaTipi,
 } from "../../../../shared/helpers/referencesList";

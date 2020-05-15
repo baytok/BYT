@@ -33,7 +33,7 @@ export class UserRoles {
  
          for(let role of this.Yetkiler)
          {
-           if(role.id===2 || role.id===3)
+          if(role.yetkiKodu==="AD" || role.yetkiKodu==="DB")
             {          
               yetki=true;
               break;
@@ -55,7 +55,7 @@ export class UserRoles {
 
        for(let role of this.Yetkiler)
        {
-         if(role.id===2 || role.id===5)
+         if(role.yetkiKodu==="AD" || role.yetkiKodu==="OB")
           {          
             yetki=true;
             break;
@@ -74,10 +74,10 @@ export class UserRoles {
           for (let item of this.girisService.loggedRoles)
            this.Yetkiler.push(item);  
 
-
+    
        for(let role of this.Yetkiler)
        {
-         if(role.id===2)
+         if(role.yetkiKodu==="AD")
           {         
             yetki=true;
             break;

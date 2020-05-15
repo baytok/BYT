@@ -243,10 +243,14 @@ namespace BYT.WS.Controllers.api
                 try
                 {
                     var kullaniciValues = await _kullaniciContext.Kullanici.FirstOrDefaultAsync(v => v.ID == kullaniciId);
-                    var kullaniciYetkiValues = await _kullaniciContext.KullaniciYetki.FirstOrDefaultAsync(v => v.ID == kullaniciId);
+                    var kullaniciYetkiValues = await _kullaniciContext.KullaniciYetki.Where(v => v.KullaniciKod == kullaniciValues.KullaniciKod).ToListAsync();
 
                     _kullaniciContext.Entry(kullaniciValues).State = EntityState.Deleted;
-                    _kullaniciContext.Entry(kullaniciYetkiValues).State = EntityState.Deleted;
+                    foreach (var item in kullaniciYetkiValues)
+                    {
+                        _kullaniciContext.Entry(item).State = EntityState.Deleted;
+                    }
+                  
                     await _kullaniciContext.SaveChangesAsync();
 
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
@@ -663,7 +667,7 @@ namespace BYT.WS.Controllers.api
 
                         foreach (var itm in kullaniciYetki)
                         {
-                            var _kVr = _kullaniciYetkiler.FirstOrDefault(x => x.YetkiId == itm.YetkiId);
+                            var _kVr = _kullaniciYetkiler.FirstOrDefault(x => x.YetkiKodu == itm.YetkiKodu);
                             if (_kVr != null)
                             {
                                 _kVr.Aktif = true;

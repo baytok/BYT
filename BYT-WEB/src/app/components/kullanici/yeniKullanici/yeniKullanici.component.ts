@@ -139,7 +139,7 @@ export class YeniKullaniciComponent implements OnInit {
   }
 
   onRoleChange(yetki: YetkiDto, $event) {
-    this.checkedRolesMap[yetki.id] = $event.checked;
+    this.checkedRolesMap[yetki.yetkiKodu] = $event.checked;
     
   }
 
@@ -182,8 +182,8 @@ export class YeniKullaniciComponent implements OnInit {
     for(let role of this.getCheckedRoles())
     { 
       let kullaniciYetki= new KullaniciYetkiDto();
-    
-      kullaniciYetki.yetkiId=parseInt(role);
+      console.log(role);
+      kullaniciYetki.yetkiKodu=role;
       kullaniciYetki.kullaniciKod=yeniKullanici.kullaniciKod;
       kullaniciYetki.aktif=true;
       this.kullaniciYetkileri.push(kullaniciYetki);  

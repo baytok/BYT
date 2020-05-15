@@ -19,6 +19,10 @@ namespace BYT.WS.Models
         public string YetkiAdi { get; set; }
 
         [Required]
+        [StringLength(15)]
+        public string YetkiKodu { get; set; }
+
+        [Required]
         [StringLength(500)]
         public string Aciklama { get; set; }
         
@@ -26,8 +30,7 @@ namespace BYT.WS.Models
         [Required]
         public bool Aktif { get; set; }
 
-        
-        [Required]
+      
         public DateTime SonIslemZamani { get; set; }
 
     }

@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     
-   console.log(this._beyanSession.token);
+  // console.log(this._beyanSession.token);
   }
   
   onResize(event) {
