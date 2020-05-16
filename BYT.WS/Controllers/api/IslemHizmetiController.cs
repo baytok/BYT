@@ -11,8 +11,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace BYT.WS.Controllers.api
 {
@@ -25,10 +27,11 @@ namespace BYT.WS.Controllers.api
 
         private readonly ServisCredential _servisCredential;
 
-        public IslemHizmetiController(IslemTarihceDataContext islemcontext, IOptions<ServisCredential> servisCredential)
+        public ILogger<IslemHizmetiController> _logger;
+        public IslemHizmetiController(IslemTarihceDataContext islemcontext, IOptions<ServisCredential> servisCredential, ILogger<IslemHizmetiController> logger)
         {
             _islemContext = islemcontext;
-
+            _logger = logger;
             _servisCredential = new ServisCredential();
             _servisCredential.username = servisCredential.Value.username;
             _servisCredential.password = servisCredential.Value.password;
@@ -42,8 +45,8 @@ namespace BYT.WS.Controllers.api
             List<Bilgi> lstBlg = new List<Bilgi>();
             try
             {
-               
 
+                _logger.LogInformation("Information mesajı...");
                 var islemValues = await _islemContext.Islem.ToListAsync();
 
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
@@ -75,19 +78,24 @@ namespace BYT.WS.Controllers.api
         [HttpGet("{Kullanici}")]
         public async Task<List<Islem>> GetIslemlerFromKullanici(string Kullanici)
         {
+        
+
             try
             {
                 ServisDurum _servisDurum = new ServisDurum();
 
                 var islemValues =  await _islemContext.Islem.Where(v => v.Kullanici == Kullanici.Trim()).ToListAsync();
                 //var result = new Sonuc<object>() { Veri = islemValues, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
-               
+
+                var Message = $"GetIslemlerFromKullanici {DateTime.UtcNow.ToLongTimeString()}";
+                Log.Information("Message displayed: {Message}", Message);
+               // _logger.LogInformation("Message displayed: {Message}", Message);
                 return islemValues;
 
             }
             catch (Exception ex)
             {
-
+                _logger.LogError("Error mesajı...");
                 return null;
             }
 

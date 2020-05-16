@@ -1,0 +1,1 @@
+Log Level : Information | Event ID : 0 | Event Name :  | Formatter : Message displayed: GetIslemlerFromKullanici 12:27:27

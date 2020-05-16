@@ -401,9 +401,6 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win\
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.csprojAssemblyReference.cache
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\staticwebassets\BYT.WS.StaticWebAssets.Manifest.cache
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\staticwebassets\BYT.WS.StaticWebAssets.xml
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cs
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cache
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.sourcelink.json
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.AssemblyInfoInputs.cache
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.AssemblyInfo.cs
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.RazorTargetAssemblyInfo.cache
@@ -411,3 +408,25 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.csproj
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.pdb
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Connected Services\Microsoft WCF Web Service Reference Provider\ConnectedService.json
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.AspNetCore.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Extensions.Hosting.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Formatting.Compact.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Settings.Configuration.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Sinks.Console.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Sinks.Debug.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Sinks.File.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.Azure.Services.AppAuthentication.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Sinks.MSSqlServer.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Sinks.PeriodicBatching.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Sinks.Seq.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cs
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cache
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.sourcelink.json

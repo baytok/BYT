@@ -7,6 +7,7 @@ using BYT;
 using BYT.WS.Data;
 using BYT.WS.Entities;
 using BYT.WS.Helpers;
+using BYT.WS.Services;
 using BYT.WS.Services.Kullanici;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -28,14 +29,15 @@ namespace BYT
         public string password { get; set; }
     }
 
+  
 
     public class Startup
     {
-       
-        public Startup(IConfiguration configuration)
+        public Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment { get; set; }
+        public Startup(IConfiguration configuration, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
-
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IConfiguration Configuration { get; }
@@ -126,17 +128,18 @@ namespace BYT
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            loggerFactory.AddProvider(new LoggerProvider(_hostingEnvironment));
             app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseRouting();
             app.UseAuthorization();
+         
 
             app.UseEndpoints(endpoints =>
             {

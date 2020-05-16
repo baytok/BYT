@@ -16,6 +16,8 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Serilog;
 
 namespace BYT.WS.Controllers.api
 {
@@ -73,7 +75,7 @@ namespace BYT.WS.Controllers.api
                     _servisDurum.Hatalar = lstht;
                 }
 
-
+                Log.Information("Message displayed: {Message}", JsonConvert.SerializeObject(_servisDurum, Formatting.None));
 
                 return _servisDurum;
 
@@ -103,6 +105,7 @@ namespace BYT.WS.Controllers.api
 
                 var kullaniciValues = await _kullaniciContext.Kullanici.ToListAsync();
 
+                Log.Information("Message displayed: {Message}", JsonConvert.SerializeObject(kullaniciValues, Formatting.None));
                 return kullaniciValues;
 
             }
