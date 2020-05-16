@@ -2104,7 +2104,7 @@ export class KullaniciServisDto {
     
       this.ServisDurumKodu = data["servisDurumKodlari"];
       this.Sonuc=this.getSonuc();     
-      this.SonucVeriler= this.Bilgiler[0].sonucVeriler;
+      //this.SonucVeriler= this.Bilgiler[0].sonucVeriler;
      
     }
   }
@@ -2146,7 +2146,7 @@ export class KullaniciServisDto {
   
    if(this.ServisDurumKodu===1)
    {
-  
+   
     if (this.KullaniciBilgiler!=null){ 
      
         result={
@@ -2160,6 +2160,7 @@ export class KullaniciServisDto {
   }
    else
    {
+    
     if (this.Hatalar) {
      
       for (let item of this.Hatalar) 

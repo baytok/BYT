@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BYT.WS.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -22,8 +23,15 @@ namespace BYT
          .Build();
         public static void Main(string[] args)
         {
+            var appSettingsSection = Configuration.GetSection("SeriLog");
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            bool IsLoggingEnabled = appSettings.SeriLogEnable;
+
+
             Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(Configuration)
+            .Filter.ByExcluding(_ => !IsLoggingEnabled) // true olursa loglama kapanýyor
+            // Aþaðýdaki bölüm CreateLogger kadar kapatýlýrsa daha detaylý log tutmaya baþlýyor
             .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
             .WriteTo.Console()

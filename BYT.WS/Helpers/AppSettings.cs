@@ -8,6 +8,7 @@ namespace BYT.WS.Helpers
     public class AppSettings
     {
         public string TokenSecretKey { get; set; }
+        public bool SeriLogEnable { get; set; }
 
     }
 }

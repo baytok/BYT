@@ -37,30 +37,29 @@ export class GirisComponent implements OnInit {
     });
   }
   login() {    
+    this.submitting = true;   
     const promise = this.girisService
     .getKullaniciGiris(this.girisService.kullaniciModel.kullanici,this.girisService.kullaniciModel.sifre)
     .toPromise();
   promise.then(
     result => {
-    
+  
       const servisSonuc = new KullaniciServisDto();
       servisSonuc.init(result);
-     
-      var token = JSON.parse(servisSonuc.Sonuc).Token;
-      this._beyanSession.token=token;
-      var kullaniciKod=JSON.parse(servisSonuc.Sonuc).KullaniciKod;
-      var kullaniciAdi=JSON.parse(servisSonuc.Sonuc).KullaniciAdi;
-      var yetkiler= JSON.parse(servisSonuc.Sonuc).Yetkiler;
       
-      this.girisService.setLoginInfo(kullaniciKod,token,kullaniciAdi,yetkiler);
-     
-      if (servisSonuc.ServisDurumKodu===AppServisDurumKodlari.Available ) {     
-        this.submitting = true;   
+      if (servisSonuc.ServisDurumKodu===AppServisDurumKodlari.Available ) {   
+          var token = JSON.parse(servisSonuc.Sonuc).Token;
+          this._beyanSession.token=token;
+          var kullaniciKod=JSON.parse(servisSonuc.Sonuc).KullaniciKod;
+          var kullaniciAdi=JSON.parse(servisSonuc.Sonuc).KullaniciAdi;
+          var yetkiler= JSON.parse(servisSonuc.Sonuc).Yetkiler;
+
+        this.girisService.setLoginInfo(kullaniciKod,token,kullaniciAdi,yetkiler);
         this.router.navigateByUrl('/app');
       }
       else 
-      {  this.submitting = false;
-        this.openSnackBar(servisSonuc.Sonuc , "Tamam");
+      {  
+         this.openSnackBar(servisSonuc.Sonuc , "Tamam");
       }
     },
     err => {
