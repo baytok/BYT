@@ -7,8 +7,75 @@ using System.Threading.Tasks;
 
 namespace BYT.WS.Models
 {
-    public class OzetBeyanBilgileri
-    { }
+    public class OzetBeyanGelen
+    {
+        public string KullaniciAdi { get; set; }
+        public string RefID { get; set; }
+        public string Sifre { get; set; }
+        public string IP { get; set; }
+        public OzetBeyanBilgisi ozetBeyanBilgisi { get; set; }
+    }
+    public class OzetBeyanBilgisi
+    {
+        public string BeyanSahibiVergiNo { get; set; }
+        public string BeyanTuru { get; set; }
+        public string Diger { get; set; }
+        public string DorseNo1 { get; set; }
+        public string DorseNo1Uyrugu { get; set; }
+        public string DorseNo2 { get; set; }
+        public string DorseNo2Uyrugu { get; set; }
+        public int EkBelgeSayisi { get; set; }
+        public string EmniyetGuvenlik { get; set; }
+        public string GrupTasimaSenediNo { get; set; }
+        public string GumrukIdaresi { get; set; }
+        public string KullaniciKodu { get; set; }
+        public string Kurye { get; set; }
+        public string LimanYerAdiBos { get; set; }
+        public string LimanYerAdiYuk { get; set; }
+        public string OncekiBeyanNo { get; set; }
+        public string PlakaSeferNo { get; set; }
+        public string ReferansNumarasi { get; set; }
+        public string RefNo { get; set; }
+        public string Rejim { get; set; }
+        public string TasitinAdi { get; set; }
+        public string TasimaSekli { get; set; }
+        public string TasiyiciVergiNo { get; set; }
+        public string TirAtaKarneNo { get; set; }
+        public string UlkeKodu { get; set; }
+        public string UlkeKoduBos { get; set; }
+        public string UlkeKoduYuk { get; set; }
+        public string YuklemeBosaltmaYeri { get; set; }
+        public string VarisCikisGumrukIdaresi { get; set; }
+        public string VarisTarihSaati { get; set; }
+        public string XmlRefId { get; set; }
+
+        public List<TasimaSenediBilgisi> TasimaSenetleri { get; set; }
+        public List<OzbyAcmaBilgisi> OzbyAcmalar { get; set; }
+
+        public List<TasitinUgradigiUlkeBilgisi> TasitinUgradigiUlkeler { get; set; }      
+
+        public FirmaBilgisi TasiyiciFirma { get; set; }
+
+    }
+
+    public class TasimaSenediBilgisi
+    { 
+    }
+    public class OzbyAcmaBilgisi
+    {
+    }
+    public class TasitinUgradigiUlkeBilgisi
+    {
+        public DateTime HareketTarihSaati { get; set; }
+        public string LimanYerAdi { get; set; }
+        public string UlkeKodu { get; set; }
+
+    }
+    public class FirmaBilgisi
+    {
+    }
+
+
     public class ObBeyan
     {
 
@@ -119,7 +186,7 @@ namespace BYT.WS.Models
         public string TescilStatu { get; set; }
 
         public DateTime? TescilTarihi { get; set; }
-        
+
         public DateTime? OlsuturulmaTarihi { get; set; }
 
         public DateTime? SonIslemZamani { get; set; }
@@ -241,7 +308,7 @@ namespace BYT.WS.Models
         [StringLength(1500)]
         public string Aciklama { get; set; }
 
-       
+
         public DateTime? SonIslemZamani { get; set; }
 
     }
@@ -361,7 +428,7 @@ namespace BYT.WS.Models
     }
     public class ObTasimaSenet
     {
-       
+
 
         [Required]
         [StringLength(30)]
@@ -449,7 +516,7 @@ namespace BYT.WS.Models
         [StringLength(20)]
         public string AktarmaTipi { get; set; }
         public DateTime? SonIslemZamani { get; set; }
-   
+
     }
     public class ObIhracat
     {
@@ -586,8 +653,8 @@ namespace BYT.WS.Models
         public string OlcuBirimi { get; set; }
         public DateTime? SonIslemZamani { get; set; }
     }
-    
-  
+
+
 }
 
 

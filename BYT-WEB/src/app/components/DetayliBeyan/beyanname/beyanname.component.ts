@@ -663,18 +663,18 @@ export class BeyannameComponent implements OnInit {
     }
   }
   yeniBeyanname() {
-    this._beyanname.beyanInternalNo='Boş';
-    this._beyanname.tescilStatu='';
+    
     this.beyannameForm.reset();
-    this.beyannameForm.enable();
+    this.beyannameForm.enable();   
     this.islemInput.nativeElement.value='';
-    this.beyanInternalNo='';
+    this.beyanInternalNo='Boş';   
     this.beyannameForm.markAllAsTouched();
+    
     this.submitted = false;
     this.ihracatEditable = false;
     this.ithalatEditable = false;
     this.editable=false;
-   
+
   } 
   duzeltBeyanname() {
    
@@ -739,7 +739,7 @@ export class BeyannameComponent implements OnInit {
      
       return;
     }
-    this.beyannameForm.get("beyanInternalNo").setValue(this._beyanname.beyanInternalNo);
+    this.beyannameForm.get("beyanInternalNo").setValue(this.beyanInternalNo);
     this.beyannameForm.get("kullanici").setValue(this.girisService.loggedKullanici);
 
     let konteyner =this.beyannameForm.get("konteyner").value ===true ?"EVET":"HAYIR";
@@ -764,7 +764,7 @@ export class BeyannameComponent implements OnInit {
            
           if (yeniislemInternalNo != null) {
             this.islemInput.nativeElement.value=yeniislemInternalNo;
-            this._beyanname.beyanInternalNo=yeniislemInternalNo;
+            this.beyanInternalNo=yeniislemInternalNo;
             this._beyanSession.islemInternalNo=yeniislemInternalNo;
             this.beyanInternalNo=yeniislemInternalNo;
             this.getBeyannameFromIslem(yeniislemInternalNo);

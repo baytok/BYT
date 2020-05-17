@@ -89,7 +89,7 @@ namespace BYT.WS.Controllers.api
 
                 var Message = $"GetIslemlerFromKullanici {DateTime.UtcNow.ToLongTimeString()}";
                 Log.Information("Message displayed: {Message}", Message);
-               // _logger.LogInformation("Message displayed: {Message}", Message);
+               _logger.LogInformation("Message displayed: {Message}", Message);
                 return islemValues;
 
             }

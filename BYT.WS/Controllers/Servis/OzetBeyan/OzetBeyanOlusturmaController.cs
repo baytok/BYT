@@ -18,6 +18,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace BYT.WS.Controllers.Servis.OzetBeyan
 {
@@ -85,9 +86,9 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                     {
                      
 
-                        var beyanValues = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == beyan.OzetBeyanInternalNo && v.TescilStatu != "Tescil Edildi");
+                        var ozetBeyanValues = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == beyan.OzetBeyanInternalNo && v.TescilStatu != "Tescil Edildi");
                         var beyannameContext = new OzetBeyanDataContext(options);
-                        if (beyanValues != null)
+                        if (ozetBeyanValues != null)
                         {
                             _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.OzetBeyanInternalNo);
 
@@ -161,7 +162,9 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 _servisDurum.Bilgiler = lstBlg;
 
                 var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-               // string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+                // string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+                var Message = $"PostBeyanname {DateTime.UtcNow.ToLongTimeString()}";
+                Log.Information("Message displayed: {Message}/{Gelen}/{Sonuç}", Message, JsonConvert.SerializeObject(beyan), JsonConvert.SerializeObject(_servisDurum));
 
                 return _servisDurum;
             }

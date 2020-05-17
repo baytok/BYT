@@ -56,7 +56,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 if (islemValues != null)
                 {
                     var tarihceValues = await _islemTarihceContext.Tarihce.Where(v => v.IslemInternalNo == islemValues.IslemInternalNo).ToListAsync();
-                    var beyanValues = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
+                    var ozetBeyanValues = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
                     var senetValues = await _beyannameContext.ObTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     var ugrakValues = await _beyannameContext.ObUgrakUlke.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
                     var ihracatValues = await _beyannameContext.ObIhracat.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
@@ -74,7 +74,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         try
                         {
 
-                            _beyannameContext.Entry(beyanValues).State = EntityState.Deleted;
+                            _beyannameContext.Entry(ozetBeyanValues).State = EntityState.Deleted;
                             foreach (var item in senetValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;

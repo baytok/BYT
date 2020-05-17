@@ -56,11 +56,11 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
                 if (islemValues != null)
                 {
-                    var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
+                    var ozetBeyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
                     var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
-                    var internalrefid = _beyannameContext.GetRefIdNextSequenceValue(beyanValues.Rejim);
-                    string InternalNo = beyanValues.Rejim+beyanValues.Kullanici + "DB" + internalrefid.ToString().PadLeft(5, '0');
+                    var internalrefid = _beyannameContext.GetRefIdNextSequenceValue(ozetBeyanValues.Rejim);
+                    string InternalNo = ozetBeyanValues.Rejim+ozetBeyanValues.Kullanici + "DB" + internalrefid.ToString().PadLeft(5, '0');
                     
 
                     List<DbKalem> lstKalem = new List<DbKalem>();
@@ -75,69 +75,69 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     List<DbKiymetBildirim> lstKiymet = new List<DbKiymetBildirim>();
                     List<DbKiymetBildirimKalem> lstKiymetKalem = new List<DbKiymetBildirimKalem>();
                 
-                    var newbeyanValues = new DbBeyan
+                    var newozetBeyanValues = new DbBeyan
                     {
-                        Aciklamalar = beyanValues.Aciklamalar,
-                        AliciSaticiIliskisi = beyanValues.AliciSaticiIliskisi,
-                        AliciVergiNo = beyanValues.AliciVergiNo,
-                        AntrepoKodu = beyanValues.AntrepoKodu,
-                        AsilSorumluVergiNo = beyanValues.AsilSorumluVergiNo,
-                        BankaKodu = beyanValues.BankaKodu,
-                        BasitlestirilmisUsul = beyanValues.BasitlestirilmisUsul,
-                        //BeyannameNo = beyanValues.BeyannameNo,
-                        BeyanSahibiVergiNo = beyanValues.BeyanSahibiVergiNo,
-                        BirlikKayitNumarasi = beyanValues.BirlikKayitNumarasi,
-                        BirlikKriptoNumarasi = beyanValues.BirlikKriptoNumarasi,
-                        CikistakiAracinKimligi = beyanValues.CikistakiAracinKimligi,
-                        CikistakiAracinTipi = beyanValues.CikistakiAracinTipi,
-                        CikistakiAracinUlkesi = beyanValues.CikistakiAracinUlkesi,
-                        CikisUlkesi = beyanValues.CikisUlkesi,
-                        EsyaninBulunduguYer = beyanValues.EsyaninBulunduguYer,
-                        GidecegiSevkUlkesi = beyanValues.GidecegiSevkUlkesi,
-                        GidecegiUlke = beyanValues.GidecegiUlke,
-                        GirisGumrukIdaresi = beyanValues.GirisGumrukIdaresi,
-                        GondericiVergiNo = beyanValues.GondericiVergiNo,
-                        Gumruk = beyanValues.Gumruk,
-                        IsleminNiteligi = beyanValues.IsleminNiteligi,
-                        KapAdedi = beyanValues.KapAdedi,
-                        Konteyner = beyanValues.Konteyner,
-                        Kullanici = beyanValues.Kullanici,
-                        LimanKodu = beyanValues.LimanKodu,
-                        Mail1 = beyanValues.Mail1,
-                        Mail2 = beyanValues.Mail2,
-                        Mail3 = beyanValues.Mail3,
-                        Mobil1 = beyanValues.Mobil1,
-                        Mobil2 = beyanValues.Mobil2,
-                        MusavirVergiNo = beyanValues.MusavirVergiNo,
-                        OdemeAraci = beyanValues.OdemeAraci,
-                        MusavirReferansNo = beyanValues.MusavirReferansNo,
-                        ReferansTarihi = beyanValues.ReferansTarihi,
-                        SinirdakiAracinKimligi = beyanValues.SinirdakiAracinKimligi,
-                        SinirdakiAracinTipi = beyanValues.SinirdakiAracinTipi,
-                        SinirdakiAracinUlkesi = beyanValues.SinirdakiAracinUlkesi,
-                        SinirdakiTasimaSekli = beyanValues.SinirdakiTasimaSekli,
-                        TasarlananGuzergah = beyanValues.TasarlananGuzergah,
-                        TelafiEdiciVergi = beyanValues.TelafiEdiciVergi,
+                        Aciklamalar = ozetBeyanValues.Aciklamalar,
+                        AliciSaticiIliskisi = ozetBeyanValues.AliciSaticiIliskisi,
+                        AliciVergiNo = ozetBeyanValues.AliciVergiNo,
+                        AntrepoKodu = ozetBeyanValues.AntrepoKodu,
+                        AsilSorumluVergiNo = ozetBeyanValues.AsilSorumluVergiNo,
+                        BankaKodu = ozetBeyanValues.BankaKodu,
+                        BasitlestirilmisUsul = ozetBeyanValues.BasitlestirilmisUsul,
+                        //BeyannameNo = ozetBeyanValues.BeyannameNo,
+                        BeyanSahibiVergiNo = ozetBeyanValues.BeyanSahibiVergiNo,
+                        BirlikKayitNumarasi = ozetBeyanValues.BirlikKayitNumarasi,
+                        BirlikKriptoNumarasi = ozetBeyanValues.BirlikKriptoNumarasi,
+                        CikistakiAracinKimligi = ozetBeyanValues.CikistakiAracinKimligi,
+                        CikistakiAracinTipi = ozetBeyanValues.CikistakiAracinTipi,
+                        CikistakiAracinUlkesi = ozetBeyanValues.CikistakiAracinUlkesi,
+                        CikisUlkesi = ozetBeyanValues.CikisUlkesi,
+                        EsyaninBulunduguYer = ozetBeyanValues.EsyaninBulunduguYer,
+                        GidecegiSevkUlkesi = ozetBeyanValues.GidecegiSevkUlkesi,
+                        GidecegiUlke = ozetBeyanValues.GidecegiUlke,
+                        GirisGumrukIdaresi = ozetBeyanValues.GirisGumrukIdaresi,
+                        GondericiVergiNo = ozetBeyanValues.GondericiVergiNo,
+                        Gumruk = ozetBeyanValues.Gumruk,
+                        IsleminNiteligi = ozetBeyanValues.IsleminNiteligi,
+                        KapAdedi = ozetBeyanValues.KapAdedi,
+                        Konteyner = ozetBeyanValues.Konteyner,
+                        Kullanici = ozetBeyanValues.Kullanici,
+                        LimanKodu = ozetBeyanValues.LimanKodu,
+                        Mail1 = ozetBeyanValues.Mail1,
+                        Mail2 = ozetBeyanValues.Mail2,
+                        Mail3 = ozetBeyanValues.Mail3,
+                        Mobil1 = ozetBeyanValues.Mobil1,
+                        Mobil2 = ozetBeyanValues.Mobil2,
+                        MusavirVergiNo = ozetBeyanValues.MusavirVergiNo,
+                        OdemeAraci = ozetBeyanValues.OdemeAraci,
+                        MusavirReferansNo = ozetBeyanValues.MusavirReferansNo,
+                        ReferansTarihi = ozetBeyanValues.ReferansTarihi,
+                        SinirdakiAracinKimligi = ozetBeyanValues.SinirdakiAracinKimligi,
+                        SinirdakiAracinTipi = ozetBeyanValues.SinirdakiAracinTipi,
+                        SinirdakiAracinUlkesi = ozetBeyanValues.SinirdakiAracinUlkesi,
+                        SinirdakiTasimaSekli = ozetBeyanValues.SinirdakiTasimaSekli,
+                        TasarlananGuzergah = ozetBeyanValues.TasarlananGuzergah,
+                        TelafiEdiciVergi = ozetBeyanValues.TelafiEdiciVergi,
                         TescilStatu = "Olusturuldu",
-                        //TescilTarihi = beyanValues.TescilTarihi,
-                        TeslimSekli = beyanValues.TeslimSekli,
-                        TeslimSekliYeri = beyanValues.TeslimSekliYeri,
-                        TicaretUlkesi = beyanValues.TicaretUlkesi,
-                        ToplamFatura = beyanValues.ToplamFatura,
-                        ToplamFaturaDovizi = beyanValues.ToplamFaturaDovizi,
-                        ToplamNavlun = beyanValues.ToplamNavlun,
-                        ToplamNavlunDovizi = beyanValues.ToplamNavlunDovizi,
-                        ToplamSigorta = beyanValues.ToplamSigorta,
-                        ToplamSigortaDovizi = beyanValues.ToplamSigortaDovizi,
-                        ToplamYurtDisiHarcamalar = beyanValues.ToplamYurtDisiHarcamalar,
-                        ToplamYurtDisiHarcamalarDovizi = beyanValues.ToplamYurtDisiHarcamalarDovizi,
-                        ToplamYurtIciHarcamalar = beyanValues.ToplamYurtIciHarcamalar,
-                        VarisGumrukIdaresi = beyanValues.VarisGumrukIdaresi,
-                        YukBelgeleriSayisi = beyanValues.YukBelgeleriSayisi,
-                        YuklemeBosaltmaYeri = beyanValues.YuklemeBosaltmaYeri,
+                        //TescilTarihi = ozetBeyanValues.TescilTarihi,
+                        TeslimSekli = ozetBeyanValues.TeslimSekli,
+                        TeslimSekliYeri = ozetBeyanValues.TeslimSekliYeri,
+                        TicaretUlkesi = ozetBeyanValues.TicaretUlkesi,
+                        ToplamFatura = ozetBeyanValues.ToplamFatura,
+                        ToplamFaturaDovizi = ozetBeyanValues.ToplamFaturaDovizi,
+                        ToplamNavlun = ozetBeyanValues.ToplamNavlun,
+                        ToplamNavlunDovizi = ozetBeyanValues.ToplamNavlunDovizi,
+                        ToplamSigorta = ozetBeyanValues.ToplamSigorta,
+                        ToplamSigortaDovizi = ozetBeyanValues.ToplamSigortaDovizi,
+                        ToplamYurtDisiHarcamalar = ozetBeyanValues.ToplamYurtDisiHarcamalar,
+                        ToplamYurtDisiHarcamalarDovizi = ozetBeyanValues.ToplamYurtDisiHarcamalarDovizi,
+                        ToplamYurtIciHarcamalar = ozetBeyanValues.ToplamYurtIciHarcamalar,
+                        VarisGumrukIdaresi = ozetBeyanValues.VarisGumrukIdaresi,
+                        YukBelgeleriSayisi = ozetBeyanValues.YukBelgeleriSayisi,
+                        YuklemeBosaltmaYeri = ozetBeyanValues.YuklemeBosaltmaYeri,
                         RefNo = InternalNo,
                         BeyanInternalNo = InternalNo,
-                        Rejim = beyanValues.Rejim,
+                        Rejim = ozetBeyanValues.Rejim,
                         OlsuturulmaTarihi=DateTime.Now
                     };
 
@@ -217,8 +217,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             YurtIciKultur = x.YurtIciKultur,
                             YurtIciLiman = x.YurtIciLiman,
                             YurtIciTahliye = x.YurtIciTahliye,
-                            BeyanInternalNo = newbeyanValues.BeyanInternalNo,
-                            KalemInternalNo = newbeyanValues.BeyanInternalNo + "|" + x.KalemSiraNo
+                            BeyanInternalNo = newozetBeyanValues.BeyanInternalNo,
+                            KalemInternalNo = newozetBeyanValues.BeyanInternalNo + "|" + x.KalemSiraNo
 
                         };
 
@@ -333,12 +333,12 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     var teminatValues = await _beyannameContext.DbTeminat.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     teminatValues.ForEach(x =>
                     {
-                        x.BeyanInternalNo = newbeyanValues.BeyanInternalNo;
+                        x.BeyanInternalNo = newozetBeyanValues.BeyanInternalNo;
                     });
                     var firmaValues = await _beyannameContext.DbFirma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     firmaValues.ForEach(x =>
                     {
-                        x.BeyanInternalNo = newbeyanValues.BeyanInternalNo;
+                        x.BeyanInternalNo = newozetBeyanValues.BeyanInternalNo;
                     });
 
 
@@ -355,8 +355,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             BaskaRejim = o.BaskaRejim,
                             IslemKapsami = o.IslemKapsami,
                             OzetBeyanNo = o.OzetBeyanNo,
-                            BeyanInternalNo = newbeyanValues.BeyanInternalNo,
-                            OzetBeyanInternalNo = newbeyanValues.BeyanInternalNo + "|" + i.ToString()
+                            BeyanInternalNo = newozetBeyanValues.BeyanInternalNo,
+                            OzetBeyanInternalNo = newozetBeyanValues.BeyanInternalNo + "|" + i.ToString()
                         };
                         i++;
                         var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == o.OzetBeyanInternalNo).ToListAsync();
@@ -407,8 +407,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     {
                         DbKiymetBildirim kiymet = new DbKiymetBildirim
                         {
-                            BeyanInternalNo=newbeyanValues.BeyanInternalNo,
-                            KiymetInternalNo=newbeyanValues.BeyanInternalNo,
+                            BeyanInternalNo=newozetBeyanValues.BeyanInternalNo,
+                            KiymetInternalNo=newozetBeyanValues.BeyanInternalNo,
                             AliciSatici = k.AliciSatici,
                             AliciSaticiAyrintilar =k.AliciSaticiAyrintilar,
                             Edim=k.Edim,
@@ -433,7 +433,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         {
                             DbKiymetBildirimKalem kkalem = new DbKiymetBildirimKalem
                             {
-                                BeyanInternalNo = newbeyanValues.BeyanInternalNo,
+                                BeyanInternalNo = newozetBeyanValues.BeyanInternalNo,
                                 KiymetInternalNo = kiymet.BeyanInternalNo,
                                 BeyannameKalemNo=kk.BeyannameKalemNo,
                                 DigerOdemeler=kk.DigerOdemeler,
@@ -467,7 +467,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         try
                         {
 
-                            _beyannameContext.Entry(newbeyanValues).State = EntityState.Added;
+                            _beyannameContext.Entry(newozetBeyanValues).State = EntityState.Added;
                             foreach (var item in lstKalem)
                             {
                                 item.SonIslemZamani = DateTime.Now;
@@ -537,13 +537,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
 
                             Islem _islem = new Islem();
-                            _islem.Kullanici = newbeyanValues.Kullanici;
+                            _islem.Kullanici = newozetBeyanValues.Kullanici;
                             _islem.IslemTipi = "";
                             _islem.BeyanTipi = "DetayliBeyan";
                             _islem.IslemDurumu = "Olusturuldu";
-                            _islem.RefNo = newbeyanValues.RefNo;
-                            _islem.BeyanInternalNo = newbeyanValues.BeyanInternalNo;
-                            _islem.IslemInternalNo = newbeyanValues.BeyanInternalNo;
+                            _islem.RefNo = newozetBeyanValues.RefNo;
+                            _islem.BeyanInternalNo = newozetBeyanValues.BeyanInternalNo;
+                            _islem.IslemInternalNo = newozetBeyanValues.BeyanInternalNo;
                             _islem.OlusturmaZamani = DateTime.Now;
                             _islem.SonIslemZamani = DateTime.Now;
                             _islem.GonderimSayisi = 0;
@@ -555,7 +555,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                             _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                             List<Internal.Bilgi> lstbilgi = new List<Internal.Bilgi>();
-                            lstbilgi.Add(new Bilgi { IslemTipi = "Beyanname Kopyalama", ReferansNo = newbeyanValues.BeyanInternalNo, Sonuc = "Kopyalama Başarılı", SonucVeriler = null, GUID = null });
+                            lstbilgi.Add(new Bilgi { IslemTipi = "Beyanname Kopyalama", ReferansNo = newozetBeyanValues.BeyanInternalNo, Sonuc = "Kopyalama Başarılı", SonucVeriler = null, GUID = null });
                             _servisDurum.Bilgiler = lstbilgi;
 
                             return _servisDurum;

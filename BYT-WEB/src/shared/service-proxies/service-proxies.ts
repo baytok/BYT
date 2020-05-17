@@ -429,6 +429,40 @@ export class BeyannameServiceProxy {
    
     
   }
+  OzetBeyanMesajiHazirla(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/OzetBeyan/OzetBeyanTescilGonderim/" +
+        IslemInternalNo + "/" + Kullanici,null,httpOptions  
+        );
+   
+    
+  }
+  OzetBeyanGonderimi(IslemInternalNo, Kullanici, guid) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/OzetBeyan/OzetBeyanTescilGonderim/" +
+        IslemInternalNo + "/" + Kullanici+"/"+guid,null,httpOptions  
+        );
+   
+    
+  }
   getSonucSorgula(Guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;

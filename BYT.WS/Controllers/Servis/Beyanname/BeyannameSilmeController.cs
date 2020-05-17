@@ -57,7 +57,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 if (islemValues != null)
                 {
                     var tarihceValues = await _islemTarihceContext.Tarihce.Where(v => v.IslemInternalNo == islemValues.IslemInternalNo).ToListAsync();
-                    var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
+                    var ozetBeyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
                     var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     var tamamlayiciValues = await _beyannameContext.DbTamamlayiciBilgi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
                     var tcgbacmaValues = await _beyannameContext.DbBeyannameAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
@@ -77,7 +77,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         try
                         {
 
-                            _beyannameContext.Entry(beyanValues).State = EntityState.Deleted;
+                            _beyannameContext.Entry(ozetBeyanValues).State = EntityState.Deleted;
                             foreach (var item in kalemValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;

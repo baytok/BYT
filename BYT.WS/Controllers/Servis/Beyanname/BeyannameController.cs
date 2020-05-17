@@ -57,7 +57,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
                 if (islemValues != null)
                 {
-                    var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
+                    var ozetBeyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
                     var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     var tamamlayiciValues = await _beyannameContext.DbTamamlayiciBilgi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                     var tcgbacmaValues = await _beyannameContext.DbBeyannameAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
@@ -74,7 +74,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
 
 
-                    _beyanname.beyanname = beyanValues;
+                    _beyanname.beyanname = ozetBeyanValues;
                     _beyanname.kalemler = kalemValues;
                     _beyanname.tamamlayiciBilgi = tamamlayiciValues;
                     _beyanname.tcgbAcma = tcgbacmaValues;

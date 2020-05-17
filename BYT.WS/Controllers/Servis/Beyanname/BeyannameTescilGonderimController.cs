@@ -21,6 +21,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Serilog;
 
 namespace BYT.WS.Controllers.Servis.Beyanname
 {
@@ -66,7 +67,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             {
 
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim());
-                var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
+                var ozetBeyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
                 var kalemValues = await _beyannameContext.DbKalem.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
 
@@ -78,65 +79,65 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 KontrolHizmeti.BeyannameBilgi _beyan = new KontrolHizmeti.BeyannameBilgi();
 
 
-                _beyan.Aciklamalar = beyanValues.Aciklamalar;
-                _beyan.Alici_satici_iliskisi = beyanValues.AliciSaticiIliskisi;
-                _beyan.Alici_vergi_no = beyanValues.AliciVergiNo;
-                _beyan.Antrepo_kodu = beyanValues.AntrepoKodu;
-                _beyan.Asil_sorumlu_vergi_no = beyanValues.AsilSorumluVergiNo;
-                _beyan.Basitlestirilmis_usul = beyanValues.BasitlestirilmisUsul;
-                _beyan.Banka_kodu = beyanValues.BankaKodu;
-                _beyan.Beyan_sahibi_vergi_no = beyanValues.BeyanSahibiVergiNo;
-                _beyan.Birlik_kripto_numarasi = beyanValues.BirlikKriptoNumarasi;
-                _beyan.Birlik_kayit_numarasi = beyanValues.BirlikKayitNumarasi;
-                _beyan.Cikis_ulkesi = beyanValues.CikisUlkesi;
-                _beyan.Cikistaki_aracin_kimligi = beyanValues.CikistakiAracinKimligi;
-                _beyan.Cikistaki_aracin_tipi = beyanValues.CikistakiAracinTipi;
-                _beyan.Cikistaki_aracin_ulkesi = beyanValues.CikistakiAracinUlkesi;
-                _beyan.Esyanin_bulundugu_yer = beyanValues.EsyaninBulunduguYer;
+                _beyan.Aciklamalar = ozetBeyanValues.Aciklamalar;
+                _beyan.Alici_satici_iliskisi = ozetBeyanValues.AliciSaticiIliskisi;
+                _beyan.Alici_vergi_no = ozetBeyanValues.AliciVergiNo;
+                _beyan.Antrepo_kodu = ozetBeyanValues.AntrepoKodu;
+                _beyan.Asil_sorumlu_vergi_no = ozetBeyanValues.AsilSorumluVergiNo;
+                _beyan.Basitlestirilmis_usul = ozetBeyanValues.BasitlestirilmisUsul;
+                _beyan.Banka_kodu = ozetBeyanValues.BankaKodu;
+                _beyan.Beyan_sahibi_vergi_no = ozetBeyanValues.BeyanSahibiVergiNo;
+                _beyan.Birlik_kripto_numarasi = ozetBeyanValues.BirlikKriptoNumarasi;
+                _beyan.Birlik_kayit_numarasi = ozetBeyanValues.BirlikKayitNumarasi;
+                _beyan.Cikis_ulkesi = ozetBeyanValues.CikisUlkesi;
+                _beyan.Cikistaki_aracin_kimligi = ozetBeyanValues.CikistakiAracinKimligi;
+                _beyan.Cikistaki_aracin_tipi = ozetBeyanValues.CikistakiAracinTipi;
+                _beyan.Cikistaki_aracin_ulkesi = ozetBeyanValues.CikistakiAracinUlkesi;
+                _beyan.Esyanin_bulundugu_yer = ozetBeyanValues.EsyaninBulunduguYer;
                 _beyan.FazlaMesaiID = "";
-                _beyan.Gidecegi_sevk_ulkesi = beyanValues.GidecegiSevkUlkesi;
-                _beyan.Gidecegi_ulke = beyanValues.GidecegiUlke;
-                _beyan.Giris_gumruk_idaresi = beyanValues.GirisGumrukIdaresi;
-                _beyan.Gonderici_vergi_no = beyanValues.GondericiVergiNo;
-                _beyan.GUMRUK = beyanValues.Gumruk;
-                _beyan.Islemin_niteligi = beyanValues.IsleminNiteligi;
-                _beyan.Kap_adedi = beyanValues.KapAdedi != null ? beyanValues.KapAdedi : 0;
-                _beyan.Konteyner = beyanValues.Konteyner;
-                _beyan.Kullanici_kodu = beyanValues.Kullanici;
-                _beyan.LimanKodu = beyanValues.LimanKodu;
-                _beyan.mail1 = beyanValues.Mail1;
-                _beyan.mail2 = beyanValues.Mail2;
-                _beyan.mail3 = beyanValues.Mail3;
-                _beyan.mobil1 = beyanValues.Mobil1;
-                _beyan.mobil2 = beyanValues.Mobil2;
-                _beyan.Musavir_referansi = beyanValues.MusavirReferansNo;
-                _beyan.Musavir_vergi_no = beyanValues.MusavirVergiNo;
+                _beyan.Gidecegi_sevk_ulkesi = ozetBeyanValues.GidecegiSevkUlkesi;
+                _beyan.Gidecegi_ulke = ozetBeyanValues.GidecegiUlke;
+                _beyan.Giris_gumruk_idaresi = ozetBeyanValues.GirisGumrukIdaresi;
+                _beyan.Gonderici_vergi_no = ozetBeyanValues.GondericiVergiNo;
+                _beyan.GUMRUK = ozetBeyanValues.Gumruk;
+                _beyan.Islemin_niteligi = ozetBeyanValues.IsleminNiteligi;
+                _beyan.Kap_adedi = ozetBeyanValues.KapAdedi != null ? ozetBeyanValues.KapAdedi : 0;
+                _beyan.Konteyner = ozetBeyanValues.Konteyner;
+                _beyan.Kullanici_kodu = ozetBeyanValues.Kullanici;
+                _beyan.LimanKodu = ozetBeyanValues.LimanKodu;
+                _beyan.mail1 = ozetBeyanValues.Mail1;
+                _beyan.mail2 = ozetBeyanValues.Mail2;
+                _beyan.mail3 = ozetBeyanValues.Mail3;
+                _beyan.mobil1 = ozetBeyanValues.Mobil1;
+                _beyan.mobil2 = ozetBeyanValues.Mobil2;
+                _beyan.Musavir_referansi = ozetBeyanValues.MusavirReferansNo;
+                _beyan.Musavir_vergi_no = ozetBeyanValues.MusavirVergiNo;
                 _beyan.Odeme = "PESIN";
-                //  _beyan.Odeme_araci = beyanValues.OdemeAraci;
-                _beyan.Referans_no = beyanValues.RefNo;
-                _beyan.Referans_tarihi = beyanValues.ReferansTarihi;
-                _beyan.Rejim = beyanValues.Rejim;
-                _beyan.Sinirdaki_aracin_kimligi = beyanValues.SinirdakiAracinKimligi;
-                _beyan.Sinirdaki_aracin_tipi = beyanValues.SinirdakiAracinTipi;
-                _beyan.Sinirdaki_aracin_ulkesi = beyanValues.SinirdakiAracinUlkesi;
-                _beyan.Sinirdaki_tasima_sekli = beyanValues.SinirdakiTasimaSekli;
-                _beyan.Tasarlanan_guzergah = beyanValues.TasarlananGuzergah;
-                _beyan.Telafi_edici_vergi = beyanValues.TelafiEdiciVergi != null ? beyanValues.TelafiEdiciVergi : 0;
-                _beyan.Teslim_sekli = beyanValues.TeslimSekli;
-                _beyan.Teslim_yeri = beyanValues.TeslimSekliYeri;
-                _beyan.Ticaret_ulkesi = beyanValues.TicaretUlkesi;
-                _beyan.Toplam_fatura = beyanValues.ToplamFatura != null ? beyanValues.ToplamFatura : 0;
-                _beyan.Toplam_fatura_dovizi = beyanValues.ToplamFaturaDovizi;
-                _beyan.Toplam_navlun = beyanValues.ToplamNavlun != null ? beyanValues.ToplamNavlun : 0;
-                _beyan.Toplan_navlun_dovizi = beyanValues.ToplamNavlunDovizi;
-                _beyan.Toplam_sigorta = beyanValues.ToplamSigorta != null ? beyanValues.ToplamSigorta : 0;
-                _beyan.Toplam_sigorta_dovizi = beyanValues.ToplamSigortaDovizi;
-                _beyan.Toplam_yurt_disi_harcamalar = beyanValues.ToplamYurtDisiHarcamalar != null ? beyanValues.ToplamYurtDisiHarcamalar : 0;
-                _beyan.Toplam_yurt_disi_harcamalarin_dovizi = beyanValues.ToplamYurtDisiHarcamalarDovizi;
-                _beyan.Toplam_yurt_ici_harcamalar = beyanValues.ToplamYurtIciHarcamalar != null ? beyanValues.ToplamYurtIciHarcamalar : 0;
-                _beyan.Varis_gumruk_idaresi = beyanValues.VarisGumrukIdaresi;
-                _beyan.Yuk_belgeleri_sayisi = beyanValues.YukBelgeleriSayisi != null ? beyanValues.YukBelgeleriSayisi : 0;
-                _beyan.Yukleme_bosaltma_yeri = beyanValues.YuklemeBosaltmaYeri;
+                //  _beyan.Odeme_araci = ozetBeyanValues.OdemeAraci;
+                _beyan.Referans_no = ozetBeyanValues.RefNo;
+                _beyan.Referans_tarihi = ozetBeyanValues.ReferansTarihi;
+                _beyan.Rejim = ozetBeyanValues.Rejim;
+                _beyan.Sinirdaki_aracin_kimligi = ozetBeyanValues.SinirdakiAracinKimligi;
+                _beyan.Sinirdaki_aracin_tipi = ozetBeyanValues.SinirdakiAracinTipi;
+                _beyan.Sinirdaki_aracin_ulkesi = ozetBeyanValues.SinirdakiAracinUlkesi;
+                _beyan.Sinirdaki_tasima_sekli = ozetBeyanValues.SinirdakiTasimaSekli;
+                _beyan.Tasarlanan_guzergah = ozetBeyanValues.TasarlananGuzergah;
+                _beyan.Telafi_edici_vergi = ozetBeyanValues.TelafiEdiciVergi != null ? ozetBeyanValues.TelafiEdiciVergi : 0;
+                _beyan.Teslim_sekli = ozetBeyanValues.TeslimSekli;
+                _beyan.Teslim_yeri = ozetBeyanValues.TeslimSekliYeri;
+                _beyan.Ticaret_ulkesi = ozetBeyanValues.TicaretUlkesi;
+                _beyan.Toplam_fatura = ozetBeyanValues.ToplamFatura != null ? ozetBeyanValues.ToplamFatura : 0;
+                _beyan.Toplam_fatura_dovizi = ozetBeyanValues.ToplamFaturaDovizi;
+                _beyan.Toplam_navlun = ozetBeyanValues.ToplamNavlun != null ? ozetBeyanValues.ToplamNavlun : 0;
+                _beyan.Toplan_navlun_dovizi = ozetBeyanValues.ToplamNavlunDovizi;
+                _beyan.Toplam_sigorta = ozetBeyanValues.ToplamSigorta != null ? ozetBeyanValues.ToplamSigorta : 0;
+                _beyan.Toplam_sigorta_dovizi = ozetBeyanValues.ToplamSigortaDovizi;
+                _beyan.Toplam_yurt_disi_harcamalar = ozetBeyanValues.ToplamYurtDisiHarcamalar != null ? ozetBeyanValues.ToplamYurtDisiHarcamalar : 0;
+                _beyan.Toplam_yurt_disi_harcamalarin_dovizi = ozetBeyanValues.ToplamYurtDisiHarcamalarDovizi;
+                _beyan.Toplam_yurt_ici_harcamalar = ozetBeyanValues.ToplamYurtIciHarcamalar != null ? ozetBeyanValues.ToplamYurtIciHarcamalar : 0;
+                _beyan.Varis_gumruk_idaresi = ozetBeyanValues.VarisGumrukIdaresi;
+                _beyan.Yuk_belgeleri_sayisi = ozetBeyanValues.YukBelgeleriSayisi != null ? ozetBeyanValues.YukBelgeleriSayisi : 0;
+                _beyan.Yukleme_bosaltma_yeri = ozetBeyanValues.YuklemeBosaltmaYeri;
 
                 #endregion
 
@@ -688,15 +689,15 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                         Tarihce _tarihce = new Tarihce();
                         _tarihce.Guid = guidOf;
-                        _tarihce.Gumruk = beyanValues.Gumruk;
-                        _tarihce.Rejim = beyanValues.Rejim;
+                        _tarihce.Gumruk = ozetBeyanValues.Gumruk;
+                        _tarihce.Rejim = ozetBeyanValues.Rejim;
                         _tarihce.IslemInternalNo = newIslemInternalNo;
                         _tarihce.Kullanici = Kullanici;
                         _tarihce.RefNo = islemValues.RefNo;
                         _tarihce.IslemDurumu = "Imzala";
                         _tarihce.IslemSonucu = "Tescil Mesajı Oluşturuldu";
                         _tarihce.IslemTipi = "2";
-                        _tarihce.TicaretTipi = EX.Contains(beyanValues.Rejim) ? "EX" : IM.Contains(beyanValues.Rejim) ? "IM" : AN.Contains(beyanValues.Rejim) ? "AN" : DG.Contains(beyanValues.Rejim) ? "DG" : "";
+                        _tarihce.TicaretTipi = EX.Contains(ozetBeyanValues.Rejim) ? "EX" : IM.Contains(ozetBeyanValues.Rejim) ? "IM" : AN.Contains(ozetBeyanValues.Rejim) ? "AN" : DG.Contains(ozetBeyanValues.Rejim) ? "DG" : "";
                         _tarihce.GonderilecekVeri = imzasizMesaj;
                         _tarihce.OlusturmaZamani = DateTime.Now;
                         _tarihce.GonderimNo = islemValues.GonderimSayisi;
@@ -704,9 +705,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                         _islemTarihceContext.Entry(_tarihce).State = EntityState.Added;
 
-                        beyanValues.SonIslemZamani = DateTime.Now;
-                        beyanValues.TescilStatu = "Tescil Mesajı Oluşturuldu";
-                        _beyannameContext.Entry(beyanValues).State = EntityState.Modified;
+                        ozetBeyanValues.SonIslemZamani = DateTime.Now;
+                        ozetBeyanValues.TescilStatu = "Tescil Mesajı Oluşturuldu";
+                        _beyannameContext.Entry(ozetBeyanValues).State = EntityState.Modified;
 
                         await _islemTarihceContext.SaveChangesAsync();
                         await _beyannameContext.SaveChangesAsync();
@@ -738,9 +739,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                 
                 _servisDurum.Bilgiler = lstBlg;
-              
 
 
+                var Message = $"GetTescil {DateTime.UtcNow.ToLongTimeString()}";
+                Log.Information("Message displayed: {Message}", Message, _servisDurum);
 
                 return _servisDurum;
 

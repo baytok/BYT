@@ -228,7 +228,7 @@ type = "ball-8bits">
                       <button
                         mat-menu-item
                         (click)="
-                          sendingTescilMessagesSet(element.islemInternalNo)
+                          sendingTescilMessagesSet(element.islemInternalNo,element.beyanTipi)
                         "
                       >
                         Tescil Mesajı Hazırla
@@ -518,7 +518,8 @@ type = "ball-8bits">
                         (click)="
                           sendingTescilMessages(
                             element.islemInternalNo,
-                            element.guid
+                            element.guid,
+                            element.beyanTipi
                           )
                         "
                       >
