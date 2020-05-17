@@ -763,7 +763,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/{IslemInternalNo}/{Kullanici}/{Guid}")]
         [HttpPost("{IslemInternalNo}/{Kullanici}/{Guid}")]
-        public async Task<ServisDurum> GetTescil(string IslemInternalNo, string Kullanici,  string Guid)
+        public async Task<ServisDurum> GetTescilMesajiHazırla(string IslemInternalNo, string Kullanici,  string Guid)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()

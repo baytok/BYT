@@ -146,7 +146,7 @@ export class IslemComponent implements OnInit {
     this._beyanSession.islemInternalNo = IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo).subscribe(
       (result: TarihceDto[]) => {
-        console.log(result);
+     
         this.tarihceDataSource.data = result;
       },
       (err) => {
@@ -212,7 +212,8 @@ export class IslemComponent implements OnInit {
     this._beyanSession.islemInternalNo = islemInternalNo;
     if (confirm("Tescil Gönderimi Yapamak İstediğinizden Eminmisiniz?")) {
       this.loading = true;
-   if(beyan=='2') {
+ 
+    if(beyan.trim()==='2') {     
       const promise = this.beyanServis
         .TescilGonderimi(islemInternalNo, this.kullanici, guid)
         .toPromise();
@@ -233,7 +234,8 @@ export class IslemComponent implements OnInit {
         }
       );
     }
-    if(beyan=='0') {
+    else if(beyan.trim()==="0") {
+    
       const promise = this.beyanServis
         .OzetBeyanGonderimi(islemInternalNo, this.kullanici, guid)
         .toPromise();
@@ -254,6 +256,7 @@ export class IslemComponent implements OnInit {
         }
       );
     }
+    
   }
   }
   sendingTescilMessagesSet(islemInternalNo: string, beyan: string) {

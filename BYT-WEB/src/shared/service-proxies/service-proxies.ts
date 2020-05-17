@@ -456,6 +456,7 @@ export class BeyannameServiceProxy {
     const httpOptions = {
      headers: headers_object
     };
+    console.log(guid);
       return this.http.post<any>(
         this.baseUrl + "Servis/OzetBeyan/OzetBeyanTescilGonderim/" +
         IslemInternalNo + "/" + Kullanici+"/"+guid,null,httpOptions  
@@ -4088,7 +4089,7 @@ export class ObTasimaSatirDto {
   tasimaSenetInternalNo: string;
   tasimaSatirInternalNo: string;
   brutAgirlik: number;  
-  kapAdedi:number;
+  kapAdet:number;
   kapCinsi:string;
   konteynerTipi:string;
   markaNo:string;  

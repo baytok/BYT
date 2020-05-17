@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace BYT.WS.Models
 {
-    public class OzetBeyanGelen
+    public class Gelen
     {
         public string KullaniciAdi { get; set; }
         public string RefID { get; set; }
         public string Sifre { get; set; }
         public string IP { get; set; }
-        public OzetBeyanBilgisi ozetBeyanBilgisi { get; set; }
+        public OzetBeyanBilgisi OzetBeyanBilgisi { get; set; }
     }
     public class OzetBeyanBilgisi
     {
@@ -52,17 +52,113 @@ namespace BYT.WS.Models
         public List<TasimaSenediBilgisi> TasimaSenetleri { get; set; }
         public List<OzbyAcmaBilgisi> OzbyAcmalar { get; set; }
 
-        public List<TasitinUgradigiUlkeBilgisi> TasitinUgradigiUlkeler { get; set; }      
+        public List<TasitinUgradigiUlkeBilgisi> TasitinUgradigiUlkeler { get; set; }
 
         public FirmaBilgisi TasiyiciFirma { get; set; }
 
     }
 
     public class TasimaSenediBilgisi
-    { 
+    {
+        public string AcentaAdi { get; set; }
+        public string AcentaVergiNo { get; set; }
+        public string AliciAdi { get; set; }
+        public string AliciVergiNo { get; set; }
+        public string AmbarHariciMi { get; set; }
+        public string BildirimTarafiAdi { get; set; }
+        public string BildirimTarafiVergiNo { get; set; }
+        public string DuzenlendigiUlke { get; set; }
+        public string EmniyetGuvenlikT { get; set; }
+        public string EsyaninBulunduguYer { get; set; }
+        public string FaturaDoviz { get; set; }
+        public decimal FaturaToplami { get; set; }
+        public string GondericiAdi { get; set; }
+        public string GondericiVergiNo { get; set; }
+        public string GrupMu { get; set; }
+        public string KonteynerMi { get; set; }
+        public string NavlunDoviz { get; set; }
+        public decimal NavlunTutari { get; set; }
+        public string OdemeSekli { get; set; }
+        public string OncekiSeferNumarasi { get; set; }
+        public DateTime OncekiSeferTarihi { get; set; }
+        public string OzetBeyanNo { get; set; }
+        public string RoroMu { get; set; }
+        public string SenetSiraNo { get; set; }
+        public string AktarmaYapilacakMi { get; set; }
+        public string AktarmaTipi { get; set; }
+        public string TasimaSenediNo { get; set; }
+
+        public List<TasimaSatiriBilgisi> TasimaSatirlari { get; set; }
+        public List<UgranilanUlkeBilgisi> UgranilanUlkeler { get; set; }
+        public List<IhracatBilgisi> Ihracatlar { get; set; }
+    }
+    public class TasimaSatiriBilgisi
+    {
+        public decimal BrutAgirlik { get; set; }
+        public int KapAdedi { get; set; }
+        public string KapCinsi { get; set; }
+        public string KonteynerTipi { get; set; }
+        public string MarkaNo { get; set; }
+        public string MuhurNumarasi { get; set; }
+        public decimal NetAgirlik { get; set; }
+        public string OlcuBirimi { get; set; }
+        public int SatirNo { get; set; }
+        public string KonteynerYukDurumu { get; set; }
+        public List<EsyaBilgisi> EsyaBilgileri { get; set; }
+    }
+    public class EsyaBilgisi
+    {
+        public string BmEsyaKodu { get; set; }
+        public decimal BrutAgirlik { get; set; }
+        public string EsyaKodu { get; set; }
+        public string EsyaninTanimi { get; set; }
+        public decimal KalemFiyati { get; set; }
+        public string KalemFiyatiDoviz { get; set; }
+        public int KalemSiraNo { get; set; }
+        public decimal NetAgirlik { get; set; }
+        public string OlcuBirimi { get; set; }
+
+    }
+    public class UgranilanUlkeBilgisi
+    {
+        public string LimanYerAdi { get; set; }
+        public string UlkeKodu { get; set; }
+    }
+    public class IhracatBilgisi
+    {
+        public decimal BrutAgirlik { get; set; }
+        public int KapAdedi { get; set; }
+        public string Numarasi { get; set; }
+        public string ParcaliMi { get; set; }
+        public string Tipi { get; set; }
     }
     public class OzbyAcmaBilgisi
     {
+        public string AcmaSekli { get; set; }
+        public string AmbardaMi { get; set; }
+        public string BeyannameNo { get; set; }
+        public string BaskaRejimleAcilacakMi { get; set; }
+        public string Aciklama { get; set; }
+        public List<OzbyAcmaSenetBilgisi> OzbyAcmaSenetleri { get; set; }
+    }
+    public class OzbyAcmaSenetBilgisi
+    {
+        public string AcilanSenetNo { get; set; }
+        public List<OzbyAcmaSatirBilgisi> OzbyAcmaSatirlari { get; set; }
+
+    }
+    public class OzbyAcmaSatirBilgisi
+    {
+        public string AmbarKodu { get; set; }
+        public decimal AmbardakiMiktar { get; set; }
+        public decimal AcilacakMiktar { get; set; }
+        public string MarkaNo { get; set; }
+        public string EsyaCinsi { get; set; }
+        public string Birim { get; set; }
+        public decimal ToplamMiktar { get; set; }
+        public decimal KapatilanMiktar { get; set; }
+        public string OlcuBirimi { get; set; }
+        public int AcmaSatirNo { get; set; }
     }
     public class TasitinUgradigiUlkeBilgisi
     {
@@ -73,6 +169,16 @@ namespace BYT.WS.Models
     }
     public class FirmaBilgisi
     {
+        public string AdiUnvani { get; set; }
+        public string CadSNo { get; set; }
+        public string Fax { get; set; }
+        public string IlIlce { get; set; }
+        public string KimlikNo { get; set; }
+        public string KimlikTuru { get; set; }
+        public string PostaKodu { get; set; }
+        public string Tel { get; set; }
+        public string UlkeKodu { get; set; }
+        public string VergiDairesikodu { get; set; }
     }
 
 
@@ -589,7 +695,7 @@ namespace BYT.WS.Models
         public string TasimaSatirInternalNo { get; set; }
 
         public decimal BrutAgirlik { get; set; }
-        public int KapAdedi { get; set; }
+        public int KapAdet { get; set; }
 
         [StringLength(9)]
         public string KapCinsi { get; set; }

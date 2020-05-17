@@ -195,7 +195,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                                 OzetBeyanInternalNo = senet.OzetBeyanInternalNo,
                                 TasimaSenetInternalNo = senet.TasimaSenetInternalNo,
                                 BrutAgirlik = o.BrutAgirlik,
-                                KapAdedi = o.KapAdedi,
+                                KapAdet = o.KapAdet,
                                 KapCinsi = o.KapCinsi,
                                 KonteynerTipi = o.KonteynerTipi,
                                 KonteynerYukDurumu = o.KonteynerYukDurumu,

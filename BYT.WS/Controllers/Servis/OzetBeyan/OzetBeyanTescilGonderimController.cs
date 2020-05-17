@@ -50,7 +50,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
         [Route("api/BYT/Servis/OzetBeyan/[controller]/{IslemInternalNo}/{Kullanici}")]
         [HttpPost("{IslemInternalNo}/{Kullanici}")]
-        public async Task<ServisDurum> GetTescil(string IslemInternalNo, string Kullanici)
+        public async Task<ServisDurum> GetTescilMesajiHazırla(string IslemInternalNo, string Kullanici)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
@@ -64,52 +64,53 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 var ozetBeyanValues = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
                 var tasimaSenetValues = await _beyannameContext.ObTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
                 var ozetBeyanAcmalarValues = await _beyannameContext.ObOzetBeyanAcma.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-                var tasiyiciFirmaValues = await _beyannameContext.ObTasiyiciFirma.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                var tasiyiciFirmaValues = await _beyannameContext.ObTasiyiciFirma.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
                 var tasitUgrakValues = await _beyannameContext.ObTasitUgrakUlke.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
 
-                OzetBeyanGelen gelen = new OzetBeyanGelen();
-
+               Gelen gelen = new Gelen();
+               OzetBeyanBilgisi _beyan = new OzetBeyanBilgisi();
 
                 #region Genel
-                OzetBeyanBilgisi _beyan = new OzetBeyanBilgisi();
-
-                _beyan.BeyanSahibiVergiNo = ozetBeyanValues.BeyanSahibiVergiNo;
-                _beyan.BeyanTuru = ozetBeyanValues.BeyanTuru;
-                _beyan.Diger = ozetBeyanValues.Diger;
-                _beyan.DorseNo1 = ozetBeyanValues.DorseNo1;
-                _beyan.DorseNo1Uyrugu = ozetBeyanValues.DorseNo1Uyrugu;
-                _beyan.DorseNo2 = ozetBeyanValues.DorseNo2;
-                _beyan.DorseNo2Uyrugu = ozetBeyanValues.DorseNo2Uyrugu;
-                _beyan.EkBelgeSayisi = ozetBeyanValues.EkBelgeSayisi;
-                _beyan.EmniyetGuvenlik = ozetBeyanValues.EmniyetGuvenlik;
-                _beyan.GrupTasimaSenediNo = ozetBeyanValues.GrupTasimaSenediNo;
-                _beyan.GumrukIdaresi = ozetBeyanValues.GumrukIdaresi;
-                _beyan.KullaniciKodu = ozetBeyanValues.KullaniciKodu;
-                _beyan.Kurye = ozetBeyanValues.Kurye;
-                _beyan.LimanYerAdiBos = ozetBeyanValues.LimanYerAdiBos;
-                _beyan.LimanYerAdiYuk = ozetBeyanValues.LimanYerAdiYuk;
-                _beyan.OncekiBeyanNo = ozetBeyanValues.OncekiBeyanNo;
-                _beyan.PlakaSeferNo = ozetBeyanValues.PlakaSeferNo;
-                _beyan.ReferansNumarasi = ozetBeyanValues.ReferansNumarasi;
-                _beyan.RefNo = ozetBeyanValues.RefNo;
-                _beyan.Rejim = ozetBeyanValues.Rejim;
-                _beyan.TasimaSekli = ozetBeyanValues.TasimaSekli;
-                _beyan.TasitinAdi = ozetBeyanValues.TasitinAdi;
-                _beyan.TasiyiciVergiNo = ozetBeyanValues.TasiyiciVergiNo;
-                _beyan.TirAtaKarneNo = ozetBeyanValues.TirAtaKarneNo;
-                _beyan.UlkeKodu = ozetBeyanValues.UlkeKodu;
-                _beyan.UlkeKoduBos = ozetBeyanValues.UlkeKoduBos;
-                _beyan.UlkeKoduYuk = ozetBeyanValues.UlkeKoduYuk;
-                _beyan.VarisCikisGumrukIdaresi = ozetBeyanValues.VarisCikisGumrukIdaresi;
-                _beyan.VarisTarihSaati = ozetBeyanValues.VarisTarihSaati;
-                _beyan.XmlRefId = ozetBeyanValues.XmlRefId;
-                _beyan.YuklemeBosaltmaYeri = ozetBeyanValues.YuklemeBosaltmaYeri;
-
+                if (tasiyiciFirmaValues != null )
+                {
+                   
+                    _beyan.BeyanSahibiVergiNo = ozetBeyanValues.BeyanSahibiVergiNo;
+                    _beyan.BeyanTuru = ozetBeyanValues.BeyanTuru;
+                    _beyan.Diger = ozetBeyanValues.Diger;
+                    _beyan.DorseNo1 = ozetBeyanValues.DorseNo1;
+                    _beyan.DorseNo1Uyrugu = ozetBeyanValues.DorseNo1Uyrugu;
+                    _beyan.DorseNo2 = ozetBeyanValues.DorseNo2;
+                    _beyan.DorseNo2Uyrugu = ozetBeyanValues.DorseNo2Uyrugu;
+                    _beyan.EkBelgeSayisi = ozetBeyanValues.EkBelgeSayisi;
+                    _beyan.EmniyetGuvenlik = ozetBeyanValues.EmniyetGuvenlik;
+                    _beyan.GrupTasimaSenediNo = ozetBeyanValues.GrupTasimaSenediNo;
+                    _beyan.GumrukIdaresi = ozetBeyanValues.GumrukIdaresi;
+                    _beyan.KullaniciKodu = ozetBeyanValues.KullaniciKodu;
+                    _beyan.Kurye = ozetBeyanValues.Kurye;
+                    _beyan.LimanYerAdiBos = ozetBeyanValues.LimanYerAdiBos;
+                    _beyan.LimanYerAdiYuk = ozetBeyanValues.LimanYerAdiYuk;
+                    _beyan.OncekiBeyanNo = ozetBeyanValues.OncekiBeyanNo;
+                    _beyan.PlakaSeferNo = ozetBeyanValues.PlakaSeferNo;
+                    _beyan.ReferansNumarasi = ozetBeyanValues.ReferansNumarasi;
+                    _beyan.RefNo = ozetBeyanValues.RefNo;
+                    _beyan.Rejim = ozetBeyanValues.Rejim;
+                    _beyan.TasimaSekli = ozetBeyanValues.TasimaSekli;
+                    _beyan.TasitinAdi = ozetBeyanValues.TasitinAdi;
+                    _beyan.TasiyiciVergiNo = ozetBeyanValues.TasiyiciVergiNo;
+                    _beyan.TirAtaKarneNo = ozetBeyanValues.TirAtaKarneNo;
+                    _beyan.UlkeKodu = ozetBeyanValues.UlkeKodu;
+                    _beyan.UlkeKoduBos = ozetBeyanValues.UlkeKoduBos;
+                    _beyan.UlkeKoduYuk = ozetBeyanValues.UlkeKoduYuk;
+                    _beyan.VarisCikisGumrukIdaresi = ozetBeyanValues.VarisCikisGumrukIdaresi;
+                    _beyan.VarisTarihSaati = ozetBeyanValues.VarisTarihSaati;
+                    _beyan.XmlRefId = ozetBeyanValues.XmlRefId;
+                    _beyan.YuklemeBosaltmaYeri = ozetBeyanValues.YuklemeBosaltmaYeri;
+                }
 
                 #endregion
 
-                #region TasıtUğrakÜlke
+                #region TaşıtUğrakÜlke
                 if (tasitUgrakValues != null && tasitUgrakValues.Count > 0)
                 {
                     TasitinUgradigiUlkeBilgisi _tulke;
@@ -133,275 +134,233 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 #region OzetBeyanAçma
                 if (ozetBeyanAcmalarValues != null && ozetBeyanAcmalarValues.Count > 0)
                 {
-                
-                    //    List<KontrolHizmeti.Ozetbeyan> _ozetBeyanList = new List<KontrolHizmeti.Ozetbeyan>();
-                    //    KontrolHizmeti.Ozetbeyan _ozetBeyan;
-                    //    foreach (var ozetbeyan in ozetBeyanAcmaValues)
-                    //    {
-                    //        _ozetBeyan = new KontrolHizmeti.Ozetbeyan();
-                    //        _ozetBeyan.Ozetbeyan_no = ozetbeyan.OzetBeyanNo;
-                    //        _ozetBeyan.Ozetbeyan_islem_kapsami = ozetbeyan.IslemKapsami;
-                    //        _ozetBeyan.Ambar_ici = ozetbeyan.Ambar;
-                    //        _ozetBeyan.Baska_rejim = ozetbeyan.BaskaRejim;
-                    //        _ozetBeyan.Aciklama = ozetbeyan.Aciklama;
+
+                    List<OzbyAcmaBilgisi> _ozetBeyanList = new List<OzbyAcmaBilgisi>();
+                    OzbyAcmaBilgisi _ozetBeyan;
+                    foreach (var ozetbeyan in ozetBeyanAcmalarValues)
+                    {
+                        _ozetBeyan = new OzbyAcmaBilgisi();
+                        _ozetBeyan.BeyannameNo = ozetbeyan.OzetBeyanNo;
+                        _ozetBeyan.AcmaSekli = ozetbeyan.IslemKapsami;
+                        _ozetBeyan.AmbardaMi = ozetbeyan.Ambar;
+                        _ozetBeyan.BaskaRejimleAcilacakMi = ozetbeyan.BaskaRejim;
+                        _ozetBeyan.Aciklama = ozetbeyan.Aciklama;
 
 
-                    //        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSenet.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetBeyanNo).ToListAsync();
+                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanAcmaBeyanInternalNo == ozetbeyan.OzetBeyanNo).ToListAsync();
 
-                    //        if (ozetBeyanAcmaTasimaSenediValues != null && ozetBeyanAcmaTasimaSenediValues.Count > 0)
-                    //        {
-                    //            List<KontrolHizmeti.tasimasenetleri> _ozetBeyanTasimaSenediList = new List<KontrolHizmeti.tasimasenetleri>();
-                    //            KontrolHizmeti.tasimasenetleri _ozetBeyanTasimaSenedi;
-                    //            foreach (var tasimaSenedi in ozetBeyanAcmaTasimaSenediValues)
-                    //            {
-                    //                _ozetBeyanTasimaSenedi = new KontrolHizmeti.tasimasenetleri();
-                    //                _ozetBeyanTasimaSenedi.Tasima_senedi_no = tasimaSenedi.TasimaSenediNo;
+                        if (ozetBeyanAcmaTasimaSenediValues != null && ozetBeyanAcmaTasimaSenediValues.Count > 0)
+                        {
+                            List<OzbyAcmaSenetBilgisi> _ozetBeyanTasimaSenediList = new List<OzbyAcmaSenetBilgisi>();
+                            OzbyAcmaSenetBilgisi _ozetBeyanTasimaSenedi;
+                            foreach (var tasimaSenedi in ozetBeyanAcmaTasimaSenediValues)
+                            {
+                                _ozetBeyanTasimaSenedi = new OzbyAcmaSenetBilgisi();
+                                _ozetBeyanTasimaSenedi.AcilanSenetNo = tasimaSenedi.TasimaSenediNo;
 
-                    //                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.DbOzetBeyanAcmaTasimaSatir.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanInternalNo == ozetbeyan.OzetBeyanNo && v.TasimaSenetInternalNo == tasimaSenedi.TasimaSenetInternalNo).ToListAsync();
+                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSatir.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanAcmaBeyanInternalNo == ozetbeyan.OzetBeyanNo && v.TasimaSenetInternalNo == tasimaSenedi.TasimaSenetInternalNo).ToListAsync();
 
-                    //                if (ozetBeyanAcmaTasimaSatirValues != null && ozetBeyanAcmaTasimaSatirValues.Count > 0)
-                    //                {
-                    //                    List<KontrolHizmeti.tasimasatirlari> ozetBeyanAcmaTasimaSatirList = new List<KontrolHizmeti.tasimasatirlari>();
-                    //                    KontrolHizmeti.tasimasatirlari _ozetBeyanTasimaSatir;
-                    //                    foreach (var satir in ozetBeyanAcmaTasimaSatirValues)
-                    //                    {
-                    //                        _ozetBeyanTasimaSatir = new KontrolHizmeti.tasimasatirlari();
+                                if (ozetBeyanAcmaTasimaSatirValues != null && ozetBeyanAcmaTasimaSatirValues.Count > 0)
+                                {
+                                    List<OzbyAcmaSatirBilgisi> ozetBeyanAcmaTasimaSatirList = new List<OzbyAcmaSatirBilgisi>();
+                                    OzbyAcmaSatirBilgisi _ozetBeyanTasimaSatir;
+                                    foreach (var satir in ozetBeyanAcmaTasimaSatirValues)
+                                    {
+                                        _ozetBeyanTasimaSatir = new OzbyAcmaSatirBilgisi();
 
-                    //                        _ozetBeyanTasimaSatir.Acilacak_miktar = satir.Miktar != null ? satir.Miktar : 0;
-                    //                        _ozetBeyanTasimaSatir.Ambar_kodu = satir.AmbarKodu;
-                    //                        _ozetBeyanTasimaSatir.Tasima_satir_no = satir.TasimaSatirNo.ToString();
+                                        _ozetBeyanTasimaSatir.AcilacakMiktar = satir.AcilacakMiktar != null ? satir.AcilacakMiktar : 0;
+                                        _ozetBeyanTasimaSatir.AcmaSatirNo = satir.AcmaSatirNo!=null ? satir.AcmaSatirNo: 0 ;
+                                        _ozetBeyanTasimaSatir.AmbardakiMiktar = satir.AmbardakiMiktar != null ? satir.AmbardakiMiktar : 0;
+                                        _ozetBeyanTasimaSatir.AmbarKodu = satir.AmbarKodu ;
+                                        _ozetBeyanTasimaSatir.Birim = satir.Birim;
+                                        _ozetBeyanTasimaSatir.EsyaCinsi = satir.EsyaCinsi;
+                                        _ozetBeyanTasimaSatir.KapatilanMiktar = satir.KapatilanMiktar != null ? satir.KapatilanMiktar : 0;
+                                        _ozetBeyanTasimaSatir.MarkaNo = satir.MarkaNo;
+                                        _ozetBeyanTasimaSatir.OlcuBirimi = satir.OlcuBirimi;
+                                        _ozetBeyanTasimaSatir.ToplamMiktar = satir.ToplamMiktar != null ? satir.ToplamMiktar : 0;
 
-                    //                        ozetBeyanAcmaTasimaSatirList.Add(_ozetBeyanTasimaSatir);
-                    //                    }
-                    //                    _ozetBeyanTasimaSenedi.tasimasatir_bilgi = ozetBeyanAcmaTasimaSatirList.ToArray();
-                    //                }
-                    //                else _ozetBeyanTasimaSenedi.tasimasatir_bilgi = new KontrolHizmeti.tasimasatirlari[0];
+                                        ozetBeyanAcmaTasimaSatirList.Add(_ozetBeyanTasimaSatir);
+                                    }
+                                    _ozetBeyanTasimaSenedi.OzbyAcmaSatirlari = ozetBeyanAcmaTasimaSatirList.ToList();
+                                }
+                                else _ozetBeyanTasimaSenedi.OzbyAcmaSatirlari = new List<OzbyAcmaSatirBilgisi>();
 
-                    //                _ozetBeyanTasimaSenediList.Add(_ozetBeyanTasimaSenedi);
-                    //            }
-                    //            _ozetBeyan.ozbyacma_bilgi = _ozetBeyanTasimaSenediList.ToArray();
-                    //        }
-                    //        else _ozetBeyan.ozbyacma_bilgi = new KontrolHizmeti.tasimasenetleri[0];
+                                _ozetBeyanTasimaSenediList.Add(_ozetBeyanTasimaSenedi);
+                            }
+                            _ozetBeyan.OzbyAcmaSenetleri = _ozetBeyanTasimaSenediList.ToList();
+                        }
+                        else _ozetBeyan.OzbyAcmaSenetleri = new List<OzbyAcmaSenetBilgisi>();
 
-                    //        _ozetBeyanList.Add(_ozetBeyan);
-                    //    }
-                    //    _beyan.Ozetbeyanlar = _ozetBeyanList.ToArray();
-                    
+                        _ozetBeyanList.Add(_ozetBeyan);
+                    }
+                    _beyan.OzbyAcmalar = _ozetBeyanList.ToList();
+
                 }
                 else _beyan.OzbyAcmalar = new List<OzbyAcmaBilgisi>();
                 #endregion
 
                 #region TaşıyıcıFirma
-                if (tasiyiciFirmaValues != null && tasiyiciFirmaValues.Count > 0)
+                if (tasiyiciFirmaValues != null )
                 {
+                    FirmaBilgisi _tasiyiciFirma = new FirmaBilgisi();
+
+                    _tasiyiciFirma.AdiUnvani = tasiyiciFirmaValues.AdUnvan;
+                    _tasiyiciFirma.CadSNo = tasiyiciFirmaValues.CaddeSokakNo;
+                    _tasiyiciFirma.Fax = tasiyiciFirmaValues.Faks;
+                    _tasiyiciFirma.IlIlce = tasiyiciFirmaValues.IlIlce;
+                    _tasiyiciFirma.KimlikNo = tasiyiciFirmaValues.No;
+                    _tasiyiciFirma.KimlikTuru = tasiyiciFirmaValues.KimlikTuru;
+                    _tasiyiciFirma.PostaKodu = tasiyiciFirmaValues.PostaKodu;
+                    _tasiyiciFirma.Tel= tasiyiciFirmaValues.Telefon;
+                    _tasiyiciFirma.UlkeKodu = tasiyiciFirmaValues.UlkeKodu;
+                    _tasiyiciFirma.VergiDairesikodu = "";
+                    _beyan.TasiyiciFirma = _tasiyiciFirma;
                 }
                 else _beyan.TasiyiciFirma = new FirmaBilgisi();
                 #endregion
 
                 #region TaşımaSenet
 
-                //if (kalemValues != null && kalemValues.Count > 0)
-                //{
-                //    KontrolHizmeti.kalem _kalem;
-                //    List<KontrolHizmeti.kalem> _kalemList = new List<KontrolHizmeti.kalem>();
-                //    foreach (var item in kalemValues)
-                //    {
-                //        _kalem = new KontrolHizmeti.kalem();
+                if (tasimaSenetValues != null && tasimaSenetValues.Count > 0)
+                {
+                    TasimaSenediBilgisi _senet;
+                    List<TasimaSenediBilgisi> _senetList = new List<TasimaSenediBilgisi>();
+                    foreach (var item in tasimaSenetValues)
+                    {
+                        _senet = new TasimaSenediBilgisi();
 
-                //        _kalem.Aciklama_44 = item.Aciklama44;
-                //        _kalem.Adedi = item.Adet != null ? item.Adet : 0;
-                //        _kalem.Algilama_birimi_1 = item.AlgilamaBirimi1;
-                //        _kalem.Algilama_birimi_2 = item.AlgilamaBirimi2;
-                //        _kalem.Algilama_birimi_3 = item.AlgilamaBirimi3;
-                //        _kalem.Algilama_miktari_1 = item.AlgilamaMiktari1 != null ? item.AlgilamaMiktari1 : 0;
-                //        _kalem.Algilama_miktari_2 = item.AlgilamaMiktari2 != null ? item.AlgilamaMiktari2 : 0;
-                //        _kalem.Algilama_miktari_3 = item.AlgilamaMiktari3 != null ? item.AlgilamaMiktari3 : 0;
-                //        _kalem.Brut_agirlik = item.BrutAgirlik != null ? item.BrutAgirlik : 0;
-                //        _kalem.Cinsi = item.Cins;
-                //        _kalem.Ek_kod = item.EkKod;
-                //        _kalem.Giris_Cikis_Amaci = item.GirisCikisAmaci;
-                //        _kalem.Giris_Cikis_Amaci_Aciklama = item.GirisCikisAmaciAciklama;
-                //        _kalem.Gtip = item.Gtip;
-                //        _kalem.Fatura_miktari = item.FaturaMiktari != null ? item.FaturaMiktari : 0;
-                //        _kalem.Fatura_miktarinin_dovizi = item.FaturaMiktariDovizi;
-                //        _kalem.Ikincil_islem = item.IkincilIslem;
-                //        _kalem.Imalatci_firma_bilgisi = item.ImalatciFirmaBilgisi;
-                //        _kalem.Imalatci_Vergino = item.ImalatciVergiNo;
-                //        _kalem.Istatistiki_kiymet = item.IstatistikiKiymet != null ? item.IstatistikiKiymet : 0;
-                //        _kalem.Istatistiki_miktar = item.IstatistikiMiktar != null ? item.IstatistikiMiktar : 0;
-                //        _kalem.Kalem_Islem_Niteligi = item.KalemIslemNiteligi;
-                //        _kalem.Kalem_sira_no = item.KalemSiraNo;
-                //        _kalem.Kullanilmis_esya = item.KullanilmisEsya;
-                //        _kalem.Marka = item.Marka;
-                //        _kalem.Mahrece_iade = item.MahraceIade;
-                //        _kalem.Mensei_ulke = item.MenseiUlke;
-                //        _kalem.Miktar = item.Miktar != null ? item.Miktar : 0;
-                //        _kalem.Miktar_birimi = item.MiktarBirimi;
-                //        _kalem.Muafiyetler_1 = item.Muafiyetler1;
-                //        _kalem.Muafiyetler_2 = item.Muafiyetler2;
-                //        _kalem.Muafiyetler_3 = item.Muafiyetler3;
-                //        _kalem.Muafiyetler_4 = item.Muafiyetler4;
-                //        _kalem.Muafiyetler_5 = item.Muafiyetler5;
-                //        _kalem.Muafiyet_Aciklamasi = item.MuafiyetAciklamasi;
-                //        _kalem.Navlun_miktari = item.NavlunMiktari != null ? item.NavlunMiktari : 0;
-                //        _kalem.Navlun_miktarinin_dovizi = item.NavlunMiktariDovizi;
-                //        _kalem.Net_agirlik = item.NetAgirlik != null ? item.NetAgirlik : 0;
-                //        _kalem.Numara = item.Numara;
-                //        _kalem.Ozellik = item.Ozellik;
-                //        _kalem.Referans_Tarihi = "";
-                //        _kalem.Satir_no = item.SatirNo;
-                //        _kalem.Sigorta_miktari = item.SigortaMiktari != null ? item.NavlunMiktari : 0;
-                //        _kalem.Sigorta_miktarinin_dovizi = item.SigortaMiktariDovizi;
-                //        _kalem.Sinir_gecis_ucreti = item.SinirGecisUcreti != null ? item.SinirGecisUcreti : 0;
-                //        _kalem.STM_IlKodu = item.StmIlKodu;
-                //        _kalem.Tamamlayici_olcu_birimi = item.TamamlayiciOlcuBirimi;
-                //        _kalem.Tarifedeki_tanimi = "";
-                //        _kalem.Ticari_tanimi = item.TicariTanimi;
-                //        _kalem.Teslim_sekli = item.TeslimSekli;
-                //        _kalem.Uluslararasi_anlasma = item.UluslararasiAnlasma;
-                //        _kalem.YurtDisi_Diger = item.YurtDisiDiger != null ? item.YurtDisiDiger : 0;
-                //        _kalem.YurtDisi_Diger_Aciklama = item.YurtDisiDigerAciklama;
-                //        _kalem.YurtDisi_Diger_Dovizi = item.YurtDisiDigerDovizi;
-                //        _kalem.YurtDisi_Demuraj = item.YurtDisiDemuraj != null ? item.YurtDisiDemuraj : 0;
-                //        _kalem.YurtDisi_Demuraj_Dovizi = item.YurtDisiDemurajDovizi;
-                //        _kalem.YurtDisi_Faiz = item.YurtDisiFaiz != null ? item.YurtDisiFaiz : 0;
-                //        _kalem.YurtDisi_Faiz_Dovizi = item.YurtDisiFaizDovizi;
-                //        _kalem.YurtDisi_Komisyon = item.YurtDisiKomisyon != null ? item.YurtDisiKomisyon : 0;
-                //        _kalem.YurtDisi_Komisyon_Dovizi = item.YurtDisiKomisyonDovizi;
-                //        _kalem.YurtDisi_Royalti = item.YurtDisiRoyalti != null ? item.YurtDisiRoyalti : 0;
-                //        _kalem.YurtDisi_Royalti_Dovizi = item.YurtDisiRoyaltiDovizi;
-                //        _kalem.Yurtici_Banka = item.YurtIciBanka != null ? item.YurtIciBanka : 0;
-                //        _kalem.Yurtici_Cevre = item.YurtIciCevre != null ? item.YurtIciCevre : 0;
-                //        _kalem.Yurtici_Diger = item.YurtIciDiger != null ? item.YurtIciDiger : 0;
-                //        _kalem.Yurtici_Diger_Aciklama = item.YurtIciDigerAciklama;
-                //        _kalem.Yurtici_Depolama = item.YurtIciDepolama != null ? item.YurtIciDepolama : 0;
-                //        _kalem.Yurtici_Kkdf = item.YurtIciKkdf != null ? item.YurtIciKkdf : 0;
-                //        _kalem.Yurtici_Kultur = item.YurtIciKultur != null ? item.YurtIciKultur : 0;
-                //        _kalem.Yurtici_Liman = item.YurtIciLiman != null ? item.YurtIciLiman : 0;
-                //        _kalem.Yurtici_Tahliye = item.YurtIciTahliye != null ? item.YurtIciTahliye : 0;
+                        _senet.AcentaAdi = item.AcentaAdi;
+                        _senet.AcentaVergiNo = item.AcentaVergiNo;
+                        _senet.AktarmaTipi = item.AktarmaTipi;
+                        _senet.AktarmaYapilacakMi = item.AktarmaYapilacak;
+                        _senet.AliciAdi = item.AliciAdi;
+                        _senet.AliciVergiNo = item.AliciVergiNo;
+                        _senet.AmbarHariciMi = item.AmbarHarici;
+                        _senet.BildirimTarafiAdi = item.BildirimTarafiAdi;
+                        _senet.BildirimTarafiVergiNo = item.BildirimTarafiVergiNo;
+                        _senet.DuzenlendigiUlke = item.DuzenlendigiUlke;
+                        _senet.EmniyetGuvenlikT = item.EmniyetGuvenlik;
+                        _senet.EsyaninBulunduguYer = item.EsyaninBulunduguYer;
+                        _senet.FaturaDoviz = item.FaturaDoviz;
+                        _senet.FaturaToplami = item.FaturaToplami != null ? item.FaturaToplami : 0;
+                        _senet.GondericiAdi = item.GondericiAdi;
+                        _senet.GondericiVergiNo = item.GondericiVergiNo;
+                        _senet.GrupMu = item.Grup;
+                        _senet.KonteynerMi = item.Konteyner;
+                        _senet.NavlunDoviz = item.NavlunDoviz;
+                        _senet.NavlunTutari = item.NavlunTutari != null ? item.NavlunTutari : 0;
+                        _senet.OdemeSekli = item.OdemeSekli;
+                        _senet.OncekiSeferNumarasi = item.OncekiSeferNumarasi;
+                        _senet.OncekiSeferTarihi = Convert.ToDateTime(item.OncekiSeferTarihi);
+                        _senet.OzetBeyanNo = item.OzetBeyanNo;
+                        _senet.RoroMu = item.Roro;
+                        _senet.SenetSiraNo = item.SenetSiraNo.ToString();
+                        _senet.TasimaSenediNo = item.TasimaSenediNo;
 
+                        var satirValues = await _beyannameContext.ObTasimaSatir.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.TasimaSenetInternalNo == item.TasimaSenetInternalNo).ToListAsync();
 
-                //        var tamamlayiciValues = await _beyannameContext.DbTamamlayiciBilgi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == item.KalemInternalNo).ToListAsync();
+                        if (satirValues != null && satirValues.Count > 0)
+                        {
+                            List<TasimaSatiriBilgisi> _satirList = new List<TasimaSatiriBilgisi>();
+                            TasimaSatiriBilgisi _satir;
+                            foreach (var satir in satirValues)
+                            {
+                                _satir = new TasimaSatiriBilgisi();
+                               
+                                _satir.BrutAgirlik = satir.BrutAgirlik != null ? satir.BrutAgirlik : 0;
+                                _satir.KapAdedi = satir.KapAdet != null ? satir.KapAdet : 0;
+                                _satir.KapCinsi = satir.KapCinsi;
+                                _satir.KonteynerTipi = satir.KonteynerTipi;
+                                _satir.KonteynerYukDurumu = satir.KonteynerYukDurumu;
+                                _satir.MarkaNo = satir.MarkaNo;
+                                _satir.MuhurNumarasi = satir.MuhurNumarasi;
+                                _satir.NetAgirlik = satir.NetAgirlik != null ? satir.NetAgirlik : 0;
+                                _satir.OlcuBirimi = satir.OlcuBirimi;
+                                _satir.SatirNo = satir.SatirNo != null ? satir.SatirNo : 0;
 
-                //        if (tamamlayiciValues != null && tamamlayiciValues.Count > 0)
-                //        {
-                //            List<KontrolHizmeti.tamamlayici> _tamamlayiciList = new List<KontrolHizmeti.tamamlayici>();
-                //            KontrolHizmeti.tamamlayici _tamamlayici;
-                //            foreach (var tamamb in tamamlayiciValues)
-                //            {
-                //                _tamamlayici = new KontrolHizmeti.tamamlayici();
-                //                _tamamlayici.Tamamlayici_bilgi = tamamb.Bilgi;
-                //                _tamamlayici.Tamamlayici_bilgi_orani = tamamb.Oran;
+                                var satirEsyaValues = await _beyannameContext.ObSatirEsya.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.TasimaSenetInternalNo == item.TasimaSenetInternalNo && v.TasimaSatirInternalNo== satir.TasimaSatirInternalNo).ToListAsync();
+                                if (satirEsyaValues != null && satirEsyaValues.Count > 0)
+                                {
+                                    List<EsyaBilgisi> _satirEsyaList = new List<EsyaBilgisi>();
+                                    EsyaBilgisi _satirEsya;
+                                    foreach (var satirEsya in satirEsyaValues)
+                                    {
+                                        _satirEsya = new EsyaBilgisi();
+                                        _satirEsya.BmEsyaKodu = satirEsya.BmEsyaKodu;
+                                        _satirEsya.BrutAgirlik = satirEsya.BrutAgirlik != null ? satirEsya.BrutAgirlik : 0;
+                                        _satirEsya.EsyaKodu = satirEsya.EsyaKodu;
+                                        _satirEsya.EsyaninTanimi = satirEsya.EsyaninTanimi;
+                                        _satirEsya.KalemFiyati = satirEsya.KalemFiyati != null ? satirEsya.KalemFiyati : 0;
+                                        _satirEsya.KalemFiyatiDoviz = satirEsya.KalemFiyatiDoviz;
+                                        _satirEsya.KalemSiraNo = satirEsya.KalemSiraNo != null ? satirEsya.KalemSiraNo : 0;
+                                        _satirEsya.NetAgirlik = satirEsya.NetAgirlik != null ? satirEsya.NetAgirlik : 0;
+                                        _satirEsya.OlcuBirimi = satirEsya.OlcuBirimi;
+                                        _satirEsyaList.Add(_satirEsya);
+                                    }
+                                    _satir.EsyaBilgileri = _satirEsyaList.ToList();
+                                }
+                                else _satir.EsyaBilgileri = new List<EsyaBilgisi>();
 
 
-                //                _tamamlayiciList.Add(_tamamlayici);
-                //            }
+                               _satirList.Add(_satir);
+                            }
 
-                //            _kalem.tamamlayici_bilgi = _tamamlayiciList.ToArray();
-                //        }
-                //        else _kalem.tamamlayici_bilgi = new KontrolHizmeti.tamamlayici[0];
-
-                //        var tcgbacmaiValues = await _beyannameContext.DbBeyannameAcma.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == item.KalemInternalNo).ToListAsync();
-
-                //        if (tcgbacmaiValues != null && tcgbacmaiValues.Count > 0)
-                //        {
-                //            List<KontrolHizmeti.tcgbacmakapatma> _acmaList = new List<KontrolHizmeti.tcgbacmakapatma>();
-                //            KontrolHizmeti.tcgbacmakapatma _acma;
-                //            foreach (var acma in tcgbacmaiValues)
-                //            {
-                //                _acma = new KontrolHizmeti.tcgbacmakapatma();
-                //                _acma.Kapatilan_beyanname_no = acma.BeyannameNo;
-                //                _acma.Kapatilan_kalem_no = acma.KalemNo;
-                //                _acma.Kapatilan_miktar = acma.Miktar;
-                //                _acma.Aciklama = acma.Aciklama;
-
-                //                _acmaList.Add(_acma);
-                //            }
-
-                //            _kalem.tcgbacmakapatma_bilgi = _acmaList.ToArray();
-                //        }
-                //        else _kalem.tcgbacmakapatma_bilgi = new KontrolHizmeti.tcgbacmakapatma[0];
-
-                //        var markaValues = await _beyannameContext.DbMarka.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == item.KalemInternalNo).ToListAsync();
-
-                //        if (markaValues != null && markaValues.Count > 0)
-                //        {
-                //            List<KontrolHizmeti.Marka> _markaList = new List<KontrolHizmeti.Marka>();
-                //            KontrolHizmeti.Marka _marka;
-                //            foreach (var marka in markaValues)
-                //            {
-                //                _marka = new KontrolHizmeti.Marka();
-                //                _marka.Marka_Adi = marka.MarkaAdi;
-                //                _marka.Marka_Kiymeti = marka.MarkaKiymeti != null ? marka.MarkaKiymeti : 0;
-                //                _marka.Marka_Tescil_No = marka.MarkaTescilNo;
-                //                _marka.Marka_Turu = marka.MarkaTuru;
-                //                _marka.Model = marka.Model;
-                //                _marka.Model_Yili = marka.ModelYili;
-                //                _marka.MotorGucu = marka.MotorGucu;
-                //                _marka.MotorNo = marka.MotorNo;
-                //                _marka.Motor_hacmi = marka.MotorHacmi;
-                //                _marka.MotorTipi = marka.MotorTipi;
-                //                _marka.Referans_No = marka.ReferansNo;
-                //                _marka.Renk = marka.Renk;
-                //                _marka.Silindir_adedi = marka.SilindirAdet != null ? marka.SilindirAdet : 0;
-                //                _marka.Vites = marka.Vites;
-                //                _markaList.Add(_marka);
-                //            }
-                //            _kalem.marka_model_bilgi = _markaList.ToArray();
-                //        }
-                //        else _kalem.marka_model_bilgi = new KontrolHizmeti.Marka[0];
+                            _senet.TasimaSatirlari = _satirList.ToList();
+                        }
+                        else _senet.TasimaSatirlari = new List<TasimaSatiriBilgisi>();
 
 
-                //        var konteynerValues = await _beyannameContext.DbKonteyner.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == item.KalemInternalNo).ToListAsync();
+                        var ihracatValues = await _beyannameContext.ObIhracat.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.TasimaSenetInternalNo == item.TasimaSenetInternalNo).ToListAsync();
 
-                //        if (konteynerValues != null && konteynerValues.Count > 0)
-                //        {
-                //            List<KontrolHizmeti.Konteyner> _konteynerList = new List<KontrolHizmeti.Konteyner>();
-                //            KontrolHizmeti.Konteyner _konteyner;
-                //            foreach (var konteyner in konteynerValues)
-                //            {
-                //                _konteyner = new KontrolHizmeti.Konteyner();
-                //                _konteyner.Ulke_Kodu = konteyner.UlkeKodu;
-                //                _konteyner.Konteyner_No = konteyner.KonteynerNo;
+                        if (ihracatValues != null && ihracatValues.Count > 0)
+                        {
+                            List<IhracatBilgisi> _ihracatList = new List<IhracatBilgisi>();
+                            IhracatBilgisi _ihracat;
+                            foreach (var ihr in ihracatValues)
+                            {
+                                _ihracat = new IhracatBilgisi();
+                                _ihracat.BrutAgirlik = ihr.BrutAgirlik != null ? ihr.BrutAgirlik : 0; 
+                                _ihracat.KapAdedi = ihr.KapAdet != null ? ihr.KapAdet : 0;
+                                _ihracat.Numarasi = ihr.Numara;
+                                _ihracat.ParcaliMi = ihr.Parcali;
+                                _ihracat.Tipi = ihr.Tip;
+                                
+                                _ihracatList.Add(_ihracat);
+                            }
 
+                            _senet.Ihracatlar = _ihracatList.ToList();
+                        }
+                        else _senet.Ihracatlar = new List<IhracatBilgisi>();
 
-                //                _konteynerList.Add(_konteyner);
-                //            }
+                        var ugrakUlkeValues = await _beyannameContext.ObUgrakUlke.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.TasimaSenetInternalNo == item.TasimaSenetInternalNo).ToListAsync();
 
-                //            _kalem.konteyner_Bilgi = _konteynerList.ToArray();
-                //        }
-                //        else _kalem.konteyner_Bilgi = new KontrolHizmeti.Konteyner[0];
+                        if (ugrakUlkeValues != null && ugrakUlkeValues.Count > 0)
+                        {
+                            List<UgranilanUlkeBilgisi> _ugrakList = new List<UgranilanUlkeBilgisi>();
+                            UgranilanUlkeBilgisi _ugrak;
+                            foreach (var ugrak in ugrakUlkeValues)
+                            {
+                                _ugrak = new UgranilanUlkeBilgisi();
+                                _ugrak.LimanYerAdi=ugrak.LimanYerAdi;
+                                _ugrak.UlkeKodu = ugrak.UlkeKodu;
 
+                                _ugrakList.Add(_ugrak);
+                            }
 
-                //        var odemeValues = await _beyannameContext.DbOdemeSekli.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == item.KalemInternalNo).ToListAsync();
-
-                //        if (odemeValues != null && odemeValues.Count > 0)
-                //        {
-                //            List<KontrolHizmeti.OdemeSekli> _odemeList = new List<KontrolHizmeti.OdemeSekli>();
-                //            KontrolHizmeti.OdemeSekli _odeme;
-                //            foreach (var odeme in odemeValues)
-                //            {
-                //                _odeme = new KontrolHizmeti.OdemeSekli();
-                //                _odeme.OdemeSekliKodu = odeme.OdemeSekliKodu;
-                //                _odeme.OdemeTutari = odeme.OdemeTutari != null ? odeme.OdemeTutari : 0;
-                //                _odeme.TBFID = odeme.TBFID;
-
-                //                _odemeList.Add(_odeme);
-                //            }
-
-                //            _kalem.OdemeSekilleri = _odemeList.ToArray();
-                //        }
-                //        else _kalem.OdemeSekilleri = new KontrolHizmeti.OdemeSekli[0];
-
-
-                //        _kalemList.Add(_kalem);
-                //    }
-                //    _beyan.Kalemler = _kalemList.ToArray();
-                //}
-                //else _beyan.Kalemler = new KontrolHizmeti.kalem[0];
+                            _senet.UgranilanUlkeler = _ugrakList.ToList();
+                        }
+                        else _senet.UgranilanUlkeler = new List<UgranilanUlkeBilgisi>();
 
 
-               #endregion                         
+
+                        _senetList.Add(_senet);
+                    }
+                    _beyan.TasimaSenetleri = _senetList.ToList();
+                }
+                else _beyan.TasimaSenetleri = new List<TasimaSenediBilgisi>();
+
+
+                #endregion
 
                 #region Teminat
 
@@ -432,7 +391,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
 
                 #endregion
-           
+
 
 
                 var optionss = new DbContextOptionsBuilder<KullaniciDataContext>()
@@ -445,7 +404,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 gelen.RefID = islemValues.RefNo;
                 gelen.Sifre = "19cd21ebad3e08b8f1955b6461bd2f41"; //Md5Helper.getMd5Hash(kullaniciValues.KullaniciSifre);
                 gelen.IP = "";
-                gelen.ozetBeyanBilgisi = _beyan;
+                gelen.OzetBeyanBilgisi = _beyan;
 
                 string imzasizMesaj = SerializeToXML(gelen);
 
@@ -539,7 +498,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
                 List<Bilgi> lstBlg = new List<Bilgi>();
-                Bilgi blg = new Bilgi { IslemTipi = "Tescil Gönderimi", ReferansNo = imzasizMesaj, GUID = guidOf, Sonuc = "Tescil Gönderimi Gerçekleşti", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "Tescil Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Tescil Gönderimi Gerçekleşti", SonucVeriler = null };
                 lstBlg.Add(blg);
 
 

@@ -565,7 +565,7 @@ initSatirFormArray(satir: ObTasimaSatirDto[]) {
       brutAgirlik: new FormControl(klm.brutAgirlik, [
         ValidationService.decimalValidation,
       ]),
-      kapAdedi: new FormControl(klm.kapAdedi, [
+      kapAdet: new FormControl(klm.kapAdet, [
         ValidationService.numberValidator,
       ]),
       kapCinsi: new FormControl(klm.kapCinsi, [Validators.maxLength(9)]),
@@ -604,7 +604,7 @@ initSatirFormArray(satir: ObTasimaSatirDto[]) {
 getSatir() {
   return this._fb.group({
     brutAgirlik: new FormControl(0, [ValidationService.decimalValidation]),
-    kapAdedi: new FormControl(0, [ValidationService.numberValidator]),
+    kapAdet: new FormControl(0, [ValidationService.numberValidator]),
     kapCinsi: new FormControl("", [Validators.maxLength(9)]),
     konteynerTipi: new FormControl("", [Validators.maxLength(9)]),
     markaNo: new FormControl("", [Validators.maxLength(60)]),
@@ -646,10 +646,10 @@ setSatir() {
         typeof klm.brutAgirlik == "string"
           ? parseFloat(klm.brutAgirlik)
           : klm.brutAgirlik;
-      klm.kapAdedi =
-        typeof klm.kapAdedi == "string"
-          ? parseFloat(klm.kapAdedi)
-          : klm.kapAdedi;
+      klm.kapAdet =
+        typeof klm.kapAdet == "string"
+          ? parseFloat(klm.kapAdet)
+          : klm.kapAdet;
 
       klm.netAgirlik =
         typeof klm.netAgirlik == "string"
