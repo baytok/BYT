@@ -13,8 +13,12 @@ namespace BYT.WS.Models
         public string RefID { get; set; }
         public string Sifre { get; set; }
         public string IP { get; set; }
+
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://tempuri.org/", IsNullable = true)]
         public OzetBeyanBilgisi OzetBeyanBilgisi { get; set; }
     }
+
+   
     public class OzetBeyanBilgisi
     {
         public string BeyanSahibiVergiNo { get; set; }

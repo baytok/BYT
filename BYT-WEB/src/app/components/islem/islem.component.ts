@@ -5,7 +5,9 @@ import {
 } from "../../../shared/service-proxies/service-proxies";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { BeyannameSonucservisComponent } from "../../components/beyannamesonucservis/beyannamesonucservis.component";
+import { BeyannameSonucServisComponent } from "../DetayliBeyan/beyannamesonucservis/beyannamesonucservis.component";
+import { OzetBeyanSonucServisComponent } from "../OzetBeyan/ozetbeyansonucservis/ozetbeyansonucservis.component";
+
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -62,7 +64,7 @@ import {
 export class IslemComponent implements OnInit {
   kullanici = "";
   public loading = false;
-  kontrolGonderMenu: boolean = true;
+
   islemlerDataSource: IslemDto[] = [];
   tarihceDataSource = new MatTableDataSource();
   displayedColumnsIslem: string[] = [
@@ -141,7 +143,11 @@ export class IslemComponent implements OnInit {
       }
     );
   }
-
+  getkontrolGonderMenu(beyanTipi: string) {
+    if (beyanTipi == "DetayliBeyan")
+     return true;
+    else  return false;
+  }
   getTarihce(IslemInternalNo: string) {
     this._beyanSession.islemInternalNo = IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo).subscribe(
@@ -179,8 +185,8 @@ export class IslemComponent implements OnInit {
       this.router.navigateByUrl("/app/beyanname");
     if (beyanTipi == "OzetBeyan") this.router.navigateByUrl("/app/ozetbeyan");
   }
-  getBeyannameSonuc(guid: string, islemInternalNo: string) {
-    this.showSonucDialog(0, guid, islemInternalNo);
+  getBeyannameSonuc(guid: string, islemInternalNo: string, beyan: string) {
+    this.showSonucDialog(0, guid, islemInternalNo,beyan);
   }
   sendingKontrolMessages(islemInternalNo: string) {
     this._beyanSession.islemInternalNo = islemInternalNo;
@@ -308,21 +314,28 @@ export class IslemComponent implements OnInit {
     }
   }
 
-  showSonucDialog(id?: number, guid?: string, islemInternalNo?: string): void {
+  showSonucDialog(id?: number, guid?: string, islemInternalNo?: string, beyan?:string): void {
     let sonucDialog;
-    if (id === undefined || id <= 0) {
-      sonucDialog = this._dialog.open(BeyannameSonucservisComponent, {
+    if ((beyan.trim()==='1' || beyan.trim()==='2') && (id === undefined || id <= 0)) {
+      sonucDialog = this._dialog.open(BeyannameSonucServisComponent, {
         width: "700px",
         height: "600px",
         data: { guidOf: guid, islemInternalNo: islemInternalNo },
-      });
-
-      sonucDialog.afterClosed().subscribe((result) => {
+      });    
+     
+    } 
+    else if ((beyan.trim()==='0' ) && (id === undefined || id <= 0))  {
+      sonucDialog = this._dialog.open(OzetBeyanSonucServisComponent, {
+        width: "700px",
+        height: "600px",
+        data: { guidOf: guid, islemInternalNo: islemInternalNo },
+      });  
+    }
+    sonucDialog.afterClosed().subscribe((result) => {
         if (result) {
           this.yenileIslemler();
         }
       });
-    }
   }
 
   rowClick(index) {

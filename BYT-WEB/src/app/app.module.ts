@@ -23,7 +23,8 @@ import { DegistirYetkiComponent } from './components/yetki/degistirYetki/degisti
 import { YeniYetkiComponent } from './components/yetki/yeniYetki/yeniYetki.component';
 import { KiymetComponent } from './components/DetayliBeyan/kiymet/kiymet.component';
 import { OzetbeyanComponent } from './components/OzetBeyan/ozetbeyan/ozetbeyan.component';
-import { BeyannameSonucservisComponent } from './components/beyannamesonucservis/beyannamesonucservis.component';
+import { BeyannameSonucServisComponent } from './components/DetayliBeyan/beyannamesonucservis/beyannamesonucservis.component';
+import { OzetBeyanSonucServisComponent } from './components/OzetBeyan/ozetbeyansonucservis/ozetbeyansonucservis.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ServiceProxyModule } from '../shared/service-proxies/service-proxy.module';
@@ -57,7 +58,8 @@ import {NgxChildProcessModule} from 'ngx-childprocess';
       UserAreaComponent,
       IslemComponent,
       BeyannameComponent,
-      BeyannameSonucservisComponent,      
+      BeyannameSonucServisComponent,    
+      OzetBeyanSonucServisComponent,  
       GenelComponent,
       KalemComponent,
       KullanicilarComponent,
@@ -104,7 +106,7 @@ import {NgxChildProcessModule} from 'ngx-childprocess';
     
    ],
    entryComponents: [
-      BeyannameSonucservisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts
+      BeyannameSonucServisComponent,OzetBeyanSonucServisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts
       
 
    ],

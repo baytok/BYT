@@ -119,7 +119,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                     {
                         _tulke = new TasitinUgradigiUlkeBilgisi();
 
-                        _tulke.HareketTarihSaati = Convert.ToDateTime(item.HareketTarihSaati);
+                        _tulke.HareketTarihSaati = item.HareketTarihSaati!="" ? Convert.ToDateTime(item.HareketTarihSaati) :Convert.ToDateTime("0001 - 01 - 01T00: 00:00");
                         _tulke.LimanYerAdi = item.LimanYerAdi;
                         _tulke.UlkeKodu = item.UlkeKodu;
 
@@ -147,7 +147,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         _ozetBeyan.Aciklama = ozetbeyan.Aciklama;
 
 
-                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanAcmaBeyanInternalNo == ozetbeyan.OzetBeyanNo).ToListAsync();
+                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanAcmaBeyanInternalNo == ozetbeyan.OzetBeyanAcmaBeyanInternalNo).ToListAsync();
 
                         if (ozetBeyanAcmaTasimaSenediValues != null && ozetBeyanAcmaTasimaSenediValues.Count > 0)
                         {
@@ -158,7 +158,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                                 _ozetBeyanTasimaSenedi = new OzbyAcmaSenetBilgisi();
                                 _ozetBeyanTasimaSenedi.AcilanSenetNo = tasimaSenedi.TasimaSenediNo;
 
-                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSatir.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanAcmaBeyanInternalNo == ozetbeyan.OzetBeyanNo && v.TasimaSenetInternalNo == tasimaSenedi.TasimaSenetInternalNo).ToListAsync();
+                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSatir.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanAcmaBeyanInternalNo == ozetbeyan.OzetBeyanAcmaBeyanInternalNo && v.TasimaSenetInternalNo == tasimaSenedi.TasimaSenetInternalNo).ToListAsync();
 
                                 if (ozetBeyanAcmaTasimaSatirValues != null && ozetBeyanAcmaTasimaSatirValues.Count > 0)
                                 {
@@ -251,7 +251,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         _senet.NavlunTutari = item.NavlunTutari != null ? item.NavlunTutari : 0;
                         _senet.OdemeSekli = item.OdemeSekli;
                         _senet.OncekiSeferNumarasi = item.OncekiSeferNumarasi;
-                        _senet.OncekiSeferTarihi = Convert.ToDateTime(item.OncekiSeferTarihi);
+                        _senet.OncekiSeferTarihi = item.OncekiSeferTarihi != "" ? Convert.ToDateTime(item.OncekiSeferTarihi) : Convert.ToDateTime("0001 - 01 - 01T00: 00:00") ;
                         _senet.OzetBeyanNo = item.OzetBeyanNo;
                         _senet.RoroMu = item.Roro;
                         _senet.SenetSiraNo = item.SenetSiraNo.ToString();

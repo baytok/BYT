@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject,Injector } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BeyannameServiceProxy} from '../../../shared/service-proxies/service-proxies';
+import { BeyannameServiceProxy} from '../../../../shared/service-proxies/service-proxies';
 
 import {
   BeyannameSonucDto,
@@ -16,7 +16,7 @@ import {
   SonucIstatistikiKiymetDto,
   SonucGumrukKiymetDto
   
- } from '../../../shared/service-proxies/service-proxies';
+ } from '../../../../shared/service-proxies/service-proxies';
 export interface DialogData {
   guidOf: string;
   islemInternalNo: string;
@@ -29,13 +29,13 @@ export interface DialogData {
   
 })
 
-export class BeyannameSonucservisComponent 
+export class BeyannameSonucServisComponent 
 implements OnInit {
   step = 0;
   ngClass="";
   constructor(
     injector: Injector,
-    public dialogRef: MatDialogRef<BeyannameSonucservisComponent>,
+    public dialogRef: MatDialogRef<BeyannameSonucServisComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private beyanServis: BeyannameServiceProxy,
     

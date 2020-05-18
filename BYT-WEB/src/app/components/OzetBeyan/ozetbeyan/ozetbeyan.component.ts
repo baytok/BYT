@@ -351,6 +351,7 @@ export class OzetbeyanComponent implements OnInit {
      
        });
   
+      
        this.beyanServis.getObTasitUgrakUlke(this._beyanSession.islemInternalNo).subscribe(
         (result: TasitUgrakUlkeDto[]) => {
           this.initTasitFormArray(result);
@@ -361,7 +362,7 @@ export class OzetbeyanComponent implements OnInit {
         }
       );
       this.ozetBeyanForm.disable();
-
+   
   }
   get BeyanStatu():boolean {
    
@@ -519,12 +520,12 @@ export class OzetbeyanComponent implements OnInit {
             this.islemInput.nativeElement.value=yeniislemInternalNo;
             this._ozetBeyan.ozetBeyanInternalNo=yeniislemInternalNo;
             this._beyanSession.islemInternalNo=yeniislemInternalNo;
-         
-           this.getBeyannameFromIslem(yeniislemInternalNo);
-            this.openSnackBar(servisSonuc.Sonuc, "Tamam");         
             this.setTasit();   
+            this.getBeyannameFromIslem(yeniislemInternalNo);
+            this.openSnackBar(servisSonuc.Sonuc, "Tamam");         
+          
           }
-           this.ozetBeyanForm.disable();
+            this.ozetBeyanForm.disable();
             this.tasitForm.disable();
         },
         err => {
@@ -637,6 +638,8 @@ export class OzetbeyanComponent implements OnInit {
         .toPromise();
       promiseOdeme.then(
         (result) => {
+
+          this.tasitBilgileri.reset();
           // const servisSonuc = new ServisDto();
           // servisSonuc.init(result);
           // this.tasitForm.disable();

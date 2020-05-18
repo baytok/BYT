@@ -940,7 +940,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
                             var maxKalemInternalNo = (from u in beyannameContext.ObOzetBeyanAcma
                                                       where u.OzetBeyanInternalNo == ozbyAcma.OzetBeyanInternalNo
-                                                      select (u.OzetBeyanInternalNo)).Max();
+                                                      select (u.OzetBeyanAcmaBeyanInternalNo)).Max();
 
                             ozbyAcma.SonIslemZamani = DateTime.Now;
 
@@ -1049,11 +1049,11 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                                 {
                                     var maxTasimaSenetInternalNo = (from u in beyannameContext.ObOzetBeyanAcmaTasimaSenet
                                                                     where u.OzetBeyanInternalNo == OzetBeyanInternalNo &&
-                                                                    u.OzetBeyanInternalNo == OzetBeyanInternalNo
+                                                                    u.OzetBeyanAcmaBeyanInternalNo == OzetBeyanAcmaBeyanInternalNo
                                                                     select (u.TasimaSenetInternalNo)).Max();
 
 
-                                    int klNo = Convert.ToInt32(maxTasimaSenetInternalNo.Split('|')[1].ToString()) + 1;
+                                    int klNo = Convert.ToInt32(maxTasimaSenetInternalNo.Split('|')[2].ToString()) + 1;
                                     item.SonIslemZamani = DateTime.Now;
                                     item.OzetBeyanAcmaBeyanInternalNo = OzetBeyanAcmaBeyanInternalNo;
                                     item.TasimaSenetInternalNo = item.OzetBeyanAcmaBeyanInternalNo + "|" + klNo.ToString();

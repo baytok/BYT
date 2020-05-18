@@ -218,7 +218,7 @@ type = "ball-8bits">
                       </button>
                       <button
                         mat-menu-item
-                        [disabled]="!kontrolGonderMenu"
+                        [hidden]="!getkontrolGonderMenu(element.beyanTipi)"
                         (click)="
                           sendingKontrolMessages(element.islemInternalNo)
                         "
@@ -484,7 +484,8 @@ type = "ball-8bits">
                         (click)="
                           getBeyannameSonuc(
                             element.guid,
-                            element.islemInternalNo
+                            element.islemInternalNo,
+                            element.islemTipi
                           )
                         "
                       >
