@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:ns0="http://ws/" targetNamespace="http://ws/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="result">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="corrGuid" type="xsd:string" />
+      <xsd:element minOccurs="0" name="error" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="list" nillable="true" type="xsd:string" />
+      <xsd:element minOccurs="0" name="msgContent" type="xsd:string" />
+      <xsd:element minOccurs="0" name="msgId" type="xsd:string" />
+      <xsd:element minOccurs="0" name="msgStatus" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uploadmessagebylrnResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:result" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="submitdeclarationResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:result" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getMessagesListByGuidResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:result" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uploadmessagebylrn">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="FIRM_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="USER_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="LRN" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MSG_TYPE" type="xsd:string" />
+      <xsd:element minOccurs="0" name="SIGN_FLAG" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MSG_CONTENT" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getMessagesListByGuid">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="FIRM_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="USER_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="CORR_GUID" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="submitdeclaration">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="FIRM_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="USER_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MSG_TYPE" type="xsd:string" />
+      <xsd:element minOccurs="0" name="SIGN_FLAG" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MSG_CONTENT" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uploadmessagebymrn">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="FIRM_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="USER_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MRN" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MSG_TYPE" type="xsd:string" />
+      <xsd:element minOccurs="0" name="SIGN_FLAG" type="xsd:string" />
+      <xsd:element minOccurs="0" name="MSG_CONTENT" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getNotReadMessagesListResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:result" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="downloadmessagebyindexResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:result" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="downloadmessagebyindex">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="FIRM_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="USER_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="INDEX" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uploadmessagebymrnResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:result" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getNotReadMessagesList">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="FIRM_ID" type="xsd:string" />
+      <xsd:element minOccurs="0" name="USER_ID" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="uploadmessagebylrnResponse" type="ns0:uploadmessagebylrnResponse" />
+  <xsd:element name="uploadmessagebymrn" type="ns0:uploadmessagebymrn" />
+  <xsd:element name="getNotReadMessagesListResponse" type="ns0:getNotReadMessagesListResponse" />
+  <xsd:element name="submitdeclarationResponse" type="ns0:submitdeclarationResponse" />
+  <xsd:element name="downloadmessagebyindexResponse" type="ns0:downloadmessagebyindexResponse" />
+  <xsd:element name="downloadmessagebyindex" type="ns0:downloadmessagebyindex" />
+  <xsd:element name="getMessagesListByGuidResponse" type="ns0:getMessagesListByGuidResponse" />
+  <xsd:element name="uploadmessagebymrnResponse" type="ns0:uploadmessagebymrnResponse" />
+  <xsd:element name="getMessagesListByGuid" type="ns0:getMessagesListByGuid" />
+  <xsd:element name="uploadmessagebylrn" type="ns0:uploadmessagebylrn" />
+  <xsd:element name="getNotReadMessagesList" type="ns0:getNotReadMessagesList" />
+  <xsd:element name="submitdeclaration" type="ns0:submitdeclaration" />
+</xsd:schema>

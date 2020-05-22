@@ -298,5 +298,31 @@ namespace BYT.UI
             client.ClientCredentials.UserName.Password = Password;
             return client;
         }
+
+        public static UI.NctsHizmeti.WS2ServiceClient GetNctsWSClient(string UserName, string Password)
+        {
+            EndpointAddress address;
+            BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly);
+            binding.SendTimeout = TimeSpan.FromSeconds(125);
+            binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
+
+            binding.Security.Transport.ProxyCredentialType = HttpProxyCredentialType.None;
+            //binding.Security.Message.ClientCredentialType = BasicHttpMessageCredentialType.UserName;
+            //binding.Security.Message.AlgorithmSuite = System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDes;
+            binding.MaxReceivedMessageSize = 2147483647;
+
+#if (DEBUG)
+            address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/NCTS/Provider/NCTS2SWS?wsdl");
+
+#else
+             address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/NCTS/Provider/NCTS2SWS?wsdl");
+          
+#endif
+            UI.NctsHizmeti.WS2ServiceClient client = new UI.NctsHizmeti.WS2ServiceClient(binding, address);
+            client.ClientCredentials.UserName.UserName = UserName;
+            client.ClientCredentials.UserName.Password = Password;
+
+            return client;
+        }
     }
 }

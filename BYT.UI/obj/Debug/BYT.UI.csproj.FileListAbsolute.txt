@@ -377,3 +377,4 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\SmartcardLibrary_x86.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\XmlRender.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.BYTIslemler.resources
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\Interop.MSXML2.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.csproj.CoreCompileInputs.cache

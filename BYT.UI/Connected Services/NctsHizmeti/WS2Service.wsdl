@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://ws/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="WS2Service" targetNamespace="http://ws/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://wstest.gtb.gov.tr:8080/ssg/wsdl/WS2Service?serviceoid=78985da2821b7929b2e6e8511f968b24&amp;servdocoid=78985da2821b7929b2e6e8511f968b64" namespace="http://ws/" />
+    </xsd:schema>
+  </types>
+  <message name="getMessagesListByGuid">
+    <part name="parameters" element="tns:getMessagesListByGuid" />
+  </message>
+  <message name="getMessagesListByGuidResponse">
+    <part name="parameters" element="tns:getMessagesListByGuidResponse" />
+  </message>
+  <message name="getNotReadMessagesList">
+    <part name="parameters" element="tns:getNotReadMessagesList" />
+  </message>
+  <message name="getNotReadMessagesListResponse">
+    <part name="parameters" element="tns:getNotReadMessagesListResponse" />
+  </message>
+  <message name="downloadmessagebyindex">
+    <part name="parameters" element="tns:downloadmessagebyindex" />
+  </message>
+  <message name="downloadmessagebyindexResponse">
+    <part name="parameters" element="tns:downloadmessagebyindexResponse" />
+  </message>
+  <message name="submitdeclaration">
+    <part name="parameters" element="tns:submitdeclaration" />
+  </message>
+  <message name="submitdeclarationResponse">
+    <part name="parameters" element="tns:submitdeclarationResponse" />
+  </message>
+  <message name="uploadmessagebylrn">
+    <part name="parameters" element="tns:uploadmessagebylrn" />
+  </message>
+  <message name="uploadmessagebylrnResponse">
+    <part name="parameters" element="tns:uploadmessagebylrnResponse" />
+  </message>
+  <message name="uploadmessagebymrn">
+    <part name="parameters" element="tns:uploadmessagebymrn" />
+  </message>
+  <message name="uploadmessagebymrnResponse">
+    <part name="parameters" element="tns:uploadmessagebymrnResponse" />
+  </message>
+  <portType name="WS2Service">
+    <operation name="getMessagesListByGuid">
+      <input wsam:Action="http://ws/WS2Service/getMessagesListByGuidRequest" message="tns:getMessagesListByGuid" />
+      <output wsam:Action="http://ws/WS2Service/getMessagesListByGuidResponse" message="tns:getMessagesListByGuidResponse" />
+    </operation>
+    <operation name="getNotReadMessagesList">
+      <input wsam:Action="http://ws/WS2Service/getNotReadMessagesListRequest" message="tns:getNotReadMessagesList" />
+      <output wsam:Action="http://ws/WS2Service/getNotReadMessagesListResponse" message="tns:getNotReadMessagesListResponse" />
+    </operation>
+    <operation name="downloadmessagebyindex">
+      <input wsam:Action="http://ws/WS2Service/downloadmessagebyindexRequest" message="tns:downloadmessagebyindex" />
+      <output wsam:Action="http://ws/WS2Service/downloadmessagebyindexResponse" message="tns:downloadmessagebyindexResponse" />
+    </operation>
+    <operation name="submitdeclaration">
+      <input wsam:Action="http://ws/WS2Service/submitdeclarationRequest" message="tns:submitdeclaration" />
+      <output wsam:Action="http://ws/WS2Service/submitdeclarationResponse" message="tns:submitdeclarationResponse" />
+    </operation>
+    <operation name="uploadmessagebylrn">
+      <input wsam:Action="http://ws/WS2Service/uploadmessagebylrnRequest" message="tns:uploadmessagebylrn" />
+      <output wsam:Action="http://ws/WS2Service/uploadmessagebylrnResponse" message="tns:uploadmessagebylrnResponse" />
+    </operation>
+    <operation name="uploadmessagebymrn">
+      <input wsam:Action="http://ws/WS2Service/uploadmessagebymrnRequest" message="tns:uploadmessagebymrn" />
+      <output wsam:Action="http://ws/WS2Service/uploadmessagebymrnResponse" message="tns:uploadmessagebymrnResponse" />
+    </operation>
+  </portType>
+  <binding name="WS2ServicePortBinding" type="tns:WS2Service">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="getMessagesListByGuid">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getNotReadMessagesList">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="downloadmessagebyindex">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="submitdeclaration">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="uploadmessagebylrn">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="uploadmessagebymrn">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WS2Service">
+    <port name="WS2ServicePort" binding="tns:WS2ServicePortBinding">
+      <soap:address location="http://wstest.gtb.gov.tr:8080/EXT/Gumruk/NCTS/Provider/NCTS2SWS" />
+    </port>
+  </service>
+</definitions>

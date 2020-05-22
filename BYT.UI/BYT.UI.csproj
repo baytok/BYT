@@ -511,6 +511,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\NctsHizmeti\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\OzetBeyanHizmeti\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -692,6 +697,31 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\MesaiHizmeti\MesaiHizmeti.wsdl" />
+    <None Include="Connected Services\NctsHizmeti\BYT.UI.NctsHizmeti.downloadmessagebyindexResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\NctsHizmeti\BYT.UI.NctsHizmeti.getMessagesListByGuidResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\NctsHizmeti\BYT.UI.NctsHizmeti.getNotReadMessagesListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\NctsHizmeti\BYT.UI.NctsHizmeti.result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\NctsHizmeti\BYT.UI.NctsHizmeti.submitdeclarationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\NctsHizmeti\BYT.UI.NctsHizmeti.uploadmessagebylrnResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\NctsHizmeti\BYT.UI.NctsHizmeti.uploadmessagebymrnResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\NctsHizmeti\WS2Service.wsdl" />
+    <None Include="Connected Services\NctsHizmeti\WS2Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\OzetBeyanHizmeti\BYT.UI.OzetBeyanHizmeti.OzetBeyanSoapOut.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -733,6 +763,7 @@
     <WCFMetadataStorage Include="Connected Services\KontrolHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\KpsWs\" />
     <WCFMetadataStorage Include="Connected Services\MesaiHizmeti\" />
+    <WCFMetadataStorage Include="Connected Services\NctsHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\OzetBeyanHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\SorgulamaHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\TescilHizmeti\" />
@@ -790,6 +821,12 @@
     <None Include="Connected Services\IGHBHizmeti\configuration91.svcinfo" />
     <None Include="Connected Services\IGHBHizmeti\configuration.svcinfo" />
     <None Include="Connected Services\IGHBHizmeti\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\NctsHizmeti\configuration91.svcinfo" />
+    <None Include="Connected Services\NctsHizmeti\configuration.svcinfo" />
+    <None Include="Connected Services\NctsHizmeti\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -545,8 +545,8 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 XmlDocument xmlDoc = new XmlDocument();
                 XmlElement root = xmlDoc.CreateElement("Root");
                 root.InnerText = tarihceValues.ImzaliVeri;
-                TescilHizmeti.Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient Tescil = ServiceHelper.GetTescilWSClient(_servisCredential.username, _servisCredential.password);
-                await Tescil.TescilAsync(root);
+                OzetBeyanHizmeti.Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoapClient Tescil = ServiceHelper.GetOzetBeyanWSClient(_servisCredential.username, _servisCredential.password);
+                await Tescil.OzetBeyanAsync(root);
 
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(root.OuterXml);
