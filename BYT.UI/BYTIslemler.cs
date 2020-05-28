@@ -1555,12 +1555,12 @@ namespace BYT.UI
 
         private void btnXml_Click(object sender, EventArgs e)
         {
-            //FRMXML myfr = new FRMXML();
-            //Encoding unicode = Encoding.UTF8;
-            //byte[] msgBytes = Convert.FromBase64String(rchImza.Text);
-            //myfr.richTextBox1.Text = Imzala.PlainText(msgBytes);
-            //myfr.richTextBox2.Text = Imzala.CertificatesInfo(msgBytes);
-            //myfr.ShowDialog();
+            
+           Encoding unicode = Encoding.UTF8;
+            byte[] msgBytes = Convert.FromBase64String(rchImza.Text);
+            MessageBox.Show(Imzala.PlainText(msgBytes));
+            MessageBox.Show(Imzala.CertificatesInfo(msgBytes));
+          
         }
 
         private void btnImzaliVeriKaydet_Click(object sender, EventArgs e)

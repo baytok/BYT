@@ -23,8 +23,9 @@ import { GirisService } from 'src/account/giris/giris.service';
         RootComponent
     ],
     providers: [
-        { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" }, 
-      //  { provide: API_BASE_URL, useValue: "http://servis.byt.com/BYTServis/api/BYT/" }, 
+      
+       { provide: API_BASE_URL, useValue: "http://servis.byt.com/BYTServis/api/BYT/" }, 
+     //  { provide: API_BASE_URL, useValue: "https://localhost:44345/api/BYT/" }, 
            GirisService
     ],
     bootstrap: [RootComponent]

@@ -212,7 +212,6 @@
             this.btnXml.TabIndex = 94;
             this.btnXml.Text = "Açık XML";
             this.btnXml.UseVisualStyleBackColor = true;
-            this.btnXml.Visible = false;
             this.btnXml.Click += new System.EventHandler(this.btnXml_Click);
             // 
             // btnSil
