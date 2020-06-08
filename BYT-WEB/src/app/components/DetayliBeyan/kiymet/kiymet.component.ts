@@ -120,7 +120,7 @@ export class KiymetComponent implements OnInit {
         this._beyanSession.islemInternalNo + " ait Kıymet Bulunamadı",
         "Tamam"
       );
-      this.router.navigateByUrl("/app/beyanname");
+      this.router.navigateByUrl("/app/dbbeyan");
     }
 
     this.getKiymetler(this._beyanSession.islemInternalNo);

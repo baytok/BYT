@@ -1,0 +1,554 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+      {
+          "kod": "AA",
+          "aciklama": "Afar"
+      },
+      {
+          "kod": "AB",
+          "aciklama": "Çerkez Dili (Abhaz)"
+      },
+      {
+          "kod": "AF",
+          "aciklama": "Afrikanca (Hollanda Lehçesi)"
+      },
+      {
+          "kod": "AM",
+          "aciklama": "Habeşistan Dili"
+      },
+      {
+          "kod": "AR",
+          "aciklama": "Arapça"
+      },
+      {
+          "kod": "AS",
+          "aciklama": "Asami dili"
+      },
+      {
+          "kod": "AY",
+          "aciklama": "Aymara"
+      },
+      {
+          "kod": "AZ",
+          "aciklama": "Azerice"
+      },
+      {
+          "kod": "BA",
+          "aciklama": "Başkırtça"
+      },
+      {
+          "kod": "BE",
+          "aciklama": "Beyaz Rusya (Belarusça)"
+      },
+      {
+          "kod": "BG",
+          "aciklama": "Bulgarca"
+      },
+      {
+          "kod": "BH",
+          "aciklama": "Bihar dili"
+      },
+      {
+          "kod": "BI",
+          "aciklama": "Bislama"
+      },
+      {
+          "kod": "BN",
+          "aciklama": "Bengalli"
+      },
+      {
+          "kod": "BO",
+          "aciklama": "Tibetçe"
+      },
+      {
+          "kod": "BR",
+          "aciklama": "Brezilya Portekizcesi"
+      },
+      {
+          "kod": "CA",
+          "aciklama": "Katalanca"
+      },
+      {
+          "kod": "CO",
+          "aciklama": "Korsika"
+      },
+      {
+          "kod": "CS",
+          "aciklama": "Çekce"
+      },
+      {
+          "kod": "CY",
+          "aciklama": "Welsh"
+      },
+      {
+          "kod": "DA",
+          "aciklama": "Danca"
+      },
+      {
+          "kod": "DE",
+          "aciklama": "Almanca"
+      },
+      {
+          "kod": "DZ",
+          "aciklama": "Bhutanlı dili"
+      },
+      {
+          "kod": "EL",
+          "aciklama": "Yunanca"
+      },
+      {
+          "kod": "EN",
+          "aciklama": "İngilizce"
+      },
+      {
+          "kod": "EO",
+          "aciklama": "Esperanto Dili"
+      },
+      {
+          "kod": "ES",
+          "aciklama": "İspanyolca"
+      },
+      {
+          "kod": "ET",
+          "aciklama": "Estonyaca"
+      },
+      {
+          "kod": "EU",
+          "aciklama": "Baskça"
+      },
+      {
+          "kod": "FA",
+          "aciklama": "Farsça"
+      },
+      {
+          "kod": "FI",
+          "aciklama": "Fince"
+      },
+      {
+          "kod": "FJ",
+          "aciklama": "Fiji"
+      },
+      {
+          "kod": "FO",
+          "aciklama": "Faroese"
+      },
+      {
+          "kod": "FR",
+          "aciklama": "Fransızca"
+      },
+      {
+          "kod": "FY",
+          "aciklama": "Frizye Dili"
+      },
+      {
+          "kod": "GA",
+          "aciklama": "İrlandaca"
+      },
+      {
+          "kod": "GD",
+          "aciklama": "İskoç Gallicesi"
+      },
+      {
+          "kod": "GL",
+          "aciklama": "Galiçyaca"
+      },
+      {
+          "kod": "GN",
+          "aciklama": "Guarani"
+      },
+      {
+          "kod": "GR",
+          "aciklama": "Yunanca (Latin karakter)"
+      },
+      {
+          "kod": "GU",
+          "aciklama": "Gujarati"
+      },
+      {
+          "kod": "HA",
+          "aciklama": "Hausa"
+      },
+      {
+          "kod": "HI",
+          "aciklama": "Hintçe (Hindu Dili)"
+      },
+      {
+          "kod": "HR",
+          "aciklama": "Hırvatça"
+      },
+      {
+          "kod": "HU",
+          "aciklama": "Macarca"
+      },
+      {
+          "kod": "HY",
+          "aciklama": "Ermenice"
+      },
+      {
+          "kod": "IA",
+          "aciklama": "Interlingua"
+      },
+      {
+          "kod": "IE",
+          "aciklama": "Interlingue"
+      },
+      {
+          "kod": "IK",
+          "aciklama": "Inupiak"
+      },
+      {
+          "kod": "IN",
+          "aciklama": "Endonezya Dili"
+      },
+      {
+          "kod": "IS",
+          "aciklama": "İzlandaca"
+      },
+      {
+          "kod": "IT",
+          "aciklama": "İtalyanca"
+      },
+      {
+          "kod": "IW",
+          "aciklama": "İbranice"
+      },
+      {
+          "kod": "JA",
+          "aciklama": "Japonca"
+      },
+      {
+          "kod": "JI",
+          "aciklama": "Yiddish"
+      },
+      {
+          "kod": "JV",
+          "aciklama": "Javanese"
+      },
+      {
+          "kod": "KA",
+          "aciklama": "Gürcüce"
+      },
+      {
+          "kod": "KK",
+          "aciklama": "Kazakça"
+      },
+      {
+          "kod": "KL",
+          "aciklama": "Grönland"
+      },
+      {
+          "kod": "KM",
+          "aciklama": "Kamboçyaca"
+      },
+      {
+          "kod": "KN",
+          "aciklama": "Kannada"
+      },
+      {
+          "kod": "KO",
+          "aciklama": "Korece"
+      },
+      {
+          "kod": "KS",
+          "aciklama": "Keşmir"
+      },
+      {
+          "kod": "KU",
+          "aciklama": "Kürtçe"
+      },
+      {
+          "kod": "KY",
+          "aciklama": "Kırgızca"
+      },
+      {
+          "kod": "LA",
+          "aciklama": "Latince"
+      },
+      {
+          "kod": "LN",
+          "aciklama": "Lingala"
+      },
+      {
+          "kod": "LO",
+          "aciklama": "Lao dili"
+      },
+      {
+          "kod": "LT",
+          "aciklama": "Litvanyaca"
+      },
+      {
+          "kod": "LV",
+          "aciklama": "Letonca"
+      },
+      {
+          "kod": "MG",
+          "aciklama": "Madagaskar Dili"
+      },
+      {
+          "kod": "MI",
+          "aciklama": "Maori"
+      },
+      {
+          "kod": "MK",
+          "aciklama": "Makedonca"
+      },
+      {
+          "kod": "ML",
+          "aciklama": "Malayalam"
+      },
+      {
+          "kod": "MN",
+          "aciklama": "Moğolca"
+      },
+      {
+          "kod": "MO",
+          "aciklama": "Moldova (Boğdan)"
+      },
+      {
+          "kod": "MR",
+          "aciklama": "Marathi"
+      },
+      {
+          "kod": "MS",
+          "aciklama": "Malayca"
+      },
+      {
+          "kod": "MT",
+          "aciklama": "Malta Dili"
+      },
+      {
+          "kod": "MY",
+          "aciklama": "Birmanya Dili"
+      },
+      {
+          "kod": "NA",
+          "aciklama": "Nauru"
+      },
+      {
+          "kod": "NE",
+          "aciklama": "Nepali"
+      },
+      {
+          "kod": "NL",
+          "aciklama": "Felemenkçe"
+      },
+      {
+          "kod": "NO",
+          "aciklama": "Norveççe"
+      },
+      {
+          "kod": "OC",
+          "aciklama": "Occitan"
+      },
+      {
+          "kod": "OM",
+          "aciklama": "Oromo"
+      },
+      {
+          "kod": "OR",
+          "aciklama": "Oriya"
+      },
+      {
+          "kod": "PA",
+          "aciklama": "Pencap Dili (Punjabi)"
+      },
+      {
+          "kod": "PL",
+          "aciklama": "Lehçe (Polonezce) (Polca)"
+      },
+      {
+          "kod": "PS",
+          "aciklama": "Peştuca"
+      },
+      {
+          "kod": "PT",
+          "aciklama": "Portekizce"
+      },
+      {
+          "kod": "QU",
+          "aciklama": "Quetchua"
+      },
+      {
+          "kod": "RM",
+          "aciklama": "Rhaeto-Romance"
+      },
+      {
+          "kod": "RN",
+          "aciklama": "Kirundi"
+      },
+      {
+          "kod": "RO",
+          "aciklama": "Romence"
+      },
+      {
+          "kod": "RU",
+          "aciklama": "Rusça"
+      },
+      {
+          "kod": "RW",
+          "aciklama": "Kinyaruanda"
+      },
+      {
+          "kod": "SA",
+          "aciklama": "Sanskritçe"
+      },
+      {
+          "kod": "SD",
+          "aciklama": "Sindhi"
+      },
+      {
+          "kod": "SG",
+          "aciklama": "Sangho"
+      },
+      {
+          "kod": "SH",
+          "aciklama": "Sırp Hırvatçası"
+      },
+      {
+          "kod": "SI",
+          "aciklama": "Sinhalese"
+      },
+      {
+          "kod": "SK",
+          "aciklama": "Slovakça"
+      },
+      {
+          "kod": "SL",
+          "aciklama": "Slovence"
+      },
+      {
+          "kod": "SM",
+          "aciklama": "Samoaca"
+      },
+      {
+          "kod": "SN",
+          "aciklama": "Shona"
+      },
+      {
+          "kod": "SO",
+          "aciklama": "Somali dili"
+      },
+      {
+          "kod": "SQ",
+          "aciklama": "Arnavutça"
+      },
+      {
+          "kod": "SR",
+          "aciklama": "Sırpça"
+      },
+      {
+          "kod": "SS",
+          "aciklama": "Siswati"
+      },
+      {
+          "kod": "ST",
+          "aciklama": "Sesotho"
+      },
+      {
+          "kod": "SU",
+          "aciklama": "Sundanese"
+      },
+      {
+          "kod": "SV",
+          "aciklama": "İsveççe"
+      },
+      {
+          "kod": "SW",
+          "aciklama": "Swahili"
+      },
+      {
+          "kod": "TA",
+          "aciklama": "Tamil dili"
+      },
+      {
+          "kod": "TE",
+          "aciklama": "Telugu"
+      },
+      {
+          "kod": "TG",
+          "aciklama": "Tacikçe"
+      },
+      {
+          "kod": "TH",
+          "aciklama": "Tayland dili"
+      },
+      {
+          "kod": "TI",
+          "aciklama": "Tigrinya"
+      },
+      {
+          "kod": "TK",
+          "aciklama": "Türkmence"
+      },
+      {
+          "kod": "TL",
+          "aciklama": "Takalokça"
+      },
+      {
+          "kod": "TN",
+          "aciklama": "Setswana"
+      },
+      {
+          "kod": "TO",
+          "aciklama": "Tonga"
+      },
+      {
+          "kod": "TR",
+          "aciklama": "Türkçe"
+      },
+      {
+          "kod": "TS",
+          "aciklama": "Tsonga"
+      },
+      {
+          "kod": "TT",
+          "aciklama": "Tatarca"
+      },
+      {
+          "kod": "TW",
+          "aciklama": "Tayvanca"
+      },
+      {
+          "kod": "UK",
+          "aciklama": "Ukraynaca"
+      },
+      {
+          "kod": "UR",
+          "aciklama": "Urduca"
+      },
+      {
+          "kod": "UZ",
+          "aciklama": "Özbekçe"
+      },
+      {
+          "kod": "VI",
+          "aciklama": "Vietnam dili"
+      },
+      {
+          "kod": "VO",
+          "aciklama": "Volapük"
+      },
+      {
+          "kod": "WO",
+          "aciklama": "Wolof"
+      },
+      {
+          "kod": "XH",
+          "aciklama": "Xhosa"
+      },
+      {
+          "kod": "YO",
+          "aciklama": "Yoruba"
+      },
+      {
+          "kod": "ZH",
+          "aciklama": "Çince"
+      },
+      {
+          "kod": "ZU",
+          "aciklama": "Zulu dili"
+      }
+]

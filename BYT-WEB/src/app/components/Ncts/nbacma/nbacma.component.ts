@@ -23,34 +23,36 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import {
-  DbOzetBeyanAcmaDto,
-  DbOzetBeyanAcmaTasimaSenetDto,
-  DbOzetBeyanAcmaTasimaSatirDto,
+  ObOzetBeyanAcmaDto,
+  ObOzetBeyanAcmaTasimaSenetDto,
+  ObOzetBeyanAcmaTasimaSatirDto,
   ServisDto,
 } from "../../../../shared/service-proxies/service-proxies";
 import { ReferansService } from "../../../../shared/helpers/ReferansService";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 @Component({
-  selector: "app-dbozetbeyan",
-  templateUrl: "./dbozetbeyanacma.component.html",
-  styleUrls: ["./dbozetbeyanacma.component.css"],
+  selector: "app-nbacma",
+  templateUrl: "./nbacma.component.html",
+  styleUrls: ["./nbacma.component.css"],
   encapsulation: ViewEncapsulation.None,
 })
-export class DbOzetbeyanAcmaComponent implements OnInit {
-  ozetBeyanInternalNo: string;
+export class NbAcmaComponent implements OnInit {
+  ozetBeyanAcmaBeyanInternalNo: string;
   tasimaSenetInternalNo: string;
   tasimaSenediNo: string;
   ozetBeyanForm: FormGroup;
   tasimaSenetiForm: FormGroup;
   tasimaSatiriForm: FormGroup;
-  _ozetBeyanlar: DbOzetBeyanAcmaDto[];
-  _tasimaSenetleri: DbOzetBeyanAcmaTasimaSenetDto[];
-  _tasimaSatirlari: DbOzetBeyanAcmaTasimaSatirDto[];
+  _ozetBeyanlar: ObOzetBeyanAcmaDto[];
+  _tasimaSenetleri: ObOzetBeyanAcmaTasimaSenetDto[];
+  _tasimaSatirlari: ObOzetBeyanAcmaTasimaSatirDto[];
+  _olcuList = this.referansService.getolcuJSON();
+  _cinsList = this.referansService.getkapCinsiJSON();
   tasimaSatirGoster: boolean = false;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
-  beyanInternalNo = this._beyanSession.beyanInternalNo;
+  ozetBeyanInternalNo = this._beyanSession.ozetBeyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
   title = "Taşıma Satırları";
   closeResult: string;
@@ -66,7 +68,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   ) {
     (this.ozetBeyanForm = this._fb.group({
       id: [],
-      beyanInternalNo: [],
+      ozetBeyanAcmaBeyanInternalNo: [],
       ozetBeyanInternalNo: [],
 
       islemKapsami: new FormControl("", [
@@ -77,6 +79,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
         Validators.required,
         Validators.maxLength(30),
       ]),
+     
       aciklama: new FormControl("", [Validators.maxLength(1500)]),
       baskaRejim: [false],
       ambar: [false],
@@ -105,7 +108,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
         this._beyanSession.islemInternalNo + " ait Özet Beyan Açma Bulunamadı",
         "Tamam"
       );
-      this.router.navigateByUrl("/app/dbbeyan");
+      this.router.navigateByUrl("/app/nctsbeyan");
     }
 
     this.getOzetBeyanlar(this._beyanSession.islemInternalNo);
@@ -130,10 +133,10 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     if (this.beyanStatu === "undefined" || this.beyanStatu === null)
       return false;
     if (
-      this.ozetBeyanInternalNo != "Boş" &&
-      this.ozetBeyanInternalNo != null &&
-      this.ozetBeyanInternalNo != "" &&
-      this.ozetBeyanInternalNo != "undefined" &&
+      this.ozetBeyanAcmaBeyanInternalNo != "Boş" &&
+      this.ozetBeyanAcmaBeyanInternalNo != null &&
+      this.ozetBeyanAcmaBeyanInternalNo != "" &&
+      this.ozetBeyanAcmaBeyanInternalNo != "undefined" &&
       (this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
     )
       return true;
@@ -142,11 +145,11 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
 
   yukleOzetBeyan() {
     this.getOzetBeyanlar(this._beyanSession.islemInternalNo);
-    this.ozetBeyanInternalNo = "";
+    this.ozetBeyanAcmaBeyanInternalNo = "";
   }
   getOzetBeyanlar(islemInternalNo: string) {
-    this.beyanServis.getDbOzetBeyanAcma(islemInternalNo).subscribe(
-      (result: DbOzetBeyanAcmaDto[]) => {
+    this.beyanServis.getObOzetBeyanAcma(islemInternalNo).subscribe(
+      (result: ObOzetBeyanAcmaDto[]) => {
         this._ozetBeyanlar = result;
         this.ozetBeyanForm.disable();
         this.tasimaSenetiForm.disable();
@@ -156,15 +159,20 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
       }
     );
   }
-  getOzetBeyanBilgileri(ozetBeyanInternalNo) {
+  getOzetBeyanBilgileri(ozetBeyanAcmaBeyanInternalNo) {
     let siraNo = null;
+  
     for (let i in this._ozetBeyanlar) {
-      if (this._ozetBeyanlar[i].ozetBeyanInternalNo === ozetBeyanInternalNo)
+      if (
+        this._ozetBeyanlar[i].ozetBeyanAcmaBeyanInternalNo ===
+        ozetBeyanAcmaBeyanInternalNo
+      )
         siraNo = i;
     }
 
     this.ozetBeyanForm.setValue({
-      beyanInternalNo: this._ozetBeyanlar[siraNo].beyanInternalNo,
+      ozetBeyanAcmaBeyanInternalNo: this._ozetBeyanlar[siraNo]
+        .ozetBeyanAcmaBeyanInternalNo,
       ozetBeyanInternalNo: this._ozetBeyanlar[siraNo].ozetBeyanInternalNo,
       ozetBeyanNo: this._ozetBeyanlar[siraNo].ozetBeyanNo,
       islemKapsami: this._ozetBeyanlar[siraNo].islemKapsami,
@@ -174,14 +182,16 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
       aciklama: this._ozetBeyanlar[siraNo].aciklama,
       id: this._ozetBeyanlar[siraNo].id,
     });
-    this.ozetBeyanInternalNo = ozetBeyanInternalNo;
+    this.ozetBeyanAcmaBeyanInternalNo = ozetBeyanAcmaBeyanInternalNo;
 
     this.beyanServis
-      .getDbTasimaSenet(this._beyanSession.islemInternalNo)
+      .getObOzetBeyanAcmaTasimaSenet(this._beyanSession.islemInternalNo)
       .subscribe(
-        (result: DbOzetBeyanAcmaTasimaSenetDto[]) => {
+        (result: ObOzetBeyanAcmaTasimaSenetDto[]) => {
           this._tasimaSenetleri = result.filter(
-            (x) => x.ozetBeyanInternalNo === this.ozetBeyanInternalNo
+            (x) =>
+              x.ozetBeyanAcmaBeyanInternalNo ===
+              this.ozetBeyanAcmaBeyanInternalNo
           );
           this.initTasimaSenetiFormArray(this._tasimaSenetleri);
           this.tasimaSenetiForm.disable();
@@ -201,7 +211,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   }
 
   yeniOzetBeyan() {
-    this.ozetBeyanInternalNo = "Boş";
+    this.ozetBeyanAcmaBeyanInternalNo = "Boş";
     this.tasimaSenetInternalNo = "Boş";
     this.ozetBeyanForm.reset();
     this.ozetBeyanForm.enable();
@@ -224,16 +234,17 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     this.tasimaSenetiForm.markAllAsTouched();
     this.tasimaSatirGoster = false;
   }
-  silOzetBeyan(ozetBeyanInternalNo) {
+  silOzetBeyan(ozetBeyanAcmaBeyanInternalNo) {
     if (
       confirm(
-        ozetBeyanInternalNo + "- Özet Beyanı Silmek İstediğinizden Eminmisiniz?"
+        ozetBeyanAcmaBeyanInternalNo +
+          "- Özet Beyanı Silmek İstediğinizden Eminmisiniz?"
       )
     ) {
       const promise = this.beyanServis
-        .removeDbOzetBeyanAcma(
-          ozetBeyanInternalNo,
-          this._beyanSession.beyanInternalNo
+        .removeObOzetBeyanAcma(
+          this.ozetBeyanAcmaBeyanInternalNo,
+          ozetBeyanAcmaBeyanInternalNo
         )
         .toPromise();
       promise.then(
@@ -242,7 +253,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
           servisSonuc.init(result);
           this.ozetBeyanForm.disable();
           this.ozetBeyanForm.reset();
-          this.ozetBeyanInternalNo = "Boş";
+          this.ozetBeyanAcmaBeyanInternalNo = "Boş";
           this.tasimaSenetInternalNo = "Boş";
           this.tasimaSenetiForm.disable();
           this.tasimaSenetiForm.reset();
@@ -283,12 +294,13 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     let ID = this.ozetBeyanForm.get("id").value;
 
     this.ozetBeyanForm.setValue({
-      beyanInternalNo: this._beyanSession.beyanInternalNo,
-      ozetBeyanInternalNo: this.ozetBeyanInternalNo,
+      ozetBeyanInternalNo: this._beyanSession.ozetBeyanInternalNo,
+      ozetBeyanAcmaBeyanInternalNo: this.ozetBeyanAcmaBeyanInternalNo,
       ozetBeyanNo:
         this.ozetBeyanForm.get("ozetBeyanNo").value != null
           ? this.ozetBeyanForm.get("ozetBeyanNo").value
           : "",
+    
       islemKapsami:
         this.ozetBeyanForm.get("islemKapsami").value != null
           ? this.ozetBeyanForm.get("islemKapsami").value
@@ -303,11 +315,11 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     });
 
     let yeniOzetBeyanInternalNo: string;
-    let yeniOzetBeyanAcma = new DbOzetBeyanAcmaDto();
+    let yeniOzetBeyanAcma = new ObOzetBeyanAcmaDto();
     yeniOzetBeyanAcma.init(this.ozetBeyanForm.value);
 
     const promiseKalem = this.beyanServis
-      .restoreDbOzetBeyanAcma(yeniOzetBeyanAcma)
+      .restoreObOzetBeyanAcma(yeniOzetBeyanAcma)
       .toPromise();
     promiseKalem.then(
       (result) => {
@@ -317,7 +329,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
         yeniOzetBeyanInternalNo = kiymetServisSonuc.ReferansNo;
 
         if (yeniOzetBeyanInternalNo != null) {
-          this.ozetBeyanInternalNo = yeniOzetBeyanInternalNo;
+          this.ozetBeyanAcmaBeyanInternalNo = yeniOzetBeyanInternalNo;
           this.setTasimaSeneti();
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
           this.ozetBeyanForm.disable();
@@ -331,7 +343,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     );
   }
 
-  initTasimaSenetiFormArray(tasimaSenet: DbOzetBeyanAcmaTasimaSenetDto[]) {
+  initTasimaSenetiFormArray(tasimaSenet: ObOzetBeyanAcmaTasimaSenetDto[]) {
     const formArray = this.tasimaSenetiForm.get(
       "tasimaSenetiArry"
     ) as FormArray;
@@ -343,7 +355,9 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
           Validators.required,
           Validators.maxLength(50),
         ]),
-        beyanInternalNo: new FormControl(klm.beyanInternalNo),
+        ozetBeyanAcmaBeyanInternalNo: new FormControl(
+          klm.ozetBeyanAcmaBeyanInternalNo
+        ),
         ozetBeyanInternalNo: new FormControl(klm.ozetBeyanInternalNo),
         tasimaSenetInternalNo: new FormControl(klm.tasimaSenetInternalNo),
       });
@@ -370,14 +384,14 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
       "tasimaSenetInternalNo"
     ).value;
     this.tasimaSenetInternalNo = tasimaSenetInternalNo;
-    console.log(this.tasimaSenetInternalNo);
+
     this.tasimaSenediNo = this.tasimaSenetiBilgileri.controls[index].get(
       "tasimaSenediNo"
     ).value;
     this.beyanServis
-      .getDbTasimaSatir(this._beyanSession.islemInternalNo)
+      .getObOzetBeyanAcmaTasimaSatir(this._beyanSession.islemInternalNo)
       .subscribe(
-        (result: DbOzetBeyanAcmaTasimaSatirDto[]) => {
+        (result: ObOzetBeyanAcmaTasimaSatirDto[]) => {
           this._tasimaSatirlari = result.filter(
             (x) => x.tasimaSenetInternalNo === this.tasimaSenetInternalNo
           );
@@ -406,18 +420,18 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
         Validators.required,
         Validators.maxLength(50),
       ]),
-      beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
-        Validators.required,
-      ]),
-      ozetBeyanInternalNo: new FormControl(this.ozetBeyanInternalNo, [
-        Validators.required,
-      ]),
+      ozetBeyanInternalNo: new FormControl(
+        this._beyanSession.ozetBeyanInternalNo,
+        [Validators.required]
+      ),
+      ozetBeyanAcmaBeyanInternalNo: new FormControl(
+        this.ozetBeyanAcmaBeyanInternalNo,
+        [Validators.required]
+      ),
       tasimaSenetInternalNo: new FormControl("Boş", [Validators.required]),
     });
   }
-  tasimaSatirIslemOzetBeyan() {
-    this.tasimaSatiriForm.enable();
-  }
+
   get tasimaSenetiBilgileri() {
     return this.tasimaSenetiForm.get("tasimaSenetiArry") as FormArray;
   }
@@ -433,8 +447,8 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   setTasimaSeneti() {
     if (this.tasimaSenetiBilgileri.length > 0) {
       for (let klm of this.tasimaSenetiBilgileri.value) {
-        klm.ozetBeyanInternalNo = this.ozetBeyanInternalNo;
-        klm.tasimaSenetInternalNo = this.tasimaSenetInternalNo;
+        klm.ozetBeyanAcmaBeyanInternalNo = this.ozetBeyanAcmaBeyanInternalNo;
+       // klm.tasimaSenetInternalNo = this.tasimaSenetInternalNo;
       }
 
       if (this.tasimaSenetiBilgileri.invalid) {
@@ -456,16 +470,16 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
         }
       }
     }
-
+  
     if (this.tasimaSenetiBilgileri.length >= 0) {
-      const promiseMarka = this.beyanServis
-        .restoreDbTasimaSenet(
+      const promiseTasimaSenet = this.beyanServis
+        .restoreObOzetBeyanAcmaTasimaSenet(
           this.tasimaSenetiBilgileri.value,
-          this.ozetBeyanInternalNo,
-          this._beyanSession.beyanInternalNo
+          this.ozetBeyanAcmaBeyanInternalNo,
+          this.ozetBeyanInternalNo
         )
         .toPromise();
-      promiseMarka.then(
+      promiseTasimaSenet.then(
         (result) => {
           // const servisSonuc = new ServisDto();
           // servisSonuc.init(result);
@@ -477,23 +491,40 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
     }
   }
 
-  initTasimaSatiriFormArray(tasimaSatir: DbOzetBeyanAcmaTasimaSatirDto[]) {
+  tasimaSatirIslemOzetBeyan() {
+    this.tasimaSatiriForm.enable();
+  }
+  initTasimaSatiriFormArray(tasimaSatir: ObOzetBeyanAcmaTasimaSatirDto[]) {
     const formArray = this.tasimaSatiriForm.get(
       "tasimaSatiriArry"
     ) as FormArray;
     formArray.clear();
     for (let klm of tasimaSatir) {
       let formGroup: FormGroup = new FormGroup({
-        ambarKodu: new FormControl(klm.ambarKodu, [Validators.maxLength(9)]),
-        tasimaSatirNo: new FormControl(klm.tasimaSatirNo, [
-          Validators.required,
+        acmaSatirNo: new FormControl(klm.acmaSatirNo, [
           ValidationService.numberValidator,
         ]),
-        miktar: new FormControl(klm.miktar, [
-          Validators.required,
+        ambarKodu: new FormControl(klm.ambarKodu, [Validators.maxLength(9)]),
+        ambardakiMiktar: new FormControl(klm.ambardakiMiktar, [
           ValidationService.decimalValidation,
         ]),
-        beyanInternalNo: new FormControl(klm.beyanInternalNo),
+        acilacakMiktar: new FormControl(klm.acilacakMiktar, [
+          ValidationService.decimalValidation,
+        ]),
+        markaNo: new FormControl(klm.markaNo, [Validators.maxLength(60)]),
+        esyaCinsi: new FormControl(klm.esyaCinsi, [Validators.maxLength(9)]),
+        birim: new FormControl(klm.birim, [Validators.maxLength(9)]),
+        toplamMiktar: new FormControl(klm.toplamMiktar, [
+          ValidationService.decimalValidation,
+        ]),
+        kapatilanMiktar: new FormControl(klm.kapatilanMiktar, [
+          ValidationService.decimalValidation,
+        ]),
+        olcuBirimi: new FormControl(klm.olcuBirimi, [Validators.maxLength(9)]),
+
+        ozetBeyanAcmaBeyanInternalNo: new FormControl(
+          klm.ozetBeyanAcmaBeyanInternalNo
+        ),
         ozetBeyanInternalNo: new FormControl(klm.ozetBeyanInternalNo),
         tasimaSenetInternalNo: new FormControl(klm.tasimaSenetInternalNo),
       });
@@ -505,21 +536,30 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
 
   getTasimaSatiri() {
     return this._fb.group({
+      acmaSatirNo: new FormControl(0, [ValidationService.numberValidator]),
       ambarKodu: new FormControl("", [Validators.maxLength(9)]),
-      tasimaSatirNo: new FormControl(0, [
-        Validators.required,
-        ValidationService.numberValidator,
-      ]),
-      miktar: new FormControl(0, [
-        Validators.required,
+
+      ambardakiMiktar: new FormControl(0, [
         ValidationService.decimalValidation,
       ]),
-      beyanInternalNo: new FormControl(this._beyanSession.beyanInternalNo, [
-        Validators.required,
+      acilacakMiktar: new FormControl(0, [ValidationService.decimalValidation]),
+      markaNo: new FormControl("", [Validators.maxLength(60)]),
+      esyaCinsi: new FormControl("", [Validators.maxLength(9)]),
+      birim: new FormControl("", [Validators.maxLength(9)]),
+      toplamMiktar: new FormControl(0, [ValidationService.decimalValidation]),
+      kapatilanMiktar: new FormControl(0, [
+        ValidationService.decimalValidation,
       ]),
-      ozetBeyanInternalNo: new FormControl(this.ozetBeyanInternalNo, [
-        Validators.required,
-      ]),
+      olcuBirimi: new FormControl("", [Validators.maxLength(9)]),
+
+      ozetBeyanInternalNo: new FormControl(
+        this._beyanSession.ozetBeyanInternalNo,
+        [Validators.required]
+      ),
+      ozetBeyanAcmaBeyanInternalNo: new FormControl(
+        this.ozetBeyanAcmaBeyanInternalNo,
+        [Validators.required]
+      ),
       tasimaSenetInternalNo: new FormControl(this.tasimaSenetInternalNo, [
         Validators.required,
       ]),
@@ -541,15 +581,24 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   setTasimaSatiri() {
     if (this.tasimaSatiriBilgileri.length > 0) {
       for (let klm of this.tasimaSatiriBilgileri.value) {
-        klm.ozetBeyanInternalNo = this.ozetBeyanInternalNo;
+        klm.ozetBeyanAcmaBeyanInternalNo = this.ozetBeyanAcmaBeyanInternalNo;
         klm.tasimaSenetInternalNo = this.tasimaSenetInternalNo;
-        klm.miktar =
-          typeof klm.miktar == "string" ? parseInt(klm.miktar) : klm.miktar;
-
-        klm.tasimaSatirNo =
-          typeof klm.tasimaSatirNo == "string"
-            ? parseInt(klm.tasimaSatirNo)
-            : klm.tasimaSatirNo;
+        klm.ambardakiMiktar =
+          typeof klm.ambardakiMiktar == "string"
+            ? parseInt(klm.ambardakiMiktar)
+            : klm.ambardakiMiktar;
+        klm.acilacakMiktar =
+          typeof klm.acilacakMiktar == "string"
+            ? parseInt(klm.acilacakMiktar)
+            : klm.acilacakMiktar;
+        klm.toplamMiktar =
+          typeof klm.toplamMiktar == "string"
+            ? parseInt(klm.toplamMiktar)
+            : klm.toplamMiktar;
+        klm.kapatilanMiktar =
+          typeof klm.kapatilanMiktar == "string"
+            ? parseInt(klm.kapatilanMiktar)
+            : klm.kapatilanMiktar;
       }
       this.initTasimaSatiriFormArray(this.tasimaSatiriBilgileri.value);
 
@@ -572,14 +621,14 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
         }
       }
     }
-
+ 
     if (this.tasimaSatiriBilgileri.length >= 0) {
       const promiseMarka = this.beyanServis
-        .restoreDbTasimaSatir(
+        .restoreObOzetBeyanAcmaTasimaSatir(
           this.tasimaSatiriBilgileri.value,
-          this.ozetBeyanInternalNo,
           this.tasimaSenetInternalNo,
-          this._beyanSession.beyanInternalNo
+          this.ozetBeyanAcmaBeyanInternalNo,        
+          this._beyanSession.ozetBeyanInternalNo
         )
         .toPromise();
       promiseMarka.then(
@@ -601,7 +650,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   }
 
   private getDismissReason(reason: any): string {
-    console.log(reason);
+ 
     if (reason === ModalDismissReasons.ESC) {
       return "by pressing ESC";
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

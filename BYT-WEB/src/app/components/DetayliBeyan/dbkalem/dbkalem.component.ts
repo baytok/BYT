@@ -103,15 +103,15 @@ class PickDateAdapter extends NativeDateAdapter {
   }
 }
 @Component({
-  selector: "app-kalem",
-  templateUrl: "./kalem.component.html",
-  styleUrls: ["./kalem.component.scss"],
+  selector: "app-dbkalem",
+  templateUrl: "./dbkalem.component.html",
+  styleUrls: ["./dbkalem.component.scss"],
   providers: [
     { provide: DateAdapter, useClass: PickDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
   ],
 })
-export class KalemComponent implements OnInit {
+export class DbKalemComponent implements OnInit {
   public form: FormGroup;
 
   kalemInternalNo: string;
@@ -369,7 +369,7 @@ export class KalemComponent implements OnInit {
         this._beyanSession.islemInternalNo + " ait Kalem Bulunamadı",
         "Tamam"
       );
-      this.router.navigateByUrl("/app/beyanname");
+      this.router.navigateByUrl("/app/dbbeyan");
     }
     this.getKalemler(this._beyanSession.islemInternalNo);
    

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -920,6 +921,209 @@ namespace BYT.WS.Models
 
 
 
+
+    }
+
+    public class NbBeyan
+    {
+        [StringLength(30)]
+        public string RefNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string NctsBeyanInternalNo { get; set; }
+
+
+        [StringLength(20)]
+        public string? BeyannameNo { get; set; } //Reference number, RefNumHEA4
+
+        [StringLength(50)]
+        public string TescilStatu { get; set; }
+
+        public DateTime? TescilTarihi { get; set; } //DecDatHEA383
+        public DateTime? OlsuturulmaTarihi { get; set; }
+
+        public DateTime? SonIslemZamani { get; set; }
+
+        [Required]
+        [StringLength(9)]
+        public string HareketGumruk { get; set; } // CUSOFFDEPEPT 
+
+
+        [Required]
+        [StringLength(9)]
+        public string VarisGumruk { get; set; } // CUSOFFDESEST 
+
+
+        [StringLength(4)]
+        [Required]
+        public string VarisUlke { get; set; } //Country of destination code, CouOfDesCodHEA30
+
+        [StringLength(4)]
+        [Required]
+        public string CikisUlke { get; set; } //Country of dispatch/export code,CouOfDisCodHEA55 
+
+        //[StringLength(9)]
+        //public string  EyjaKabulYerKod{ get; set; } //Agreed location of goods, AgrLocOfGooHEA39 ???
+
+        // [StringLength(4)]
+        //public string EyjaKabulYerKodDil { get; set; } //Agreed location of goods LNG,AgrLocOfGooHEA39LNG ???
+
+
+        [StringLength(17)]
+        public string EsyaKabulYer { get; set; } //Agreed location of goods, code,AgrLocOfGooCodHEA38 
+
+        [StringLength(35)]
+        public string BosaltmaYer { get; set; } //Place of unloading, code, CodPlUnHEA357
+
+
+        [StringLength(4)]
+        public string YukBosYerDil { get; set; } //Place of unloading LNG, CodPlUnHEA357LNG
+
+     
+
+        [StringLength(17)]
+        public string EsyaOnayYer  { get; set; } //Authorised location of goods, code, AutLocOfGooCodHEA41
+
+        [StringLength(20)]
+        public string YuklemeYeri { get; set; } //Place of loading, code,PlaOfLoaCodHEA46 
+     
+
+        [StringLength(20)]
+        public string EsyaYer  { get; set; } //Customs sub place, CusSubPlaHEA66
+
+        public int DahildeTasimaSekli  { get; set; } //Inland transport mode, InlTraModHEA75
+
+        [StringLength(4)]
+        public string CikisTasimaSekli { get; set; } //Transport mode at border,TraModAtBorHEA76 
+
+
+        [StringLength(40)]
+        public string CikisTasitKimligi { get; set; } //Identity of means of transport at departure (exp/trans), IdeOfMeaOfTraAtDHEA78
+
+
+        [StringLength(4)]
+        public string CikisTasitKimligiDil { get; set; } //Identity of means of transport at departure LNG, IdeOfMeaOfTraAtDHEA78LNG
+
+
+        [StringLength(4)]
+        public string CikisTasitUlke { get; set; } //Nationality of means of transport at departure, NatOfMeaOfTraAtDHEA80
+
+
+        [StringLength(40)]
+        public string SinirTasitKimligi  { get; set; } //Identity of means of transport crossing border, IdeOfMeaOfTraCroHEA85
+
+
+        [StringLength(4)]
+        public string SinirTasitKimligiDil  { get; set; } //Identity of means of transport crossing border LNG, IdeOfMeaOfTraCroHEA85LNG
+
+
+        [StringLength(4)]
+        public string SinirTasitUlke  { get; set; } //Nationality of means of transport crossing border, NatOfMeaOfTraCroHEA87
+
+        [StringLength(40)]
+        public string SinirTasimaSekli  { get; set; } //Type of means of transport crossing border,TypOfMeaOfTraCroHEA88
+
+
+        public char Konteyner { get; set; } //Containerised indicator,ConIndHEA96 
+
+
+        //[StringLength(9)]
+        //public string DiaLanIndAtDepHEA254 { get; set; } //Dialog language indicator at departure, ?????
+
+
+
+        public int KalemSayisi  { get; set; } //Total number of items, TotNumOfIteHEA305
+
+
+        public int ToplamKapSayisi  { get; set; } //Total number of packages, TotNumOfPacHEA306
+
+
+        public decimal KalemToplamBrutKG  { get; set; } //Total gross mass, TotGroMasHEA307       
+
+
+        [StringLength(4)]
+        [Required]
+        public string Rejim { get; set; } //Type of declaration,TypOfDecHEA24 
+
+
+        public char BeyanTip  { get; set; } //Specific Circumstance Indicator, SpeCirIndHEA1
+
+
+        [StringLength(4)]
+        [Required]
+        public string BeyanTipiDil { get; set; } //NCTS accompanying document language code, NCTSAccDocHEA601LNG
+
+
+        [StringLength(4)]
+        public string OdemeAraci  { get; set; } //Transport charges/ Method of Payment, TraChaMetOfPayHEA1
+
+
+        [StringLength(10)]
+        public string RefaransNo  { get; set; } //Commercial Reference Number, ComRefNumHEA
+
+        public int GuvenliBeyan  { get; set; } //Security,  SecHEA358 //1
+
+
+        [StringLength(35)]
+        public string KonveyansRefNo  { get; set; } //Conveyance reference number, ConRefNumHEA
+     
+
+        [StringLength(50)]
+        public string Dorse1  { get; set; } //Place of unloading LNG, TruckId2
+
+
+        [StringLength(50)]
+        public string Dorse2  { get; set; } //Place of unloading LNG, TruckId3
+
+
+        public decimal DamgaVergi { get; set; } //Place of unloading LNG, EgitimFonu
+
+
+        [StringLength(15)]
+        public string MusavirKimlikNo { get; set; }
+
+        [StringLength(15)]
+        public string Kullanici { get; set; }
+
+        public char Tanker { get; set; }
+
+
+        //temsilci
+
+        [StringLength(15)]
+        [Required]
+        public string Yer { get; set; } //Declaration place, DecPlaHEA394
+
+        [StringLength(4)]
+        [Required]
+        public string YerTarihDil { get; set; } //Declaration place LNG, DecPlaHEA394LNG
+
+        [StringLength(50)]
+        [Required]
+        public string Temsilci { get; set; } // NamREP5
+
+        [StringLength(9)]
+        [Required]
+        public string TemsilKapasite { get; set; } //RepCapREP18
+
+
+        [StringLength(4)]       
+        public string TemsilKapasiteDil { get; set; } // TR,RepCapREP18LNG
+
+
+        [StringLength(17)]
+        public string VarisGumrukYetkilisi { get; set; } // TINTRA59
+
+
+        // kontrol sonucu
+
+        [StringLength(9)]
+        public string KontrolSonuc { get; set; } // ConResCodERS16
+
+       public DateTime? SureSinir { get; set; } // DatLimERS69
 
     }
 }

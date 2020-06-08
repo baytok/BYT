@@ -1,0 +1,1047 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+      {
+          "kod": "AD",
+          "aciklama": "Andorra"
+      },
+      {
+          "kod": "AE",
+          "aciklama": "Birleşik Arap Emirlikleri"
+      },
+      {
+          "kod": "AF",
+          "aciklama": "Afganistan"
+      },
+      {
+          "kod": "AG",
+          "aciklama": "Antigua ve Barbuda"
+      },
+      {
+          "kod": "AI",
+          "aciklama": "Anguilla"
+      },
+      {
+          "kod": "AL",
+          "aciklama": "Arnavutluk"
+      },
+      {
+          "kod": "AM",
+          "aciklama": "Ermenistan"
+      },
+      {
+          "kod": "AO",
+          "aciklama": "Angola"
+      },
+      {
+          "kod": "AQ",
+          "aciklama": "Antartika"
+      },
+      {
+          "kod": "AR",
+          "aciklama": "Arjantin"
+      },
+      {
+          "kod": "AS",
+          "aciklama": "Amerikan Samoası"
+      },
+      {
+          "kod": "AT",
+          "aciklama": "Avusturya"
+      },
+      {
+          "kod": "AU",
+          "aciklama": "Avustralya"
+      },
+      {
+          "kod": "AW",
+          "aciklama": "Aruba"
+      },
+      {
+          "kod": "AX",
+          "aciklama": "Aland Adaları"
+      },
+      {
+          "kod": "AZ",
+          "aciklama": "Azerbaycan"
+      },
+      {
+          "kod": "BA",
+          "aciklama": "Bosna ve Hersek"
+      },
+      {
+          "kod": "BB",
+          "aciklama": "Barbados"
+      },
+      {
+          "kod": "BD",
+          "aciklama": "Bangladeş"
+      },
+      {
+          "kod": "BE",
+          "aciklama": "Belçika"
+      },
+      {
+          "kod": "BF",
+          "aciklama": "Burkina Faso"
+      },
+      {
+          "kod": "BG",
+          "aciklama": "Bulgaristan"
+      },
+      {
+          "kod": "BH",
+          "aciklama": "Bahreyn"
+      },
+      {
+          "kod": "BI",
+          "aciklama": "Burundi"
+      },
+      {
+          "kod": "BJ",
+          "aciklama": "Benin"
+      },
+      {
+          "kod": "BL",
+          "aciklama": "Saint Barthelemeu"
+      },
+      {
+          "kod": "BM",
+          "aciklama": "Bermuda"
+      },
+      {
+          "kod": "BN",
+          "aciklama": "Brunei"
+      },
+      {
+          "kod": "BO",
+          "aciklama": "Bolivya"
+      },
+      {
+          "kod": "BQ",
+          "aciklama": "Bonaire, Sint Eustatius ve Saba"
+      },
+      {
+          "kod": "BR",
+          "aciklama": "Brezilya"
+      },
+      {
+          "kod": "BS",
+          "aciklama": "Bahamalar"
+      },
+      {
+          "kod": "BT",
+          "aciklama": "Bhutan"
+      },
+      {
+          "kod": "BV",
+          "aciklama": "Bouvet Adası"
+      },
+      {
+          "kod": "BW",
+          "aciklama": "Botsvana"
+      },
+      {
+          "kod": "BY",
+          "aciklama": "Belarus"
+      },
+      {
+          "kod": "BZ",
+          "aciklama": "Belize"
+      },
+      {
+          "kod": "CA",
+          "aciklama": "Kanada"
+      },
+      {
+          "kod": "CC",
+          "aciklama": "Kokos (Keeling) Adaları"
+      },
+      {
+          "kod": "CD",
+          "aciklama": "Kongo (Demokratik Cumhuriyeti)"
+      },
+      {
+          "kod": "CF",
+          "aciklama": "Orta Afrika Cumhuriyeti"
+      },
+      {
+          "kod": "CG",
+          "aciklama": "Kongo"
+      },
+      {
+          "kod": "CH",
+          "aciklama": "İsviçre"
+      },
+      {
+          "kod": "CI",
+          "aciklama": "Fildişi Sahili"
+      },
+      {
+          "kod": "CK",
+          "aciklama": "Cook Adaları"
+      },
+      {
+          "kod": "CL",
+          "aciklama": "Şili"
+      },
+      {
+          "kod": "CM",
+          "aciklama": "Kamerun"
+      },
+      {
+          "kod": "CN",
+          "aciklama": "Çin Halk Cumhuriyeti"
+      },
+      {
+          "kod": "CO",
+          "aciklama": "Kolombiya"
+      },
+      {
+          "kod": "CR",
+          "aciklama": "Kosta Rika"
+      },
+      {
+          "kod": "CU",
+          "aciklama": "Küba"
+      },
+      {
+          "kod": "CV",
+          "aciklama": "Cape Verde"
+      },
+      {
+          "kod": "CW",
+          "aciklama": "Kuruçao"
+      },
+      {
+          "kod": "CX",
+          "aciklama": "Christmas Adası"
+      },
+      {
+          "kod": "CY",
+          "aciklama": "Kıbrıs"
+      },
+      {
+          "kod": "CZ",
+          "aciklama": "Çek Cumhuriyeti"
+      },
+      {
+          "kod": "DE",
+          "aciklama": "Almanya"
+      },
+      {
+          "kod": "DJ",
+          "aciklama": "Cibuti"
+      },
+      {
+          "kod": "DK",
+          "aciklama": "Danimarka"
+      },
+      {
+          "kod": "DM",
+          "aciklama": "Dominika"
+      },
+      {
+          "kod": "DO",
+          "aciklama": "Dominik Cumhuriyeti"
+      },
+      {
+          "kod": "DZ",
+          "aciklama": "Cezayir"
+      },
+      {
+          "kod": "EC",
+          "aciklama": "Ekvator"
+      },
+      {
+          "kod": "EE",
+          "aciklama": "Estonya"
+      },
+      {
+          "kod": "EG",
+          "aciklama": "Mısır"
+      },
+      {
+          "kod": "EH",
+          "aciklama": "Batı Sahara"
+      },
+      {
+          "kod": "ER",
+          "aciklama": "Eritre"
+      },
+      {
+          "kod": "ES",
+          "aciklama": "İspanya"
+      },
+      {
+          "kod": "ET",
+          "aciklama": "Etiyopya"
+      },
+      {
+          "kod": "EU",
+          "aciklama": "Avrupa Topluluğu"
+      },
+      {
+          "kod": "FI",
+          "aciklama": "Finlandiya"
+      },
+      {
+          "kod": "FJ",
+          "aciklama": "Fiji"
+      },
+      {
+          "kod": "FK",
+          "aciklama": "Falkland Adaları"
+      },
+      {
+          "kod": "FM",
+          "aciklama": "Mikronezya (Federal Devletleri)"
+      },
+      {
+          "kod": "FO",
+          "aciklama": "Faroe Adaları"
+      },
+      {
+          "kod": "FR",
+          "aciklama": "Fransa"
+      },
+      {
+          "kod": "GA",
+          "aciklama": "Gabon"
+      },
+      {
+          "kod": "GB",
+          "aciklama": "Birleşik Krallık"
+      },
+      {
+          "kod": "GD",
+          "aciklama": "Grenada"
+      },
+      {
+          "kod": "GE",
+          "aciklama": "Gürcistan"
+      },
+      {
+          "kod": "GF",
+          "aciklama": "Fransız Guyanası"
+      },
+      {
+          "kod": "GH",
+          "aciklama": "Gana"
+      },
+      {
+          "kod": "GI",
+          "aciklama": "Cebelitarık"
+      },
+      {
+          "kod": "GL",
+          "aciklama": "Grönland"
+      },
+      {
+          "kod": "GM",
+          "aciklama": "Gambiya"
+      },
+      {
+          "kod": "GN",
+          "aciklama": "Gine"
+      },
+      {
+          "kod": "GP",
+          "aciklama": "Guadalupe"
+      },
+      {
+          "kod": "GQ",
+          "aciklama": "Ekvator Ginesi"
+      },
+      {
+          "kod": "GR",
+          "aciklama": "Yunanistan"
+      },
+      {
+          "kod": "GS",
+          "aciklama": "Güney Georgia ve Güney Sandwich Ad."
+      },
+      {
+          "kod": "GT",
+          "aciklama": "Guatemala"
+      },
+      {
+          "kod": "GU",
+          "aciklama": "Guam"
+      },
+      {
+          "kod": "GW",
+          "aciklama": "Gine-Bissau"
+      },
+      {
+          "kod": "GY",
+          "aciklama": "Guyana"
+      },
+      {
+          "kod": "HK",
+          "aciklama": "Hong Kong"
+      },
+      {
+          "kod": "HM",
+          "aciklama": "Heard Adası ve McDonald Adaları"
+      },
+      {
+          "kod": "HN",
+          "aciklama": "Honduras"
+      },
+      {
+          "kod": "HR",
+          "aciklama": "Hırvatistan"
+      },
+      {
+          "kod": "HT",
+          "aciklama": "Haiti"
+      },
+      {
+          "kod": "HU",
+          "aciklama": "Macaristan"
+      },
+      {
+          "kod": "ID",
+          "aciklama": "Endonezya"
+      },
+      {
+          "kod": "IE",
+          "aciklama": "İrlanda"
+      },
+      {
+          "kod": "IL",
+          "aciklama": "İsrail"
+      },
+      {
+          "kod": "IN",
+          "aciklama": "Hindistan"
+      },
+      {
+          "kod": "IO",
+          "aciklama": "İngiliz Hint Okyanusu Toprağı"
+      },
+      {
+          "kod": "IQ",
+          "aciklama": "Irak"
+      },
+      {
+          "kod": "IR",
+          "aciklama": "İran (İslam Cumhuriyeti)"
+      },
+      {
+          "kod": "IS",
+          "aciklama": "İzlanda"
+      },
+      {
+          "kod": "IT",
+          "aciklama": "İtalya"
+      },
+      {
+          "kod": "JM",
+          "aciklama": "Jamaika"
+      },
+      {
+          "kod": "JO",
+          "aciklama": "Ürdün"
+      },
+      {
+          "kod": "JP",
+          "aciklama": "Japonya"
+      },
+      {
+          "kod": "KE",
+          "aciklama": "Kenya"
+      },
+      {
+          "kod": "KG",
+          "aciklama": "Kırgızistan"
+      },
+      {
+          "kod": "KH",
+          "aciklama": "Kamboçya"
+      },
+      {
+          "kod": "KI",
+          "aciklama": "Kiribati"
+      },
+      {
+          "kod": "KK",
+          "aciklama": "KUZEY KIBRIS TÜRK CUMHURİYETİ"
+      },
+      {
+          "kod": "KM",
+          "aciklama": "Komor"
+      },
+      {
+          "kod": "KN",
+          "aciklama": "St Kitts ve Nevis"
+      },
+      {
+          "kod": "KP",
+          "aciklama": "Kuzey Kore"
+      },
+      {
+          "kod": "KR",
+          "aciklama": "Güney Kore"
+      },
+      {
+          "kod": "KW",
+          "aciklama": "Kuveyt"
+      },
+      {
+          "kod": "KY",
+          "aciklama": "Kayman Adaları"
+      },
+      {
+          "kod": "KZ",
+          "aciklama": "Kazakistan"
+      },
+      {
+          "kod": "LA",
+          "aciklama": "Laos (Halk Demokratik Cumhuriyeti)"
+      },
+      {
+          "kod": "LB",
+          "aciklama": "Lübnan"
+      },
+      {
+          "kod": "LC",
+          "aciklama": "St Lucia"
+      },
+      {
+          "kod": "LI",
+          "aciklama": "Lihtenştayn"
+      },
+      {
+          "kod": "LK",
+          "aciklama": "Sri Lanka"
+      },
+      {
+          "kod": "LR",
+          "aciklama": "Liberya"
+      },
+      {
+          "kod": "LS",
+          "aciklama": "Lesotho"
+      },
+      {
+          "kod": "LT",
+          "aciklama": "Litvanya"
+      },
+      {
+          "kod": "LU",
+          "aciklama": "Lüksemburg"
+      },
+      {
+          "kod": "LV",
+          "aciklama": "Letonya"
+      },
+      {
+          "kod": "LY",
+          "aciklama": "Libya"
+      },
+      {
+          "kod": "MA",
+          "aciklama": "Fas"
+      },
+      {
+          "kod": "MC",
+          "aciklama": "Monaco Prensliği"
+      },
+      {
+          "kod": "MD",
+          "aciklama": "Moldova (Cumhuriyeti)"
+      },
+      {
+          "kod": "ME",
+          "aciklama": "Karadağ"
+      },
+      {
+          "kod": "MG",
+          "aciklama": "Madagaskar"
+      },
+      {
+          "kod": "MH",
+          "aciklama": "Marshall Adaları"
+      },
+      {
+          "kod": "MK",
+          "aciklama": "Kuzey Makedonya"
+      },
+      {
+          "kod": "ML",
+          "aciklama": "Mali"
+      },
+      {
+          "kod": "MM",
+          "aciklama": "Myanmar"
+      },
+      {
+          "kod": "MN",
+          "aciklama": "Moğolistan"
+      },
+      {
+          "kod": "MO",
+          "aciklama": "Makao"
+      },
+      {
+          "kod": "MP",
+          "aciklama": "Kuzey Mariana Adaları"
+      },
+      {
+          "kod": "MQ",
+          "aciklama": "Martinique"
+      },
+      {
+          "kod": "MR",
+          "aciklama": "Moritanya"
+      },
+      {
+          "kod": "MS",
+          "aciklama": "Montserrat"
+      },
+      {
+          "kod": "MT",
+          "aciklama": "Malta"
+      },
+      {
+          "kod": "MU",
+          "aciklama": "Mauritius"
+      },
+      {
+          "kod": "MV",
+          "aciklama": "Maldivler"
+      },
+      {
+          "kod": "MW",
+          "aciklama": "Malavi"
+      },
+      {
+          "kod": "MX",
+          "aciklama": "Meksika"
+      },
+      {
+          "kod": "MY",
+          "aciklama": "Malezya"
+      },
+      {
+          "kod": "MZ",
+          "aciklama": "Mozambik"
+      },
+      {
+          "kod": "NA",
+          "aciklama": "Namibya"
+      },
+      {
+          "kod": "NC",
+          "aciklama": "Yeni Kaledonya"
+      },
+      {
+          "kod": "NE",
+          "aciklama": "Nijer"
+      },
+      {
+          "kod": "NF",
+          "aciklama": "Norfolk Adası"
+      },
+      {
+          "kod": "NG",
+          "aciklama": "Nijerya"
+      },
+      {
+          "kod": "NI",
+          "aciklama": "Nikaragua"
+      },
+      {
+          "kod": "NL",
+          "aciklama": "Hollanda"
+      },
+      {
+          "kod": "NO",
+          "aciklama": "Norveç"
+      },
+      {
+          "kod": "NP",
+          "aciklama": "Nepal"
+      },
+      {
+          "kod": "NR",
+          "aciklama": "Nauru"
+      },
+      {
+          "kod": "NU",
+          "aciklama": "Niue"
+      },
+      {
+          "kod": "NZ",
+          "aciklama": "Yeni Zelanda"
+      },
+      {
+          "kod": "OM",
+          "aciklama": "Umman"
+      },
+      {
+          "kod": "PA",
+          "aciklama": "Panama"
+      },
+      {
+          "kod": "PE",
+          "aciklama": "Peru"
+      },
+      {
+          "kod": "PF",
+          "aciklama": "Fransız Polinezyası"
+      },
+      {
+          "kod": "PG",
+          "aciklama": "Papua Yeni Gine"
+      },
+      {
+          "kod": "PH",
+          "aciklama": "Filipinler"
+      },
+      {
+          "kod": "PK",
+          "aciklama": "Pakistan"
+      },
+      {
+          "kod": "PL",
+          "aciklama": "Polonya"
+      },
+      {
+          "kod": "PM",
+          "aciklama": "Saint Pierre ve Mikelon"
+      },
+      {
+          "kod": "PN",
+          "aciklama": "Pitcairn"
+      },
+      {
+          "kod": "PR",
+          "aciklama": "Porto Riko"
+      },
+      {
+          "kod": "PS",
+          "aciklama": "İşgal altındaki Filistin Toprağı"
+      },
+      {
+          "kod": "PT",
+          "aciklama": "Portekiz"
+      },
+      {
+          "kod": "PW",
+          "aciklama": "Palau"
+      },
+      {
+          "kod": "PY",
+          "aciklama": "Paraguay"
+      },
+      {
+          "kod": "QA",
+          "aciklama": "Katar"
+      },
+      {
+          "kod": "QQ",
+          "aciklama": "Kumanya ve malzemeler"
+      },
+      {
+          "kod": "QR",
+          "aciklama": "Topluluk içi kumanya ve malzemeler"
+      },
+      {
+          "kod": "QS",
+          "aciklama": "Kumanya ve malzemeler, üç. ülkeler"
+      },
+      {
+          "kod": "QU",
+          "aciklama": "Belirtilmeyen ülkeler"
+      },
+      {
+          "kod": "QV",
+          "aciklama": "Belirtilmeyen ülkeler, Topluluk içi"
+      },
+      {
+          "kod": "QW",
+          "aciklama": "Belirtilmeyen ülkeler, üç. ülkeler"
+      },
+      {
+          "kod": "QX",
+          "aciklama": "Ticari/askeri neden. belir. ülkeler"
+      },
+      {
+          "kod": "QY",
+          "aciklama": "Tic./ask. ned. belir. ül., Top. içi"
+      },
+      {
+          "kod": "QZ",
+          "aciklama": "Tic./ask. ned. belir. ül., üç. ülk."
+      },
+      {
+          "kod": "RE",
+          "aciklama": "Reunion"
+      },
+      {
+          "kod": "RO",
+          "aciklama": "Romanya"
+      },
+      {
+          "kod": "RS",
+          "aciklama": "Sırbistan"
+      },
+      {
+          "kod": "RU",
+          "aciklama": "Rusya Federasyonu"
+      },
+      {
+          "kod": "RW",
+          "aciklama": "Ruanda"
+      },
+      {
+          "kod": "SA",
+          "aciklama": "Suudi Arabistan"
+      },
+      {
+          "kod": "SB",
+          "aciklama": "Solomon Adaları"
+      },
+      {
+          "kod": "SC",
+          "aciklama": "Seyşeller"
+      },
+      {
+          "kod": "SD",
+          "aciklama": "Sudan"
+      },
+      {
+          "kod": "SE",
+          "aciklama": "İsveç"
+      },
+      {
+          "kod": "SG",
+          "aciklama": "Singapur"
+      },
+      {
+          "kod": "SH",
+          "aciklama": "Saint Helena"
+      },
+      {
+          "kod": "SI",
+          "aciklama": "Slovenya"
+      },
+      {
+          "kod": "SJ",
+          "aciklama": "Svalbard ve Jan Mayen Adaları"
+      },
+      {
+          "kod": "SK",
+          "aciklama": "Slovakya"
+      },
+      {
+          "kod": "SL",
+          "aciklama": "Sierra Leone"
+      },
+      {
+          "kod": "SM",
+          "aciklama": "San Marino"
+      },
+      {
+          "kod": "SN",
+          "aciklama": "Senegal"
+      },
+      {
+          "kod": "SO",
+          "aciklama": "Somali"
+      },
+      {
+          "kod": "SR",
+          "aciklama": "Surinam"
+      },
+      {
+          "kod": "SS",
+          "aciklama": "Güney Sudan"
+      },
+      {
+          "kod": "ST",
+          "aciklama": "Sao Tome ve Principe"
+      },
+      {
+          "kod": "SV",
+          "aciklama": "El Salvador"
+      },
+      {
+          "kod": "SX",
+          "aciklama": "Sint Maarten (Hollanda'ya ait bölümü)"
+      },
+      {
+          "kod": "SY",
+          "aciklama": "Suriye Arap Cumhuriyeti"
+      },
+      {
+          "kod": "SZ",
+          "aciklama": "Svaziland"
+      },
+      {
+          "kod": "TC",
+          "aciklama": "Turks ve Caicos Adaları"
+      },
+      {
+          "kod": "TD",
+          "aciklama": "Çad"
+      },
+      {
+          "kod": "TF",
+          "aciklama": "Fransız Güney Toprakları"
+      },
+      {
+          "kod": "TG",
+          "aciklama": "Togo"
+      },
+      {
+          "kod": "TH",
+          "aciklama": "Tayland"
+      },
+      {
+          "kod": "TJ",
+          "aciklama": "Tacikistan"
+      },
+      {
+          "kod": "TK",
+          "aciklama": "Tokelau"
+      },
+      {
+          "kod": "TL",
+          "aciklama": "Doğu Timor"
+      },
+      {
+          "kod": "TM",
+          "aciklama": "Türkmenistan"
+      },
+      {
+          "kod": "TN",
+          "aciklama": "Tunus"
+      },
+      {
+          "kod": "TO",
+          "aciklama": "Tonga"
+      },
+      {
+          "kod": "TR",
+          "aciklama": "Türkiye"
+      },
+      {
+          "kod": "TT",
+          "aciklama": "Trinidad ve Tobago"
+      },
+      {
+          "kod": "TV",
+          "aciklama": "Tuvalu"
+      },
+      {
+          "kod": "TW",
+          "aciklama": "Tayvan"
+      },
+      {
+          "kod": "TZ",
+          "aciklama": "Tanzanya (Birleşik Cumhuriyeti)"
+      },
+      {
+          "kod": "UA",
+          "aciklama": "Ukrayna"
+      },
+      {
+          "kod": "UG",
+          "aciklama": "Uganda"
+      },
+      {
+          "kod": "UM",
+          "aciklama": "Birleşik Devletler Minor Outl. Ad."
+      },
+      {
+          "kod": "US",
+          "aciklama": "Birleşik Devletler"
+      },
+      {
+          "kod": "UY",
+          "aciklama": "Uruguay"
+      },
+      {
+          "kod": "UZ",
+          "aciklama": "Özbekistan"
+      },
+      {
+          "kod": "VA",
+          "aciklama": "Vatikan"
+      },
+      {
+          "kod": "VC",
+          "aciklama": "St Vincent ve Grenadinler"
+      },
+      {
+          "kod": "VE",
+          "aciklama": "Venezuela"
+      },
+      {
+          "kod": "VG",
+          "aciklama": "Virjin Adaları (İngiliz)"
+      },
+      {
+          "kod": "VI",
+          "aciklama": "Virjin Adaları (ABD)"
+      },
+      {
+          "kod": "VN",
+          "aciklama": "Vietnam"
+      },
+      {
+          "kod": "VU",
+          "aciklama": "Vanuatu"
+      },
+      {
+          "kod": "WF",
+          "aciklama": "Wallis ve Futuna"
+      },
+      {
+          "kod": "WS",
+          "aciklama": "Samoa"
+      },
+      {
+          "kod": "XC",
+          "aciklama": "Septe"
+      },
+      {
+          "kod": "XK",
+          "aciklama": "Kosova"
+      },
+      {
+          "kod": "XL",
+          "aciklama": "Melilla"
+      },
+      {
+          "kod": "XS",
+          "aciklama": "Sırbistan"
+      },
+      {
+          "kod": "YE",
+          "aciklama": "Yemen"
+      },
+      {
+          "kod": "YT",
+          "aciklama": "Mayot"
+      },
+      {
+          "kod": "ZA",
+          "aciklama": "Güney Afrika"
+      },
+      {
+          "kod": "ZM",
+          "aciklama": "Zambia"
+      },
+      {
+          "kod": "ZW",
+          "aciklama": "Zimbabve"
+      }
+  ]
+

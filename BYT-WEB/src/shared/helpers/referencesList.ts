@@ -15,7 +15,26 @@
     
   ];
 
+  export const nctsBeyanTipi= [
+    { kod:'', aciklama: '' },
+      { kod: 'A', aciklama: 'Posta ve ekspres gönderiler' },
+      { kod: 'C', aciklama: 'Karayolu taşıma modu' },
+      { kod: 'D', aciklama: 'Demiryolu taşıma modu' },
+      { kod: 'E', aciklama: 'Yetkilendirilmiş Ekonomik Operatörler' }
+    
+    ];
+  export const nctsrejim= [
+    { kod:'', aciklama: '' },
+      { kod: 'TR', aciklama: '' },
+      { kod: 'T1', aciklama: '' },
+      { kod: 'T-', aciklama: '' },
+      { kod: 'T2', aciklama: '' },
+      { kod: 'T2F', aciklama: '' },
+      { kod: 'T2SM', aciklama: '' }
+      
+    ];
 
+    
   export const kullanilmisEsya= [
     { kod:'', aciklama: '' },
     { kod:'K1', aciklama: '' },

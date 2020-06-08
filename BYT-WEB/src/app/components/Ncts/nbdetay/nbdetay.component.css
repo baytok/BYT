@@ -1,0 +1,38 @@
+.ng-valid[required] {
+    border: 5px solid #42A948;
+  }
+  
+  .ng-invalid[required] {
+    border: 5px solid red; 
+  }
+  .mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
+  .mat-list-item.active{
+    color: red;
+  }
+  .mat-option.mat-active {
+    background: blue !important;
+  }
+  
+  .mat-option.mat-selected {
+    background: red !important;
+  }
+  .mat-list-option[aria-selected="true"] {
+    background: rgba(200, 210, 90, 0.7);
+  }
+
+  .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color:rgb(255, 37, 37);
+  }
+
+  .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+      border-color: rgb(66, 134, 244);
+  }
+
+  .mat-radio-button.mat-accent .mat-radio-inner-circle {
+      background-color: rgba(200, 210, 90, 0.7);
+  }
+  .mat-divider {
+    border-top-color: red;
+  }

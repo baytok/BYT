@@ -1,0 +1,58 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+      {
+          "kod": "1",
+          "aciklama": "MAL MUKABİLİ"
+      },
+      {
+          "kod": "11",
+          "aciklama": "ÖZEL TAKAS"
+      },
+      {
+          "kod": "12",
+          "aciklama": "AKREDİTİF"
+      },
+      {
+          "kod": "13",
+          "aciklama": "BAĞLI MUAMELE"
+      },
+      {
+          "kod": "14",
+          "aciklama": "KABUL KREDİLİ AKREDİTİF"
+      },
+      {
+          "kod": "15",
+          "aciklama": "KABUL KREDİLİ VESAİK MÜKABİLİ"
+      },
+      {
+          "kod": "16",
+          "aciklama": "KABUL KREDİLİ MAL MÜKABİLİ"
+      },
+      {
+          "kod": "17",
+          "aciklama": "ÖZEL HESAP"
+      },
+      {
+          "kod": "2",
+          "aciklama": "PEŞİN"
+      },
+      {
+          "kod": "3",
+          "aciklama": "VESAİK MÜKABİLİ"
+      },
+      {
+          "kod": "4",
+          "aciklama": "PEŞİN (KAĞIT ORTAMI)"
+      },
+      {
+          "kod": "6",
+          "aciklama": "VADELİ AKREDİTİF"
+      },
+      {
+          "kod": "7",
+          "aciklama": "BEDELSİZ"
+      }
+  ]

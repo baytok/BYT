@@ -30,10 +30,10 @@ import {
 } from "../../../../shared/service-proxies/service-proxies";
 @Component({
   selector: "app-firma",
-  templateUrl: "./firma.component.html",
-  styleUrls: ["./firma.component.css"],
+  templateUrl: "./dbfirma.component.html",
+  styleUrls: ["./dbfirma.component.css"],
 })
-export class FirmaComponent implements OnInit {
+export class DbFirmaComponent implements OnInit {
   firmaForm: FormGroup;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
@@ -73,7 +73,7 @@ export class FirmaComponent implements OnInit {
         this._beyanSession.islemInternalNo + " ait Firma Bulunamadı",
         "Tamam"
       );
-      this.router.navigateByUrl('/app/beyanname');
+      this.router.navigateByUrl('/app/dbbeyan');
     }
     this.getFirmaBilgileri();
   }

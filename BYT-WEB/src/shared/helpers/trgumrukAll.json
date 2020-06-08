@@ -1,0 +1,806 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+        {
+            "kod": "TR041500",
+            "aciklama": "DOĞUBEYAZIT GÜMRÜK MÜD.-041500"
+        },
+        {
+            "kod": "TR041500",
+            "aciklama": "DOĞUBEYAZIT GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR041600",
+            "aciklama": "GÜRBULAK GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR041600",
+            "aciklama": "GÜRBULAK GÜMRÜK MÜDÜRLÜĞÜ-041600"
+        },
+        {
+            "kod": "TR041700",
+            "aciklama": "ERZURUM GÜMRÜK MÜDÜRLÜĞÜ-041700"
+        },
+        {
+            "kod": "TR041700",
+            "aciklama": "ERZURUM GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR041800",
+            "aciklama": "DİLUCU GÜMRÜK MÜDÜRLÜĞÜ-041800"
+        },
+        {
+            "kod": "TR041800",
+            "aciklama": "DİLUCU GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR041900",
+            "aciklama": "KARS GÜMRÜK MÜDÜRLÜĞÜ-041900"
+        },
+        {
+            "kod": "TR041900",
+            "aciklama": "KARS GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR042200",
+            "aciklama": "IĞDIR GÜMRÜK MÜDÜRLÜĞÜ-042200"
+        },
+        {
+            "kod": "TR042200",
+            "aciklama": "IĞDIR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR060200",
+            "aciklama": "ESENBOĞA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR060500",
+            "aciklama": "KONYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR060600",
+            "aciklama": "KAYSERİ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR060700",
+            "aciklama": "ÜRGÜP GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR061000",
+            "aciklama": "AKSARAY GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR061300",
+            "aciklama": "KIRIKKALE O.A.R. GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR061500",
+            "aciklama": "ANKARA GAR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR061600",
+            "aciklama": "ANKARA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR062100",
+            "aciklama": "KARAMAN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR062200",
+            "aciklama": "KIRŞEHİR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR062300",
+            "aciklama": "NİĞDE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR066666",
+            "aciklama": "TEST GÜMRÜĞÜ - GGMTEST"
+        },
+        {
+            "kod": "TR067777",
+            "aciklama": "TEST GÜMRÜĞÜ - GGMTEST"
+        },
+        {
+            "kod": "TR070100",
+            "aciklama": "ANTALYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR070200",
+            "aciklama": "ANTALYA HAVALİMANI GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR070300",
+            "aciklama": "ANTALYA SERBEST BÖLGE GÜMRÜK MDR"
+        },
+        {
+            "kod": "TR070400",
+            "aciklama": "ALANYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR070500",
+            "aciklama": "KAŞ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR070600",
+            "aciklama": "FİNİKE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR070700",
+            "aciklama": "ISPARTA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR070800",
+            "aciklama": "DALAMAN HAVALİMANI GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR070900",
+            "aciklama": "FETHİYE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR071000",
+            "aciklama": "BODRUM GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR071300",
+            "aciklama": "MİLAS HAVALİMANI GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR071400",
+            "aciklama": "MARMARİS GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR080100",
+            "aciklama": "HOPA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR080200",
+            "aciklama": "SARP GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR080300",
+            "aciklama": "AKTAŞ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR080400",
+            "aciklama": "TÜRKGÖZÜ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR080500",
+            "aciklama": "RİZE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR160100",
+            "aciklama": "BURSA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR160200",
+            "aciklama": "MUDANYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR160400",
+            "aciklama": "GEMLİK GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR160600",
+            "aciklama": "BANDIRMA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR160700",
+            "aciklama": "ESKİŞEHİR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR161500",
+            "aciklama": "YALOVA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR161600",
+            "aciklama": "AYVALIK GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR161700",
+            "aciklama": "İNEGÖL GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR161900",
+            "aciklama": "KÜTAHYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR210100",
+            "aciklama": "DİYARBAKIR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR210200",
+            "aciklama": "MARDİN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR210300",
+            "aciklama": "NUSAYBİN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR210400",
+            "aciklama": "HABUR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR210500",
+            "aciklama": "BATMAN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR210600",
+            "aciklama": "İPEKYOLU GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR220100",
+            "aciklama": "KAPIKULE YOLCU SALONU GÜMRÜK MÜD"
+        },
+        {
+            "kod": "TR220200",
+            "aciklama": "KAPIKULE TIR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR220400",
+            "aciklama": "KAPIKULE GAR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR220500",
+            "aciklama": "İPSALA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR220600",
+            "aciklama": "UZUNKÖPRÜ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR220700",
+            "aciklama": "PAZARKULE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR220800",
+            "aciklama": "DEREKÖY GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR221300",
+            "aciklama": "HAMZABEYLİ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR270100",
+            "aciklama": "GAZİANTEP GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR270200",
+            "aciklama": "İSLAHİYE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR270300",
+            "aciklama": "ÖNCÜPINAR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR270400",
+            "aciklama": "ÇOBANBEY GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR270600",
+            "aciklama": "AKÇAKALE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR270900",
+            "aciklama": "ŞANLIURFA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR271000",
+            "aciklama": "KARKAMIŞ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR271100",
+            "aciklama": "GAZİANTEP HAVALİMANI GÜMRÜK MDR"
+        },
+        {
+            "kod": "TR271200",
+            "aciklama": "ADIYAMAN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR271200",
+            "aciklama": "ADIYAMAN GÜMRÜK MÜDÜRLÜĞÜ-271200"
+        },
+        {
+            "kod": "TR310100",
+            "aciklama": "İSKENDERUN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR310400",
+            "aciklama": "CİLVEGÖZÜ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR310500",
+            "aciklama": "YAYLADAĞI GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR310600",
+            "aciklama": "İSDEMİR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR310800",
+            "aciklama": "ANTAKYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR311200",
+            "aciklama": "OSMANİYE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR311300",
+            "aciklama": "ZEYTİN DALI GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR330100",
+            "aciklama": "MERSİN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR330500",
+            "aciklama": "MERSİN SERBEST BÖLGE GÜMRÜK MDR"
+        },
+        {
+            "kod": "TR330600",
+            "aciklama": "MERSİN AKARYAKIT GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR330700",
+            "aciklama": "TAŞUCU GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR330900",
+            "aciklama": "ADANA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR331000",
+            "aciklama": "İNCİRLİK GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR331400",
+            "aciklama": "BOTAŞ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR331500",
+            "aciklama": "YUMURTALIK SERBEST BÖLGE GÜMRÜK MDR"
+        },
+        {
+            "kod": "TR340100",
+            "aciklama": "ATATURK HAVA LİM. YOL. SAL. GÜM.MÜD"
+        },
+        {
+            "kod": "TR340300",
+            "aciklama": "ATATÜRK HAVALİMANI KARGO GÜMRÜK MDR"
+        },
+        {
+            "kod": "TR340700",
+            "aciklama": "BEYLİKDÜZÜ AKARYAKIT GÜMRÜK MÜDÜR."
+        },
+        {
+            "kod": "TR340800",
+            "aciklama": "KARAKÖY YOLCU SALONU GÜMRÜK MÜD"
+        },
+        {
+            "kod": "TR340900",
+            "aciklama": "HAYDARPAŞA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR341200",
+            "aciklama": "ERENKÖY GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR341300",
+            "aciklama": "MURATBEY GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR341453",
+            "aciklama": "İSTANBUL HAVALİMANI GÜMRÜK MÜDÜRLÜĞ"
+        },
+        {
+            "kod": "TR341454",
+            "aciklama": "İSTANBUL HAVALİMANI YOLCU SALONU GM"
+        },
+        {
+            "kod": "TR342000",
+            "aciklama": "TRAKYA SERBEST BÖLGE GÜMRÜK MDR"
+        },
+        {
+            "kod": "TR342200",
+            "aciklama": "İSTANBUL DERİ SERBEST BÖLGE GÜMRÜK"
+        },
+        {
+            "kod": "TR342400",
+            "aciklama": "YEŞİLKÖY GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR342800",
+            "aciklama": "ATATÜRK HAVALİMANI SERBEST BÖLGE"
+        },
+        {
+            "kod": "TR343100",
+            "aciklama": "AMBARLI GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR343200",
+            "aciklama": "SABİHA GÖKÇEN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR343300",
+            "aciklama": "ZEYTİNBURNU GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR343400",
+            "aciklama": "PENDİK GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR343500",
+            "aciklama": "HALKALI GAR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR350300",
+            "aciklama": "İZMİR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR350500",
+            "aciklama": "İZMİR YOLCU SALONU GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR350700",
+            "aciklama": "ADNAN MENDERES GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR350900",
+            "aciklama": "DİKİLİ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR351000",
+            "aciklama": "ÇEŞME GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR351100",
+            "aciklama": "FOÇA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR351700",
+            "aciklama": "MANİSA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR351800",
+            "aciklama": "KUŞADASI GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR351900",
+            "aciklama": "ALİAĞA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR352100",
+            "aciklama": "DENİZLİ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR352200",
+            "aciklama": "EGE SERBEST BÖLGE GÜMRÜK MDR"
+        },
+        {
+            "kod": "TR352800",
+            "aciklama": "UŞAK GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR352900",
+            "aciklama": "AFYONKARAHİSAR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR353100",
+            "aciklama": "İZMİR SERBEST BÖLGE GÜMRÜK MDR"
+        },
+        {
+            "kod": "TR353200",
+            "aciklama": "İZMİR TIR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR353300",
+            "aciklama": "ALAŞEHİR GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR353400",
+            "aciklama": "AYDIN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR410100",
+            "aciklama": "İZMİT GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR410300",
+            "aciklama": "DERİNCE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR410500",
+            "aciklama": "DİLOVASI GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR410700",
+            "aciklama": "SAKARYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR411300",
+            "aciklama": "GEBZE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR411400",
+            "aciklama": "KÖRFEZ PETROKİMYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR411500",
+            "aciklama": "KARADENİZ EREĞLİ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR411600",
+            "aciklama": "ZONGULDAK GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR411700",
+            "aciklama": "KARABÜK GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR411800",
+            "aciklama": "BARTIN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR411900",
+            "aciklama": "BOLU GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR440100",
+            "aciklama": "MALATYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR440200",
+            "aciklama": "KAHRAMANMARAŞ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR440300",
+            "aciklama": "ELAZIĞ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR440400",
+            "aciklama": "SİVAS GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR550100",
+            "aciklama": "SAMSUN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR550200",
+            "aciklama": "ORDU GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR550300",
+            "aciklama": "ÜNYE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR550700",
+            "aciklama": "ÇORUM GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR551000",
+            "aciklama": "AMASYA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR551100",
+            "aciklama": "İNEBOLU GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR551200",
+            "aciklama": "SİNOP GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR551300",
+            "aciklama": "ORDU-GİRESUN HAVALİMANI GÜM. MÜD."
+        },
+        {
+            "kod": "TR590100",
+            "aciklama": "TEKİRDAĞ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR590200",
+            "aciklama": "ÇORLU HAVALİMANI GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR590300",
+            "aciklama": "AVRUPA SERBEST BÖLGE GÜMRÜK MDR"
+        },
+        {
+            "kod": "TR590400",
+            "aciklama": "ÇERKEZKÖY GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR590500",
+            "aciklama": "ÇANAKKALE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR590800",
+            "aciklama": "BİGA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR610100",
+            "aciklama": "TRABZON GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR610400",
+            "aciklama": "GİRESUN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR650800",
+            "aciklama": "VAN GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR650900",
+            "aciklama": "ESENDERE GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR651000",
+            "aciklama": "KAPIKÖY GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR651300",
+            "aciklama": "YÜKSEKOVA GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "TR651500",
+            "aciklama": "ÜZÜMLÜ GÜMRÜK MÜDÜRLÜĞÜ"
+        },
+        {
+            "kod": "AD000001",
+            "aciklama": "CUSTOMS OFFICE SANT JULIÀ DE LÒRIA"
+        },
+        {
+            "kod": "AD000002",
+            "aciklama": "DCNJ PORTA"
+        },
+        {
+            "kod": "AD000003",
+            "aciklama": "CENTRAL CUSTOMS OFFICE"
+        },
+        {
+            "kod": "AT100000",
+            "aciklama": "Wien"
+        },
+        {
+            "kod": "AT100200",
+            "aciklama": "Hafen Wien"
+        },
+        {
+            "kod": "AT100400",
+            "aciklama": "Inzersdorf"
+        },
+        {
+            "kod": "AT230000",
+            "aciklama": "St. Pölten Krems Wiener Neustadt"
+        },
+        {
+            "kod": "AT230200",
+            "aciklama": "Mistelbach"
+        },
+        {
+            "kod": "AT240000",
+            "aciklama": "St. Pölten Krems Wiener Neustadt"
+        },
+        {
+            "kod": "AT240100",
+            "aciklama": "Hafen Krems"
+        },
+        {
+            "kod": "AT240200",
+            "aciklama": "Amstetten"
+        },
+        {
+            "kod": "AT240400",
+            "aciklama": "Gmünd-Nagelberg"
+        },
+        {
+            "kod": "AT240500",
+            "aciklama": "Hollabrunn"
+        },
+        {
+            "kod": "AT250000",
+            "aciklama": "St. Pölten Krems Wiener Neustadt"
+        },
+        {
+            "kod": "AT250100",
+            "aciklama": "Wiener Neudorf"
+        },
+        {
+            "kod": "AT250101",
+            "aciklama": "Aussenstelle Abfertigung"
+        },
+        {
+            "kod": "AT320000",
+            "aciklama": "Eisenstadt Flughafen Wien"
+        },
+        {
+            "kod": "AT320200",
+            "aciklama": "Eisenstadt/Strasse"
+        },
+        {
+            "kod": "AT320300",
+            "aciklama": "Nickelsdorf"
+        },
+        {
+            "kod": "AT320400",
+            "aciklama": "Heiligenkreuz"
+        },
+        {
+            "kod": "AT320600",
+            "aciklama": "Schachendorf"
+        },
+        {
+            "kod": "AT330100",
+            "aciklama": "Wien Flughafen Güterabfertigung"
+        },
+        {
+            "kod": "AT330200",
+            "aciklama": "Flughafen Wien Reisendenabfertigung"
+        },
+        {
+            "kod": "AT330300",
+            "aciklama": "Maria Lanzendorf"
+        },
+        {
+            "kod": "AT330400",
+            "aciklama": "Flughafen Wien Cargo Center Nord"
+        },
+        {
+            "kod": "AT420000",
+            "aciklama": "Klagenfurt Villach"
+        },
+        {
+            "kod": "AT420100",
+            "aciklama": "Klagenfurt Flughafen/Strasse"
+        },
+        {
+            "kod": "AT430000",
+            "aciklama": "Klagenfurt Villach"
+        },
+        {
+            "kod": "AT430100",
+            "aciklama": "Bahnhof Villach Süd"
+        },
+        {
+            "kod": "AT520000",
+            "aciklama": "Linz Wels"
+        },
+        {
+            "kod": "AT520100",
+            "aciklama": "Flughafen Linz"
+        },
+        {
+            "kod": "AT520200",
+            "aciklama": "Stadthafen Linz"
+        },
+        {
+            "kod": "AT520300",
+            "aciklama": "Hafen Enns"
+        },
+        {
+            "kod": "AT530000",
+            "aciklama": "Linz Wels"
+        },
+        {
+            "kod": "AT530200",
+            "aciklama": "Suben"
+        },
+        {
+            "kod": "AT600000",
+            "aciklama": "Salzburg"
+        },
+        {
+            "kod": "AT600200",
+            "aciklama": "Flughafen Salzburg"
+        },
+        {
+            "kod": "AT600300",
+            "aciklama": "Zollstelle Güterverkehr Straße"
+        },
+        {
+            "kod": "AT600400",
+            "aciklama": "Liefering/Bahn"
+        }
+    ]

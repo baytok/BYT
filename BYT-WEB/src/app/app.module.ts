@@ -10,8 +10,8 @@ import { GenelComponent } from './components/genel/genel.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { UserAreaComponent } from './components/layout/user-area/user-area.component';
 import { IslemComponent } from './components/islem/islem.component';
-import { BeyannameComponent } from './components/DetayliBeyan/beyanname/beyanname.component';
-import { KalemComponent } from './components/DetayliBeyan/kalem/kalem.component';
+import { DbBeyannameComponent } from './components/DetayliBeyan/dbbeyanname/dbbeyanname.component';
+import { DbKalemComponent } from './components/DetayliBeyan/dbkalem/dbkalem.component';
 import { KullanicilarComponent } from './components/kullanici/kullanicilar/kullanicilar.component';
 import { YeniKullaniciComponent } from './components/kullanici/yeniKullanici/yeniKullanici.component';
 import { DegistirKullaniciComponent } from './components/kullanici/degistirKullanici/degistirKullanici.component';
@@ -36,7 +36,7 @@ import {
     SessionServiceProxy
  } from "../shared/service-proxies/service-proxies";
 import { DbTeminatComponent } from './components/DetayliBeyan/dbteminat/dbteminat.component';
-import { FirmaComponent } from './components/DetayliBeyan/firma/firma.component';
+import { DbFirmaComponent } from './components/DetayliBeyan/dbfirma/dbfirma.component';
 import { DbOzetbeyanAcmaComponent } from './components/DetayliBeyan/dbozetbeyanacma/dbozetbeyanacma.component';
 import { TasimaSenetComponent } from './components/OzetBeyan/tasimasenet/tasimasenet.component';
 import { ObOzetBeyanAcmaComponent } from './components/OzetBeyan/obozetbeyanacma/obozetbeyanacma.component';
@@ -47,6 +47,11 @@ import {
  } from "../shared/helpers/ReferansService";
 import { TestComponent } from './components/test/test.component';
 import {NgxChildProcessModule} from 'ngx-childprocess';
+import { NctsBeyanComponent } from './components/Ncts/nctsbeyan/nctsbeyan.component';
+import { NbAcmaComponent } from './components/Ncts/nbacma/nbacma.component';
+import { NbKalemComponent } from './components/Ncts/nbkalem/nbkalem.component';
+import { NbDetayComponent } from './components/Ncts/nbdetay/nbdetay.component';
+import { NbTeminatComponent } from './components/Ncts/nbteminat/nbteminat.component';
 
 @NgModule({
    declarations: [
@@ -57,11 +62,11 @@ import {NgxChildProcessModule} from 'ngx-childprocess';
       FooterComponent,
       UserAreaComponent,
       IslemComponent,
-      BeyannameComponent,
+      DbBeyannameComponent,
       BeyannameSonucServisComponent,    
       OzetBeyanSonucServisComponent,  
       GenelComponent,
-      KalemComponent,
+      DbKalemComponent,
       KullanicilarComponent,
       MusterilerComponent,
       YeniKullaniciComponent,
@@ -73,13 +78,18 @@ import {NgxChildProcessModule} from 'ngx-childprocess';
       YeniYetkiComponent,
       KiymetComponent,
       DbTeminatComponent,
-      FirmaComponent,
+      DbFirmaComponent,
       DbOzetbeyanAcmaComponent,
       OzetbeyanComponent,
       TasimaSenetComponent,
       ObOzetBeyanAcmaComponent,
       ObTeminatComponent,
       TasiyiciFirmaComponent,
+      NctsBeyanComponent,
+      NbAcmaComponent,
+      NbKalemComponent,
+      NbDetayComponent,
+      NbTeminatComponent,
       TestComponent
       
     

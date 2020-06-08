@@ -1560,6 +1560,70 @@ export class BeyannameServiceProxy {
         teminat,httpOptions  
         );
   }
+
+  getNctsBeyan(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+
+    const httpOptions = {
+     headers: headers_object
+    };
+     return  this.http.get(
+      this.baseUrl + "Servis/NctsBeyan/Ncts/" + IslemInternalNo,httpOptions
+    );
+  }
+  setNctsBeyan(beyanname: NctsBeyanDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+   
+      return this.http.post<any>(
+        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/BeyannameOlustur/", 
+        beyanname, httpOptions  
+        );
+  }
+  getNctsKopyalama(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.post(
+      this.baseUrl + "Servis/NctsBeyan/NctsBeyanKopyalama/" + IslemInternalNo,null,httpOptions
+    );
+  }
+  removeNctsBeyan(IslemInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/NctsBeyan/NctsBeyanSilme/"+IslemInternalNo, httpOptions        
+      );
+  }
+
   getIstatistik(KullaniciKod) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -1583,6 +1647,7 @@ export class SessionServiceProxy {
   public islemInternalNo: string;
   public beyanInternalNo: string;
   public ozetBeyanInternalNo: string;
+  public nctsBeyanInternalNo:string;
   public beyanStatu: string;
   public token: string;
 
@@ -4383,6 +4448,136 @@ export class ObTeminatDto {
     return result;
   }
 }
+export class NctsBeyanDto { 
+  
+  refNo:string;
+	nctsBeyanInternalNo:string;
+  beyannameNo:string;
+  hareketGumruk:string;
+  varisGumruk:string;
+  tescilStatu:string;
+  tescilTarihi:string;
+	olsuturulmaTarihi:string;
+  sonIslemZamani:string;  
+  varisUlke:string;  
+  cikisUlke:string;
+	esyaKabulYer:string;
+	esyaOnayYer:string;
+  yuklemeYeri:string  
+  esyaYer:string;
+  yer:string;
+  yerTarihDil:string;
+  bosaltmaYer:string;
+  yukBosYerDil:string;
+  dahildeTasimaSekli:number;  
+  sinirTasimaSekli:string;
+  cikisTasimaSekli:string;  
+	cikisTasitKimligi:string;
+	cikisTasitKimligiDil:string;
+	cikisTasitUlke:string;
+  sinirTasitKimligi:string;  
+	sinirTasitKimligiDil:string;
+  sinirTasitUlke:string;  
+  konteyner:string;  
+	kalemSayisi:number;
+	toplamKapSayisi:number;
+  kalemToplamBrutKG:number;  	
+	rejim:string;
+  beyanTip:string;  
+	beyanTipiDil:string;
+	odemeAraci:string;
+	refaransNo:string;
+	guvenliBeyan:number; 
+  konveyansRefNo:string; 
+  dorse1:string;
+  dorse2:string;
+  damgaVergi:number;
+  musavirKimlikNo:string;
+  kullanici:string;
+  temsilci:string;
+	temsilKapasite:string;
+	temsilKapasiteDil:string;
+	varisGumrukYetkilisi:string;
+	kontrolSonuc:string;
+  sureSinir:string;
+  tanker:string;
+
+  constructor(data?: NctsBeyanDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  initalBeyan(data?: any) {
+    if (data) {
+      this.refNo=data["refNo"]!=null ? data["refNo"] : "";
+      this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ? data["nctsBeyanInternalNo"] : "";
+      this.beyannameNo=data["beyannameNo"]!=null ? data["beyannameNo"] : "";
+      this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
+      this.tescilTarihi=data[""]!=null ? data["tescilTarihi"] : "0001-01-01T00:00:00";
+      this.olsuturulmaTarihi= "0001-01-01T00:00:00";
+      this.sonIslemZamani=  "0001-01-01T00:00:00";
+      this.varisUlke=data["varisUlke"]!=null ? data["varisUlke"] : "";
+      this.cikisUlke=data["cikisUlke"]!=null ? data["cikisUlke"] : "";
+      this.esyaKabulYer=data["esyaKabulYer"]!=null ? data["esyaKabulYer"] : "";
+      this.esyaOnayYer=data["esyaOnayYer"]!=null ? data["digesyaOnayYerer"] : "";
+      this.yuklemeYeri=data["yuklemeYeri"]!=null ? data["yuklemeYeri"] : "";    
+      this.esyaYer=data["esyaYer"]!=null ? data["esyaYer"] : "";
+      this.varisGumruk=data["varisGumruk"]!=null ? data["varisGumruk"] : "";
+      this.hareketGumruk=data["hareketGumruk"]!=null ? data["hareketGumruk"] : "";
+      this.dahildeTasimaSekli=data["dahildeTasimaSekli"]!=null ? data["dahildeTasimaSekli"] : 0;
+      this.cikisTasimaSekli=data["cikisTasimaSekli"]!=null ? data["cikisTasimaSekli"] : "";  
+      this.cikisTasitKimligi=data["emniyetGuvenlik"]!=null ? data["cikisTasitKimligi"] : "";
+      this.cikisTasitKimligiDil=data["cikisTasitKimligiDil"]!=null ? data["cikisTasitKimligiDil"] : "";
+      this.cikisTasitUlke=data["cikisTasitUlke"]!=null ? data["cikisTasitUlke"] : "";
+      this.sinirTasitKimligi=data["sinirTasitKimligi"]!=null ? data["sinirTasitKimligi"] : "";
+      this.sinirTasitKimligiDil=data["sinirTasitKimligiDil"]!=null ? data["sinirTasitKimligiDil"] : "";
+      this.sinirTasitUlke=data["sinirTasitUlke"]!=null ? data["sinirTasitUlke"] : "";
+      this.sinirTasimaSekli=data["sinirTasimaSekli"]!=null ? data["sinirTasimaSekli"] : "";
+      this.konteyner=data["konteyner"]!=null ? data["konteyner"] : "";
+      this.kalemSayisi=data["kalemSayisi"]!=null ? data["kalemSayisi"] : 0;
+      this.toplamKapSayisi=data["toplamKapSayisi"]!=null ? data["toplamKapSayisi"] : 0;
+      this.kalemToplamBrutKG=data["kalemToplamBrutKG"]!=null ? data["kalemToplamBrutKG"] : 0;    
+      this.rejim=data["rejim"]!=null ? data["rejim"] : "";
+      this.yer=data["yer"]!=null ? data["yer"] : "";
+      this.yerTarihDil=data["yerTarihDil"]!=null ? data["yerTarihDil"] : "";
+      this.beyanTip=data["beyanTip"]!=null ? data["beyanTip"] : "";
+      this.beyanTipiDil=data["beyanTipiDil"]!=null ? data["beyanTipiDil"] : "";
+      this.odemeAraci=data["odemeAraci"]!=null ? data["odemeAraci"] : "";
+      this.refaransNo=data["refaransNo"]!=null ? data["refaransNo"] : "";
+      this.guvenliBeyan=data["guvenliBeyan"]!=null ? data["guvenliBeyan"] : 0;
+      this.konveyansRefNo=data["konveyansRefNo"]!=null ? data["konveyansRefNo"] : "";
+      this.bosaltmaYer=data["bosaltmaYer"]!=null ? data["bosaltmaYer"] : "";
+      this.yukBosYerDil=data["yukBosYerDil"]!=null ?  data["yukBosYerDil"] : "";
+      this.dorse1=data["dorse1"]!=null ? data["dorse1"] : "";
+      this.dorse2=data["dorse2"]!=null ? data["dorse2"] : "";
+      this.damgaVergi=data["damgaVergi"]!=null ? data["damgaVergi"] : 0;
+      this.musavirKimlikNo=data["musavirKimlikNo"]!=null ? data["musavirKimlikNo"] : "";
+      this.kullanici=data["kullanici"]!=null ? data["kullanici"] : "";      
+      this.temsilci=data["temsilci"]!=null ? data["temsilci"] : "";
+      this.temsilKapasite=data["temsilKapasite"]!=null ? data["temsilKapasite"] : "";
+      this.temsilKapasiteDil=data["temsilKapasiteDil"]!=null ? data["temsilKapasiteDil"] : "";
+      this.varisGumrukYetkilisi=data["varisGumrukYetkilisi"]!=null ? data["varisGumrukYetkilisi"] : "";
+      this.kontrolSonuc=data["kontrolSonuc"]!=null ? data["kontrolSonuc"] : "";
+      this.tanker=data["tanker"]!=null ? data["tanker"] : "";
+      this.sureSinir=data["sureSinir"]!=null ? data["sureSinir"] :  "0001-01-01T00:00:00";
+    }
+  }
+
+   static fromJS(data: any): NctsBeyanDto {
+    data = typeof data === "object" ? data : {};
+    let result = new NctsBeyanDto();
+
+    result.initalBeyan(data);
+    return result;
+  }
+
+}
+
+
 export class ReferansDto { 
   kod: string;
   aciklama: string; 

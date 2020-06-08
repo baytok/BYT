@@ -182,8 +182,9 @@ export class IslemComponent implements OnInit {
   getBeyanname(islemInternalNo: string, beyanTipi: string) {
     this._beyanSession.islemInternalNo = islemInternalNo;
     if (beyanTipi == "DetayliBeyan")
-      this.router.navigateByUrl("/app/beyanname");
-    if (beyanTipi == "OzetBeyan") this.router.navigateByUrl("/app/ozetbeyan");
+      this.router.navigateByUrl("/app/dbbeyan");
+    else if (beyanTipi == "OzetBeyan") this.router.navigateByUrl("/app/ozetbeyan");
+    else if (beyanTipi == "NctsBeyan") this.router.navigateByUrl("/app/nctsbeyan");
   }
   getBeyannameSonuc(guid: string, islemInternalNo: string, beyan: string) {
     this.showSonucDialog(0, guid, islemInternalNo,beyan);

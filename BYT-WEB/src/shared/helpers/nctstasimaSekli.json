@@ -1,0 +1,92 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+     {
+          "kod": "1",
+          "aciklama": "denizyolu taşıması"
+      },
+      {
+          "kod": "10",
+          "aciklama": "denizyolu taşıması"
+      },
+      {
+          "kod": "12",
+          "aciklama": "deniz taşıtında demiryolu vagonu"
+      },
+      {
+          "kod": "16",
+          "aciklama": "Deniz taşıtında mot. karayolu aracı"
+      },
+      {
+          "kod": "17",
+          "aciklama": "deniz taşıtında yarı romörk"
+      },
+      {
+          "kod": "18",
+          "aciklama": "deniz taşıtında iç suyolu aracı"
+      },
+      {
+          "kod": "2",
+          "aciklama": "demiryolu taşıması"
+      },
+      {
+          "kod": "20",
+          "aciklama": "demiryolu taşıması"
+      },
+      {
+          "kod": "23",
+          "aciklama": "demiryolu vagonunda karayolu taşıtı"
+      },
+      {
+          "kod": "3",
+          "aciklama": "karayolu taşıması"
+      },
+      {
+          "kod": "30",
+          "aciklama": "karayolu taşıması"
+      },
+      {
+          "kod": "4",
+          "aciklama": "havayolu taşıması"
+      },
+      {
+          "kod": "40",
+          "aciklama": "havayolu taşıması"
+      },
+      {
+          "kod": "5",
+          "aciklama": "posta sevkiyatı"
+      },
+      {
+          "kod": "50",
+          "aciklama": "posta sevkiyatı"
+      },
+      {
+          "kod": "7",
+          "aciklama": "sabit taşıma hatları"
+      },
+      {
+          "kod": "70",
+          "aciklama": "sabit taşıma hatları"
+      },
+      {
+          "kod": "8",
+          "aciklama": "iç suyolu taşıması"
+      },
+      {
+          "kod": "80",
+          "aciklama": "iç suyolu taşıması"
+      },
+      {
+          "kod": "9",
+          "aciklama": "kendinden tahrikli"
+      },
+      {
+          "kod": "90",
+          "aciklama": "kendinden hareketli"
+      }
+  ]
+
+

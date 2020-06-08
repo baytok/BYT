@@ -186,14 +186,14 @@ export const ithalatRejim=[
   ]
 @Component({
   selector: "app-beyanname",
-  templateUrl: "./beyanname.component.html",
-  styleUrls: ["./beyanname.component.scss"],
+  templateUrl: "./dbbeyanname.component.html",
+  styleUrls: ["./dbbeyanname.component.scss"],
   providers: [
     {provide: DateAdapter, useClass: PickDateAdapter},
     {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
  ]
 })
-export class BeyannameComponent implements OnInit {
+export class DbBeyannameComponent implements OnInit {
   @ViewChild('islemNo', {static: true}) private islemInput: ElementRef;
   beyannameForm: FormGroup;
   submitted: boolean = false;

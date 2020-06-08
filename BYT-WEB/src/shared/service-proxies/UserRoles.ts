@@ -66,6 +66,28 @@ export class UserRoles {
            }
        return yetki;
    }
+   canNctsBeyanRoles():boolean{
+      
+    if (this.girisService.loggedRoles!=null) {
+      var yetki:boolean;     
+        this.Yetkiler = [] as any;
+        for (let item of this.girisService.loggedRoles)
+         this.Yetkiler.push(item);  
+
+
+     for(let role of this.Yetkiler)
+     {
+       if(role.yetkiKodu==="AD" || role.yetkiKodu==="NB")
+        {          
+          yetki=true;
+          break;
+        }
+        else yetki=false;
+     }         
+      //  this.router.navigate(['giris'])
+         }
+     return yetki;
+ }
      canAdminRoles():boolean{
       
       if (this.girisService.loggedRoles!=null) {

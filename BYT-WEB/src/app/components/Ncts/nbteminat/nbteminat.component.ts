@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 
 import {
@@ -23,21 +24,21 @@ import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 import {
-  DbTeminatDto,
+  ObTeminatDto,
   ServisDto,
 } from "../../../../shared/service-proxies/service-proxies";
 @Component({
-  selector: 'app-teminat',
-  templateUrl: './dbteminat.component.html',
-  styleUrls: ['./dbteminat.component.css']
+  selector: 'app-obteminat',
+  templateUrl: './nbteminat.component.html',
+  styleUrls: ['./nbteminat.component.css']
 })
-export class DbTeminatComponent implements OnInit {
+export class NbTeminatComponent implements OnInit {
 
   teminatForm: FormGroup;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
-  beyanInternalNo = this._beyanSession.beyanInternalNo;
+  ozetBeyanInternalNo = this._beyanSession.ozetBeyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
   _teminatList = teminat;
   constructor(  private beyanServis: BeyannameServiceProxy,
@@ -70,7 +71,7 @@ export class DbTeminatComponent implements OnInit {
           this._beyanSession.islemInternalNo + " ait Teminat Bulunamadı",
           "Tamam"
         );
-        this.router.navigateByUrl('/app/dbbeyan');
+        this.router.navigateByUrl('/app/nctsbeyan');
       }
         this.getTeminatBilgileri();
        
@@ -140,9 +141,9 @@ export class DbTeminatComponent implements OnInit {
   
     if (this.teminatBilgileri.length >= 0) {
       const promiseOdeme = this.beyanServis
-        .restoreDbTeminat(
+        .restoreObTeminat(
           this.teminatBilgileri.value,
-          this._beyanSession.beyanInternalNo
+          this._beyanSession.ozetBeyanInternalNo
         )
         .toPromise();
       promiseOdeme.then(
@@ -158,7 +159,7 @@ export class DbTeminatComponent implements OnInit {
       );
     }
   }
-  initTeminatFormArray(teminat: DbTeminatDto[]) {
+  initTeminatFormArray(teminat: ObTeminatDto[]) {
     const formArray = this.teminatForm.get("teminatArry") as FormArray;
     formArray.clear();
     for (let klm of teminat) {
@@ -195,7 +196,7 @@ export class DbTeminatComponent implements OnInit {
           Validators.maxLength(100),
          
         ]),
-        beyanInternalNo: new FormControl(klm.beyanInternalNo,[ Validators.required,]),
+        ozetBeyanInternalNo: new FormControl(klm.ozetBeyanInternalNo,[ Validators.required,]),
     
       });
 
@@ -204,8 +205,8 @@ export class DbTeminatComponent implements OnInit {
     this.teminatForm.setControl("teminatArry", formArray);
   }
   getTeminatBilgileri(){
-    this.beyanServis.getDbTeminat(this._beyanSession.islemInternalNo).subscribe(
-      (result:DbTeminatDto[]) => {
+    this.beyanServis.getObTeminat(this._beyanSession.islemInternalNo).subscribe(
+      (result:ObTeminatDto[]) => {
        
         this.initTeminatFormArray(result);
         this.teminatForm.disable();
@@ -250,7 +251,7 @@ export class DbTeminatComponent implements OnInit {
         Validators.maxLength(100),
        
       ]),
-      beyanInternalNo:new FormControl(this._beyanSession.beyanInternalNo, [
+      ozetBeyanInternalNo:new FormControl(this._beyanSession.ozetBeyanInternalNo, [
         Validators.required,
        
       ])

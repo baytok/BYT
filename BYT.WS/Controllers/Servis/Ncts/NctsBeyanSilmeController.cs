@@ -19,19 +19,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace BYT.WS.Controllers.Servis.OzetBeyan
+namespace BYT.WS.Controllers.Servis.Ncts
 {
-    [Route("api/BYT/Servis/OzetBeyan/[controller]")]
+    [Route("api/BYT/Servis/NctsBeyan/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OzetBeyanSilmeController : ControllerBase
+    public class NctsBeyanSilmeController : ControllerBase
     {
         private IslemTarihceDataContext _islemTarihceContext;
         private readonly ServisCredential _servisCredential;
        
         public IConfiguration Configuration { get; }
 
-        public OzetBeyanSilmeController(IslemTarihceDataContext islemTarihcecontext,  IOptions<ServisCredential> servisCredential, IConfiguration configuration)
+        public NctsBeyanSilmeController(IslemTarihceDataContext islemTarihcecontext,  IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
             _islemTarihceContext = islemTarihcecontext;
             Configuration = configuration;

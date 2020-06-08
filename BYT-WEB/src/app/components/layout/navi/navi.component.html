@@ -15,11 +15,14 @@
         <a mat-list-item  *ngIf="AdminRole" routerLink="/app/yetkiler" (click)="onSidenavClose()">
             <mat-icon>local_offer</mat-icon> <span class="nav-caption">Yetkiler</span>
         </a>
-        <a  mat-list-item  *ngIf="BeyannameRole"  routerLink="/app/beyanname" (click)="onSidenavClose()"  [matMenuTriggerFor]="beyan">
+        <a  mat-list-item  *ngIf="BeyannameRole"  routerLink="/app/dbbeyan" (click)="onSidenavClose()"  [matMenuTriggerFor]="beyan">
             <mat-icon>description</mat-icon> <span class="nav-caption">Beyanname</span>     
         </a>
-        <a  mat-list-item  *ngIf="OzetBeyannRole"  routerLink="/app/ozetbeyan" (click)="onSidenavClose()"  [matMenuTriggerFor]="ozetbeyan">
+        <a  mat-list-item  *ngIf="OzetBeyanRole"  routerLink="/app/ozetbeyan" (click)="onSidenavClose()"  [matMenuTriggerFor]="ozetbeyan">
             <mat-icon>assignment</mat-icon> <span class="nav-caption">Özet Beyan</span>     
+        </a>
+        <a  mat-list-item  *ngIf="NctsBeyanRole"  routerLink="/app/nctsbeyan" (click)="onSidenavClose()"  [matMenuTriggerFor]="nctsbeyan">
+            <mat-icon>backup_table</mat-icon> <span class="nav-caption">Ncts Beyan</span>     
         </a>
         <a mat-list-item routerLink="/app/islemler" (click)="onSidenavClose()" >
             <mat-icon>list</mat-icon> <span class="nav-caption">İşlemler</span>   
@@ -30,16 +33,23 @@
     
         <mat-menu #beyan="matMenu">     
             <!-- <button mat-menu-item [matMenuTriggerFor]="kalem" routerLink="/app/kalem">Kalemler</button>    -->
-            <button mat-menu-item routerLink="/app/kalem">Kalemler</button>
+            <button mat-menu-item routerLink="/app/dbkalem">Kalemler</button>
              <button mat-menu-item routerLink="/app/dbozetbeyanacma">Özet Beyan Açma</button>
             <button mat-menu-item  routerLink="/app/kiymet">Kıymet Bildirim</button>
             <button mat-menu-item routerLink="/app/dbteminat">Teminat</button>
-            <button mat-menu-item routerLink="/app/firma">Firma</button>
+            <button mat-menu-item routerLink="/app/dbfirma">Firma</button>
         </mat-menu>
         <mat-menu #ozetbeyan="matMenu">     
             <button mat-menu-item routerLink="/app/tasimasenet">Taşıma Senet</button>
             <button mat-menu-item routerLink="/app/obozetbeyanacma">Özet Beyan Açma</button>
             <button mat-menu-item routerLink="/app/tasiyicifirma">Taşıyıcı Firma</button>
+            <button mat-menu-item routerLink="/app/obteminat">Teminat</button>
+          
+        </mat-menu>
+        <mat-menu #nctsbeyan="matMenu">     
+            <button mat-menu-item routerLink="/app/tasimasenet">Detay</button>
+            <button mat-menu-item routerLink="/app/obozetbeyanacma">Kalemler</button>
+            <button mat-menu-item routerLink="/app/tasiyicifirma">Acma</button>
             <button mat-menu-item routerLink="/app/obteminat">Teminat</button>
           
         </mat-menu>
