@@ -1623,7 +1623,223 @@ export class BeyannameServiceProxy {
       this.baseUrl + "Servis/NctsBeyan/NctsBeyanSilme/"+IslemInternalNo, httpOptions        
       );
   }
+  getNbBeyanSahibi(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
 
+    return this.http.get(
+      this.baseUrl + "Servis/BeyanSahibi/Ncts/" + IslemInternalNo,httpOptions
+    );
+  }
+  getNbTasiyiciFirma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/TasiyiFirma/Ncts/" + IslemInternalNo,httpOptions
+    );
+  }
+  getNbAsilSorumluFirma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/AsilSorumluFirma/Ncts/" + IslemInternalNo,httpOptions
+    );
+  }
+  getNbAliciFirma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/AliciFirma/Ncts/" + IslemInternalNo,httpOptions
+    );
+  }
+  getNbGondericiFirma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/GondericiFirma/Ncts/" + IslemInternalNo,httpOptions
+    );
+  }
+  getNbGuvenliAliciFirma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/GuvenliAliciFirma/Ncts/" + IslemInternalNo,httpOptions
+    );
+  }
+  getNbGuvenliGondericiFirma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/GuvenliGondericiFirma/Ncts/" + IslemInternalNo,httpOptions
+    );
+  }
+  restoreNbBeyanSahibi(firma: NbBeyanSahibiDto, beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/BeyanSahibiOlustur/"+beyanInternalNo, 
+        firma,httpOptions  
+        );
+  }
+  restoreNbTasiyiciFirma(firma: NbTasiyiciFirmaDto, beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/TasiyiciFirmaOlustur/"+beyanInternalNo, 
+        firma,httpOptions  
+        );
+  }
+  restoreNbAsilSorumluFirma(firma: NbAsilSorumluFirmaDto, beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/AsilSorumluFirmaOlustur/"+beyanInternalNo, 
+        firma,httpOptions  
+        );
+  }
+  restoreNbGondericiFirma(firma: NbGondericiFirmaDto, beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/GondericiFirmaOlustur/"+beyanInternalNo, 
+        firma,httpOptions  
+        );
+  }
+  restoreNbAliciFirma(firma: NbAliciFirmaDto, beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/AliciFirmaOlustur/"+beyanInternalNo, 
+        firma,httpOptions  
+        );
+  }
+  restoreNbGuvenliGondericiFirma(firma: NbGuvenliGondericiFirmaDto, beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/GuvenliGondericiFirmaOlustur/"+beyanInternalNo, 
+        firma,httpOptions  
+        );
+  }
+  restoreNbGuvenliAliciFirma(firma: NbGuvenliAliciFirmaDto, beyanInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/GuvenliAliciFirmaOlustur/"+beyanInternalNo, 
+        firma,httpOptions  
+        );
+  }
   getIstatistik(KullaniciKod) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -4483,7 +4699,7 @@ export class NctsBeyanDto {
 	toplamKapSayisi:number;
   kalemToplamBrutKG:number;  	
 	rejim:string;
-  beyanTip:string;  
+  beyanTipi:string;  
 	beyanTipiDil:string;
 	odemeAraci:string;
 	refaransNo:string;
@@ -4501,6 +4717,7 @@ export class NctsBeyanDto {
 	kontrolSonuc:string;
   sureSinir:string;
   tanker:string;
+  sinirGumruk:string;
 
   constructor(data?: NctsBeyanDto) {
     if (data) {
@@ -4528,6 +4745,7 @@ export class NctsBeyanDto {
       this.esyaYer=data["esyaYer"]!=null ? data["esyaYer"] : "";
       this.varisGumruk=data["varisGumruk"]!=null ? data["varisGumruk"] : "";
       this.hareketGumruk=data["hareketGumruk"]!=null ? data["hareketGumruk"] : "";
+      this.sinirGumruk=data["sinirGumruk"]!=null ? data["sinirGumruk"] : "";
       this.dahildeTasimaSekli=data["dahildeTasimaSekli"]!=null ? data["dahildeTasimaSekli"] : 0;
       this.cikisTasimaSekli=data["cikisTasimaSekli"]!=null ? data["cikisTasimaSekli"] : "";  
       this.cikisTasitKimligi=data["emniyetGuvenlik"]!=null ? data["cikisTasitKimligi"] : "";
@@ -4544,7 +4762,7 @@ export class NctsBeyanDto {
       this.rejim=data["rejim"]!=null ? data["rejim"] : "";
       this.yer=data["yer"]!=null ? data["yer"] : "";
       this.yerTarihDil=data["yerTarihDil"]!=null ? data["yerTarihDil"] : "";
-      this.beyanTip=data["beyanTip"]!=null ? data["beyanTip"] : "";
+      this.beyanTipi=data["beyanTipi"]!=null ? data["beyanTipi"] : "";
       this.beyanTipiDil=data["beyanTipiDil"]!=null ? data["beyanTipiDil"] : "";
       this.odemeAraci=data["odemeAraci"]!=null ? data["odemeAraci"] : "";
       this.refaransNo=data["refaransNo"]!=null ? data["refaransNo"] : "";
@@ -4576,8 +4794,308 @@ export class NctsBeyanDto {
   }
 
 }
+export class NbBeyanSahibiDto {
+  nctsBeyanInternalNo: string;
+  adUnvan: string;
+  caddeSokakNo:string;
+  ilIlce:string;
+  no:string;
+ 
+  constructor(data?: NbBeyanSahibiDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
+        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
+        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";     
+        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
+        this.no=data["no"]!=null ?data["no"]:"";
+      
+    }
+  }
 
 
+  static fromJS(data: any): NbBeyanSahibiDto {
+    data = typeof data === "object" ? data : {};
+    let result = new NbBeyanSahibiDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class NbTasiyiciFirmaDto {
+  nctsBeyanInternalNo: string;
+  adUnvan: string;
+  caddeSokakNo:string;
+  ilIlce:string;
+  dil:string;
+  no:string;
+  postaKodu:string;
+  ulkeKodu:string;
+
+  constructor(data?: NbTasiyiciFirmaDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
+        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
+        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
+        this.dil=data["dil"]!=null ?data["dil"]:"";
+        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
+        this.no=data["no"]!=null ?data["no"]:"";
+        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
+        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
+
+    }
+  }
+
+
+  static fromJS(data: any): NbTasiyiciFirmaDto {
+    data = typeof data === "object" ? data : {};
+    let result = new NbTasiyiciFirmaDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class NbGondericiFirmaDto {
+  nctsBeyanInternalNo: string;
+  adUnvan: string;
+  caddeSokakNo:string;
+  ilIlce:string;
+  dil:string;
+  no:string;
+  postaKodu:string;
+  ulkeKodu:string;
+
+  constructor(data?: NbGondericiFirmaDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
+        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
+        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
+        this.dil=data["dil"]!=null ?data["dil"]:"";
+        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
+        this.no=data["no"]!=null ?data["no"]:"";
+        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
+        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
+
+    }
+  }
+
+
+  static fromJS(data: any): NbGondericiFirmaDto {
+    data = typeof data === "object" ? data : {};
+    let result = new NbGondericiFirmaDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class NbAliciFirmaDto {
+  nctsBeyanInternalNo: string;
+  adUnvan: string;
+  caddeSokakNo:string;
+  ilIlce:string;
+  dil:string;
+  no:string;
+  postaKodu:string;
+  ulkeKodu:string;
+
+  constructor(data?: NbAliciFirmaDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
+        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
+        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
+        this.dil=data["dil"]!=null ?data["dil"]:"";
+        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
+        this.no=data["no"]!=null ?data["no"]:"";
+        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
+        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
+
+    }
+  }
+
+
+  static fromJS(data: any): NbAliciFirmaDto {
+    data = typeof data === "object" ? data : {};
+    let result = new NbAliciFirmaDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class NbAsilSorumluFirmaDto {
+  nctsBeyanInternalNo: string;
+  adUnvan: string;
+  caddeSokakNo:string;
+  ilIlce:string;
+  dil:string;
+  no:string;
+  postaKodu:string;
+  ulkeKodu:string;
+
+  constructor(data?: NbAsilSorumluFirmaDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
+        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
+        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
+        this.dil=data["dil"]!=null ?data["dil"]:"";
+        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
+        this.no=data["no"]!=null ?data["no"]:"";
+        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
+        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
+
+    }
+  }
+
+
+  static fromJS(data: any): NbAsilSorumluFirmaDto {
+    data = typeof data === "object" ? data : {};
+    let result = new NbAsilSorumluFirmaDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class NbGuvenliGondericiFirmaDto {
+  nctsBeyanInternalNo: string;
+  adUnvan: string;
+  caddeSokakNo:string;
+  ilIlce:string;
+  dil:string;
+  no:string;
+  postaKodu:string;
+  ulkeKodu:string;
+
+  constructor(data?: NbGuvenliGondericiFirmaDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
+        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
+        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
+        this.dil=data["dil"]!=null ?data["dil"]:"";
+        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
+        this.no=data["no"]!=null ?data["no"]:"";
+        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
+        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
+
+    }
+  }
+
+
+  static fromJS(data: any): NbGuvenliGondericiFirmaDto {
+    data = typeof data === "object" ? data : {};
+    let result = new NbGuvenliGondericiFirmaDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class NbGuvenliAliciFirmaDto {
+  nctsBeyanInternalNo: string;
+  adUnvan: string;
+  caddeSokakNo:string;
+  ilIlce:string;
+  dil:string;
+  no:string;
+  postaKodu:string;
+  ulkeKodu:string;
+
+  constructor(data?: NbGuvenliAliciFirmaDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
+        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
+        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
+        this.dil=data["dil"]!=null ?data["dil"]:"";
+        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
+        this.no=data["no"]!=null ?data["no"]:"";
+        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
+        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
+
+    }
+  }
+
+
+  static fromJS(data: any): NbGuvenliAliciFirmaDto {
+    data = typeof data === "object" ? data : {};
+    let result = new NbGuvenliAliciFirmaDto();
+
+    result.init(data);
+    return result;
+  }
+}
 export class ReferansDto { 
   kod: string;
   aciklama: string; 

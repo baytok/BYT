@@ -20,7 +20,14 @@ namespace BYT.WS.Data
         }
         
         public DbSet<NbBeyan> NbBeyan { get; set; }
-     
+        public DbSet<NbBeyanSahibi> NbBeyanSahibi { get; set; }
+        public DbSet<NbTasiyiciFirma> NbTasiyiciFirma { get; set; }
+        public DbSet<NbAliciFirma> NbAliciFirma { get; set; }
+        public DbSet<NbGondericiFirma> NbGondericiFirma { get; set; }
+        public DbSet<NbAsilSorumluFirma> NbAsilSorumluFirma { get; set; }
+        public DbSet<NbGuvenliAliciFirma> NbGuvenliAliciFirma { get; set; }
+        public DbSet<NbGuvenliGondericiFirma> NbGuvenliGondericiFirma { get; set; }
+
         public int GetRefIdNextSequenceValue(string Rejim)
         {
             SqlParameter result = new SqlParameter("@result", System.Data.SqlDbType.Int)

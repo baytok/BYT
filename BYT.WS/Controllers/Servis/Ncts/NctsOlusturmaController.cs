@@ -119,7 +119,7 @@ namespace BYT.WS.Controllers.Servis.Ncts
 
                             _islem.Kullanici = beyan.Kullanici;
                             _islem.IslemTipi = "";
-                            _islem.BeyanTipi = "DetayliBeyan";
+                            _islem.BeyanTipi = "Ncts";
                             _islem.IslemDurumu = "Olusturuldu";
                             _islem.RefNo = beyan.RefNo;
                             _islem.BeyanInternalNo = beyan.NctsBeyanInternalNo;
@@ -175,6 +175,540 @@ namespace BYT.WS.Controllers.Servis.Ncts
 
         }
 
+        [Route("api/BYT/Servis/NctsBeyan/[controller]/BeyanSahibiOlustur/{NctsBeyanInternalNo}")]
+        [HttpPost("{NctsBeyanInternalNo}")]
+        public async Task<ServisDurum> PosBeyanSahibi([FromBody] NbTasiyiciFirma firmaList, string NctsBeyanInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+
+            try
+            {
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var firmaValues = await _beyannameContext.NbBeyanSahibi.Where(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo).ToListAsync();
+
+                        foreach (var item in firmaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+
+                        }
+
+                        firmaList.SonIslemZamani = DateTime.Now;
+                        _beyannameContext.Entry(firmaList).State = EntityState.Added;
+
+
+                        await _beyannameContext.SaveChangesAsync();
+
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Beyan Sahibi Oluştur", ReferansNo = NctsBeyanInternalNo, Sonuc = "Beyan Sahibi Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+        [Route("api/BYT/Servis/NctsBeyan/[controller]/TasiyiciFirmaOlustur/{NctsBeyanInternalNo}")]
+        [HttpPost("{NctsBeyanInternalNo}")]
+        public async Task<ServisDurum> PosTasiyiciFirma([FromBody] NbTasiyiciFirma firmaList, string NctsBeyanInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+
+            try
+            {
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var firmaValues = await _beyannameContext.NbTasiyiciFirma.Where(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo).ToListAsync();
+
+                        foreach (var item in firmaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+
+                        }
+
+                        firmaList.SonIslemZamani = DateTime.Now;
+                        _beyannameContext.Entry(firmaList).State = EntityState.Added;
+
+
+                        await _beyannameContext.SaveChangesAsync();
+
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Taşıyıcı Firma Oluştur", ReferansNo = NctsBeyanInternalNo, Sonuc = "Taşıyıcı Firma Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+
+        [Route("api/BYT/Servis/NctsBeyan/[controller]/AsilSorumluFirmaOlustur/{NctsBeyanInternalNo}")]
+        [HttpPost("{NctsBeyanInternalNo}")]
+        public async Task<ServisDurum> PosAsilSorumluFirma([FromBody] NbAsilSorumluFirma firmaList, string NctsBeyanInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+
+            try
+            {
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var firmaValues = await _beyannameContext.NbAsilSorumluFirma.Where(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo).ToListAsync();
+
+                        foreach (var item in firmaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+
+                        }
+
+                        firmaList.SonIslemZamani = DateTime.Now;
+                        _beyannameContext.Entry(firmaList).State = EntityState.Added;
+
+
+                        await _beyannameContext.SaveChangesAsync();
+
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Asıl Sorumlu Firma Oluştur", ReferansNo = NctsBeyanInternalNo, Sonuc = "Asıl Sorumlu Firma Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+
+        [Route("api/BYT/Servis/NctsBeyan/[controller]/GondericiFirmaOlustur/{NctsBeyanInternalNo}")]
+        [HttpPost("{NctsBeyanInternalNo}")]
+        public async Task<ServisDurum> PosGondericiFirma([FromBody] NbGondericiFirma firmaList, string NctsBeyanInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+
+            try
+            {
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var firmaValues = await _beyannameContext.NbGondericiFirma.Where(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo).ToListAsync();
+
+                        foreach (var item in firmaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+
+                        }
+
+                        firmaList.SonIslemZamani = DateTime.Now;
+                        _beyannameContext.Entry(firmaList).State = EntityState.Added;
+
+
+                        await _beyannameContext.SaveChangesAsync();
+
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Gönderici Firma Oluştur", ReferansNo = NctsBeyanInternalNo, Sonuc = "Gönderici Firma Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+        [Route("api/BYT/Servis/NctsBeyan/[controller]/AliciFirmaOlustur/{NctsBeyanInternalNo}")]
+        [HttpPost("{NctsBeyanInternalNo}")]
+        public async Task<ServisDurum> PosAliciFirma([FromBody] NbAliciFirma firmaList, string NctsBeyanInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+
+            try
+            {
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var firmaValues = await _beyannameContext.NbAliciFirma.Where(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo).ToListAsync();
+
+                        foreach (var item in firmaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+
+                        }
+
+                        firmaList.SonIslemZamani = DateTime.Now;
+                        _beyannameContext.Entry(firmaList).State = EntityState.Added;
+
+
+                        await _beyannameContext.SaveChangesAsync();
+
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Alıcı Firma Oluştur", ReferansNo = NctsBeyanInternalNo, Sonuc = "Alıcı Firma Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+
+        [Route("api/BYT/Servis/NctsBeyan/[controller]/GuvenliGondericiFirmaOlustur/{NctsBeyanInternalNo}")]
+        [HttpPost("{NctsBeyanInternalNo}")]
+        public async Task<ServisDurum> PosGuvenliGondericiFirma([FromBody] NbGuvenliGondericiFirma firmaList, string NctsBeyanInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+
+            try
+            {
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var firmaValues = await _beyannameContext.NbGuvenliGondericiFirma.Where(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo).ToListAsync();
+
+                        foreach (var item in firmaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+
+                        }
+
+                        firmaList.SonIslemZamani = DateTime.Now;
+                        _beyannameContext.Entry(firmaList).State = EntityState.Added;
+
+
+                        await _beyannameContext.SaveChangesAsync();
+
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Güvenli Gönderici Firma Oluştur", ReferansNo = NctsBeyanInternalNo, Sonuc = "Güvenli Gönderici Firma Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+        [Route("api/BYT/Servis/NctsBeyan/[controller]/GuvenliAliciFirmaOlustur/{NctsBeyanInternalNo}")]
+        [HttpPost("{NctsBeyanInternalNo}")]
+        public async Task<ServisDurum> PosGuvenliAliciFirma([FromBody] NbGuvenliAliciFirma firmaList, string NctsBeyanInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+
+            try
+            {
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var firmaValues = await _beyannameContext.NbGuvenliAliciFirma.Where(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo).ToListAsync();
+
+                        foreach (var item in firmaValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+
+                        }
+
+                        firmaList.SonIslemZamani = DateTime.Now;
+                        _beyannameContext.Entry(firmaList).State = EntityState.Added;
+
+
+                        await _beyannameContext.SaveChangesAsync();
+
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Güvenli Alıcı Firma Oluştur", ReferansNo = NctsBeyanInternalNo, Sonuc = "Güvenli Alıcı Firma Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
 
         //[Route("api/BYT/Servis/NctsBeyan/[controller]/KalemSil/{KalemInternalNo}/{BeyanInternalNo}")]
         //[HttpDelete("{KalemInternalNo}/{BeyanInternalNo}")]
@@ -1164,7 +1698,7 @@ namespace BYT.WS.Controllers.Servis.Ncts
         //                }
         //                foreach (var item in soruCevapBilgiList)
         //                {
-                         
+
         //                    if(item.KalemNo==0)
         //                    {
         //                        var kalemNo = await beyannameContext.DbKalem.FirstOrDefaultAsync(v => v.BeyanInternalNo == BeyanInternalNo && v.KalemInternalNo == KalemInternalNo);
@@ -1816,7 +2350,7 @@ namespace BYT.WS.Controllers.Servis.Ncts
         //                        {
         //                            item.SonIslemZamani = DateTime.Now;
         //                            beyannameContext.Entry(item).State = EntityState.Modified;
-                                   
+
         //                        }
         //                        else
         //                        {

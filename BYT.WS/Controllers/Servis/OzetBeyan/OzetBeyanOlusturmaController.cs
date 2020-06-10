@@ -777,9 +777,9 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 {
                     try
                     {
-                        var fşrmaValues = await _beyannameContext.ObTasiyiciFirma.Where(v => v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
+                        var firmaValues = await _beyannameContext.ObTasiyiciFirma.Where(v => v.OzetBeyanInternalNo == OzetBeyanInternalNo).ToListAsync();
 
-                        foreach (var item in fşrmaValues)
+                        foreach (var item in firmaValues)
                         {
                             _beyannameContext.Entry(item).State = EntityState.Deleted;
 

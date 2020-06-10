@@ -101,9 +101,9 @@
                       <mat-label>Diğer SCI</mat-label>
                       <select
                         matNativeControl
-                        formControlName="beyanTip"
+                        formControlName="beyanTipi"
                         [ngClass]="{
-                          'is-invalid': submitted && focus.beyanTip.errors
+                          'is-invalid': submitted && focus.beyanTipi.errors
                         }"
                       >
                         <option
@@ -114,7 +114,7 @@
                         >
                       </select>
                       <div
-                        *ngIf="submitted && focus.beyanTip.errors"
+                        *ngIf="submitted && focus.beyanTipi.errors"
                         class="invalid-feedback"
                       >
                     
@@ -187,6 +187,30 @@
                       >
                         <div *ngIf="focus.hareketGumruk.errors.required">
                           Hareket  Gümrük Zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Sınır Gümrük</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="sinirGumruk"
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.sinirGumruk.errors
+                        }"
+                      >
+                        <option *ngFor="let g of _gumrukAllList" [value]="g.kod"
+                          >{{ g.kod }} {{ g.aciklama }}</option
+                        >
+                      </select>
+                      <div
+                        *ngIf="submitted && focus.sinirGumruk.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="focus.sinirGumruk.errors.required">
+                          Sınır  Gümrük Zorunlu
                         </div>
                       </div>
                     </mat-form-field>
@@ -765,7 +789,7 @@
                 </div>
                 <div class="card m-2">
                   <div class="form-group col">
-                    <mat-label>Sınırı Geçecek Araç</mat-label>
+                    <mat-label>Hareket Araç</mat-label>
                     <div class="form-row">
                       <div class="form-group col">
                         <mat-form-field>
@@ -834,9 +858,9 @@
                           <mat-label>Taşıma Şekli</mat-label>
                           <select
                           matNativeControl
-                          formControlName="cikisTasimaSekli"
+                          formControlName="sinirTasimaSekli"
                          [ngClass]="{
-                            'is-invalid': submitted && focus.cikisTasimaSekli.errors
+                            'is-invalid': submitted && focus.sinirTasimaSekli.errors
                           }"
                         >
                           <option
@@ -847,7 +871,7 @@
                           >
                         </select>
                           <div
-                            *ngIf="submitted && focus.cikisTasimaSekli.errors"
+                            *ngIf="submitted && focus.sinirTasimaSekli.errors"
                             class="invalid-feedback"
                           >
                          
@@ -868,9 +892,9 @@
                           <mat-label>Taşıma Şekli</mat-label>
                           <select
                           matNativeControl
-                          formControlName="sinirTasimaSekli"
+                          formControlName="cikisTasimaSekli"
                          [ngClass]="{
-                            'is-invalid': submitted && focus.sinirTasimaSekli.errors
+                            'is-invalid': submitted && focus.cikisTasimaSekli.errors
                           }"
                         >
                           <option
@@ -881,7 +905,7 @@
                           >
                         </select>
                           <div
-                            *ngIf="submitted && focus.sinirTasimaSekli.errors"
+                            *ngIf="submitted && focus.cikisTasimaSekli.errors"
                             class="invalid-feedback"
                           >
                          
