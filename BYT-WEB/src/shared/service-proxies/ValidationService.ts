@@ -71,7 +71,9 @@ export class ValidationService {
   }
 
   static numberValidator(control: AbstractControl) {
-  
+    if (!control.value) {
+      return null;
+    }
     const regex = new RegExp(/^[0-9]*$/);
     const valid = regex.test(control.value);
     return valid ? null : { numericAllowed: true };

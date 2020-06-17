@@ -107,11 +107,8 @@ export class NctsBeyanComponent implements OnInit {
   guvenliAliciFirmaForm: FormGroup;  
   guvenliGondericiFirmaForm: FormGroup;  
   submitted: boolean = false;
-  ihracatEditable: boolean = false;
-  ithalatEditable: boolean = false;
   nctsBeyanInternalNo:string;
-  beyanStatu:string;
-  editable: boolean = false;
+  beyanStatu:string; 
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
   _nctsBeyan: NctsBeyanDto = new NctsBeyanDto();
@@ -124,10 +121,7 @@ export class NctsBeyanComponent implements OnInit {
   _dilList = this.referansService.getDilJSON();
   _odemeList = this.referansService.getNctsOdemeJSON();
   _tasimaSekliList = this.referansService.getNctsTasimaSekliJSON();
-  _isleminNiteligiList = this.referansService.getisleminNiteligiJSON();
-  _aracTipiList = this.referansService.getaracTipiJSON();
-  _teslimList = this.referansService.getteslimSekliJSON();
-  _dovizList=this.referansService.getdovizCinsiJSON();
+ 
 
 
   constructor(
@@ -220,7 +214,7 @@ export class NctsBeyanComponent implements OnInit {
         Validators.maxLength(4),
       ]),
       no: new FormControl("", [
-       
+        Validators.required,
         Validators.maxLength(15),
         Validators.pattern("^[a-zA-Z0-9]*$"),
       ]),
@@ -258,7 +252,7 @@ export class NctsBeyanComponent implements OnInit {
         Validators.maxLength(4),
       ]),
       no: new FormControl("", [
-      
+        Validators.required,
         Validators.maxLength(15),
         Validators.pattern("^[a-zA-Z0-9]*$"),
       ]),
@@ -395,6 +389,7 @@ export class NctsBeyanComponent implements OnInit {
   buildForm(): void {
     this.nctsBeyanForm = this.formBuilder.group(
       {
+        refNo:[],
        	nctsBeyanInternalNo:[],
         beyannameNo:[],
         tescilStatu: [],
@@ -410,7 +405,7 @@ export class NctsBeyanComponent implements OnInit {
         esyaKabulYer: new FormControl("", [Validators.maxLength(17)]),//Malların Yetkili konumu ???
         esyaOnayYer: new FormControl("", [Validators.maxLength(17)]), //Mal Kabul konumu  ??     
         esyaYer: new FormControl("", [Validators.maxLength(20)]),//Gümrük ana yeri  ??      
-        dahildeTasimaSekli: new FormControl("",[ ValidationService.numberValidator]),//25 iç taşıma şekli
+        dahildeTasimaSekli: new FormControl("",[Validators.maxLength(4)]),//25 iç taşıma şekli
         sinirTasimaSekli:new FormControl("", [Validators.maxLength(40)]),//21 sınır taşıma şekli
         cikisTasimaSekli:new FormControl("", [Validators.maxLength(4)]),  //25 deki taşıma şekli
         cikisTasitKimligi:new FormControl("", [Validators.maxLength(40)]),  
@@ -424,7 +419,7 @@ export class NctsBeyanComponent implements OnInit {
       	toplamKapSayisi: new FormControl(0,[ ValidationService.numberValidator]),
         kalemToplamBrutKG: new FormControl(0,[ ValidationService.decimalValidation]),        
         rejim:new FormControl("", [Validators.required,Validators.maxLength(4)]),  
-        beyanTipi:new FormControl("", [Validators.maxLength(1)]),//SCI    
+        beyanTipi:new FormControl("", [Validators.required,Validators.maxLength(1)]),//SCI    
         beyanTipiDil:new FormControl("", [Validators.required,Validators.maxLength(4)]),  
         odemeAraci:new FormControl("", [Validators.maxLength(4)]),
         refaransNo:new FormControl("", [Validators.maxLength(10)]),
@@ -433,16 +428,16 @@ export class NctsBeyanComponent implements OnInit {
         dorse1:new FormControl("", [Validators.maxLength(50)]), 
         dorse2:new FormControl("", [Validators.maxLength(50)]), 
         damgaVergi: new FormControl("",[Validators.maxLength(15)]),       
-        musavirKimlikNo: new FormControl("",[ ValidationService.decimalValidation]),  
+        musavirKimlikNo: new FormControl("",[ Validators.maxLength(15)]),  
         yer:new FormControl("", [Validators.required,Validators.maxLength(15)]),// asıl sorumlu ??    
-        yerTarihDil:new FormControl("", [Validators.maxLength(4)]),// asul sorumlu ??   
+        yerTarihDil:new FormControl("", [Validators.required,Validators.maxLength(4)]),// asul sorumlu ??   
         kullanici: [],  
         temsilci:new FormControl("", [Validators.required,Validators.maxLength(50)]),  
         temsilKapasite:new FormControl("", [Validators.required,Validators.maxLength(9)]),  
         temsilKapasiteDil:new FormControl("", [Validators.maxLength(4)]),  
         varisGumrukYetkilisi:new FormControl("", [Validators.maxLength(17)]),  
         kontrolSonuc:new FormControl("", [Validators.maxLength(9)]),  
-        sureSinir:new FormControl("", [Validators.maxLength(12)]), 
+        sureSinir:new FormControl("", [Validators.maxLength(12),ValidationService.tarihValidation]), 
         tanker:[false],
          
   
@@ -523,6 +518,7 @@ export class NctsBeyanComponent implements OnInit {
       result => {
         this._nctsBeyan = new NctsBeyanDto();
         this._nctsBeyan.initalBeyan(result);
+      
         if (this._nctsBeyan == null) {
           this.openSnackBar(islemInternalNo + "  Bulunamadı", "Tamam");
           this.nctsBeyanInternalNo="";
@@ -534,12 +530,13 @@ export class NctsBeyanComponent implements OnInit {
           return;
         }
         else{
-         
+       
           this._beyanSession.islemInternalNo = islemInternalNo;    
           this._beyanSession.nctsBeyanInternalNo= this._nctsBeyan.nctsBeyanInternalNo ;
           this._beyanSession.beyanStatu= this._nctsBeyan.tescilStatu ;
           this.nctsBeyanInternalNo=this._nctsBeyan.nctsBeyanInternalNo;
           this.beyanStatu= this._nctsBeyan.tescilStatu ;
+     
           this.loadnctsBeyanForm();
         }
      
@@ -590,7 +587,9 @@ export class NctsBeyanComponent implements OnInit {
   }
   loadnctsBeyanForm()
     {
-      this._beyanSession.nctsBeyanInternalNo= this._nctsBeyan.nctsBeyanInternalNo;
+      this.nctsBeyanForm.reset();
+     this._beyanSession.nctsBeyanInternalNo= this._nctsBeyan.nctsBeyanInternalNo;
+     this.nctsBeyanInternalNo= this._nctsBeyan.nctsBeyanInternalNo;
        this.nctsBeyanForm.setValue({      
         nctsBeyanInternalNo: this._nctsBeyan.nctsBeyanInternalNo,
         beyannameNo:this._nctsBeyan.beyannameNo,
@@ -645,7 +644,7 @@ export class NctsBeyanComponent implements OnInit {
       
      
        });
-
+      
        this.beyanServis.getNbBeyanSahibi(this._beyanSession.islemInternalNo).subscribe(
         (result: NbBeyanSahibiDto) => {
           this.LoadBeyanSahibi(result);
@@ -655,7 +654,7 @@ export class NctsBeyanComponent implements OnInit {
           this.beyanServis.errorHandel(err);
         }
       );
-
+   
       
        this.beyanServis.getNbTasiyiciFirma(this._beyanSession.islemInternalNo).subscribe(
         (result: NbTasiyiciFirmaDto) => {
@@ -721,11 +720,12 @@ export class NctsBeyanComponent implements OnInit {
    
 
   }
-
   
   LoadBeyanSahibi(firma:NbBeyanSahibiDto)
-  {
+  { this.beyanSahibiForm.reset();
+    if(firma!=null)
      this.beyanSahibiForm.setValue({  
+   
       nctsBeyanInternalNo: firma.nctsBeyanInternalNo,
       adUnvan: firma.adUnvan,
       caddeSokakNo:firma.caddeSokakNo,
@@ -736,6 +736,8 @@ export class NctsBeyanComponent implements OnInit {
   }
   LoadTasiyiciFirma(firma:NbTasiyiciFirmaDto)
     {
+      this.tasiyiciFirmaForm.reset();
+    if(firma!=null)
        this.tasiyiciFirmaForm.setValue({  
         nctsBeyanInternalNo: firma.nctsBeyanInternalNo,
         adUnvan: firma.adUnvan,
@@ -749,6 +751,8 @@ export class NctsBeyanComponent implements OnInit {
     }
   LoadAsilSorumluFirma(firma:NbAsilSorumluFirmaDto)
     {
+      this.asilSorumluFirmaForm.reset();
+      if(firma!=null)
        this.asilSorumluFirmaForm.setValue({  
         nctsBeyanInternalNo: firma.nctsBeyanInternalNo,
         adUnvan: firma.adUnvan,
@@ -762,6 +766,8 @@ export class NctsBeyanComponent implements OnInit {
     }
   LoadAliciFirma(firma:NbAliciFirmaDto)
     {
+      this.aliciFirmaForm.reset();
+      if(firma!=null)
        this.aliciFirmaForm.setValue({  
         nctsBeyanInternalNo: firma.nctsBeyanInternalNo,
         adUnvan: firma.adUnvan,
@@ -775,6 +781,8 @@ export class NctsBeyanComponent implements OnInit {
     }
   LoadGondericiFirma(firma:NbGondericiFirmaDto)
     {
+      this.gondericiFirmaForm.reset();
+      if(firma!=null)
        this.gondericiFirmaForm.setValue({  
         nctsBeyanInternalNo: firma.nctsBeyanInternalNo,
         adUnvan: firma.adUnvan,
@@ -788,6 +796,8 @@ export class NctsBeyanComponent implements OnInit {
     }
   LoadGuvenliAliciFirma(firma:NbGuvenliAliciFirmaDto)
     {
+      this.guvenliAliciFirmaForm.reset();
+      if(firma!=null)
        this.guvenliAliciFirmaForm.setValue({  
         nctsBeyanInternalNo: firma.nctsBeyanInternalNo,
         adUnvan: firma.adUnvan,
@@ -800,7 +810,8 @@ export class NctsBeyanComponent implements OnInit {
       });
     }
   LoadGuvenliGondericiFirma(firma:NbGuvenliGondericiFirmaDto)
-    {
+    { this.guvenliGondericiFirmaForm.reset();
+      if(firma!=null)
        this.guvenliGondericiFirmaForm.setValue({  
         nctsBeyanInternalNo: firma.nctsBeyanInternalNo,
         adUnvan: firma.adUnvan,
@@ -855,9 +866,6 @@ export class NctsBeyanComponent implements OnInit {
     this.nctsBeyanForm.markAllAsTouched();
     this.islemInput.nativeElement.value="";
     this.submitted = false;
-    this.ihracatEditable = false;
-    this.ithalatEditable = false;
-    this.editable=false;   
    
     this.asilSorumluFirmaForm.reset();
     this.asilSorumluFirmaForm.enable();
@@ -938,12 +946,19 @@ export class NctsBeyanComponent implements OnInit {
           this.islemInput.nativeElement.value="";
           islemInternalNo.value="";
           this.nctsBeyanForm.disable();
+          this.asilSorumluFirmaForm.reset();
           this.asilSorumluFirmaForm.disable();
+          this.gondericiFirmaForm.reset();
           this.gondericiFirmaForm.disable();
+          this.aliciFirmaForm.reset();
           this.aliciFirmaForm.disable();
+          this.tasiyiciFirmaForm.reset();
           this.tasiyiciFirmaForm.disable();
+          this.guvenliAliciFirmaForm.reset();
           this.guvenliAliciFirmaForm.disable();
+          this.guvenliGondericiFirmaForm.reset();
           this.guvenliGondericiFirmaForm.disable();
+          this.beyanSahibiForm.reset();
           this.beyanSahibiForm.disable();
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
         },
@@ -974,18 +989,12 @@ export class NctsBeyanComponent implements OnInit {
     }
    
     this.nctsBeyanForm.get("nctsBeyanInternalNo").setValue(this.nctsBeyanInternalNo);    
-    this.nctsBeyanForm.get("kullaniciKodu").setValue(this.girisService.loggedKullanici);
-    
-    let kurye = this.nctsBeyanForm.get("kurye").value ===true ?"EVET":"HAYIR";
-    this.nctsBeyanForm.get("kurye").setValue(kurye);
-       
-    let emniyet =this.nctsBeyanForm.get("emniyetGuvenlik").value ===true ?"EVET":"HAYIR";
-    this.nctsBeyanForm.get("emniyetGuvenlik").setValue(emniyet);
-  
+    this.nctsBeyanForm.get("kullanici").setValue(this.girisService.loggedKullanici);
+ 
     let yeniislemInternalNo: string;
     let yeniBeyanname=new NctsBeyanDto();
     yeniBeyanname.initalBeyan(this.nctsBeyanForm.value);
-    
+  
       const promise = this.beyanServis
         .setNctsBeyan(yeniBeyanname)
         .toPromise();
@@ -994,26 +1003,30 @@ export class NctsBeyanComponent implements OnInit {
         
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);
+         
           var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());
-          yeniislemInternalNo = beyanServisSonuc.ReferansNo;
-          
-           
+          yeniislemInternalNo = beyanServisSonuc.ReferansNo;          
+        
           if (yeniislemInternalNo != null) {
+          
             this.islemInput.nativeElement.value=yeniislemInternalNo;
             this._nctsBeyan.nctsBeyanInternalNo=yeniislemInternalNo;
             this._beyanSession.islemInternalNo=yeniislemInternalNo;
-            this.setBeyanSahibi();   
+            this._beyanSession.nctsBeyanInternalNo=yeniislemInternalNo;
+            this.nctsBeyanInternalNo=yeniislemInternalNo;
+            this.setBeyanSahibi();          
             this.setTasiyiciFirma();   
             this.setAsilSorumluFirma();   
-            this.setGondericiFirma();   
+            this.setGondericiFirma();             
             this.setAliciFirma();   
             this.setGuvenliAlici();   
-            this.setGuvenliGonderici();   
+            this.setGuvenliGonderici(); 
+          
             this.getBeyannameFromIslem(yeniislemInternalNo);
             this.openSnackBar(servisSonuc.Sonuc, "Tamam");         
           
           }
-          
+         
             this.nctsBeyanForm.disable();
             this.asilSorumluFirmaForm.disable();
             this.gondericiFirmaForm.disable();
@@ -1022,6 +1035,7 @@ export class NctsBeyanComponent implements OnInit {
             this.guvenliAliciFirmaForm.disable();
             this.guvenliGondericiFirmaForm.disable();
             this.beyanSahibiForm.disable();
+          
         },
         err => {
           this.beyanServis.errorHandel(err);    
@@ -1057,7 +1071,7 @@ export class NctsBeyanComponent implements OnInit {
     const promise = this.beyanServis
     .restoreNbBeyanSahibi(
       this.beyanSahibiForm.value,
-      this._beyanSession.ozetBeyanInternalNo
+      this._beyanSession.nctsBeyanInternalNo
     )
     .toPromise();
     promise.then(
@@ -1094,7 +1108,7 @@ export class NctsBeyanComponent implements OnInit {
     const promise = this.beyanServis
     .restoreNbTasiyiciFirma(
       this.tasiyiciFirmaForm.value,
-      this._beyanSession.ozetBeyanInternalNo
+      this._beyanSession.nctsBeyanInternalNo
     )
     .toPromise();
     promise.then(
@@ -1131,7 +1145,7 @@ export class NctsBeyanComponent implements OnInit {
     const promise = this.beyanServis
     .restoreNbAsilSorumluFirma(
       this.asilSorumluFirmaForm.value,
-      this._beyanSession.ozetBeyanInternalNo
+      this._beyanSession.nctsBeyanInternalNo
     )
     .toPromise();
     promise.then(
@@ -1168,7 +1182,7 @@ export class NctsBeyanComponent implements OnInit {
     const promise = this.beyanServis
     .restoreNbGondericiFirma(
       this.gondericiFirmaForm.value,
-      this._beyanSession.ozetBeyanInternalNo
+      this._beyanSession.nctsBeyanInternalNo
     )
     .toPromise();
     promise.then(
@@ -1205,7 +1219,7 @@ export class NctsBeyanComponent implements OnInit {
     const promise = this.beyanServis
     .restoreNbAliciFirma(
       this.aliciFirmaForm.value,
-      this._beyanSession.ozetBeyanInternalNo
+      this._beyanSession.nctsBeyanInternalNo
     )
     .toPromise();
     promise.then(
@@ -1242,7 +1256,7 @@ export class NctsBeyanComponent implements OnInit {
     const promise = this.beyanServis
     .restoreNbGuvenliGondericiFirma(
       this.guvenliGondericiFirmaForm.value,
-      this._beyanSession.ozetBeyanInternalNo
+      this._beyanSession.nctsBeyanInternalNo
     )
     .toPromise();
     promise.then(
@@ -1279,7 +1293,7 @@ export class NctsBeyanComponent implements OnInit {
     const promise = this.beyanServis
     .restoreNbGuvenliAliciFirma(
       this.guvenliAliciFirmaForm.value,
-      this._beyanSession.ozetBeyanInternalNo
+      this._beyanSession.nctsBeyanInternalNo
     )
     .toPromise();
     promise.then(

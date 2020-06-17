@@ -46,81 +46,137 @@ namespace BYT.WS.Controllers.Servis.Ncts
         public async Task<ServisDurum> Delete(string IslemInternalNo)
         {
             ServisDurum _servisDurum = new ServisDurum();
-            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
+            var options = new DbContextOptionsBuilder<NctsDataContext>()
                  .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                  .Options;
-            var _beyannameContext = new OzetBeyanDataContext(options);
+            var _beyannameContext = new NctsDataContext(options);
             try
             {
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
                 if (islemValues != null)
                 {
                     var tarihceValues = await _islemTarihceContext.Tarihce.Where(v => v.IslemInternalNo == islemValues.IslemInternalNo).ToListAsync();
-                    var ozetBeyanValues = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
-                    var senetValues = await _beyannameContext.ObTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-                    var ugrakValues = await _beyannameContext.ObUgrakUlke.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-                    var ihracatValues = await _beyannameContext.ObIhracat.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-                    var satirValues = await _beyannameContext.ObTasimaSatir.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-                    var satirEsyaValues = await _beyannameContext.ObSatirEsya.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-                    var firmaValues = await _beyannameContext.ObTasiyiciFirma.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
-                    var teminatValues = await _beyannameContext.ObTeminat.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-                    var tasitUgrakValues = await _beyannameContext.ObTasitUgrakUlke.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-                    var ozetBeyanAcmaValues = await _beyannameContext.ObOzetBeyanAcma.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-                    var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
-                    var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSatir.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var nctsBeyanValues = await _beyannameContext.NbBeyan.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    var beyanSahibiValues = await _beyannameContext.NbBeyanSahibi.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    var tasiyiciValues = await _beyannameContext.NbTasiyiciFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo );
+                    var asilSorumluValues = await _beyannameContext.NbAsilSorumluFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo );
+                    var aliciValues = await _beyannameContext.NbAliciFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo );
+                    var gondericiValues = await _beyannameContext.NbGondericiFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo );
+                    var guvenliAliciValues = await _beyannameContext.NbGuvenliAliciFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    var guvenliGondericiValues = await _beyannameContext.NbGuvenliGondericiFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    var kalemValues = await _beyannameContext.NbKalem.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var teminatValues = await _beyannameContext.NbTeminat.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var muhurValues = await _beyannameContext.NbMuhur.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo ).ToListAsync();
+                    var rotaValues = await _beyannameContext.NbRota.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var transitGumrukValues = await _beyannameContext.NbTransitGumruk.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var kalemAliciValues = await _beyannameContext.NbKalemAliciFirma.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var kalemGondericiiValues = await _beyannameContext.NbKalemGondericiFirma.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var kalemGuvenliAliciValues = await _beyannameContext.NbKalemGuvenliAliciFirma.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var kalemGuvenliGondericiValues = await _beyannameContext.NbKalemGuvenliGondericiFirma.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var konteynerValues = await _beyannameContext.NbKonteyner.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var hassasEsyaValues = await _beyannameContext.NbHassasEsya.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var kapValues = await _beyannameContext.NbKap.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var ekBilgiValues = await _beyannameContext.NbEkBilgi.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var belgelerValues = await _beyannameContext.NbBelgeler.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var oncekiBelgelerValues = await _beyannameContext.NbOncekiBelgeler.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var obAcmaValues = await _beyannameContext.NbObAcma.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var abAcmaValues = await _beyannameContext.NbAbAcma.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
 
                     using (var transaction = _beyannameContext.Database.BeginTransaction())
                     {
                         try
                         {
 
-                            _beyannameContext.Entry(ozetBeyanValues).State = EntityState.Deleted;
-                            foreach (var item in senetValues)
+                            _beyannameContext.Entry(nctsBeyanValues).State = EntityState.Deleted;
+                            if (beyanSahibiValues != null)
+                                _beyannameContext.Entry(beyanSahibiValues).State = EntityState.Deleted;
+                            if (tasiyiciValues != null)
+                                _beyannameContext.Entry(tasiyiciValues).State = EntityState.Deleted;
+                            if (asilSorumluValues != null)
+                                _beyannameContext.Entry(asilSorumluValues).State = EntityState.Deleted;
+                            if (aliciValues != null)
+                                _beyannameContext.Entry(aliciValues).State = EntityState.Deleted;
+                            if (gondericiValues != null)
+                                _beyannameContext.Entry(gondericiValues).State = EntityState.Deleted;
+                            if (guvenliAliciValues != null)
+                                _beyannameContext.Entry(guvenliAliciValues).State = EntityState.Deleted;
+                            if (guvenliGondericiValues != null)
+                                _beyannameContext.Entry(guvenliGondericiValues).State = EntityState.Deleted;
+
+                            foreach (var item in kalemValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
                             }
-                            foreach (var item in ugrakValues)
-                            {
-                                _beyannameContext.Entry(item).State = EntityState.Deleted;
-                            }
-                            foreach (var item in ihracatValues)
-                            {
-                                _beyannameContext.Entry(item).State = EntityState.Deleted;
-                            }
-                            foreach (var item in satirValues)
-                            {
-                                _beyannameContext.Entry(item).State = EntityState.Deleted;
-                            }
-                            foreach (var item in satirEsyaValues)
-                            {
-                                _beyannameContext.Entry(item).State = EntityState.Deleted;
-                            }
-                            foreach (var item in tasitUgrakValues)
-                            {
-                                _beyannameContext.Entry(item).State = EntityState.Deleted;
-                            }
+
                             foreach (var item in teminatValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
                             }
-                        
-                            if(firmaValues!=null)
-                            _beyannameContext.Entry(firmaValues).State = EntityState.Deleted;
-
-                            foreach (var item in ozetBeyanAcmaValues)
+                            foreach (var item in muhurValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
                             }
-                            foreach (var item in ozetBeyanAcmaTasimaSenediValues)
+                            foreach (var item in rotaValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
                             }
-                            foreach (var item in ozetBeyanAcmaTasimaSatirValues)
+                            foreach (var item in transitGumrukValues)
                             {
                                 _beyannameContext.Entry(item).State = EntityState.Deleted;
                             }
 
-                          
+                            foreach (var item in kalemAliciValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in kalemGondericiiValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in kalemGuvenliAliciValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in kalemGuvenliGondericiValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in konteynerValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in hassasEsyaValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+
+                            foreach (var item in kapValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in ekBilgiValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in belgelerValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in oncekiBelgelerValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in obAcmaValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+                            foreach (var item in abAcmaValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+
+
                             _islemTarihceContext.Entry(islemValues).State = EntityState.Deleted;
                             foreach (var item in tarihceValues)
                             {

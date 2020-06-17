@@ -184,7 +184,7 @@ export class IslemComponent implements OnInit {
     if (beyanTipi == "DetayliBeyan")
       this.router.navigateByUrl("/app/dbbeyan");
     else if (beyanTipi == "OzetBeyan") this.router.navigateByUrl("/app/ozetbeyan");
-    else if (beyanTipi == "NctsBeyan") this.router.navigateByUrl("/app/nctsbeyan");
+    else if (beyanTipi == "Ncts") this.router.navigateByUrl("/app/nctsbeyan");
   }
   getBeyannameSonuc(guid: string, islemInternalNo: string, beyan: string) {
     this.showSonucDialog(0, guid, islemInternalNo,beyan);

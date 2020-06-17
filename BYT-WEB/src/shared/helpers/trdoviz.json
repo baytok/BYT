@@ -1,0 +1,486 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+      {
+          "kod": "AED",
+          "aciklama": "UAE DIRAHMİSİ"
+      },
+      {
+          "kod": "ALT",
+          "aciklama": "ALTIN KURU"
+      },
+      {
+          "kod": "AMD",
+          "aciklama": "ERMENİSTAN DRAHMİSİ"
+      },
+      {
+          "kod": "ANG",
+          "aciklama": "HOLLANDA ANTİLLERİ GULDENİ"
+      },
+      {
+          "kod": "ATS",
+          "aciklama": "AVUSTURYA ŞİLİN"
+      },
+      {
+          "kod": "AUD",
+          "aciklama": "AVUSTRALYA DOLARI"
+      },
+      {
+          "kod": "AWG",
+          "aciklama": "ARUBAN GULDENİ"
+      },
+      {
+          "kod": "AZN",
+          "aciklama": "AZERBAYCAN YENİ MANATI"
+      },
+      {
+          "kod": "BDT",
+          "aciklama": "BANGLADEŞ TAKASI"
+      },
+      {
+          "kod": "BEF",
+          "aciklama": "Belçika Frangı"
+      },
+      {
+          "kod": "BGN",
+          "aciklama": "BULGAR LEVASI"
+      },
+      {
+          "kod": "BHD",
+          "aciklama": "BAHREYN DİNARI"
+      },
+      {
+          "kod": "BIF",
+          "aciklama": "BURUNDİ FRANGI"
+      },
+      {
+          "kod": "BMD",
+          "aciklama": "BERMUDA DOLARI"
+      },
+      {
+          "kod": "BND",
+          "aciklama": "BURUNEİ DOLARI"
+      },
+      {
+          "kod": "BSD",
+          "aciklama": "BAHAMA DOLARI"
+      },
+      {
+          "kod": "BWP",
+          "aciklama": "BOTSVANA PULASI"
+      },
+      {
+          "kod": "CAD",
+          "aciklama": "KANADA DOLARI"
+      },
+      {
+          "kod": "CHF",
+          "aciklama": "İSVİÇRE FRANGI"
+      },
+      {
+          "kod": "CNY",
+          "aciklama": "Çin Yuanı"
+      },
+      {
+          "kod": "CYP",
+          "aciklama": "KIBRIS POUNDU"
+      },
+      {
+          "kod": "CZK",
+          "aciklama": "ÇEK KORUNASI"
+      },
+      {
+          "kod": "DEM",
+          "aciklama": "ALMAN MARKI"
+      },
+      {
+          "kod": "DJF",
+          "aciklama": "DJİBOUTİ FRANGI"
+      },
+      {
+          "kod": "DKK",
+          "aciklama": "DANİMARKA KRONU"
+      },
+      {
+          "kod": "DZD",
+          "aciklama": "CEZAYİR DİNARI"
+      },
+      {
+          "kod": "ECU",
+          "aciklama": "AVRUPA PARA BİRİMİ (DİKKAT! EUR OLARAK KULLANILMAMALI)"
+      },
+      {
+          "kod": "EGP",
+          "aciklama": "MISIR POUNDU"
+      },
+      {
+          "kod": "ESP",
+          "aciklama": "İSPANYOL PEZETASI"
+      },
+      {
+          "kod": "EUR",
+          "aciklama": "Avrupa Topluluğu Para Birimi (EUR)"
+      },
+      {
+          "kod": "FIM",
+          "aciklama": "FİN MARKKASI"
+      },
+      {
+          "kod": "FJD",
+          "aciklama": "FİJİ DOLARI"
+      },
+      {
+          "kod": "FRF",
+          "aciklama": "FRANSIZ FRANGI"
+      },
+      {
+          "kod": "GBP",
+          "aciklama": "İNGİLİZ STERLİNİ"
+      },
+      {
+          "kod": "GEL",
+          "aciklama": "GÜRCİSTAN LARİSİ"
+      },
+      {
+          "kod": "GIP",
+          "aciklama": "GIBRALTAR POUNDU"
+      },
+      {
+          "kod": "GRD",
+          "aciklama": "YUNAN DRAHMİSİ"
+      },
+      {
+          "kod": "HKD",
+          "aciklama": "HONG KONG"
+      },
+      {
+          "kod": "HUF",
+          "aciklama": "MACAR FORİNTİ"
+      },
+      {
+          "kod": "IEP",
+          "aciklama": "İRLANDA LİRASI"
+      },
+      {
+          "kod": "INR",
+          "aciklama": "HİNDİSTAN RUPESİ"
+      },
+      {
+          "kod": "IOD",
+          "aciklama": "IRAK DİNARI"
+      },
+      {
+          "kod": "IQD",
+          "aciklama": "IRAK DİNARI"
+      },
+      {
+          "kod": "IRR",
+          "aciklama": "İRAN RİYALİ"
+      },
+      {
+          "kod": "ITL",
+          "aciklama": "İTALYAN LİRETİ"
+      },
+      {
+          "kod": "JOD",
+          "aciklama": "ÜRDÜN DİNARI"
+      },
+      {
+          "kod": "JPY",
+          "aciklama": "JAPON YENİ"
+      },
+      {
+          "kod": "KES",
+          "aciklama": "KENYA ŞİLİNİ"
+      },
+      {
+          "kod": "KMF",
+          "aciklama": "KOMORO FRANGI"
+      },
+      {
+          "kod": "KPW",
+          "aciklama": "KUZEY KORE WONU"
+      },
+      {
+          "kod": "KRW",
+          "aciklama": "KORE WONU"
+      },
+      {
+          "kod": "KWD",
+          "aciklama": "KUVEYT DİNARI"
+      },
+      {
+          "kod": "KZT",
+          "aciklama": "KAZAKİSTAN TENGESİ"
+      },
+      {
+          "kod": "LBP",
+          "aciklama": "LÜBNAN POUNDU"
+      },
+      {
+          "kod": "LKR",
+          "aciklama": "SİRİLANKA RUPEESİ"
+      },
+      {
+          "kod": "LRD",
+          "aciklama": "LİBERYA DOLARI"
+      },
+      {
+          "kod": "LSL",
+          "aciklama": "LESOTHO LOTİSİ"
+      },
+      {
+          "kod": "LUF",
+          "aciklama": "LÜKSEMBURG FRANGI"
+      },
+      {
+          "kod": "LYD",
+          "aciklama": "LİBYA DİNARI"
+      },
+      {
+          "kod": "MAD",
+          "aciklama": "FAS DİRHEMİ"
+      },
+      {
+          "kod": "MMK",
+          "aciklama": "MEYANMAR KİYATI"
+      },
+      {
+          "kod": "MOP",
+          "aciklama": "MAKAO PATACASI"
+      },
+      {
+          "kod": "MRO",
+          "aciklama": "MORİTANYA OUGUİYA"
+      },
+      {
+          "kod": "MTL",
+          "aciklama": "MALTA LİRASI"
+      },
+      {
+          "kod": "MTP",
+          "aciklama": "MALTA PONDU"
+      },
+      {
+          "kod": "MUR",
+          "aciklama": "MAURİTİUS RUPEESİ"
+      },
+      {
+          "kod": "MXP",
+          "aciklama": "MEKSİKA POUNDU"
+      },
+      {
+          "kod": "MYR",
+          "aciklama": "MALEZYA RİNGİTİ"
+      },
+      {
+          "kod": "MZM",
+          "aciklama": "MOZAMBİK METİKALİ"
+      },
+      {
+          "kod": "NAD",
+          "aciklama": "NAMİBYA DOLARI"
+      },
+      {
+          "kod": "NLG",
+          "aciklama": "HOLLANDA FLORİNİ"
+      },
+      {
+          "kod": "NOK",
+          "aciklama": "NORVEÇ KRONU"
+      },
+      {
+          "kod": "NZD",
+          "aciklama": "YENİ ZELENDA"
+      },
+      {
+          "kod": "OMR",
+          "aciklama": "UMMAN RİYALİ"
+      },
+      {
+          "kod": "PGK",
+          "aciklama": "PAPUA YENİ GİNE KİNASI"
+      },
+      {
+          "kod": "PHP",
+          "aciklama": "FİLİPİN PEZOSU"
+      },
+      {
+          "kod": "PKR",
+          "aciklama": "PAKİSTAN RUPEESİ"
+      },
+      {
+          "kod": "PLN",
+          "aciklama": "POLONYA ZLOTİSİ"
+      },
+      {
+          "kod": "PTE",
+          "aciklama": "PORTEKİZ ESKÜDOSU"
+      },
+      {
+          "kod": "QAR",
+          "aciklama": "KATAR RİYALİ"
+      },
+      {
+          "kod": "RON",
+          "aciklama": "RUMEN LEYİ"
+      },
+      {
+          "kod": "RUB",
+          "aciklama": "RUS RUBLESİ"
+      },
+      {
+          "kod": "SAR",
+          "aciklama": "SUUDİ ARABİSTAN RİYALİ"
+      },
+      {
+          "kod": "SBD",
+          "aciklama": "SOLOMON ADALARI DOLARI"
+      },
+      {
+          "kod": "SCR",
+          "aciklama": "SEYŞEL RUPEESİ"
+      },
+      {
+          "kod": "SDD",
+          "aciklama": "SUDAN DİNARI"
+      },
+      {
+          "kod": "SEK",
+          "aciklama": "ISVEÇ KRONU"
+      },
+      {
+          "kod": "SGD",
+          "aciklama": "SİNGAPUR DOLARI"
+      },
+      {
+          "kod": "SIT",
+          "aciklama": "SLOVENYA DOLARI"
+      },
+      {
+          "kod": "SKK",
+          "aciklama": "SLOVAK KORUNASI"
+      },
+      {
+          "kod": "SOS",
+          "aciklama": "SOMALİ ŞİLİNİ"
+      },
+      {
+          "kod": "SYP",
+          "aciklama": "SURİYE LİRASI"
+      },
+      {
+          "kod": "SZL",
+          "aciklama": "SWAZILAND LİLANGELİ"
+      },
+      {
+          "kod": "THB",
+          "aciklama": "TAYLAND BAHTI"
+      },
+      {
+          "kod": "TMM",
+          "aciklama": "Türkmenistan Maratı"
+      },
+      {
+          "kod": "TND",
+          "aciklama": "TUNUS DİNARI"
+      },
+      {
+          "kod": "TOP",
+          "aciklama": "TONGA PA'ANGASI"
+      },
+      {
+          "kod": "TRL",
+          "aciklama": "TÜRK LİRASI (TRL)"
+      },
+      {
+          "kod": "TRY",
+          "aciklama": "TÜRK LİRASI (TRY)"
+      },
+      {
+          "kod": "TUT",
+          "aciklama": "TÜTÜN FONU DÖVİZ KURU (USD - ALIŞ)"
+      },
+      {
+          "kod": "TWD",
+          "aciklama": "TAIWAN DOLARI"
+      },
+      {
+          "kod": "TZS",
+          "aciklama": "TANZANYA ŞİLİNİ"
+      },
+      {
+          "kod": "UAH",
+          "aciklama": "Ukraine Hryvnia"
+      },
+      {
+          "kod": "UGS",
+          "aciklama": "UGANDA ŞİLİNİ"
+      },
+      {
+          "kod": "USD",
+          "aciklama": "AMERİKA BİRLEŞİK DEVLETLERİ DOLARI (USD)"
+      },
+      {
+          "kod": "UYP",
+          "aciklama": "URUGUAY PEZOSU"
+      },
+      {
+          "kod": "UZS",
+          "aciklama": "Uzbekistan Sumu"
+      },
+      {
+          "kod": "VEB",
+          "aciklama": "Venezuella"
+      },
+      {
+          "kod": "VUV",
+          "aciklama": "VANUATU VATUSU"
+      },
+      {
+          "kod": "WST",
+          "aciklama": "SAMUA TALASI"
+      },
+      {
+          "kod": "XAF",
+          "aciklama": "CFA FRANGI"
+      },
+      {
+          "kod": "XOF",
+          "aciklama": "CFA FRANGI"
+      },
+      {
+          "kod": "XPF",
+          "aciklama": "CFP FRANGI"
+      },
+      {
+          "kod": "YDD",
+          "aciklama": "YEMEN DİNARI"
+      },
+      {
+          "kod": "YER",
+          "aciklama": "YEMEN RİYALİ"
+      },
+      {
+          "kod": "YKR",
+          "aciklama": "YENİ TÜRK KURUŞU"
+      },
+      {
+          "kod": "YTL",
+          "aciklama": "YENİ TÜRK LİRASI (YTL)"
+      },
+      {
+          "kod": "ZAR",
+          "aciklama": "G. AFRİKA PARASI"
+      },
+      {
+          "kod": "ZRZ",
+          "aciklama": "ZAİRE ZAİRESİ"
+      },
+      {
+          "kod": "ZWD",
+          "aciklama": "ZİMBABVE DOLARI"
+      }
+  ]

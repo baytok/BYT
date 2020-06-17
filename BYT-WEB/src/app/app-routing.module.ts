@@ -23,7 +23,6 @@ import { NctsBeyanComponent } from './components/Ncts/nctsbeyan/nctsbeyan.compon
 import { NbAcmaComponent } from './components/Ncts/nbacma/nbacma.component';
 import { NbKalemComponent } from './components/Ncts/nbkalem/nbkalem.component';
 import { NbDetayComponent } from './components/Ncts/nbdetay/nbdetay.component';
-import { NbTeminatComponent } from './components/Ncts/nbteminat/nbteminat.component';
 import { TestComponent } from './components/test/test.component';
 
  @NgModule({
@@ -54,7 +53,6 @@ import { TestComponent } from './components/test/test.component';
               { path: 'nctsbeyan', component: NctsBeyanComponent,canActivate : [AuthGuard] },       
               { path: 'nbdetay', component: NbDetayComponent,canActivate : [AuthGuard] },  
               { path: 'nbkalem', component: NbKalemComponent,canActivate : [AuthGuard] },    
-              { path: 'nbteminat', component: NbTeminatComponent,canActivate : [AuthGuard] },  
               { path: 'nbacma', component: NbAcmaComponent,canActivate : [AuthGuard] },               
               { path: 'test', component: TestComponent },    
                                    

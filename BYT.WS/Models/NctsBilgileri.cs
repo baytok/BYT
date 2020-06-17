@@ -222,7 +222,8 @@ namespace BYT.WS.Models
     {
         [StringLength(50)]
         public string SeaIdeSID1 { get; set; } //Muhur No
-        [StringLength(9)]
+
+        [StringLength(4)]
         public string SeaIdeSID1LNG { get; set; } // Dil
 
     }
@@ -638,9 +639,9 @@ namespace BYT.WS.Models
 
         public List<SPEMENMT2> EkBilgi { get; set; }
 
-        public List<TRACONCO2> Gonderici { get; set; }
+        public TRACONCO2 Gonderici { get; set; }
 
-        public List<TRACONCE2> Alici { get; set; }
+        public TRACONCE2 Alici { get; set; }
 
         public List<CONNR2> Konteyner { get; set; }
 
@@ -1001,7 +1002,8 @@ namespace BYT.WS.Models
         [StringLength(20)]
         public string EsyaYer  { get; set; } //Customs sub place, CusSubPlaHEA66
 
-        public int DahildeTasimaSekli  { get; set; } //Inland transport mode, InlTraModHEA75
+        [StringLength(4)]
+        public string DahildeTasimaSekli  { get; set; } //Inland transport mode, InlTraModHEA75
 
         [StringLength(4)]
         public string CikisTasimaSekli { get; set; } //Transport mode at border,TraModAtBorHEA76 
@@ -1026,7 +1028,7 @@ namespace BYT.WS.Models
         [StringLength(4)]
         public string SinirTasitKimligiDil  { get; set; } //Identity of means of transport crossing border LNG, IdeOfMeaOfTraCroHEA85LNG
 
-        public char Tanker { get; set; }
+        public bool Tanker { get; set; }
 
         [StringLength(4)]
         public string SinirTasitUlke  { get; set; } //Nationality of means of transport crossing border, NatOfMeaOfTraCroHEA87
@@ -1035,7 +1037,7 @@ namespace BYT.WS.Models
         public string SinirTasimaSekli  { get; set; } //Type of means of transport crossing border,TypOfMeaOfTraCroHEA88
 
 
-        public char Konteyner { get; set; } //Containerised indicator,ConIndHEA96 
+        public bool Konteyner { get; set; } //Containerised indicator,ConIndHEA96 
 
 
         //[StringLength(9)]
@@ -1056,8 +1058,9 @@ namespace BYT.WS.Models
         [Required]
         public string Rejim { get; set; } //Type of declaration,TypOfDecHEA24 
 
-
-        public char BeyanTipi  { get; set; } //Specific Circumstance Indicator, SpeCirIndHEA1
+        [StringLength(4)]
+        [Required]
+        public string BeyanTipi  { get; set; } //Specific Circumstance Indicator, SpeCirIndHEA1
 
 
         [StringLength(4)]
@@ -1123,7 +1126,8 @@ namespace BYT.WS.Models
         [StringLength(9)]
         public string KontrolSonuc { get; set; } // ConResCodERS16
 
-       public DateTime? SureSinir { get; set; } // DatLimERS69
+        [StringLength(12)]
+        public string SureSinir { get; set; } // DatLimERS69
 
     }
     public class NbBeyanSahibi
@@ -1137,17 +1141,17 @@ namespace BYT.WS.Models
         public string NctsBeyanInternalNo { get; set; }
 
 
-        [Required]
+   
         [StringLength(150)]
         public string AdUnvan { get; set; }
 
 
-        [Required]
+        
         [StringLength(150)]
         public string CaddeSokakNo { get; set; }
 
        
-        [Required]
+     
         [StringLength(35)]
         public string IlIlce { get; set; }
 
@@ -1188,8 +1192,8 @@ namespace BYT.WS.Models
         [StringLength(35)]
         public string IlIlce { get; set; }
 
-     
-      
+
+        [Required]
         [StringLength(15)]
         public string No { get; set; }
 
@@ -1233,7 +1237,7 @@ namespace BYT.WS.Models
         [StringLength(35)]
         public string IlIlce { get; set; }
 
-      
+        [Required]
         [StringLength(15)]
         public string No { get; set; }
 
@@ -1303,32 +1307,32 @@ namespace BYT.WS.Models
         public string NctsBeyanInternalNo { get; set; }
 
 
-        [Required]
+      
         [StringLength(150)]
         public string AdUnvan { get; set; }
 
 
-        [Required]
+     
         [StringLength(150)]
         public string CaddeSokakNo { get; set; }
 
-        [Required]
+       
         [StringLength(4)]
         public string Dil { get; set; }
 
-        [Required]
+     
         [StringLength(35)]
         public string IlIlce { get; set; }
 
         [StringLength(15)]
         public string No { get; set; }
 
-        [Required]
+      
         [StringLength(10)]
         public string PostaKodu { get; set; }
 
 
-        [Required]
+       
         [StringLength(4)]
         public string UlkeKodu { get; set; }
 
@@ -1345,32 +1349,31 @@ namespace BYT.WS.Models
         public string NctsBeyanInternalNo { get; set; }
 
 
-        [Required]
         [StringLength(150)]
         public string AdUnvan { get; set; }
 
 
-        [Required]
+      
         [StringLength(150)]
         public string CaddeSokakNo { get; set; }
 
-        [Required]
+       
         [StringLength(4)]
         public string Dil { get; set; }
 
-        [Required]
+     
         [StringLength(35)]
         public string IlIlce { get; set; }
 
         [StringLength(15)]
         public string No { get; set; }
 
-        [Required]
+      
         [StringLength(10)]
         public string PostaKodu { get; set; }
 
 
-        [Required]
+      
         [StringLength(4)]
         public string UlkeKodu { get; set; }
 
@@ -1387,35 +1390,637 @@ namespace BYT.WS.Models
         public string NctsBeyanInternalNo { get; set; }
 
 
-        [Required]
+        
         [StringLength(150)]
         public string AdUnvan { get; set; }
 
 
-        [Required]
+       
         [StringLength(150)]
         public string CaddeSokakNo { get; set; }
 
-        [Required]
+      
         [StringLength(4)]
         public string Dil { get; set; }
 
-        [Required]
+       
         [StringLength(35)]
         public string IlIlce { get; set; }
 
         [StringLength(15)]
         public string No { get; set; }
 
-        [Required]
+      
         [StringLength(10)]
         public string PostaKodu { get; set; }
 
 
-        [Required]
+       
         [StringLength(4)]
         public string UlkeKodu { get; set; }
 
         public DateTime? SonIslemZamani { get; set; }
     }
+    public class NbRota
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+
+        public string NctsBeyanInternalNo { get; set; }
+
+       
+        [StringLength(4)]
+        [Required]
+        public string UlkeKodu { get; set; }
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbMuhur
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+
+        public string NctsBeyanInternalNo { get; set; }
+
+
+        [StringLength(50)]
+        [Required]
+        public string MuhurNo { get; set; }
+
+        [StringLength(4)]
+        [Required]
+        public string Dil { get; set; }
+
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbTransitGumruk
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+
+        [StringLength(9)]
+        [Required]
+        public string Gumruk { get; set; }
+
+              
+        [StringLength(20)]
+        [Required]
+        public string VarisTarihi { get; set; }
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbTeminat
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+
+        public string NctsBeyanInternalNo { get; set; }
+
+        [StringLength(4)]
+        [Required]
+        public string TeminatTipi { get; set; }
+
+        [StringLength(16)]
+        [Required]
+        public string GRNNo { get; set; } 
+
+
+        [StringLength(35)]     
+        public string DigerRefNo { get; set; } 
+
+        [StringLength(4)]
+        public string ErisimKodu { get; set; } //
+
+        [StringLength(4)]
+        [Required]
+        public string DovizCinsi { get; set; }
+
+        [Required]
+        public decimal Tutar { get; set; }  
+
+
+        public int ECGecerliDegil { get; set; } 
+
+
+        [StringLength(4)]
+        public string UlkeGecerliDegil { get; set; } 
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbKalem
+    {
+        [Required]
+        [StringLength(30)]
+
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string KalemInternalNo { get; set; }
+
+        public int KalemSiraNo { get; set; } //IteNumGDS7 
+
+        [StringLength(16)]
+        [Required]
+        public string Gtip { get; set; } //Commodity code, ComCodTarCodGDS10 
+
+        [StringLength(4)]
+        public string RejimKodu { get; set; } //Type of declaration, DecTypGDS15
+
+
+        [StringLength(210)]
+        public string TicariTanim { get; set; } //Goods description,GooDesGDS23 
+
+
+        [StringLength(4)]
+        public string TicariTanimDil { get; set; } //Goods description LNG, GooDesGDS23LNG
+
+        public decimal Kiymet { get; set; }
+
+        [StringLength(4)]
+        public string KiymetDoviz { get; set; }
+
+        [Required]
+        public decimal BurutAgirlik { get; set; } //Gross mass, GroMasGDS46
+
+
+        public decimal NetAgirlik { get; set; } //Net mass, NetMasGDS48
+
+        [StringLength(4)]
+        public string CikisUlkesi { get; set; } //Country of dispatch/export code, CouOfDisGDS58
+
+
+        [StringLength(4)]
+        public string VarisUlkesi { get; set; } //ountry of destination code,CouOfDesGDS59
+
+
+        [StringLength(4)]
+        public string TptChMOdemeKod { get; set; } //Transport charges/ Method of Payment, MetOfPayGDI12
+
+
+        [StringLength(70)]
+        public string KonsimentoRef { get; set; } //Commercial Reference Number,ComRefNumGIM1
+
+
+        [StringLength(4)]
+        public string UNDG { get; set; } //UN dangerous goods code,UNDanGooCodGDI1
+
+
+        [StringLength(20)]
+        public string IhrBeyanNo { get; set; } //ihracat Beyan No
+
+        [StringLength(9)]
+        public string IhrBeyanTip { get; set; } //ihracat Beyan Tipi
+
+        [StringLength(9)]
+        public string IhrBeyanParcali { get; set; } //ihracat Beyan Parçalı
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbKalemGondericiFirma
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+       
+        [StringLength(150)]
+        public string AdUnvan { get; set; }
+
+
+       
+        [StringLength(150)]
+        public string CaddeSokakNo { get; set; }
+
+       
+        [StringLength(4)]
+        public string Dil { get; set; }
+
+     
+        [StringLength(35)]
+        public string IlIlce { get; set; }
+
+
+      
+        [StringLength(15)]
+        public string No { get; set; }
+
+       
+        [StringLength(10)]
+        public string PostaKodu { get; set; }
+
+
+      
+        [StringLength(4)]
+        public string UlkeKodu { get; set; }
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbKalemAliciFirma
+    {
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+    
+        [StringLength(150)]
+        public string AdUnvan { get; set; }
+
+
+      
+        [StringLength(150)]
+        public string CaddeSokakNo { get; set; }
+
+      
+        [StringLength(4)]
+        public string Dil { get; set; }
+
+        
+        [StringLength(35)]
+        public string IlIlce { get; set; }
+
+     
+        [StringLength(15)]
+        public string No { get; set; }
+
+      
+        [StringLength(10)]
+        public string PostaKodu { get; set; }
+
+
+      
+        [StringLength(4)]
+        public string UlkeKodu { get; set; }
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbKalemGuvenliGondericiFirma
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+        [StringLength(150)]
+        public string AdUnvan { get; set; }
+
+
+
+        [StringLength(150)]
+        public string CaddeSokakNo { get; set; }
+
+
+        [StringLength(4)]
+        public string Dil { get; set; }
+
+
+        [StringLength(35)]
+        public string IlIlce { get; set; }
+
+        [StringLength(15)]
+        public string No { get; set; }
+
+
+        [StringLength(10)]
+        public string PostaKodu { get; set; }
+
+
+
+        [StringLength(4)]
+        public string UlkeKodu { get; set; }
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbKalemGuvenliAliciFirma
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+        [StringLength(150)]
+        public string AdUnvan { get; set; }
+
+
+
+        [StringLength(150)]
+        public string CaddeSokakNo { get; set; }
+
+
+        [StringLength(4)]
+        public string Dil { get; set; }
+
+
+        [StringLength(35)]
+        public string IlIlce { get; set; }
+
+        [StringLength(15)]
+        public string No { get; set; }
+
+
+        [StringLength(10)]
+        public string PostaKodu { get; set; }
+
+
+
+        [StringLength(4)]
+        public string UlkeKodu { get; set; }
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbKonteyner
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+        [StringLength(50)]
+        [Required]
+        public string KonteynerNo { get; set; } //KonteynerNo
+
+
+        [StringLength(4)]
+        [Required]
+        public string Dil { get; set; } //EkBilgi_LNG
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+
+    public class NbOncekiBelgeler
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+
+        [StringLength(6)]
+        public string BelgeTipi  { get; set; } //OnceBelgeTip,PreDocTypAR21
+
+        [StringLength(35)]
+        public string RefNo { get; set; } //OnceBelgeRef,PreDocRefAR26
+
+
+        [StringLength(4)]
+        public string BelgeDil { get; set; } //OnceBelge_LNG,PreDocRefLNG
+
+
+        [StringLength(26)]
+        public string TamamlayiciBilgi { get; set; } //TamamlayiciBilgi,ComOfInfAR29
+
+
+        [StringLength(4)]
+        public string  TamamlayiciBilgiDil{ get; set; } //TamamlayiciBilgi_LNG,ComOfInfAR29LNG
+
+    public DateTime? SonIslemZamani { get; set; }
+    }
+
+    public class NbBelgeler
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+        [StringLength(4)]
+        public string BelgeTipi { get; set; } //BelgeTip,DocTypDC21
+
+
+        [StringLength(70)]
+        public string RefNo { get; set; } //Belge_Ref,DocRefDC23
+
+
+        [StringLength(4)]
+        public string BelgeDil { get; set; } //Belge_LNG,DocRefDCLNG
+
+
+        [StringLength(26)]
+        public string TamamlayiciOlcu { get; set; } //TamamlayiciOlcu,ComOfInfDC25
+
+
+        [StringLength(4)]
+        public string TamamlayiciOlcuDil { get; set; } //TamamlayiciOlcu_LNG,ComOfInfDC25LNG
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+
+    public class NbEkBilgi
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+        [StringLength(70)]
+        public string EkBilgi { get; set; } //EkBilgi,AddInfMT21
+
+
+        [StringLength(4)]
+        public string Dil { get; set; } //EkBilgi_LNG,AddInfMT21LNG
+
+
+        [StringLength(5)]
+        public string EkBilgiId { get; set; } //EkBilgiID,AddInfCodMT23
+
+
+        public int Ec2Ihr { get; set; } //EC2Ihr,ExpFroECMT24
+
+
+        [StringLength(4)]
+        public string UlkeKodu { get; set; } //UlkeKodu2Ihr,ExpFroCouMT25
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+
+    public class NbKap
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+        [StringLength(42)]
+        public string MarkaNo { get; set; } //KapMarkaNo,MarNumOfPacGS21
+
+
+        [StringLength(4)]
+        public string  MarkaDil { get; set; } //KapMarkaNo_LNG,MarNumOfPacGS21LNG
+
+
+        [StringLength(3)]
+        public string KapTipi { get; set; } //KapTipi,KinOfPacGS23
+
+
+        public int  KapAdet{ get; set; } //KapAdet,NumOfPacGS24
+
+        public int KalemSayisi  { get; set; } //KalemSayisi,NumOfPieGS25
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+
+    public class NbHassasEsya
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string KalemInternalNo { get; set; }
+
+        public int Kod { get; set; } //HassasKod,SenGooCodSD22
+
+        public decimal Miktar { get; set; } //HassasMiktar,SenQuaSD23
+
+    public DateTime? SonIslemZamani { get; set; }
+    }
+
+    public class NbObAcma
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [StringLength(9)]
+        public string IslemKapsami { get; set; } //DisInd
+
+        [StringLength(20)]
+        public string OzetBeyanNo { get; set; } //Idosext
+
+        [StringLength(9)]
+        public string AmbarIci { get; set; } //WareInd
+
+        [StringLength(20)]
+        public string TasimaSenetNo { get; set; } // Ltitref
+
+        [StringLength(9)]
+        public string AmbarKodu { get; set; } //WareCod
+
+        [StringLength(9)]
+        public string TitlNum { get; set; } // TitlNum
+
+        public decimal Miktar { get; set; } // DisQty
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class NbAbAcma
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string NctsBeyanInternalNo { get; set; }
+
+        [StringLength(20)]
+        public string  BeyannameNo { get; set; } // Iddtext
+
+        public int AcilanKalemNo { get; set; } // Nartnumart 
+
+        public int KalemNo { get; set; } // Nartnumart1 
+
+        public decimal Miktar { get; set; } // Qamv
+
+        [StringLength(200)]
+        public string Aciklama { get; set; } // Lamvecom
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+
 }

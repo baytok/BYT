@@ -1,17 +1,13 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+ 
   <div class="card m-3">
-    <h5 class="card-header text-center">Taşıyıcı Firma Bilgileri</h5>
+    <h5 class="card-header text-center">Ncts Detay Beyan Bilgileri</h5>
     <div class="card-body text-center">
-      <mat-form-field   class="islem-no">
-        <mat-label> Beyanname No</mat-label>
-        <input
-        
-          matInput
-          readonly
-          #BeyannameNo
-          [(ngModel)]="ozetBeyanInternalNo"
-        />
+      <mat-form-field class="islem-no">
+        <mat-label>Beyanname No</mat-label>
+        <input matInput readonly [(ngModel)]="nctsBeyanInternalNo" />
       </mat-form-field>
+      
       <button
         mat-icon-button
         [matMenuTriggerFor]="beyannameheaderMenu"
@@ -20,412 +16,425 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #beyannameheaderMenu="matMenu">
-        <button mat-menu-item (click)="yeniFirma()" [disabled]="!BeyanStatu">
-          <mat-icon>add</mat-icon>
-          <span>Yeni Firma</span>
-        </button>
+     
         <button
           mat-menu-item
-          (click)="duzeltFirma()"
-          [disabled]="!(BeyanStatu && firmaSaiyisi)"
+          (click)="getBeyannameIslemleri()"
+          [disabled]="!BeyanStatu"
         >
           <mat-icon>sync</mat-icon>
-          <span>Firma Düzeltme</span>
+          <span>Beyanname İşlemleri</span>
         </button>
-        <button
-          mat-menu-item
-          (click)="silFirma()"
-          [disabled]="!(BeyanStatu && firmaSaiyisi)"
-        >
-          <mat-icon>sync</mat-icon>
-          <span>Firma Sil</span>
-        </button>
+
+    
       </mat-menu>
       <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
       </mat-cell>
       <mat-label>{{ beyanStatu }}</mat-label>
-      <form [formGroup]="firmaForm"  (ngSubmit)=onFirmaFormSubmit()>
-        <mat-card class="mat-card">
-          <div class="example-box">
+
+      <form [formGroup]="nctsBeyanForm">
+        <mat-card class="mat-card">        
             <mat-tab-group>
-            <div class="container">                            
-               
-              <mat-form-field fxFlex="10%">
-                <select
-                  matNativeControl
-                  placeholder="Ülke Kodu"
-                  formControlName="ulkeKodu"
-                >
-                  <option *ngFor="let s of _ulkeList" [value]="s.kod"
-                    >{{ s.kod }} {{ s.aciklama }}</option
+          
+              <mat-tab label="Teminat">
+                <form [formGroup]="teminatForm" novalidate>
+                  <div
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    fxLayoutWrap
+                    fxLayoutGap="3.5%"
+                    fxLayoutAlign="left"
                   >
-                </select>
-              </mat-form-field>
-              <mat-form-field fxFlex="10%">
-                <select
-                  matNativeControl
-                  placeholder="Tip"
-                  formControlName="tip"
-                >
-                <option value="Tasiyici">Taşıyıcı Firma</option>
-            
-                </select>
-              </mat-form-field>
-              <mat-form-field fxFlex="10%">
-                <select
-                  matNativeControl
-                  placeholder="Kimlik Türü"
-                  formControlName="kimlikTuru"
-                >
-                  <option *ngFor="let s of _kimlikTuruList" [value]="s.kod">{{
-                    s.kod
-                  }}</option>
-                </select>
-              </mat-form-field>
-              <mat-form-field fxFlex="30%">
-                <input
-                  matNativeControl
-                  type="text"
-                  placeholder="No"
-                  formControlName="no"
-                />
-              </mat-form-field>
-              <div class="form-group col">
-              <mat-form-field fxFlex="30%">
-                <input
-                  matNativeControl
-                  type="text"
-                  placeholder="Ad Soyad/ Firma Ünvanı"
-                  formControlName="adUnvan"
-                />
-              </mat-form-field>
-              </div>
-              <mat-form-field fxFlex="30%">
-                <input
-                  matNativeControl
-                  type="text"
-                  placeholder="Cadde Sokak No"
-                  formControlName="caddeSokakNo"
-                />
-              </mat-form-field>
-              <mat-form-field fxFlex="30%">
-                <input
-                  matNativeControl
-                  type="text"
-                  placeholder="İl/İlçe"
-                  formControlName="ilIlce"
-                />
-              </mat-form-field>
-              <mat-form-field fxFlex="30%">
-                <input
-                  matNativeControl
-                  type="text"
-                  placeholder="Telefon No"
-                  formControlName="telefon"
-                />
-              </mat-form-field>
-              <mat-form-field fxFlex="30%">
-                <input
-                  matNativeControl
-                  type="text"
-                  placeholder="Faks No"
-                  formControlName="faks"
-                />
-              </mat-form-field>
-              <mat-form-field fxFlex="30%">
-                <input
-                  matNativeControl
-                  type="text"
-                  placeholder="Posta Kodu"
-                  formControlName="postaKodu"
-                />
-              </mat-form-field>
+                    <mat-card formArrayName="teminatArry"
+                      ><mat-card-title>Teminat Bilgileri</mat-card-title
+                      ><mat-divider></mat-divider>
 
-              <div></div>
-            </div>
-            <mat-tab label="Taşıtın Uğradığı Ülke Bilgileri">
-              <!-- <form [formGroup]="tasitForm" novalidate>
-                <div
-                  fxLayout="row"
-                  fxLayout.xs="column"
-                  fxLayoutWrap
-                  fxLayoutGap="3.5%"
-                  fxLayoutAlign="left"
-                >
-                  <mat-card formArrayName="tasitArry"
-                    ><mat-card-title
-                      >Taşıtın Uğradığı Liman Bilgileri</mat-card-title
-                    ><mat-divider></mat-divider>
+                      <div
+                        *ngFor="
+                          let unit of teminatBilgileri.controls;
+                          let i = index
+                        "
+                      >
+                        <mat-divider
+                          *ngIf="teminatBilgileri.controls.length > 1 && i > 0"
+                        ></mat-divider
+                        ><br />
 
-                    <div
-                      *ngFor="
-                        let unit of tasitBilgileri.controls;
-                        let i = index
-                      "
-                    >
-                      <mat-divider
-                        *ngIf="tasitBilgileri.controls.length > 1 && i > 0"
-                      ></mat-divider
-                      ><br />
-
-                      <div [formGroupName]="i">
-                        <div
-                          fxLayout="row"
-                          fxLayout.xs="column"
-                          fxLayoutWrap
-                          fxLayoutGap="3.5%"
-                          fxLayoutAlign="center"
-                        >
-                          <mat-form-field fxFlex="10%">
-                            <select
-                              matNativeControl
-                              placeholder="Ülke Kodu"
-                              formControlName="ulkeKodu"
-                            >
-                              <option
-                                *ngFor="let s of _ulkeList"
-                                [value]="s.kod"
-                                >{{ s.kod }} {{ s.aciklama }}</option
+                        <div [formGroupName]="i">
+                          <div
+                            fxLayout="row"
+                            fxLayout.xs="column"
+                            fxLayoutWrap
+                            fxLayoutGap="3.5%"
+                            fxLayoutAlign="center"
+                          >                          
+                        
+                            <mat-form-field fxFlex="10%">
+                              <select
+                                matNativeControl
+                                placeholder="Teminat Tipi"
+                                formControlName="teminatTipi"
                               >
-                            </select>
-                          </mat-form-field>
+                                <option
+                                  *ngFor="let s of _teminatTipiList"
+                                  [value]="s.kod"
+                                  >{{ s.kod }} {{s.aciklama}}</option
+                                >
+                              </select>
+                            </mat-form-field>
 
-                          <mat-form-field fxFlex="30%">
-                            <input
+                            <mat-form-field fxFlex="10%">
+                              <input
                               matNativeControl
                               type="text"
-                              placeholder="Liman Yeri/Adı"
-                              formControlName="limanYerAdi"
+                              placeholder="GRN No"
+                              formControlName="grnNo"
                             />
-                          </mat-form-field>
-
-                          <mat-form-field fxFlex="30%">
-                            <input
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input
                               matNativeControl
                               type="text"
-                              placeholder="Hareket Tarih"
-                              formControlName="hareketTarihSaati"
+                              placeholder="Diğer Referans No"
+                              formControlName="digerRefNo"
                             />
-                          </mat-form-field>
-                          <button
-                            mat-mini-fab
-                            color="warn"
-                            [disabled]="!nctsBeyanForm.valid"
-                            (click)="deleteTasitField(i)"
-                          >
-                            <mat-icon>delete forever</mat-icon>
-                          </button>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input
+                              matNativeControl
+                              type="text"
+                              placeholder="Erişim Kodu"
+                              formControlName="erisimKodu"
+                            />
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <select
+                                matNativeControl
+                                placeholder="Para Birimi"
+                                formControlName="dovizCinsi"
+                              >
+                                <option
+                                  *ngFor="let s of _dovizList"
+                                  [value]="s.kod"
+                                  >{{ s.kod }} {{s.aciklama}}</option
+                                >
+                              </select>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <input
+                              matNativeControl
+                              type="text"
+                              placeholder="Miktar"
+                              formControlName="tutar"
+                            />
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <select
+                                matNativeControl
+                                placeholder="Ülke Geçerli Değil"
+                                formControlName="ulkeGecerliDegil"
+                              >
+                                <option
+                                  *ngFor="let s of _ulkeList"
+                                  [value]="s.kod"
+                                  >{{ s.kod }} {{s.aciklama}}</option
+                                >
+                              </select>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <select
+                                matNativeControl
+                                placeholder="EC için Geçerli Değil"
+                                formControlName="ecGecerliDegil"
+                              >
+                                <option></option>
+                                <option value="0">NO</option>
+                                <option value="1">YES</option>
+                              </select>
+                            </mat-form-field>
+
+                            <button
+                              mat-mini-fab
+                              color="warn"
+                              [disabled]="!nctsBeyanForm.valid"
+                              (click)="deleteTeminatField(i)"
+                            >
+                              <mat-icon>delete forever</mat-icon>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <mat-divider></mat-divider
-                    ><mat-card-actions
-                      ><button
-                        [disabled]="!nctsBeyanForm.valid"
-                        mat-raised-button
-                        (click)="addTasitField()"
-                      >
-                        <mat-icon>add box</mat-icon>
-                        Taşıt Uğrak Ülke Ekle
-                      </button></mat-card-actions
-                    ></mat-card
-                  >
-                  <div></div>
-                </div>
-              </form> -->
-            </mat-tab>
-            <mat-tab label="Mühür Bilgileri">
-              <!-- <form [formGroup]="tasitForm" novalidate>
-                <div
-                  fxLayout="row"
-                  fxLayout.xs="column"
-                  fxLayoutWrap
-                  fxLayoutGap="3.5%"
-                  fxLayoutAlign="left"
-                >
-                  <mat-card formArrayName="tasitArry"
-                    ><mat-card-title
-                      >Taşıtın Uğradığı Liman Bilgileri</mat-card-title
-                    ><mat-divider></mat-divider>
-
-                    <div
-                      *ngFor="
-                        let unit of tasitBilgileri.controls;
-                        let i = index
-                      "
-                    >
-                      <mat-divider
-                        *ngIf="tasitBilgileri.controls.length > 1 && i > 0"
-                      ></mat-divider
-                      ><br />
-
-                      <div [formGroupName]="i">
-                        <div
-                          fxLayout="row"
-                          fxLayout.xs="column"
-                          fxLayoutWrap
-                          fxLayoutGap="3.5%"
-                          fxLayoutAlign="center"
+                      <mat-divider></mat-divider
+                      ><mat-card-actions
+                        ><button
+                          [disabled]="!nctsBeyanForm.valid"
+                          mat-raised-button
+                          (click)="addTeminatField()"
                         >
-                          <mat-form-field fxFlex="10%">
-                            <select
-                              matNativeControl
-                              placeholder="Ülke Kodu"
-                              formControlName="ulkeKodu"
-                            >
-                              <option
-                                *ngFor="let s of _ulkeList"
-                                [value]="s.kod"
-                                >{{ s.kod }} {{ s.aciklama }}</option
-                              >
-                            </select>
-                          </mat-form-field>
+                          <mat-icon>add box</mat-icon>
+                          Teminat Ekle
+                        </button></mat-card-actions
+                      ></mat-card
+                    >
+                    <div></div>
+                  </div>
+                </form>
+              </mat-tab>
+              <mat-tab label="Güzergah">
+                <form [formGroup]="guzergahForm" novalidate>
+                  <div
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    fxLayoutWrap
+                    fxLayoutGap="3.5%"
+                    fxLayoutAlign="left"
+                  >
+                    <mat-card formArrayName="guzergahArry"
+                      ><mat-card-title>Güzergah Bilgileri</mat-card-title
+                      ><mat-divider></mat-divider>
 
-                          <mat-form-field fxFlex="30%">
-                            <input
-                              matNativeControl
-                              type="text"
-                              placeholder="Liman Yeri/Adı"
-                              formControlName="limanYerAdi"
-                            />
-                          </mat-form-field>
+                      <div
+                        *ngFor="
+                          let unit of guzergahBilgileri.controls;
+                          let i = index
+                        "
+                      >
+                        <mat-divider
+                          *ngIf="guzergahBilgileri.controls.length > 1 && i > 0"
+                        ></mat-divider
+                        ><br />
 
-                          <mat-form-field fxFlex="30%">
-                            <input
-                              matNativeControl
-                              type="text"
-                              placeholder="Hareket Tarih"
-                              formControlName="hareketTarihSaati"
-                            />
-                          </mat-form-field>
-                          <button
-                            mat-mini-fab
-                            color="warn"
-                            [disabled]="!nctsBeyanForm.valid"
-                            (click)="deleteTasitField(i)"
+                        <div [formGroupName]="i">
+                          <div
+                            fxLayout="row"
+                            fxLayout.xs="column"
+                            fxLayoutWrap
+                            fxLayoutGap="3.5%"
+                            fxLayoutAlign="center"
                           >
-                            <mat-icon>delete forever</mat-icon>
-                          </button>
+                            <mat-form-field fxFlex="10%">
+                              <select
+                                matNativeControl
+                                placeholder="Ülke Kodu"
+                                formControlName="ulkeKodu"
+                              >
+                                <option
+                                  *ngFor="let s of _ulkeList"
+                                  [value]="s.kod"
+                                  >{{ s.kod }} {{s.aciklama}}</option
+                                >
+                              </select>
+                            </mat-form-field>
+
+                           
+                            <button
+                              mat-mini-fab
+                              color="warn"
+                              [disabled]="!nctsBeyanForm.valid"
+                              (click)="deleteGuzergahField(i)"
+                            >
+                              <mat-icon>delete forever</mat-icon>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <mat-divider></mat-divider
-                    ><mat-card-actions
-                      ><button
-                        [disabled]="!nctsBeyanForm.valid"
-                        mat-raised-button
-                        (click)="addTasitField()"
-                      >
-                        <mat-icon>add box</mat-icon>
-                        Taşıt Uğrak Ülke Ekle
-                      </button></mat-card-actions
-                    ></mat-card
-                  >
-                  <div></div>
-                </div>
-              </form> -->
-            </mat-tab>
-            <mat-tab label="Rota Bilgileri">
-              <!-- <form [formGroup]="tasitForm" novalidate>
-                <div
-                  fxLayout="row"
-                  fxLayout.xs="column"
-                  fxLayoutWrap
-                  fxLayoutGap="3.5%"
-                  fxLayoutAlign="left"
-                >
-                  <mat-card formArrayName="tasitArry"
-                    ><mat-card-title
-                      >Taşıtın Uğradığı Liman Bilgileri</mat-card-title
-                    ><mat-divider></mat-divider>
-
-                    <div
-                      *ngFor="
-                        let unit of tasitBilgileri.controls;
-                        let i = index
-                      "
-                    >
-                      <mat-divider
-                        *ngIf="tasitBilgileri.controls.length > 1 && i > 0"
-                      ></mat-divider
-                      ><br />
-
-                      <div [formGroupName]="i">
-                        <div
-                          fxLayout="row"
-                          fxLayout.xs="column"
-                          fxLayoutWrap
-                          fxLayoutGap="3.5%"
-                          fxLayoutAlign="center"
+                      <mat-divider></mat-divider
+                      ><mat-card-actions
+                        ><button
+                          [disabled]="!nctsBeyanForm.valid"
+                          mat-raised-button
+                          (click)="addGuzergahField()"
                         >
-                          <mat-form-field fxFlex="10%">
-                            <select
-                              matNativeControl
-                              placeholder="Ülke Kodu"
-                              formControlName="ulkeKodu"
-                            >
-                              <option
-                                *ngFor="let s of _ulkeList"
-                                [value]="s.kod"
-                                >{{ s.kod }} {{ s.aciklama }}</option
-                              >
-                            </select>
-                          </mat-form-field>
+                          <mat-icon>add box</mat-icon>
+                          Güzergah Ekle
+                        </button></mat-card-actions
+                      ></mat-card
+                    >
+                    <div></div>
+                  </div>
+                </form>
+              </mat-tab> 
+               <mat-tab label="Transit Gümrük">
+                <form [formGroup]="transitForm" novalidate>
+                  <div
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    fxLayoutWrap
+                    fxLayoutGap="3.5%"
+                    fxLayoutAlign="left"
+                  >
+                    <mat-card formArrayName="transitArry"
+                      ><mat-card-title>Transit Gümrük Bilgileri</mat-card-title
+                      ><mat-divider></mat-divider>
 
-                          <mat-form-field fxFlex="30%">
-                            <input
-                              matNativeControl
-                              type="text"
-                              placeholder="Liman Yeri/Adı"
-                              formControlName="limanYerAdi"
-                            />
-                          </mat-form-field>
+                      <div
+                        *ngFor="
+                          let unit of transitBilgileri.controls;
+                          let i = index
+                        "
+                      >
+                        <mat-divider
+                          *ngIf="transitBilgileri.controls.length > 1 && i > 0"
+                        ></mat-divider
+                        ><br />
 
-                          <mat-form-field fxFlex="30%">
-                            <input
-                              matNativeControl
-                              type="text"
-                              placeholder="Hareket Tarih"
-                              formControlName="hareketTarihSaati"
-                            />
-                          </mat-form-field>
-                          <button
-                            mat-mini-fab
-                            color="warn"
-                            [disabled]="!nctsBeyanForm.valid"
-                            (click)="deleteTasitField(i)"
+                        <div [formGroupName]="i">
+                          <div
+                            fxLayout="row"
+                            fxLayout.xs="column"
+                            fxLayoutWrap
+                            fxLayoutGap="3.5%"
+                            fxLayoutAlign="center"
                           >
-                            <mat-icon>delete forever</mat-icon>
-                          </button>
+                           
+                          <mat-form-field fxFlex="10%">
+                            <input
+                            matNativeControl
+                            type="text"
+                            placeholder="Varış Tarihi/Saati"
+                            formControlName="varisTarihi"
+                          />
+                          </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <select
+                                matNativeControl
+                                placeholder="Gümrük"
+                                formControlName="gumruk"
+                              >
+                                <option
+                                  *ngFor="let s of _gumrukAllList"
+                                  [value]="s.kod"
+                                  >{{ s.kod }} {{s.aciklama}}</option
+                                >
+                              </select>
+                            </mat-form-field>
+
+                           
+                            <button
+                              mat-mini-fab
+                              color="warn"
+                              [disabled]="!nctsBeyanForm.valid"
+                              (click)="deleteTransitField(i)"
+                            >
+                              <mat-icon>delete forever</mat-icon>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <mat-divider></mat-divider
-                    ><mat-card-actions
-                      ><button
-                        [disabled]="!nctsBeyanForm.valid"
-                        mat-raised-button
-                        (click)="addTasitField()"
-                      >
-                        <mat-icon>add box</mat-icon>
-                        Taşıt Uğrak Ülke Ekle
-                      </button></mat-card-actions
-                    ></mat-card
+                      <mat-divider></mat-divider
+                      ><mat-card-actions
+                        ><button
+                          [disabled]="!nctsBeyanForm.valid"
+                          mat-raised-button
+                          (click)="addTransitField()"
+                        >
+                          <mat-icon>add box</mat-icon>
+                          Transit Gümrük Ekle
+                        </button></mat-card-actions
+                      ></mat-card
+                    >
+                    <div></div>
+                  </div>
+                </form>
+              </mat-tab>
+              <mat-tab label="Mühür">
+                <form [formGroup]="muhurForm" novalidate>
+                  <div
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    fxLayoutWrap
+                    fxLayoutGap="3.5%"
+                    fxLayoutAlign="left"
                   >
-                  <div></div>
-                </div>
-              </form> -->
-            </mat-tab>
-            </mat-tab-group>
-          </div>
+                    <mat-card formArrayName="muhurArry"
+                      ><mat-card-title>Mühür Bilgileri</mat-card-title
+                      ><mat-divider></mat-divider>
+
+                      <div
+                        *ngFor="
+                          let unit of muhurBilgileri.controls;
+                          let i = index
+                        "
+                      >
+                        <mat-divider
+                          *ngIf="muhurBilgileri.controls.length > 1 && i > 0"
+                        ></mat-divider
+                        ><br />
+
+                        <div [formGroupName]="i">
+                          <div
+                            fxLayout="row"
+                            fxLayout.xs="column"
+                            fxLayoutWrap
+                            fxLayoutGap="3.5%"
+                            fxLayoutAlign="center"
+                          >
+                           
+                          <mat-form-field fxFlex="10%">
+                            <input
+                            matNativeControl
+                            type="text"
+                            placeholder="Mühür No"
+                            formControlName="muhurNo"
+                          />
+                          </mat-form-field>
+                            <mat-form-field fxFlex="10%">
+                              <select
+                                matNativeControl
+                                placeholder="Dil"
+                                formControlName="dil"
+                              >
+                                <option
+                                  *ngFor="let s of _dilList"
+                                  [value]="s.kod"
+                                  >{{ s.kod }} {{s.aciklama}}</option
+                                >
+                              </select>
+                            </mat-form-field>
+
+                           
+                            <button
+                              mat-mini-fab
+                              color="warn"
+                              [disabled]="!nctsBeyanForm.valid"
+                              (click)="deleteMuhurField(i)"
+                            >
+                              <mat-icon>delete forever</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <mat-divider></mat-divider
+                      ><mat-card-actions
+                        ><button
+                          [disabled]="!nctsBeyanForm.valid"
+                          mat-raised-button
+                          (click)="addMuhurField()"
+                        >
+                          <mat-icon>add box</mat-icon>
+                          Mühür Ekle
+                        </button></mat-card-actions
+                      ></mat-card
+                    >
+                    <div></div>
+                  </div>
+                </form>
+              </mat-tab> 
+         
+            </mat-tab-group>         
         </mat-card>
         <div class="text-right">
           <button
-            [disabled]="!firmaForm.valid"
-            class="btn btn-primary mr-1"          
+          [disabled]="!(nctsBeyanForm.valid &&
+          guzergahBilgileri.valid && muhurBilgileri.valid && transitBilgileri.valid
+          && teminatBilgileri.valid  )"
+            class="btn btn-primary mr-1"
+            (click)="onnctsBeyanFormSubmit()"
+
           >
             Kaydet
           </button>

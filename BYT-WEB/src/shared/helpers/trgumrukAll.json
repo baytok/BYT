@@ -3,10 +3,7 @@
   "aciklama": ""
 
 },
-        {
-            "kod": "TR041500",
-            "aciklama": "DOĞUBEYAZIT GÜMRÜK MÜD.-041500"
-        },
+      
         {
             "kod": "TR041500",
             "aciklama": "DOĞUBEYAZIT GÜMRÜK MÜDÜRLÜĞÜ"
@@ -15,21 +12,10 @@
             "kod": "TR041600",
             "aciklama": "GÜRBULAK GÜMRÜK MÜDÜRLÜĞÜ"
         },
-        {
-            "kod": "TR041600",
-            "aciklama": "GÜRBULAK GÜMRÜK MÜDÜRLÜĞÜ-041600"
-        },
-        {
-            "kod": "TR041700",
-            "aciklama": "ERZURUM GÜMRÜK MÜDÜRLÜĞÜ-041700"
-        },
+      
         {
             "kod": "TR041700",
             "aciklama": "ERZURUM GÜMRÜK MÜDÜRLÜĞÜ"
-        },
-        {
-            "kod": "TR041800",
-            "aciklama": "DİLUCU GÜMRÜK MÜDÜRLÜĞÜ-041800"
         },
         {
             "kod": "TR041800",
@@ -37,15 +23,7 @@
         },
         {
             "kod": "TR041900",
-            "aciklama": "KARS GÜMRÜK MÜDÜRLÜĞÜ-041900"
-        },
-        {
-            "kod": "TR041900",
             "aciklama": "KARS GÜMRÜK MÜDÜRLÜĞÜ"
-        },
-        {
-            "kod": "TR042200",
-            "aciklama": "IĞDIR GÜMRÜK MÜDÜRLÜĞÜ-042200"
         },
         {
             "kod": "TR042200",
@@ -298,10 +276,6 @@
         {
             "kod": "TR271200",
             "aciklama": "ADIYAMAN GÜMRÜK MÜDÜRLÜĞÜ"
-        },
-        {
-            "kod": "TR271200",
-            "aciklama": "ADIYAMAN GÜMRÜK MÜDÜRLÜĞÜ-271200"
         },
         {
             "kod": "TR310100",
@@ -646,161 +620,6 @@
         {
             "kod": "TR651500",
             "aciklama": "ÜZÜMLÜ GÜMRÜK MÜDÜRLÜĞÜ"
-        },
-        {
-            "kod": "AD000001",
-            "aciklama": "CUSTOMS OFFICE SANT JULIÀ DE LÒRIA"
-        },
-        {
-            "kod": "AD000002",
-            "aciklama": "DCNJ PORTA"
-        },
-        {
-            "kod": "AD000003",
-            "aciklama": "CENTRAL CUSTOMS OFFICE"
-        },
-        {
-            "kod": "AT100000",
-            "aciklama": "Wien"
-        },
-        {
-            "kod": "AT100200",
-            "aciklama": "Hafen Wien"
-        },
-        {
-            "kod": "AT100400",
-            "aciklama": "Inzersdorf"
-        },
-        {
-            "kod": "AT230000",
-            "aciklama": "St. Pölten Krems Wiener Neustadt"
-        },
-        {
-            "kod": "AT230200",
-            "aciklama": "Mistelbach"
-        },
-        {
-            "kod": "AT240000",
-            "aciklama": "St. Pölten Krems Wiener Neustadt"
-        },
-        {
-            "kod": "AT240100",
-            "aciklama": "Hafen Krems"
-        },
-        {
-            "kod": "AT240200",
-            "aciklama": "Amstetten"
-        },
-        {
-            "kod": "AT240400",
-            "aciklama": "Gmünd-Nagelberg"
-        },
-        {
-            "kod": "AT240500",
-            "aciklama": "Hollabrunn"
-        },
-        {
-            "kod": "AT250000",
-            "aciklama": "St. Pölten Krems Wiener Neustadt"
-        },
-        {
-            "kod": "AT250100",
-            "aciklama": "Wiener Neudorf"
-        },
-        {
-            "kod": "AT250101",
-            "aciklama": "Aussenstelle Abfertigung"
-        },
-        {
-            "kod": "AT320000",
-            "aciklama": "Eisenstadt Flughafen Wien"
-        },
-        {
-            "kod": "AT320200",
-            "aciklama": "Eisenstadt/Strasse"
-        },
-        {
-            "kod": "AT320300",
-            "aciklama": "Nickelsdorf"
-        },
-        {
-            "kod": "AT320400",
-            "aciklama": "Heiligenkreuz"
-        },
-        {
-            "kod": "AT320600",
-            "aciklama": "Schachendorf"
-        },
-        {
-            "kod": "AT330100",
-            "aciklama": "Wien Flughafen Güterabfertigung"
-        },
-        {
-            "kod": "AT330200",
-            "aciklama": "Flughafen Wien Reisendenabfertigung"
-        },
-        {
-            "kod": "AT330300",
-            "aciklama": "Maria Lanzendorf"
-        },
-        {
-            "kod": "AT330400",
-            "aciklama": "Flughafen Wien Cargo Center Nord"
-        },
-        {
-            "kod": "AT420000",
-            "aciklama": "Klagenfurt Villach"
-        },
-        {
-            "kod": "AT420100",
-            "aciklama": "Klagenfurt Flughafen/Strasse"
-        },
-        {
-            "kod": "AT430000",
-            "aciklama": "Klagenfurt Villach"
-        },
-        {
-            "kod": "AT430100",
-            "aciklama": "Bahnhof Villach Süd"
-        },
-        {
-            "kod": "AT520000",
-            "aciklama": "Linz Wels"
-        },
-        {
-            "kod": "AT520100",
-            "aciklama": "Flughafen Linz"
-        },
-        {
-            "kod": "AT520200",
-            "aciklama": "Stadthafen Linz"
-        },
-        {
-            "kod": "AT520300",
-            "aciklama": "Hafen Enns"
-        },
-        {
-            "kod": "AT530000",
-            "aciklama": "Linz Wels"
-        },
-        {
-            "kod": "AT530200",
-            "aciklama": "Suben"
-        },
-        {
-            "kod": "AT600000",
-            "aciklama": "Salzburg"
-        },
-        {
-            "kod": "AT600200",
-            "aciklama": "Flughafen Salzburg"
-        },
-        {
-            "kod": "AT600300",
-            "aciklama": "Zollstelle Güterverkehr Straße"
-        },
-        {
-            "kod": "AT600400",
-            "aciklama": "Liefering/Bahn"
         }
+       
     ]

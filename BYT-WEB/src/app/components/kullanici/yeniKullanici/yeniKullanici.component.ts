@@ -182,7 +182,7 @@ export class YeniKullaniciComponent implements OnInit {
     for(let role of this.getCheckedRoles())
     { 
       let kullaniciYetki= new KullaniciYetkiDto();
-      console.log(role);
+     
       kullaniciYetki.yetkiKodu=role;
       kullaniciYetki.kullaniciKod=yeniKullanici.kullaniciKod;
       kullaniciYetki.aktif=true;

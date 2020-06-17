@@ -64,7 +64,7 @@
 
       <form [formGroup]="nctsBeyanForm">
         <mat-card class="mat-card">
-          <div class="example-box">
+        
             <mat-tab-group>
               <mat-tab label="Genel Bilgiler">
                 <div class="form-row">               
@@ -82,7 +82,7 @@
                         <option
                           *ngFor="let r of _rejimList"
                           [value]="r.kod"
-                          [disabled]="editable"
+                          
                           >{{ r.kod }} {{ r.aciklama }}</option
                         >
                       </select>
@@ -109,7 +109,7 @@
                         <option
                           *ngFor="let r of _beyanTipiList"
                           [value]="r.kod"
-                          [disabled]="editable"
+                          
                           >{{ r.kod }} {{ r.aciklama }}</option
                         >
                       </select>
@@ -134,7 +134,7 @@
                         <option
                           *ngFor="let r of _dilList"
                           [value]="r.kod"
-                          [disabled]="editable"
+                          
                           >{{ r.kod }} {{ r.aciklama }}</option
                         >
                       </select>
@@ -239,7 +239,7 @@
                       </div>
                     </mat-form-field>
                   </div>
-                  <div class="form-group col">
+                 <div class="form-group col">
                     <mat-form-field>
                       <mat-label> Yetkili Alıcı</mat-label>
                       <input                        
@@ -300,7 +300,7 @@
                       </div></div>
                     </mat-form-field>
                   </div>                 
-                  <div class="form-group col">
+                   <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Kalem</mat-label>
                       <input
@@ -312,14 +312,14 @@
                       />
                   
                       <div
-                        *ngIf="submitted && focus.tescikalemSayisilTarihi.errors"
+                        *ngIf="submitted && focus.kalemSayisi.errors"
                         class="invalid-feedback"
                       >
                      
                     </div>
                     </mat-form-field>
                   </div>    
-                  <div class="form-group col">
+                 <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Toplam Kap</mat-label>
                       <input
@@ -394,8 +394,8 @@
                      
                     </div>
                     </mat-form-field>
-                  </div>    
-                  <div class="form-group col">
+                  </div>  
+                    <div class="form-group col">
                     <mat-form-field>
                       <mat-label>Ödeme Aracı</mat-label>
                       <select
@@ -462,7 +462,7 @@
                         <option
                           *ngFor="let r of _dilList"
                           [value]="r.kod"
-                          [disabled]="editable"
+                          
                           >{{ r.kod }} {{ r.aciklama }}</option
                         >
                       </select>
@@ -512,8 +512,8 @@
                      
                     </div>
                     </mat-form-field>
-                  </div>
-                   <div class="form-group col">
+                  </div> 
+                  <div class="form-group col">
                     <mat-form-field>
                       <mat-label> Damga Vergisi</mat-label>
                       <input                        
@@ -577,7 +577,7 @@
                         <option
                           *ngFor="let r of _dilList"
                           [value]="r.kod"
-                          [disabled]="editable"
+                          
                           >{{ r.kod }} {{ r.aciklama }}</option
                         >
                       </select>
@@ -619,7 +619,7 @@
                         <option
                           *ngFor="let r of _dilList"
                           [value]="r.kod"
-                          [disabled]="editable"
+                          
                           >{{ r.kod }} {{ r.aciklama }}</option
                         >
                       </select>
@@ -666,6 +666,25 @@
                     </div>
                     </mat-form-field>
                   </div>
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Servis Ref No</mat-label>
+                      <input
+                      readonly                          
+                      matNativeControl
+                      formControlName="refNo"                       
+                       [ngClass]="{'is-invalid':submitted && focus.refNo.errors}"
+                    />
+                
+                    <div
+                      *ngIf="submitted && focus.refNo.errors"
+                      class="invalid-feedback"
+                    >
+                   
+                  </div>
+                     
+                    </mat-form-field>
+                  </div>  
                 </div>
                 <div class="card m-2">
                   <div class="form-group col">
@@ -701,7 +720,7 @@
                           <option
                             *ngFor="let r of _dilList"
                             [value]="r.kod"
-                            [disabled]="editable"
+                            
                             >{{ r.kod }} {{ r.aciklama }}</option
                           >
                         </select>
@@ -821,7 +840,7 @@
                             <option
                               *ngFor="let r of _dilList"
                               [value]="r.kod"
-                              [disabled]="editable"
+                              
                               >{{ r.kod }} {{ r.aciklama }}</option
                             >
                           </select>
@@ -866,7 +885,7 @@
                           <option
                             *ngFor="let r of _tasimaSekliList"
                             [value]="r.kod"
-                            [disabled]="editable"
+                         
                             >{{ r.kod }} {{ r.aciklama }}</option
                           >
                         </select>
@@ -900,7 +919,7 @@
                           <option
                             *ngFor="let r of _tasimaSekliList"
                             [value]="r.kod"
-                            [disabled]="editable"
+                            
                             >{{ r.kod }} {{ r.aciklama }}</option
                           >
                         </select>
@@ -942,7 +961,7 @@
                           <option
                             *ngFor="let r of _tasimaSekliList"
                             [value]="r.kod"
-                            [disabled]="editable"
+                         
                             >{{ r.kod }} {{ r.aciklama }}</option
                           >
                         </select>
@@ -1006,9 +1025,10 @@
                          
                         </mat-form-field>
                       </div> 
+                      
                     </div> 
                   </div>
-                </div>
+                </div> 
               </mat-tab>
               <mat-tab label="Beyan Sahibi">
                 <div class="card m-3">
@@ -1135,7 +1155,7 @@
                                 formControlName="dil"
                               >
                                 <option
-                                  *ngFor="let s of _ulkeList"
+                                  *ngFor="let s of _dilList"
                                   [value]="s.kod"
                                   >{{ s.kod }} {{ s.aciklama }}</option
                                 >
@@ -1226,7 +1246,7 @@
                                 formControlName="dil"
                               >
                                 <option
-                                  *ngFor="let s of _ulkeList"
+                                  *ngFor="let s of _dilList"
                                   [value]="s.kod"
                                   >{{ s.kod }} {{ s.aciklama }}</option
                                 >
@@ -1319,7 +1339,7 @@
                                 formControlName="dil"
                               >
                                 <option
-                                  *ngFor="let s of _ulkeList"
+                                  *ngFor="let s of _dilList"
                                   [value]="s.kod"
                                   >{{ s.kod }} {{ s.aciklama }}</option
                                 >
@@ -1412,7 +1432,7 @@
                                 formControlName="dil"
                               >
                                 <option
-                                  *ngFor="let s of _ulkeList"
+                                  *ngFor="let s of _dilList"
                                   [value]="s.kod"
                                   >{{ s.kod }} {{ s.aciklama }}</option
                                 >
@@ -1505,7 +1525,7 @@
                                 formControlName="dil"
                               >
                                 <option
-                                  *ngFor="let s of _ulkeList"
+                                  *ngFor="let s of _dilList"
                                   [value]="s.kod"
                                   >{{ s.kod }} {{ s.aciklama }}</option
                                 >
@@ -1598,7 +1618,7 @@
                                 formControlName="dil"
                               >
                                 <option
-                                  *ngFor="let s of _ulkeList"
+                                  *ngFor="let s of _dilList"
                                   [value]="s.kod"
                                   >{{ s.kod }} {{ s.aciklama }}</option
                                 >
@@ -1621,20 +1641,21 @@
                     </form>
                   </div>
                 </div>
-              </mat-tab>
+              </mat-tab> 
            
             </mat-tab-group>
-          </div>
+         
         </mat-card>
         <div class="text-right">
           <button
-            [disabled]="!(nctsBeyanForm.valid &&
+          [disabled]="!(nctsBeyanForm.valid &&
             asilSorumluFirmaForm.valid &&
             gondericiFirmaForm.valid && aliciFirmaForm.valid &&
             tasiyiciFirmaForm.valid &&  guvenliAliciFirmaForm.valid &&   
             guvenliGondericiFirmaForm.valid)"
             class="btn btn-primary mr-1"
             (click)="onnctsBeyanFormSubmit()"
+
           >
             Kaydet
           </button>

@@ -2,12 +2,10 @@ import {
   Component,
   OnInit,
   ViewChild,
-
   ElementRef,
   Injectable,
 } from "@angular/core";
 import {
-
   MatSelectionList,
   MatSelectionListChange,
 } from "@angular/material/list";
@@ -17,8 +15,7 @@ import {
   FormBuilder,
   Validators,
   FormControl,
-  FormArray,
- 
+  FormArray, 
 } from "@angular/forms";
 
 import {

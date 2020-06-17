@@ -29,6 +29,8 @@
   import * as trsinirgumrukData from '../../shared/helpers/trsinirgumruk.json';
   import * as nctsodemeData from '../../shared/helpers/nctsodeme.json';
   import * as nctstasimaData from '../../shared/helpers/nctstasimaSekli.json';
+  import * as trteminatData from '../../shared/helpers/trteminattipi.json';
+  import * as trdovizData from '../../shared/helpers/trdoviz.json';
   
 @Injectable()
 export class ReferansService  {
@@ -59,7 +61,9 @@ export class ReferansService  {
   private ulkeDil: any = (ulkeDilData as any).default;
   private trsinirgumruk: any = (trsinirgumrukData as any).default;
   private nctsodeme: any = (nctsodemeData as any).default;
-  private NctstasimaSekli: any = (nctstasimaData as any).default;
+  private nctstasimaSekli: any = (nctstasimaData as any).default;
+  private trdoviz: any = (trdovizData as any).default;
+  private trteminat: any = (trteminatData as any).default;
   constructor() {
    
 }
@@ -144,7 +148,14 @@ public getNctsOdemeJSON(): Observable<any> {
 }
 
 public getNctsTasimaSekliJSON(): Observable<any> {
-  return this.NctstasimaSekli;
+  return this.nctstasimaSekli;
+}
+public getTrTeminatTipiSON(): Observable<any> {
+  return this.trteminat;
+}
+
+public getTrDovizCinsiJSON(): Observable<any> {
+  return this.trdoviz;
 }
 
 }

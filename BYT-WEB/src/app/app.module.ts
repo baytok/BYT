@@ -51,7 +51,7 @@ import { NctsBeyanComponent } from './components/Ncts/nctsbeyan/nctsbeyan.compon
 import { NbAcmaComponent } from './components/Ncts/nbacma/nbacma.component';
 import { NbKalemComponent } from './components/Ncts/nbkalem/nbkalem.component';
 import { NbDetayComponent } from './components/Ncts/nbdetay/nbdetay.component';
-import { NbTeminatComponent } from './components/Ncts/nbteminat/nbteminat.component';
+
 
 @NgModule({
    declarations: [
@@ -89,8 +89,7 @@ import { NbTeminatComponent } from './components/Ncts/nbteminat/nbteminat.compon
       NbAcmaComponent,
       NbKalemComponent,
       NbDetayComponent,
-      NbTeminatComponent,
-      TestComponent
+       TestComponent
       
     
    ],

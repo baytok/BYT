@@ -1,0 +1,46 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+      {
+          "kod": "B",
+          "aciklama": "Banka"
+      },
+      {
+          "kod": "D",
+          "aciklama": "Diğer teminatlar"
+      },
+      {
+          "kod": "I",
+          "aciklama": "Garanti mektubu"
+      },
+      {
+          "kod": "R",
+          "aciklama": "Refakat"
+      },
+      {
+          "kod": "S",
+          "aciklama": "Ulusal kapsamlı teminat"
+      },
+      {
+          "kod": "1",
+          "aciklama": "Kapsamlı Teminat"
+      },
+      {
+          "kod": "2",
+          "aciklama": "Bireysel Teminat"
+      },
+      {
+          "kod": "3",
+          "aciklama": "Nakit Teminat"
+      },
+      {
+          "kod": "7",
+          "aciklama": "Hareket ve Varış Gümrük İdareleri arasında teminat gerekmiyor"
+      },
+      {
+          "kod": "8",
+          "aciklama": "Bazı kamu kurum ve kuruluşları için teminat gerekmiyor"
+      }
+  ]
