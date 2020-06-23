@@ -1,0 +1,71 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+
+        {
+            "kod": "CFR",
+            "aciklama": "Mal bedeli ve navlun"
+        },
+        {
+            "kod": "CIF",
+            "aciklama": "Mal bedeli, navlun, sigorta"
+        },
+        {
+            "kod": "CIP",
+            "aciklama": "Mal bedeli, navlun, sigorta ödenmiş olarak teslim"
+        },
+        {
+            "kod": "CPT",
+            "aciklama": "Taşıma ücreti ödenmiş olarak teslim"
+        },
+        {
+            "kod": "DAF",
+            "aciklama": "Sınırda Teslim"
+        },
+        {
+            "kod": "DAP",
+            "aciklama": "Belirlenen yerde teslim"
+        },
+        {
+            "kod": "DAT",
+            "aciklama": "Terminalde teslim"
+        },
+        {
+            "kod": "DDP",
+            "aciklama": "Vergisi ödenmiş halde teslim"
+        },
+        {
+            "kod": "DDU",
+            "aciklama": "Gümrük Resmi Ödenmemiş Olarak Teslim"
+        },
+        {
+            "kod": "DEQ",
+            "aciklama": "Rıhtımda Teslim ( Gümrük Vergi ve Harçları Ödenmiş Olarak )"
+        },
+        {
+            "kod": "DES",
+            "aciklama": "Gemide Teslim"
+        },
+        {
+            "kod": "EXW",
+            "aciklama": "Fabrika çıkışında teslim"
+        },
+        {
+            "kod": "FAS",
+            "aciklama": "Gemi bordasında teslim"
+        },
+        {
+            "kod": "FCA",
+            "aciklama": "Taşıyıcıya teslim"
+        },
+        {
+            "kod": "FOB",
+            "aciklama": "Gemi güvertesinde teslim"
+        },
+        {
+            "kod": "XXX",
+            "aciklama": "Diğer"
+        }
+    ]

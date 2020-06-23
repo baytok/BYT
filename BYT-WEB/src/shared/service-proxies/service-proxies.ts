@@ -5862,7 +5862,7 @@ export class NbKonteynerDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
   konteynerNo: string;
-  dil: string;
+  ulke: string;
  
   constructor(data?: NbKonteynerDto) {
     if (data) {
@@ -5880,7 +5880,7 @@ export class NbKonteynerDto {
         this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
         this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
         this.konteynerNo=data["konteynerNo"]!=null ?data["konteynerNo"] :"";
-        this.dil=data["dil"]!=null ?data["dil"] :"";
+        this.ulke=data["ulke"]!=null ?data["ulke"] :"";
     }
   }
 
@@ -6119,7 +6119,7 @@ export class NbKapDto {
   kapTipi:string;
   markaDil:string;
   kapAdet: number;
-  kalemSayisi: number;
+  parcaSayisi: number;
  
   constructor(data?: NbKapDto) {
     if (data) {
@@ -6140,7 +6140,7 @@ export class NbKapDto {
         this.markaDil=data["markaDil"]!=null ?data["markaDil"] :"";
         this.kapTipi=data["kapTipi"]!=null ?data["kapTipi"] :"";
         this.kapAdet=data["kapAdet"]!=null ?  parseInt(data["kapAdet"]) :0;
-        this.kalemSayisi=data["kalemSayisi"]!=null ? parseInt( data["kalemSayisi"]) :0;
+        this.parcaSayisi=data["parcaSayisi"]!=null ? parseInt( data["parcaSayisi"]) :0;
     }
   }
 
@@ -6156,7 +6156,7 @@ export class NbKapDto {
 export class NbEkBilgiDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
-  ekBilgiId:string;
+  ekBilgiKod:string;
   ekBilgi:string;
   dil:string;
   ec2Ihr: number;
@@ -6177,7 +6177,7 @@ export class NbEkBilgiDto {
    
         this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
         this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.ekBilgiId=data["ekBilgiId"]!=null ?data["ekBilgiId"] :"";
+        this.ekBilgiKod=data["ekBilgiKod"]!=null ?data["ekBilgiKod"] :"";
         this.dil=data["dil"]!=null ?data["dil"] :"";
         this.ekBilgi=data["tip"]!=null ?data["ekBilgi"] :"";
         this.ulkeKodu=data["ulkeKodu"]!=null ? data["ulkeKodu"] :"";
@@ -6283,7 +6283,7 @@ export class NbObAcmaDto {
   ambarIci:string;
   ambarKodu: string;
   tasimaSenetNo: string;
-  titlNum: string;
+  tasimaSatirNo: number;
   miktar: number;
  
   constructor(data?: NbObAcmaDto) {
@@ -6306,7 +6306,7 @@ export class NbObAcmaDto {
         this.ambarIci=data["ambarIci"]!=null ?data["ambarIci"] :"";
         this.ambarKodu=data["ambarKodu"]!=null ? data["ambarKodu"] :"";
         this.tasimaSenetNo=data["tasimaSenetNo"]!=null ? data["tamamlayiciBilgiDil"] :"";
-        this.titlNum=data["titlNum"]!=null ? data["titlNum"] :"";
+        this.tasimaSatirNo=data["titlNum"]!=null ? parseInt( data["tasimaSatirNo"]) :0;
         this.miktar=data["miktar"]!=null ? parseFloat( data["miktar"] ):0;
     }
   }
@@ -6327,7 +6327,12 @@ export class NbAbAcmaDto {
   acilanKalemNo:number;
   aciklama: string;
   miktar: number;
- 
+  teslimSekli: string;
+  dovizCinsi: string;
+  kiymet: number;
+  odemeSekli: string;
+  isleminNiteligi: string;
+  ticaretUlkesi: string;
   constructor(data?: NbAbAcmaDto) {
     if (data) {
     
@@ -6347,6 +6352,12 @@ export class NbAbAcmaDto {
         this.kalemNo=data["kalemNo"]!=null ? parseInt( data["kalemNo"]) :0;
         this.acilanKalemNo=data["acilanKalemNo"]!=null ? parseInt( data["acilanKalemNo"]) :0;
         this.miktar=data["miktar"]!=null ? parseFloat( data["miktar"]) :0;
+        this.teslimSekli=data["teslimSekli"]!=null ?data["teslimSekli"] :"";
+        this.dovizCinsi=data["dovizCinsi"]!=null ?data["dovizCinsi"] :"";
+        this.kiymet= data["miktar"]!=null ? parseFloat( data["miktar"]) :0;
+        this.odemeSekli=data["odemeSekli"]!=null ?data["odemeSekli"] :"";
+        this.isleminNiteligi=data["isleminNiteligi"]!=null ?data["isleminNiteligi"] :"";
+        this.ticaretUlkesi=data["ticaretUlkesi"]!=null ?data["ticaretUlkesi"] :"";
     }
   }
 

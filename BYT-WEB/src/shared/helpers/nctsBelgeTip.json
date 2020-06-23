@@ -1,0 +1,219 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+
+        {
+            "kod": "OZBY",
+            "aciklama": "Özet Beyan"
+        },
+        {
+            "kod": "TCGB",
+            "aciklama": "Detaylı Beyan"
+        },
+        {
+            "kod": "ZZZ",
+            "aciklama": "Diğer"
+        },
+        {
+            "kod": "321",
+            "aciklama": "DB A.TR Dolaşım Belgesi"
+        },
+        {
+            "kod": "322",
+            "aciklama": "DB EUR.1 Dolaşım Belgesi"
+        },
+        {
+            "kod": "323",
+            "aciklama": "DB EUR.MED Dolaşım Belgesi"
+        },
+        {
+            "kod": "324",
+            "aciklama": "DB Menşe Şahadetnamesi"
+        },
+        {
+            "kod": "325",
+            "aciklama": "DB Form A Menşe Belgesi"
+        },
+        {
+            "kod": "326",
+            "aciklama": "DB Menşe İspat Belgesi(İran)"
+        },
+        {
+            "kod": "327",
+            "aciklama": "DB Menşe Belgesi(Malezya)"
+        },
+        {
+            "kod": "328",
+            "aciklama": "DB D-8 Menşe İspat Belgesi"
+        },
+        {
+            "kod": "903",
+            "aciklama": "TPS-GTHB Uygunluk Yazısı (Bitki Karantinası)"
+        },
+        {
+            "kod": "18",
+            "aciklama": "A.TR.1 dolaşım belgsi"
+        },
+        {
+            "kod": "2",
+            "aciklama": "Uygunluk belgesi"
+        },
+        {
+            "kod": "235",
+            "aciklama": "Konteyner listesi"
+        },
+        {
+            "kod": "271",
+            "aciklama": "Kap listesi"
+        },
+        {
+            "kod": "3",
+            "aciklama": "Kalite belgesi"
+        },
+        {
+            "kod": "325",
+            "aciklama": "Proforma fatura"
+        },
+        {
+            "kod": "380",
+            "aciklama": "Ticari fatura"
+        },
+        {
+            "kod": "703",
+            "aciklama": "Ara taşıma senedi"
+        },
+        {
+            "kod": "704",
+            "aciklama": "Ana konşimento"
+        },
+        {
+            "kod": "705",
+            "aciklama": "Konşimento"
+        },
+        {
+            "kod": "714",
+            "aciklama": "Ara konşimento"
+        },
+        {
+            "kod": "720",
+            "aciklama": "CIM taşıma senedi (demiryolu)"
+        },
+        {
+            "kod": "720a",
+            "aciklama": "NCTS demiryolu test taşıması"
+        },
+        {
+            "kod": "722",
+            "aciklama": "SMGS karayolu listesi"
+        },
+        {
+            "kod": "730",
+            "aciklama": "Karayolu sevkiyat belgesi"
+        },
+        {
+            "kod": "740",
+            "aciklama": "Hava konşimentosu"
+        },
+        {
+            "kod": "741",
+            "aciklama": "Ana hava konşimentosu"
+        },
+        {
+            "kod": "750",
+            "aciklama": "Sevk belgesi (posta kolileri)"
+        },
+        {
+            "kod": "760",
+            "aciklama": "Multimodal/Kombine taşımacılık belgesi"
+        },
+        {
+            "kod": "785",
+            "aciklama": "Kargo manifestosu"
+        },
+        {
+            "kod": "787",
+            "aciklama": "Bordro"
+        },
+        {
+            "kod": "820",
+            "aciklama": "T türü sevk belgesi"
+        },
+        {
+            "kod": "821",
+            "aciklama": "T1 türü sevk belgesi"
+        },
+        {
+            "kod": "822",
+            "aciklama": "T2 türü sevk belgesi"
+        },
+        {
+            "kod": "823",
+            "aciklama": "T5 kontrol belgesi"
+        },
+        {
+            "kod": "825",
+            "aciklama": "T2L türü sevk belgesi"
+        },
+        {
+            "kod": "830",
+            "aciklama": "İhracatta eşya beyannamesi"
+        },
+        {
+            "kod": "851",
+            "aciklama": "Bitki sertifikası"
+        },
+        {
+            "kod": "852",
+            "aciklama": "Sağlık sertifikası"
+        },
+        {
+            "kod": "853",
+            "aciklama": "Veteriner sertifikası"
+        },
+        {
+            "kod": "861",
+            "aciklama": "Menşe şehadetnamesi"
+        },
+        {
+            "kod": "862",
+            "aciklama": "Menşe beyannamesi"
+        },
+        {
+            "kod": "864",
+            "aciklama": "Tercihli menşe şehadetnamesi"
+        },
+        {
+            "kod": "865",
+            "aciklama": "Genelleştirilmiş Preferanslar Sistemi menşe sertifikası formu"
+        },
+        {
+            "kod": "911",
+            "aciklama": "İthal lisansı"
+        },
+        {
+            "kod": "933",
+            "aciklama": "Yük beyannamesi (varış)"
+        },
+        {
+            "kod": "941",
+            "aciklama": "Ambargo izni"
+        },
+        {
+            "kod": "951",
+            "aciklama": "TIF formu"
+        },
+        {
+            "kod": "952",
+            "aciklama": "TIR Karnesi"
+        },
+        {
+            "kod": "954",
+            "aciklama": "EUR 1 menşe şahedetnamesi"
+        },
+        {
+            "kod": "955",
+            "aciklama": "ATA Karnesi"
+        }
+    ]

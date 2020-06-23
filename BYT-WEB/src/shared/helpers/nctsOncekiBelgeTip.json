@@ -1,0 +1,182 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+        {
+            "kod": "CLE",
+            "aciklama": "Eşyanın kayıtlara girişteki tescil sayısı/tarihi"
+        },
+        {
+            "kod": "CO",
+            "aciklama": "TİB - Yeni Üye Devletin geçiş sürecinde uygulanan özel önlemlere tabi Topluluk eşyası"
+        },
+        {
+            "kod": "ETGB",
+            "aciklama": "ETGB"
+        },
+        {
+            "kod": "EU",
+            "aciklama": "Tek İdari Belge - EFTA ile ticaret"
+        },
+        {
+            "kod": "EX",
+            "aciklama": "Tek İdari Belge - AB ve EFTA dışındaki ülkelerle ticaret"
+        },
+        {
+            "kod": "IF3",
+            "aciklama": "INF3 Bilgi Notu"
+        },
+        {
+            "kod": "IF8",
+            "aciklama": "INF8 Bilgi Notu"
+        },
+        {
+            "kod": "IM",
+            "aciklama": "Tek İdari Belge - AB ve EFTA dışındaki ülkelerle ticaret"
+        },
+        {
+            "kod": "MNS",
+            "aciklama": "Kargo Manifestosu - Basitleştirilmiş usul"
+        },
+        {
+            "kod": "OZBY",
+            "aciklama": "Özet Beyan"
+        },
+        {
+            "kod": "T2",
+            "aciklama": "T2"
+        },
+        {
+            "kod": "T2ATA",
+            "aciklama": "T2ATA"
+        },
+        {
+            "kod": "T2CIM",
+            "aciklama": "T2CIM"
+        },
+        {
+            "kod": "T2F",
+            "aciklama": "Topluluk İç Transit Beyanı - Madde 340 c, 1"
+        },
+        {
+            "kod": "T2L",
+            "aciklama": "T2L"
+        },
+        {
+            "kod": "T2LF",
+            "aciklama": "T2LF"
+        },
+        {
+            "kod": "T2SM",
+            "aciklama": "T2SM"
+        },
+        {
+            "kod": "T2TIR",
+            "aciklama": "T2TIR"
+        },
+        {
+            "kod": "ZZZ",
+            "aciklama": "Diğer"
+        },
+        {
+            "kod": "235",
+            "aciklama": "Konteyner listesi"
+        },
+        {
+            "kod": "270",
+            "aciklama": "Yükleme listesi (teslim notu)"
+        },
+        {
+            "kod": "271",
+            "aciklama": "Kap listesi"
+        },
+        {
+            "kod": "325",
+            "aciklama": "Proforma fatura"
+        },
+        {
+            "kod": "337",
+            "aciklama": "Geçici depolama için özet beyan"
+        },
+        {
+            "kod": "355",
+            "aciklama": "Giriş özet beyanı"
+        },
+        {
+            "kod": "380",
+            "aciklama": "Ticari fatura"
+        },
+        {
+            "kod": "703",
+            "aciklama": "Ara Konşimento"
+        },
+        {
+            "kod": "704",
+            "aciklama": "Ana Konşimento"
+        },
+        {
+            "kod": "705",
+            "aciklama": "Konşimento"
+        },
+        {
+            "kod": "720",
+            "aciklama": "CIM Taşıma Senedi (demiryolu)"
+        },
+        {
+            "kod": "722",
+            "aciklama": "SMGS karayolu listesi"
+        },
+        {
+            "kod": "730",
+            "aciklama": "Karayolu Taşıma senedi"
+        },
+        {
+            "kod": "740",
+            "aciklama": "Ana Hava Konşimentosu"
+        },
+        {
+            "kod": "741",
+            "aciklama": "Ana Hava Konşimentosu"
+        },
+        {
+            "kod": "750",
+            "aciklama": "İrsaliye (posta kolileri)"
+        },
+        {
+            "kod": "760",
+            "aciklama": "Multimodal/Kombine taşıma belgesi"
+        },
+        {
+            "kod": "785",
+            "aciklama": "Kargo manifestosu"
+        },
+        {
+            "kod": "787",
+            "aciklama": "Bordro"
+        },
+        {
+            "kod": "820",
+            "aciklama": "Topluluk Transit Beyanı - Karışık sevkiyat (T)"
+        },
+        {
+            "kod": "821",
+            "aciklama": "Topluluk Dış Transit Beyanı (T1)"
+        },
+        {
+            "kod": "822",
+            "aciklama": "Topluluk İç Transit Beyanı (T2)"
+        },
+        {
+            "kod": "823",
+            "aciklama": "T5 Kontrol Nüshası"
+        },
+        {
+            "kod": "952",
+            "aciklama": "TIR Karnesi"
+        },
+        {
+            "kod": "955",
+            "aciklama": "ATA Karnesi"
+        }
+    ]

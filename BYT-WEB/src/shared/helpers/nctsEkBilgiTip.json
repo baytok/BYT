@@ -1,0 +1,31 @@
+[{
+  "kod": "",
+  "aciklama": ""
+
+},
+
+        {
+            "kod": "DG0",
+            "aciklama": "İhracatı kısıtlamaya tabi"
+        },
+        {
+            "kod": "DG1",
+            "aciklama": "İhracatı vergiye tabi"
+        },
+        {
+            "kod": "DG2",
+            "aciklama": "İHRACAT"
+        },
+        {
+            "kod": "FSA",
+            "aciklama": "Sınır Gümrüksüz Satış Mağazasına Eşya Taşıması"
+        },
+        {
+            "kod": "PTT",
+            "aciklama": "PTT araçlarının taşıdığı posta eşyası"
+        },
+        {
+            "kod": "10600",
+            "aciklama": "Ciro edilebilir konşimento 'hamiline yazılı beyaz cirolu'"
+        }
+    ]

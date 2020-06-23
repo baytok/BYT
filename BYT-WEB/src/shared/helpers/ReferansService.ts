@@ -31,6 +31,12 @@
   import * as nctstasimaData from '../../shared/helpers/nctstasimaSekli.json';
   import * as trteminatData from '../../shared/helpers/trteminattipi.json';
   import * as trdovizData from '../../shared/helpers/trdoviz.json';
+  import * as nctsBelgeTipData from '../../shared/helpers/nctsBelgeTip.json';
+  import * as nctsOncekiBelgeTipData from '../../shared/helpers/nctsOncekiBelgeTip.json';
+  import * as nctsEkBilgiTipData from '../../shared/helpers/nctsEkBilgiTip.json';
+  import * as nctsKaptipiData from '../../shared/helpers/nctsKaptipi.json';
+  import * as nctsteslimSekliData from '../../shared/helpers/nctsteslimSekli.json';
+  import * as nctsisleminNiteligiData from '../../shared/helpers/nctsisleminniteligi.json';
   
 @Injectable()
 export class ReferansService  {
@@ -64,6 +70,12 @@ export class ReferansService  {
   private nctstasimaSekli: any = (nctstasimaData as any).default;
   private trdoviz: any = (trdovizData as any).default;
   private trteminat: any = (trteminatData as any).default;
+  private nctsBelgeTip: any = (nctsBelgeTipData as any).default;
+  private nctsOncekiBelge: any = (nctsOncekiBelgeTipData as any).default;
+  private nctsEkBilgi: any = (nctsEkBilgiTipData as any).default;
+  private nctsKaptipi: any = (nctsKaptipiData as any).default;
+  private nctsteslimSekli: any = (nctsteslimSekliData as any).default;
+  private ncstisleminNiteligi: any = (nctsisleminNiteligiData as any).default;
   constructor() {
    
 }
@@ -156,6 +168,26 @@ public getTrTeminatTipiSON(): Observable<any> {
 
 public getTrDovizCinsiJSON(): Observable<any> {
   return this.trdoviz;
+}
+
+public getNctsEkBilgiJSON(): Observable<any> {
+  return this.nctsEkBilgi;
+}
+public getNctsBelgeTipJSON(): Observable<any> {
+  return this.nctsBelgeTip;
+}
+public getNctsOncekiBelgeTipJSON(): Observable<any> {
+  return this.nctsOncekiBelge;
+}
+public getNctsKapTipJSON(): Observable<any> {
+  return this.nctsKaptipi;
+}
+public getNctsTeslimSekliJSON(): Observable<any> {
+  return this.nctsteslimSekli;
+}
+
+public getNctsisleminNiteligiJSON(): Observable<any> {
+  return this.ncstisleminNiteligi;
 }
 
 }

@@ -538,6 +538,24 @@ namespace BYT.WS.Models
 
         [StringLength(200)]
         public string Lamvecom { get; set; }
+
+        [StringLength(9)]
+        public string Camvenct  { get; set; } //  TeslimSekli
+
+        [StringLength(4)]
+        public string Camvedev { get; set; } //  DovizCinsi
+
+     
+        public decimal Mamveval { get; set; } //  Kiymet
+
+        [StringLength(9)]
+        public string Camvetyppai { get; set; } // ÖdemeŞekli  
+
+        [StringLength(9)]
+        public string Camvetrs { get; set; } //  İşleminNiteliği
+
+        [StringLength(9)]
+        public string Camvepystrs { get; set; } // TicaretUlke 
     }
     public class OB
     {
@@ -1800,7 +1818,7 @@ namespace BYT.WS.Models
 
         [StringLength(4)]
         [Required]
-        public string Dil { get; set; } //EkBilgi_LNG
+        public string Ulke { get; set; } //EkBilgi_LNG
 
         public DateTime? SonIslemZamani { get; set; }
     }
@@ -1900,7 +1918,7 @@ namespace BYT.WS.Models
 
 
         [StringLength(5)]
-        public string EkBilgiId { get; set; } //EkBilgiID,AddInfCodMT23
+        public string EkBilgiKod { get; set; } //EkBilgiID,AddInfCodMT23
 
 
         public int Ec2Ihr { get; set; } //EC2Ihr,ExpFroECMT24
@@ -1940,7 +1958,7 @@ namespace BYT.WS.Models
 
         public int  KapAdet{ get; set; } //KapAdet,NumOfPacGS24
 
-        public int KalemSayisi  { get; set; } //KalemSayisi,NumOfPieGS25
+        public int ParcaSayisi  { get; set; } //KalemSayisi,NumOfPieGS25
 
         public DateTime? SonIslemZamani { get; set; }
     }
@@ -1991,8 +2009,8 @@ namespace BYT.WS.Models
         [StringLength(9)]
         public string AmbarKodu { get; set; } //WareCod
 
-        [StringLength(9)]
-        public string TitlNum { get; set; } // TitlNum
+      
+        public int TasimaSatirNo { get; set; } // TitlNum
 
         public decimal Miktar { get; set; } // DisQty
 
@@ -2019,6 +2037,25 @@ namespace BYT.WS.Models
 
         [StringLength(200)]
         public string Aciklama { get; set; } // Lamvecom
+
+        [StringLength(9)]
+        public string TeslimSekli { get; set; } // Camvenct
+
+
+        [StringLength(9)]
+        public string DovizCinsi { get; set; } // Camvedev  
+
+
+        public decimal Kiymet { get; set; } //   Mamveval 
+
+        [StringLength(9)]
+        public string OdemeSekli  { get; set; } // Camvetyppai  
+
+        [StringLength(9)]
+        public string IsleminNiteligi  { get; set; } // Camvetrs
+
+        [StringLength(9)]
+        public string TicaretUlkesi  { get; set; } // Camvepystrs 
 
         public DateTime? SonIslemZamani { get; set; }
     }
