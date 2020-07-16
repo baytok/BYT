@@ -6,33 +6,60 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BYT.WS.Models
 {
   
     public class CC015B
     {
-        public CCxxxB Group { get; set; }      
-        public TRAPRIPC1 AsilSorumlu { get; set; }
-        public TRACONCO1 Gonderici { get; set; }
-        public TRACONCE1 Alici { get; set; }
-        public TRAAUTCONTRA VarisYetkiliGumruk { get; set; }
-        public CUSOFFDEPEPT HareketGumruk { get; set; }
-        public List<CUSOFFTRARNS> TransitGumruk { get; set; }
-        public CUSOFFDESEST VarisGumruk { get; set; }
-        public CONRESERS KontrolSonuc { get; set; }       
-        public REPREP Temsilci { get; set; }
-        public SEAINFSLI Muhur { get; set; }
-        public List<ITI> Roto { get; set; }
-        public CARTRA100 Tasiyici { get; set; }
-        public TRACORSEC037 GuvenliGonderici { get; set; }
-        public TRACONSEC029 GuvenliAlici { get; set; }
-        public HEAHEA Beyan{ get; set; }
-        public List<GUAGUA> Teminat { get; set; }
-        public List<GOOITEGDS> Kalem { get; set; }
-        public List<AB> BeyanAcma { get; set; }
-        public List<OB> OzetBeyanAcma { get; set; }
-        public BS BasitlestirilmisUsul { get; set; }
+        public string SynIdeMES1 { get; set; } // UNOC 
+        public string MesSenMES3 { get; set; } // NTA.TR 
+        public string MesRecMES6 { get; set; } // NTA.TR 
+        public string SynVerNumMES2 { get; set; } // 3  ???
+        public string DatOfPreMES9 { get; set; } // 120414,200509,20053 ???
+        public string TimOfPreMES10 { get; set; } // 1829,1514,2040 ???
+        public string IntConRefMES11 { get; set; } // 12041418291992,3043TRN2000078,3004TRN2000568 ???
+        public string AckReqMES16 { get; set; } // 0 ???
+        public string TesIndMES18 { get; set; } // 0 ???
+        public string MesIdeMES19 { get; set; } // 12041418291942,CC015BTR ???
+        public string MesTypMES20 { get; set; } // CC029B,CC015B ???
+        public string ComAccRefMES21 { get; set; } // 101339640 ???
+                                                 
+        public TRAPRIPC1 TRAPRIPC1 { get; set; } //AsilSorumlu
+        public TRACONCO1 TRACONCO1 { get; set; } //Gonderici
+        public TRACONCE1 TRACONCE1 { get; set; } //Alici
+        public TRAAUTCONTRA TRAAUTCONTRA { get; set; } //VarisYetkiliGumruk
+        public CUSOFFDEPEPT CUSOFFDEPEPT { get; set; } //HareketGumruk  
+        public CUSOFFDESEST CUSOFFDESEST { get; set; } // VarisGumruk
+        public CONRESERS CONRESERS { get; set; }   // KontrolSonuc    
+        public REPREP REPREP { get; set; } //Temsilci
+
+        [XmlElement("CUSOFFTRARNS")]
+        public List<CUSOFFTRARNS> CUSOFFTRARNS { get; set; } //TransitGumruk
+
+        [XmlElement("ITI")]
+        public List<ITI> ITI { get; set; } //Rota
+
+        [XmlElement("SEAINFSLI")]
+        public List<SEAINFSLI> SEAINFSLI { get; set; } //Muhur      
+        public CARTRA100 CARTRA100 { get; set; } //Tasiyici
+        public TRACORSEC037 TRACORSEC037 { get; set; } //GuvenliGonderici
+        public TRACONSEC029 TRACONSEC029 { get; set; } //GuvenliAlici
+        public HEAHEA HEAHEA { get; set; } //Beyan
+
+        [XmlElement("GUAGUA")]
+        public List<GUAGUA> GUAGUA { get; set; } //Teminat
+
+        [XmlElement("GOOITEGDS")]
+        public List<GOOITEGDS> GOOITEGDS { get; set; } //Kalem
+
+        //[XmlElement("AB")]
+        public List<ACMA2> AB { get; set; } //BeyanAcma
+
+        //[XmlElement("OB")]
+        public List<ACMA> OB { get; set; } // OzetBeyanAcma
+        public BS BS { get; set; }
        
     }
 
@@ -214,7 +241,7 @@ namespace BYT.WS.Models
         [StringLength(9)]
         public string SeaNumSLI2 { get; set; } // Numara
 
-     
+        [XmlElement("SEAIDSID")]
         public List<SEAIDSID> Muhur { get; set; } //
 
     }
@@ -483,13 +510,21 @@ namespace BYT.WS.Models
         [StringLength(15)]
         public string MusavirKimlikNo { get; set; } //Place of unloading LNG
 
+        public char Tanker { get; set; }
+
+
+        [StringLength(15)]
+        public string RefNumEBT1 { get; set; } 
+        
+
     }  
     public class GUAGUA
     {
         [StringLength(7)]
         public string GuaTypGUA1  {get; set; } // Tur
 
-        public List<GUAREFREF> TeminatBilgileri { get; set; }
+        [XmlElement("GUAREFREF")]
+        public List<GUAREFREF> GUAREFREF { get; set; } //TeminatBilgileri
     }
     public class GUAREFREF
     {
@@ -505,7 +540,7 @@ namespace BYT.WS.Models
         public string AccCodREF6 { get; set; } //Access code,ErisimKod
 
         [StringLength(4)]
-        public string CurREF8 { get; set; } //Access code,DovizCins
+        public string CurREF8 { get; set; } //DovizCins
 
 
         public decimal AmoConREF7 { get; set; }  // DigerTutar
@@ -523,9 +558,9 @@ namespace BYT.WS.Models
     }
     public class AB
     {
-        public List<Acma2> BeyanAcma { get; set; }
+        public List<ACMA2> ACMA2 { get; set; }
     }
-    public class Acma2
+    public class ACMA2
     {
         [StringLength(20)]
         public string Iddtext { get; set; }
@@ -559,9 +594,9 @@ namespace BYT.WS.Models
     }
     public class OB
     {
-        public List<Acma> OzetBeyanAcma { get; set; }
+        public List<ACMA> ACMA { get; set; }
     }
-    public class Acma
+    public class ACMA
     {
         [StringLength(9)]
         public string DisInd { get; set; }
@@ -651,26 +686,32 @@ namespace BYT.WS.Models
         [StringLength(20)]
         public string IhrBeyanParcali { get; set; } //ihracat Beyan Parçalı
 
-        public List<PREADMREFAR2> OncekiBelgeler { get; set; }
+        [XmlElement("PREADMREFAR2")]
+        public List<PREADMREFAR2> PREADMREFAR2 { get; set; } //OncekiBelgeler
 
-        public List<PRODOCDC2> Belgeler { get; set; }
+        [XmlElement("PRODOCDC2")]
+        public List<PRODOCDC2> PRODOCDC2 { get; set; } //Belgeler
 
-        public List<SPEMENMT2> EkBilgi { get; set; }
+        [XmlElement("SPEMENMT2")]
+        public List<SPEMENMT2> SPEMENMT2 { get; set; } //EkBilgi
 
-        public TRACONCO2 Gonderici { get; set; }
+        public TRACONCO2 TRACONCO2 { get; set; }//Gonderici
 
-        public TRACONCE2 Alici { get; set; }
+        public TRACONCE2 TRACONCE2 { get; set; } //Alici
 
-        public List<CONNR2> Konteyner { get; set; }
+        [XmlElement("CONNR2")]
+        public List<CONNR2> CONNR2 { get; set; } //Konteyner
 
-        public List<PACGS2> Kap { get; set; }
+        [XmlElement("PACGS2")]
+        public List<PACGS2> PACGS2 { get; set; } //Kap
 
-        public List<SGICODSD2> HASSASESYA { get; set; }
+        [XmlElement("SGICODSD2")]
+        public List<SGICODSD2> SGICODSD2 { get; set; } //HASSASESYA
 
-        public TRACORSECGOO021 GuvenliGonderici { get; set; }
-        public TRACONSECGOO013 GuvenliAlici { get; set; }
+        public TRACORSECGOO021 TRACORSECGOO021 { get; set; } //GuvenliGonderici
+        public TRACONSECGOO013 TRACONSECGOO013 { get; set; }//GuvenliAlici
 
-      
+
     }
     public class PREADMREFAR2
     {
@@ -956,12 +997,12 @@ namespace BYT.WS.Models
 
 
         [StringLength(20)]
-        public string? BeyannameNo { get; set; } //Reference number, RefNumHEA4
+        public string BeyannameNo { get; set; } //Reference number, RefNumHEA4
 
         [StringLength(50)]
         public string TescilStatu { get; set; }
 
-        public DateTime? TescilTarihi { get; set; } //DecDatHEA383
+        public DateTime TescilTarihi { get; set; } //DecDatHEA383
         public DateTime? OlsuturulmaTarihi { get; set; }
 
         public DateTime? SonIslemZamani { get; set; }
@@ -1147,6 +1188,9 @@ namespace BYT.WS.Models
         [StringLength(12)]
         public string SureSinir { get; set; } // DatLimERS69
 
+
+        [StringLength(15)]
+        public string RefNumEBT1 { get; set; }
     }
     public class NbBeyanSahibi
     {

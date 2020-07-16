@@ -46,404 +46,660 @@ namespace BYT.WS.Controllers.Servis.Ncts
         public async Task<ServisDurum> PostKopylama(string IslemInternalNo)
         {
             ServisDurum _servisDurum = new ServisDurum();
-            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
+            var options = new DbContextOptionsBuilder<NctsDataContext>()
                  .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                  .Options;
-            var _beyannameContext = new OzetBeyanDataContext(options);
+            var _beyannameContext = new NctsDataContext(options);
             try
             {
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
                 if (islemValues != null)
                 {
-                    var ozetBeyanValues = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
-                    var senetValues = await _beyannameContext.ObTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var nctsBeyanValues = await _beyannameContext.NbBeyan.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    var kalemValues = await _beyannameContext.NbKalem.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
-                    var internalrefid = _beyannameContext.GetRefIdNextSequenceValue(ozetBeyanValues.BeyanTuru);
-                    string InternalNo = ozetBeyanValues.BeyanTuru + ozetBeyanValues.KullaniciKodu + "OB" + internalrefid.ToString().PadLeft(5, '0');
+                    var internalrefid = _beyannameContext.GetRefIdNextSequenceValue(nctsBeyanValues.Rejim);
+                    string InternalNo = nctsBeyanValues.Rejim + nctsBeyanValues.Kullanici + "NB" + internalrefid.ToString().PadLeft(5, '0');
 
-                    List<ObTasimaSenet> lstSenet = new List<ObTasimaSenet>();
-                    List<ObUgrakUlke> lstUgrak = new List<ObUgrakUlke>();
-                    List<ObTasitUgrakUlke> lstTasitUgrak = new List<ObTasitUgrakUlke>();
-                    List<ObTeminat> lstTeminat = new List<ObTeminat>();
-                    ObTasiyiciFirma tasiyiciFirma = new ObTasiyiciFirma();
-                    List<ObIhracat> lstIhracat = new List<ObIhracat>();
-                    List<ObTasimaSatir> lstSatir = new List<ObTasimaSatir>();
-                    List<ObSatirEsya> lstSatirEsya = new List<ObSatirEsya>();
-                    List<ObOzetBeyanAcma> lstOzetBeyanAcma = new List<ObOzetBeyanAcma>();
-                    List<ObOzetBeyanAcmaTasimaSenet> lstOzetBeyanAcmaTasimaSenedi = new List<ObOzetBeyanAcmaTasimaSenet>();
-                    List<ObOzetBeyanAcmaTasimaSatir> lstOzetBeyanAcmaTasimaSatiri = new List<ObOzetBeyanAcmaTasimaSatir>();
+                    List<NbKalem> lstKalem = new List<NbKalem>();
+                    List<NbAbAcma> lstAbAcma = new List<NbAbAcma>();
+                    List<NbObAcma> lstObAcma = new List<NbObAcma>();
+                    List<NbTransitGumruk> lstTransitGumruk = new List<NbTransitGumruk>();
+                    List<NbMuhur> lstMuhur= new List<NbMuhur>();
+                    List<NbRota> lstRota = new List<NbRota>();
+                    List<NbTeminat> lstTeminat = new List<NbTeminat>();
+                    NbTasiyiciFirma tasiyiciFirma = new NbTasiyiciFirma();
+                    NbAsilSorumluFirma asilSorumluFirma = new NbAsilSorumluFirma();
+                    NbAliciFirma aliciFirma = new NbAliciFirma();
+                    NbGondericiFirma gondericiFirma = new NbGondericiFirma();
+                    NbGuvenliAliciFirma guvenlialiciFirma = new NbGuvenliAliciFirma();
+                    NbGuvenliGondericiFirma guvenligondericiFirma = new NbGuvenliGondericiFirma();
+                    List<NbBelgeler> lstBelgeler = new List<NbBelgeler>();
+                    List<NbOncekiBelgeler> lstOncekiBelgeler = new List<NbOncekiBelgeler>();
+                    List<NbEkBilgi> lstEkBilgiler = new List<NbEkBilgi>();
+                    List<NbKap> lstKap = new List<NbKap>();
+                    List<NbKonteyner> lstKonteyner = new List<NbKonteyner>();
+                    List<NbHassasEsya> lstHassasEsya = new List<NbHassasEsya>();
+                    List<NbKalemAliciFirma> lstkalemaliciFirma = new List<NbKalemAliciFirma>();
+                    List < NbKalemGondericiFirma> lstkalemgondericiFirma = new List<NbKalemGondericiFirma>();
+                    List < NbKalemGuvenliAliciFirma> lstkalemguvenlialiciFirma = new List<NbKalemGuvenliAliciFirma>();
+                    List < NbKalemGuvenliGondericiFirma> lstkalemguvenligondericiFirma = new  List<NbKalemGuvenliGondericiFirma>();
 
-                    var newozetBeyanValues = new ObBeyan
+                    var newnctsBeyanValues = new NbBeyan
                     {
-                        BeyanSahibiVergiNo = ozetBeyanValues.BeyanSahibiVergiNo,
-                        BeyanTuru = ozetBeyanValues.BeyanTuru,
-                        Diger = ozetBeyanValues.Diger,
-                        DorseNo1 = ozetBeyanValues.DorseNo1,
-                        DorseNo1Uyrugu = ozetBeyanValues.DorseNo1Uyrugu,
-                        DorseNo2 = ozetBeyanValues.DorseNo2,
-                        DorseNo2Uyrugu = ozetBeyanValues.DorseNo2Uyrugu,
-                        EkBelgeSayisi = ozetBeyanValues.EkBelgeSayisi,
-                        EmniyetGuvenlik = ozetBeyanValues.EmniyetGuvenlik,
-                        GrupTasimaSenediNo = ozetBeyanValues.GrupTasimaSenediNo,
-                        GumrukIdaresi = ozetBeyanValues.GumrukIdaresi,
-                        KullaniciKodu = ozetBeyanValues.KullaniciKodu,
-                        Kurye = ozetBeyanValues.Kurye,
-                        LimanYerAdiBos = ozetBeyanValues.LimanYerAdiBos,
-                        LimanYerAdiYuk = ozetBeyanValues.LimanYerAdiYuk,
-                        OlsuturulmaTarihi = DateTime.Now,
-                        OncekiBeyanNo = ozetBeyanValues.OncekiBeyanNo,
-                        OzetBeyanInternalNo = InternalNo,
-                        OzetBeyanNo = ozetBeyanValues.OzetBeyanNo,
-                        PlakaSeferNo = ozetBeyanValues.PlakaSeferNo,
-                        ReferansNumarasi = ozetBeyanValues.ReferansNumarasi,
-                        RefNo = ozetBeyanValues.RefNo,
-                        Rejim = ozetBeyanValues.Rejim,
-                        TasimaSekli = ozetBeyanValues.TasimaSekli,
-                        TasitinAdi = ozetBeyanValues.TasitinAdi,
-                        TasiyiciVergiNo = ozetBeyanValues.TasiyiciVergiNo,
-                        TirAtaKarneNo = ozetBeyanValues.TirAtaKarneNo,
-                        UlkeKodu = ozetBeyanValues.UlkeKodu,
-                        UlkeKoduBos = ozetBeyanValues.UlkeKoduBos,
-                        UlkeKoduYuk = ozetBeyanValues.UlkeKoduYuk,
-                        VarisCikisGumrukIdaresi = ozetBeyanValues.VarisCikisGumrukIdaresi,
-                        VarisTarihSaati = ozetBeyanValues.VarisTarihSaati,
+                        BeyanTipi= nctsBeyanValues.BeyanTipi,
+                        BeyanTipiDil=nctsBeyanValues.BeyanTipiDil,
+                        BosaltmaYer=nctsBeyanValues.BosaltmaYer,
+                        GuvenliBeyan= nctsBeyanValues.GuvenliBeyan,
+                        HareketGumruk= nctsBeyanValues.HareketGumruk,
+                        CikisTasimaSekli= nctsBeyanValues.CikisTasimaSekli,
+                        CikisTasitKimligi= nctsBeyanValues.CikisTasitKimligi,
+                        CikisTasitKimligiDil= nctsBeyanValues.CikisTasitKimligiDil,
+                        CikisTasitUlke= nctsBeyanValues.CikisTasitUlke,
+                        CikisUlke= nctsBeyanValues.CikisUlke,
+                        DahildeTasimaSekli= nctsBeyanValues.DahildeTasimaSekli,
+                        DamgaVergi= nctsBeyanValues.DamgaVergi,
+                        Dorse1= nctsBeyanValues.Dorse1,
+                        Dorse2= nctsBeyanValues.Dorse2,
+                        EsyaKabulYer= nctsBeyanValues.EsyaKabulYer,
+                        EsyaOnayYer= nctsBeyanValues.EsyaOnayYer,
+                        EsyaYer= nctsBeyanValues.EsyaYer,
+                        KalemSayisi= nctsBeyanValues.KalemSayisi,
+                        KalemToplamBrutKG= nctsBeyanValues.KalemToplamBrutKG,
+                        Konteyner= nctsBeyanValues.Konteyner,
+                        KontrolSonuc= nctsBeyanValues.KontrolSonuc,
+                        KonveyansRefNo= nctsBeyanValues.KonveyansRefNo,
+                        Kullanici= nctsBeyanValues.Kullanici,
+                        MusavirKimlikNo= nctsBeyanValues.MusavirKimlikNo,
+                        NctsBeyanInternalNo= InternalNo,
+                        RefaransNo= nctsBeyanValues.RefaransNo,
+                        RefNo= nctsBeyanValues.RefNo,
+                        Rejim= nctsBeyanValues.Rejim,
+                        OdemeAraci= nctsBeyanValues.OdemeAraci,
+                        SinirGumruk= nctsBeyanValues.SinirGumruk,
+                        SinirTasimaSekli= nctsBeyanValues.SinirTasimaSekli,
+                        SinirTasitKimligi= nctsBeyanValues.SinirTasitKimligi,
+                        SinirTasitKimligiDil= nctsBeyanValues.SinirTasitKimligiDil,
+                        SinirTasitUlke= nctsBeyanValues.SinirTasitUlke,
+                        SonIslemZamani=DateTime.Now,
+                        SureSinir= nctsBeyanValues.SureSinir,
+                        ToplamKapSayisi= nctsBeyanValues.ToplamKapSayisi,
+                        Tanker= nctsBeyanValues.Tanker,
+                        Temsilci= nctsBeyanValues.Temsilci,
+                        TemsilKapasite= nctsBeyanValues.TemsilKapasite,
+                        TemsilKapasiteDil= nctsBeyanValues.TemsilKapasiteDil,
+                        TescilTarihi=DateTime.Now,
+                        VarisGumruk= nctsBeyanValues.VarisGumruk,
+                        VarisGumrukYetkilisi= nctsBeyanValues.VarisGumrukYetkilisi,
+                        VarisUlke= nctsBeyanValues.VarisUlke,
+                        Yer= nctsBeyanValues.Yer,
+                        YukBosYerDil= nctsBeyanValues.YukBosYerDil,
+                        YerTarihDil= nctsBeyanValues.YerTarihDil,
+                        YuklemeYeri= nctsBeyanValues.YuklemeYeri,
                         TescilStatu = "Olusturuldu",
-                        YuklemeBosaltmaYeri = ozetBeyanValues.YuklemeBosaltmaYeri,
-                        XmlRefId = InternalNo,
+                        OlsuturulmaTarihi = DateTime.Now
 
                     };
-
-
-                    foreach (var x in senetValues)
+                 
+                    var teminatValues = await _beyannameContext.NbTeminat.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    foreach (var t in teminatValues)
                     {
-
-                        ObTasimaSenet senet = new ObTasimaSenet
+                        NbTeminat teminat = new NbTeminat
                         {
-                            AcentaAdi = x.AcentaAdi,
-                            AcentaVergiNo = x.AcentaVergiNo,
-                            AktarmaTipi = x.AktarmaTipi,
-                            AktarmaYapilacak = x.AktarmaYapilacak,
-                            AliciAdi = x.AliciAdi,
-                            AliciVergiNo = x.AliciVergiNo,
-                            AmbarHarici = x.AmbarHarici,
-                            BildirimTarafiAdi = x.BildirimTarafiAdi,
-                            BildirimTarafiVergiNo = x.BildirimTarafiVergiNo,
-                            DuzenlendigiUlke = x.DuzenlendigiUlke,
-                            EmniyetGuvenlik = x.EmniyetGuvenlik,
-                            EsyaninBulunduguYer = x.EsyaninBulunduguYer,
-                            FaturaDoviz = x.FaturaDoviz,
-                            FaturaToplami = x.FaturaToplami,
-                            GondericiAdi = x.GondericiAdi,
-                            GondericiVergiNo = x.GondericiVergiNo,
-                            Grup = x.Grup,
-                            Konteyner = x.Konteyner,
-                            NavlunDoviz = x.NavlunDoviz,
-                            NavlunTutari = x.NavlunTutari,
-                            OdemeSekli = x.OdemeSekli,
-                            OncekiSeferNumarasi = x.OncekiSeferNumarasi,
-                            OncekiSeferTarihi = x.OncekiSeferTarihi,
-                            OzetBeyanNo = x.OzetBeyanNo,
-                            Roro = x.Roro,
-                            TasimaSenediNo = x.TasimaSenediNo,
-                            SenetSiraNo = x.SenetSiraNo,
-                            TasimaSenetInternalNo = newozetBeyanValues.OzetBeyanInternalNo + "|" + x.SenetSiraNo,
-                            OzetBeyanInternalNo = newozetBeyanValues.OzetBeyanInternalNo,
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            DigerRefNo=t.DigerRefNo,
+                            DovizCinsi=t.DovizCinsi,
+                            ECGecerliDegil=t.ECGecerliDegil,
+                            ErisimKodu=t.ErisimKodu,
+                            TeminatTipi=t.TeminatTipi,
+                            Tutar=t.Tutar,
+                            GRNNo=t.GRNNo,
+                            UlkeGecerliDegil=t.UlkeGecerliDegil,
+                            SonIslemZamani=DateTime.Now,
+                        
 
-
-                        };
-
-                        var ugrakValues = await _beyannameContext.ObUgrakUlke.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.TasimaSenetInternalNo == x.TasimaSenetInternalNo).ToListAsync();
-
-                        foreach (var o in ugrakValues)
-                        {
-                            ObUgrakUlke y = new ObUgrakUlke
-                            {
-                                OzetBeyanInternalNo = senet.OzetBeyanInternalNo,
-                                TasimaSenetInternalNo = senet.TasimaSenetInternalNo,
-                                LimanYerAdi = o.LimanYerAdi,
-                                UlkeKodu = o.UlkeKodu,
-
-                            };
-                            lstUgrak.Add(y);
-                        }
-
-                        var ihracatValues = await _beyannameContext.ObIhracat.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.TasimaSenetInternalNo == x.TasimaSenetInternalNo).ToListAsync();
-
-                        foreach (var o in ihracatValues)
-                        {
-                            ObIhracat y = new ObIhracat
-                            {
-                                OzetBeyanInternalNo = senet.OzetBeyanInternalNo,
-                                TasimaSenetInternalNo = senet.TasimaSenetInternalNo,
-                                BrutAgirlik = o.BrutAgirlik,
-                                KapAdet = o.KapAdet,
-                                Numara = o.Numara,
-                                Parcali = o.Parcali,
-                                Tip = o.Tip,
-
-
-                            };
-                            lstIhracat.Add(y);
-                        }
-
-                        var satirValues = await _beyannameContext.ObTasimaSatir.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.TasimaSenetInternalNo == x.TasimaSenetInternalNo).ToListAsync();
-
-                        foreach (var o in satirValues)
-                        {
-                            ObTasimaSatir y = new ObTasimaSatir
-                            {
-                                OzetBeyanInternalNo = senet.OzetBeyanInternalNo,
-                                TasimaSenetInternalNo = senet.TasimaSenetInternalNo,
-                                BrutAgirlik = o.BrutAgirlik,
-                                KapAdet = o.KapAdet,
-                                KapCinsi = o.KapCinsi,
-                                KonteynerTipi = o.KonteynerTipi,
-                                KonteynerYukDurumu = o.KonteynerYukDurumu,
-                                MarkaNo = o.MarkaNo,
-                                MuhurNumarasi = o.MuhurNumarasi,
-                                NetAgirlik = o.NetAgirlik,
-                                OlcuBirimi = o.OlcuBirimi,
-                                SatirNo = o.SatirNo,
-                                TasimaSatirInternalNo = senet.TasimaSenetInternalNo + "|" + o.SatirNo,
-
-                            };
-                            var satirEsyaValues = await _beyannameContext.ObSatirEsya.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.TasimaSenetInternalNo == x.TasimaSenetInternalNo && v.TasimaSatirInternalNo == o.TasimaSatirInternalNo).ToListAsync();
-
-                            foreach (var k in satirEsyaValues)
-                            {
-                                ObSatirEsya z = new ObSatirEsya
-                                {
-                                    OzetBeyanInternalNo = senet.OzetBeyanInternalNo,
-                                    TasimaSenetInternalNo = senet.TasimaSenetInternalNo,
-                                    TasimaSatirInternalNo = y.TasimaSatirInternalNo,
-                                    BmEsyaKodu = k.BmEsyaKodu,
-                                    BrutAgirlik = k.BrutAgirlik,
-                                    EsyaKodu = k.EsyaKodu,
-                                    EsyaninTanimi = k.EsyaninTanimi,
-                                    KalemFiyati = k.KalemFiyati,
-                                    KalemFiyatiDoviz = k.KalemFiyatiDoviz,
-                                    KalemSiraNo = k.KalemSiraNo,
-                                    NetAgirlik = k.NetAgirlik,
-                                    OlcuBirimi = k.OlcuBirimi,
-
-                                };
-                                lstSatirEsya.Add(z);
-                            }
-
-
-                            lstSatir.Add(y);
-                        }
-
-
-                        lstSenet.Add(senet);
-                    }
-
-                    var firmaValues = await _beyannameContext.ObTasiyiciFirma.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
-                    if (firmaValues != null)
-                    {
-                        tasiyiciFirma = new ObTasiyiciFirma
-                        {
-                            OzetBeyanInternalNo = newozetBeyanValues.OzetBeyanInternalNo,
-                            AdUnvan=firmaValues.AdUnvan,
-                            CaddeSokakNo=firmaValues.CaddeSokakNo,
-                            Faks=firmaValues.Faks,
-                            IlIlce=firmaValues.IlIlce,
-                            KimlikTuru=firmaValues.KimlikTuru,
-                            No=firmaValues.No,
-                            PostaKodu=firmaValues.PostaKodu,
-                            Telefon=firmaValues.Telefon,
-                            Tip=firmaValues.Tip,
-                            UlkeKodu=firmaValues.UlkeKodu,
-                            SonIslemZamani=DateTime.Now
-                        };
-                    }
-                    
-              
-                    var teminatValues = await _beyannameContext.ObTeminat.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-                    foreach (var o in teminatValues)
-                    {
-                        ObTeminat teminat = new ObTeminat
-                        {
-                          OzetBeyanInternalNo = newozetBeyanValues.OzetBeyanInternalNo,
-                          Aciklama=o.Aciklama,
-                          BankaMektubuTutari=o.BankaMektubuTutari,
-                          DigerTutar=o.DigerTutar,
-                          DigerTutarReferansi=o.DigerTutarReferansi,
-                          GlobalTeminatNo=o.GlobalTeminatNo,
-                          NakdiTeminatTutari=o.NakdiTeminatTutari,
-                          TeminatOrani=o.TeminatOrani,
-                          TeminatSekli=o.TeminatSekli,
-                          
 
                         };
                         lstTeminat.Add(teminat);
                     }
 
-                    var tasitUgrakValues = await _beyannameContext.ObTasitUgrakUlke.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-                    foreach (var o in tasitUgrakValues)
+                    var obAcmaValues = await _beyannameContext.NbObAcma.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    foreach (var o in obAcmaValues)
                     {
-                        ObTasitUgrakUlke ulke = new ObTasitUgrakUlke
+                        NbObAcma acma = new NbObAcma
                         {
-                            OzetBeyanInternalNo = newozetBeyanValues.OzetBeyanInternalNo,
-                            HareketTarihSaati=o.HareketTarihSaati,
-                            LimanYerAdi=o.LimanYerAdi,
-                            UlkeKodu=o.UlkeKodu
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            AmbarIci=o.AmbarIci,
+                            AmbarKodu=o.AmbarKodu,
+                            IslemKapsami=o.IslemKapsami,
+                            Miktar=o.Miktar,
+                            OzetBeyanNo=o.OzetBeyanNo,
+                            TasimaSatirNo=o.TasimaSatirNo,
+                            TasimaSenetNo=o.TasimaSenetNo,
+                            SonIslemZamani=DateTime.Now
+
 
                         };
-                          lstTasitUgrak.Add(ulke);
+                        lstObAcma.Add(acma);
+                    }
+                    var abAcmaValues = await _beyannameContext.NbAbAcma.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    foreach (var a in abAcmaValues)
+                    {
+                        NbAbAcma acma = new NbAbAcma
+                        {
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            Aciklama = a.Aciklama,
+                            AcilanKalemNo=a.AcilanKalemNo,
+                            BeyannameNo=a.BeyannameNo,
+                            DovizCinsi=a.DovizCinsi,
+                            IsleminNiteligi=a.IsleminNiteligi,
+                            KalemNo=a.KalemNo,
+                            Kiymet=a.Kiymet,
+                            Miktar=a.Miktar,
+                            OdemeSekli=a.OdemeSekli,
+                            TeslimSekli=a.TeslimSekli,
+                            TicaretUlkesi=a.TicaretUlkesi,
+                            SonIslemZamani=DateTime.Now
+
+                        };
+                        lstAbAcma.Add(acma);
                     }
 
-                
-
-
-                    var ozetBeyanAcmaValues = await _beyannameContext.ObOzetBeyanAcma.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
-                    int i = 1;
-                    foreach (var o in ozetBeyanAcmaValues)
+                    var transitGumrukValues = await _beyannameContext.NbTransitGumruk.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    foreach (var trg in transitGumrukValues)
                     {
-                       
-                        ObOzetBeyanAcma ozet = new ObOzetBeyanAcma
+                        NbTransitGumruk transit = new NbTransitGumruk
                         {
-                            Aciklama = o.Aciklama,
-                            Ambar = o.Ambar,
-                            BaskaRejim = o.BaskaRejim,
-                            IslemKapsami = o.IslemKapsami,
-                            OzetBeyanNo = o.OzetBeyanNo,
-                            OzetBeyanInternalNo = newozetBeyanValues.OzetBeyanInternalNo,
-                            OzetBeyanAcmaBeyanInternalNo = newozetBeyanValues.OzetBeyanInternalNo + "|" + i.ToString(),
-                          
+                           NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                           Gumruk= trg.Gumruk,
+                           VarisTarihi= trg.VarisTarihi,                         
+                           SonIslemZamani = DateTime.Now
+
+
                         };
-                        i++;
-                        var ozetBeyanAcmaTasimaSenediValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSenet.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanAcmaBeyanInternalNo == o.OzetBeyanAcmaBeyanInternalNo).ToListAsync();
+                        lstTransitGumruk.Add(transit);
+                    }
 
-                        if (ozetBeyanAcmaTasimaSenediValues.Count > 0)
+                    var muhurValues = await _beyannameContext.NbMuhur.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    foreach (var m in muhurValues)
+                    {
+                        NbMuhur muhur = new NbMuhur
                         {
-                            int j = 1;
-                            foreach (var t in ozetBeyanAcmaTasimaSenediValues)
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            Dil = m.Dil,
+                            MuhurNo = m.MuhurNo,
+                            SonIslemZamani = DateTime.Now
+
+
+                        };
+                        lstMuhur.Add(muhur);
+                    }
+
+                    var rotaValues = await _beyannameContext.NbRota.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    foreach (var r in rotaValues)
+                    {
+                        NbRota rota = new NbRota
+                        {
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            UlkeKodu = r.UlkeKodu,
+                            SonIslemZamani = DateTime.Now
+
+
+                        };
+                        lstRota.Add(rota);
+                    }
+
+                    
+                    var asilSorumlufirmaValues = await _beyannameContext.NbAsilSorumluFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    if (asilSorumlufirmaValues != null)
+                    {
+                        asilSorumluFirma = new NbAsilSorumluFirma
+                        {
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            AdUnvan = asilSorumlufirmaValues.AdUnvan,
+                            CaddeSokakNo = asilSorumlufirmaValues.CaddeSokakNo,
+                            IlIlce = asilSorumlufirmaValues.IlIlce,
+                            No = asilSorumlufirmaValues.No,
+                            PostaKodu = asilSorumlufirmaValues.PostaKodu,
+                            UlkeKodu = asilSorumlufirmaValues.UlkeKodu,
+                            Dil = asilSorumlufirmaValues.Dil,
+                            SonIslemZamani = DateTime.Now
+                        };
+                    }
+
+                    var tasiyicifirmaValues = await _beyannameContext.NbTasiyiciFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    if (tasiyicifirmaValues != null)
+                    {
+                        tasiyiciFirma = new NbTasiyiciFirma
+                        {
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            AdUnvan = tasiyicifirmaValues.AdUnvan,
+                            CaddeSokakNo = tasiyicifirmaValues.CaddeSokakNo,
+                            IlIlce = tasiyicifirmaValues.IlIlce,
+                            No = tasiyicifirmaValues.No,
+                            PostaKodu = tasiyicifirmaValues.PostaKodu,
+                            UlkeKodu = tasiyicifirmaValues.UlkeKodu,
+                            Dil = tasiyicifirmaValues.Dil,
+                            SonIslemZamani = DateTime.Now
+                        };
+                    }
+
+                    var alicifirmaValues = await _beyannameContext.NbAliciFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    if (alicifirmaValues != null)
+                    {
+                        aliciFirma = new NbAliciFirma
+                        {
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            AdUnvan= alicifirmaValues.AdUnvan,
+                            CaddeSokakNo= alicifirmaValues.CaddeSokakNo,
+                            IlIlce= alicifirmaValues.IlIlce,
+                            No= alicifirmaValues.No,
+                            PostaKodu= alicifirmaValues.PostaKodu,
+                            UlkeKodu= alicifirmaValues.UlkeKodu,
+                            Dil= alicifirmaValues.Dil,
+                            SonIslemZamani=DateTime.Now
+                        };
+                    }
+
+                    var gondericifirmaValues = await _beyannameContext.NbGondericiFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    if (gondericifirmaValues != null)
+                    {
+                        gondericiFirma = new NbGondericiFirma
+                        {
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            AdUnvan = gondericifirmaValues.AdUnvan,
+                            CaddeSokakNo = gondericifirmaValues.CaddeSokakNo,
+                            IlIlce = gondericifirmaValues.IlIlce,
+                            No = gondericifirmaValues.No,
+                            PostaKodu = gondericifirmaValues.PostaKodu,
+                            UlkeKodu = gondericifirmaValues.UlkeKodu,
+                            Dil = gondericifirmaValues.Dil,
+                            SonIslemZamani = DateTime.Now
+                        };
+                    }
+
+                    var guvenlialicifirmaValues = await _beyannameContext.NbGuvenliAliciFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    if (guvenlialicifirmaValues != null)
+                    {
+                        guvenlialiciFirma = new NbGuvenliAliciFirma
+                        {
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            AdUnvan = guvenlialicifirmaValues.AdUnvan,
+                            CaddeSokakNo = guvenlialicifirmaValues.CaddeSokakNo,
+                            IlIlce = guvenlialicifirmaValues.IlIlce,
+                            No = guvenlialicifirmaValues.No,
+                            PostaKodu = guvenlialicifirmaValues.PostaKodu,
+                            UlkeKodu = guvenlialicifirmaValues.UlkeKodu,
+                            Dil = guvenlialicifirmaValues.Dil,
+                            SonIslemZamani = DateTime.Now
+                        };
+                    }
+
+                    var guvenligondericifirmaValues = await _beyannameContext.NbGuvenliGondericiFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
+                    if (guvenligondericifirmaValues != null)
+                    {
+                        guvenligondericiFirma = new NbGuvenliGondericiFirma
+                        {
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                            AdUnvan = guvenligondericifirmaValues.AdUnvan,
+                            CaddeSokakNo = guvenligondericifirmaValues.CaddeSokakNo,
+                            IlIlce = guvenligondericifirmaValues.IlIlce,
+                            No = guvenligondericifirmaValues.No,
+                            PostaKodu = guvenligondericifirmaValues.PostaKodu,
+                            UlkeKodu = guvenligondericifirmaValues.UlkeKodu,
+                            Dil = guvenligondericifirmaValues.Dil,
+                            SonIslemZamani = DateTime.Now
+                        };
+                    }
+
+                 
+
+                    foreach (var x in kalemValues)
+                    {
+
+                        NbKalem kalem = new NbKalem
+                        {
+                            BurutAgirlik = x.BurutAgirlik,
+                            IhrBeyanNo = x.IhrBeyanNo,
+                            IhrBeyanParcali = x.IhrBeyanParcali,
+                            IhrBeyanTip = x.IhrBeyanTip,
+                            Gtip = x.Gtip,
+                            CikisUlkesi = x.CikisUlkesi,
+                            KalemSiraNo = x.KalemSiraNo,
+                            Kiymet = x.Kiymet,
+                            KiymetDoviz = x.KiymetDoviz,
+                            KonsimentoRef = x.KonsimentoRef,
+                            NetAgirlik = x.NetAgirlik,
+                            RejimKodu = x.RejimKodu,
+                            TicariTanim = x.TicariTanim,
+                            TicariTanimDil = x.TicariTanimDil,
+                            TptChMOdemeKod = x.TptChMOdemeKod,
+                            UNDG = x.UNDG,
+                            VarisUlkesi = x.VarisUlkesi,
+                            SonIslemZamani = DateTime.Now,
+                            KalemInternalNo = newnctsBeyanValues.NctsBeyanInternalNo + "|" + x.KalemSiraNo,
+                            NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+
+
+                        };
+
+                        var belgelerValues = await _beyannameContext.NbBelgeler.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo).ToListAsync();
+
+                        foreach (var blg in belgelerValues)
+                        {
+                            NbBelgeler b = new NbBelgeler
                             {
-                               
-                                ObOzetBeyanAcmaTasimaSenet tasima = new ObOzetBeyanAcmaTasimaSenet
-                                {
-                                    OzetBeyanInternalNo = ozet.OzetBeyanInternalNo,
-                                    OzetBeyanAcmaBeyanInternalNo = ozet.OzetBeyanAcmaBeyanInternalNo,
-                                    TasimaSenediNo = t.TasimaSenediNo,
-                                     TasimaSenetInternalNo = ozet.OzetBeyanAcmaBeyanInternalNo + "|" + j.ToString(),
-                                
+                                NctsBeyanInternalNo = kalem.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                BelgeDil=blg.BelgeDil,
+                                BelgeTipi=blg.BelgeTipi,
+                                RefNo=blg.RefNo,
+                                TamamlayiciOlcu=blg.TamamlayiciOlcu,
+                                TamamlayiciOlcuDil=blg.TamamlayiciOlcuDil,
+                                SonIslemZamani=DateTime.Now
+                             
 
-                                };
-                                j++;
-                                var ozetBeyanAcmaTasimaSatirValues = await _beyannameContext.ObOzetBeyanAcmaTasimaSatir.Where(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.OzetBeyanAcmaBeyanInternalNo == o.OzetBeyanAcmaBeyanInternalNo && v.TasimaSenetInternalNo == t.TasimaSenetInternalNo).ToListAsync();
-                                if (ozetBeyanAcmaTasimaSatirValues.Count > 0)
-                                {
-                                    foreach (var s in ozetBeyanAcmaTasimaSatirValues)
-                                    {
-                                     
-                                        ObOzetBeyanAcmaTasimaSatir satir = new ObOzetBeyanAcmaTasimaSatir
-                                        {
-                                            AmbarKodu = s.AmbarKodu,
-                                            OzetBeyanInternalNo = ozet.OzetBeyanInternalNo,
-                                            OzetBeyanAcmaBeyanInternalNo = ozet.OzetBeyanAcmaBeyanInternalNo,
-                                            TasimaSenetInternalNo = tasima.TasimaSenetInternalNo,
-                                            AcmaSatirNo = s.AcmaSatirNo,
-                                            AcilacakMiktar = s.AcilacakMiktar,
-                                            AmbardakiMiktar=s.AmbardakiMiktar,
-                                            Birim=s.Birim,
-                                            EsyaCinsi=s.EsyaCinsi,
-                                            KapatilanMiktar=s.KapatilanMiktar,
-                                            MarkaNo=s.MarkaNo,
-                                            OlcuBirimi=s.OlcuBirimi,
-                                            ToplamMiktar=s.ToplamMiktar,
-                                           
-                                        };
-                                     
-                                        lstOzetBeyanAcmaTasimaSatiri.Add(satir);
-                                    }
-                                }
-
-                                lstOzetBeyanAcmaTasimaSenedi.Add(tasima);
-                            }
+                            };
+                            lstBelgeler.Add(b);
                         }
 
-                        lstOzetBeyanAcma.Add(ozet);
+                        var oncekibelgelerValues = await _beyannameContext.NbOncekiBelgeler.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo).ToListAsync();
+
+                        foreach (var oblg in oncekibelgelerValues)
+                        {
+                            NbOncekiBelgeler b = new NbOncekiBelgeler
+                            {
+                                NctsBeyanInternalNo = kalem.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                BelgeDil = oblg.BelgeDil,
+                                BelgeTipi = oblg.BelgeTipi,
+                                RefNo = oblg.RefNo,
+                                TamamlayiciBilgi = oblg.TamamlayiciBilgi,
+                                TamamlayiciBilgiDil = oblg.TamamlayiciBilgiDil,
+                                SonIslemZamani = DateTime.Now
+
+
+                            };
+                            lstOncekiBelgeler.Add(b);
+                        }
+
+                        var ekBilgiValues = await _beyannameContext.NbEkBilgi.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo).ToListAsync();
+
+                        foreach (var bilgi in ekBilgiValues)
+                        {
+                            NbEkBilgi bilgii = new NbEkBilgi
+                            {
+                                NctsBeyanInternalNo = kalem.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                Dil = bilgi.Dil,
+                                Ec2Ihr = bilgi.Ec2Ihr,
+                                EkBilgi = bilgi.EkBilgi,
+                                EkBilgiKod = bilgi.EkBilgiKod,
+                                UlkeKodu = bilgi.UlkeKodu,
+                                SonIslemZamani = DateTime.Now
+
+
+                            };
+                            lstEkBilgiler.Add(bilgii);
+                        }
+
+                        var kapValues = await _beyannameContext.NbKap.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo).ToListAsync();
+
+                        foreach (var kap in kapValues)
+                        {
+                            NbKap kp = new NbKap
+                            {
+                                NctsBeyanInternalNo = kalem.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                KapAdet = kap.KapAdet,
+                                KapTipi = kap.KapTipi,
+                                MarkaDil = kap.MarkaDil,
+                                MarkaNo = kap.MarkaNo,
+                                ParcaSayisi = kap.ParcaSayisi,
+                                SonIslemZamani = DateTime.Now
+
+
+                            };
+                            lstKap.Add(kp);
+                        }
+
+                        var konteynerValues = await _beyannameContext.NbKonteyner.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo).ToListAsync();
+
+                        foreach (var konteyner in konteynerValues)
+                        {
+                            NbKonteyner kont = new NbKonteyner
+                            {
+                                NctsBeyanInternalNo = kalem.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                KonteynerNo = konteyner.KonteynerNo,
+                                Ulke = konteyner.Ulke,
+                                SonIslemZamani = DateTime.Now
+
+
+                            };
+                            lstKonteyner.Add(kont);
+                        }
+
+                        var hassasEsyaValues = await _beyannameContext.NbHassasEsya.Where(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo).ToListAsync();
+
+                        foreach (var hssEsya in hassasEsyaValues)
+                        {
+                            NbHassasEsya hs = new NbHassasEsya
+                            {
+                                NctsBeyanInternalNo = kalem.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                Kod = hssEsya.Kod,
+                                SonIslemZamani = DateTime.Now
+
+
+                            };
+                            lstHassasEsya.Add(hs);
+                        }
+
+                        var kalemalicifirmaValues = await _beyannameContext.NbKalemAliciFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo);
+                        if (kalemalicifirmaValues != null)
+                        {
+                            NbKalemAliciFirma kalemaliciFirma = new NbKalemAliciFirma
+                            {
+                                NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                AdUnvan = kalemalicifirmaValues.AdUnvan,
+                                CaddeSokakNo = kalemalicifirmaValues.CaddeSokakNo,
+                                IlIlce = kalemalicifirmaValues.IlIlce,
+                                No = kalemalicifirmaValues.No,
+                                PostaKodu = kalemalicifirmaValues.PostaKodu,
+                                UlkeKodu = kalemalicifirmaValues.UlkeKodu,
+                                Dil = kalemalicifirmaValues.Dil,
+                                SonIslemZamani = DateTime.Now
+                            };
+                            lstkalemaliciFirma.Add(kalemaliciFirma);
+                        }
+
+                        var kalemgondericifirmaValues = await _beyannameContext.NbKalemGondericiFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo);
+                        if (kalemgondericifirmaValues != null)
+                        {
+                            NbKalemGondericiFirma kalemgondericiFirma = new NbKalemGondericiFirma
+                            {
+                                NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                AdUnvan = kalemgondericifirmaValues.AdUnvan,
+                                CaddeSokakNo = kalemgondericifirmaValues.CaddeSokakNo,
+                                IlIlce = kalemgondericifirmaValues.IlIlce,
+                                No = kalemgondericifirmaValues.No,
+                                PostaKodu = kalemgondericifirmaValues.PostaKodu,
+                                UlkeKodu = kalemgondericifirmaValues.UlkeKodu,
+                                Dil = kalemgondericifirmaValues.Dil,
+                                SonIslemZamani = DateTime.Now
+                            };
+                            lstkalemgondericiFirma.Add(kalemgondericiFirma);
+                        }
+
+                        var kalemguvenlialicifirmaValues = await _beyannameContext.NbKalemGuvenliAliciFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo);
+                        if (kalemguvenlialicifirmaValues != null)
+                        {
+                            NbKalemGuvenliAliciFirma kalemguvenlialicifirma = new NbKalemGuvenliAliciFirma
+                            {
+                                NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                AdUnvan = kalemguvenlialicifirmaValues.AdUnvan,
+                                CaddeSokakNo = kalemguvenlialicifirmaValues.CaddeSokakNo,
+                                IlIlce = kalemguvenlialicifirmaValues.IlIlce,
+                                No = kalemguvenlialicifirmaValues.No,
+                                PostaKodu = kalemguvenlialicifirmaValues.PostaKodu,
+                                UlkeKodu = kalemguvenlialicifirmaValues.UlkeKodu,
+                                Dil = kalemguvenlialicifirmaValues.Dil,
+                                SonIslemZamani = DateTime.Now
+                            };
+                            lstkalemguvenlialiciFirma.Add(kalemguvenlialicifirma);
+                        }
+
+                        var kalemguvenligondericifirmaValues = await _beyannameContext.NbKalemGuvenliGondericiFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == x.KalemInternalNo);
+                        if (kalemguvenligondericifirmaValues != null)
+                        {
+                            NbKalemGuvenliGondericiFirma kalemguvenligondericifirma = new NbKalemGuvenliGondericiFirma
+                            {
+                                NctsBeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo,
+                                KalemInternalNo = kalem.KalemInternalNo,
+                                AdUnvan = kalemguvenligondericifirmaValues.AdUnvan,
+                                CaddeSokakNo = kalemguvenligondericifirmaValues.CaddeSokakNo,
+                                IlIlce = kalemguvenligondericifirmaValues.IlIlce,
+                                No = kalemguvenligondericifirmaValues.No,
+                                PostaKodu = kalemguvenligondericifirmaValues.PostaKodu,
+                                UlkeKodu = kalemguvenligondericifirmaValues.UlkeKodu,
+                                Dil = kalemguvenligondericifirmaValues.Dil,
+                                SonIslemZamani = DateTime.Now
+                            };
+                            lstkalemguvenligondericiFirma.Add(kalemguvenligondericifirma);
+                        }
+
+
+                        lstKalem.Add(kalem);
                     }
 
 
-                
+
                     using (var transaction = _beyannameContext.Database.BeginTransaction())
                     {
                         try
                         {
-                            newozetBeyanValues.SonIslemZamani = DateTime.Now;
-                            _beyannameContext.Entry(newozetBeyanValues).State = EntityState.Added;
-                            _beyannameContext.Entry(tasiyiciFirma).State = EntityState.Added;
-
-                            foreach (var item in lstTasitUgrak)
+                          
+                            _beyannameContext.Entry(newnctsBeyanValues).State = EntityState.Added;
+                            foreach (var item in lstKalem)
                             {
                                 item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
                             }
-                      
+                            foreach (var item in lstAbAcma)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
+                            foreach (var item in lstObAcma)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
+                            foreach (var item in lstTransitGumruk)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
+                            foreach (var item in lstMuhur)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
+                            foreach (var item in lstRota)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
                             foreach (var item in lstTeminat)
                             {
                                 item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
                             }
-
-                            foreach (var item in lstOzetBeyanAcma)
+                            foreach (var item in lstBelgeler)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
+                            foreach (var item in lstOncekiBelgeler)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
+                            foreach (var item in lstEkBilgiler)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
+                            foreach (var item in lstKap)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
+                            foreach (var item in lstKonteyner)
+                            {
+                                item.SonIslemZamani = DateTime.Now;
+                                _beyannameContext.Entry(item).State = EntityState.Added;
+                            }
+                            foreach (var item in lstHassasEsya)
                             {
                                 item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
                             }
 
-                            foreach (var item in lstOzetBeyanAcmaTasimaSenedi)
+                            if(tasiyiciFirma.NctsBeyanInternalNo!=null)
+                                _beyannameContext.Entry(tasiyiciFirma).State = EntityState.Added;
+
+                            if (asilSorumluFirma.NctsBeyanInternalNo != null)
+                                _beyannameContext.Entry(asilSorumluFirma).State = EntityState.Added;
+
+                            if (aliciFirma.NctsBeyanInternalNo != null)
+                                _beyannameContext.Entry(aliciFirma).State = EntityState.Added;
+
+                            if (gondericiFirma.NctsBeyanInternalNo != null)
+                                _beyannameContext.Entry(gondericiFirma).State = EntityState.Added;
+
+                            if (guvenlialiciFirma.NctsBeyanInternalNo != null)
+                                _beyannameContext.Entry(guvenlialiciFirma).State = EntityState.Added;
+
+                            if (guvenligondericiFirma.NctsBeyanInternalNo != null)
+                                _beyannameContext.Entry(guvenligondericiFirma).State = EntityState.Added;
+
+                            foreach (var item in lstkalemguvenlialiciFirma)
                             {
                                 item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
                             }
-                         
-                            foreach (var item in lstOzetBeyanAcmaTasimaSatiri)
+                            foreach (var item in lstkalemguvenligondericiFirma)
                             {
                                 item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
                             }
-                            
-                            foreach (var item in lstSenet)
+                            foreach (var item in lstkalemgondericiFirma)
                             {
                                 item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
                             }
-                            foreach (var item in lstIhracat)
+                            foreach (var item in lstkalemaliciFirma)
                             {
                                 item.SonIslemZamani = DateTime.Now;
                                 _beyannameContext.Entry(item).State = EntityState.Added;
                             }
-                            foreach (var item in lstUgrak)
-                            {
-                                item.SonIslemZamani = DateTime.Now;
-                                _beyannameContext.Entry(item).State = EntityState.Added;
-                            }
-                            foreach (var item in lstSatir)
-                            {
-                                item.SonIslemZamani = DateTime.Now;
-                                _beyannameContext.Entry(item).State = EntityState.Added;
-                            }
-                            foreach (var item in lstSatirEsya)
-                            {
-                                item.SonIslemZamani = DateTime.Now;
-                                _beyannameContext.Entry(item).State = EntityState.Added;
-                            }
-                            
 
                             await _beyannameContext.SaveChangesAsync();
 
 
                             Islem _islem = new Islem();
-                            _islem.Kullanici = newozetBeyanValues.KullaniciKodu;
+                            _islem.Kullanici = newnctsBeyanValues.Kullanici;
                             _islem.IslemTipi = "";
-                            _islem.BeyanTipi = "OzetBeyan";
+                            _islem.BeyanTipi = "Ncts";
                             _islem.IslemDurumu = "Olusturuldu";
-                            _islem.RefNo = newozetBeyanValues.XmlRefId;
-                            _islem.BeyanInternalNo = newozetBeyanValues.OzetBeyanInternalNo;
-                            _islem.IslemInternalNo = newozetBeyanValues.OzetBeyanInternalNo;
+                            _islem.RefNo = newnctsBeyanValues.RefNo;
+                            _islem.BeyanInternalNo = newnctsBeyanValues.NctsBeyanInternalNo;
+                            _islem.IslemInternalNo = newnctsBeyanValues.NctsBeyanInternalNo;
                             _islem.OlusturmaZamani = DateTime.Now;
                             _islem.SonIslemZamani = DateTime.Now;
                             _islem.GonderimSayisi = 0;
@@ -455,7 +711,7 @@ namespace BYT.WS.Controllers.Servis.Ncts
 
                             _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                             List<Internal.Bilgi> lstbilgi = new List<Internal.Bilgi>();
-                            lstbilgi.Add(new Bilgi { IslemTipi = "Beyanname Kopyalama", ReferansNo = newozetBeyanValues.OzetBeyanInternalNo, Sonuc = "Kopyalama Başarılı", SonucVeriler = null, GUID = null });
+                            lstbilgi.Add(new Bilgi { IslemTipi = "Beyanname Kopyalama", ReferansNo = newnctsBeyanValues.NctsBeyanInternalNo, Sonuc = "Kopyalama Başarılı", SonucVeriler = null, GUID = null });
                             _servisDurum.Bilgiler = lstbilgi;
 
                             return _servisDurum;
@@ -476,6 +732,7 @@ namespace BYT.WS.Controllers.Servis.Ncts
                         }
 
                     }
+
                 }
 
 

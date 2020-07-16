@@ -395,7 +395,7 @@ export class BeyannameServiceProxy {
    
     
   }
-  TescilMesajiHazirla(IslemInternalNo, Kullanici) {
+  BeyannameTescilMesajiHazirla(IslemInternalNo, Kullanici) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
@@ -412,7 +412,7 @@ export class BeyannameServiceProxy {
    
     
   }
-  TescilGonderimi(IslemInternalNo, Kullanici, guid) {
+  BeyannameTescilGonderimi(IslemInternalNo, Kullanici, guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
@@ -429,7 +429,7 @@ export class BeyannameServiceProxy {
    
     
   }
-  OzetBeyanMesajiHazirla(IslemInternalNo, Kullanici) {
+  OzetBeyanTescilMesajiHazirla(IslemInternalNo, Kullanici) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
@@ -446,7 +446,7 @@ export class BeyannameServiceProxy {
    
     
   }
-  OzetBeyanGonderimi(IslemInternalNo, Kullanici, guid) {
+  OzetBeyanTescilGonderimi(IslemInternalNo, Kullanici, guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
@@ -464,6 +464,43 @@ export class BeyannameServiceProxy {
    
     
   }
+  NctsTescilMesajiHazirla(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Ncts/NctsTescilGonderim/" +
+        IslemInternalNo + "/" + Kullanici,null,httpOptions  
+        );
+   
+    
+  }
+  NctsTescilGonderimi(IslemInternalNo, Kullanici, guid) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+    console.log(guid);
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Ncts/NctsTescilGonderim/" +
+        IslemInternalNo + "/" + Kullanici+"/"+guid,null,httpOptions  
+        );
+   
+    
+  }
+  
+
   getSonucSorgula(Guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;

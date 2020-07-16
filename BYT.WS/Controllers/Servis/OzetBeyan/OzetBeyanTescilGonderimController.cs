@@ -72,7 +72,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                OzetBeyanBilgisi _beyan = new OzetBeyanBilgisi();
 
                 #region Genel
-                if (tasiyiciFirmaValues != null )
+                if (ozetBeyanValues != null )
                 {
                    
                     _beyan.BeyanSahibiVergiNo = ozetBeyanValues.BeyanSahibiVergiNo;
