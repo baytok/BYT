@@ -346,7 +346,6 @@ export class IslemComponent implements OnInit {
             this.loading = false;
             this.getAllIslem();
             this.getTarihce(islemInternalNo);
-
             this.openSnackBar(servisSonuc.getSonuc(), "Tamam");
           },
           (err) => {

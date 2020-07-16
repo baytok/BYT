@@ -18,6 +18,8 @@ namespace BYT.UI.Internal
         }
 
     }
+
+  
     public class Bilgi
     {
         public string IslemTipi { get; set; }
@@ -31,6 +33,34 @@ namespace BYT.UI.Internal
     {
         public int HataKodu { get; set; }
         public string HataAciklamasi { get; set; }
+
+    }
+
+    public class KullaniciServisDurum
+    {
+        public ServisDurumKodlari ServisDurumKodlari { get; set; }
+        public List<Hata> Hatalar { get; set; }
+        public List<Bilgi> Bilgiler { get; set; }
+        public KullaniciBilgi KullaniciBilgileri { get; set; }
+        public KullaniciServisDurum()
+        {
+            Hatalar = new List<Hata>();
+        }
+
+    }
+    public class KullaniciBilgi
+    {
+        public string KullaniciKod { get; set; }
+        public string KullaniciAdi { get; set; }
+        public string Token { get; set; }
+        public List<KullaniciYetkileri> Yetkiler { get; set; }
+
+
+    }
+    public class KullaniciYetkileri
+    {
+        public string YetkiKodu { get; set; }
+        public string YetkiAdi { get; set; }
 
     }
     public enum ServisDurumKodlari

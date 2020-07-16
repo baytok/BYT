@@ -294,6 +294,22 @@ namespace BYT.UI
             }
             return null;
         }
+        public KullaniciServisDurum GirisPost(string Kullanici, string Sifre)
+        {
+
+            HttpClient _client = GetClient();
+
+            var content = new StringContent("application/json");
+            string url = string.Format(_client.BaseAddress + "KullaniciGiris/KullaniciHizmeti/" + Kullanici + "/" + Sifre);
+            var response = _client.PostAsync(url, content);
+            string responseString = response.Result.Content.ReadAsStringAsync().Result;
+            if (response.Result.IsSuccessStatusCode)
+            {
+                var mobileEsult = JsonConvert.DeserializeObject<KullaniciServisDurum>(responseString);
+                return mobileEsult;
+            }
+            return null;
+        }
         //public Sonuc<ServisDurum> BeyannameOlusturma(BeyannameBilgileri param)
         //{
         //    HttpClient _client = GetClient();
