@@ -101,6 +101,8 @@ namespace BYT.WS.Controllers.Servis.Ncts
                         DamgaVergi= nctsBeyanValues.DamgaVergi,
                         Dorse1= nctsBeyanValues.Dorse1,
                         Dorse2= nctsBeyanValues.Dorse2,
+                        EsyaKabulYerKod=nctsBeyanValues.EsyaKabulYerKod,
+                        EsyaKabulYerDil=nctsBeyanValues.EsyaKabulYerDil,
                         EsyaKabulYer= nctsBeyanValues.EsyaKabulYer,
                         EsyaOnayYer= nctsBeyanValues.EsyaOnayYer,
                         EsyaYer= nctsBeyanValues.EsyaYer,

@@ -5257,6 +5257,8 @@ export class NctsBeyanDto {
   sonIslemZamani:string;  
   varisUlke:string;  
   cikisUlke:string;
+  esyaKabulYerKod:string;
+  esyaKabulYerDil:string;
 	esyaKabulYer:string;
 	esyaOnayYer:string;
   yuklemeYeri:string  
@@ -5319,6 +5321,8 @@ export class NctsBeyanDto {
       this.sonIslemZamani=  "0001-01-01T00:00:00";
       this.varisUlke=data["varisUlke"]!=null ? data["varisUlke"] : "";
       this.cikisUlke=data["cikisUlke"]!=null ? data["cikisUlke"] : "";
+      this.esyaKabulYerKod=data["esyaKabulYerKod"]!=null ? data["esyaKabulYerKod"] : "";
+      this.esyaKabulYerDil=data["esyaKabulYerDil"]!=null ? data["esyaKabulYerDil"] : "";
       this.esyaKabulYer=data["esyaKabulYer"]!=null ? data["esyaKabulYer"] : "";
       this.esyaOnayYer=data["esyaOnayYer"]!=null ? data["esyaOnayYer"] : "";
       this.yuklemeYeri=data["yuklemeYeri"]!=null ? data["yuklemeYeri"] : "";    

@@ -29,7 +29,7 @@ namespace BYT.WS.Models
         public TRAPRIPC1 TRAPRIPC1 { get; set; } //AsilSorumlu
         public TRACONCO1 TRACONCO1 { get; set; } //Gonderici
         public TRACONCE1 TRACONCE1 { get; set; } //Alici
-        public TRAAUTCONTRA TRAAUTCONTRA { get; set; } //VarisYetkiliGumruk
+        public TRAAUTCONTRA TRAAUTCONTRA { get; set; } //VarisYetkiliGumruk // Mükellef kullanmıyor olabilri.
         public CUSOFFDEPEPT CUSOFFDEPEPT { get; set; } //HareketGumruk  
         public CUSOFFDESEST CUSOFFDESEST { get; set; } // VarisGumruk
         public CONRESERS CONRESERS { get; set; }   // KontrolSonuc    
@@ -373,7 +373,7 @@ namespace BYT.WS.Models
     public class HEAHEA
     {
         [StringLength(16)]
-        public string RefNumHEA4 { get; set; } //Reference number, Tescil No
+        public string RefNumHEA4 { get; set; } //Reference number, Tescil No, düzeltmede tescil no konacak
 
      
         [StringLength(4)]
@@ -384,16 +384,16 @@ namespace BYT.WS.Models
 
 
         [StringLength(17)]
-        public string AgrLocOfGooCodHEA38 { get; set; } //Agreed location of goods, code, EsyaKabulYer
+        public string AgrLocOfGooCodHEA38 { get; set; } //Agreed location of goods, code,  EsyaKabulYerKod
 
         [StringLength(35)]
-        public string AgrLocOfGooHEA39 { get; set; } //Agreed location of goods, ???
+        public string AgrLocOfGooHEA39 { get; set; } //Agreed location of goods, Mal Kabul Konumu, EsyaKabulYer
 
         [StringLength(3)]
-        public string AgrLocOfGooHEA39LNG { get; set; } //Agreed location of goods LNG, ???
+        public string AgrLocOfGooHEA39LNG { get; set; } //Agreed location of goods LNG, Mal Kabul Konumu Dil, EsyaKabulYerDil
 
         [StringLength(17)]
-        public string AutLocOfGooCodHEA41 { get; set; } //Authorised location of goods, code, EsyaOnayYer
+        public string AutLocOfGooCodHEA41 { get; set; } //Authorised location of goods, code, EsyaOnayYer malların yetkili konumu
 
         [StringLength(20)]
         public string PlaOfLoaCodHEA46 { get; set; } //Place of loading, code, YuklemeYer
@@ -514,7 +514,7 @@ namespace BYT.WS.Models
 
 
         [StringLength(15)]
-        public string RefNumEBT1 { get; set; } 
+        public string RefNumEBT1 { get; set; } // Sınır Gümrüğü
         
 
     }  
@@ -983,7 +983,6 @@ namespace BYT.WS.Models
 
 
     }
-
     public class NbBeyan
     {
         [StringLength(30)]
@@ -1021,7 +1020,7 @@ namespace BYT.WS.Models
 
         [Required]
         [StringLength(9)]
-        public string SinirGumruk { get; set; } // ?? 
+        public string SinirGumruk { get; set; } // RefNumEBT1
 
 
         [StringLength(4)]
@@ -1032,30 +1031,27 @@ namespace BYT.WS.Models
         [Required]
         public string CikisUlke { get; set; } //Country of dispatch/export code,CouOfDisCodHEA55 
 
-        //[StringLength(9)]
-        //public string  EsyaKabulYerKod{ get; set; } //Agreed location of goods, AgrLocOfGooHEA39 ???
-
-        // [StringLength(4)]
-        //public string EsyaKabulYerKodDil { get; set; } //Agreed location of goods LNG,AgrLocOfGooHEA39LNG ???
-
-
+      
         [StringLength(17)]
-        public string EsyaKabulYer { get; set; } //Agreed location of goods, code,AgrLocOfGooCodHEA38 
+        public string EsyaKabulYerKod { get; set; } //Agreed location of goods, code,AgrLocOfGooCodHEA38 
+
+        [StringLength(4)]
+        public string EsyaKabulYerDil { get; set; } //Agreed location of goods LNG,AgrLocOfGooHEA39LNG ???
+
+        [StringLength(9)]
+        public string EsyaKabulYer { get; set; } //Agreed location of goods, AgrLocOfGooHEA39 
 
         [StringLength(35)]
         public string BosaltmaYer { get; set; } //Place of unloading, code, CodPlUnHEA357
 
-
+        [StringLength(20)]
+        public string YuklemeYeri { get; set; } //Place of loading, code,PlaOfLoaCodHEA46 
         [StringLength(4)]
         public string YukBosYerDil { get; set; } //Place of unloading LNG, CodPlUnHEA357LNG
 
-     
 
         [StringLength(17)]
-        public string EsyaOnayYer  { get; set; } //Authorised location of goods, code, AutLocOfGooCodHEA41
-
-        [StringLength(20)]
-        public string YuklemeYeri { get; set; } //Place of loading, code,PlaOfLoaCodHEA46 
+        public string EsyaOnayYer  { get; set; } //Authorised location of goods, code, AutLocOfGooCodHEA41    
      
 
         [StringLength(20)]
@@ -1189,8 +1185,6 @@ namespace BYT.WS.Models
         public string SureSinir { get; set; } // DatLimERS69
 
 
-        [StringLength(15)]
-        public string RefNumEBT1 { get; set; }
     }
     public class NbBeyanSahibi
     {
@@ -1866,7 +1860,6 @@ namespace BYT.WS.Models
 
         public DateTime? SonIslemZamani { get; set; }
     }
-
     public class NbOncekiBelgeler
     {
         [Key]
@@ -1902,7 +1895,6 @@ namespace BYT.WS.Models
 
     public DateTime? SonIslemZamani { get; set; }
     }
-
     public class NbBelgeler
     {
         [Key]
@@ -1938,7 +1930,6 @@ namespace BYT.WS.Models
 
         public DateTime? SonIslemZamani { get; set; }
     }
-
     public class NbEkBilgi
     {
         [Key]
@@ -1973,7 +1964,6 @@ namespace BYT.WS.Models
 
         public DateTime? SonIslemZamani { get; set; }
     }
-
     public class NbKap
     {
         [Key]
@@ -2006,7 +1996,6 @@ namespace BYT.WS.Models
 
         public DateTime? SonIslemZamani { get; set; }
     }
-
     public class NbHassasEsya
     {
         [Key]
@@ -2027,7 +2016,6 @@ namespace BYT.WS.Models
 
     public DateTime? SonIslemZamani { get; set; }
     }
-
     public class NbObAcma
     {
         [Key]

@@ -20,6 +20,7 @@ namespace BYT.UI
 
         private void btnGiris_Click(object sender, EventArgs e)
         {
+          
             ServisManager manage = new ServisManager();
             var result=manage.GirisPost(txtKullanici.Text,txtSifre.Text);
 

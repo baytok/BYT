@@ -55,9 +55,9 @@ export class NbDetayComponent implements OnInit {
   nctsBeyanInternalNo = this._beyanSession.nctsBeyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
   _nctsBeyan: NctsBeyanDto = new NctsBeyanDto();  
-  _gumrukAllList =this.referansService.getTrGumrukAllJSON();
-  _gumrukList =this.referansService.getTrGumrukJSON();
-  _sinirgumrukList =this.referansService.getTrSinirGumrukJSON();
+  _gumrukAllList =this.referansService.getNctsGumrukAllJSON();
+  _gumrukList =this.referansService.getNctsTrGumrukJSON();
+  _sinirgumrukList =this.referansService.getNctsSinirGumrukJSON();
   _ulkeList = this.referansService.getUlkeDilJSON();
   _dilList = this.referansService.getDilJSON();
   _dovizList = this.referansService.getTrDovizCinsiJSON();

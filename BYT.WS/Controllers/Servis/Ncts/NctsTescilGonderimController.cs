@@ -35,14 +35,13 @@ namespace BYT.WS.Controllers.Servis.Ncts
         private IslemTarihceDataContext _islemTarihceContext;
 
         private readonly ServisCredential _servisCredential;
-        private BeyannameSonucDataContext _sonucContext;
+      
         public IConfiguration Configuration { get; }
-        public NctsTescilGonderimController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
+        public NctsTescilGonderimController(IslemTarihceDataContext islemTarihcecontext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
             _islemTarihceContext = islemTarihcecontext;
             Configuration = configuration;
-            _sonucContext = sonucContext;
-
+       
             _servisCredential = new ServisCredential();
             _servisCredential.username = servisCredential.Value.username;
             _servisCredential.password = servisCredential.Value.password;
@@ -69,7 +68,7 @@ namespace BYT.WS.Controllers.Servis.Ncts
                 #region Genel
                 HEAHEA _beyan = new HEAHEA();
                 _beyan.RefNumHEA4 = nctsBeyanValues.BeyannameNo != null ? nctsBeyanValues.BeyannameNo : "1";
-                _beyan.AgrLocOfGooCodHEA38 = nctsBeyanValues.EsyaKabulYer;
+                _beyan.AgrLocOfGooCodHEA38 = nctsBeyanValues.EsyaKabulYerKod;
                 _beyan.AutLocOfGooCodHEA41 = nctsBeyanValues.EsyaOnayYer;
                 _beyan.CodPlUnHEA357 = nctsBeyanValues.BosaltmaYer;
                 _beyan.CodPlUnHEA357LNG = nctsBeyanValues.YukBosYerDil;
@@ -109,7 +108,9 @@ namespace BYT.WS.Controllers.Servis.Ncts
                 _beyan.TypOfDecHEA24 = nctsBeyanValues.Rejim;
                 _beyan.TypOfMeaOfTraCroHEA88 = nctsBeyanValues.SinirTasimaSekli;
                 _beyan.Tanker = nctsBeyanValues.Tanker == false ? '0' : '1';
-                _beyan.RefNumEBT1 = "";
+                _beyan.RefNumEBT1 = nctsBeyanValues.SinirGumruk;
+                _beyan.AgrLocOfGooHEA39 = nctsBeyanValues.EsyaKabulYer;
+                _beyan.AgrLocOfGooHEA39LNG = nctsBeyanValues.EsyaKabulYerDil;
 
                 TRAPRIPC1 _asilSorumlu = new TRAPRIPC1();
                 var asilSorumlufirmaValues = await _beyannameContext.NbAsilSorumluFirma.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == islemValues.BeyanInternalNo);
@@ -769,17 +770,23 @@ namespace BYT.WS.Controllers.Servis.Ncts
                 string guidOf = "", IslemDurumu = "", islemSonucu = "";
             
                 NctsHizmeti.WS2ServiceClient Tescil = ServiceHelper.GetNctsWSClient(_servisCredential.username, _servisCredential.password);
-                string FIRM_ID = kullaniciValues.VergiNo;
+                string FIRM_ID = "BYT";
+                string USER_ID = DateTime.Now.ToString("yyyyMMddHHmmss") +","+kullaniciValues.KullaniciKod+","+kullaniciValues.KullaniciSifre;
+               if(islemValues.BeyanNo!="")
+                {
+                  
+                    //Tescil.uploadmessagebymrnAsync; kullanılmıyor.
+                    var result = await Tescil.uploadmessagebylrnAsync(FIRM_ID, USER_ID, islemValues.BeyanNo, "CC015B_R", "1", tarihceValues.ImzaliVeri);//düzeltme mesaj
+                    guidOf = result.ToString();
+                    //result için okuma? Hata? Guid?  000 ise başarılı, 000 değilse başarısız
+                }
+                else
+                {
 
-                //Tescil.uploadmessagebylrnAsync;
-                //Tescil.uploadmessagebymrnAsync;
-                //Tescil.getNotReadMessagesListAsync;
-                //Tescil.getMessagesListByGuidAsync;
-                //Tescil.downloadmessagebyindexAsync;
-               // FIRM_ID? Kullanici? MesajType?
-                var result= await Tescil.submitdeclarationAsync(FIRM_ID, Kullanici, "CC015B_F", "1", tarihceValues.ImzaliVeri);
-                guidOf = result.ToString();
-                //result için okuma? Hata? Guid?
+                    var result = await Tescil.submitdeclarationAsync(FIRM_ID, USER_ID, "CC015B_F", "1", tarihceValues.ImzaliVeri);//ilk mesaj
+                    guidOf = result.ToString();
+                    //result için okuma? Hata? Guid?  000 ise başarılı, 000 değilse başarısız
+                }
 
 
                 //XmlDocument doc = new XmlDocument();

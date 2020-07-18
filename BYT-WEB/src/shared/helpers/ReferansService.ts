@@ -22,11 +22,11 @@
   import * as ozellikData from '../../shared/helpers/ozellik.json';
   import * as stmilData from '../../shared/helpers/stmil.json';
   import * as beyanTuruData from '../../shared/helpers/beyanTuru.json';
-  import * as trgumrukAllData from '../../shared/helpers/trgumrukAll.json';
-  import * as trgumrukData from '../../shared/helpers/trgumruk.json';
+  import * as nctsgumrukAllData from '../../shared/helpers/nctsgumrukAll.json';
+  import * as nctstrgumrukData from '../../shared/helpers/nctstrgumruk.json';
   import * as ulkeDilData from '../../shared/helpers/ulkeDil.json';
   import * as dilData from '../../shared/helpers/dil.json';
-  import * as trsinirgumrukData from '../../shared/helpers/trsinirgumruk.json';
+  import * as nctssinirgumrukData from '../../shared/helpers/nctssinirgumruk.json';
   import * as nctsodemeData from '../../shared/helpers/nctsodeme.json';
   import * as nctstasimaData from '../../shared/helpers/nctstasimaSekli.json';
   import * as trteminatData from '../../shared/helpers/trteminattipi.json';
@@ -61,11 +61,11 @@ export class ReferansService  {
   private ozellik: any = (ozellikData as any).default;
   private stmil: any = (stmilData as any).default;
   private beyanTuru: any = (beyanTuruData as any).default;
-  private trgumrukAll: any = (trgumrukAllData as any).default;
-  private trgumruk: any = (trgumrukData as any).default;  
+  private nctsgumrukAll: any = (nctsgumrukAllData as any).default;
+  private nctstrgumruk: any = (nctstrgumrukData as any).default;  
   private dil: any = (dilData as any).default;
   private ulkeDil: any = (ulkeDilData as any).default;
-  private trsinirgumruk: any = (trsinirgumrukData as any).default;
+  private nctssinirgumruk: any = (nctssinirgumrukData as any).default;
   private nctsodeme: any = (nctsodemeData as any).default;
   private nctstasimaSekli: any = (nctstasimaData as any).default;
   private trdoviz: any = (trdovizData as any).default;
@@ -140,11 +140,11 @@ public getstmilJSON(): Observable<any> {
 public beyanTuruJSON(): Observable<any> {
   return this.beyanTuru;
 }
-public getTrGumrukAllJSON(): Observable<any> {
-  return this.trgumrukAll;
+public getNctsGumrukAllJSON(): Observable<any> {
+  return this.nctsgumrukAll;
 }
-public getTrGumrukJSON(): Observable<any> {
-  return this.trgumruk;
+public getNctsTrGumrukJSON(): Observable<any> {
+  return this.nctstrgumruk;
 }
 public getDilJSON(): Observable<any> {
   return this.dil;
@@ -152,8 +152,8 @@ public getDilJSON(): Observable<any> {
 public getUlkeDilJSON(): Observable<any> {
   return this.ulkeDil;
 }
-public getTrSinirGumrukJSON(): Observable<any> {
-  return this.trsinirgumruk;
+public getNctsSinirGumrukJSON(): Observable<any> {
+  return this.nctssinirgumruk;
 }
 public getNctsOdemeJSON(): Observable<any> {
   return this.nctsodeme;

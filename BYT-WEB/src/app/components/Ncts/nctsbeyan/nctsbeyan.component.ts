@@ -114,9 +114,9 @@ export class NctsBeyanComponent implements OnInit {
   _nctsBeyan: NctsBeyanDto = new NctsBeyanDto();
   _rejimList = nctsrejim;
   _beyanTipiList = nctsBeyanTipi;
-  _gumrukAllList =this.referansService.getTrGumrukAllJSON();
-  _gumrukList =this.referansService.getTrGumrukJSON();
-  _sinirgumrukList =this.referansService.getTrSinirGumrukJSON();
+  _gumrukAllList =this.referansService.getNctsGumrukAllJSON();
+  _gumrukList =this.referansService.getNctsTrGumrukJSON();
+  _sinirgumrukList =this.referansService.getNctsSinirGumrukJSON();
   _ulkeList = this.referansService.getUlkeDilJSON();
   _dilList = this.referansService.getDilJSON();
   _odemeList = this.referansService.getNctsOdemeJSON();
@@ -399,15 +399,17 @@ export class NctsBeyanComponent implements OnInit {
         varisGumruk: new FormControl("", [Validators.required, Validators.maxLength(9)]),
         hareketGumruk: new FormControl("", [Validators.required, Validators.maxLength(9)]),
         sinirGumruk: new FormControl("", [Validators.required, Validators.maxLength(9)]),
-        yuklemeYeri: new FormControl("", [Validators.maxLength(20)]),//17
-        yukBosYerDil:new FormControl("", [Validators.maxLength(4)]),//17   
-        bosaltmaYer:new FormControl("", [Validators.maxLength(35)]),//18
-        esyaKabulYer: new FormControl("", [Validators.maxLength(17)]),//Malların Yetkili konumu ???
-        esyaOnayYer: new FormControl("", [Validators.maxLength(17)]), //Mal Kabul konumu  ??     
-        esyaYer: new FormControl("", [Validators.maxLength(20)]),//Gümrük ana yeri  ??      
-        dahildeTasimaSekli: new FormControl("",[Validators.maxLength(4)]),//25 iç taşıma şekli
-        sinirTasimaSekli:new FormControl("", [Validators.maxLength(40)]),//21 sınır taşıma şekli
-        cikisTasimaSekli:new FormControl("", [Validators.maxLength(4)]),  //25 deki taşıma şekli
+        yuklemeYeri: new FormControl("", [Validators.maxLength(20)]),
+        yukBosYerDil:new FormControl("", [Validators.maxLength(4)]),  
+        bosaltmaYer:new FormControl("", [Validators.maxLength(35)]),
+        esyaKabulYerKod: new FormControl("", [Validators.maxLength(17)]),
+        esyaKabulYerDil: new FormControl("", [Validators.maxLength(4)]),
+        esyaKabulYer: new FormControl("", [Validators.maxLength(17)]),
+        esyaOnayYer: new FormControl("", [Validators.maxLength(17)]),    
+        esyaYer: new FormControl("", [Validators.maxLength(20)]),    
+        dahildeTasimaSekli: new FormControl("",[Validators.maxLength(4)]),
+        sinirTasimaSekli:new FormControl("", [Validators.maxLength(40)]),
+        cikisTasimaSekli:new FormControl("", [Validators.maxLength(4)]),  
         cikisTasitKimligi:new FormControl("", [Validators.maxLength(40)]),  
         cikisTasitKimligiDil:new FormControl("", [Validators.maxLength(4)]),  
         cikisTasitUlke:new FormControl("", [Validators.maxLength(4)]),  
@@ -599,7 +601,9 @@ export class NctsBeyanComponent implements OnInit {
         tescilStatu:this._nctsBeyan.tescilStatu,
         tescilTarihi:this._nctsBeyan.tescilTarihi,
         varisUlke:this._nctsBeyan.varisUlke,  
-        cikisUlke:this._nctsBeyan.cikisUlke,
+        cikisUlke:this._nctsBeyan.cikisUlke,     
+        esyaKabulYerKod:this._nctsBeyan.esyaKabulYerKod,
+        esyaKabulYerDil:this._nctsBeyan.esyaKabulYerDil,
         esyaKabulYer:this._nctsBeyan.esyaKabulYer,
         esyaOnayYer:this._nctsBeyan.esyaOnayYer,
         yuklemeYeri:this._nctsBeyan.yuklemeYeri,

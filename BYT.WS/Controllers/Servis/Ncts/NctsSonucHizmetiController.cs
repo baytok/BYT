@@ -26,15 +26,17 @@ namespace BYT.WS.Controllers.Servis.Ncts
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class NctsSonucHizmetiController : ControllerBase
     {
-
-        private BeyannameSonucDataContext _sonucContext;
+        private readonly ServisCredential _servisCredential;
+        private IslemTarihceDataContext _islemTarihceContext;
         public IConfiguration Configuration { get; }
 
-        public NctsSonucHizmetiController(BeyannameSonucDataContext sonucContext, IConfiguration configuration)
+        public NctsSonucHizmetiController(IslemTarihceDataContext islemTarihcecontext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
-
+            _islemTarihceContext = islemTarihcecontext;
             Configuration = configuration;
-            _sonucContext = sonucContext;
+            _servisCredential = new ServisCredential();
+            _servisCredential.username = servisCredential.Value.username;
+            _servisCredential.password = servisCredential.Value.password;
 
         }
 
@@ -45,7 +47,20 @@ namespace BYT.WS.Controllers.Servis.Ncts
 
             try
             {
-                var _hatalar = await _sonucContext.DbSonucHatalar.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var optionss = new DbContextOptionsBuilder<KullaniciDataContext>()
+              .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+              .Options;
+                KullaniciDataContext _kullaniciContext = new KullaniciDataContext(optionss);
+                var islemValue= await _islemTarihceContext.Islem.FirstOrDefaultAsync(x=>x.IslemInternalNo==IslemInternalNo);
+                var kullaniciValues = await _kullaniciContext.Kullanici.Where(v => v.KullaniciKod == islemValue.Kullanici).FirstOrDefaultAsync();
+                string FIRM_ID = "BYT";
+                string USER_ID = DateTime.Now.ToString("yyyyMMddHHmmss") + "," + kullaniciValues.KullaniciKod + "," + kullaniciValues.KullaniciSifre;
+                NctsHizmeti.WS2ServiceClient Tescil = ServiceHelper.GetNctsWSClient(_servisCredential.username, _servisCredential.password);
+                //Tescil.getNotReadMessagesListAsync(FIRM_ID, USER_ID); // mail gibi kullanıcıları ile ilgili gelen mesajlara sık sık bakılacak, index veriyor
+                var index= Tescil.getMessagesListByGuidAsync(FIRM_ID,USER_ID,Guid); // guid ile gidip mesajları, index veriyor
+                //Tescil.downloadmessagebyindexAsync(FIRM_ID,USER_ID, index); // index ile mesajları alıyoruz.
+
+                //var _hatalar = await _sonucContext.DbSonucHatalar.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
                
                 return beyanSonuc;
 

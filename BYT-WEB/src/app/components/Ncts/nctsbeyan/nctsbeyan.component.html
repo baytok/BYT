@@ -975,7 +975,7 @@
                       </div>
                       <div class="form-group col">
                         <mat-form-field>
-                          <mat-label>Malların Yetkili konumu</mat-label>
+                          <mat-label>Mal Kabul konumu</mat-label>
                           <input                          
                             matNativeControl
                             formControlName="esyaKabulYer"                       
@@ -989,10 +989,52 @@
                          
                         </div>
                         </mat-form-field>
+                      </div>
+                      <div class="form-group col">
+                        <mat-form-field>
+                          <mat-label>Dil</mat-label>
+                          <select
+                            matNativeControl
+                            formControlName="esyaKabulYerDil"
+                           [ngClass]="{
+                              'is-invalid': submitted && focus.esyaKabulYerDil.errors
+                            }"
+                          >
+                            <option
+                              *ngFor="let r of _dilList"
+                              [value]="r.kod"
+                              
+                              >{{ r.kod }} {{ r.aciklama }}</option
+                            >
+                          </select>
+                          <div
+                            *ngIf="submitted && focus.esyaKabulYerDil.errors"
+                            class="invalid-feedback"
+                          >
+                           
+                          </div>
+                        </mat-form-field>
                       </div>  
                       <div class="form-group col">
                         <mat-form-field>
-                          <mat-label>Mal Kabul konumu</mat-label>
+                          <mat-label>Mal Kabul konumu, kodu</mat-label>
+                          <input                          
+                            matNativeControl
+                            formControlName="esyaKabulYerKod"                       
+                             [ngClass]="{'is-invalid':submitted && focus.esyaKabulYerKod.errors}"
+                          />
+                      
+                          <div
+                            *ngIf="submitted && focus.esyaKabulYerKod.errors"
+                            class="invalid-feedback"
+                          >
+                         
+                        </div>
+                        </mat-form-field>
+                      </div>  
+                      <div class="form-group col">
+                        <mat-form-field>
+                          <mat-label>Mallarin Yetkili konumu</mat-label>
                           <input                          
                             matNativeControl
                             formControlName="esyaOnayYer"                       
