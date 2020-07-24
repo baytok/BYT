@@ -232,12 +232,16 @@
                         </div>
                         <div class="form-group col">
                           <mat-form-field fxFlex="30%">
-                            <input
-                              matNativeControl
-                              type="text"
-                              placeholder="Ncts Ait Old.Kalem No"
-                              formControlName="kalemNo"
-                            />
+                            <select
+                            matNativeControl
+                            placeholder="Ncts Ait Old.Kalem No"
+                            formControlName="kalemNo"                            
+                          >
+                            <option *ngFor="let f of kalemler" [value]="f">{{
+                              f
+                            }}</option>
+                          </select>
+                          
                           </mat-form-field>
                         </div>
                         <div class="form-group col">

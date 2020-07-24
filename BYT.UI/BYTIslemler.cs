@@ -1,4 +1,5 @@
 ﻿using ArnicaCS_VPI;
+using BYT.UI.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,9 +23,8 @@ namespace BYT.UI
     {
         public SorgulamaHizmeti.GumrukWSSoapClient mysn = ServiceHelper.GetSonucWSClient("", "");
         public NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
-        string sqlconnProd = @"data source=LAPTOP-IRDC0I6A,1433;uid=bytapp;password=bytapp123!!; initial catalog=BYTDb";
 
-        public string Guid;
+        public string Guid, Token;
         public BYTIslemler(string s1, string s2)
         {
             Guid = s1;
@@ -32,54 +32,38 @@ namespace BYT.UI
         }
         private void BYTIslemler_Load(object sender, EventArgs e)
         {
-            SqlDataAdapter mydap = new SqlDataAdapter();
-            DataSet myds = new DataSet();
+            ServisManager manager = new ServisManager();
+            var result = manager.TarihceDetaylariGetir(Guid,Token);
+
+
             XmlDocument dd = new XmlDocument();
-            string commandText = "Select * from Tarihce Where Guid = @GUID;";
 
-            using (SqlConnection connection = new SqlConnection(sqlconnProd))
+
+            TxtGuid.Text = Guid;
+            TxtGuidTarih.Text = result.OlusturmaZamani.ToString();
+            TxtBasTarih.Text = result.GondermeZamani.ToString();
+            TxtGidTarih.Text = result.SonucZamani.ToString();
+            TxtRefID.Text = result.RefNo.ToString();
+            TxtTip.Text = result.IslemTipi.ToString();
+            TxtTicaret.Text = result.TicaretTipi.ToString();
+            TxtDurum.Text = result.IslemDurumu.ToString();
+            TxtGumruk.Text = result.Gumruk.ToString();
+            TxtRejim.Text = result.Rejim.ToString();
+            TxtIslemSonucu.Text = result.IslemSonucu.ToString();
+            if (result.ImzaliVeri != null)
+                rchImza.Text = result.ImzaliVeri.ToString();
+
+            dd.InnerXml = result.GonderilecekVeri.ToString().Replace(" &lt;", "<").Replace("&gt;", ">");
+            xmlGidecekVeri.XmlDocument = dd;
+            if (result.SonucVeri != null)
             {
-                SqlCommand command = new SqlCommand(commandText, connection);
-                command.Parameters.Add("@GUID", SqlDbType.VarChar);
-                command.Parameters["@GUID"].Value = Guid;
-                mydap.SelectCommand = command;
-               
-                try
-                {
-                    connection.Open();
-                    mydap.Fill(myds);
-                    if(myds!=null && myds.Tables!=null && myds.Tables.Count>0 && myds.Tables[0]!=null && myds.Tables[0].Rows.Count>0)
-                    {
-                        TxtGuid.Text = Guid;                        
-                        TxtGuidTarih.Text = myds.Tables[0].Rows[0]["OlusturmaZamani"].ToString();
-                        TxtBasTarih.Text= myds.Tables[0].Rows[0]["GondermeZamani"].ToString();
-                        TxtGidTarih.Text = myds.Tables[0].Rows[0]["SonucZamani"].ToString();
-                        TxtRefID.Text = myds.Tables[0].Rows[0]["RefNo"].ToString();
-                        TxtTip.Text = myds.Tables[0].Rows[0]["IslemTipi"].ToString();
-                        TxtTicaret.Text = myds.Tables[0].Rows[0]["TicaretTipi"].ToString();
-                        TxtDurum.Text = myds.Tables[0].Rows[0]["IslemDurumu"].ToString();
-                        TxtGumruk.Text = myds.Tables[0].Rows[0]["Gumruk"].ToString();
-                        TxtRejim.Text = myds.Tables[0].Rows[0]["Rejim"].ToString();
-                        TxtIslemSonucu.Text = myds.Tables[0].Rows[0]["IslemSonucu"].ToString();
-                        rchImza.Text= myds.Tables[0].Rows[0]["ImzaliVeri"].ToString();
-
-                        dd.InnerXml = myds.Tables[0].Rows[0]["GonderilecekVeri"].ToString().Replace("&lt;", "<").Replace("&gt;", ">"); 
-                        xmlGidecekVeri.XmlDocument = dd;
-                        if (myds.Tables[0].Rows[0]["SonucVeri"].ToString() != "")
-                        {
-                            dd.InnerXml = myds.Tables[0].Rows[0]["SonucVeri"].ToString().Replace("&lt;", "<").Replace("&gt;", ">");
-                            xmlSonuc.XmlDocument = dd;
-                        }
-
-                        if (rchImza.Text != "")
-                            btnXml.Visible = !btnXml.Visible;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                dd.InnerXml = result.SonucVeri.ToString().Replace(" &lt;", "<").Replace("&gt;", ">");
+                xmlSonuc.XmlDocument = dd;
             }
+
+            if (rchImza.Text != "")
+                btnXml.Visible = !btnXml.Visible;
+
 
         }
 
@@ -1329,9 +1313,9 @@ namespace BYT.UI
 
         private void btnOzet_Click(object sender, EventArgs e)
         {
-            OzetBeyanHizmeti.Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoapClient cl = ServiceHelper.GetOzetBeyanWSClient("","");
-          
-              
+            OzetBeyanHizmeti.Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoapClient cl = ServiceHelper.GetOzetBeyanWSClient("", "");
+
+
             //    try
             //    {
             //        System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate
@@ -1555,45 +1539,26 @@ namespace BYT.UI
 
         private void btnXml_Click(object sender, EventArgs e)
         {
-            
-           Encoding unicode = Encoding.UTF8;
+
+            Encoding unicode = Encoding.UTF8;
             byte[] msgBytes = Convert.FromBase64String(rchImza.Text);
             MessageBox.Show(Imzala.PlainText(msgBytes));
             MessageBox.Show(Imzala.CertificatesInfo(msgBytes));
-          
+
         }
 
         private void btnImzaliVeriKaydet_Click(object sender, EventArgs e)
         {
-            string commandTarihceText = "update Tarihce set ImzaliVeri=@ImzaliVeri, SonIslemZamani=@Tarih, IslemDurumu='Imzalandi',IslemSonucu = 'İmzalama Başarılı'  Where Guid = @GUID;";
-            string commandIslemText = "update Islem set  SonIslemZamani=@Tarih,IslemZamani=@Tarih, IslemDurumu='Imzalandi',IslemSonucu = 'İmzalama Başarılı' Where guidof = @GUID;";
-            using (SqlConnection connection = new SqlConnection(sqlconnProd))
-            { try
-                {
-                SqlCommand command = new SqlCommand(commandTarihceText, connection);
-                command.Parameters.Add("@GUID", SqlDbType.VarChar);
-                command.Parameters["@GUID"].Value = Guid;
-                command.Parameters.Add("@Tarih", SqlDbType.DateTime2);
-                command.Parameters["@Tarih"].Value = DateTime.Now;
-                command.Parameters.Add("@ImzaliVeri", SqlDbType.VarChar);
-                command.Parameters["@ImzaliVeri"].Value = rchImza.Text;
+            ServisManager manager = new ServisManager();
+            var result = manager.TarihceGuncellePost(rchImza.Text, Guid,Token);
 
-                    SqlCommand command2 = new SqlCommand(commandIslemText, connection);
-                    command2.Parameters.Add("@GUID", SqlDbType.VarChar).Value = Guid;
-                    command2.Parameters.Add("@Tarih", SqlDbType.DateTime2).Value = DateTime.Now; 
-                 
-                    
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    command2.ExecuteNonQuery();
-                    MessageBox.Show("Kaydetme İşlemi Başarılı");
-
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            if (result.ServisDurumKodlari == ServisDurumKodlari.IslemBasarili)
+            {
+                MessageBox.Show(result.Bilgiler[0].Sonuc);
+            }
+            else
+            {
+                MessageBox.Show(result.Hatalar[0].HataAciklamasi);
             }
         }
     }

@@ -24,7 +24,7 @@ namespace BYT.WS.Models
         public string TesIndMES18 { get; set; } // 0 ???
         public string MesIdeMES19 { get; set; } // 12041418291942,CC015BTR ???
         public string MesTypMES20 { get; set; } // CC029B,CC015B ???
-        public string ComAccRefMES21 { get; set; } // 101339640 ???
+        public string ComAccRefMES21 { get; set; } // 101339640 ??? //C0029B dönen cevabın içinde doluyor, muhtemelen gümrük tarafından doldurulana bir alan bir tarih olabilir
                                                  
         public TRAPRIPC1 TRAPRIPC1 { get; set; } //AsilSorumlu
         public TRACONCO1 TRACONCO1 { get; set; } //Gonderici
@@ -442,8 +442,8 @@ namespace BYT.WS.Models
         public char ConIndHEA96 { get; set; } //Containerised indicator, Konteyner
 
 
-        [StringLength(9)]
-        public string DiaLanIndAtDepHEA254 { get; set; } //Dialog language indicator at departure, ?????
+        //[StringLength(9)]
+        //public string DiaLanIndAtDepHEA254 { get; set; } //Dialog language indicator at departure, ?????
 
         [StringLength(4)]
         public string NCTSAccDocHEA601LNG { get; set; } //NCTS accompanying document language code, BeyanTipi_LNG

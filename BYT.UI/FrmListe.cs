@@ -14,8 +14,8 @@ namespace BYT.UI
     
     public partial class FrmListe : Form
     {
-        string sqlconnProd = @"data source=LAPTOP-IRDC0I6A,1433;uid=bytapp;password=bytapp123!!; initial catalog=BYTDb";
-        public string Kullanici;
+      
+        public string Kullanici, Token;
         public FrmListe()
         {
             InitializeComponent();
@@ -23,33 +23,25 @@ namespace BYT.UI
 
         private void FrmListe_Load(object sender, EventArgs e)
         {
-            SqlDataAdapter mydap = new SqlDataAdapter();
-            DataSet myds = new DataSet();
-            using (SqlConnection connection = new SqlConnection(sqlconnProd))
-            {
-                string commandText = "Select refno,islemInternalNo,beyanTipi,islemDurumu,islemSonucu,sonIslemZamani,GonderimSayisi,beyanNo, guidof from Islem Where guidof!='' and Kullanici = @Kullanici;";
-                SqlCommand command = new SqlCommand(commandText, connection);
-                command.Parameters.Add("@Kullanici", SqlDbType.VarChar);
-                command.Parameters["@Kullanici"].Value = Kullanici;
-                mydap.SelectCommand = command;
+            ServisManager manager = new ServisManager();
+            var list = manager.IslemleriGetir(Kullanici, Token);
 
-                try
-                {
-                    connection.Open();
-                    mydap.Fill(myds);
-                    dataGridView1.DataSource = myds.Tables[0];
-                }
-                catch (Exception exc)
-                {
+            if (list != null)
+                dataGridView1.DataSource = list;
 
-                }
-            }
+            
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             string guidOf = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells["guidof"].Value.ToString();
             BYTIslemler myDetail = new BYTIslemler(guidOf, null);
+            myDetail.Token = Token;
             myDetail.Show();
         }
     }

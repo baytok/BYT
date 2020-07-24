@@ -15,13 +15,13 @@ namespace BYT.UI.Models
 
         [Required]
         [StringLength(30)]
-        public string RefId { get; set; }
+        public string RefNo { get; set; }
 
         [Required]
         [StringLength(15)]
         public string Kullanici { get; set; }
 
-      
+
         [Required]
         [StringLength(30)]
         public string IslemInternalNo { get; set; }
@@ -29,14 +29,14 @@ namespace BYT.UI.Models
         [StringLength(30)]
         public string BeyanInternalNo { get; set; }
 
-       
+
         [StringLength(30)]
         public string BeyanNo { get; set; }
 
         [Required]
         [StringLength(30)]
         public string BeyanTipi { get; set; }
-    
+
 
         [Required]
         [StringLength(10)]
@@ -45,6 +45,7 @@ namespace BYT.UI.Models
         [Required]
         [StringLength(30)]
         public string IslemDurumu { get; set; }
+
 
         [StringLength(500)]
         public string IslemSonucu { get; set; }
@@ -56,8 +57,11 @@ namespace BYT.UI.Models
         [StringLength(50)]
         public string Guidof { get; set; }
 
-       
         public int GonderimSayisi { get; set; }
+
+        public DateTime? SonIslemZamani { get; set; }
+
+
 
     }
 

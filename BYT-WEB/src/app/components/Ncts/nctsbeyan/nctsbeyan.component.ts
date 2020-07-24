@@ -429,7 +429,7 @@ export class NctsBeyanComponent implements OnInit {
         konveyansRefNo:new FormControl("", [Validators.maxLength(35)]), 
         dorse1:new FormControl("", [Validators.maxLength(50)]), 
         dorse2:new FormControl("", [Validators.maxLength(50)]), 
-        damgaVergi: new FormControl("",[Validators.maxLength(15)]),       
+        damgaVergi: new FormControl("",[ValidationService.decimalValidation,Validators.maxLength(15)]),       
         musavirKimlikNo: new FormControl("",[ Validators.maxLength(15)]),  
         yer:new FormControl("", [Validators.required,Validators.maxLength(15)]),// asıl sorumlu ??    
         yerTarihDil:new FormControl("", [Validators.required,Validators.maxLength(4)]),// asul sorumlu ??   

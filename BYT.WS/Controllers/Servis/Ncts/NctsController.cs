@@ -807,6 +807,33 @@ namespace BYT.WS.Controllers.Servis.Ncts
             }
 
         }
+
+        [Route("api/BYT/Servis/NbKalemler/[controller]/{NctsBeyanInternalNo}")]
+        [HttpGet("{NctsBeyanInternalNo}")]
+        [HttpGet]
+        public async Task<List<int>> GetNctsKalemler(string NctsBeyanInternalNo)
+        {
+       
+            var options = new DbContextOptionsBuilder<NctsDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new NctsDataContext(options);
+            try
+            {
+
+                var nctsKalemValues = await _beyannameContext.NbKalem.Where(x => x.NctsBeyanInternalNo == NctsBeyanInternalNo).Select(x=>x.KalemSiraNo).ToListAsync();
+
+                return nctsKalemValues;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
     }
 
 

@@ -207,6 +207,101 @@ namespace BYT.WS.Controllers.api
 
 
         }
+
+        [Route("api/BYT/[controller]/IslemListesi/{KullaniciKod}")]
+        [HttpGet("{KullaniciKod}")]
+        public async Task<List<Islem>> GetIslemList(string KullaniciKod)
+        {
+            try
+            {
+
+                var resultIslem = await _islemContext.Islem.Where(x => x.Kullanici == KullaniciKod.Trim() && x.Guidof!="").ToListAsync();
+
+                return resultIslem;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+
+        [Route("api/BYT/[controller]/IslemDatay/{Guid}")]
+        [HttpGet("{Guid}")]
+        public async Task<Tarihce> GetIslemDeail(string Guid)
+        {
+            try
+            {
+
+                var resultIslem = await _islemContext.Tarihce.Where(x => x.Guid == Guid).FirstOrDefaultAsync();
+
+
+                return resultIslem;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+        [Route("api/BYT/[controller]/DetayGuncelle/{Guid}")]
+        [HttpPost("{Guid}")]
+        public async Task<ServisDurum> PostDeail([FromBody] string imzaliVeri, string Guid)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+            List<Hata> _hatalar = new List<Hata>();
+            try
+            {
+
+                var resultTarihce = await _islemContext.Tarihce.Where(x => x.Guid == Guid).FirstOrDefaultAsync();
+                resultTarihce.ImzaliVeri = imzaliVeri;
+                resultTarihce.SonIslemZamani = DateTime.Now;
+                resultTarihce.IslemDurumu = "Imzalandi";
+                resultTarihce.IslemSonucu = "İmzalama Başarılı";
+                _islemContext.Entry(resultTarihce).State = EntityState.Modified;
+
+                var resultIslem = await _islemContext.Islem.Where(x => x.Guidof == Guid).FirstOrDefaultAsync();
+                resultIslem.SonIslemZamani = DateTime.Now;
+                resultIslem.IslemZamani = DateTime.Now;
+                resultIslem.IslemDurumu = "Imzalandi";
+                resultIslem.IslemSonucu = "İmzalama Başarılı";
+                _islemContext.Entry(resultIslem).State = EntityState.Modified;
+
+                await _islemContext.SaveChangesAsync();
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = Guid, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                return _servisDurum;
+
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+                // var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                return _servisDurum;
+            }
+
+
+        }
+
+
     }
 
 

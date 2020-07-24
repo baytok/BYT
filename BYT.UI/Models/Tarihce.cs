@@ -17,7 +17,7 @@ namespace BYT.UI.Models
 
         [Required]
         [StringLength(30)]
-        public string RefId { get; set; }
+        public string RefNo { get; set; }
 
 
         [Required]
@@ -63,6 +63,11 @@ namespace BYT.UI.Models
         [StringLength(10)]
         public string Rejim { get; set; }
 
+        [StringLength(int.MaxValue)]
+        public string GonderilecekVeri { get; set; }
+
+        public DateTime OlusturmaZamani { get; set; }
+
 
         [StringLength(int.MaxValue)]
         public string GonderilenVeri { get; set; }
@@ -79,7 +84,10 @@ namespace BYT.UI.Models
         [StringLength(int.MaxValue)]
         public string ServistekiVeri { get; set; }
 
+        [StringLength(int.MaxValue)]
+        public string ImzaliVeri { get; set; }
 
+        public DateTime? SonIslemZamani { get; set; }
 
 
 

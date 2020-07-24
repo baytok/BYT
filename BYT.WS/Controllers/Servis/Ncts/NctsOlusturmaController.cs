@@ -83,9 +83,9 @@ namespace BYT.WS.Controllers.Servis.Ncts
                     try
                     {
 
-                        var ozetBeyanValues = await _beyannameContext.NbBeyan.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == beyan.NctsBeyanInternalNo && v.TescilStatu != "Tescil Edildi");
+                        var nctsBeyanValues = await _beyannameContext.NbBeyan.FirstOrDefaultAsync(v => v.NctsBeyanInternalNo == beyan.NctsBeyanInternalNo && v.TescilStatu != "Tescil Edildi");
                         var beyannameContext = new NctsDataContext(options);
-                        if (ozetBeyanValues != null)
+                        if (nctsBeyanValues != null)
                         {
                             _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.NctsBeyanInternalNo);
 
@@ -1230,6 +1230,7 @@ namespace BYT.WS.Controllers.Servis.Ncts
                             }
 
                         await _beyannameContext.SaveChangesAsync();
+                        NctsBeyanKalemKapKiloGuncelle(kalemValues.NctsBeyanInternalNo);
                         _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                         transaction.Commit();
                         List<Bilgi> lstBlg = new List<Bilgi>();
@@ -1326,8 +1327,10 @@ namespace BYT.WS.Controllers.Servis.Ncts
                     }
 
                     await beyannameContext.SaveChangesAsync();
+                  
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                     transaction.Commit();
+                    NctsBeyanKalemKapKiloGuncelle(kalem.NctsBeyanInternalNo);
                     List<Bilgi> lstBlg = new List<Bilgi>();
                     Bilgi blg = new Bilgi { IslemTipi = "Kalem Oluşturma/Değiştirme", ReferansNo = kalem.KalemInternalNo, Sonuc = "Kalem Oluşturma/Değiştirme  Başarılı", SonucVeriler = null };
                     lstBlg.Add(blg);
@@ -1356,7 +1359,46 @@ namespace BYT.WS.Controllers.Servis.Ncts
 
         }
 
+        void NctsBeyanKalemKapKiloGuncelle(string NctsBeyanInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+            var options = new DbContextOptionsBuilder<NctsDataContext>()
+              .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+              .Options;
 
+             var beyannameContext = new NctsDataContext(options);
+            int ToplamKapSayisi = 0; decimal ToplamBrutAgirlik = 0;
+            try
+            {
+                var beyanValues = beyannameContext.NbBeyan.FirstOrDefault(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo);
+                var kalemValues = beyannameContext.NbKalem.Where(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo).ToList();
+                var kapValues = beyannameContext.NbKap.Where(v => v.NctsBeyanInternalNo == NctsBeyanInternalNo).ToList();
+               if(kalemValues!=null)
+                foreach (var item in kalemValues)
+                {
+                  
+                    ToplamBrutAgirlik = ToplamBrutAgirlik + item.BurutAgirlik;
+                }
+
+                if (kapValues != null)
+                    foreach (var item in kapValues)
+                {
+
+                    ToplamKapSayisi = ToplamKapSayisi + item.KapAdet;
+                }
+                beyanValues.KalemSayisi = kalemValues.Count;
+                beyanValues.ToplamKapSayisi = ToplamKapSayisi;
+                beyanValues.KalemToplamBrutKG = ToplamBrutAgirlik;
+                _beyannameContext.Entry(beyanValues).State = EntityState.Modified;
+                _beyannameContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            { 
+            }
+
+        }
+     
+        
         [Route("api/BYT/Servis/NctsBeyan/[controller]/KalemAliciFirmaOlustur/{KalemInternalNo}/{NctsBeyanInternalNo}")]
         [HttpPost("{KalemInternalNo}/{NctsBeyanInternalNo}")]
         public async Task<ServisDurum> PostKalemAlici([FromBody] NbKalemAliciFirma firmaList, string KalemInternalNo, string NctsBeyanInternalNo)

@@ -17,7 +17,7 @@ namespace BYT.WS.Controllers.api
 {
     [Route("api/BYT/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+   // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TarihceHizmetiController : ControllerBase
     {
        
@@ -88,6 +88,8 @@ namespace BYT.WS.Controllers.api
 
           
         }
+
+     
     }
 
    

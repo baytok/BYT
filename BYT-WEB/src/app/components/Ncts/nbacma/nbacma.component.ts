@@ -34,6 +34,7 @@ import {
   NbAbAcmaDto,
   ServisDto,
 } from "../../../../shared/service-proxies/service-proxies";
+import { Observable } from 'rxjs';
 
 
 @Injectable() 
@@ -48,7 +49,7 @@ export class NbAcmaComponent implements OnInit {
   acmaForm: FormGroup; 
   obAcmaForm: FormGroup;
   abAcmaForm: FormGroup;
- 
+  kalemler: Observable<any>;
   closeResult: string;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
@@ -148,6 +149,7 @@ export class NbAcmaComponent implements OnInit {
       
     });
 
+    this.getKalemler();
    
     this.beyanServis.getNbObAcama(this._beyanSession.islemInternalNo).subscribe(
       (result: NbObAcmaDto[]) => {
@@ -360,6 +362,18 @@ setObAcma() {
 //#endregion ObAçma
 
 //#region AbAçma
+
+getKalemler() {
+  this.beyanServis.getNbKalemler(this.nctsBeyanInternalNo).subscribe(
+    (result:Observable<any>) => {
+       this.kalemler = result;
+      
+    },
+    err => {
+      this.beyanServis.errorHandel(err);
+    }
+  );
+}
 
 initabAcmaFormArray(antrepo: NbAbAcmaDto[]) {
   const formArray = this.abAcmaForm.get("abArry") as FormArray;

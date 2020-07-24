@@ -33,6 +33,7 @@ namespace BYT.UI
                 var yetkiler = result.KullaniciBilgileri.Yetkiler;
                 FrmListe myList = new FrmListe();
                 myList.Kullanici = txtKullanici.Text;
+                myList.Token = token;
                 myList.Show();
                 this.Hide();
             }

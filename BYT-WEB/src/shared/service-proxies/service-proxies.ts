@@ -500,7 +500,6 @@ export class BeyannameServiceProxy {
     
   }
   
-
   getSonucSorgula(Guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -2420,6 +2419,25 @@ export class BeyannameServiceProxy {
         acma,httpOptions  
         );
   }
+  getNbKalemler(NctsBeyanInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/NbKalemler/Ncts/" + NctsBeyanInternalNo,httpOptions
+    );
+  }
+
+
+  GetNctsKalemler
+
   getIstatistik(KullaniciKod) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
