@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BYT.WS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63b62bbedbc9272eb0612931671e0f2a2a70e3a6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+190726bf6aa06508c1383f9a821a6c5cc0672ad9")]
 [assembly: System.Reflection.AssemblyProductAttribute("BYT.WS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BYT.WS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

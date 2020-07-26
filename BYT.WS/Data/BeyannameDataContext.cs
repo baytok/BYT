@@ -36,7 +36,9 @@ namespace BYT.WS.Data
         public DbSet<DbVergi> DbVergi { get; set; }
         public DbSet<DbBelge> DbBelge { get; set; }
         public DbSet<DbSoruCevap> DbSoruCevap { get; set; }
-        
+        public DbSet<Igbh> Igbh { get; set; }
+        public DbSet<IgbhListe> IgbhListe { get; set; }
+        public DbSet<Mesai> Mesai { get; set; }
         public int GetRefIdNextSequenceValue(string Rejim)
         {
             SqlParameter result = new SqlParameter("@result", System.Data.SqlDbType.Int)

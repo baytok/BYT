@@ -1320,5 +1320,53 @@ namespace BYT.WS.Models
         public DateTime? SonIslemZamani { get; set; }
     }
 
+    public class Igbh
+    {
+        [Key]
+        public int ID { get; set; }
 
+        [Required]
+        [StringLength(30)]
+        public string IghbInternalNo { get; set; }
+
+
+        [Required]
+        [StringLength(9)]
+        public string GumrukKodu { get; set; }
+
+        [Required]
+        [StringLength(15)]
+        public string IzinliGondericiVergiNo { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string PlakaBilgisi { get; set; }
+
+
+        [StringLength(30)]
+        public string TesisKodu { get; set; }
+
+        [StringLength(30)]
+        public string TescilStatu { get; set; }
+
+        
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class IgbhListe
+    {
+        [Key]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string IghbInternalNo { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string TCGBNumarasi { get; set; }      
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+
+   
 }
