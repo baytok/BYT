@@ -85,7 +85,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 mesai.IP = "";
                 mesai.Adres = mesaiValues.Adres;
                 mesai.AracAdedi = mesaiValues.AracAdedi;
-                mesai.BaslangicZamani = mesaiValues.BaslangicZamani;
+                mesai.BaslangicZamani = Convert.ToDateTime(mesaiValues.BaslangicZamani);
                 mesai.BeyannameNo = mesaiValues.BeyannameNo;
                 mesai.DigerNo = mesaiValues.DigerNo;
                 mesai.EsyaninBulunduguYer = mesaiValues.EsyaninBulunduguYer;

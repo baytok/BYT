@@ -20,6 +20,9 @@ export class NaviComponent implements OnInit {
   ngOnInit() {
    
   }
+  get AdminRole() {
+    return this.userRoles.canAdminRoles();
+  }
   get BeyannameRole() {
         return this.userRoles.canBeyannameRoles();
   }
@@ -29,9 +32,12 @@ export class NaviComponent implements OnInit {
   get NctsBeyanRole() {
     return this.userRoles.canNctsBeyanRoles();
   }
-  get AdminRole() {
-    return this.userRoles.canAdminRoles();
-}
+  get MesaiRole() {
+    return this.userRoles.canMesaiRoles();
+  }
+  get IghbRole() {
+    return this.userRoles.canIghbRoles();
+  }
   public onSidenavClose = () => {
     this.sidenavClose.emit();
   }

@@ -9,14 +9,18 @@ namespace BYT.WS.Models
 {
     public class Mesai
     {
+     
         [Key]
-        public int ID { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
         [StringLength(30)]
         public string MesaiInternalNo { get; set; }
 
         [Required]
+        [StringLength(30)]
+        public string RefNo { get; set; }
+
+      
         [StringLength(30)]
         public string MesaiID { get; set; }
 
@@ -58,22 +62,29 @@ namespace BYT.WS.Models
         [StringLength(15)]
         public string FirmaVergiNo { get; set; }
 
+        [Required]
+        [StringLength(15)]
+        public string KullaniciKodu { get; set; }
+
         [StringLength(15)]
         public string GlobalHesaptanOdeme { get; set; }
 
         [StringLength(15)]
         public string GumrukSahasinda { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string IrtibatAdSoyad { get; set; }
 
+        [Required]
         [StringLength(20)]
         public string IrtibatTelefonNo { get; set; }
 
+        [Required]
         [StringLength(20)]
         public string IslemTipi { get; set; }
 
-        [StringLength(20)]
+        [StringLength(15)]
         public string OdemeYapacakFirmaVergiNo { get; set; }
        
         public int NCTSSayisi { get; set; }
@@ -81,7 +92,10 @@ namespace BYT.WS.Models
         public int OZBYSayisi { get; set; }
         public int Uzaklik { get; set; }
 
-        public DateTime BaslangicZamani { get; set; }
+        public string BaslangicZamani { get; set; }
+
+        public DateTime OlsuturulmaTarihi { get; set; }
+        public DateTime? TescilTarihi { get; set; }
         public DateTime? SonIslemZamani { get; set; }
     }
 

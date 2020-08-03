@@ -51,6 +51,8 @@ import { NctsBeyanComponent } from './components/Ncts/nctsbeyan/nctsbeyan.compon
 import { NbAcmaComponent } from './components/Ncts/nbacma/nbacma.component';
 import { NbKalemComponent } from './components/Ncts/nbkalem/nbkalem.component';
 import { NbDetayComponent } from './components/Ncts/nbdetay/nbdetay.component';
+import { IghbComponent } from './components/DetayliBeyan/ighb/ighb.component';
+import { MesaiComponent } from './components/DetayliBeyan/mesai/mesai.component';
 
 
 @NgModule({
@@ -89,6 +91,8 @@ import { NbDetayComponent } from './components/Ncts/nbdetay/nbdetay.component';
       NbAcmaComponent,
       NbKalemComponent,
       NbDetayComponent,
+      IghbComponent,
+      MesaiComponent,
        TestComponent
       
     

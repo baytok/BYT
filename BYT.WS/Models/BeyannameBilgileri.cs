@@ -1320,15 +1320,21 @@ namespace BYT.WS.Models
         public DateTime? SonIslemZamani { get; set; }
     }
 
-    public class Igbh
+    public class Ighb
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int ID { get; set; }
-
         [Required]
         [StringLength(30)]
         public string IghbInternalNo { get; set; }
 
+        [Required]
+        [StringLength(30)]
+        public string RefNo { get; set; }
+
+        [Required]
+        [StringLength(15)]
+        public string KullaniciKodu { get; set; }
 
         [Required]
         [StringLength(9)]
@@ -1342,18 +1348,20 @@ namespace BYT.WS.Models
         [StringLength(100)]
         public string PlakaBilgisi { get; set; }
 
-
+        [Required]
         [StringLength(30)]
         public string TesisKodu { get; set; }
 
         [StringLength(30)]
         public string TescilStatu { get; set; }
 
-        
+        public DateTime TescilTarihi { get; set; }
+        public DateTime OlsuturulmaTarihi { get; set; }
         public DateTime? SonIslemZamani { get; set; }
     }
-    public class IgbhListe
+    public class IghbListe
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int ID { get; set; }
 
@@ -1363,7 +1371,7 @@ namespace BYT.WS.Models
 
         [Required]
         [StringLength(20)]
-        public string TCGBNumarasi { get; set; }      
+        public string TcgbNumarasi { get; set; }      
 
         public DateTime? SonIslemZamani { get; set; }
     }

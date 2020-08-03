@@ -65,8 +65,8 @@ export class UserRoles {
         //  this.router.navigate(['giris'])
            }
        return yetki;
-   }
-   canNctsBeyanRoles():boolean{
+     }
+     canNctsBeyanRoles():boolean{
       
     if (this.girisService.loggedRoles!=null) {
       var yetki:boolean;     
@@ -87,7 +87,51 @@ export class UserRoles {
       //  this.router.navigate(['giris'])
          }
      return yetki;
- }
+     }
+     canMesaiRoles():boolean{
+      
+      if (this.girisService.loggedRoles!=null) {
+        var yetki:boolean;     
+          this.Yetkiler = [] as any;
+          for (let item of this.girisService.loggedRoles)
+           this.Yetkiler.push(item);  
+  
+  
+       for(let role of this.Yetkiler)
+       {
+         if(role.yetkiKodu==="AD" || role.yetkiKodu==="MB")
+          {          
+            yetki=true;
+            break;
+          }
+          else yetki=false;
+       }         
+        //  this.router.navigate(['giris'])
+           }
+       return yetki;
+      }
+      canIghbRoles():boolean{
+      
+        if (this.girisService.loggedRoles!=null) {
+          var yetki:boolean;     
+            this.Yetkiler = [] as any;
+            for (let item of this.girisService.loggedRoles)
+             this.Yetkiler.push(item);  
+    
+    
+         for(let role of this.Yetkiler)
+         {
+           if(role.yetkiKodu==="AD" || role.yetkiKodu==="IB")
+            {          
+              yetki=true;
+              break;
+            }
+            else yetki=false;
+         }         
+          //  this.router.navigate(['giris'])
+             }
+         return yetki;
+        }
      canAdminRoles():boolean{
       
       if (this.girisService.loggedRoles!=null) {

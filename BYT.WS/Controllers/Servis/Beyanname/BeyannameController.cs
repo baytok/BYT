@@ -131,7 +131,6 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             }
 
         }
-
       
 
         [Route("api/BYT/Servis/Odeme/[controller]/{IslemInternalNo}")]
@@ -567,6 +566,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             }
 
         }
+     
         [Route("api/BYT/Servis/TasimaSatir/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
         public async Task<List<DbOzetBeyanAcmaTasimaSatir>> GetTasimaSatir(string IslemInternalNo)
@@ -588,6 +588,99 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 }
 
                 return _tasimaSatir;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/Mesai/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<Mesai> GetMesai(string IslemInternalNo)
+        {
+            Mesai _mesai = new Mesai();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var _mesaiValues = await _beyannameContext.Mesai.FirstOrDefaultAsync(v => v.MesaiInternalNo == islemValues.BeyanInternalNo);
+
+                    _mesai = _mesaiValues;
+                }
+
+                return _mesai;
+
+            }
+            catch (Exception exc)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/Ighb/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<Ighb> GetIghb(string IslemInternalNo)
+        {
+            Ighb _Ighb = new Ighb();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var __IghbValues = await _beyannameContext.Ighb.FirstOrDefaultAsync(v => v.IghbInternalNo == islemValues.BeyanInternalNo);
+
+                    _Ighb = __IghbValues;
+                }
+
+                return _Ighb;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        [Route("api/BYT/Servis/IghbListe/[controller]/{IslemInternalNo}")]
+        [HttpGet("{IslemInternalNo}")]
+        public async Task<List<IghbListe>> GetIghbListe(string IslemInternalNo)
+        {
+            List<IghbListe> _Ighb = new List<IghbListe>();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+                 .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                 .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+            try
+            {
+                var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
+                if (islemValues != null)
+                {
+
+                    var __IghbListeValues = await _beyannameContext.IghbListe.Where(v => v.IghbInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+
+                    _Ighb = __IghbListeValues;
+                }
+
+                return _Ighb;
 
             }
             catch (Exception)

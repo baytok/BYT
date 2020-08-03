@@ -24,6 +24,12 @@
         <a  mat-list-item  *ngIf="NctsBeyanRole"  routerLink="/app/nctsbeyan" (click)="onSidenavClose()"  [matMenuTriggerFor]="nctsbeyan">
             <mat-icon>backup_table</mat-icon> <span class="nav-caption">Ncts Beyan</span>     
         </a>
+        <a  mat-list-item  *ngIf="MesaiRole"  routerLink="/app/mesai" (click)="onSidenavClose()"  >
+            <mat-icon>rule</mat-icon> <span class="nav-caption">Mesai</span>     
+        </a>
+        <a  mat-list-item  *ngIf="IghbRole"  routerLink="/app/ighb" (click)="onSidenavClose()"  >
+            <mat-icon>quickreply</mat-icon> <span class="nav-caption">Ighb</span>     
+        </a>
         <a mat-list-item routerLink="/app/islemler" (click)="onSidenavClose()" >
             <mat-icon>list</mat-icon> <span class="nav-caption">İşlemler</span>   
         </a>

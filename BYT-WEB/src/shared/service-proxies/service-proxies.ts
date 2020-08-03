@@ -2435,8 +2435,135 @@ export class BeyannameServiceProxy {
     );
   }
 
+  getMesai(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
 
-  GetNctsKalemler
+    return this.http.get(
+      this.baseUrl + "Servis/Mesai/Beyanname/" + IslemInternalNo,httpOptions
+    );
+  }
+  restoreMesai(mesai: MesaiDto,  mesaiInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/MesaiOlustur/"+mesaiInternalNo, 
+        mesai,httpOptions  
+        );
+  }
+  
+  removeMesai(mesaiInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/MesaiSil/"+mesaiInternalNo, httpOptions        
+      );
+  }
+
+  getIghb(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/Ighb/Beyanname/" + IslemInternalNo,httpOptions
+    );
+  }
+
+
+  restoreIghb(ighb: IghbDto,  ighbInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/IghbOlustur/"+ighbInternalNo, 
+        ighb,httpOptions  
+        );
+  }
+  removeIghb(ighbInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/IghbSil/"+ighbInternalNo, httpOptions        
+      );
+  }
+
+  restoreIghbListe(ighb: IghbListeDto[],  ighbInternalNo:string) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+  
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/IghbListeOlustur/"+ighbInternalNo, ighb,
+        httpOptions  
+        );
+  }
+  getIghbListe(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/IghbListe/Beyanname/" + IslemInternalNo,httpOptions
+    );
+  }
 
   getIstatistik(KullaniciKod) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
@@ -2462,6 +2589,8 @@ export class SessionServiceProxy {
   public beyanInternalNo: string;
   public ozetBeyanInternalNo: string;
   public nctsBeyanInternalNo:string;
+  public mesaiInternalNo:string;
+  public ighbInternalNo:string
   public beyanStatu: string;
   public token: string;
 
@@ -6429,8 +6558,162 @@ export class NbAbAcmaDto {
     return result;
   }
 }
+export class MesaiDto {
+  mesaiInternalNo: string; 
+  refNo:string;
+  mesaiID: string;
+  tescilStatu: string;
+  aracAdedi: number;
+  gumrukKodu: string;
+  adres: string;
+  beyannameNo: string;
+  digerNo: string;
+  esyaninBulunduguYer: string;
+  esyaninBulunduguYerAdi: string;
+  esyaninBulunduguYerKodu: string;
+  firmaVergiNo: string;
+  kullaniciKodu: string;
+  globalHesaptanOdeme: string;
+  gumrukSahasinda: string;
+  irtibatAdSoyad: string;
+  irtibatTelefonNo: string;
+  islemTipi: string;
+  odemeYapacakFirmaVergiNo:string;
+  nCTSSayisi:number;
+  oZBYSayisi:number;
+  uzaklik:number;
+  baslangicZamani:string;
+  tescilTarihi:string;
+
+  constructor(data?: MesaiDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.mesaiInternalNo=data["mesaiInternalNo"]!=null ?data["mesaiInternalNo"] :"";     
+        this.beyannameNo=data["beyannameNo"]!=null ?data["beyannameNo"] :"";
+        this.refNo=data["refNo"]!=null ?data["refNo"] :"";        
+        this.aracAdedi=data["miktar"]!=null ? parseInt( data["aracAdedi"]) :0;
+        this.mesaiID=data["mesaiID"]!=null ?data["mesaiID"] :"";
+        this.gumrukKodu=data["gumrukKodu"]!=null ?data["gumrukKodu"] :"";
+        this.adres=data["adres"]!=null ?data["adres"] :"";
+        this.digerNo=data["digerNo"]!=null ?data["digerNo"] :"";
+        this.esyaninBulunduguYer=data["esyaninBulunduguYer"]!=null ?data["esyaninBulunduguYer"] :"";
+        this.esyaninBulunduguYerAdi=data["esyaninBulunduguYerAdi"]!=null ?data["esyaninBulunduguYerAdi"] :"";
+        this.esyaninBulunduguYerKodu=data["esyaninBulunduguYerKodu"]!=null ?data["esyaninBulunduguYerKodu"] :"";
+        this.firmaVergiNo=data["firmaVergiNo"]!=null ?data["firmaVergiNo"] :"";
+        this.kullaniciKodu=data["kullaniciKodu"]!=null ?data["kullaniciKodu"] :"";
+        this.globalHesaptanOdeme=data["globalHesaptanOdeme"]!=null ?data["globalHesaptanOdeme"] :"";
+        this.gumrukSahasinda=data["gumrukSahasinda"]!=null ?data["gumrukSahasinda"] :"";
+        this.irtibatAdSoyad=data["irtibatAdSoyad"]!=null ?data["irtibatAdSoyad"] :"";
+        this.irtibatTelefonNo=data["irtibatTelefonNo"]!=null ?data["irtibatTelefonNo"] :"";
+        this.islemTipi=data["islemTipi"]!=null ?data["islemTipi"] :"";
+        this.odemeYapacakFirmaVergiNo=data["odemeYapacakFirmaVergiNo"]!=null ?data["odemeYapacakFirmaVergiNo"] :"";
+        this.nCTSSayisi=data["nCTSSayisi"]!=null ? parseInt( data["nCTSSayisi"]) :0;
+        this.oZBYSayisi=data["oZBYSayisi"]!=null ? parseInt( data["oZBYSayisi"]) :0;
+        this.uzaklik=data["uzaklik"]!=null ? parseInt( data["uzaklik"]) :0;
+        this.baslangicZamani=data["baslangicZamani"]!=null &&  data["baslangicZamani"]!='' ? data["baslangicZamani"] : "0001-01-01T00:00:00";
+        this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
+        this.tescilTarihi=data["tescilTarihi"]!=null &&  data["tescilTarihi"]!='' ? data["tescilTarihi"] : "0001-01-01T00:00:00";
+   
+    }
+  }
 
 
+  static fromJS(data: any): MesaiDto {
+    data = typeof data === "object" ? data : {};
+    let result = new MesaiDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class IghbDto {
+  ighbInternalNo: string; 
+  refNo:string;
+  kullaniciKodu:string;
+  gumrukKodu:string;
+  izinliGondericiVergiNo: string;
+  plakaBilgisi: string;
+  tesisKodu: string;
+  tescilStatu: string;
+  tescilTarihi:string;
+  constructor(data?: IghbDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.ighbInternalNo=data["ighbInternalNo"]!=null ?data["ighbInternalNo"] :"";     
+        this.refNo=data["refNo"]!=null ?data["refNo"] :"";
+        this.kullaniciKodu=data["kullaniciKodu"]!=null ?data["kullaniciKodu"] :"";
+        this.gumrukKodu=data["gumrukKodu"]!=null ?data["gumrukKodu"] :"";
+        this.izinliGondericiVergiNo=data["izinliGondericiVergiNo"]!=null ?data["izinliGondericiVergiNo"] :"";
+        this.plakaBilgisi=data["plakaBilgisi"]!=null ?data["plakaBilgisi"] :"";
+        this.tesisKodu=data["tesisKodu"]!=null ?data["tesisKodu"] :"";
+        this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
+        this.tescilTarihi=data["tescilTarihi"]!=null &&  data["tescilTarihi"]!='' ? data["tescilTarihi"] : "0001-01-01T00:00:00";
+   
+      
+    }
+  }
+
+
+  static fromJS(data: any): IghbDto {
+    data = typeof data === "object" ? data : {};
+    let result = new IghbDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class IghbListeDto {
+  ighbInternalNo: string; 
+   tcgbNumarasi:string;
+  
+  constructor(data?: IghbListeDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.ighbInternalNo=data["ighbInternalNo"]!=null ?data["ighbInternalNo"] :"";     
+        this.tcgbNumarasi=data["tcgbNumarasi"]!=null ?data["tcgbNumarasi"] :"";
+       
+    }
+  }
+
+
+  static fromJS(data: any): IghbListeDto {
+    data = typeof data === "object" ? data : {};
+    let result = new IghbListeDto();
+
+    result.init(data);
+    return result;
+  }
+}
 export class ReferansDto { 
   kod: string;
   aciklama: string; 

@@ -59,8 +59,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             try
             {
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim());
-                var ighbValues= await _beyannameContext.Igbh.FirstOrDefaultAsync(v => v.IghbInternalNo == islemValues.BeyanInternalNo);
-                var ighbListValues = await _beyannameContext.IgbhListe.Where(v => v.IghbInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                var ighbValues= await _beyannameContext.Ighb.FirstOrDefaultAsync(v => v.IghbInternalNo == islemValues.BeyanInternalNo);
+                var ighbListValues = await _beyannameContext.IghbListe.Where(v => v.IghbInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
                 IGHBHizmeti.Gumruk_Biztalk_IGHBClient ighbServis = ServiceHelper.GetIGHBWSClient(_servisCredential.username, _servisCredential.password);
 
@@ -74,7 +74,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 foreach (var item in ighbListValues)
                 {
                     IGHBHizmeti.TCGBBilgi tcgb = new IGHBHizmeti.TCGBBilgi();
-                    tcgb.TCGBNumarasi = item.TCGBNumarasi;
+                    tcgb.TCGBNumarasi = item.TcgbNumarasi;
                     tcgbler.Add(tcgb);
                 }
 

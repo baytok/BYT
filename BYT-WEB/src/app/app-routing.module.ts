@@ -24,6 +24,8 @@ import { NbAcmaComponent } from './components/Ncts/nbacma/nbacma.component';
 import { NbKalemComponent } from './components/Ncts/nbkalem/nbkalem.component';
 import { NbDetayComponent } from './components/Ncts/nbdetay/nbdetay.component';
 import { TestComponent } from './components/test/test.component';
+import { MesaiComponent } from './components/DetayliBeyan/mesai/mesai.component';
+import { IghbComponent } from './components/DetayliBeyan/ighb/ighb.component';
 
  @NgModule({
   imports: [
@@ -54,6 +56,8 @@ import { TestComponent } from './components/test/test.component';
               { path: 'nbdetay', component: NbDetayComponent,canActivate : [AuthGuard] },  
               { path: 'nbkalem', component: NbKalemComponent,canActivate : [AuthGuard] },    
               { path: 'nbacma', component: NbAcmaComponent,canActivate : [AuthGuard] },               
+              { path: 'mesai', component: MesaiComponent,canActivate : [AuthGuard] },               
+              { path: 'ighb', component: IghbComponent,canActivate : [AuthGuard] },               
               { path: 'test', component: TestComponent },    
                                    
           ],

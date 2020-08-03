@@ -3,7 +3,9 @@
       { kod:'AD', aciklama: 'Admin' },
       { kod: 'DB', aciklama: 'Detayli Beyan' },
       { kod: 'OB', aciklama: 'OzetBeyan' },
-      { kod: 'NB', aciklama: 'NCTS' }
+      { kod: 'NB', aciklama: 'NCTS' },
+      { kod: 'MB', aciklama: 'Mesai' },
+      { kod: 'IB', aciklama: 'Ighb' }
     ];
   
   

@@ -83,18 +83,17 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     try
                     {
 
-                        var ozetBeyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo && v.TescilStatu != "Tescil Edildi");
+                        var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo && v.TescilStatu != "Tescil Edildi");
                         var beyannameContext = new BeyannameDataContext(options);
-                        if (ozetBeyanValues != null)
-                        {
-                            _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo);
+                        if (beyanValues != null)
+                        {                          
 
                             beyan.TescilStatu = "Güncellendi";
                             beyan.SonIslemZamani = DateTime.Now;
                             beyannameContext.Entry(beyan).State = EntityState.Modified;
                             await beyannameContext.SaveChangesAsync();
 
-
+                            _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo);
                             _islem.IslemDurumu = "Güncellendi";
                             _islem.OlusturmaZamani = DateTime.Now;
                             _islem.SonIslemZamani = DateTime.Now;
@@ -2091,8 +2090,457 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         }
 
 
+        [Route("api/BYT/Servis/Beyanname/[controller]/MesaiOlustur/{MesaiInternalNo}")]
+        [HttpPost("{MesaiInternalNo}")]
+        public async Task<ServisDurum> PostMesai([FromBody] Mesai mesai, string MesaiInternalNo)
+        {
+          
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+           .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+           .Options;
+            ServisDurum _servisDurum = new ServisDurum();
+
+            List<Hata> _hatalar = new List<Hata>();
+
+            Islem _islem = new Islem();
+            try
+            {
+                var beyannameContext = new BeyannameDataContext(options);
+                var mesaiValues = await beyannameContext.Mesai.FirstOrDefaultAsync(v => v.MesaiInternalNo == mesai.MesaiInternalNo && v.TescilStatu != "Tescil Edildi");
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                   
+                        if (mesaiValues != null)
+                        {                           
+                            mesai.TescilStatu = "Güncellendi";
+                            mesai.SonIslemZamani = DateTime.Now;
+                        
+                            _beyannameContext.Entry(mesai).State = EntityState.Modified;
+                            await _beyannameContext.SaveChangesAsync();
+
+                            _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == mesai.MesaiInternalNo);
+
+                            _islem.IslemDurumu = "Güncellendi";
+                            _islem.OlusturmaZamani = DateTime.Now;
+                            _islem.SonIslemZamani = DateTime.Now;
+                            _islemTarihceContext.Entry(_islem).State = EntityState.Modified;
+                            await _islemTarihceContext.SaveChangesAsync();
+
+                        }
+
+                        else
+                        {
+                            var internalrefid = beyannameContext.GetMesaiIdNextSequenceValue();
+                            string InternalNo =  mesai.KullaniciKodu + "MB" + internalrefid.ToString().PadLeft(5, '0');
+
+                            MesaiInternalNo = InternalNo;
+                            mesai.MesaiInternalNo = InternalNo;
+                            mesai.TescilStatu = "Olusturuldu";
+                            mesai.OlsuturulmaTarihi = DateTime.Now;
+                            mesai.SonIslemZamani = DateTime.Now;
+                            beyannameContext.Entry(mesai).State = EntityState.Added;
+                            await beyannameContext.SaveChangesAsync();
 
 
+                            _islem.Kullanici = mesai.KullaniciKodu;
+                            _islem.IslemTipi = "";
+                            _islem.BeyanTipi = "Mesai";
+                            _islem.IslemDurumu = "Olusturuldu";
+                            _islem.RefNo = mesai.RefNo;
+                            _islem.BeyanInternalNo = mesai.MesaiInternalNo;
+                            _islem.IslemInternalNo = mesai.MesaiInternalNo;
+                            _islem.OlusturmaZamani = DateTime.Now;
+                            _islem.SonIslemZamani = DateTime.Now;
+                            _islem.GonderimSayisi = 0;
+
+                            _islemTarihceContext.Entry(_islem).State = EntityState.Added;
+                            await _islemTarihceContext.SaveChangesAsync();
+                        }
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        // var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Mesai Oluştur", ReferansNo = MesaiInternalNo, Sonuc = "Mesai Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+
+        [Route("api/BYT/Servis/Beyanname/[controller]/IghbOlustur/{IghbInternalNo}")]
+        [HttpPost("{IghbInternalNo}")]
+        public async Task<ServisDurum> PostIghb([FromBody] Ighb ighb, string IghbInternalNo)
+        {
+
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+           .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+           .Options;
+            ServisDurum _servisDurum = new ServisDurum();
+
+            List<Hata> _hatalar = new List<Hata>();
+
+            Islem _islem = new Islem();
+            try
+            {
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                        var ighbValues = await _beyannameContext.Ighb.FirstOrDefaultAsync(v => v.IghbInternalNo == ighb.IghbInternalNo && v.TescilStatu != "Tescil Edildi");
+                        var beyannameContext = new BeyannameDataContext(options);
+                        if (ighbValues != null)
+                        {
+                            _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == ighb.IghbInternalNo);
+
+                            ighb.TescilStatu = "Güncellendi";
+                            ighb.SonIslemZamani = DateTime.Now;
+                            beyannameContext.Entry(ighb).State = EntityState.Modified;
+                            await beyannameContext.SaveChangesAsync();
+
+
+                            _islem.IslemDurumu = "Güncellendi";
+                            _islem.OlusturmaZamani = DateTime.Now;
+                            _islem.SonIslemZamani = DateTime.Now;
+                            _islemTarihceContext.Entry(_islem).State = EntityState.Modified;
+                            await _islemTarihceContext.SaveChangesAsync();
+
+                        }
+
+                        else
+                        {
+                            var internalrefid = beyannameContext.GetIghbIdNextSequenceValue();
+                            string InternalNo =  ighb.KullaniciKodu + "IB" + internalrefid.ToString().PadLeft(5, '0');
+                            IghbInternalNo = InternalNo;
+                            ighb.IghbInternalNo = InternalNo;
+                            ighb.TescilStatu = "Olusturuldu";
+                            ighb.OlsuturulmaTarihi = DateTime.Now;
+                            ighb.SonIslemZamani = DateTime.Now;
+                            beyannameContext.Entry(ighb).State = EntityState.Added;
+                            await beyannameContext.SaveChangesAsync();
+
+
+                            _islem.Kullanici = ighb.KullaniciKodu;
+                            _islem.IslemTipi = "";
+                            _islem.BeyanTipi = "Ighb";
+                            _islem.IslemDurumu = "Olusturuldu";
+                            _islem.RefNo = ighb.RefNo;
+                            _islem.BeyanInternalNo = ighb.IghbInternalNo;
+                            _islem.IslemInternalNo = ighb.IghbInternalNo;
+                            _islem.OlusturmaZamani = DateTime.Now;
+                            _islem.SonIslemZamani = DateTime.Now;
+                            _islem.GonderimSayisi = 0;
+
+                            _islemTarihceContext.Entry(_islem).State = EntityState.Added;
+                            await _islemTarihceContext.SaveChangesAsync();
+                        }
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+                        // var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Ighb Oluştur", ReferansNo = IghbInternalNo, Sonuc = "Ighb Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+        [Route("api/BYT/Servis/Beyanname/[controller]/IghbListeOlustur/{IghbInternalNo}")]
+        [HttpPost("{IghbInternalNo}")]
+        public async Task<ServisDurum> PostIghbListe([FromBody] IghbListe[] ighbList, string IghbInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+            List<Hata> _hatalar = new List<Hata>();
+
+            try
+            {
+
+                using (var transaction = _beyannameContext.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var ighbListeValues = await _beyannameContext.IghbListe.Where(v => v.IghbInternalNo == IghbInternalNo).ToListAsync();
+
+                        foreach (var item in ighbListeValues)
+                        {
+                            _beyannameContext.Entry(item).State = EntityState.Deleted;
+
+                        }
+                        foreach (var item in ighbList)
+                        {
+                            item.SonIslemZamani = DateTime.Now;
+                            _beyannameContext.Entry(item).State = EntityState.Added;
+
+                        }
+
+                        await _beyannameContext.SaveChangesAsync();
+
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        transaction.Rollback();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                        List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                        lstht.Add(ht);
+                        _servisDurum.Hatalar = lstht;
+
+                        return _servisDurum;
+                    }
+
+                }
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+
+                List<Bilgi> lstBlg = new List<Bilgi>();
+                Bilgi blg = new Bilgi { IslemTipi = "Ighb Liste Oluştur", ReferansNo = IghbInternalNo, Sonuc = "Ighb Liste Oluşturma Başarılı", SonucVeriler = null };
+                lstBlg.Add(blg);
+                _servisDurum.Bilgiler = lstBlg;
+
+                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
+                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
+
+                return _servisDurum;
+            }
+            catch (Exception ex)
+            {
+
+                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                lstht.Add(ht);
+                _servisDurum.Hatalar = lstht;
+
+                return _servisDurum;
+            }
+
+
+        }
+
+        [Route("api/BYT/Servis/Beyanname/[controller]/MesaiSil/{mesaiInternalNo}")]
+        [HttpDelete("{mesaiInternalNo}")]
+        public async Task<ServisDurum> DeleteMesai(string mesaiInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+               .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+               .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+
+            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var mesaiValues = await _beyannameContext.Mesai.FirstOrDefaultAsync(v => v.MesaiInternalNo == mesaiInternalNo);
+
+                    if (mesaiValues != null)
+                    {
+                        _beyannameContext.Entry(mesaiValues).State = EntityState.Deleted;                        
+                      
+                        await _beyannameContext.SaveChangesAsync();
+
+                        var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == mesaiInternalNo);
+
+                        _islemTarihceContext.Entry(_islem).State = EntityState.Deleted;
+                        await _islemTarihceContext.SaveChangesAsync();
+
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                        transaction.Commit();
+                        List<Bilgi> lstBlg = new List<Bilgi>();
+                        Bilgi blg = new Bilgi { IslemTipi = "Mesai Silme", ReferansNo = mesaiInternalNo, Sonuc = "Mesai Silme Başarılı", SonucVeriler = null };
+                        lstBlg.Add(blg);
+                        _servisDurum.Bilgiler = lstBlg;
+                        return _servisDurum;
+                    }
+                    else
+                    {
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarisiz;
+                        transaction.Commit();
+                        List<Bilgi> lstBlg = new List<Bilgi>();
+                        Bilgi blg = new Bilgi { IslemTipi = "Measi Silme", ReferansNo = mesaiInternalNo, Sonuc = "Mesai Silme Başarısız", SonucVeriler = null };
+                        lstBlg.Add(blg);
+                        _servisDurum.Bilgiler = lstBlg;
+                        return _servisDurum;
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+                }
+
+            }
+
+        }
+
+        [Route("api/BYT/Servis/Beyanname/[controller]/IghbSil/{ighbInternalNo}")]
+        [HttpDelete("{ighbInternalNo}")]
+        public async Task<ServisDurum> DeleteIghb(string ighbInternalNo)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+               .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+               .Options;
+            var _beyannameContext = new BeyannameDataContext(options);
+
+            using (var transaction = _beyannameContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var ighbValues = await _beyannameContext.Ighb.FirstOrDefaultAsync(v => v.IghbInternalNo == ighbInternalNo);
+
+                    if (ighbValues != null)
+                    {
+                        _beyannameContext.Entry(ighbValues).State = EntityState.Deleted;
+
+                        var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == ighbInternalNo);
+
+                        _islemTarihceContext.Entry(_islem).State = EntityState.Deleted;
+                        await _islemTarihceContext.SaveChangesAsync();
+
+                        var listValues = await _beyannameContext.IghbListe.Where(v => v.IghbInternalNo == ighbInternalNo).ToListAsync();
+                        if (listValues.Count > 0)
+                            foreach (var item in listValues)
+                            {
+                                _beyannameContext.Entry(item).State = EntityState.Deleted;
+                            }
+
+
+                        await _beyannameContext.SaveChangesAsync();
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                        transaction.Commit();
+                        List<Bilgi> lstBlg = new List<Bilgi>();
+                        Bilgi blg = new Bilgi { IslemTipi = "Ighb Silme", ReferansNo = ighbInternalNo, Sonuc = "Ighb Silme Başarılı", SonucVeriler = null };
+                        lstBlg.Add(blg);
+                        _servisDurum.Bilgiler = lstBlg;
+                        return _servisDurum;
+                    }
+                    else
+                    {
+                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarisiz;
+                        transaction.Commit();
+                        List<Bilgi> lstBlg = new List<Bilgi>();
+                        Bilgi blg = new Bilgi { IslemTipi = "Ighb Silme", ReferansNo = ighbInternalNo, Sonuc = "Ighb Silme Başarısız", SonucVeriler = null };
+                        lstBlg.Add(blg);
+                        _servisDurum.Bilgiler = lstBlg;
+                        return _servisDurum;
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+                }
+
+            }
+
+
+        }
 
     }
 

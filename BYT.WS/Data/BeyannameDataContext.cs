@@ -36,8 +36,8 @@ namespace BYT.WS.Data
         public DbSet<DbVergi> DbVergi { get; set; }
         public DbSet<DbBelge> DbBelge { get; set; }
         public DbSet<DbSoruCevap> DbSoruCevap { get; set; }
-        public DbSet<Igbh> Igbh { get; set; }
-        public DbSet<IgbhListe> IgbhListe { get; set; }
+        public DbSet<Ighb> Ighb { get; set; }
+        public DbSet<IghbListe> IghbListe { get; set; }
         public DbSet<Mesai> Mesai { get; set; }
         public int GetRefIdNextSequenceValue(string Rejim)
         {
@@ -53,7 +53,32 @@ namespace BYT.WS.Data
 
         }
 
+        public int GetMesaiIdNextSequenceValue()
+        {
+            SqlParameter result = new SqlParameter("@result", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            string sequenceName = "RefIdMesai";
+            Database.ExecuteSqlCommand(
+                       "SELECT @result = (NEXT VALUE FOR  " + sequenceName + ")", result);
 
+            return (int)result.Value;
+
+        }
+        public int GetIghbIdNextSequenceValue()
+        {
+            SqlParameter result = new SqlParameter("@result", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            string sequenceName = "RefIdIghb";
+            Database.ExecuteSqlCommand(
+                       "SELECT @result = (NEXT VALUE FOR  " + sequenceName + ")", result);
+
+            return (int)result.Value;
+
+        }
 
     }
 }
