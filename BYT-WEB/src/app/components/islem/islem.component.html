@@ -226,7 +226,26 @@ type = "ball-8bits">
                         Kontrol Gönder
                       </button>
                       <button
+                      mat-menu-item
+                      [hidden]="!getMesaiMenu(element.beyanTipi)"
+                      (click)="
+                        sendingMesaiMessages(element.islemInternalNo)
+                      "
+                    >
+                      Mesai Başvuru
+                    </button>
+                    <button
+                    mat-menu-item
+                    [hidden]="!getIghbMenu(element.beyanTipi)"
+                    (click)="
+                      sendingIghbMessages(element.islemInternalNo)
+                    "
+                  >
+                    İzinli Hazır Bildirimi
+                  </button>
+                      <button
                         mat-menu-item
+                        [hidden]="!getTescilMesajiMenu(element.beyanTipi)"
                         (click)="
                           sendingTescilMessagesSet(element.islemInternalNo,element.beyanTipi)
                         "
@@ -499,7 +518,7 @@ type = "ball-8bits">
                       <button
                         mat-icon-button
                         color="primary"
-                        (click)="getMessageSonucSorgula(element.guid)"
+                        (click)="getMessageSonucSorgula(element.guid,element.islemTipi)"
                       >
                         <span
                           class="spinner-border spinner-border-sm"

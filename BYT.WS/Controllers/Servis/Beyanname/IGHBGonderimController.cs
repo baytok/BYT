@@ -205,7 +205,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     Internal.Hata ht = new Internal.Hata { HataKodu = 1, HataAciklamasi = islemSonucu };
                     lstht.Add(ht);
                 }
-                Bilgi blg = new Bilgi { IslemTipi = "Kontrol Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Kontrol Gönderimi Gerçekleşti", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "Ighb Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Ighb Gönderimi Gerçekleşti", SonucVeriler = null };
                 lstBlg.Add(blg);
 
 

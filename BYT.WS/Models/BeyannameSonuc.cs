@@ -1126,6 +1126,65 @@ namespace BYT.WS.Models
 
     }
 
-   
+    public class MesaiXmlSonuc
+    {
+        public string SonucXml { get; set; }
 
+        private string tescil_tarihi;
+
+        public string Tescil_tarihi
+        {
+            get { return tescil_tarihi; }
+            set { tescil_tarihi = value; }
+        }
+
+        private string mesai_ID;
+
+        public string Mesai_ID
+        {
+            get { return mesai_ID; }
+            set { mesai_ID = value; }
+        }
+
+        private List<HataMesaji> hatalar = new List<HataMesaji>();
+
+        public List<HataMesaji> Hatalar
+        {
+            get { return hatalar; }
+            set { hatalar = value; }
+        }
+       
+
+        public string Muayene_memuru { get; set; }
+
+    }
+
+    public class IghbXmlSonuc
+    {
+        public string SonucXml { get; set; }
+
+        private string tescil_tarihi;
+
+        public string Tescil_tarihi
+        {
+            get { return tescil_tarihi; }
+            set { tescil_tarihi = value; }
+        }
+
+      
+        private List<HataMesaji> hatalar = new List<HataMesaji>();
+
+        public List<HataMesaji> Hatalar
+        {
+            get { return hatalar; }
+            set { hatalar = value; }
+        }
+      
+
+
+
+    }
+
+  
+    
 }

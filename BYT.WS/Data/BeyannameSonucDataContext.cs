@@ -32,7 +32,7 @@ namespace BYT.WS.Data
         public DbSet<DbBelge> DbBelge { get; set; }
         public DbSet<DbSoruCevap> DbSoruCevap { get; set; }
 
-
+        public DbSet<ObOzetBeyanSonuc> ObOzetBeyanSonuc { get; set; }
 
 
 

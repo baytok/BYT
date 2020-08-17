@@ -395,6 +395,41 @@ export class BeyannameServiceProxy {
    
     
   }
+  MesaiGonderimi(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/MesaiGonderim/" +
+        IslemInternalNo + "/" + Kullanici,null,httpOptions  
+        );
+   
+    
+  }
+  IghbGonderimi(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Beyanname/IGHBGonderim/" +
+        IslemInternalNo + "/" + Kullanici,null,httpOptions  
+        );
+   
+    
+  }
+  
   BeyannameTescilMesajiHazirla(IslemInternalNo, Kullanici) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -500,7 +535,7 @@ export class BeyannameServiceProxy {
     
   }
   
-  getSonucSorgula(Guid) {
+  getBeyannameServisSonucSorgula(Guid) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
@@ -513,10 +548,88 @@ export class BeyannameServiceProxy {
     };
 
     return this.http.post<any>(
-      this.baseUrl + "Servis/SorgulamaHizmeti/" + Guid,null,
+      this.baseUrl + "Servis/BeyannameSorgulamaHizmeti/" + Guid,null,
       httpOptions
     );
   }
+  getOzetBeyanServisSonucSorgula(Guid) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/OzetBeyanSorgulamaHizmeti/" + Guid,null,
+      httpOptions
+    );
+  }
+ 
+  getNctsServisSonucSorgula(Guid) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/NctsSorgulamaHizmeti/" + Guid,null,
+      httpOptions
+    );
+  }
+  
+  getMesaiServisSonucSorgula(Guid) {
+    
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/MesaiSorgulamaHizmeti/" + Guid,null,
+      httpOptions
+    );
+
+
+  }
+
+  getIghbServisSonucSorgula(Guid) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/IghbSorgulamaHizmeti/" + Guid,null,
+      httpOptions
+    );
+
+  
+  }
+
   getBeyannameSonucSorgula(Guid, IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -536,6 +649,7 @@ export class BeyannameServiceProxy {
         IslemInternalNo,httpOptions
     );
   }
+
   getKalem(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;

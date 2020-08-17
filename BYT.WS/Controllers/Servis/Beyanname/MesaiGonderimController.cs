@@ -29,13 +29,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class MesaiGonderimController : ControllerBase
     {
-        string[] EX = {"1000","1021","1023","1040","1042","1072","1091","2100","2123","2141","2151","2152","2153","2172","2191","2300","2340","2341",
-            "2342","2351","2352","2353","2600","3141","3151","3152","3153","3158","3171"};
-        string[] IM = {"4000","4010","4051","4053","4058","4071","4072","4091","4100","4121","4123","4171","4191","4200","4210","4251","4253","4258",
-            "4271","4291","5100","5121","5123","5141","5171","5191","5200","5221","5223","5271","5291","5300","5321","5323","5341","5351","5352","5353",
-            "5358","5371","5391","5800","6121","6123","6321","6323","6326","6521","6523","6771","9100","9171"};
-        string[] AN = {"7100","7121","7123","7141","7151","7153","7158","7171","7191","7200","7241","7252","7272","7300"};
-        string[] DG = { "8100", "8200"};
+      
         private IslemTarihceDataContext _islemTarihceContext;
 
         private readonly ServisCredential _servisCredential;
@@ -214,7 +208,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     Internal.Hata ht = new Internal.Hata { HataKodu = 1, HataAciklamasi = islemSonucu };
                     lstht.Add(ht);
                 }
-                Bilgi blg = new Bilgi { IslemTipi = "Kontrol Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Kontrol Gönderimi Gerçekleşti", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "Mesai Başvuru Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Mesai Başvuru Gönderimi Gerçekleşti", SonucVeriler = null };
                 lstBlg.Add(blg);
 
 

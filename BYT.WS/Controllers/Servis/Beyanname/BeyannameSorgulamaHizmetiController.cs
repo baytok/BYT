@@ -19,18 +19,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace BYT.WS.Controllers.Servis
+namespace BYT.WS.Controllers.Servis.Beyanname
 {
     [Route("api/BYT/Servis/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class SorgulamaHizmetiController : ControllerBase
+    public class BeyannameSorgulamaHizmetiController : ControllerBase
     {
         private IslemTarihceDataContext _islemTarihceContext;
         private BeyannameDataContext _beyannameContext;
         private readonly ServisCredential _servisCredential;
         public IConfiguration Configuration { get; }
-        public SorgulamaHizmetiController(IslemTarihceDataContext islemTarihcecontext, BeyannameDataContext beyannameContex, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
+        public BeyannameSorgulamaHizmetiController(IslemTarihceDataContext islemTarihcecontext, BeyannameDataContext beyannameContex, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
             Configuration = configuration;
             _islemTarihceContext = islemTarihcecontext;
@@ -115,7 +115,7 @@ namespace BYT.WS.Controllers.Servis
                         // _islem.IslemDurumu = "Sonuclandi";
                         _islem.IslemZamani = DateTime.Now;
                         _islem.SonIslemZamani = DateTime.Now;
-                        _tarihce.BeyanNo = sonucObj.Result.Beyanname_no;
+                        _islem.BeyanNo = sonucObj.Result.Beyanname_no;
 
 
                         _islemTarihceContext.Entry(_islem).State = EntityState.Modified;

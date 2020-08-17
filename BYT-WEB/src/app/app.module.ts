@@ -53,6 +53,9 @@ import { NbKalemComponent } from './components/Ncts/nbkalem/nbkalem.component';
 import { NbDetayComponent } from './components/Ncts/nbdetay/nbdetay.component';
 import { IghbComponent } from './components/DetayliBeyan/ighb/ighb.component';
 import { MesaiComponent } from './components/DetayliBeyan/mesai/mesai.component';
+import { IghbSonucServisComponent } from './components/DetayliBeyan/ighbsonucservis/ighbsonucservis.component';
+import { MesaiSonucServisComponent } from './components/DetayliBeyan/mesaisonucservis/mesaisonucservis.component';
+import { NctsSonucServisComponent } from './components/Ncts/nctssonucservis/nctssonucservis.component';
 
 
 @NgModule({
@@ -67,6 +70,9 @@ import { MesaiComponent } from './components/DetayliBeyan/mesai/mesai.component'
       DbBeyannameComponent,
       BeyannameSonucServisComponent,    
       OzetBeyanSonucServisComponent,  
+      NctsSonucServisComponent,
+      MesaiSonucServisComponent,
+      IghbSonucServisComponent,
       GenelComponent,
       DbKalemComponent,
       KullanicilarComponent,
@@ -119,7 +125,8 @@ import { MesaiComponent } from './components/DetayliBeyan/mesai/mesai.component'
     
    ],
    entryComponents: [
-      BeyannameSonucServisComponent,OzetBeyanSonucServisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts
+      BeyannameSonucServisComponent,OzetBeyanSonucServisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts,
+      IghbSonucServisComponent,MesaiSonucServisComponent,NctsSonucServisComponent
       
 
    ],

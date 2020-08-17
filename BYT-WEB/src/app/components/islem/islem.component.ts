@@ -44,6 +44,10 @@ import {
   TarihceDto,
   ServisDto,
 } from "../../../shared/service-proxies/service-proxies";
+import { NctsBeyanComponent } from '../Ncts/nctsbeyan/nctsbeyan.component';
+import { NctsSonucServisComponent } from '../Ncts/nctssonucservis/nctssonucservis.component';
+import { MesaiSonucServisComponent } from '../DetayliBeyan/mesaisonucservis/mesaisonucservis.component';
+import { IghbSonucServisComponent } from '../DetayliBeyan/ighbsonucservis/ighbsonucservis.component';
 
 @Component({
   selector: "app-islem",
@@ -148,6 +152,23 @@ export class IslemComponent implements OnInit {
      return true;
     else  return false;
   }
+  getMesaiMenu(beyanTipi: string) {
+    if (beyanTipi == "Mesai")
+     return true;
+    else  return false;
+  }
+
+  getIghbMenu(beyanTipi: string) {
+    if (beyanTipi == "Ighb")
+     return true;
+    else  return false;
+  }
+  getTescilMesajiMenu(beyanTipi: string) {
+    if (beyanTipi == "Ncts" || beyanTipi == "DetayliBeyan" || beyanTipi == "OzetBeyan")
+     return true;
+    else  return false;
+  }
+  
   getTarihce(IslemInternalNo: string) {
     this._beyanSession.islemInternalNo = IslemInternalNo;
     this.beyanServis.getTarihce(IslemInternalNo).subscribe(
@@ -161,10 +182,13 @@ export class IslemComponent implements OnInit {
     );
   }
 
-  getMessageSonucSorgula(guid: string) {
+  getMessageSonucSorgula(guid: string,islemTipi: string) {
     this.loading = true;
+  
     const Servissonuc = new ServisDto();
-    const promise = this.beyanServis.getSonucSorgula(guid).toPromise();
+    if ( islemTipi.trim() == "0")
+    {
+    const promise = this.beyanServis.getOzetBeyanServisSonucSorgula(guid).toPromise();
     promise.then(
       (result) => {
         Servissonuc.init(result);
@@ -178,6 +202,75 @@ export class IslemComponent implements OnInit {
         this.beyanServis.errorHandel(err);
       }
     );
+    }
+   else if ( islemTipi.trim() == "1" || islemTipi.trim() == "2")
+    {
+    const promise = this.beyanServis.getBeyannameServisSonucSorgula(guid).toPromise();
+    promise.then(
+      (result) => {
+        Servissonuc.init(result);
+        this.loading = false;
+        this.openSnackBar(Servissonuc.Sonuc, "Tamam");
+        this.yenileTarihce();
+
+        this.loading = false;
+      },
+      (err) => {
+        this.beyanServis.errorHandel(err);
+      }
+    );
+    }
+    else if ( islemTipi.trim() == "4" )
+    {
+    const promise = this.beyanServis.getNctsServisSonucSorgula(guid).toPromise();
+    promise.then(
+      (result) => {
+        Servissonuc.init(result);
+        this.loading = false;
+        this.openSnackBar(Servissonuc.Sonuc, "Tamam");
+        this.yenileTarihce();
+
+        this.loading = false;
+      },
+      (err) => {
+        this.beyanServis.errorHandel(err);
+      }
+    );
+    }
+   else if ( islemTipi.trim() == "5" )
+    { 
+    const promise = this.beyanServis.getIghbServisSonucSorgula(guid).toPromise();
+    promise.then(
+      (result) => {
+        Servissonuc.init(result);
+        this.loading = false;
+        this.openSnackBar(Servissonuc.Sonuc, "Tamam");
+        this.yenileTarihce();
+
+        this.loading = false;
+      },
+      (err) => {
+        this.beyanServis.errorHandel(err);
+      }
+    );
+    }
+    else if ( islemTipi.trim() == "6" )
+    {
+    const promise = this.beyanServis.getMesaiServisSonucSorgula(guid).toPromise();
+    promise.then(
+      (result) => {
+        Servissonuc.init(result);
+        this.loading = false;
+        this.openSnackBar(Servissonuc.Sonuc, "Tamam");
+        this.yenileTarihce();
+
+        this.loading = false;
+      },
+      (err) => {
+        this.beyanServis.errorHandel(err);
+      }
+    );
+    }
   }
   getBeyanname(islemInternalNo: string, beyanTipi: string) {
     this._beyanSession.islemInternalNo = islemInternalNo;
@@ -198,6 +291,58 @@ export class IslemComponent implements OnInit {
 
       const promise = this.beyanServis
         .KontrolGonderimi(islemInternalNo, this.kullanici)
+        .toPromise();
+      promise.then(
+        (result) => {
+          const servisSonuc = new ServisDto();
+          servisSonuc.init(result);
+          var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());
+          this._beyanSession.guidOf = beyanServisSonuc.Guid;
+          this.loading = false;
+          this.getAllIslem();
+          this.getTarihce(islemInternalNo);
+
+          this.openSnackBar(servisSonuc.getSonuc(), "Tamam");
+        },
+        (err) => {
+          this.beyanServis.errorHandel(err);
+        }
+      );
+    }
+  }
+  sendingMesaiMessages(islemInternalNo: string) {
+    this._beyanSession.islemInternalNo = islemInternalNo;
+    if (confirm("Mesai Başvuru Gönderimi Yapamak İstediğinizden Eminmisiniz?")) {
+      this.loading = true;
+
+      const promise = this.beyanServis
+        .MesaiGonderimi(islemInternalNo, this.kullanici)
+        .toPromise();
+      promise.then(
+        (result) => {
+          const servisSonuc = new ServisDto();
+          servisSonuc.init(result);
+          var beyanServisSonuc = JSON.parse(servisSonuc.getSonuc());
+          this._beyanSession.guidOf = beyanServisSonuc.Guid;
+          this.loading = false;
+          this.getAllIslem();
+          this.getTarihce(islemInternalNo);
+
+          this.openSnackBar(servisSonuc.getSonuc(), "Tamam");
+        },
+        (err) => {
+          this.beyanServis.errorHandel(err);
+        }
+      );
+    }
+  }
+  sendingIghbMessages(islemInternalNo: string) {
+    this._beyanSession.islemInternalNo = islemInternalNo;
+    if (confirm("Ighb Gönderimi Yapamak İstediğinizden Eminmisiniz?")) {
+      this.loading = true;
+
+      const promise = this.beyanServis
+        .IghbGonderimi(islemInternalNo, this.kullanici)
         .toPromise();
       promise.then(
         (result) => {
@@ -369,13 +514,37 @@ export class IslemComponent implements OnInit {
       });    
      
     } 
-    else if ((beyan.trim()==='0' ) && (id === undefined || id <= 0))  {
+    else if ((beyan.trim()==='0' ))  {
       sonucDialog = this._dialog.open(OzetBeyanSonucServisComponent, {
         width: "700px",
         height: "600px",
         data: { guidOf: guid, islemInternalNo: islemInternalNo },
       });  
+    } 
+     else if ((beyan.trim()==='4' ) )  {
+      sonucDialog = this._dialog.open(NctsSonucServisComponent, {
+        width: "700px",
+        height: "600px",
+        data: { guidOf: guid, islemInternalNo: islemInternalNo },
+      });        
     }
+
+    else if ((beyan.trim()==='5' ) )  {
+      sonucDialog = this._dialog.open(IghbSonucServisComponent, {
+        width: "700px",
+        height: "600px",
+        data: { guidOf: guid, islemInternalNo: islemInternalNo },
+      });        
+    }
+
+    else if ((beyan.trim()==='6' ) )  {
+      sonucDialog = this._dialog.open(MesaiSonucServisComponent, {
+        width: "700px",
+        height: "600px",
+        data: { guidOf: guid, islemInternalNo: islemInternalNo },
+      });        
+    }
+
     sonucDialog.afterClosed().subscribe((result) => {
         if (result) {
           this.yenileIslemler();
