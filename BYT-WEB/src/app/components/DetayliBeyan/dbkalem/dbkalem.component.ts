@@ -45,6 +45,7 @@ import {
   BelgeDto,
   SoruCevapDto,
   ServisDto,
+  BeyanIslemDurumlari
  } from "../../../../shared/service-proxies/service-proxies";
 
 import {
@@ -127,7 +128,7 @@ export class DbKalemComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
- 
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   _beyannameBilgileri: BeyannameBilgileriDto;
   _kalemler: KalemDto[];
   _odemeler: OdemeDto[];
@@ -382,7 +383,7 @@ export class DbKalemComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (  this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
     return true;
     else return false;
   }
@@ -390,7 +391,7 @@ export class DbKalemComponent implements OnInit {
    console.log(this.kalemInternalNo);
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.kalemInternalNo!='' && this.kalemInternalNo!='Boş' && this.kalemInternalNo!=null && this.kalemInternalNo!='undefined' && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    if (this.kalemInternalNo!='' && this.kalemInternalNo!='Boş' && this.kalemInternalNo!=null && this.kalemInternalNo!='undefined' && (this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress))
       return true;
      else
        return false;

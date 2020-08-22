@@ -27,7 +27,8 @@ import {
 import {
   OzetBeyanDto,
   TasitUgrakUlkeDto,
-  ServisDto
+  ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
 import {
@@ -97,6 +98,7 @@ export class OzetbeyanComponent implements OnInit {
   ihracatEditable: boolean = false;
   ithalatEditable: boolean = false;
   ozetBeyanInternalNo:string;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   beyanStatu:string;
   editable: boolean = false;
   guidOf = this._beyanSession.guidOf;
@@ -114,6 +116,7 @@ export class OzetbeyanComponent implements OnInit {
 
 
   constructor(
+   
     private referansService:ReferansService,
     private beyanServis: BeyannameServiceProxy,
     private _beyanSession: SessionServiceProxy,
@@ -368,8 +371,10 @@ export class OzetbeyanComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
-     return true;
+
+   
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
+      return true;
     else return false;
   }
   getBeyannameKopyalama(islemInternalNo) {

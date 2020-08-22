@@ -25,6 +25,7 @@ import {
   KiymetDto,
   KiymetKalemDto,
   ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 import { ReferansService } from "../../../../shared/helpers/ReferansService";
 
@@ -46,6 +47,7 @@ export class KiymetComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
 
   constructor(
     private referansService: ReferansService,
@@ -138,7 +140,7 @@ export class KiymetComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (  this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
     return true;
     else return false;
   }
@@ -146,7 +148,7 @@ export class KiymetComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.kiymetInternalNo!='Boş' && this.kiymetInternalNo!=null && this.kiymetInternalNo!='' && this.kiymetInternalNo!='undefined' && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    if (this.kiymetInternalNo!='Boş' && this.kiymetInternalNo!=null && this.kiymetInternalNo!='' && this.kiymetInternalNo!='undefined' && ( this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress))
     return true;
     else return false;
   }

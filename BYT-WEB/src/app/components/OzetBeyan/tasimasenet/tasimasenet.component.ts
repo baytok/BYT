@@ -37,6 +37,7 @@ import {
   ObUgrakUlkeDto,
   ObSatirEsyaDto,
   ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 
 import {
@@ -121,6 +122,7 @@ export class TasimaSenetComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   ozetBeyanInternalNo = this._beyanSession.ozetBeyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   _beyannameBilgileri: BeyannameBilgileriDto;
   _senetler: ObTasimaSenetDto[];
   _satirlar: ObTasimaSatirDto[];
@@ -236,7 +238,7 @@ export class TasimaSenetComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (  this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
     return true;
     else return false;
   }
@@ -244,7 +246,7 @@ export class TasimaSenetComponent implements OnInit {
   
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if ((this.tasimaSenetInternalNo!='' && this.tasimaSenetInternalNo!='Boş' && this.tasimaSenetInternalNo!=null && this.tasimaSenetInternalNo!='undefined') && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    if ((this.tasimaSenetInternalNo!='' && this.tasimaSenetInternalNo!='Boş' && this.tasimaSenetInternalNo!=null && this.tasimaSenetInternalNo!='undefined') && ( this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress))
       return true;
      else
        return false;
@@ -935,7 +937,7 @@ get SatirStatu(): boolean {
   
   if (this.beyanStatu === "undefined" || this.beyanStatu === null)
     return false;
-  if ( this.tasimaSatirInternalNo!=='Boş' && this.tasimaSatirInternalNo!==null && this.tasimaSatirInternalNo!=='' && this.tasimaSenetInternalNo!=='undefined' && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+  if ( this.tasimaSatirInternalNo!=='Boş' && this.tasimaSatirInternalNo!==null && this.tasimaSatirInternalNo!=='' && this.tasimaSenetInternalNo!=='undefined' && (this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress))
     return true;
   else return false;
 }

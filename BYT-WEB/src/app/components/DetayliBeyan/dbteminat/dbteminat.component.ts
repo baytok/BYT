@@ -25,6 +25,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import {
   DbTeminatDto,
   ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 @Component({
   selector: 'app-teminat',
@@ -39,6 +40,7 @@ export class DbTeminatComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   _teminatList = teminat;
   constructor(  private beyanServis: BeyannameServiceProxy,
     private _beyanSession: SessionServiceProxy,
@@ -85,7 +87,7 @@ export class DbTeminatComponent implements OnInit {
     
       if(this.beyanStatu==='undefined' || this.beyanStatu===null)
       return false;
-      if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+      if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
        return true;
       else return false;
     }

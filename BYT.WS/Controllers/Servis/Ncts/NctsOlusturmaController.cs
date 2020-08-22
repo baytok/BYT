@@ -89,13 +89,13 @@ namespace BYT.WS.Controllers.Servis.Ncts
                         {
                             _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.NctsBeyanInternalNo);
 
-                            beyan.TescilStatu = "Güncellendi";
+                            beyan.TescilStatu = "Guncellendi";
                             beyan.SonIslemZamani = DateTime.Now;
                             beyannameContext.Entry(beyan).State = EntityState.Modified;
                             await beyannameContext.SaveChangesAsync();
 
 
-                            _islem.IslemDurumu = "Güncellendi";
+                            _islem.IslemDurumu = "Guncellendi";
                             _islem.OlusturmaZamani = DateTime.Now;
                             _islem.SonIslemZamani = DateTime.Now;
                             _islemTarihceContext.Entry(_islem).State = EntityState.Modified;

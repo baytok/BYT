@@ -27,6 +27,7 @@ import {
   DbOzetBeyanAcmaTasimaSenetDto,
   DbOzetBeyanAcmaTasimaSatirDto,
   ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 import { ReferansService } from "../../../../shared/helpers/ReferansService";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
@@ -52,6 +53,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   title = "Taşıma Satırları";
   closeResult: string;
   constructor(
@@ -122,7 +124,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   get BeyanStatu(): boolean {
     if (this.beyanStatu === "undefined" || this.beyanStatu === null)
       return false;
-    if (this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+      if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
       return true;
     else return false;
   }
@@ -134,7 +136,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
       this.ozetBeyanInternalNo != null &&
       this.ozetBeyanInternalNo != "" &&
       this.ozetBeyanInternalNo != "undefined" &&
-      (this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+      (this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
     )
       return true;
     else return false;
@@ -360,7 +362,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
       this.tasimaSenetInternalNo != null &&
       this.tasimaSenetInternalNo != "" &&
       this.tasimaSenetInternalNo != "undefined" &&
-      (this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+      (this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
     )
       return true;
     else return false;

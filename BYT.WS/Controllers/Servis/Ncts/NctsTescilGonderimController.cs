@@ -808,7 +808,7 @@ namespace BYT.WS.Controllers.Servis.Ncts
                 //        {
                 //            if (n.Name == "Guid")
                 //            {
-                //                IslemDurumu = "İşlemde";
+                //                IslemDurumu = "Islemde";
                 //                guidOf = n.InnerText;
 
 

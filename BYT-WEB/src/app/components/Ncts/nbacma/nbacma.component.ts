@@ -33,6 +33,7 @@ import {
   NbObAcmaDto,
   NbAbAcmaDto,
   ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 import { Observable } from 'rxjs';
 
@@ -56,7 +57,7 @@ export class NbAcmaComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   nctsBeyanInternalNo = this._beyanSession.nctsBeyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
-
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
    _ulkeList = this.referansService.getUlkeDilJSON();
   _dilList = this.referansService.getDilJSON();
   _dovizList = this.referansService.getTrDovizCinsiJSON(); 
@@ -119,7 +120,7 @@ export class NbAcmaComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (  this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
     return true;
     else return false;
   }
@@ -127,7 +128,7 @@ export class NbAcmaComponent implements OnInit {
   
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
       return true;
      else
        return false;

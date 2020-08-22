@@ -94,6 +94,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     var _tarihce = await _islemTarihceContext.Tarihce.FirstOrDefaultAsync(v => v.Guid == Guid);
                     var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.Kullanici == _tarihce.Kullanici && v.RefNo == _tarihce.RefNo);
                     var _beyanname = await _beyannameContext.Mesai.FirstOrDefaultAsync(v => v.MesaiInternalNo == _islem.BeyanInternalNo);
+                
+                    gidenXml = "<SonucBilgisi><BasariliMi>false</BasariliMi><TescilNo>20550100EX000451</TescilNo><TescilTarihi>21/08/2020 14:33:29</TescilTarihi><KalemSayisi>1</KalemSayisi><Hatalar /></SonucBilgisi>";
+                    //  gidenXml = "<SonucBilgisi><BasariliMi>false</BasariliMi><TescilNo/><Hatalar><HataBilgisi><HataAciklamasi>Esya kodu hatalidir(440390009000)</HataAciklamasi ></HataBilgisi></Hatalar></SonucBilgisi>";
 
 
                     var sonucObj = SonuclariTopla(gidenXml, Guid, _islem.IslemInternalNo, _tarihce.GonderimNo, _islem.BeyanInternalNo);
@@ -112,7 +115,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         await _islemTarihceContext.SaveChangesAsync();
 
 
-                        // _islem.IslemDurumu = "Sonuclandi";
+                         _islem.IslemDurumu = "Sonuclandi";
                         _islem.IslemZamani = DateTime.Now;
                         _islem.SonIslemZamani = DateTime.Now;
                         _islem.BeyanNo = sonucObj.Result.Mesai_ID;
@@ -123,11 +126,18 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
 
                         _beyanname.MesaiID = sonucObj.Result.Mesai_ID;
-                        if (!string.IsNullOrWhiteSpace(sonucObj.Result.Tescil_tarihi))
-                            _beyanname.TescilTarihi = Convert.ToDateTime(sonucObj.Result.Tescil_tarihi);
-                        _beyanname.SonIslemZamani = DateTime.Now;
-                        //  _beyanname.TescilStatu ="Tescil Edildi";
-
+                        if (!string.IsNullOrEmpty(sonucObj.Result.Mesai_ID))
+                        {
+                            if (!string.IsNullOrWhiteSpace(sonucObj.Result.Tescil_tarihi))
+                                _beyanname.TescilTarihi = Convert.ToDateTime(sonucObj.Result.Tescil_tarihi);
+                            _beyanname.SonIslemZamani = DateTime.Now;
+                            _beyanname.TescilStatu = "Tescil Edildi";
+                        }
+                        else
+                        {
+                            _beyanname.SonIslemZamani = DateTime.Now;
+                            _beyanname.TescilStatu = "Tescil Hatali";
+                        }
                         _beyannameContext.Entry(_beyanname).State = EntityState.Modified;
                         await _beyannameContext.SaveChangesAsync();
 

@@ -31,7 +31,8 @@ import {
   NbTeminatDto,
   NbMuhurDto,
   NbRotaDto,
-  ServisDto
+  ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 
 @Injectable() 
@@ -54,6 +55,7 @@ export class NbDetayComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   nctsBeyanInternalNo = this._beyanSession.nctsBeyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   _nctsBeyan: NctsBeyanDto = new NctsBeyanDto();  
   _gumrukAllList =this.referansService.getNctsGumrukAllJSON();
   _gumrukList =this.referansService.getNctsTrGumrukJSON();
@@ -214,7 +216,7 @@ export class NbDetayComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
      return true;
     else return false;
   }

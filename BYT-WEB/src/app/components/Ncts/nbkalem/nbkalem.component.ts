@@ -42,6 +42,7 @@ import {
    NbBelgelerDto,
    NbOncekiBelgelerDto,
    ServisDto,
+   BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 import {
   nctsrejim,
@@ -129,6 +130,7 @@ export class NbKalemComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   nctsBeyanInternalNo = this._beyanSession.nctsBeyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   _kalemler: NbKalemDto[];
   _konteynerler: NbKonteynerDto[];
   _hassasEsyalar: NbHassasEsyaDto[];
@@ -416,7 +418,8 @@ export class NbKalemComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (  this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
     return true;
     else return false;
   }
@@ -424,7 +427,7 @@ export class NbKalemComponent implements OnInit {
   
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if ((this.kalemInternalNo!='' && this.kalemInternalNo!='Boş' && this.kalemInternalNo!=null && this.kalemInternalNo!='undefined') && ( this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi"))
+    if ((this.kalemInternalNo!='' && this.kalemInternalNo!='Boş' && this.kalemInternalNo!=null && this.kalemInternalNo!='undefined') && (this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress))
       return true;
      else
        return false;

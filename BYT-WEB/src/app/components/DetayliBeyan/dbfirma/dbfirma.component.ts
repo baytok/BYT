@@ -7,7 +7,6 @@ import {
   FormControl,
   FormArray,
 } from "@angular/forms";
-
 import {
  
   kimlikTuru,
@@ -27,6 +26,7 @@ import {
 import {
   DbFirmaDto,
   ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 @Component({
   selector: "app-firma",
@@ -40,6 +40,8 @@ export class DbFirmaComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
+
   _ulkeList = this.referansService.getUlkeJSON();;
   _firmaTipiList = firmaTipi;
   _kimlikTuruList = kimlikTuru;
@@ -87,7 +89,7 @@ export class DbFirmaComponent implements OnInit {
     
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
      return true;
     else return false;
   }

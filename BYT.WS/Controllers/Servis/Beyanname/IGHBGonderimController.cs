@@ -113,7 +113,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         {
                             if (n.Name == "Guid")
                             {
-                                IslemDurumu = "İşlemde";
+                                IslemDurumu = "Islemde";
                                 guidOf = n.InnerText;
 
 

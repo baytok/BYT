@@ -26,7 +26,8 @@ import {
 } from "../../../../shared/service-proxies/ValidationService";
 import {
   MesaiDto,
-  ServisDto
+  ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
 import {
@@ -47,7 +48,9 @@ export class MesaiComponent implements OnInit {
   ihracatEditable: boolean = false;
   ithalatEditable: boolean = false;
   mesaiInternalNo:string;
-  beyanStatu:string;
+  beyanStatu:string;  
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
+
   editable: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
@@ -241,7 +244,7 @@ export class MesaiComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
      return true;
     else return false;
   }

@@ -56,11 +56,15 @@ namespace BYT
             {
                 x.UseSqlServer(Configuration.GetConnectionString("BYTConnection"));
             });
+            services.AddDbContext<OzetBeyanDataContext>(x =>
+            {
+                x.UseSqlServer(Configuration.GetConnectionString("BYTConnection"));
+            });
             services.AddDbContext<BeyannameSonucDataContext>(x =>
             {
                 x.UseSqlServer(Configuration.GetConnectionString("BYTConnection"));
             });
-
+            
 
             services.AddDbContext<KullaniciDataContext>();
 

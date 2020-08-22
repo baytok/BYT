@@ -424,7 +424,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                             islemValues.IslemDurumu = "Imzala";
                             islemValues.IslemZamani = DateTime.Now;
                             islemValues.SonIslemZamani = DateTime.Now;
-                            islemValues.IslemSonucu = "Tescil Mesajı Oluşturuldu";
+                            islemValues.IslemSonucu = "Tescil Mesaji Olusturuldu";
                             islemValues.Guidof = guidOf;
                             islemValues.GonderimSayisi++;
                             _islemTarihceContext.Entry(islemValues).State = EntityState.Modified;
@@ -432,13 +432,13 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         else
                         {
                             Islem _islem = new Islem();
-                            newIslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
+                            newIslemInternalNo = islemValues.BeyanInternalNo.Replace("OB", "OBTG");
                             _islem.Kullanici = islemValues.Kullanici;
                             _islem.IslemDurumu = "Imzala";
                             _islem.IslemInternalNo = newIslemInternalNo;
                             _islem.IslemZamani = DateTime.Now;
                             _islem.SonIslemZamani = DateTime.Now;
-                            _islem.IslemSonucu = "Tescil Mesajı Oluşturuldu";
+                            _islem.IslemSonucu = "Tescil Mesaji Olusturuldu";
                             _islem.Guidof = guidOf;
                             _islem.RefNo = islemValues.RefNo;
                             _islem.BeyanInternalNo = islemValues.BeyanInternalNo;
@@ -459,7 +459,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         _tarihce.Kullanici = Kullanici;
                         _tarihce.RefNo = islemValues.RefNo;
                         _tarihce.IslemDurumu = "Imzala";
-                        _tarihce.IslemSonucu = "Tescil Mesajı Oluşturuldu";
+                        _tarihce.IslemSonucu = "Tescil Mesaji Olusturuldu";
                         _tarihce.IslemTipi = "0";
                         _tarihce.TicaretTipi = ozetBeyanValues.Rejim;
                         _tarihce.GonderilecekVeri = imzasizMesaj;
@@ -470,7 +470,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         _islemTarihceContext.Entry(_tarihce).State = EntityState.Added;
 
                         ozetBeyanValues.SonIslemZamani = DateTime.Now;
-                        ozetBeyanValues.TescilStatu = "Tescil Mesajı Oluşturuldu";
+                        ozetBeyanValues.TescilStatu = "Tescil Mesaji Olusturuldu";
                         _beyannameContext.Entry(ozetBeyanValues).State = EntityState.Modified;
 
                         await _islemTarihceContext.SaveChangesAsync();
@@ -530,15 +530,16 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
         public async Task<ServisDurum> GetTescil(string IslemInternalNo, string Kullanici, string Guid)
         {
             ServisDurum _servisDurum = new ServisDurum();
-            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
+            var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
                    .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                    .Options;
-            var _beyannameContext = new BeyannameDataContext(options);
+            var _beyannameContext = new OzetBeyanDataContext(options);
             try
             {
 
                 var tarihceValues = await _islemTarihceContext.Tarihce.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim() && v.Guid == Guid.Trim() && v.IslemDurumu == "Imzalandi");
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim() && v.Guidof == Guid.Trim() && v.IslemDurumu == "Imzalandi");
+                var beyanBeyanValues = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
 
 
                 string guidOf = "", IslemDurumu = "", islemSonucu = "";
@@ -567,7 +568,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         {
                             if (n.Name == "Guid")
                             {
-                                IslemDurumu = "İşlemde";
+                                IslemDurumu = "Islemde";
                                 guidOf = n.InnerText;
 
 
@@ -590,12 +591,12 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                     {
                         islemValues.Kullanici = Kullanici;
                         islemValues.IslemDurumu = "Gonderildi";
-                        islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
+                        islemValues.IslemInternalNo = islemValues.BeyanInternalNo.Replace("OB", "OBTG");
                         islemValues.IslemZamani = DateTime.Now;
                         islemValues.SonIslemZamani = DateTime.Now;
                         islemValues.IslemSonucu = islemSonucu;
                         islemValues.Guidof = guidOf;
-                        islemValues.IslemTipi = "Tescil";
+                        islemValues.IslemTipi = "OzbyTescil";
                         islemValues.GonderimSayisi++;
 
 
@@ -611,6 +612,8 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         tarihceValues.SonIslemZamani = DateTime.Now;
                         tarihceValues.GonderimNo = islemValues.GonderimSayisi;
 
+                        beyanBeyanValues.SonIslemZamani = DateTime.Now;
+                        beyanBeyanValues.TescilStatu = "Tescil Gonderildi";
 
                         _islemTarihceContext.Entry(tarihceValues).State = EntityState.Modified;
                         await _islemTarihceContext.SaveChangesAsync();

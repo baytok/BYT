@@ -1,4 +1,4 @@
-import { ServisDurumKodlari } from './service-proxies/service-proxies';
+import { ServisDurumKodlari,BeyanDurum } from './service-proxies/service-proxies';
 
 
 export class AppServisDurumKodlari {
@@ -8,3 +8,4 @@ export class AppServisDurumKodlari {
     static DeclareError: number = ServisDurumKodlari._3;
     static ItemError: number = ServisDurumKodlari._3;
 }
+

@@ -27,7 +27,8 @@ import {
 import {
   IghbDto,
   IghbListeDto,
-  ServisDto
+  ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
 import {
@@ -48,6 +49,7 @@ export class IghbComponent implements OnInit {
   submitted: boolean = false;  
   ighbInternalNo:string;
   beyanStatu:string;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
   _ighb: IghbDto = new IghbDto();
@@ -220,7 +222,7 @@ export class IghbComponent implements OnInit {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
      return true;
     else return false;
   }

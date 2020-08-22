@@ -112,7 +112,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         await _islemTarihceContext.SaveChangesAsync();
 
 
-                        // _islem.IslemDurumu = "Sonuclandi";
+                         _islem.IslemDurumu = "Sonuclandi";
                         _islem.IslemZamani = DateTime.Now;
                         _islem.SonIslemZamani = DateTime.Now;
                         _islem.BeyanNo = sonucObj.Result.Beyanname_no;
@@ -120,13 +120,29 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                         _islemTarihceContext.Entry(_islem).State = EntityState.Modified;
                         await _islemTarihceContext.SaveChangesAsync();
+                      
 
+                        if (string.IsNullOrEmpty(sonucObj.Result.Beyanname_no))
+                        {
+                            _beyanname.BeyannameNo = sonucObj.Result.Beyanname_no;
+                            if (!string.IsNullOrWhiteSpace(sonucObj.Result.Tescil_tarihi))
+                                _beyanname.TescilTarihi = Convert.ToDateTime(sonucObj.Result.Tescil_tarihi);
+                            _beyanname.SonIslemZamani = DateTime.Now;                          
+                            _beyanname.TescilStatu = "Tescil Edildi";
+                          
+                        }
+                        else
+                        {
+                            if (sonucObj.Result.Tip == "2" && sonucObj.Result.Hatalar.Count>0)
+                                _beyanname.TescilStatu = "Tescil Hatali";
+                            else if (sonucObj.Result.Tip == "1" && sonucObj.Result.Hatalar.Count > 0)
+                             _beyanname.TescilStatu = "Kontrol Hatali";
+                            else if (sonucObj.Result.Tip == "1" && sonucObj.Result.Hatalar.Count==0)
+                                _beyanname.TescilStatu = "Kontrol Basarili";
 
-                        _beyanname.BeyannameNo = sonucObj.Result.Beyanname_no;
-                        if (!string.IsNullOrWhiteSpace(sonucObj.Result.Tescil_tarihi))
-                            _beyanname.TescilTarihi = Convert.ToDateTime(sonucObj.Result.Tescil_tarihi);
-                        _beyanname.SonIslemZamani = DateTime.Now;
-                        //  _beyanname.TescilStatu ="Tescil Edildi";
+                            _beyanname.SonIslemZamani = DateTime.Now;
+                           
+                        }
 
                         _beyannameContext.Entry(_beyanname).State = EntityState.Modified;
                         await _beyannameContext.SaveChangesAsync();

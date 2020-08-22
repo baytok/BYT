@@ -29,7 +29,8 @@ import {
   BeyannameBilgileriDto,
   BeyannameDto,
   KalemDto,
-  ServisDto
+  ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
 
@@ -201,6 +202,7 @@ export class DbBeyannameComponent implements OnInit {
   ithalatEditable: boolean = false;
   beyanInternalNo:string;
   beyanStatu:string;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   editable: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
@@ -629,9 +631,12 @@ export class DbBeyannameComponent implements OnInit {
   }
   get BeyanStatu():boolean {
   
+    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
-    if (this.beyanStatu === 'Olusturuldu' || this.beyanStatu === 'Güncellendi')
+
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
+   
      return true;
     else return false;
   }

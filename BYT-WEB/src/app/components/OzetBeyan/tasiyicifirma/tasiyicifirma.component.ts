@@ -23,6 +23,7 @@ import { ReferansService } from "../../../../shared/helpers/ReferansService";
 import {
   ObTasiyiciFirmaDto,
   ServisDto,
+  BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
 @Component({
   selector: "app-firma",
@@ -38,6 +39,7 @@ export class TasiyiciFirmaComponent implements OnInit {
   islemInternalNo = this._beyanSession.islemInternalNo;
   ozetBeyanInternalNo = this._beyanSession.ozetBeyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
+  beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   _ulkeList = this.referansService.getUlkeJSON();
   _firmaTipiList = firmaTipi;
   _kimlikTuruList = kimlikTuru;
@@ -163,7 +165,7 @@ export class TasiyiciFirmaComponent implements OnInit {
   get BeyanStatu(): boolean {
     if (this.beyanStatu === "undefined" || this.beyanStatu === null)
       return false;
-    if (this.beyanStatu === "Olusturuldu" || this.beyanStatu === "Güncellendi")
+      if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
       return true;
     else return false;
   }

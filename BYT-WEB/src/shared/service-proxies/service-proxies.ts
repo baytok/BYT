@@ -649,6 +649,25 @@ export class BeyannameServiceProxy {
         IslemInternalNo,httpOptions
     );
   }
+  getOzetBeyanSonucSorgula(Guid, IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.get(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanSonucHizmeti/" +
+        Guid +
+        "/" +
+        IslemInternalNo,httpOptions
+    );
+  }
 
   getKalem(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
@@ -3651,7 +3670,7 @@ export class BeyannameSonucDto {
   KalanKontor: string;
   MuayeneMemuru: string;
 
-  constructor(data?: ServisDto) {
+  constructor(data?: BeyannameSonucDto) {
     if (data) {
       for (var property in data) {
         if (data.hasOwnProperty(property))
@@ -3718,9 +3737,9 @@ export class BeyannameSonucDto {
     }
   }
 
-  static fromJS(data: any): ServisDto {
+  static fromJS(data: any): BeyannameSonucDto {
     data = typeof data === "object" ? data : {};
-    let result = new ServisDto();
+    let result = new BeyannameSonucDto();
 
     result.init(data);
     return result;
@@ -3783,9 +3802,70 @@ export class BeyannameSonucDto {
     return data;
   }
 
-  clone(): ServisDto {
+  clone(): BeyannameSonucDto {
     const json = this.toJSON();
-    let result = new ServisDto();
+    let result = new BeyannameSonucDto();
+    result.init(json);
+    return result;
+  }
+}
+export class OzetBeyanSonucDto {
+  Hatalar: SonucHatalarDto[];  
+  KalemSayisi: string;
+  TescilNo: string;
+  TescilTarihi:string;
+
+  constructor(data?: OzetBeyanSonucDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {
+      
+      if (Array.isArray(data["hatalar"])) {
+        this.Hatalar = [] as any;
+        for (let item of data["hatalar"]) this.Hatalar.push(item);
+      }   
+
+      this.KalemSayisi = data["kalemSayisi"];
+      this.TescilNo = data["tescilNo"];
+      this.TescilTarihi = data["tescilTarihi"];
+    
+    }
+  }
+
+  static fromJS(data: any): OzetBeyanSonucDto {
+    data = typeof data === "object" ? data : {};
+    let result = new OzetBeyanSonucDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};
+
+   
+    if (Array.isArray(this.Hatalar)) {
+      data["hatalar"] = [];
+      for (let item of this.Hatalar) data["hatalar"].push(item);
+    }
+  
+    data["kalemSayisi"]= this.KalemSayisi
+     data["tescilNo"]=this.TescilNo;
+    data["tescilTarihi"]= this.TescilTarihi;
+    
+    return data;
+  }
+
+  clone(): OzetBeyanSonucDto {
+    const json = this.toJSON();
+    let result = new OzetBeyanSonucDto();
     result.init(json);
     return result;
   }
@@ -3876,6 +3956,49 @@ export class KullaniciBilgileriDto {
 export class KullaniciYetkileri {
   yetkiKodu: string;
   yetkiAdi: string; 
+}
+
+export enum BeyanDurum {
+  
+  _0 = "Olusturuldu",
+  _1 = "Guncellendi",
+  _2 = "Islemde", 
+  _3 = "Islem Sonucu Hatali",
+  _4 = "Islem Sonucu Basarili",
+  _5 = "Kontrol Gonderildi",
+  _6 = "Tescil Gonderildi",
+  _7 = "OzetBeyan Gonderildi",
+  _8 = "Ncts Gonderildi",
+  _9 = "Mesai Gonderildi",
+  _10 = "Ighb Gonderildi",
+  _11 = "Tescil Mesaji Olusturuldu",
+  _12 = "Imzalandi",
+  _13 = "Kontrol Basarili",
+  _14 = "Kontrol Hatali",
+  _15 = "Tescil Edildi",
+  _16 = "Tescil Hatali",
+
+
+}
+
+export class BeyanIslemDurumlari {
+  static Progress: string = BeyanDurum._0 || BeyanDurum._1 || BeyanDurum._2 || BeyanDurum._13 || BeyanDurum._14 || BeyanDurum._16 ;
+  static Error: string = BeyanDurum._3;
+  static Success: string = BeyanDurum._4;
+  static Lock: string = BeyanDurum._5 || BeyanDurum._6 || BeyanDurum._7 ||BeyanDurum._8 ||BeyanDurum._9|| BeyanDurum._10|| BeyanDurum._11||BeyanDurum._12;
+  
+  islem(durumKod:string):string {  
+   
+       if(durumKod==BeyanDurum._0 || durumKod==BeyanDurum._1 || durumKod==BeyanDurum._2 || durumKod==BeyanDurum._13 || durumKod==BeyanDurum._14 || durumKod==BeyanDurum._16 )
+       return BeyanIslemDurumlari.Progress;
+       else if(durumKod==BeyanDurum._3)
+       return BeyanIslemDurumlari.Error;
+       else if(durumKod==BeyanDurum._4)
+       return BeyanIslemDurumlari.Success;
+       else if(durumKod==BeyanDurum._5 || durumKod==BeyanDurum._6 || durumKod==BeyanDurum._7 || durumKod==BeyanDurum._8 || durumKod==BeyanDurum._9|| durumKod==BeyanDurum._10|| durumKod==BeyanDurum._11|| durumKod==BeyanDurum._12)
+       return BeyanIslemDurumlari.Lock;
+       else BeyanIslemDurumlari.Lock;
+  }
 }
 
 export enum ServisDurumKodlari {
