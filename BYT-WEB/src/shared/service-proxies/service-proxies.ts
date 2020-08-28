@@ -649,6 +649,44 @@ export class BeyannameServiceProxy {
         IslemInternalNo,httpOptions
     );
   }
+  getMesaiSonucSorgula(Guid, IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.get(
+      this.baseUrl +
+        "Servis/Beyanname/MesaiSonucHizmeti/" +
+        Guid +
+        "/" +
+        IslemInternalNo,httpOptions
+    );
+  }
+  getIghbSonucSorgula(Guid, IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.get(
+      this.baseUrl +
+        "Servis/Beyanname/IghbSonucHizmeti/" +
+        Guid +
+        "/" +
+        IslemInternalNo,httpOptions
+    );
+  }
   getOzetBeyanSonucSorgula(Guid, IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -3809,6 +3847,123 @@ export class BeyannameSonucDto {
     return result;
   }
 }
+export class MesaiSonucDto {
+  Hatalar: SonucHatalarDto[];  
+  MesaiId: string;
+ 
+
+  constructor(data?: MesaiSonucDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {
+      
+      if (Array.isArray(data["hatalar"])) {
+        this.Hatalar = [] as any;
+        for (let item of data["hatalar"]) this.Hatalar.push(item);
+      }   
+
+      this.MesaiId = data["mesaiId"];
+     
+    }
+  }
+
+  static fromJS(data: any): MesaiSonucDto {
+    data = typeof data === "object" ? data : {};
+    let result = new MesaiSonucDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};
+
+   
+    if (Array.isArray(this.Hatalar)) {
+      data["hatalar"] = [];
+      for (let item of this.Hatalar) data["hatalar"].push(item);
+    }
+  
+    data["mesaiId"]= this.MesaiId
+
+    
+    return data;
+  }
+
+  clone(): MesaiSonucDto {
+    const json = this.toJSON();
+    let result = new MesaiSonucDto();
+    result.init(json);
+    return result;
+  }
+}
+
+export class IghbSonucDto {
+  Hatalar: SonucHatalarDto[];  
+ // MesaiId: string;
+ 
+
+  constructor(data?: IghbSonucDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {
+      
+      if (Array.isArray(data["hatalar"])) {
+        this.Hatalar = [] as any;
+        for (let item of data["hatalar"]) this.Hatalar.push(item);
+      }   
+
+     // this.MesaiId = data["mesaiId"];
+     
+    }
+  }
+
+  static fromJS(data: any): IghbSonucDto {
+    data = typeof data === "object" ? data : {};
+    let result = new IghbSonucDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};
+
+   
+    if (Array.isArray(this.Hatalar)) {
+      data["hatalar"] = [];
+      for (let item of this.Hatalar) data["hatalar"].push(item);
+    }
+  
+   // data["mesaiId"]= this.MesaiId
+
+    
+    return data;
+  }
+
+  clone(): IghbSonucDto {
+    const json = this.toJSON();
+    let result = new IghbSonucDto();
+    result.init(json);
+    return result;
+  }
+}
+
+
 export class OzetBeyanSonucDto {
   Hatalar: SonucHatalarDto[];  
   KalemSayisi: string;

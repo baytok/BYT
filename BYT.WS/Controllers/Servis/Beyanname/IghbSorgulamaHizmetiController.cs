@@ -80,7 +80,18 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                                     {
                                         gidenXml = t.InnerText;
                                     }
+                                    else if (t.Name == "Islem")
+                                    {
+                                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                                        List<Internal.Hata> lsthtt = new List<Internal.Hata>();
 
+                                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = t.InnerText };
+                                        lsthtt.Add(ht);
+                                        _servisDurum.Hatalar = lsthtt;
+
+                                        return _servisDurum;
+                                   
+                                    }
                                 }
 
 
@@ -92,12 +103,10 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 try
                 {
                     var _tarihce = await _islemTarihceContext.Tarihce.FirstOrDefaultAsync(v => v.Guid == Guid);
-                    var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.Kullanici == _tarihce.Kullanici && v.RefNo == _tarihce.RefNo);
-                    var _beyanname = await _beyannameContext.Ighb.FirstOrDefaultAsync(v => v.IghbInternalNo == _islem.BeyanInternalNo);
+                    var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v=> v.Guidof == _tarihce.Guid);
+                    var _beyanname = await _beyannameContext.DbIghb.FirstOrDefaultAsync(v => v.IghbInternalNo == _islem.BeyanInternalNo);
 
-                    gidenXml = "<SonucBilgisi><BasariliMi>false</BasariliMi><TescilNo>20550100EX000451</TescilNo><TescilTarihi>21/08/2020 14:33:29</TescilTarihi><KalemSayisi>1</KalemSayisi><Hatalar /></SonucBilgisi>";
-                    //  gidenXml = "<SonucBilgisi><BasariliMi>false</BasariliMi><TescilNo/><Hatalar><HataBilgisi><HataAciklamasi>Esya kodu hatalidir(440390009000)</HataAciklamasi ></HataBilgisi></Hatalar></SonucBilgisi>";
-
+               
                     var sonucObj = SonuclariTopla(gidenXml, Guid, _islem.IslemInternalNo, _tarihce.GonderimNo, _islem.BeyanInternalNo);
                   
                     if (sonucObj.Result != null)
@@ -125,11 +134,17 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
 
                         //_beyanname.BeyannameNo = sonucObj.Result.Beyanname_no;
-                        if (!string.IsNullOrWhiteSpace(sonucObj.Result.Tescil_tarihi))
-                            _beyanname.TescilTarihi = Convert.ToDateTime(sonucObj.Result.Tescil_tarihi);
-                        _beyanname.SonIslemZamani = DateTime.Now;
-                          _beyanname.TescilStatu ="Tescil Edildi";
-
+                        if (!string.IsNullOrWhiteSpace(sonucObj.Result.TescilTarihi))
+                        {
+                            _beyanname.TescilTarihi = Convert.ToDateTime(sonucObj.Result.TescilTarihi);
+                            _beyanname.SonIslemZamani = DateTime.Now;
+                            _beyanname.TescilStatu = "Tescil Edildi";
+                        }
+                        else
+                        {
+                            _beyanname.SonIslemZamani = DateTime.Now;
+                            _beyanname.TescilStatu = "Tescil Hatali";
+                        }
                         _beyannameContext.Entry(_beyanname).State = EntityState.Modified;
                         await _beyannameContext.SaveChangesAsync();
 
@@ -222,17 +237,17 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     }
                     sonucObj.SonucXml = XML;
                      
-                    XmlNodeList XmlNodeListObj3 = xd.GetElementsByTagName("Tescil_tarihi");
+                    //XmlNodeList XmlNodeListObj3 = xd.GetElementsByTagName("Tescil_tarihi");
                     XmlNodeList XMLhatalar = xd.GetElementsByTagName("Hatalar");
                   
 
 
                    
-                    if (XmlNodeListObj3[0] != null)
-                    {
-                        if (XmlNodeListObj3[0].ChildNodes[0] != null)
-                            sonucObj.Tescil_tarihi = XmlNodeListObj3[0].ChildNodes[0].Value;
-                    }
+                    //if (XmlNodeListObj3[0] != null)
+                    //{
+                    //    if (XmlNodeListObj3[0].ChildNodes[0] != null)
+                    //        sonucObj.Tescil_tarihi = XmlNodeListObj3[0].ChildNodes[0].Value;
+                    //}
 
                     #region Hatalar
 
@@ -240,7 +255,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     {
                         XmlNodeList xHata = XMLhatalar[0].ChildNodes;
 
-                        List<HataMesaji> shatalar = new List<HataMesaji>();
+                        List<DbIghbSonucHatalar> shatalar = new List<DbIghbSonucHatalar>();
 
                         int hata_kodu;
                         string hata_aciklamasi;
@@ -249,13 +264,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             hata_kodu = !string.IsNullOrWhiteSpace(var.ChildNodes[0].InnerText) ? Convert.ToInt32(var.ChildNodes[0].InnerText) : 0;
                             hata_aciklamasi = var.ChildNodes[1].InnerText;
 
-                            HataMesaji hataObj = new HataMesaji();
+                            DbIghbSonucHatalar hataObj = new DbIghbSonucHatalar();
                             hataObj.HataKodu = hata_kodu;
                             hataObj.HataAciklamasi = hata_aciklamasi;
 
                             shatalar.Add(hataObj);
 
-                            DbSonucHatalar _hata = new DbSonucHatalar();
+                            DbIghbSonucHatalar _hata = new DbIghbSonucHatalar();
 
                             _hata.Guid = GuidOf;
                             _hata.GonderimNo = GonderimNo;
@@ -274,8 +289,23 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                     #endregion
 
-                    //TODO Ighb olumlus sonuçları, mesaisonuc tablosu oluşturarak oraya yaz
+                    DbIghbSonuc _ighb = new DbIghbSonuc();
+                    _ighb.IslemInternalNo = InternalNo;
+                    _ighb.Guid = GuidOf;
+                    _ighb.GonderimNo = GonderimNo;
+                    _ighb.SonIslemZamani = DateTime.Now;
 
+                    if (XMLhatalar[0].ChildNodes.Count == 0)
+                    {
+                        //_ighb.MesaiID = sonucObj.Mesai_ID;
+                        _ighb.TescilTarihi = DateTime.Now.ToShortTimeString();
+                        _ighb.Durum = "Tescil Edildi";
+
+                    }
+                    else
+                        _ighb.Durum = "Tescil Hatali";
+
+                    _beyannameSonucTarihcecontext.Entry(_ighb).State = EntityState.Added;
                     await _beyannameSonucTarihcecontext.SaveChangesAsync();
                     transaction.Commit();
                 }

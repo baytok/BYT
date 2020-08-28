@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BYT.WS.Models
 {
-    public class ObOzetBeyanSonuc
+    public class ObSonuc
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -45,7 +45,7 @@ namespace BYT.WS.Models
 
         public string TescilNo { get; set; }
 
-        public List<HataMesaji> Hatalar { get; set; }
+        public List<ObSonucHatalar> Hatalar { get; set; }
 
         public string KalemSayisi { get; set; }
     }

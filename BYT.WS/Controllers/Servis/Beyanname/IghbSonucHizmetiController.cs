@@ -19,18 +19,18 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace BYT.WS.Controllers.Servis.OzetBeyan
+namespace BYT.WS.Controllers.Servis.Beyanname
 {
-    [Route("api/BYT/Servis/OzetBeyan/[controller]")]
+    [Route("api/BYT/Servis/Beyanname/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OzetBeyanSonucHizmetiController : ControllerBase
+    public class IghbSonucHizmetiController : ControllerBase
     {
 
         private BeyannameSonucDataContext _sonucContext;
         public IConfiguration Configuration { get; }
 
-        public OzetBeyanSonucHizmetiController(BeyannameSonucDataContext sonucContext, IConfiguration configuration)
+        public IghbSonucHizmetiController(BeyannameSonucDataContext sonucContext, IConfiguration configuration)
         {
 
             Configuration = configuration;
@@ -39,33 +39,31 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
         }
 
         [HttpGet("{IslemInternalNo}/{Guid}")]
-        public async Task<OzetBeyanXmlSonuc> Get(string IslemInternalNo, string Guid)
+        public async Task<MesaiXmlSonuc> Get(string IslemInternalNo, string Guid)
         {
-            OzetBeyanXmlSonuc beyanSonuc = new OzetBeyanXmlSonuc();
+            MesaiXmlSonuc beyanSonuc = new MesaiXmlSonuc();
 
             try
             {
-                var _hatalar = await _sonucContext.ObSonucHatalar.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
-                var _bilgiler = await _sonucContext.ObSonuc.FirstOrDefaultAsync(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim());
+                var _hatalar = await _sonucContext.DbIghbSonucHatalar.Where(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim()).ToListAsync();
+                var _bilgiler = await _sonucContext.DbIghbSonuc.FirstOrDefaultAsync(v => v.Guid == Guid.Trim() && v.IslemInternalNo == IslemInternalNo.Trim());
 
-                if (_bilgiler != null)
-                {
-                    beyanSonuc.TescilNo = _bilgiler.TescilNo;
-                    beyanSonuc.TescilTarihi = _bilgiler.TescilTarihi;
-                    beyanSonuc.KalemSayisi = _bilgiler.KalemSayisi;
-                    
-                }
+                //if (_bilgiler != null)
+                //{
+                //    beyanSonuc.MesaiID = _bilgiler.MesaiID;
+                   
+                //}
 
 
 
                 if (_hatalar.Count > 0)
                 {
 
-                    List<ObSonucHatalar> lstHatalar = new List<ObSonucHatalar>();
-                    ObSonucHatalar hatalar = new ObSonucHatalar();
+                    List<MesaiSonucHatalar> lstHatalar = new List<MesaiSonucHatalar>();
+                    MesaiSonucHatalar hatalar = new MesaiSonucHatalar();
                     foreach (var item in _hatalar)
                     {
-                        hatalar = new ObSonucHatalar();
+                        hatalar = new MesaiSonucHatalar();
                         hatalar.HataKodu = item.HataKodu;
                         hatalar.HataAciklamasi = item.HataAciklamasi;
 
@@ -74,9 +72,8 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
                     beyanSonuc.Hatalar = lstHatalar;
                 }
-                else beyanSonuc.Hatalar = new List<ObSonucHatalar>();
-
-          
+            
+               
                 return beyanSonuc;
 
             }

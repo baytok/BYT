@@ -98,7 +98,72 @@ namespace BYT.WS.Models
         public DateTime? TescilTarihi { get; set; }
         public DateTime? SonIslemZamani { get; set; }
     }
+    public class MesaiSonuc
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
 
+        [StringLength(50)]
+        public string Guid { get; set; }
+
+        [StringLength(30)]
+        public string IslemInternalNo { get; set; }
+
+        [StringLength(20)]
+        public string TescilTarihi { get; set; }
+
+        [StringLength(20)]
+        public string MesaiID { get; set; }
+
+        public int GonderimNo { get; set; }
+
+        [StringLength(20)]
+        public string Durum { get; set; }
+
+        public DateTime? SonIslemZamani { get; set; }
+    }
+    public class MesaiXmlSonuc
+    {
+        public string SonucXml { get; set; }
+
+        public string TescilTarihi { get; set; }
+
+        public string MesaiID { get; set; }
+
+        public List<MesaiSonucHatalar> Hatalar { get; set; }
+
+
+
+    }
+    public class MesaiSonucHatalar
+    {
+        [Key]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string IslemInternalNo { get; set; }
+
+
+        [Required]
+        [StringLength(50)]
+        public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public int HataKodu { get; set; }
+
+        [Required]
+        [StringLength(1000)]
+        public string HataAciklamasi { get; set; }
+        public DateTime? SonIslemZamani { get; set; }
+
+
+    }
 
 }
 

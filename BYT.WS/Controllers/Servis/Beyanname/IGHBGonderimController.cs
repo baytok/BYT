@@ -33,13 +33,13 @@ namespace BYT.WS.Controllers.Servis.Beyanname
         private IslemTarihceDataContext _islemTarihceContext;
 
         private readonly ServisCredential _servisCredential;
-        private BeyannameSonucDataContext _sonucContext;
+       
         public IConfiguration Configuration { get; }
-        public IGHBGonderimController(IslemTarihceDataContext islemTarihcecontext, BeyannameSonucDataContext sonucContext, IOptions<ServisCredential> servisCredential, IConfiguration configuration)
+        public IGHBGonderimController(IslemTarihceDataContext islemTarihcecontext,  IOptions<ServisCredential> servisCredential, IConfiguration configuration)
         {
             _islemTarihceContext = islemTarihcecontext;
             Configuration = configuration;
-            _sonucContext = sonucContext;
+       
 
             _servisCredential = new ServisCredential();
             _servisCredential.username = servisCredential.Value.username;
@@ -59,8 +59,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             try
             {
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim() && v.Kullanici == Kullanici.Trim());
-                var ighbValues= await _beyannameContext.Ighb.FirstOrDefaultAsync(v => v.IghbInternalNo == islemValues.BeyanInternalNo);
-                var ighbListValues = await _beyannameContext.IghbListe.Where(v => v.IghbInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                var ighbValues= await _beyannameContext.DbIghb.FirstOrDefaultAsync(v => v.IghbInternalNo == islemValues.BeyanInternalNo);
+                var ighbListValues = await _beyannameContext.DbIghbListe.Where(v => v.IghbInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
                 IGHBHizmeti.Gumruk_Biztalk_IGHBClient ighbServis = ServiceHelper.GetIGHBWSClient(_servisCredential.username, _servisCredential.password);
 

@@ -358,7 +358,6 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\System.Runtime.CompilerServ
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\System.Text.Encodings.Web.xml
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\System.Web.Http.xml
-C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.csprojAssemblyReference.cache
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.exe.config
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.Form1.resources
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.Properties.Resources.resources

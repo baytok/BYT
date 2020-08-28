@@ -36,8 +36,8 @@ namespace BYT.WS.Data
         public DbSet<DbVergi> DbVergi { get; set; }
         public DbSet<DbBelge> DbBelge { get; set; }
         public DbSet<DbSoruCevap> DbSoruCevap { get; set; }
-        public DbSet<Ighb> Ighb { get; set; }
-        public DbSet<IghbListe> IghbListe { get; set; }
+        public DbSet<DbIghb> DbIghb { get; set; }
+        public DbSet<DbIghbListe> DbIghbListe { get; set; }
         public DbSet<Mesai> Mesai { get; set; }
         public int GetRefIdNextSequenceValue(string Rejim)
         {

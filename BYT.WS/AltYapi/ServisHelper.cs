@@ -139,8 +139,9 @@ namespace BYT.WS.AltYapi
             //binding.Security.Message.AlgorithmSuite = System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDes;
             binding.MaxReceivedMessageSize = 2147483647;
 #if (DEBUG)
-            address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/GumrukWS");
-         
+            //  address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/GumrukWS");
+            address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/GumrukWS");
+
 #else
              address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/GumrukWS");
             
@@ -216,9 +217,10 @@ namespace BYT.WS.AltYapi
             //binding.Security.Message.AlgorithmSuite = System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDes;
             binding.MaxReceivedMessageSize = 2147483647;
 #if (DEBUG)
-            address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
-            // address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
-
+         //   address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
+             address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
+                                            
+          
 #else
              address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
           
@@ -243,7 +245,7 @@ namespace BYT.WS.AltYapi
             binding.MaxReceivedMessageSize = 2147483647;
 #if (DEBUG)
             address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/IGHB");
-            // address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/IGHB");
+           // address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/IGHB");
 
 #else
              address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/IGHB");

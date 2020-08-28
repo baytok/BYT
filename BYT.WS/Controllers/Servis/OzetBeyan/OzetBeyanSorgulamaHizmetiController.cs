@@ -93,7 +93,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                     try
                     {
                         var _tarihce = await _islemTarihceContext.Tarihce.FirstOrDefaultAsync(v => v.Guid == Guid);
-                        var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.Kullanici == _tarihce.Kullanici && v.RefNo == _tarihce.RefNo);
+                        var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.Guidof == _tarihce.Guid );
                         var _beyanname = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == _islem.BeyanInternalNo);
 
                         gidenXml= "<SonucBilgisi><BasariliMi>false</BasariliMi><TescilNo>20550100EX000451</TescilNo><TescilTarihi>21/08/2020 14:33:29</TescilTarihi><KalemSayisi>1</KalemSayisi><Hatalar /></SonucBilgisi>";
@@ -209,7 +209,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
             }
 
-                  private async Task<OzetBeyanXmlSonuc> SonuclariTopla(string XML, string GuidOf, string InternalNo, int GonderimNo, string BeyanInternalNo)
+       private async Task<OzetBeyanXmlSonuc> SonuclariTopla(string XML, string GuidOf, string InternalNo, int GonderimNo, string BeyanInternalNo)
         {
             var options = new DbContextOptionsBuilder<BeyannameSonucDataContext>()
             .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
@@ -265,7 +265,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                     {
                         XmlNodeList xHata = XMLhatalar[0].ChildNodes;
 
-                        List<HataMesaji> shatalar = new List<HataMesaji>();
+                        List<ObSonucHatalar> shatalar = new List<ObSonucHatalar>();
 
                         int hata_kodu;
                         string hata_aciklamasi;
@@ -276,7 +276,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                             hata_kodu = i;
                             hata_aciklamasi = var.ChildNodes[0].InnerText;
 
-                            HataMesaji hataObj = new HataMesaji();
+                            ObSonucHatalar hataObj = new ObSonucHatalar();
                             hataObj.HataKodu = hata_kodu;
                             hataObj.HataAciklamasi = hata_aciklamasi;
 
@@ -303,7 +303,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
 
 
-                    ObOzetBeyanSonuc _obozbySouc = new ObOzetBeyanSonuc();
+                    ObSonuc _obozbySouc = new ObSonuc();
                     _obozbySouc.IslemInternalNo = InternalNo;
                     _obozbySouc.Guid = GuidOf;
                     _obozbySouc.GonderimNo = GonderimNo;

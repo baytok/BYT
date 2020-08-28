@@ -32,8 +32,17 @@ namespace BYT.WS.Data
         public DbSet<DbBelge> DbBelge { get; set; }
         public DbSet<DbSoruCevap> DbSoruCevap { get; set; }
 
-        public DbSet<ObOzetBeyanSonuc> ObOzetBeyanSonuc { get; set; }
+        public DbSet<ObSonuc> ObSonuc { get; set; }
         public DbSet<ObSonucHatalar> ObSonucHatalar { get; set; }
+
+        public DbSet<MesaiSonuc> MesaiSonuc { get; set; }
+
+        public DbSet<MesaiSonucHatalar> MesaiSonucHatalar { get; set; }
+
+         public DbSet<DbIghbSonuc> DbIghbSonuc { get; set; }
+
+        public DbSet<DbIghbSonucHatalar> DbIghbSonucHatalar { get; set; }
+
 
 
     }

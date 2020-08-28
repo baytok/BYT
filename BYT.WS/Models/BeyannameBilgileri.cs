@@ -1320,7 +1320,7 @@ namespace BYT.WS.Models
         public DateTime? SonIslemZamani { get; set; }
     }
 
-    public class Ighb
+    public class DbIghb
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -1359,7 +1359,7 @@ namespace BYT.WS.Models
         public DateTime OlsuturulmaTarihi { get; set; }
         public DateTime? SonIslemZamani { get; set; }
     }
-    public class IghbListe
+    public class DbIghbListe
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]

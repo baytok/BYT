@@ -2210,7 +2210,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/IghbOlustur/{IghbInternalNo}")]
         [HttpPost("{IghbInternalNo}")]
-        public async Task<ServisDurum> PostIghb([FromBody] Ighb ighb, string IghbInternalNo)
+        public async Task<ServisDurum> PostIghb([FromBody] DbIghb ighb, string IghbInternalNo)
         {
 
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -2229,7 +2229,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     try
                     {
 
-                        var ighbValues = await _beyannameContext.Ighb.FirstOrDefaultAsync(v => v.IghbInternalNo == ighb.IghbInternalNo && v.TescilStatu != "Tescil Edildi");
+                        var ighbValues = await _beyannameContext.DbIghb.FirstOrDefaultAsync(v => v.IghbInternalNo == ighb.IghbInternalNo && v.TescilStatu != "Tescil Edildi");
                         var beyannameContext = new BeyannameDataContext(options);
                         if (ighbValues != null)
                         {
@@ -2325,7 +2325,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/IghbListeOlustur/{IghbInternalNo}")]
         [HttpPost("{IghbInternalNo}")]
-        public async Task<ServisDurum> PostIghbListe([FromBody] IghbListe[] ighbList, string IghbInternalNo)
+        public async Task<ServisDurum> PostIghbListe([FromBody] DbIghbListe[] ighbList, string IghbInternalNo)
         {
             ServisDurum _servisDurum = new ServisDurum();
 
@@ -2338,7 +2338,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 {
                     try
                     {
-                        var ighbListeValues = await _beyannameContext.IghbListe.Where(v => v.IghbInternalNo == IghbInternalNo).ToListAsync();
+                        var ighbListeValues = await _beyannameContext.DbIghbListe.Where(v => v.IghbInternalNo == IghbInternalNo).ToListAsync();
 
                         foreach (var item in ighbListeValues)
                         {
@@ -2482,7 +2482,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
             {
                 try
                 {
-                    var ighbValues = await _beyannameContext.Ighb.FirstOrDefaultAsync(v => v.IghbInternalNo == ighbInternalNo);
+                    var ighbValues = await _beyannameContext.DbIghb.FirstOrDefaultAsync(v => v.IghbInternalNo == ighbInternalNo);
 
                     if (ighbValues != null)
                     {
@@ -2493,7 +2493,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _islemTarihceContext.Entry(_islem).State = EntityState.Deleted;
                         await _islemTarihceContext.SaveChangesAsync();
 
-                        var listValues = await _beyannameContext.IghbListe.Where(v => v.IghbInternalNo == ighbInternalNo).ToListAsync();
+                        var listValues = await _beyannameContext.DbIghbListe.Where(v => v.IghbInternalNo == ighbInternalNo).ToListAsync();
                         if (listValues.Count > 0)
                             foreach (var item in listValues)
                             {

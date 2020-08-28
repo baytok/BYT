@@ -631,9 +631,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Ighb/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
-        public async Task<Ighb> GetIghb(string IslemInternalNo)
+        public async Task<DbIghb> GetIghb(string IslemInternalNo)
         {
-            Ighb _Ighb = new Ighb();
+            DbIghb _Ighb = new DbIghb();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
                  .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                  .Options;
@@ -644,7 +644,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 if (islemValues != null)
                 {
 
-                    var __IghbValues = await _beyannameContext.Ighb.FirstOrDefaultAsync(v => v.IghbInternalNo == islemValues.BeyanInternalNo);
+                    var __IghbValues = await _beyannameContext.DbIghb.FirstOrDefaultAsync(v => v.IghbInternalNo == islemValues.BeyanInternalNo);
 
                     _Ighb = __IghbValues;
                 }
@@ -662,9 +662,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/IghbListe/[controller]/{IslemInternalNo}")]
         [HttpGet("{IslemInternalNo}")]
-        public async Task<List<IghbListe>> GetIghbListe(string IslemInternalNo)
+        public async Task<List<DbIghbListe>> GetIghbListe(string IslemInternalNo)
         {
-            List<IghbListe> _Ighb = new List<IghbListe>();
+            List<DbIghbListe> _Ighb = new List<DbIghbListe>();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
                  .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                  .Options;
@@ -675,7 +675,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 if (islemValues != null)
                 {
 
-                    var __IghbListeValues = await _beyannameContext.IghbListe.Where(v => v.IghbInternalNo == islemValues.BeyanInternalNo).ToListAsync();
+                    var __IghbListeValues = await _beyannameContext.DbIghbListe.Where(v => v.IghbInternalNo == islemValues.BeyanInternalNo).ToListAsync();
 
                     _Ighb = __IghbListeValues;
                 }

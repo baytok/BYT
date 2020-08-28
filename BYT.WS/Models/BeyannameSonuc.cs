@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -1126,65 +1127,70 @@ namespace BYT.WS.Models
 
     }
 
-    public class MesaiXmlSonuc
+
+    public class DbIghbSonuc
     {
-        public string SonucXml { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
 
-        private string tescil_tarihi;
+        [StringLength(50)]
+        public string Guid { get; set; }
 
-        public string Tescil_tarihi
-        {
-            get { return tescil_tarihi; }
-            set { tescil_tarihi = value; }
-        }
+        [StringLength(30)]
+        public string IslemInternalNo { get; set; }
 
-        private string mesai_ID;
+        [StringLength(20)]
+        public string TescilTarihi { get; set; }
 
-        public string Mesai_ID
-        {
-            get { return mesai_ID; }
-            set { mesai_ID = value; }
-        }
-
-        private List<HataMesaji> hatalar = new List<HataMesaji>();
-
-        public List<HataMesaji> Hatalar
-        {
-            get { return hatalar; }
-            set { hatalar = value; }
-        }
        
+        public int GonderimNo { get; set; }
 
-        public string Muayene_memuru { get; set; }
+        [StringLength(20)]
+        public string Durum { get; set; }
 
+        public DateTime? SonIslemZamani { get; set; }
     }
-
     public class IghbXmlSonuc
     {
         public string SonucXml { get; set; }
 
-        private string tescil_tarihi;
+        public string TescilTarihi { get; set; }
 
-        public string Tescil_tarihi
-        {
-            get { return tescil_tarihi; }
-            set { tescil_tarihi = value; }
-        }
+        public List<DbIghbSonucHatalar> Hatalar { get; set; }
 
-      
-        private List<HataMesaji> hatalar = new List<HataMesaji>();
-
-        public List<HataMesaji> Hatalar
-        {
-            get { return hatalar; }
-            set { hatalar = value; }
-        }
-      
 
 
 
     }
 
-  
-    
+    public class DbIghbSonucHatalar
+    {
+        [Key]
+        public int ID { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string IslemInternalNo { get; set; }
+
+
+        [Required]
+        [StringLength(50)]
+        public string Guid { get; set; }
+
+        [Required]
+        public int GonderimNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public int HataKodu { get; set; }
+
+        [Required]
+        [StringLength(1000)]
+        public string HataAciklamasi { get; set; }
+        public DateTime? SonIslemZamani { get; set; }
+
+
+    }
+
 }
