@@ -2242,21 +2242,6 @@
           }
         }
       },
-      "System.Net.Http.WinHttpHandler/4.4.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Net.Http.WinHttpHandler.dll": {}
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/netstandard2.0/System.Net.Http.WinHttpHandler.dll": {
-            "assetType": "runtime",
-            "rid": "win"
-          }
-        }
-      },
       "System.Net.NameResolution/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -2367,26 +2352,18 @@
           "lib/netstandard1.3/System.Private.DataContractSerialization.dll": {}
         }
       },
-      "System.Private.ServiceModel/4.4.4": {
+      "System.Private.ServiceModel/4.7.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "2.0.0",
-          "System.Net.Http.WinHttpHandler": "4.4.0",
-          "System.Reflection.DispatchProxy": "4.4.0",
-          "System.Security.Principal.Windows": "4.4.0"
+          "System.Reflection.DispatchProxy": "4.5.0",
+          "System.Security.Cryptography.Xml": "4.5.0",
+          "System.Security.Principal.Windows": "4.5.0"
         },
         "compile": {
-          "ref/netstandard/_._": {}
+          "ref/netstandard2.0/_._": {}
         },
-        "runtimeTargets": {
-          "runtimes/unix/lib/netstandard2.0/System.Private.ServiceModel.dll": {
-            "assetType": "runtime",
-            "rid": "unix"
-          },
-          "runtimes/win7/lib/netstandard2.0/System.Private.ServiceModel.dll": {
-            "assetType": "runtime",
-            "rid": "win7"
-          }
+        "runtime": {
+          "lib/netstandard2.0/System.Private.ServiceModel.dll": {}
         }
       },
       "System.Reflection/4.3.0": {
@@ -2402,13 +2379,13 @@
           "ref/netstandard1.5/System.Reflection.dll": {}
         }
       },
-      "System.Reflection.DispatchProxy/4.4.0": {
+      "System.Reflection.DispatchProxy/4.5.0": {
         "type": "package",
         "compile": {
-          "ref/netcoreapp2.0/_._": {}
+          "ref/netstandard2.0/System.Reflection.DispatchProxy.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp2.0/_._": {}
+          "lib/netcoreapp2.0/System.Reflection.DispatchProxy.dll": {}
         }
       },
       "System.Reflection.Emit/4.3.0": {
@@ -2839,6 +2816,24 @@
           }
         }
       },
+      "System.Security.Cryptography.Pkcs/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.Cryptography.Cng": "4.5.0"
+        },
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/System.Security.Cryptography.Pkcs.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.1/System.Security.Cryptography.Pkcs.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.Security.Cryptography.Primitives/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -2913,6 +2908,19 @@
             "assetType": "runtime",
             "rid": "win"
           }
+        }
+      },
+      "System.Security.Cryptography.Xml/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.Cryptography.Pkcs": "4.5.0",
+          "System.Security.Permissions": "4.5.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Security.Cryptography.Xml.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Cryptography.Xml.dll": {}
         }
       },
       "System.Security.Permissions/4.7.0": {
@@ -7406,42 +7414,6 @@
         "system.net.http.nuspec"
       ]
     },
-    "System.Net.Http.WinHttpHandler/4.4.0": {
-      "sha512": "ZmsFZIZ4PL2UfUlfj4KCzzAGGE2SF39ENIqtvfgu0bwMEAe3J3CqZr765E2W6eQQtNK08/8DpHcsA0sAKZdEtA==",
-      "type": "package",
-      "path": "system.net.http.winhttphandler/4.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net46/System.Net.Http.WinHttpHandler.dll",
-        "lib/net461/System.Net.Http.WinHttpHandler.dll",
-        "lib/netstandard1.3/System.Net.Http.WinHttpHandler.dll",
-        "lib/netstandard2.0/System.Net.Http.WinHttpHandler.dll",
-        "ref/netstandard1.3/System.Net.Http.WinHttpHandler.dll",
-        "ref/netstandard1.3/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard1.3/de/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard1.3/es/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard1.3/fr/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard1.3/it/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard1.3/ja/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard1.3/ko/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard1.3/ru/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard1.3/zh-hans/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard1.3/zh-hant/System.Net.Http.WinHttpHandler.xml",
-        "ref/netstandard2.0/System.Net.Http.WinHttpHandler.dll",
-        "ref/netstandard2.0/System.Net.Http.WinHttpHandler.xml",
-        "runtimes/win/lib/net46/System.Net.Http.WinHttpHandler.dll",
-        "runtimes/win/lib/net461/System.Net.Http.WinHttpHandler.dll",
-        "runtimes/win/lib/netstandard1.3/System.Net.Http.WinHttpHandler.dll",
-        "runtimes/win/lib/netstandard2.0/System.Net.Http.WinHttpHandler.dll",
-        "system.net.http.winhttphandler.4.4.0.nupkg.sha512",
-        "system.net.http.winhttphandler.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
     "System.Net.NameResolution/4.3.0": {
       "sha512": "AFYl08R7MrsrEjqpQWTZWBadqXyTzNDaWpMqyxhb0d6sGhV6xMDKueuBXlLL30gz+DIRY6MpdgnHWlCh5wmq9w==",
       "type": "package",
@@ -7687,24 +7659,20 @@
         "system.private.datacontractserialization.nuspec"
       ]
     },
-    "System.Private.ServiceModel/4.4.4": {
-      "sha512": "tsDkr5hwYwxV2LaB3H5BvCltCX57wv7JzwU5q8IV9vrFdzq/e/nPJAj4U5Ny/FzR4sMTVRprVSwl4mZqfFkt4Q==",
+    "System.Private.ServiceModel/4.7.0": {
+      "sha512": "BItrYCkoTV3VzVPsrew+uc34fmLb+3ncgspa7vbO3vkfY9JQCea4u34pHE+Bcv1Iy16MgRs3n2jKVRCDg0rPfg==",
       "type": "package",
-      "path": "system.private.servicemodel/4.4.4",
+      "path": "system.private.servicemodel/4.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "ref/netstandard/_._",
-        "runtimes/unix/lib/netstandard1.3/System.Private.ServiceModel.dll",
-        "runtimes/unix/lib/netstandard2.0/System.Private.ServiceModel.dll",
-        "runtimes/win7/lib/netcore50/System.Private.ServiceModel.dll",
-        "runtimes/win7/lib/netstandard1.3/System.Private.ServiceModel.dll",
-        "runtimes/win7/lib/netstandard2.0/System.Private.ServiceModel.dll",
-        "system.private.servicemodel.4.4.4.nupkg.sha512",
-        "system.private.servicemodel.nuspec",
-        "version.txt"
+        "lib/netstandard2.0/System.Private.ServiceModel.dll",
+        "lib/netstandard2.0/System.Private.ServiceModel.pdb",
+        "ref/netstandard2.0/_._",
+        "system.private.servicemodel.4.7.0.nupkg.sha512",
+        "system.private.servicemodel.nuspec"
       ]
     },
     "System.Reflection/4.3.0": {
@@ -7788,10 +7756,10 @@
         "system.reflection.nuspec"
       ]
     },
-    "System.Reflection.DispatchProxy/4.4.0": {
-      "sha512": "xK6JE0mpsBD+T0qu3V6dmVRa06PxAvIIM/zSjouqP7Sk6X+FQj+9XFRz9GmZk9aJGMU1LX6AgTZIlsYZ64QKsw==",
+    "System.Reflection.DispatchProxy/4.5.0": {
+      "sha512": "+UW1hq11TNSeb+16rIk8hRQ02o339NFyzMc4ma/FqmxBzM30l1c2IherBB4ld1MNcenS48fz8tbt50OW4rVULA==",
       "type": "package",
-      "path": "system.reflection.dispatchproxy/4.4.0",
+      "path": "system.reflection.dispatchproxy/4.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7800,7 +7768,7 @@
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
         "lib/net461/System.Reflection.DispatchProxy.dll",
-        "lib/netcoreapp2.0/_._",
+        "lib/netcoreapp2.0/System.Reflection.DispatchProxy.dll",
         "lib/netstandard1.3/System.Reflection.DispatchProxy.dll",
         "lib/netstandard2.0/System.Reflection.DispatchProxy.dll",
         "lib/xamarinios10/_._",
@@ -7809,7 +7777,6 @@
         "lib/xamarinwatchos10/_._",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
-        "ref/netcoreapp2.0/_._",
         "ref/netstandard1.3/System.Reflection.DispatchProxy.dll",
         "ref/netstandard1.3/System.Reflection.DispatchProxy.xml",
         "ref/netstandard1.3/de/System.Reflection.DispatchProxy.xml",
@@ -7823,12 +7790,18 @@
         "ref/netstandard1.3/zh-hant/System.Reflection.DispatchProxy.xml",
         "ref/netstandard2.0/System.Reflection.DispatchProxy.dll",
         "ref/netstandard2.0/System.Reflection.DispatchProxy.xml",
+        "ref/uap10.0.16299/System.Reflection.DispatchProxy.dll",
+        "ref/uap10.0.16299/System.Reflection.DispatchProxy.xml",
+        "ref/uap10.0.16300/System.Reflection.DispatchProxy.dll",
+        "ref/uap10.0.16300/System.Reflection.DispatchProxy.xml",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
         "runtimes/aot/lib/netcore50/System.Reflection.DispatchProxy.dll",
-        "system.reflection.dispatchproxy.4.4.0.nupkg.sha512",
+        "runtimes/win-aot/lib/uap10.0.16299/System.Reflection.DispatchProxy.dll",
+        "runtimes/win/lib/uap10.0.16299/System.Reflection.DispatchProxy.dll",
+        "system.reflection.dispatchproxy.4.5.0.nupkg.sha512",
         "system.reflection.dispatchproxy.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -9061,6 +9034,39 @@
         "system.security.cryptography.openssl.nuspec"
       ]
     },
+    "System.Security.Cryptography.Pkcs/4.5.0": {
+      "sha512": "TGQX51gxpY3K3I6LJlE2LAftVlIMqJf0cBGhz68Y89jjk3LJCB6SrwiD+YN1fkqemBvWGs+GjyMJukl6d6goyQ==",
+      "type": "package",
+      "path": "system.security.cryptography.pkcs/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net46/System.Security.Cryptography.Pkcs.dll",
+        "lib/net461/System.Security.Cryptography.Pkcs.dll",
+        "lib/netcoreapp2.1/System.Security.Cryptography.Pkcs.dll",
+        "lib/netstandard1.3/System.Security.Cryptography.Pkcs.dll",
+        "lib/netstandard2.0/System.Security.Cryptography.Pkcs.dll",
+        "ref/net46/System.Security.Cryptography.Pkcs.dll",
+        "ref/net461/System.Security.Cryptography.Pkcs.dll",
+        "ref/net461/System.Security.Cryptography.Pkcs.xml",
+        "ref/netcoreapp2.1/System.Security.Cryptography.Pkcs.dll",
+        "ref/netcoreapp2.1/System.Security.Cryptography.Pkcs.xml",
+        "ref/netstandard1.3/System.Security.Cryptography.Pkcs.dll",
+        "ref/netstandard2.0/System.Security.Cryptography.Pkcs.dll",
+        "ref/netstandard2.0/System.Security.Cryptography.Pkcs.xml",
+        "runtimes/win/lib/net46/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/net461/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/netcoreapp2.1/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/netstandard1.3/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.Pkcs.dll",
+        "system.security.cryptography.pkcs.4.5.0.nupkg.sha512",
+        "system.security.cryptography.pkcs.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Security.Cryptography.Primitives/4.3.0": {
       "sha512": "7bDIyVFNL/xKeFHjhobUAQqSpJq9YTOpbEs6mR233Et01STBMXNAc/V+BM6dwYGc95gVh/Zf+iVXWzj3mE8DWg==",
       "type": "package",
@@ -9189,6 +9195,27 @@
         "runtimes/win/lib/netstandard1.6/System.Security.Cryptography.X509Certificates.dll",
         "system.security.cryptography.x509certificates.4.3.0.nupkg.sha512",
         "system.security.cryptography.x509certificates.nuspec"
+      ]
+    },
+    "System.Security.Cryptography.Xml/4.5.0": {
+      "sha512": "i2Jn6rGXR63J0zIklImGRkDIJL4b1NfPSEbIVHBlqoIb12lfXIigCbDRpDmIEzwSo/v1U5y/rYJdzZYSyCWxvg==",
+      "type": "package",
+      "path": "system.security.cryptography.xml/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Security.Cryptography.Xml.dll",
+        "lib/netstandard2.0/System.Security.Cryptography.Xml.dll",
+        "ref/net461/System.Security.Cryptography.Xml.dll",
+        "ref/net461/System.Security.Cryptography.Xml.xml",
+        "ref/netstandard2.0/System.Security.Cryptography.Xml.dll",
+        "ref/netstandard2.0/System.Security.Cryptography.Xml.xml",
+        "system.security.cryptography.xml.4.5.0.nupkg.sha512",
+        "system.security.cryptography.xml.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Security.Permissions/4.7.0": {
@@ -10406,6 +10433,7 @@
       "Serilog.Sinks.Seq >= 4.0.0",
       "System.Configuration.ConfigurationManager >= 4.7.0",
       "System.IdentityModel.Tokens.Jwt >= 5.6.0",
+      "System.Private.ServiceModel >= 4.7.0",
       "System.ServiceModel.Duplex >= 4.4.*",
       "System.ServiceModel.Http >= 4.4.*",
       "System.ServiceModel.NetTcp >= 4.4.*",
@@ -10519,6 +10547,10 @@
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",
             "version": "[5.6.0, )"
+          },
+          "System.Private.ServiceModel": {
+            "target": "Package",
+            "version": "[4.7.0, )"
           },
           "System.ServiceModel.Duplex": {
             "target": "Package",

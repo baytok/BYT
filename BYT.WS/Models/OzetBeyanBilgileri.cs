@@ -14,7 +14,7 @@ namespace BYT.WS.Models
         public string Sifre { get; set; }
         public string IP { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://tempuri.org/", IsNullable = true)]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.gumruk.gov.tr/", IsNullable = true)]
         public OzetBeyanBilgisi OzetBeyanBilgisi { get; set; }
     }
 
@@ -764,7 +764,111 @@ namespace BYT.WS.Models
         public DateTime? SonIslemZamani { get; set; }
     }
 
+    public class ObBeyanAlan
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        public string Tip { get; set; }
 
+        public string OzetBeyanNo { get; set; }
+
+     
+        public string BeyanSahibiVergiNo { get; set; }
+
+        public string BeyanTuru { get; set; }
+
+        public string Diger { get; set; }
+
+     
+        public string DorseNo1 { get; set; }
+
+    
+        public string DorseNo1Uyrugu { get; set; }
+
+    
+        public string DorseNo2 { get; set; }
+
+    
+        public string DorseNo2Uyrugu { get; set; }
+
+        public string EkBelgeSayisi { get; set; }
+
+      
+        public string EmniyetGuvenlik { get; set; }
+
+       
+        public string GrupTasimaSenediNo { get; set; }
+
+      
+        public string GumrukIdaresi { get; set; }
+
+     
+        public string KullaniciKodu { get; set; }
+
+     
+        public string Kurye { get; set; }
+
+      
+        public string LimanYerAdiBos { get; set; }
+
+      
+        public string LimanYerAdiYuk { get; set; }
+
+       
+        public string OncekiBeyanNo { get; set; }
+
+      
+        public string PlakaSeferNo { get; set; }
+
+     
+        public string ReferansNumarasi { get; set; }
+
+     
+        public string RefNo { get; set; }
+
+      
+        public string Rejim { get; set; }
+
+        public string TasimaSekli { get; set; }
+
+        public string TasitinAdi { get; set; }
+
+     
+        public string TasiyiciVergiNo { get; set; }
+
+       
+        public string TirAtaKarneNo { get; set; }
+
+      
+        public string UlkeKodu { get; set; }
+
+    
+        public string UlkeKoduYuk { get; set; }
+
+     
+        public string UlkeKoduBos { get; set; }
+
+        
+        public string YuklemeBosaltmaYeri { get; set; }
+
+       
+        public string VarisCikisGumrukIdaresi { get; set; }
+
+       
+        public string VarisTarihSaati { get; set; }
+
+       
+        public string XmlRefId { get; set; }
+
+      
+        public string TescilStatu { get; set; }
+
+        public string TescilTarihi { get; set; }
+
+     
+
+    }
 }
 
 

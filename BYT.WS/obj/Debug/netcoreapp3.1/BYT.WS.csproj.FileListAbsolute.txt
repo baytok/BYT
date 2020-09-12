@@ -321,7 +321,6 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Compos
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Composition.TypedParts.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Net.Http.WinHttpHandler.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.ServiceModel.Duplex.dll
@@ -387,9 +386,6 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win\
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Net.Http.WinHttpHandler.dll
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard2.0\System.Private.ServiceModel.dll
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win7\lib\netstandard2.0\System.Private.ServiceModel.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
@@ -420,11 +416,13 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Data.S
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Serilog.Sinks.Seq.dll
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cs
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cache
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.sourcelink.json
-C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.csproj.CoreCompileInputs.cache
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Connected Services\MesaiHizmeti\ConnectedService.json
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Connected Services\NctsHizmeti\ConnectedService.json
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Connected Services\OzetBeyanHizmeti\ConnectedService.json
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.genruntimeconfig.cache
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\System.Private.ServiceModel.dll
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.csproj.CoreCompileInputs.cache
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cs
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cache
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.sourcelink.json
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.csprojAssemblyReference.cache

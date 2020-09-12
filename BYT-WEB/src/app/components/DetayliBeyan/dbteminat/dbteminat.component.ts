@@ -33,7 +33,7 @@ import {
   styleUrls: ['./dbteminat.component.css']
 })
 export class DbTeminatComponent implements OnInit {
-
+  beyannameNo:string;
   teminatForm: FormGroup;
   submitted: boolean = false;
   guidOf = this._beyanSession.guidOf;
@@ -74,6 +74,8 @@ export class DbTeminatComponent implements OnInit {
         );
         this.router.navigateByUrl('/app/dbbeyan');
       }
+      this.beyannameNo = this._beyanSession.beyannameNo!=null ? this._beyanSession.beyannameNo: this._beyanSession.beyanInternalNo;
+  
         this.getTeminatBilgileri();
        
     }

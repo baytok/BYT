@@ -36,6 +36,7 @@ import { ReferansService } from "../../../../shared/helpers/ReferansService";
 })
 export class KiymetComponent implements OnInit {
   kiymetInternalNo: string;
+  beyannameNo:string;
   kiymetForm: FormGroup;
   kalemForm: FormGroup;
   _kiymetler: KiymetDto[];
@@ -124,7 +125,8 @@ export class KiymetComponent implements OnInit {
       );
       this.router.navigateByUrl("/app/dbbeyan");
     }
-
+    this.beyannameNo = this._beyanSession.beyannameNo!=null ? this._beyanSession.beyannameNo: this._beyanSession.beyanInternalNo;
+  
     this.getKiymetler(this._beyanSession.islemInternalNo);
   }
   openSnackBar(message: string, action: string) {

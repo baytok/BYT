@@ -39,6 +39,7 @@ import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 })
 export class ObOzetBeyanAcmaComponent implements OnInit {
   ozetBeyanAcmaBeyanInternalNo: string;
+  ozetBeyanNo:string;
   tasimaSenetInternalNo: string;
   tasimaSenediNo: string;
   ozetBeyanForm: FormGroup;
@@ -112,7 +113,7 @@ export class ObOzetBeyanAcmaComponent implements OnInit {
       );
       this.router.navigateByUrl("/app/ozetbeyan");
     }
-
+    this.ozetBeyanNo = this._beyanSession.ozetBeyanNo!=null ? this._beyanSession.ozetBeyanNo: this._beyanSession.ozetBeyanInternalNo;
     this.getOzetBeyanlar(this._beyanSession.islemInternalNo);
   }
   openSnackBar(message: string, action: string) {

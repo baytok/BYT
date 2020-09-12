@@ -254,6 +254,10 @@ namespace KontrolHizmeti
         
         private string limanKoduField;
         
+        private string acentaSevkBildirimNoField;
+        
+        private string odeSaymanlikBilgiField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Beyanname_no
@@ -1203,6 +1207,34 @@ namespace KontrolHizmeti
             set
             {
                 this.limanKoduField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=68)]
+        public string AcentaSevkBildirimNo
+        {
+            get
+            {
+                return this.acentaSevkBildirimNoField;
+            }
+            set
+            {
+                this.acentaSevkBildirimNoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=69)]
+        public string OdeSaymanlikBilgi
+        {
+            get
+            {
+                return this.odeSaymanlikBilgiField;
+            }
+            set
+            {
+                this.odeSaymanlikBilgiField = value;
             }
         }
     }
@@ -2506,6 +2538,8 @@ namespace KontrolHizmeti
         
         private string vitesField;
         
+        private string iMEINoField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Marka_Turu
@@ -2699,6 +2733,20 @@ namespace KontrolHizmeti
             set
             {
                 this.vitesField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=14)]
+        public string IMEINo
+        {
+            get
+            {
+                return this.iMEINoField;
+            }
+            set
+            {
+                this.iMEINoField = value;
             }
         }
     }
@@ -2979,6 +3027,10 @@ namespace KontrolHizmeti
         private string giris_Cikis_Amaci_AciklamaField;
         
         private string sTM_IlKoduField;
+        
+        private string esyaGeriGelmeSebebiField;
+        
+        private string esyaGeriGelmeSebebiAciklamasiField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true, Order=0)]
@@ -4085,6 +4137,34 @@ namespace KontrolHizmeti
                 this.sTM_IlKoduField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=79)]
+        public string EsyaGeriGelmeSebebi
+        {
+            get
+            {
+                return this.esyaGeriGelmeSebebiField;
+            }
+            set
+            {
+                this.esyaGeriGelmeSebebiField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=80)]
+        public string EsyaGeriGelmeSebebiAciklamasi
+        {
+            get
+            {
+                return this.esyaGeriGelmeSebebiAciklamasiField;
+            }
+            set
+            {
+                this.esyaGeriGelmeSebebiAciklamasiField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -4540,6 +4620,7 @@ namespace KontrolHizmeti
                 result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
                 result.AllowCookies = true;
+                result.Security.Mode = System.ServiceModel.BasicHttpSecurityMode.Transport;
                 return result;
             }
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpsBinding_Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoap))
@@ -4559,11 +4640,11 @@ namespace KontrolHizmeti
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoap))
             {
-                return new System.ServiceModel.EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS");
+                return new System.ServiceModel.EndpointAddress("https://wstest.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS");
             }
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpsBinding_Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoap))
             {
-                return new System.ServiceModel.EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS");
+                return new System.ServiceModel.EndpointAddress("https://wstest.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

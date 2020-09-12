@@ -21,7 +21,7 @@
         
           matInput
           readonly
-         [(ngModel)]="ozetBeyanInternalNo"
+         [(ngModel)]="ozetBeyanNo"
         />
       </mat-form-field>
       <button
@@ -91,8 +91,7 @@
                       <mat-label>Rejim</mat-label>
                       <select                     
                         matNativeControl
-                        formControlName="rejim"
-                        (change)="rejimSelect($event.target.value)"
+                        formControlName="rejim"                   
                         [ngClass]="{
                           'is-invalid': submitted && focus.rejim.errors
                         }"
@@ -117,7 +116,7 @@
                       <select                     
                         matNativeControl
                         formControlName="beyanTuru"
-                       
+                        (change)="rejimSelect($event.target.value)"
                         [ngClass]="{
                           'is-invalid': submitted && focus.beyanTuru.errors
                         }"

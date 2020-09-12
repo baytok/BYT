@@ -491,7 +491,7 @@ export class BeyannameServiceProxy {
     const httpOptions = {
      headers: headers_object
     };
-    console.log(guid);
+  
       return this.http.post<any>(
         this.baseUrl + "Servis/OzetBeyan/OzetBeyanTescilGonderim/" +
         IslemInternalNo + "/" + Kullanici+"/"+guid,null,httpOptions  
@@ -2736,6 +2736,19 @@ export class BeyannameServiceProxy {
     );
   }
 
+  getOzetBeyanAlanlar(rejim) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.get(this.baseUrl + "OzetBeyanAlan/BilgiHizmeti/" + rejim, httpOptions);
+  }
+
   getIstatistik(KullaniciKod) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -2764,7 +2777,8 @@ export class SessionServiceProxy {
   public ighbInternalNo:string
   public beyanStatu: string;
   public token: string;
-
+  public ozetBeyanNo:string;
+  public beyannameNo:string;
   public Kalemler: KalemDto[];
   protected jsonParseReviver:
     | ((key: string, value: any) => any)
@@ -7101,6 +7115,72 @@ export class IghbListeDto {
   static fromJS(data: any): IghbListeDto {
     data = typeof data === "object" ? data : {};
     let result = new IghbListeDto();
+
+    result.init(data);
+    return result;
+  }
+}
+
+export class ObBeyanAlanDto {
+ tip:string;
+ ozetBeyanNo:string;
+ beyanSahibiVergiNo:string; 
+ beyanTuru:string;
+ diger:string;
+ dorseNo1:string; 
+ dorseNo1Uyrugu:string;
+ dorseNo2:string;
+ dorseNo2Uyrugu:string;
+ ekBelgeSayisi:string;
+ emniyetGuvenlik:string;
+ grupTasimaSenediNo:string;
+ gumrukIdaresi:string;
+ kullaniciKodu:string;
+ kurye:string;
+ limanYerAdiBos:string;
+ limanYerAdiYuk:string;
+ oncekiBeyanNo:string;
+ plakaSeferNo:string;
+ referansNumarasi:string;
+ refNo:string;
+ rejim:string;
+ tasimaSekli:string;
+ tasitinAdi:string;
+ tasiyiciVergiNo:string;
+ tirAtaKarneNo:string;
+ ulkeKodu:string;
+ ulkeKoduYuk:string;
+ ulkeKoduBos:string;
+ yuklemeBosaltmaYeri:string;
+ varisCikisGumrukIdaresi:string;
+ varisTarihSaati:string;
+ xmlRefId:string;
+ tescilStatu:string;
+ tescilTarihi:string; 
+  
+  constructor(data?: ObBeyanAlanDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+
+  static fromJS(data: any): ObBeyanAlanDto {
+    data = typeof data === "object" ? data : {};
+    let result = new ObBeyanAlanDto();
 
     result.init(data);
     return result;

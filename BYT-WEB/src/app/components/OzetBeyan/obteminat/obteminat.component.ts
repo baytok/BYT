@@ -40,6 +40,7 @@ export class ObTeminatComponent implements OnInit {
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
   ozetBeyanInternalNo = this._beyanSession.ozetBeyanInternalNo;
+  ozetBeyanNo: string;
   beyanStatu = this._beyanSession.beyanStatu;
   beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   _teminatList = teminat;
@@ -75,6 +76,7 @@ export class ObTeminatComponent implements OnInit {
         );
         this.router.navigateByUrl('/app/ozetbeyan');
       }
+      this.ozetBeyanNo = this._beyanSession.ozetBeyanNo!=null ? this._beyanSession.ozetBeyanNo: this._beyanSession.ozetBeyanInternalNo;
         this.getTeminatBilgileri();
        
     }

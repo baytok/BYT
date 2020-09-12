@@ -416,10 +416,10 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                     try
                     {
 
-
-                        if (islemValues.IslemTipi == "OzetBeyan")
+                        if (islemValues.IslemTipi != null)
+                        //  if (islemValues.IslemTipi == "OzbyTescil")
                         {
-
+                            islemValues.IslemTipi = "OzbyTescil";
                             islemValues.Kullanici = Kullanici;
                             islemValues.IslemDurumu = "Imzala";
                             islemValues.IslemZamani = DateTime.Now;
@@ -431,21 +431,22 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         }
                         else
                         {
-                            Islem _islem = new Islem();
-                            newIslemInternalNo = islemValues.BeyanInternalNo.Replace("OB", "OBTG");
-                            _islem.Kullanici = islemValues.Kullanici;
-                            _islem.IslemDurumu = "Imzala";
-                            _islem.IslemInternalNo = newIslemInternalNo;
-                            _islem.IslemZamani = DateTime.Now;
-                            _islem.SonIslemZamani = DateTime.Now;
-                            _islem.IslemSonucu = "Tescil Mesaji Olusturuldu";
-                            _islem.Guidof = guidOf;
-                            _islem.RefNo = islemValues.RefNo;
-                            _islem.BeyanInternalNo = islemValues.BeyanInternalNo;
-                            _islem.BeyanTipi = islemValues.BeyanTipi;
-                            _islem.IslemTipi = "OzetBeyan";
-                            _islem.GonderimSayisi++;
-                            _islemTarihceContext.Entry(_islem).State = EntityState.Added;
+                            //Islem _islem = new Islem();
+                            ////newIslemInternalNo = islemValues.BeyanInternalNo.Replace("OB", "OBTG");
+                            ////_islem.IslemInternalNo = newIslemInternalNo;
+
+                            //_islem.Kullanici = islemValues.Kullanici;
+                            //_islem.IslemDurumu = "Imzala";                       
+                            //_islem.IslemZamani = DateTime.Now;
+                            //_islem.SonIslemZamani = DateTime.Now;
+                            //_islem.IslemSonucu = "Tescil Mesaji Olusturuldu";
+                            //_islem.Guidof = guidOf;
+                            //_islem.RefNo = islemValues.RefNo;
+                            //_islem.BeyanInternalNo = islemValues.BeyanInternalNo;
+                            //_islem.BeyanTipi = islemValues.BeyanTipi;
+                            //_islem.IslemTipi = "OzetBeyan";
+                            //_islem.GonderimSayisi++;
+                            //_islemTarihceContext.Entry(_islem).State = EntityState.Added;
                         }
                         //TODO: bu guid dışında imzala aşamasında kalmış aynı IslemInternalNo ile ilgili kayıtlar iptal edilsin
                         await _islemTarihceContext.SaveChangesAsync();
@@ -498,7 +499,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
                 List<Bilgi> lstBlg = new List<Bilgi>();
-                Bilgi blg = new Bilgi { IslemTipi = "Tescil Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Tescil Gönderimi Gerçekleşti", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "Ozby Tescil Mesajı Oluşturuldu", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Ozby Tescil Mesajı Oluşturuldu", SonucVeriler = null };
                 lstBlg.Add(blg);
 
 
@@ -547,10 +548,10 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                 XmlElement root = xmlDoc.CreateElement("Root");
                 root.InnerText = tarihceValues.ImzaliVeri;
                 OzetBeyanHizmeti.Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoapClient Tescil = ServiceHelper.GetOzetBeyanWSClient(_servisCredential.username, _servisCredential.password);
-                await Tescil.OzetBeyanAsync(root);
+               var sonuc= await Tescil.OzetBeyanAsync(root);
 
                 XmlDocument doc = new XmlDocument();
-                doc.LoadXml(root.OuterXml);
+                doc.LoadXml(sonuc.Body.Root.OuterXml);
 
                 if (doc.HasChildNodes)
                 {
@@ -608,6 +609,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         tarihceValues.Guid = guidOf;
                         tarihceValues.IslemDurumu = IslemDurumu;
                         tarihceValues.IslemSonucu = islemSonucu;
+                        tarihceValues.IslemInternalNo = islemValues.IslemInternalNo;
                         tarihceValues.GondermeZamani = DateTime.Now;
                         tarihceValues.SonIslemZamani = DateTime.Now;
                         tarihceValues.GonderimNo = islemValues.GonderimSayisi;
@@ -647,7 +649,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                     Internal.Hata ht = new Internal.Hata { HataKodu = 1, HataAciklamasi = islemSonucu };
                     lstht.Add(ht);
                 }
-                Bilgi blg = new Bilgi { IslemTipi = "Tescil Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Tescil Gönderimi Gerçekleşti", SonucVeriler = null };
+                Bilgi blg = new Bilgi { IslemTipi = "Özby Tescil Gönderimi", ReferansNo = guidOf, GUID = guidOf, Sonuc = "Ozby Tescil Gönderimi Gerçekleşti", SonucVeriler = null };
                 lstBlg.Add(blg);
 
 

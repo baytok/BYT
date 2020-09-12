@@ -138,6 +138,9 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 _beyan.Yuk_belgeleri_sayisi = beyanBeyanValues.YukBelgeleriSayisi != null ? beyanBeyanValues.YukBelgeleriSayisi : 0;
                 _beyan.Yukleme_bosaltma_yeri = beyanBeyanValues.YuklemeBosaltmaYeri;
 
+                //_beyan.AcentaSevkBildirimNo = "";
+                //_beyan.OdeSaymanlikBilgi = "";
+             
                 #endregion
 
                 #region Kalem
@@ -221,7 +224,11 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _kalem.Yurtici_Kultur = item.YurtIciKultur != null ? item.YurtIciKultur : 0;
                         _kalem.Yurtici_Liman = item.YurtIciLiman != null ? item.YurtIciLiman : 0;
                         _kalem.Yurtici_Tahliye = item.YurtIciTahliye != null ? item.YurtIciTahliye : 0;
-
+                        //_kalem.EsyaGeriGelmeSebebi = "";
+                        //_kalem.EsyaGeriGelmeSebebiAciklamasi = "";
+                        //_kalem.HavacilikYakitTurleri = "";
+                        //_kalem.VergiMuafiyetleri = "";
+                      
 
                         var tamamlayiciValues = await _beyannameContext.DbTamamlayiciBilgi.Where(v => v.BeyanInternalNo == islemValues.BeyanInternalNo && v.KalemInternalNo == item.KalemInternalNo).ToListAsync();
 

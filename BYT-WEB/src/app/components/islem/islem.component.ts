@@ -83,6 +83,7 @@ export class IslemComponent implements OnInit {
     "gonderimNo",
     "islemTipi",
     "islemDurumu",
+    "olusturmaZamani",
     "gondermeZamani",
     "sonucZamani",
     "guid",
@@ -367,7 +368,7 @@ export class IslemComponent implements OnInit {
     if (confirm("Tescil Gönderimi Yapamak İstediğinizden Eminmisiniz?")) {
       this.loading = true;
  
-    
+ 
     if(beyan.trim()==="0") {
     
       const promise = this.beyanServis

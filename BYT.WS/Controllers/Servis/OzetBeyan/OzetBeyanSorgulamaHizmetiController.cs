@@ -96,7 +96,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.Guidof == _tarihce.Guid );
                         var _beyanname = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == _islem.BeyanInternalNo);
 
-                        gidenXml= "<SonucBilgisi><BasariliMi>false</BasariliMi><TescilNo>20550100EX000451</TescilNo><TescilTarihi>21/08/2020 14:33:29</TescilTarihi><KalemSayisi>1</KalemSayisi><Hatalar /></SonucBilgisi>";
+                      //  gidenXml= "<SonucBilgisi><BasariliMi>false</BasariliMi><TescilNo>20550100EX000451</TescilNo><TescilTarihi>21/08/2020 14:33:29</TescilTarihi><KalemSayisi>1</KalemSayisi><Hatalar /></SonucBilgisi>";
                       //  gidenXml = "<SonucBilgisi><BasariliMi>false</BasariliMi><TescilNo/><Hatalar><HataBilgisi><HataAciklamasi>Esya kodu hatalidir(440390009000)</HataAciklamasi ></HataBilgisi></Hatalar></SonucBilgisi>";
 
                         var sonucObj = SonuclariTopla(gidenXml, Guid, _islem.IslemInternalNo, _tarihce.GonderimNo, _islem.BeyanInternalNo);

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnYenile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,11 +45,22 @@
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
+            // btnYenile
+            // 
+            this.btnYenile.Location = new System.Drawing.Point(900, 442);
+            this.btnYenile.Name = "btnYenile";
+            this.btnYenile.Size = new System.Drawing.Size(75, 28);
+            this.btnYenile.TabIndex = 1;
+            this.btnYenile.Text = "Yenile";
+            this.btnYenile.UseVisualStyleBackColor = true;
+            this.btnYenile.Click += new System.EventHandler(this.btnYenile_Click);
+            // 
             // FrmListe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(987, 450);
+            this.ClientSize = new System.Drawing.Size(993, 471);
+            this.Controls.Add(this.btnYenile);
             this.Controls.Add(this.dataGridView1);
             this.Name = "FrmListe";
             this.Text = "Liste";
@@ -61,5 +73,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnYenile;
     }
 }

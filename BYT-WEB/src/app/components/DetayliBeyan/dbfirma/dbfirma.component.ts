@@ -41,7 +41,7 @@ export class DbFirmaComponent implements OnInit {
   beyanInternalNo = this._beyanSession.beyanInternalNo;
   beyanStatu = this._beyanSession.beyanStatu;
   beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
-
+  beyannameNo:string;
   _ulkeList = this.referansService.getUlkeJSON();;
   _firmaTipiList = firmaTipi;
   _kimlikTuruList = kimlikTuru;
@@ -77,6 +77,8 @@ export class DbFirmaComponent implements OnInit {
       );
       this.router.navigateByUrl('/app/dbbeyan');
     }
+    this.beyannameNo = this._beyanSession.beyannameNo!=null ? this._beyanSession.beyannameNo: this._beyanSession.beyanInternalNo;
+   
     this.getFirmaBilgileri();
   }
 

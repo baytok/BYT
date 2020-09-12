@@ -56,7 +56,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/{IslemInternalNo}/{Kullanici}")]
         [HttpPost("{IslemInternalNo}/{Kullanici}")]
-        public async Task<ServisDurum> GetTescil(string IslemInternalNo, string Kullanici)
+        public async Task<ServisDurum> GetTescilMesajiHazırla (string IslemInternalNo, string Kullanici)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -651,11 +651,11 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 {
                    
                     try
-                    {                       
-
-                        if (islemValues.IslemTipi == "Tescil")
+                    {
+                        if (islemValues != null)
+                       //  if (islemValues.IslemTipi == "Tescil")
                         {
-                         
+                            islemValues.IslemTipi = "Tescil";
                             islemValues.Kullanici = Kullanici;
                             islemValues.IslemDurumu = "Imzala";
                             islemValues.IslemZamani = DateTime.Now;
@@ -667,22 +667,24 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         }
                         else
                         {
-                            Islem _islem = new Islem();
-                             newIslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
-                            _islem.Kullanici = islemValues.Kullanici;
-                            _islem.IslemDurumu = "Imzala";
-                            _islem.IslemInternalNo = newIslemInternalNo;
-                            _islem.IslemZamani = DateTime.Now;
-                            _islem.SonIslemZamani = DateTime.Now;
-                            _islem.IslemSonucu = "Tescil Mesaji Olusturuldu";
-                            _islem.Guidof = guidOf;
-                            _islem.RefNo = islemValues.RefNo;
-                            _islem.BeyanInternalNo = islemValues.BeyanInternalNo;
-                            _islem.BeyanTipi = islemValues.BeyanTipi;
-                            _islem.IslemTipi = "Tescil";
-                            _islem.GonderimSayisi++;
-                            _islemTarihceContext.Entry(_islem).State = EntityState.Added;
+                            //Islem _islem = new Islem();
+                            //// newIslemInternalNo = islemValues.BeyanInternalNo.Replace("DB", "DBTG");
+                            ////_islem.IslemInternalNo = newIslemInternalNo;
+
+                            //_islem.Kullanici = islemValues.Kullanici;
+                            //_islem.IslemDurumu = "Imzala";                         
+                            //_islem.IslemZamani = DateTime.Now;
+                            //_islem.SonIslemZamani = DateTime.Now;
+                            //_islem.IslemSonucu = "Tescil Mesaji Olusturuldu";
+                            //_islem.Guidof = guidOf;
+                            //_islem.RefNo = islemValues.RefNo;
+                            //_islem.BeyanInternalNo = islemValues.BeyanInternalNo;
+                            //_islem.BeyanTipi = islemValues.BeyanTipi;
+                            //_islem.IslemTipi = "Tescil";
+                            //_islem.GonderimSayisi++;
+                            //_islemTarihceContext.Entry(_islem).State = EntityState.Added;
                         }
+
                         //TODO: bu guid dışında imzala aşamasında kalmış aynı IslemInternalNo ile ilgili kayıtlar iptal edilsin
                         await _islemTarihceContext.SaveChangesAsync();
 
@@ -763,7 +765,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
         [Route("api/BYT/Servis/Beyanname/[controller]/{IslemInternalNo}/{Kullanici}/{Guid}")]
         [HttpPost("{IslemInternalNo}/{Kullanici}/{Guid}")]
-        public async Task<ServisDurum> GetTescilMesajiHazırla(string IslemInternalNo, string Kullanici,  string Guid)
+        public async Task<ServisDurum> GetTescil (string IslemInternalNo, string Kullanici,  string Guid)
         {
             ServisDurum _servisDurum = new ServisDurum();
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
@@ -783,11 +785,15 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 XmlElement root = xmlDoc.CreateElement("Root");
                 root.InnerText = tarihceValues.ImzaliVeri;
                 TescilHizmeti.Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient Tescil = ServiceHelper.GetTescilWSClient(_servisCredential.username, _servisCredential.password);
-                await Tescil.TescilAsync(root);
-                
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(root.OuterXml);
+                var sonuc= await Tescil.TescilAsync(root);
 
+                //string InnerXml = "<RefID> E20 - 3037 </RefID ><Guid> 7fa7c6f4 - f837 - 4afb - 8f1b - 952987c9bd44 </Guid ><Durum> İşleminiz başlamıştır.Teşekkür ederiz.</Durum >";
+                //string outerxml = "<Response><RefID>E20-3037</RefID><Guid>7fa7c6f4-f837-4afb-8f1b-952987c9bd44</Guid><Durum>İşleminiz başlamıştır.Teşekkür ederiz.</Durum></Response>";
+                //string hataInnerXml = "<Message>Elektronik İmza ile kullanıcı kodu üzerindeki bilgiler uyumsuz.</Message>";
+                //string hataOuterXml = "<Error><Message>Elektronik İmza ile kullanıcı kodu üzerindeki bilgiler uyumsuz.</Message></Error>";
+
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(sonuc.Body.Root.OuterXml);
                 if (doc.HasChildNodes)
                 {
                     foreach (XmlNode n in doc.ChildNodes[0].ChildNodes)

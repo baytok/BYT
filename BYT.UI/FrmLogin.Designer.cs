@@ -53,6 +53,7 @@
             this.txtKullanici.Size = new System.Drawing.Size(113, 22);
             this.txtKullanici.TabIndex = 14;
             this.txtKullanici.Text = "11111111100";
+            this.txtKullanici.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKullanici_KeyPress);
             // 
             // label1
             // 

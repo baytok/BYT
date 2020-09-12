@@ -197,6 +197,7 @@ export const ithalatRejim=[
 export class DbBeyannameComponent implements OnInit {
   @ViewChild('islemNo', {static: true}) private islemInput: ElementRef;
   beyannameForm: FormGroup;
+  beyannameNo:string;
   submitted: boolean = false;
   ihracatEditable: boolean = false;
   ithalatEditable: boolean = false;
@@ -559,6 +560,9 @@ export class DbBeyannameComponent implements OnInit {
   }
   loadBeyannameForm()
     {
+      this.beyannameNo = this._beyanname.beyannameNo!=null ? this._beyanname.beyannameNo: this._beyanSession.beyanInternalNo;
+      this._beyanSession.beyannameNo= this.beyannameNo
+    
       this.beyannameForm.setValue({
         beyanInternalNo: this._beyanname.beyanInternalNo,
         beyannameNo: this._beyanname.beyannameNo,

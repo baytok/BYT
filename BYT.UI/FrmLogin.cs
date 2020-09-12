@@ -48,5 +48,11 @@ namespace BYT.UI
             if (txtKullanici.Text!="" && txtSifre.Text!="" &&  e.KeyChar==Convert.ToChar(Keys.Enter))
                 btnGiris_Click(sender,null);
         }
+
+        private void txtKullanici_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txtKullanici.Text != "" && txtSifre.Text != "" && e.KeyChar == Convert.ToChar(Keys.Enter))
+                btnGiris_Click(sender, null);
+        }
     }
 }

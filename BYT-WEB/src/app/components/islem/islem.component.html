@@ -466,6 +466,18 @@ type = "ball-8bits">
                   </mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="olusturmaZamani">
+                  <mat-header-cell [style.flex]="'0 0 150px'" *matHeaderCellDef>
+                    Oluşturma Zamanı
+                  </mat-header-cell>
+                  <mat-cell
+                    [style.flex]="'0 0 150px'"
+                    *matCellDef="let element"
+                  >
+                    {{ element.olusturmaZamani }}
+                  </mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="gondermeZamani">
                   <mat-header-cell [style.flex]="'0 0 150px'" *matHeaderCellDef>
                     Gönderim Zamanı

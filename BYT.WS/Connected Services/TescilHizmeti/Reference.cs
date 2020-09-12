@@ -115,13 +115,6 @@ namespace TescilHizmeti
         /// <param name="clientCredentials">The client credentials</param>
         static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
         
-        public Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient() : 
-                base(Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient.GetDefaultBinding(), Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient.GetDefaultEndpointAddress())
-        {
-            this.Endpoint.Name = EndpointConfiguration.BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoap.ToString();
-            ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
-        }
-        
         public Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient(EndpointConfiguration endpointConfiguration) : 
                 base(Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient.GetBindingForEndpoint(endpointConfiguration), Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient.GetEndpointAddress(endpointConfiguration))
         {
@@ -181,6 +174,17 @@ namespace TescilHizmeti
                 result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
                 result.AllowCookies = true;
+                result.Security.Mode = System.ServiceModel.BasicHttpSecurityMode.Transport;
+                return result;
+            }
+            if ((endpointConfiguration == EndpointConfiguration.BasicHttpsBinding_Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoap))
+            {
+                System.ServiceModel.BasicHttpBinding result = new System.ServiceModel.BasicHttpBinding();
+                result.MaxBufferSize = int.MaxValue;
+                result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
+                result.MaxReceivedMessageSize = int.MaxValue;
+                result.AllowCookies = true;
+                result.Security.Mode = System.ServiceModel.BasicHttpSecurityMode.Transport;
                 return result;
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
@@ -190,25 +194,21 @@ namespace TescilHizmeti
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoap))
             {
-                return new System.ServiceModel.EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/TescilWS");
+                return new System.ServiceModel.EndpointAddress("https://wstest.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/TescilWS");
+            }
+            if ((endpointConfiguration == EndpointConfiguration.BasicHttpsBinding_Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoap))
+            {
+                return new System.ServiceModel.EndpointAddress("https://wstest.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/TescilWS");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
-        }
-        
-        private static System.ServiceModel.Channels.Binding GetDefaultBinding()
-        {
-            return Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient.GetBindingForEndpoint(EndpointConfiguration.BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoap);
-        }
-        
-        private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
-        {
-            return Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient.GetEndpointAddress(EndpointConfiguration.BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoap);
         }
         
         public enum EndpointConfiguration
         {
             
             BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoap,
+            
+            BasicHttpsBinding_Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoap,
         }
     }
 }

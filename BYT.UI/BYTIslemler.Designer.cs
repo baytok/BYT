@@ -553,6 +553,7 @@
             this.rchImza.Size = new System.Drawing.Size(718, 50);
             this.rchImza.TabIndex = 81;
             this.rchImza.Text = "";
+            this.rchImza.TextChanged += new System.EventHandler(this.rchImza_TextChanged);
             // 
             // TxtIslemSonucu
             // 

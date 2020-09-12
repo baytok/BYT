@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using BYT.WS.AltYapi;
 using BYT.WS.Data;
@@ -56,6 +58,31 @@ namespace BYT.WS.Controllers.api
                 var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
 
                 return result;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+
+        [Route("api/BYT/OzetBeyanAlan/[controller]/{Tip}")]
+        [HttpPost("{Tip}")]
+        public async Task<ObBeyanAlan> PostOzetBeyanAlanlar(string Tip)
+        {
+            try
+            {
+           
+
+                ServisDurum _servisDurum = new ServisDurum();
+
+                var results = await _bilgiContext.ObBeyanAlan.FirstOrDefaultAsync(z=>z.Tip == Tip.Trim());
+           
+
+                return results;
 
             }
             catch (Exception ex)

@@ -130,6 +130,8 @@
           <xs:element minOccurs="0" maxOccurs="1" name="mobil2" type="xs:string" />
           <xs:element minOccurs="0" maxOccurs="1" name="FazlaMesaiID" type="xs:string" />
           <xs:element minOccurs="0" maxOccurs="1" name="LimanKodu" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="AcentaSevkBildirimNo" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="OdeSaymanlikBilgi" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="ArrayOfFirma">
@@ -539,10 +541,10 @@
   </wsdl:binding>
   <wsdl:service name="KontrolHizmeti">
     <wsdl:port name="BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoap" binding="tns:BasicHttpBinding_Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoap">
-      <soap:address location="http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS" />
+      <soap:address location="https://wstest.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoap" binding="tns:BasicHttpsBinding_Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoap">
-      <soap:address location="http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS" />
+      <soap:address location="https://wstest.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

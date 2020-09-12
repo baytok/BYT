@@ -5,7 +5,8 @@ import {
   FormBuilder,
   Validators,
   FormControl,
-  FormArray
+  FormArray,
+  AbstractControl, ValidatorFn
 } from "@angular/forms";
 import {
   ReferansService
@@ -26,6 +27,7 @@ import {
 } from "../../../../shared/service-proxies/ValidationService";
 import {
   OzetBeyanDto,
+  ObBeyanAlanDto,
   TasitUgrakUlkeDto,
   ServisDto,
   BeyanIslemDurumlari
@@ -98,12 +100,14 @@ export class OzetbeyanComponent implements OnInit {
   ihracatEditable: boolean = false;
   ithalatEditable: boolean = false;
   ozetBeyanInternalNo:string;
+  ozetBeyanNo:string;
   beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   beyanStatu:string;
   editable: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
   _ozetBeyan: OzetBeyanDto = new OzetBeyanDto();
+  _obBeyanAlan : ObBeyanAlanDto = new ObBeyanAlanDto() ;
   _rejimList = rejim;
   _beyanTuruList = this.referansService.beyanTuruJSON();
   _gumrukList =this.referansService.getGumrukJSON();
@@ -152,7 +156,7 @@ export class OzetbeyanComponent implements OnInit {
         ]),
       	emniyetGuvenlik: [false],
       	grupTasimaSenediNo:new FormControl("", [Validators.maxLength(20)]),
-	      gumrukIdaresi:new FormControl("", [Validators.required,Validators.maxLength(9)]),
+	      gumrukIdaresi:new FormControl("", [Validators.maxLength(9)]),
       	kullaniciKodu: new FormControl(""),
 	      kurye:[false],
         limanYerAdiBos:new FormControl("", [Validators.maxLength(20)]),
@@ -191,7 +195,7 @@ export class OzetbeyanComponent implements OnInit {
     }
     this.buildForm();
     this.ozetBeyanForm.disable();
-
+   
    
     if (this._beyanSession.islemInternalNo != undefined) {
       this.islemInput.nativeElement.value=this._beyanSession.islemInternalNo;
@@ -207,40 +211,53 @@ export class OzetbeyanComponent implements OnInit {
     });
   }
   rejimSelect(rejim){
-  //   let ticaret= ihracatRejim.findIndex(x=>x.rejim==rejim)>=0?'E':ithalatRejim.findIndex(x=>x.rejim==rejim)>=0?'I':'';
-   
-  //  if(ticaret=='E')
-  //  {
-  //   this.ozetBeyanForm.controls['gondericiVergiNo'].setValidators([Validators.required]);
-  //   this.ozetBeyanForm.controls['gondericiVergiNo'].updateValueAndValidity();
- 
-  //   this.ihracatEditable=true;
-  //   this.ithalatEditable=false;
-  //  }
-  //   else{
-  //     this.ozetBeyanForm.controls['birlikKayitNumarasi'].clearValidators();
-  //     this.ozetBeyanForm.controls['birlikKayitNumarasi'].updateValueAndValidity();
-   
-  //      this.ihracatEditable=false;
-  //      this.ithalatEditable=true;
-  //   }
 
-  //   if(ticaret !='')
-  //    this.editable=true;
-  }
-  bsSelect(bs){
-      
-  //  if(bs=='2')
-  //  {
-  //   this.ozetBeyanForm.controls['referansTarihi'].setValidators([Validators.required]);
-  //   this.ozetBeyanForm.controls['referansTarihi'].updateValueAndValidity();
-  //  }
-  //  else{
-  //   this.ozetBeyanForm.controls['referansTarihi'].clearValidators();
-  //   this.ozetBeyanForm.controls['referansTarihi'].updateValueAndValidity();
-  //  }
+    this.ozetBeyanAlanlar(rejim);       
+    
   }
 
+  ozetBeyanAlanlar(rejim)
+  {  
+    this.ozetBeyanForm.reset();
+    this.ozetBeyanForm.get("beyanTuru").setValue(rejim);
+    const promiseOdeme = this.beyanServis
+    .getOzetBeyanAlanlar(
+      rejim,   
+    )
+    .toPromise();
+  promiseOdeme.then(
+    (result) => {
+    
+       this._obBeyanAlan = new ObBeyanAlanDto();
+       this._obBeyanAlan.init(result);
+       
+       if( this._obBeyanAlan.gumrukIdaresi=='2')
+       {     
+        this.ozetBeyanForm.controls['gumrukIdaresi'].setValidators([Validators.required]);
+        this.ozetBeyanForm.controls['gumrukIdaresi'].updateValueAndValidity();   
+       }else if( this._obBeyanAlan.gumrukIdaresi=='0')
+       {     
+        this.ozetBeyanForm.get('gumrukIdaresi').disable({ onlySelf: true });
+        this.ozetBeyanForm.controls['gumrukIdaresi'].updateValueAndValidity();   
+       }
+
+       if( this._obBeyanAlan.plakaSeferNo=='2')
+       {     
+        this.ozetBeyanForm.controls['plakaSeferNo'].setValidators([Validators.required]);
+        this.ozetBeyanForm.controls['plakaSeferNo'].updateValueAndValidity();   
+       }else if( this._obBeyanAlan.plakaSeferNo=='0')
+       {     
+        this.ozetBeyanForm.get('plakaSeferNo').disable({ onlySelf: true });
+        this.ozetBeyanForm.controls['plakaSeferNo'].updateValueAndValidity();   
+       }
+    
+    },
+    (err) => {
+      this.openSnackBar(err, "Tamam");
+    }
+  );
+  }
+  
   getBeyannameFromIslem(islemInternalNo:string) {  
   
     this.beyanServis.getOzetBeyan(islemInternalNo).subscribe(
@@ -315,7 +332,9 @@ export class OzetbeyanComponent implements OnInit {
   loadozetBeyanForm()
     {
       this._beyanSession.ozetBeyanInternalNo= this._ozetBeyan.ozetBeyanInternalNo;
-       this.ozetBeyanForm.setValue({      
+      this.ozetBeyanNo = this._ozetBeyan.ozetBeyanNo!=null ? this._ozetBeyan.ozetBeyanNo: this._beyanSession.ozetBeyanInternalNo;
+      this._beyanSession.ozetBeyanNo= this.ozetBeyanNo
+      this.ozetBeyanForm.setValue({      
         ozetBeyanInternalNo: this._ozetBeyan.ozetBeyanInternalNo,
 	      ozetBeyanNo:this._ozetBeyan.ozetBeyanNo,
         beyanSahibiVergiNo:this._ozetBeyan.beyanSahibiVergiNo,

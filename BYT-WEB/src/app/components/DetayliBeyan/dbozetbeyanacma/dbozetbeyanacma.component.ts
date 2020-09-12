@@ -41,6 +41,7 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
   ozetBeyanInternalNo: string;
   tasimaSenetInternalNo: string;
   tasimaSenediNo: string;
+  beyannameNo:string;
   ozetBeyanForm: FormGroup;
   tasimaSenetiForm: FormGroup;
   tasimaSatiriForm: FormGroup;
@@ -109,7 +110,8 @@ export class DbOzetbeyanAcmaComponent implements OnInit {
       );
       this.router.navigateByUrl("/app/dbbeyan");
     }
-
+    this.beyannameNo = this._beyanSession.beyannameNo!=null ? this._beyanSession.beyannameNo: this._beyanSession.beyanInternalNo;
+  
     this.getOzetBeyanlar(this._beyanSession.islemInternalNo);
   }
   openSnackBar(message: string, action: string) {

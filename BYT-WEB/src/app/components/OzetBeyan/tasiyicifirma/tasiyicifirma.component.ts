@@ -38,6 +38,7 @@ export class TasiyiciFirmaComponent implements OnInit {
   firma = new ObTasiyiciFirmaDto;
   islemInternalNo = this._beyanSession.islemInternalNo;
   ozetBeyanInternalNo = this._beyanSession.ozetBeyanInternalNo;
+  ozetBeyanNo:string;
   beyanStatu = this._beyanSession.beyanStatu;
   beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   _ulkeList = this.referansService.getUlkeJSON();
@@ -116,6 +117,8 @@ export class TasiyiciFirmaComponent implements OnInit {
       );
       this.router.navigateByUrl("/app/ozetbeyan");
     }
+    this.ozetBeyanNo = this._beyanSession.ozetBeyanNo!=null ? this._beyanSession.ozetBeyanNo: this._beyanSession.ozetBeyanInternalNo;
+   
     this.getFirmaBilgileri();
   }
   openSnackBar(message: string, action: string) {

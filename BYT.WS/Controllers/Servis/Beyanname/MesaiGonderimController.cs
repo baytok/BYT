@@ -102,9 +102,15 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                 var values = await mesaiServis.MesaiBasvurusuYapAsync(mesai);
 
+               // string InnerXml = "<RefID> E20 - 3037 </RefID ><Guid> 7fa7c6f4 - f837 - 4afb - 8f1b - 952987c9bd44 </Guid ><Durum> İşleminiz başlamıştır.Teşekkür ederiz.</Durum >";
+                //string outerxml = "<Response><RefID>E20-3037</RefID><Guid>7fa7c6f4-f837-4afb-8f1b-952987c9bd44</Guid><Durum>İşleminiz başlamıştır.Teşekkür ederiz.</Durum></Response>";
+                //string hataInnerXml = "<Message>Elektronik İmza ile kullanıcı kodu üzerindeki bilgiler uyumsuz.</Message>";
+                //string hataOuterXml = "<Error><Message>Elektronik İmza ile kullanıcı kodu üzerindeki bilgiler uyumsuz.</Message></Error>";
+               
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(values.Root.OuterXml);
-              
+
+
                 if (doc.HasChildNodes)
                 {
                     foreach (XmlNode n in doc.ChildNodes[0].ChildNodes)
@@ -152,7 +158,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         islemValues.SonIslemZamani = DateTime.Now;
                         islemValues.IslemSonucu = islemSonucu;
                         islemValues.Guidof = guidOf;
-                        islemValues.IslemTipi = "MesaiBasvuru";
+                        islemValues.IslemTipi = "MesaiBasv";
                         islemValues.GonderimSayisi++;
 
 
@@ -168,6 +174,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         _tarihce.IslemDurumu = IslemDurumu;
                         _tarihce.IslemSonucu = islemSonucu;
                         _tarihce.IslemTipi = "6";
+                        _tarihce.Rejim = "Bşv";
+                        _tarihce.TicaretTipi = "Bşv";
                         _tarihce.GonderilenVeri = _tarihce.GonderilecekVeri = SerializeToXML(mesai);
                         _tarihce.GondermeZamani = _tarihce.OlusturmaZamani = DateTime.Now;
                         _tarihce.GonderimNo = islemValues.GonderimSayisi;

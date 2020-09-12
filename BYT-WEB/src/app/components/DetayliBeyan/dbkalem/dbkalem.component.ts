@@ -111,7 +111,7 @@ class PickDateAdapter extends NativeDateAdapter {
 })
 export class DbKalemComponent implements OnInit {
   public form: FormGroup;
-
+  beyannameNo:string;
   kalemInternalNo: string;
   kalemNo: number;
   kalemForm: FormGroup;
@@ -370,6 +370,7 @@ export class DbKalemComponent implements OnInit {
       this.router.navigateByUrl("/app/dbbeyan");
     }
     this.getKalemler(this._beyanSession.islemInternalNo);
+    this.beyannameNo = this._beyanSession.beyannameNo!=null ? this._beyanSession.beyannameNo: this._beyanSession.beyanInternalNo;
    
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(

@@ -379,3 +379,4 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.UI\bin\Debug\Interop.MSXML2.dll
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.csproj.CoreCompileInputs.cache
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.FrmListe.resources
 C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.FrmLogin.resources
+C:\Projeler\GitHub\Repositories\BYT\BYT.UI\obj\Debug\BYT.UI.csprojAssemblyReference.cache

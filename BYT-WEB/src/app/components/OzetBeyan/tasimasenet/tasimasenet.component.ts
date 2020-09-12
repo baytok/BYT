@@ -121,6 +121,7 @@ export class TasimaSenetComponent implements OnInit {
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
   ozetBeyanInternalNo = this._beyanSession.ozetBeyanInternalNo;
+  ozetBeyanNo:string;
   beyanStatu = this._beyanSession.beyanStatu;
   beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
   _beyannameBilgileri: BeyannameBilgileriDto;
@@ -224,7 +225,8 @@ export class TasimaSenetComponent implements OnInit {
       this.router.navigateByUrl("/app/ozetbeyan");
     }
     this.getSenetler(this._beyanSession.islemInternalNo);
-
+    this.ozetBeyanNo = this._beyanSession.ozetBeyanNo!=null ? this._beyanSession.ozetBeyanNo: this._beyanSession.ozetBeyanInternalNo;
+   
     this._beyannameNo.nativeElement.focus();
     this.selectionList.selectionChange.subscribe(
       (s: MatSelectionListChange) => {

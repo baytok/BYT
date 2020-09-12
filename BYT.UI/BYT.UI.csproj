@@ -799,18 +799,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\KontrolHizmeti\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\KontrolHizmeti\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\KontrolHizmeti\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ArnicaCS_VPI.dll" />
     <None Include="Connected Services\SorgulamaHizmeti\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
@@ -818,12 +806,6 @@
     </None>
     <None Include="Connected Services\SorgulamaHizmeti\configuration.svcinfo" />
     <None Include="Connected Services\SorgulamaHizmeti\configuration91.svcinfo" />
-    <None Include="Connected Services\TescilHizmeti\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\TescilHizmeti\configuration.svcinfo" />
-    <None Include="Connected Services\TescilHizmeti\configuration91.svcinfo" />
     <None Include="Connected Services\OzetBeyanHizmeti\configuration91.svcinfo" />
     <None Include="Connected Services\OzetBeyanHizmeti\configuration.svcinfo" />
     <None Include="Connected Services\OzetBeyanHizmeti\Reference.svcmap">
@@ -845,6 +827,18 @@
     <None Include="Connected Services\NctsHizmeti\configuration91.svcinfo" />
     <None Include="Connected Services\NctsHizmeti\configuration.svcinfo" />
     <None Include="Connected Services\NctsHizmeti\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\TescilHizmeti\configuration91.svcinfo" />
+    <None Include="Connected Services\TescilHizmeti\configuration.svcinfo" />
+    <None Include="Connected Services\TescilHizmeti\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\KontrolHizmeti\configuration91.svcinfo" />
+    <None Include="Connected Services\KontrolHizmeti\configuration.svcinfo" />
+    <None Include="Connected Services\KontrolHizmeti\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

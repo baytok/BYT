@@ -50,7 +50,7 @@ export class MesaiComponent implements OnInit {
   mesaiInternalNo:string;
   beyanStatu:string;  
   beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
-
+  mesaiId:string;
   editable: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
@@ -207,6 +207,8 @@ export class MesaiComponent implements OnInit {
   loadmesaiForm()
     {
       this._beyanSession.mesaiInternalNo= this._mesai.mesaiInternalNo;
+      this.mesaiId = this._mesai.mesaiID!=null ? this._mesai.mesaiID: this._beyanSession.mesaiInternalNo;
+        
        this.mesaiForm.setValue({      
         mesaiInternalNo: this._mesai.mesaiInternalNo,
         mesaiId:this._mesai.mesaiID,

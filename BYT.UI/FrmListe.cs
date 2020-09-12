@@ -37,6 +37,16 @@ namespace BYT.UI
 
         }
 
+        private void btnYenile_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = null;
+            ServisManager manager = new ServisManager();
+            var list = manager.IslemleriGetir(Kullanici, Token);
+
+            if (list != null)
+                dataGridView1.DataSource = list;
+        }
+
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             string guidOf = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells["guidof"].Value.ToString();

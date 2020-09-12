@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.Threading.Tasks;
 
@@ -41,7 +42,8 @@ namespace BYT.WS.AltYapi
         public static TescilHizmeti.Gumruk_Biztalk_EImzaTescil_Tescil_PortTescilSoapClient GetTescilWSClient(string UserName, string Password)
         {
             EndpointAddress address;
-            BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly);
+            //  BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly); 8080 için
+            BasicHttpsBinding binding = new BasicHttpsBinding(BasicHttpsSecurityMode.Transport);
             binding.SendTimeout = TimeSpan.FromSeconds(125);
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
 
@@ -51,8 +53,8 @@ namespace BYT.WS.AltYapi
             binding.MaxReceivedMessageSize = 2147483647;
 
 #if (DEBUG)
-            address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/TescilWS");
-
+          //  address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/TescilWS");
+            address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/TescilWS");
 #else
              address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/TescilWS");
           
@@ -66,7 +68,9 @@ namespace BYT.WS.AltYapi
         public static KontrolHizmeti.Gumruk_Biztalk_EImzaTescil_Kontrol_KontrolTalepPortSoapClient GetKontrolWsClient(string UserName, string Password)
         {
             EndpointAddress address;
-            BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly);
+
+          //  BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly); 8080 için
+            BasicHttpsBinding binding = new BasicHttpsBinding(BasicHttpsSecurityMode.Transport);
             binding.SendTimeout = TimeSpan.FromSeconds(125);
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
 
@@ -75,8 +79,8 @@ namespace BYT.WS.AltYapi
             //binding.Security.Message.AlgorithmSuite = System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDes;
             binding.MaxReceivedMessageSize = 2147483647;
 #if (DEBUG)
-            address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS");
-           // address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS");
+           // address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS");
+            address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS");
 
 #else
              address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/KontrolHizmetiWS");
@@ -130,7 +134,8 @@ namespace BYT.WS.AltYapi
         {
           
             EndpointAddress address;
-            BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly);
+            //  BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly); 8080 için
+            BasicHttpsBinding binding = new BasicHttpsBinding(BasicHttpsSecurityMode.Transport);
             binding.SendTimeout = TimeSpan.FromSeconds(125);
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
 
@@ -140,12 +145,13 @@ namespace BYT.WS.AltYapi
             binding.MaxReceivedMessageSize = 2147483647;
 #if (DEBUG)
             //  address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/GumrukWS");
-            address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/GumrukWS");
+            address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/GumrukWS");
 
 #else
              address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/GumrukWS");
             
 #endif
+           
             SonucHizmeti.GumrukWSSoapClient client = new SonucHizmeti.GumrukWSSoapClient(binding,address);
 
 
@@ -182,7 +188,8 @@ namespace BYT.WS.AltYapi
         public static OzetBeyanHizmeti.Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoapClient GetOzetBeyanWSClient(string UserName, string Password)
         {
             EndpointAddress address;
-            BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly);
+            //   BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly); 8080 hhtp gönderileceği zaman
+            BasicHttpsBinding binding = new BasicHttpsBinding(BasicHttpsSecurityMode.Transport);
             binding.SendTimeout = TimeSpan.FromSeconds(125);
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
 
@@ -192,10 +199,12 @@ namespace BYT.WS.AltYapi
             binding.MaxReceivedMessageSize = 2147483647;
 
 #if (DEBUG)
-            address = new EndpointAddress("https://wstest.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/OzetBeyanWS");
+          //  address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/OzetBeyanWS");
+            address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/OzetBeyanWS");
+         //   address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/OzetBeyanWS");
 
 #else
-             address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/OzetBeyanWS");
+             address = new EndpointAddress("https://wstest.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/OzetBeyanWS");
           
 #endif
             OzetBeyanHizmeti.Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoapClient client = new OzetBeyanHizmeti.Gumruk_Biztalk_EImzaTescil_YeniOzetBeyan_YeniOzetBeyanTalepSoapClient(binding, address);
@@ -208,7 +217,8 @@ namespace BYT.WS.AltYapi
         public static MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoapClient GetMesaiBildirWsClient(string UserName, string Password)
         {
             EndpointAddress address;
-            BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly);
+            //  BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly); 8080 için
+            BasicHttpsBinding binding = new BasicHttpsBinding(BasicHttpsSecurityMode.Transport);
             binding.SendTimeout = TimeSpan.FromSeconds(125);
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
 
@@ -217,26 +227,39 @@ namespace BYT.WS.AltYapi
             //binding.Security.Message.AlgorithmSuite = System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDes;
             binding.MaxReceivedMessageSize = 2147483647;
 #if (DEBUG)
-         //   address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
-             address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
-                                            
-          
+          //  address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
+           // address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
+              address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
+
 #else
              address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
-          
+            address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/FazlaMesaiWS");
+
+ 
 #endif
+           
             MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoapClient client = new MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoapClient(binding, address);
             client.ClientCredentials.UserName.UserName = UserName;
             client.ClientCredentials.UserName.Password = Password;
+
+            //client.ClientCredentials.ClientCertificate.SetCertificate(
+            //   StoreLocation.CurrentUser,
+            //   StoreName.CertificateAuthority,
+            //   X509FindType.FindBySubjectName,
+            //    "gtb.gov.tr");
 
             return client;
         }
 
         public static IGHBHizmeti.Gumruk_Biztalk_IGHBClient GetIGHBWSClient(string UserName, string Password)
         {
+            
+
             EndpointAddress address;
-            BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly);
+           
+            BasicHttpsBinding binding = new BasicHttpsBinding(BasicHttpsSecurityMode.Transport);
             binding.SendTimeout = TimeSpan.FromSeconds(125);
+         //   binding.Security.Mode= SecurityMode.Transport;
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
 
             binding.Security.Transport.ProxyCredentialType = HttpProxyCredentialType.None;
@@ -244,8 +267,8 @@ namespace BYT.WS.AltYapi
             //binding.Security.Message.AlgorithmSuite = System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDes;
             binding.MaxReceivedMessageSize = 2147483647;
 #if (DEBUG)
-            address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/IGHB");
-           // address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/IGHB");
+          //  address = new EndpointAddress("http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/IGHB");
+            address = new EndpointAddress("https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/IGHB");
 
 #else
              address = new EndpointAddress("http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/IGHB");
@@ -254,6 +277,11 @@ namespace BYT.WS.AltYapi
             IGHBHizmeti.Gumruk_Biztalk_IGHBClient client = new IGHBHizmeti.Gumruk_Biztalk_IGHBClient(binding, address);
             client.ClientCredentials.UserName.UserName = UserName;
             client.ClientCredentials.UserName.Password = Password;
+            //client.ClientCredentials.ClientCertificate.SetCertificate(
+            // StoreLocation.CurrentUser,
+            // StoreName.My,
+            // X509FindType.FindBySubjectName,
+            //  "gtb.gov.tr");
 
             return client;
         }

@@ -261,6 +261,10 @@ namespace BYT.UI.KontrolHizmeti {
         
         private string limanKoduField;
         
+        private string acentaSevkBildirimNoField;
+        
+        private string odeSaymanlikBilgiField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public string Beyanname_no {
@@ -1074,6 +1078,30 @@ namespace BYT.UI.KontrolHizmeti {
             set {
                 this.limanKoduField = value;
                 this.RaisePropertyChanged("LimanKodu");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=68)]
+        public string AcentaSevkBildirimNo {
+            get {
+                return this.acentaSevkBildirimNoField;
+            }
+            set {
+                this.acentaSevkBildirimNoField = value;
+                this.RaisePropertyChanged("AcentaSevkBildirimNo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=69)]
+        public string OdeSaymanlikBilgi {
+            get {
+                return this.odeSaymanlikBilgiField;
+            }
+            set {
+                this.odeSaymanlikBilgiField = value;
+                this.RaisePropertyChanged("OdeSaymanlikBilgi");
             }
         }
         
