@@ -62,7 +62,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                 var mesaiValues = await _beyannameContext.Mesai.FirstOrDefaultAsync(v => v.MesaiInternalNo == islemValues.BeyanInternalNo);
                
 
-                MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoapClient mesaiServis = ServiceHelper.GetMesaiBildirWsClient(_servisCredential.username, _servisCredential.password);
+                MesaiHizmeti.MesaiHizmetiClient mesaiServis = ServiceHelper.GetMesaiBildirWsClient(_servisCredential.username, _servisCredential.password);
 
                 MesaiHizmeti.MesaiBasvuru mesai = new MesaiHizmeti.MesaiBasvuru();
 

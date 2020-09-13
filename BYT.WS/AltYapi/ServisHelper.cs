@@ -214,7 +214,7 @@ namespace BYT.WS.AltYapi
             return client;
         }
 
-        public static MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoapClient GetMesaiBildirWsClient(string UserName, string Password)
+        public static MesaiHizmeti.MesaiHizmetiClient GetMesaiBildirWsClient(string UserName, string Password)
         {
             EndpointAddress address;
             //  BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.TransportCredentialOnly); 8080 için
@@ -238,7 +238,7 @@ namespace BYT.WS.AltYapi
  
 #endif
            
-            MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoapClient client = new MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoapClient(binding, address);
+            MesaiHizmeti.MesaiHizmetiClient client = new MesaiHizmeti.MesaiHizmetiClient(binding, address);
             client.ClientCredentials.UserName.UserName = UserName;
             client.ClientCredentials.UserName.Password = Password;
 

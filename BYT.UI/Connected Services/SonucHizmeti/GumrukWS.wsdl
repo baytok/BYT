@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
       <s:element name="IslemSorgula">
@@ -441,6 +441,79 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="aktarmaTescilSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Gumruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BasTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BitTarihi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="aktarmaTescilSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aktarmaTescilSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IGHBSonucSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VergiNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IGHBNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IGHBSonucSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IGHBSonucSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MesaiBasvuruSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KullaniciSifre" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="BaslangicTarihi" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="BitisTarihi" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MesaiBasvuruSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MesaiBasvuruSorgulaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="IslemSorgulaSoapIn">
@@ -557,6 +630,24 @@
   <wsdl:message name="mesajSorgulaSoapOut">
     <wsdl:part name="parameters" element="tns:mesajSorgulaResponse" />
   </wsdl:message>
+  <wsdl:message name="aktarmaTescilSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:aktarmaTescilSorgula" />
+  </wsdl:message>
+  <wsdl:message name="aktarmaTescilSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:aktarmaTescilSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGHBSonucSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:IGHBSonucSorgula" />
+  </wsdl:message>
+  <wsdl:message name="IGHBSonucSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:IGHBSonucSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="MesaiBasvuruSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:MesaiBasvuruSorgula" />
+  </wsdl:message>
+  <wsdl:message name="MesaiBasvuruSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:MesaiBasvuruSorgulaResponse" />
+  </wsdl:message>
   <wsdl:portType name="GumrukWSSoap">
     <wsdl:operation name="IslemSorgula">
       <wsdl:input message="tns:IslemSorgulaSoapIn" />
@@ -633,6 +724,18 @@
     <wsdl:operation name="mesajSorgula">
       <wsdl:input message="tns:mesajSorgulaSoapIn" />
       <wsdl:output message="tns:mesajSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="aktarmaTescilSorgula">
+      <wsdl:input message="tns:aktarmaTescilSorgulaSoapIn" />
+      <wsdl:output message="tns:aktarmaTescilSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IGHBSonucSorgula">
+      <wsdl:input message="tns:IGHBSonucSorgulaSoapIn" />
+      <wsdl:output message="tns:IGHBSonucSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MesaiBasvuruSorgula">
+      <wsdl:input message="tns:MesaiBasvuruSorgulaSoapIn" />
+      <wsdl:output message="tns:MesaiBasvuruSorgulaSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GumrukWSSoap" type="tns:GumrukWSSoap">
@@ -801,6 +904,33 @@
     </wsdl:operation>
     <wsdl:operation name="mesajSorgula">
       <soap:operation soapAction="http://tempuri.org/mesajSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="aktarmaTescilSorgula">
+      <soap:operation soapAction="http://tempuri.org/aktarmaTescilSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IGHBSonucSorgula">
+      <soap:operation soapAction="http://tempuri.org/IGHBSonucSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MesaiBasvuruSorgula">
+      <soap:operation soapAction="http://tempuri.org/MesaiBasvuruSorgula" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -982,13 +1112,40 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="aktarmaTescilSorgula">
+      <soap12:operation soapAction="http://tempuri.org/aktarmaTescilSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IGHBSonucSorgula">
+      <soap12:operation soapAction="http://tempuri.org/IGHBSonucSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MesaiBasvuruSorgula">
+      <soap12:operation soapAction="http://tempuri.org/MesaiBasvuruSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="GumrukWS">
     <wsdl:port name="GumrukWSSoap" binding="tns:GumrukWSSoap">
-      <soap:address location="http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/GumrukWS" />
+      <soap:address location="https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/GumrukWS" />
     </wsdl:port>
     <wsdl:port name="GumrukWSSoap12" binding="tns:GumrukWSSoap12">
-      <soap12:address location="http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/GumrukWS" />
+      <soap12:address location="https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/GumrukWS" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

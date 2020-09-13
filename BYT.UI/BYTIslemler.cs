@@ -21,7 +21,7 @@ namespace BYT.UI
 {
     public partial class BYTIslemler : Form
     {
-        public SorgulamaHizmeti.GumrukWSSoapClient mysn = ServiceHelper.GetSonucWSClient("", "");
+        public SonucHizmeti.GumrukWSSoapClient mysn = ServiceHelper.GetSonucWSClient("", "");
         public NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
 
         public string Guid, Token;

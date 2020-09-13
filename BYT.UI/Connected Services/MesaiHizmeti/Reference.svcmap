@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2b1ebe1a-7b5d-40d1-a95f-04fafcff53c4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0a8398bc-0631-4383-939e-795167381d5a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="..\Web References\MesaiGonderimServisi_Test\MesaiHizmeti.wsdl" Protocol="file" SourceId="1" />
+    <MetadataSource Address="C:\Users\Ata\Desktop\Servisler\EGE_FAZLA_MESAI_WS_PROD.wsdl" Protocol="file" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="MesaiHizmeti.wsdl" MetadataType="Wsdl" ID="34cab3b6-2fe5-4606-8a2e-7970b5607eaf" SourceId="1" SourceUrl="../Web References/MesaiGonderimServisi_Test/MesaiHizmeti.wsdl" />
+    <MetadataFile FileName="MesaiHizmeti.wsdl" MetadataType="Wsdl" ID="fcb57040-f99a-4f3c-9ed0-7948293c301d" SourceId="1" SourceUrl="file:///C:/Users/Ata/Desktop/Servisler/EGE_FAZLA_MESAI_WS_PROD.wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

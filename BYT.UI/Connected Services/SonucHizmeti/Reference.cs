@@ -8,12 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BYT.UI.SorgulamaHizmeti {
+namespace BYT.UI.SonucHizmeti {
     using System.Data;
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SorgulamaHizmeti.GumrukWSSoap")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SonucHizmeti.GumrukWSSoap")]
     public interface GumrukWSSoap {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IslemSorgula", ReplyAction="*")]
@@ -148,15 +148,36 @@ namespace BYT.UI.SorgulamaHizmeti {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/mesajSorgula", ReplyAction="*")]
         System.Threading.Tasks.Task<System.Data.DataSet> mesajSorgulaAsync(string KullaniciAdi, string KullaniciSifre, string Gumruk, string TescilNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/aktarmaTescilSorgula", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataSet aktarmaTescilSorgula(string KullaniciAdi, string KullaniciSifre, string Gumruk, string BasTarihi, string BitTarihi);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/aktarmaTescilSorgula", ReplyAction="*")]
+        System.Threading.Tasks.Task<System.Data.DataSet> aktarmaTescilSorgulaAsync(string KullaniciAdi, string KullaniciSifre, string Gumruk, string BasTarihi, string BitTarihi);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGHBSonucSorgula", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataSet IGHBSonucSorgula(string KullaniciAdi, string KullaniciSifre, string VergiNo, string IGHBNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGHBSonucSorgula", ReplyAction="*")]
+        System.Threading.Tasks.Task<System.Data.DataSet> IGHBSonucSorgulaAsync(string KullaniciAdi, string KullaniciSifre, string VergiNo, string IGHBNo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MesaiBasvuruSorgula", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataSet MesaiBasvuruSorgula(string KullaniciAdi, string KullaniciSifre, System.DateTime BaslangicTarihi, System.DateTime BitisTarihi);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/MesaiBasvuruSorgula", ReplyAction="*")]
+        System.Threading.Tasks.Task<System.Data.DataSet> MesaiBasvuruSorgulaAsync(string KullaniciAdi, string KullaniciSifre, System.DateTime BaslangicTarihi, System.DateTime BitisTarihi);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface GumrukWSSoapChannel : BYT.UI.SorgulamaHizmeti.GumrukWSSoap, System.ServiceModel.IClientChannel {
+    public interface GumrukWSSoapChannel : BYT.UI.SonucHizmeti.GumrukWSSoap, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GumrukWSSoapClient : System.ServiceModel.ClientBase<BYT.UI.SorgulamaHizmeti.GumrukWSSoap>, BYT.UI.SorgulamaHizmeti.GumrukWSSoap {
+    public partial class GumrukWSSoapClient : System.ServiceModel.ClientBase<BYT.UI.SonucHizmeti.GumrukWSSoap>, BYT.UI.SonucHizmeti.GumrukWSSoap {
         
         public GumrukWSSoapClient() {
         }
@@ -327,6 +348,30 @@ namespace BYT.UI.SorgulamaHizmeti {
         
         public System.Threading.Tasks.Task<System.Data.DataSet> mesajSorgulaAsync(string KullaniciAdi, string KullaniciSifre, string Gumruk, string TescilNo) {
             return base.Channel.mesajSorgulaAsync(KullaniciAdi, KullaniciSifre, Gumruk, TescilNo);
+        }
+        
+        public System.Data.DataSet aktarmaTescilSorgula(string KullaniciAdi, string KullaniciSifre, string Gumruk, string BasTarihi, string BitTarihi) {
+            return base.Channel.aktarmaTescilSorgula(KullaniciAdi, KullaniciSifre, Gumruk, BasTarihi, BitTarihi);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataSet> aktarmaTescilSorgulaAsync(string KullaniciAdi, string KullaniciSifre, string Gumruk, string BasTarihi, string BitTarihi) {
+            return base.Channel.aktarmaTescilSorgulaAsync(KullaniciAdi, KullaniciSifre, Gumruk, BasTarihi, BitTarihi);
+        }
+        
+        public System.Data.DataSet IGHBSonucSorgula(string KullaniciAdi, string KullaniciSifre, string VergiNo, string IGHBNo) {
+            return base.Channel.IGHBSonucSorgula(KullaniciAdi, KullaniciSifre, VergiNo, IGHBNo);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataSet> IGHBSonucSorgulaAsync(string KullaniciAdi, string KullaniciSifre, string VergiNo, string IGHBNo) {
+            return base.Channel.IGHBSonucSorgulaAsync(KullaniciAdi, KullaniciSifre, VergiNo, IGHBNo);
+        }
+        
+        public System.Data.DataSet MesaiBasvuruSorgula(string KullaniciAdi, string KullaniciSifre, System.DateTime BaslangicTarihi, System.DateTime BitisTarihi) {
+            return base.Channel.MesaiBasvuruSorgula(KullaniciAdi, KullaniciSifre, BaslangicTarihi, BitisTarihi);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataSet> MesaiBasvuruSorgulaAsync(string KullaniciAdi, string KullaniciSifre, System.DateTime BaslangicTarihi, System.DateTime BitisTarihi) {
+            return base.Channel.MesaiBasvuruSorgulaAsync(KullaniciAdi, KullaniciSifre, BaslangicTarihi, BitisTarihi);
         }
     }
 }

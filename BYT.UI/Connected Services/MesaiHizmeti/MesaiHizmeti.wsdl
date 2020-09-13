@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://Gumruk.BizTalk.Integration" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MesaiHizmeti" targetNamespace="http://Gumruk.BizTalk.Integration" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsp:Policy wsu:Id="BasicHttpsBinding_Gumruk_Biztalk_MesaiBasvuruSoap_policy">
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MesaiHizmeti" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpsBinding_IMesaiHizmeti_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -26,10 +26,12 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsdl:types>
-    <xs:schema elementFormDefault="qualified" targetNamespace="http://Gumruk.BizTalk.Integration" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://MesaiBasvuru" />
-      <xs:import namespace="http://schemas.microsoft.com/BizTalk/2003/Any" />
       <xs:import namespace="http://MesaiBasvuruIptal" />
+      <xs:import namespace="http://GlobalHesapBasvuru" />
+      <xs:import namespace="http://GlobalHesapBasvuruIptal" />
+      <xs:import namespace="http://GlobalHesapBakiyeTransfer" />
       <xs:element name="MesaiBasvuru">
         <xs:complexType>
           <xs:sequence>
@@ -40,30 +42,99 @@
       <xs:element name="FazlaMesaiBasvuruResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q2="http://schemas.microsoft.com/BizTalk/2003/Any" minOccurs="0" maxOccurs="1" ref="q2:Root" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Root">
+              <xs:complexType mixed="true">
+                <xs:sequence>
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
       <xs:element name="MesaiBasvuruIptal">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q3="http://MesaiBasvuruIptal" minOccurs="0" maxOccurs="1" ref="q3:GelenBasvuruIptalBilgisi" />
+            <xs:element xmlns:q2="http://MesaiBasvuruIptal" minOccurs="0" maxOccurs="1" ref="q2:GelenBasvuruIptalBilgisi" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
       <xs:element name="FazlaMesaiBasvuruIptalResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element xmlns:q4="http://schemas.microsoft.com/BizTalk/2003/Any" minOccurs="0" maxOccurs="1" ref="q4:Root" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Root">
+              <xs:complexType mixed="true">
+                <xs:sequence>
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GlobalHesapBasvuru">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://GlobalHesapBasvuru" minOccurs="0" maxOccurs="1" ref="q3:GelenGlobalHesapBasvuruBilgisi" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GlobalHesapBasvuruResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="Root">
+              <xs:complexType mixed="true">
+                <xs:sequence>
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GlobalHesapBasvuruIptal">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://GlobalHesapBasvuruIptal" minOccurs="0" maxOccurs="1" ref="q4:GelenGlobalHesapIptalBilgisi" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GlobalHesapBasvuruIptalResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="Root">
+              <xs:complexType mixed="true">
+                <xs:sequence>
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GlobalHesapBakiyeTransfer">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://GlobalHesapBakiyeTransfer" minOccurs="0" maxOccurs="1" ref="q5:GlobalHesapBakiyeTransfer" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GlobalHesapBakiyeTransferResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="Root">
+              <xs:complexType mixed="true">
+                <xs:sequence>
+                  <xs:any />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
     </xs:schema>
     <xs:schema xmlns:tns="http://MesaiBasvuru" elementFormDefault="qualified" targetNamespace="http://MesaiBasvuru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:import namespace="http://tempuri.org/" />
-      <xs:element xmlns:q1="http://tempuri.org/" name="GelenBasvuruBilgisi" type="q1:MesaiBasvuru" />
-    </xs:schema>
-    <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GelenBasvuruBilgisi" type="tns:MesaiBasvuru" />
       <xs:complexType name="MesaiBasvuru">
         <xs:sequence>
           <xs:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="xs:string" />
@@ -80,6 +151,7 @@
           <xs:element minOccurs="0" maxOccurs="1" name="Adres" type="xs:string" />
           <xs:element minOccurs="1" maxOccurs="1" name="Uzaklik" type="xs:int" />
           <xs:element minOccurs="0" maxOccurs="1" name="GlobalHesaptanOdeme" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="GlobalHesapID" type="xs:string" />
           <xs:element minOccurs="0" maxOccurs="1" name="GumrukKodu" type="xs:string" />
           <xs:element minOccurs="0" maxOccurs="1" name="EsyaninBulunduguYer" type="xs:string" />
           <xs:element minOccurs="0" maxOccurs="1" name="EsyaninBulunduguYerAdi" type="xs:string" />
@@ -91,6 +163,9 @@
           <xs:element minOccurs="1" maxOccurs="1" name="AracAdedi" type="xs:int" />
         </xs:sequence>
       </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://MesaiBasvuruIptal" elementFormDefault="qualified" targetNamespace="http://MesaiBasvuruIptal" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GelenBasvuruIptalBilgisi" type="tns:MesaiBasvuruIptal" />
       <xs:complexType name="MesaiBasvuruIptal">
         <xs:sequence>
           <xs:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="xs:string" />
@@ -101,18 +176,47 @@
         </xs:sequence>
       </xs:complexType>
     </xs:schema>
-    <xs:schema xmlns:tns="http://schemas.microsoft.com/BizTalk/2003/Any" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/BizTalk/2003/Any" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:element name="Root">
-        <xs:complexType mixed="true">
-          <xs:sequence>
-            <xs:any />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+    <xs:schema xmlns:tns="http://GlobalHesapBasvuru" elementFormDefault="qualified" targetNamespace="http://GlobalHesapBasvuru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GelenGlobalHesapBasvuruBilgisi" type="tns:GlobalHesapBasvuru" />
+      <xs:complexType name="GlobalHesapBasvuru">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Sifre" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RefID" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="IP" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Adres" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Tutar" type="xs:decimal" />
+          <xs:element minOccurs="0" maxOccurs="1" name="OdemeYapacakFirmaVergiNo" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="GumrukKodu" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
     </xs:schema>
-    <xs:schema xmlns:tns="http://MesaiBasvuruIptal" elementFormDefault="qualified" targetNamespace="http://MesaiBasvuruIptal" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:import namespace="http://tempuri.org/" />
-      <xs:element xmlns:q1="http://tempuri.org/" name="GelenBasvuruIptalBilgisi" type="q1:MesaiBasvuruIptal" />
+    <xs:schema xmlns:tns="http://GlobalHesapBasvuruIptal" elementFormDefault="qualified" targetNamespace="http://GlobalHesapBasvuruIptal" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GelenGlobalHesapIptalBilgisi" type="tns:GlobalHesapBasvuruIptal" />
+      <xs:complexType name="GlobalHesapBasvuruIptal">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Sifre" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RefID" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="IP" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="HesapID" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="OdemeYapacakFirmaVergiNo" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://GlobalHesapBakiyeTransfer" elementFormDefault="qualified" targetNamespace="http://GlobalHesapBakiyeTransfer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GlobalHesapBakiyeTransfer" type="tns:GlobalHesapBakiyeTransfer" />
+      <xs:complexType name="GlobalHesapBakiyeTransfer">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Sifre" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RefID" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="IP" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="HesapSahibiFirmaVergiNo" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="KaynakHesapID" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="HedefHesapID" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
     </xs:schema>
   </wsdl:types>
   <wsdl:message name="MesaiBasvuruSoapIn">
@@ -127,20 +231,50 @@
   <wsdl:message name="MesaiBasvuruIptalSoapOut">
     <wsdl:part name="parameters" element="tns:FazlaMesaiBasvuruIptalResponse" />
   </wsdl:message>
-  <wsdl:portType name="Gumruk_Biztalk_MesaiBasvuruSoap">
+  <wsdl:message name="GlobalHesapBasvuruSoapIn">
+    <wsdl:part name="parameters" element="tns:GlobalHesapBasvuru" />
+  </wsdl:message>
+  <wsdl:message name="GlobalHesapBasvuruSoapOut">
+    <wsdl:part name="parameters" element="tns:GlobalHesapBasvuruResponse" />
+  </wsdl:message>
+  <wsdl:message name="GlobalHesapBasvuruIptalSoapIn">
+    <wsdl:part name="parameters" element="tns:GlobalHesapBasvuruIptal" />
+  </wsdl:message>
+  <wsdl:message name="GlobalHesapBasvuruIptalSoapOut">
+    <wsdl:part name="parameters" element="tns:GlobalHesapBasvuruIptalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GlobalHesapBakiyeTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:GlobalHesapBakiyeTransfer" />
+  </wsdl:message>
+  <wsdl:message name="GlobalHesapBakiyeTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:GlobalHesapBakiyeTransferResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMesaiHizmeti">
     <wsdl:operation name="MesaiBasvurusuYap">
-      <wsdl:input wsaw:Action="http://Gumruk.BizTalk.Integration/MesaiBasvuru" name="MesaiBasvuruSoapIn" message="tns:MesaiBasvuruSoapIn" />
-      <wsdl:output wsaw:Action="http://Gumruk.BizTalk.Integration/MesaiBasvuru" name="MesaiBasvuruSoapOut" message="tns:MesaiBasvuruSoapOut" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesaiHizmeti/MesaiBasvurusuYap" name="MesaiBasvuruSoapIn" message="tns:MesaiBasvuruSoapIn" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesaiHizmeti/MesaiBasvurusuYapResponse" name="MesaiBasvuruSoapOut" message="tns:MesaiBasvuruSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="MesaiBasvuruIptal">
-      <wsdl:input wsaw:Action="http://Gumruk.BizTalk.Integration/MesaiBasvuruIptal" name="MesaiBasvuruIptalSoapIn" message="tns:MesaiBasvuruIptalSoapIn" />
-      <wsdl:output wsaw:Action="http://Gumruk.BizTalk.Integration/MesaiBasvuruIptal" name="MesaiBasvuruIptalSoapOut" message="tns:MesaiBasvuruIptalSoapOut" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesaiHizmeti/MesaiBasvuruIptal" name="MesaiBasvuruIptalSoapIn" message="tns:MesaiBasvuruIptalSoapIn" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesaiHizmeti/MesaiBasvuruIptalResponse" name="MesaiBasvuruIptalSoapOut" message="tns:MesaiBasvuruIptalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GlobalHesapBasvuruYap">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruYap" name="GlobalHesapBasvuruSoapIn" message="tns:GlobalHesapBasvuruSoapIn" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruYapResponse" name="GlobalHesapBasvuruSoapOut" message="tns:GlobalHesapBasvuruSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GlobalHesapBasvuruIptal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruIptal" name="GlobalHesapBasvuruIptalSoapIn" message="tns:GlobalHesapBasvuruIptalSoapIn" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruIptalResponse" name="GlobalHesapBasvuruIptalSoapOut" message="tns:GlobalHesapBasvuruIptalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GlobalHesapBakiyeTransfer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBakiyeTransfer" name="GlobalHesapBakiyeTransferSoapIn" message="tns:GlobalHesapBakiyeTransferSoapIn" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBakiyeTransferResponse" name="GlobalHesapBakiyeTransferSoapOut" message="tns:GlobalHesapBakiyeTransferSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="BasicHttpBinding_Gumruk_Biztalk_MesaiBasvuruSoap" type="tns:Gumruk_Biztalk_MesaiBasvuruSoap">
+  <wsdl:binding name="BasicHttpBinding_IMesaiHizmeti" type="tns:IMesaiHizmeti">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="MesaiBasvurusuYap">
-      <soap:operation soapAction="http://Gumruk.BizTalk.Integration/MesaiBasvuru" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/MesaiBasvurusuYap" style="document" />
       <wsdl:input name="MesaiBasvuruSoapIn">
         <soap:body use="literal" />
       </wsdl:input>
@@ -149,20 +283,47 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="MesaiBasvuruIptal">
-      <soap:operation soapAction="http://Gumruk.BizTalk.Integration/MesaiBasvuruIptal" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/MesaiBasvuruIptal" style="document" />
       <wsdl:input name="MesaiBasvuruIptalSoapIn">
         <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output name="MesaiBasvuruIptalSoapOut">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GlobalHesapBasvuruYap">
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruYap" style="document" />
+      <wsdl:input name="GlobalHesapBasvuruSoapIn">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GlobalHesapBasvuruSoapOut">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GlobalHesapBasvuruIptal">
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruIptal" style="document" />
+      <wsdl:input name="GlobalHesapBasvuruIptalSoapIn">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GlobalHesapBasvuruIptalSoapOut">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GlobalHesapBakiyeTransfer">
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBakiyeTransfer" style="document" />
+      <wsdl:input name="GlobalHesapBakiyeTransferSoapIn">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GlobalHesapBakiyeTransferSoapOut">
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:binding name="BasicHttpsBinding_Gumruk_Biztalk_MesaiBasvuruSoap" type="tns:Gumruk_Biztalk_MesaiBasvuruSoap">
-    <wsp:PolicyReference URI="#BasicHttpsBinding_Gumruk_Biztalk_MesaiBasvuruSoap_policy" />
+  <wsdl:binding name="BasicHttpsBinding_IMesaiHizmeti" type="tns:IMesaiHizmeti">
+    <wsp:PolicyReference URI="#BasicHttpsBinding_IMesaiHizmeti_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="MesaiBasvurusuYap">
-      <soap:operation soapAction="http://Gumruk.BizTalk.Integration/MesaiBasvuru" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/MesaiBasvurusuYap" style="document" />
       <wsdl:input name="MesaiBasvuruSoapIn">
         <soap:body use="literal" />
       </wsdl:input>
@@ -171,21 +332,48 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="MesaiBasvuruIptal">
-      <soap:operation soapAction="http://Gumruk.BizTalk.Integration/MesaiBasvuruIptal" style="document" />
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/MesaiBasvuruIptal" style="document" />
       <wsdl:input name="MesaiBasvuruIptalSoapIn">
         <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output name="MesaiBasvuruIptalSoapOut">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GlobalHesapBasvuruYap">
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruYap" style="document" />
+      <wsdl:input name="GlobalHesapBasvuruSoapIn">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GlobalHesapBasvuruSoapOut">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GlobalHesapBasvuruIptal">
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruIptal" style="document" />
+      <wsdl:input name="GlobalHesapBasvuruIptalSoapIn">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GlobalHesapBasvuruIptalSoapOut">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GlobalHesapBakiyeTransfer">
+      <soap:operation soapAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBakiyeTransfer" style="document" />
+      <wsdl:input name="GlobalHesapBakiyeTransferSoapIn">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GlobalHesapBakiyeTransferSoapOut">
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="MesaiHizmeti">
-    <wsdl:port name="BasicHttpBinding_Gumruk_Biztalk_MesaiBasvuruSoap" binding="tns:BasicHttpBinding_Gumruk_Biztalk_MesaiBasvuruSoap">
-      <soap:address location="http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS" />
+    <wsdl:port name="BasicHttpBinding_IMesaiHizmeti" binding="tns:BasicHttpBinding_IMesaiHizmeti">
+      <soap:address location="http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS" />
     </wsdl:port>
-    <wsdl:port name="BasicHttpsBinding_Gumruk_Biztalk_MesaiBasvuruSoap" binding="tns:BasicHttpsBinding_Gumruk_Biztalk_MesaiBasvuruSoap">
-      <soap:address location="http://wstest.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS" />
+    <wsdl:port name="BasicHttpsBinding_IMesaiHizmeti" binding="tns:BasicHttpsBinding_IMesaiHizmeti">
+      <soap:address location="http://ws.gtb.gov.tr:8080/EXT/Gumruk/EGE/Provider/FazlaMesaiWS" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

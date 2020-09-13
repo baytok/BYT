@@ -3,7 +3,7 @@
   "Version": "15.0.40203.910",
   "ExtendedData": {
     "inputs": [
-      "../../../BYT.UI/Connected Services/MesaiHizmeti/MesaiHizmeti.wsdl"
+      "../../../../../../../Users/Ata/Desktop/Servisler/EGE_FAZLA_MESAI_WS_PROD.wsdl"
     ],
     "collectionTypes": [
       "System.Array",
@@ -122,6 +122,7 @@
       "System.Net.Sockets, {System.Net.Sockets, 4.3.0}",
       "System.ObjectModel, {System.ObjectModel, 4.3.0}",
       "System.Reflection, {System.Reflection, 4.3.0}",
+      "System.Reflection.DispatchProxy, {System.Reflection.DispatchProxy, 4.5.0}",
       "System.Reflection.Extensions, {System.Reflection.Extensions, 4.3.0}",
       "System.Reflection.Metadata, {System.Reflection.Metadata, 1.6.0}",
       "System.Reflection.Primitives, {System.Reflection.Primitives, 4.3.0}",
@@ -143,6 +144,7 @@
       "System.Security.Cryptography.Encoding, {System.Security.Cryptography.Encoding, 4.3.0}",
       "System.Security.Cryptography.Primitives, {System.Security.Cryptography.Primitives, 4.3.0}",
       "System.Security.Cryptography.X509Certificates, {System.Security.Cryptography.X509Certificates, 4.3.0}",
+      "System.Security.Cryptography.Xml, {System.Security.Cryptography.Xml, 4.5.0}",
       "System.Security.Permissions, {System.Security.Permissions, 4.7.0}",
       "System.Security.Principal.Windows, {System.Security.Principal.Windows, 4.7.0}",
       "System.Security.SecureString, {System.Security.SecureString, 4.3.0}",

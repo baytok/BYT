@@ -15,7 +15,7 @@ namespace BYT.UI.MesaiHizmeti {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MesaiBasvuru", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MesaiBasvuru", Namespace="http://MesaiBasvuru")]
     [System.SerializableAttribute()]
     public partial class MesaiBasvuru : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -61,6 +61,9 @@ namespace BYT.UI.MesaiHizmeti {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string GlobalHesaptanOdemeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GlobalHesapIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string GumrukKoduField;
@@ -279,6 +282,19 @@ namespace BYT.UI.MesaiHizmeti {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=14)]
+        public string GlobalHesapID {
+            get {
+                return this.GlobalHesapIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GlobalHesapIDField, value) != true)) {
+                    this.GlobalHesapIDField = value;
+                    this.RaisePropertyChanged("GlobalHesapID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
         public string GumrukKodu {
             get {
                 return this.GumrukKoduField;
@@ -291,7 +307,7 @@ namespace BYT.UI.MesaiHizmeti {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=15)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=16)]
         public string EsyaninBulunduguYer {
             get {
                 return this.EsyaninBulunduguYerField;
@@ -304,7 +320,7 @@ namespace BYT.UI.MesaiHizmeti {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=16)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=17)]
         public string EsyaninBulunduguYerAdi {
             get {
                 return this.EsyaninBulunduguYerAdiField;
@@ -317,7 +333,7 @@ namespace BYT.UI.MesaiHizmeti {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=17)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=18)]
         public string EsyaninBulunduguYerKodu {
             get {
                 return this.EsyaninBulunduguYerKoduField;
@@ -330,7 +346,7 @@ namespace BYT.UI.MesaiHizmeti {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=18)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=19)]
         public string FirmaVergiNo {
             get {
                 return this.FirmaVergiNoField;
@@ -343,7 +359,7 @@ namespace BYT.UI.MesaiHizmeti {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=19)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=20)]
         public string OdemeYapacakFirmaVergiNo {
             get {
                 return this.OdemeYapacakFirmaVergiNoField;
@@ -356,7 +372,7 @@ namespace BYT.UI.MesaiHizmeti {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=20)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=21)]
         public int OZBYSayisi {
             get {
                 return this.OZBYSayisiField;
@@ -369,7 +385,7 @@ namespace BYT.UI.MesaiHizmeti {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=21)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=22)]
         public int NCTSSayisi {
             get {
                 return this.NCTSSayisiField;
@@ -382,7 +398,7 @@ namespace BYT.UI.MesaiHizmeti {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=22)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=23)]
         public int AracAdedi {
             get {
                 return this.AracAdediField;
@@ -407,7 +423,7 @@ namespace BYT.UI.MesaiHizmeti {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MesaiBasvuruIptal", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MesaiBasvuruIptal", Namespace="http://MesaiBasvuruIptal")]
     [System.SerializableAttribute()]
     public partial class MesaiBasvuruIptal : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -514,29 +530,472 @@ namespace BYT.UI.MesaiHizmeti {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GlobalHesapBasvuru", Namespace="http://GlobalHesapBasvuru")]
+    [System.SerializableAttribute()]
+    public partial class GlobalHesapBasvuru : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KullaniciAdiField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SifreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RefIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IPField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AdresField;
+        
+        private decimal TutarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OdemeYapacakFirmaVergiNoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GumrukKoduField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string KullaniciAdi {
+            get {
+                return this.KullaniciAdiField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KullaniciAdiField, value) != true)) {
+                    this.KullaniciAdiField = value;
+                    this.RaisePropertyChanged("KullaniciAdi");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Sifre {
+            get {
+                return this.SifreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SifreField, value) != true)) {
+                    this.SifreField = value;
+                    this.RaisePropertyChanged("Sifre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string RefID {
+            get {
+                return this.RefIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RefIDField, value) != true)) {
+                    this.RefIDField = value;
+                    this.RaisePropertyChanged("RefID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string IP {
+            get {
+                return this.IPField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IPField, value) != true)) {
+                    this.IPField = value;
+                    this.RaisePropertyChanged("IP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string Adres {
+            get {
+                return this.AdresField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AdresField, value) != true)) {
+                    this.AdresField = value;
+                    this.RaisePropertyChanged("Adres");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public decimal Tutar {
+            get {
+                return this.TutarField;
+            }
+            set {
+                if ((this.TutarField.Equals(value) != true)) {
+                    this.TutarField = value;
+                    this.RaisePropertyChanged("Tutar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
+        public string OdemeYapacakFirmaVergiNo {
+            get {
+                return this.OdemeYapacakFirmaVergiNoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OdemeYapacakFirmaVergiNoField, value) != true)) {
+                    this.OdemeYapacakFirmaVergiNoField = value;
+                    this.RaisePropertyChanged("OdemeYapacakFirmaVergiNo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
+        public string GumrukKodu {
+            get {
+                return this.GumrukKoduField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GumrukKoduField, value) != true)) {
+                    this.GumrukKoduField = value;
+                    this.RaisePropertyChanged("GumrukKodu");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GlobalHesapBasvuruIptal", Namespace="http://GlobalHesapBasvuruIptal")]
+    [System.SerializableAttribute()]
+    public partial class GlobalHesapBasvuruIptal : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KullaniciAdiField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SifreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RefIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IPField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HesapIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OdemeYapacakFirmaVergiNoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string KullaniciAdi {
+            get {
+                return this.KullaniciAdiField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KullaniciAdiField, value) != true)) {
+                    this.KullaniciAdiField = value;
+                    this.RaisePropertyChanged("KullaniciAdi");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Sifre {
+            get {
+                return this.SifreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SifreField, value) != true)) {
+                    this.SifreField = value;
+                    this.RaisePropertyChanged("Sifre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string RefID {
+            get {
+                return this.RefIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RefIDField, value) != true)) {
+                    this.RefIDField = value;
+                    this.RaisePropertyChanged("RefID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string IP {
+            get {
+                return this.IPField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IPField, value) != true)) {
+                    this.IPField = value;
+                    this.RaisePropertyChanged("IP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string HesapID {
+            get {
+                return this.HesapIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HesapIDField, value) != true)) {
+                    this.HesapIDField = value;
+                    this.RaisePropertyChanged("HesapID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
+        public string OdemeYapacakFirmaVergiNo {
+            get {
+                return this.OdemeYapacakFirmaVergiNoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OdemeYapacakFirmaVergiNoField, value) != true)) {
+                    this.OdemeYapacakFirmaVergiNoField = value;
+                    this.RaisePropertyChanged("OdemeYapacakFirmaVergiNo");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GlobalHesapBakiyeTransfer", Namespace="http://GlobalHesapBakiyeTransfer")]
+    [System.SerializableAttribute()]
+    public partial class GlobalHesapBakiyeTransfer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KullaniciAdiField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SifreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RefIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IPField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HesapSahibiFirmaVergiNoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KaynakHesapIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HedefHesapIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string KullaniciAdi {
+            get {
+                return this.KullaniciAdiField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KullaniciAdiField, value) != true)) {
+                    this.KullaniciAdiField = value;
+                    this.RaisePropertyChanged("KullaniciAdi");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string Sifre {
+            get {
+                return this.SifreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SifreField, value) != true)) {
+                    this.SifreField = value;
+                    this.RaisePropertyChanged("Sifre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string RefID {
+            get {
+                return this.RefIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RefIDField, value) != true)) {
+                    this.RefIDField = value;
+                    this.RaisePropertyChanged("RefID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string IP {
+            get {
+                return this.IPField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IPField, value) != true)) {
+                    this.IPField = value;
+                    this.RaisePropertyChanged("IP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string HesapSahibiFirmaVergiNo {
+            get {
+                return this.HesapSahibiFirmaVergiNoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HesapSahibiFirmaVergiNoField, value) != true)) {
+                    this.HesapSahibiFirmaVergiNoField = value;
+                    this.RaisePropertyChanged("HesapSahibiFirmaVergiNo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
+        public string KaynakHesapID {
+            get {
+                return this.KaynakHesapIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KaynakHesapIDField, value) != true)) {
+                    this.KaynakHesapIDField = value;
+                    this.RaisePropertyChanged("KaynakHesapID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
+        public string HedefHesapID {
+            get {
+                return this.HedefHesapIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HedefHesapIDField, value) != true)) {
+                    this.HedefHesapIDField = value;
+                    this.RaisePropertyChanged("HedefHesapID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="http://Gumruk.BizTalk.Integration", ConfigurationName="MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap")]
-    public interface Gumruk_Biztalk_MesaiBasvuruSoap {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MesaiHizmeti.IMesaiHizmeti")]
+    public interface IMesaiHizmeti {
         
         // CODEGEN: Generating message contract since the wrapper name (MesaiBasvuru) of message MesaiBasvuruSoapIn does not match the default value (MesaiBasvurusuYap)
-        [System.ServiceModel.OperationContractAttribute(Action="http://Gumruk.BizTalk.Integration/MesaiBasvuru", ReplyAction="http://Gumruk.BizTalk.Integration/MesaiBasvuru")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/MesaiBasvurusuYap", ReplyAction="http://tempuri.org/IMesaiHizmeti/MesaiBasvurusuYapResponse")]
         BYT.UI.MesaiHizmeti.MesaiBasvuruSoapOut MesaiBasvurusuYap(BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://Gumruk.BizTalk.Integration/MesaiBasvuru", ReplyAction="http://Gumruk.BizTalk.Integration/MesaiBasvuru")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/MesaiBasvurusuYap", ReplyAction="http://tempuri.org/IMesaiHizmeti/MesaiBasvurusuYapResponse")]
         System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.MesaiBasvuruSoapOut> MesaiBasvurusuYapAsync(BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn request);
         
         // CODEGEN: Generating message contract since the wrapper name (FazlaMesaiBasvuruIptalResponse) of message MesaiBasvuruIptalSoapOut does not match the default value (MesaiBasvuruIptal)
-        [System.ServiceModel.OperationContractAttribute(Action="http://Gumruk.BizTalk.Integration/MesaiBasvuruIptal", ReplyAction="http://Gumruk.BizTalk.Integration/MesaiBasvuruIptal")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/MesaiBasvuruIptal", ReplyAction="http://tempuri.org/IMesaiHizmeti/MesaiBasvuruIptalResponse")]
         BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut MesaiBasvuruIptal(BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://Gumruk.BizTalk.Integration/MesaiBasvuruIptal", ReplyAction="http://Gumruk.BizTalk.Integration/MesaiBasvuruIptal")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/MesaiBasvuruIptal", ReplyAction="http://tempuri.org/IMesaiHizmeti/MesaiBasvuruIptalResponse")]
         System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut> MesaiBasvuruIptalAsync(BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn request);
+        
+        // CODEGEN: Generating message contract since the wrapper name (GlobalHesapBasvuru) of message GlobalHesapBasvuruSoapIn does not match the default value (GlobalHesapBasvuruYap)
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruYap", ReplyAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruYapResponse")]
+        BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapOut GlobalHesapBasvuruYap(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapIn request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruYap", ReplyAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruYapResponse")]
+        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapOut> GlobalHesapBasvuruYapAsync(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapIn request);
+        
+        // CODEGEN: Generating message contract since element name GelenGlobalHesapIptalBilgisi from namespace http://GlobalHesapBasvuruIptal is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruIptal", ReplyAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruIptalResponse")]
+        BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapOut GlobalHesapBasvuruIptal(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapIn request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruIptal", ReplyAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBasvuruIptalResponse")]
+        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapOut> GlobalHesapBasvuruIptalAsync(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapIn request);
+        
+        // CODEGEN: Generating message contract since element name GlobalHesapBakiyeTransfer from namespace http://GlobalHesapBakiyeTransfer is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBakiyeTransfer", ReplyAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBakiyeTransferResponse")]
+        BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapOut GlobalHesapBakiyeTransfer(BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapIn request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMesaiHizmeti/GlobalHesapBakiyeTransfer", ReplyAction="http://tempuri.org/IMesaiHizmeti/GlobalHesapBakiyeTransferResponse")]
+        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapOut> GlobalHesapBakiyeTransferAsync(BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapIn request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="MesaiBasvuru", WrapperNamespace="http://Gumruk.BizTalk.Integration", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="MesaiBasvuru", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class MesaiBasvuruSoapIn {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MesaiBasvuru", Order=0)]
@@ -553,10 +1012,10 @@ namespace BYT.UI.MesaiHizmeti {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="FazlaMesaiBasvuruResponse", WrapperNamespace="http://Gumruk.BizTalk.Integration", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="FazlaMesaiBasvuruResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class MesaiBasvuruSoapOut {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.microsoft.com/BizTalk/2003/Any", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
         public System.Xml.Linq.XElement Root;
         
         public MesaiBasvuruSoapOut() {
@@ -570,7 +1029,7 @@ namespace BYT.UI.MesaiHizmeti {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="MesaiBasvuruIptal", WrapperNamespace="http://Gumruk.BizTalk.Integration", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="MesaiBasvuruIptal", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class MesaiBasvuruIptalSoapIn {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://MesaiBasvuruIptal", Order=0)]
@@ -587,10 +1046,10 @@ namespace BYT.UI.MesaiHizmeti {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="FazlaMesaiBasvuruIptalResponse", WrapperNamespace="http://Gumruk.BizTalk.Integration", IsWrapped=true)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="FazlaMesaiBasvuruIptalResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
     public partial class MesaiBasvuruIptalSoapOut {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.microsoft.com/BizTalk/2003/Any", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
         public System.Xml.Linq.XElement Root;
         
         public MesaiBasvuruIptalSoapOut() {
@@ -601,77 +1060,320 @@ namespace BYT.UI.MesaiHizmeti {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface Gumruk_Biztalk_MesaiBasvuruSoapChannel : BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap, System.ServiceModel.IClientChannel {
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GlobalHesapBasvuru", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GlobalHesapBasvuruSoapIn {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://GlobalHesapBasvuru", Order=0)]
+        public BYT.UI.MesaiHizmeti.GlobalHesapBasvuru GelenGlobalHesapBasvuruBilgisi;
+        
+        public GlobalHesapBasvuruSoapIn() {
+        }
+        
+        public GlobalHesapBasvuruSoapIn(BYT.UI.MesaiHizmeti.GlobalHesapBasvuru GelenGlobalHesapBasvuruBilgisi) {
+            this.GelenGlobalHesapBasvuruBilgisi = GelenGlobalHesapBasvuruBilgisi;
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class Gumruk_Biztalk_MesaiBasvuruSoapClient : System.ServiceModel.ClientBase<BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap>, BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap {
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GlobalHesapBasvuruResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GlobalHesapBasvuruSoapOut {
         
-        public Gumruk_Biztalk_MesaiBasvuruSoapClient() {
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public System.Xml.Linq.XElement Root;
+        
+        public GlobalHesapBasvuruSoapOut() {
         }
         
-        public Gumruk_Biztalk_MesaiBasvuruSoapClient(string endpointConfigurationName) : 
+        public GlobalHesapBasvuruSoapOut(System.Xml.Linq.XElement Root) {
+            this.Root = Root;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GlobalHesapBasvuruIptalSoapIn {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GlobalHesapBasvuruIptal", Namespace="http://tempuri.org/", Order=0)]
+        public BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapInBody Body;
+        
+        public GlobalHesapBasvuruIptalSoapIn() {
+        }
+        
+        public GlobalHesapBasvuruIptalSoapIn(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapInBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://GlobalHesapBasvuruIptal")]
+    public partial class GlobalHesapBasvuruIptalSoapInBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptal GelenGlobalHesapIptalBilgisi;
+        
+        public GlobalHesapBasvuruIptalSoapInBody() {
+        }
+        
+        public GlobalHesapBasvuruIptalSoapInBody(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptal GelenGlobalHesapIptalBilgisi) {
+            this.GelenGlobalHesapIptalBilgisi = GelenGlobalHesapIptalBilgisi;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GlobalHesapBasvuruIptalSoapOut {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GlobalHesapBasvuruIptalResponse", Namespace="http://tempuri.org/", Order=0)]
+        public BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapOutBody Body;
+        
+        public GlobalHesapBasvuruIptalSoapOut() {
+        }
+        
+        public GlobalHesapBasvuruIptalSoapOut(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapOutBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GlobalHesapBasvuruIptalSoapOutBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public System.Xml.Linq.XElement Root;
+        
+        public GlobalHesapBasvuruIptalSoapOutBody() {
+        }
+        
+        public GlobalHesapBasvuruIptalSoapOutBody(System.Xml.Linq.XElement Root) {
+            this.Root = Root;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GlobalHesapBakiyeTransferSoapIn {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GlobalHesapBakiyeTransfer", Namespace="http://tempuri.org/", Order=0)]
+        public BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapInBody Body;
+        
+        public GlobalHesapBakiyeTransferSoapIn() {
+        }
+        
+        public GlobalHesapBakiyeTransferSoapIn(BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapInBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://GlobalHesapBakiyeTransfer")]
+    public partial class GlobalHesapBakiyeTransferSoapInBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransfer GlobalHesapBakiyeTransfer;
+        
+        public GlobalHesapBakiyeTransferSoapInBody() {
+        }
+        
+        public GlobalHesapBakiyeTransferSoapInBody(BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransfer GlobalHesapBakiyeTransfer) {
+            this.GlobalHesapBakiyeTransfer = GlobalHesapBakiyeTransfer;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GlobalHesapBakiyeTransferSoapOut {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GlobalHesapBakiyeTransferResponse", Namespace="http://tempuri.org/", Order=0)]
+        public BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapOutBody Body;
+        
+        public GlobalHesapBakiyeTransferSoapOut() {
+        }
+        
+        public GlobalHesapBakiyeTransferSoapOut(BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapOutBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GlobalHesapBakiyeTransferSoapOutBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public System.Xml.Linq.XElement Root;
+        
+        public GlobalHesapBakiyeTransferSoapOutBody() {
+        }
+        
+        public GlobalHesapBakiyeTransferSoapOutBody(System.Xml.Linq.XElement Root) {
+            this.Root = Root;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IMesaiHizmetiChannel : BYT.UI.MesaiHizmeti.IMesaiHizmeti, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class MesaiHizmetiClient : System.ServiceModel.ClientBase<BYT.UI.MesaiHizmeti.IMesaiHizmeti>, BYT.UI.MesaiHizmeti.IMesaiHizmeti {
+        
+        public MesaiHizmetiClient() {
+        }
+        
+        public MesaiHizmetiClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public Gumruk_Biztalk_MesaiBasvuruSoapClient(string endpointConfigurationName, string remoteAddress) : 
+        public MesaiHizmetiClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public Gumruk_Biztalk_MesaiBasvuruSoapClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public MesaiHizmetiClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public Gumruk_Biztalk_MesaiBasvuruSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public MesaiHizmetiClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        BYT.UI.MesaiHizmeti.MesaiBasvuruSoapOut BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap.MesaiBasvurusuYap(BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn request) {
+        BYT.UI.MesaiHizmeti.MesaiBasvuruSoapOut BYT.UI.MesaiHizmeti.IMesaiHizmeti.MesaiBasvurusuYap(BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn request) {
             return base.Channel.MesaiBasvurusuYap(request);
         }
         
         public System.Xml.Linq.XElement MesaiBasvurusuYap(BYT.UI.MesaiHizmeti.MesaiBasvuru GelenBasvuruBilgisi) {
             BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn inValue = new BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn();
             inValue.GelenBasvuruBilgisi = GelenBasvuruBilgisi;
-            BYT.UI.MesaiHizmeti.MesaiBasvuruSoapOut retVal = ((BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap)(this)).MesaiBasvurusuYap(inValue);
+            BYT.UI.MesaiHizmeti.MesaiBasvuruSoapOut retVal = ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).MesaiBasvurusuYap(inValue);
             return retVal.Root;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.MesaiBasvuruSoapOut> BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap.MesaiBasvurusuYapAsync(BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn request) {
+        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.MesaiBasvuruSoapOut> BYT.UI.MesaiHizmeti.IMesaiHizmeti.MesaiBasvurusuYapAsync(BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn request) {
             return base.Channel.MesaiBasvurusuYapAsync(request);
         }
         
         public System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.MesaiBasvuruSoapOut> MesaiBasvurusuYapAsync(BYT.UI.MesaiHizmeti.MesaiBasvuru GelenBasvuruBilgisi) {
             BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn inValue = new BYT.UI.MesaiHizmeti.MesaiBasvuruSoapIn();
             inValue.GelenBasvuruBilgisi = GelenBasvuruBilgisi;
-            return ((BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap)(this)).MesaiBasvurusuYapAsync(inValue);
+            return ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).MesaiBasvurusuYapAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap.MesaiBasvuruIptal(BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn request) {
+        BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut BYT.UI.MesaiHizmeti.IMesaiHizmeti.MesaiBasvuruIptal(BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn request) {
             return base.Channel.MesaiBasvuruIptal(request);
         }
         
         public System.Xml.Linq.XElement MesaiBasvuruIptal(BYT.UI.MesaiHizmeti.MesaiBasvuruIptal GelenBasvuruIptalBilgisi) {
             BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn inValue = new BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn();
             inValue.GelenBasvuruIptalBilgisi = GelenBasvuruIptalBilgisi;
-            BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut retVal = ((BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap)(this)).MesaiBasvuruIptal(inValue);
+            BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut retVal = ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).MesaiBasvuruIptal(inValue);
             return retVal.Root;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut> BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap.MesaiBasvuruIptalAsync(BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn request) {
+        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut> BYT.UI.MesaiHizmeti.IMesaiHizmeti.MesaiBasvuruIptalAsync(BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn request) {
             return base.Channel.MesaiBasvuruIptalAsync(request);
         }
         
         public System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut> MesaiBasvuruIptalAsync(BYT.UI.MesaiHizmeti.MesaiBasvuruIptal GelenBasvuruIptalBilgisi) {
             BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn inValue = new BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapIn();
             inValue.GelenBasvuruIptalBilgisi = GelenBasvuruIptalBilgisi;
-            return ((BYT.UI.MesaiHizmeti.Gumruk_Biztalk_MesaiBasvuruSoap)(this)).MesaiBasvuruIptalAsync(inValue);
+            return ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).MesaiBasvuruIptalAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapOut BYT.UI.MesaiHizmeti.IMesaiHizmeti.GlobalHesapBasvuruYap(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapIn request) {
+            return base.Channel.GlobalHesapBasvuruYap(request);
+        }
+        
+        public System.Xml.Linq.XElement GlobalHesapBasvuruYap(BYT.UI.MesaiHizmeti.GlobalHesapBasvuru GelenGlobalHesapBasvuruBilgisi) {
+            BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapIn inValue = new BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapIn();
+            inValue.GelenGlobalHesapBasvuruBilgisi = GelenGlobalHesapBasvuruBilgisi;
+            BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapOut retVal = ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).GlobalHesapBasvuruYap(inValue);
+            return retVal.Root;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapOut> BYT.UI.MesaiHizmeti.IMesaiHizmeti.GlobalHesapBasvuruYapAsync(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapIn request) {
+            return base.Channel.GlobalHesapBasvuruYapAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapOut> GlobalHesapBasvuruYapAsync(BYT.UI.MesaiHizmeti.GlobalHesapBasvuru GelenGlobalHesapBasvuruBilgisi) {
+            BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapIn inValue = new BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapIn();
+            inValue.GelenGlobalHesapBasvuruBilgisi = GelenGlobalHesapBasvuruBilgisi;
+            return ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).GlobalHesapBasvuruYapAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapOut BYT.UI.MesaiHizmeti.IMesaiHizmeti.GlobalHesapBasvuruIptal(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapIn request) {
+            return base.Channel.GlobalHesapBasvuruIptal(request);
+        }
+        
+        public System.Xml.Linq.XElement GlobalHesapBasvuruIptal(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptal GelenGlobalHesapIptalBilgisi) {
+            BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapIn inValue = new BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapIn();
+            inValue.Body = new BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapInBody();
+            inValue.Body.GelenGlobalHesapIptalBilgisi = GelenGlobalHesapIptalBilgisi;
+            BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapOut retVal = ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).GlobalHesapBasvuruIptal(inValue);
+            return retVal.Body.Root;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapOut> BYT.UI.MesaiHizmeti.IMesaiHizmeti.GlobalHesapBasvuruIptalAsync(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapIn request) {
+            return base.Channel.GlobalHesapBasvuruIptalAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapOut> GlobalHesapBasvuruIptalAsync(BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptal GelenGlobalHesapIptalBilgisi) {
+            BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapIn inValue = new BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapIn();
+            inValue.Body = new BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapInBody();
+            inValue.Body.GelenGlobalHesapIptalBilgisi = GelenGlobalHesapIptalBilgisi;
+            return ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).GlobalHesapBasvuruIptalAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapOut BYT.UI.MesaiHizmeti.IMesaiHizmeti.GlobalHesapBakiyeTransfer(BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapIn request) {
+            return base.Channel.GlobalHesapBakiyeTransfer(request);
+        }
+        
+        public System.Xml.Linq.XElement GlobalHesapBakiyeTransfer(BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransfer GlobalHesapBakiyeTransfer1) {
+            BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapIn inValue = new BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapIn();
+            inValue.Body = new BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapInBody();
+            inValue.Body.GlobalHesapBakiyeTransfer = GlobalHesapBakiyeTransfer1;
+            BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapOut retVal = ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).GlobalHesapBakiyeTransfer(inValue);
+            return retVal.Body.Root;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapOut> BYT.UI.MesaiHizmeti.IMesaiHizmeti.GlobalHesapBakiyeTransferAsync(BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapIn request) {
+            return base.Channel.GlobalHesapBakiyeTransferAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapOut> GlobalHesapBakiyeTransferAsync(BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransfer GlobalHesapBakiyeTransfer) {
+            BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapIn inValue = new BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapIn();
+            inValue.Body = new BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapInBody();
+            inValue.Body.GlobalHesapBakiyeTransfer = GlobalHesapBakiyeTransfer;
+            return ((BYT.UI.MesaiHizmeti.IMesaiHizmeti)(this)).GlobalHesapBakiyeTransferAsync(inValue);
         }
     }
 }

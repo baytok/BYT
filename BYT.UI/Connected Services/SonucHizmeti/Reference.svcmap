@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a489f50f-f7c8-430c-98d5-a7cdefffd2df" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="84c9eaa4-fb59-4cf8-b04b-c0eef4bcd4a3" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="..\Web References\SonucServisi\EGE_GUMRUK_WS_TEST.wsdl" Protocol="file" SourceId="1" />
+    <MetadataSource Address="https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/GumrukWS?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="EGE_GUMRUK_WS_TEST.wsdl" MetadataType="Wsdl" ID="1708c8f9-e471-4927-a28a-d930e307ec37" SourceId="1" SourceUrl="../Web References/SonucServisi/EGE_GUMRUK_WS_TEST.wsdl" />
+    <MetadataFile FileName="GumrukWS.wsdl" MetadataType="Wsdl" ID="fd0d8601-9e48-4a10-bcb4-b44a09f6e711" SourceId="1" SourceUrl="https://ws.gtb.gov.tr:8443/EXT/Gumruk/EGE/Provider/GumrukWS?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

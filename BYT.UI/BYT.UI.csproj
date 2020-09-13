@@ -521,7 +521,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\SorgulamaHizmeti\Reference.cs">
+    <Compile Include="Connected Services\SonucHizmeti\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -708,6 +708,15 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\KpsWs\KpsWS.wsdl" />
+    <None Include="Connected Services\MesaiHizmeti\BYT.UI.MesaiHizmeti.GlobalHesapBakiyeTransferSoapOut.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MesaiHizmeti\BYT.UI.MesaiHizmeti.GlobalHesapBasvuruIptalSoapOut.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MesaiHizmeti\BYT.UI.MesaiHizmeti.GlobalHesapBasvuruSoapOut.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\MesaiHizmeti\BYT.UI.MesaiHizmeti.MesaiBasvuruIptalSoapOut.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -744,7 +753,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\OzetBeyanHizmeti\OzetBeyanHizmeti.wsdl" />
-    <None Include="Connected Services\SorgulamaHizmeti\EGE_GUMRUK_WS_TEST.wsdl" />
+    <None Include="Connected Services\SonucHizmeti\GumrukWS.wsdl" />
     <None Include="Connected Services\TescilHizmeti\BYT.UI.TescilHizmeti.TescilSoapOut.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -783,7 +792,7 @@
     <WCFMetadataStorage Include="Connected Services\MesaiHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\NctsHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\OzetBeyanHizmeti\" />
-    <WCFMetadataStorage Include="Connected Services\SorgulamaHizmeti\" />
+    <WCFMetadataStorage Include="Connected Services\SonucHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\TescilHizmeti\" />
   </ItemGroup>
   <ItemGroup>
@@ -800,21 +809,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ArnicaCS_VPI.dll" />
-    <None Include="Connected Services\SorgulamaHizmeti\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\SorgulamaHizmeti\configuration.svcinfo" />
-    <None Include="Connected Services\SorgulamaHizmeti\configuration91.svcinfo" />
     <None Include="Connected Services\OzetBeyanHizmeti\configuration91.svcinfo" />
     <None Include="Connected Services\OzetBeyanHizmeti\configuration.svcinfo" />
     <None Include="Connected Services\OzetBeyanHizmeti\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\MesaiHizmeti\configuration91.svcinfo" />
-    <None Include="Connected Services\MesaiHizmeti\configuration.svcinfo" />
-    <None Include="Connected Services\MesaiHizmeti\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -839,6 +836,18 @@
     <None Include="Connected Services\KontrolHizmeti\configuration91.svcinfo" />
     <None Include="Connected Services\KontrolHizmeti\configuration.svcinfo" />
     <None Include="Connected Services\KontrolHizmeti\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\MesaiHizmeti\configuration91.svcinfo" />
+    <None Include="Connected Services\MesaiHizmeti\configuration.svcinfo" />
+    <None Include="Connected Services\MesaiHizmeti\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\SonucHizmeti\configuration91.svcinfo" />
+    <None Include="Connected Services\SonucHizmeti\configuration.svcinfo" />
+    <None Include="Connected Services\SonucHizmeti\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
