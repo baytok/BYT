@@ -552,6 +552,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
 
                 #endregion
 
+
                 var optionss = new DbContextOptionsBuilder<KullaniciDataContext>()
                       .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                       .Options;
