@@ -1,0 +1,2079 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:TobbMedos" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:TobbMedos" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="urn:TobbMedos">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+      <xsd:complexType name="BelgeListesiRequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeListesiResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="UlkeListesiRequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="UlkeListesiResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="GumrukListesiRequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="GumrukListesiResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BirimListesiRequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BirimListesiResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="DovizListesiRequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="DovizListesiResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="EvrakTurListesiRequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="EvrakTurListesiResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="YktsKontrolRequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="YktsKontrolResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO321RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimaBelgesiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="TasimaBelgesiTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO321ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS321RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="TescilTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimaBelgesiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="TasimaBelgesiTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS321ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize321RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize321ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir321RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="EskiBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="YeniBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir321ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi321RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi321ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir321RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir321ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO322RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="GtsSecim" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO322ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS322RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="TescilTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="GtsSecim" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS322ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize322RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize322ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir322RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="EskiBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="YeniBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir322ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi322RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi322ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir322RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir322ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO323RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler2" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler2UlkeId" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO323ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS323RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="TescilTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler2" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler2UlkeId" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS323ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize323RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize323ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir323RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="EskiBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="YeniBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir323ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi323RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi323ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir323RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir323ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO324RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeleri" type="xsd:string" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO324ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi324RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi324ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir324RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir324ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO325RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO325ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS325RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="TescilTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS325ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi325RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi325ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir325RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir325ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO326RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO326ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS326RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="TescilTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS326ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize326RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize326ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir326RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="EskiBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="YeniBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir326ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi326RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi326ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir326RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir326ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO327RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO327ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS327RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="TescilTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS327ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize327RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize327ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir327RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="EskiBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="YeniBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir327ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi327RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi327ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir327RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir327ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO328RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseKriteri" type="xsd:string" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler2" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler2UlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYO328ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS328RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="TescilTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciVergiNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciYer" type="xsd:string" />
+          <xsd:element form="unqualified" name="IhracatciUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdi" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisAdres" type="xsd:string" />
+          <xsd:element form="unqualified" name="MalinGonderildigiSahisUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="IhracUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseUlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="VarisUlkesiId" type="xsd:int" />
+          <xsd:element form="unqualified" name="MenseKriteri" type="xsd:string" />
+          <xsd:element form="unqualified" name="TasimayaIliskinBilgiler" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler2" type="xsd:string" />
+          <xsd:element form="unqualified" name="Gozlemler2UlkeId" type="xsd:int" />
+          <xsd:element form="unqualified" name="GumrukId" type="xsd:int" />
+          <xsd:element form="unqualified" name="TaahhutnameSecimi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuTarihi" type="xsd:string" />
+          <xsd:element form="unqualified" name="KapasiteRaporuVizeNo" type="xsd:int" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+          <xsd:element form="unqualified" name="Mallar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Faturalar" type="xsd:string" />
+          <xsd:element form="unqualified" name="Evraklar" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="IYS328ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize328RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyanTipi" type="xsd:string" />
+          <xsd:element form="unqualified" name="BeyannameNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="Vize328ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir328RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="EskiBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="YeniBelgeNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="SignedMime" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeNoDegistir328ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi328RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeBilgi328ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir328RequestType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="TcKimlikNo" type="xsd:string" />
+          <xsd:element form="unqualified" name="Sifre" type="xsd:string" />
+          <xsd:element form="unqualified" name="BelgeNo" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="BelgeYazdir328ResponseType">
+        <xsd:all>
+          <xsd:element form="unqualified" name="Sonuc" type="xsd:string" />
+          <xsd:element form="unqualified" name="Veri" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:element name="BelgeListesi" type="tns:BelgeListesiRequestType" />
+      <xsd:element name="BelgeListesiResponse" type="tns:BelgeListesiResponseType" />
+      <xsd:element name="UlkeListesi" type="tns:UlkeListesiRequestType" />
+      <xsd:element name="UlkeListesiResponse" type="tns:UlkeListesiResponseType" />
+      <xsd:element name="GumrukListesi" type="tns:GumrukListesiRequestType" />
+      <xsd:element name="GumrukListesiResponse" type="tns:GumrukListesiResponseType" />
+      <xsd:element name="BirimListesi" type="tns:BirimListesiRequestType" />
+      <xsd:element name="BirimListesiResponse" type="tns:BirimListesiResponseType" />
+      <xsd:element name="DovizListesi" type="tns:DovizListesiRequestType" />
+      <xsd:element name="DovizListesiResponse" type="tns:DovizListesiResponseType" />
+      <xsd:element name="EvrakTurListesi" type="tns:EvrakTurListesiRequestType" />
+      <xsd:element name="EvrakTurListesiResponse" type="tns:EvrakTurListesiResponseType" />
+      <xsd:element name="YktsKontrol" type="tns:YktsKontrolRequestType" />
+      <xsd:element name="YktsKontrolResponse" type="tns:YktsKontrolResponseType" />
+      <xsd:element name="IYO321" type="tns:IYO321RequestType" />
+      <xsd:element name="IYO321Response" type="tns:IYO321ResponseType" />
+      <xsd:element name="IYS321" type="tns:IYS321RequestType" />
+      <xsd:element name="IYS321Response" type="tns:IYS321ResponseType" />
+      <xsd:element name="Vize321" type="tns:Vize321RequestType" />
+      <xsd:element name="Vize321Response" type="tns:Vize321ResponseType" />
+      <xsd:element name="BelgeNoDegistir321" type="tns:BelgeNoDegistir321RequestType" />
+      <xsd:element name="BelgeNoDegistir321Response" type="tns:BelgeNoDegistir321ResponseType" />
+      <xsd:element name="BelgeBilgi321" type="tns:BelgeBilgi321RequestType" />
+      <xsd:element name="BelgeBilgi321Response" type="tns:BelgeBilgi321ResponseType" />
+      <xsd:element name="BelgeYazdir321" type="tns:BelgeYazdir321RequestType" />
+      <xsd:element name="BelgeYazdir321Response" type="tns:BelgeYazdir321ResponseType" />
+      <xsd:element name="IYO322" type="tns:IYO322RequestType" />
+      <xsd:element name="IYO322Response" type="tns:IYO322ResponseType" />
+      <xsd:element name="IYS322" type="tns:IYS322RequestType" />
+      <xsd:element name="IYS322Response" type="tns:IYS322ResponseType" />
+      <xsd:element name="Vize322" type="tns:Vize322RequestType" />
+      <xsd:element name="Vize322Response" type="tns:Vize322ResponseType" />
+      <xsd:element name="BelgeNoDegistir322" type="tns:BelgeNoDegistir322RequestType" />
+      <xsd:element name="BelgeNoDegistir322Response" type="tns:BelgeNoDegistir322ResponseType" />
+      <xsd:element name="BelgeBilgi322" type="tns:BelgeBilgi322RequestType" />
+      <xsd:element name="BelgeBilgi322Response" type="tns:BelgeBilgi322ResponseType" />
+      <xsd:element name="BelgeYazdir322" type="tns:BelgeYazdir322RequestType" />
+      <xsd:element name="BelgeYazdir322Response" type="tns:BelgeYazdir322ResponseType" />
+      <xsd:element name="IYO323" type="tns:IYO323RequestType" />
+      <xsd:element name="IYO323Response" type="tns:IYO323ResponseType" />
+      <xsd:element name="IYS323" type="tns:IYS323RequestType" />
+      <xsd:element name="IYS323Response" type="tns:IYS323ResponseType" />
+      <xsd:element name="Vize323" type="tns:Vize323RequestType" />
+      <xsd:element name="Vize323Response" type="tns:Vize323ResponseType" />
+      <xsd:element name="BelgeNoDegistir323" type="tns:BelgeNoDegistir323RequestType" />
+      <xsd:element name="BelgeNoDegistir323Response" type="tns:BelgeNoDegistir323ResponseType" />
+      <xsd:element name="BelgeBilgi323" type="tns:BelgeBilgi323RequestType" />
+      <xsd:element name="BelgeBilgi323Response" type="tns:BelgeBilgi323ResponseType" />
+      <xsd:element name="BelgeYazdir323" type="tns:BelgeYazdir323RequestType" />
+      <xsd:element name="BelgeYazdir323Response" type="tns:BelgeYazdir323ResponseType" />
+      <xsd:element name="IYO324" type="tns:IYO324RequestType" />
+      <xsd:element name="IYO324Response" type="tns:IYO324ResponseType" />
+      <xsd:element name="BelgeBilgi324" type="tns:BelgeBilgi324RequestType" />
+      <xsd:element name="BelgeBilgi324Response" type="tns:BelgeBilgi324ResponseType" />
+      <xsd:element name="BelgeYazdir324" type="tns:BelgeYazdir324RequestType" />
+      <xsd:element name="BelgeYazdir324Response" type="tns:BelgeYazdir324ResponseType" />
+      <xsd:element name="IYO325" type="tns:IYO325RequestType" />
+      <xsd:element name="IYO325Response" type="tns:IYO325ResponseType" />
+      <xsd:element name="IYS325" type="tns:IYS325RequestType" />
+      <xsd:element name="IYS325Response" type="tns:IYS325ResponseType" />
+      <xsd:element name="BelgeBilgi325" type="tns:BelgeBilgi325RequestType" />
+      <xsd:element name="BelgeBilgi325Response" type="tns:BelgeBilgi325ResponseType" />
+      <xsd:element name="BelgeYazdir325" type="tns:BelgeYazdir325RequestType" />
+      <xsd:element name="BelgeYazdir325Response" type="tns:BelgeYazdir325ResponseType" />
+      <xsd:element name="IYO326" type="tns:IYO326RequestType" />
+      <xsd:element name="IYO326Response" type="tns:IYO326ResponseType" />
+      <xsd:element name="IYS326" type="tns:IYS326RequestType" />
+      <xsd:element name="IYS326Response" type="tns:IYS326ResponseType" />
+      <xsd:element name="Vize326" type="tns:Vize326RequestType" />
+      <xsd:element name="Vize326Response" type="tns:Vize326ResponseType" />
+      <xsd:element name="BelgeNoDegistir326" type="tns:BelgeNoDegistir326RequestType" />
+      <xsd:element name="BelgeNoDegistir326Response" type="tns:BelgeNoDegistir326ResponseType" />
+      <xsd:element name="BelgeBilgi326" type="tns:BelgeBilgi326RequestType" />
+      <xsd:element name="BelgeBilgi326Response" type="tns:BelgeBilgi326ResponseType" />
+      <xsd:element name="BelgeYazdir326" type="tns:BelgeYazdir326RequestType" />
+      <xsd:element name="BelgeYazdir326Response" type="tns:BelgeYazdir326ResponseType" />
+      <xsd:element name="IYO327" type="tns:IYO327RequestType" />
+      <xsd:element name="IYO327Response" type="tns:IYO327ResponseType" />
+      <xsd:element name="IYS327" type="tns:IYS327RequestType" />
+      <xsd:element name="IYS327Response" type="tns:IYS327ResponseType" />
+      <xsd:element name="Vize327" type="tns:Vize327RequestType" />
+      <xsd:element name="Vize327Response" type="tns:Vize327ResponseType" />
+      <xsd:element name="BelgeNoDegistir327" type="tns:BelgeNoDegistir327RequestType" />
+      <xsd:element name="BelgeNoDegistir327Response" type="tns:BelgeNoDegistir327ResponseType" />
+      <xsd:element name="BelgeBilgi327" type="tns:BelgeBilgi327RequestType" />
+      <xsd:element name="BelgeBilgi327Response" type="tns:BelgeBilgi327ResponseType" />
+      <xsd:element name="BelgeYazdir327" type="tns:BelgeYazdir327RequestType" />
+      <xsd:element name="BelgeYazdir327Response" type="tns:BelgeYazdir327ResponseType" />
+      <xsd:element name="IYO328" type="tns:IYO328RequestType" />
+      <xsd:element name="IYO328Response" type="tns:IYO328ResponseType" />
+      <xsd:element name="IYS328" type="tns:IYS328RequestType" />
+      <xsd:element name="IYS328Response" type="tns:IYS328ResponseType" />
+      <xsd:element name="Vize328" type="tns:Vize328RequestType" />
+      <xsd:element name="Vize328Response" type="tns:Vize328ResponseType" />
+      <xsd:element name="BelgeNoDegistir328" type="tns:BelgeNoDegistir328RequestType" />
+      <xsd:element name="BelgeNoDegistir328Response" type="tns:BelgeNoDegistir328ResponseType" />
+      <xsd:element name="BelgeBilgi328" type="tns:BelgeBilgi328RequestType" />
+      <xsd:element name="BelgeBilgi328Response" type="tns:BelgeBilgi328ResponseType" />
+      <xsd:element name="BelgeYazdir328" type="tns:BelgeYazdir328RequestType" />
+      <xsd:element name="BelgeYazdir328Response" type="tns:BelgeYazdir328ResponseType" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="BelgeListesiRequest">
+    <wsdl:part name="parameters" element="tns:BelgeListesi" />
+  </wsdl:message>
+  <wsdl:message name="BelgeListesiResponse">
+    <wsdl:part name="parameters" element="tns:BelgeListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="UlkeListesiRequest">
+    <wsdl:part name="parameters" element="tns:UlkeListesi" />
+  </wsdl:message>
+  <wsdl:message name="UlkeListesiResponse">
+    <wsdl:part name="parameters" element="tns:UlkeListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="GumrukListesiRequest">
+    <wsdl:part name="parameters" element="tns:GumrukListesi" />
+  </wsdl:message>
+  <wsdl:message name="GumrukListesiResponse">
+    <wsdl:part name="parameters" element="tns:GumrukListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="BirimListesiRequest">
+    <wsdl:part name="parameters" element="tns:BirimListesi" />
+  </wsdl:message>
+  <wsdl:message name="BirimListesiResponse">
+    <wsdl:part name="parameters" element="tns:BirimListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="DovizListesiRequest">
+    <wsdl:part name="parameters" element="tns:DovizListesi" />
+  </wsdl:message>
+  <wsdl:message name="DovizListesiResponse">
+    <wsdl:part name="parameters" element="tns:DovizListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="EvrakTurListesiRequest">
+    <wsdl:part name="parameters" element="tns:EvrakTurListesi" />
+  </wsdl:message>
+  <wsdl:message name="EvrakTurListesiResponse">
+    <wsdl:part name="parameters" element="tns:EvrakTurListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="YktsKontrolRequest">
+    <wsdl:part name="parameters" element="tns:YktsKontrol" />
+  </wsdl:message>
+  <wsdl:message name="YktsKontrolResponse">
+    <wsdl:part name="parameters" element="tns:YktsKontrolResponse" />
+  </wsdl:message>
+  <wsdl:message name="IYO321Request">
+    <wsdl:part name="parameters" element="tns:IYO321" />
+  </wsdl:message>
+  <wsdl:message name="IYO321Response">
+    <wsdl:part name="parameters" element="tns:IYO321Response" />
+  </wsdl:message>
+  <wsdl:message name="IYS321Request">
+    <wsdl:part name="parameters" element="tns:IYS321" />
+  </wsdl:message>
+  <wsdl:message name="IYS321Response">
+    <wsdl:part name="parameters" element="tns:IYS321Response" />
+  </wsdl:message>
+  <wsdl:message name="Vize321Request">
+    <wsdl:part name="parameters" element="tns:Vize321" />
+  </wsdl:message>
+  <wsdl:message name="Vize321Response">
+    <wsdl:part name="parameters" element="tns:Vize321Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir321Request">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir321" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir321Response">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir321Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi321Request">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi321" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi321Response">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi321Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir321Request">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir321" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir321Response">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir321Response" />
+  </wsdl:message>
+  <wsdl:message name="IYO322Request">
+    <wsdl:part name="parameters" element="tns:IYO322" />
+  </wsdl:message>
+  <wsdl:message name="IYO322Response">
+    <wsdl:part name="parameters" element="tns:IYO322Response" />
+  </wsdl:message>
+  <wsdl:message name="IYS322Request">
+    <wsdl:part name="parameters" element="tns:IYS322" />
+  </wsdl:message>
+  <wsdl:message name="IYS322Response">
+    <wsdl:part name="parameters" element="tns:IYS322Response" />
+  </wsdl:message>
+  <wsdl:message name="Vize322Request">
+    <wsdl:part name="parameters" element="tns:Vize322" />
+  </wsdl:message>
+  <wsdl:message name="Vize322Response">
+    <wsdl:part name="parameters" element="tns:Vize322Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir322Request">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir322" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir322Response">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir322Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi322Request">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi322" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi322Response">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi322Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir322Request">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir322" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir322Response">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir322Response" />
+  </wsdl:message>
+  <wsdl:message name="IYO323Request">
+    <wsdl:part name="parameters" element="tns:IYO323" />
+  </wsdl:message>
+  <wsdl:message name="IYO323Response">
+    <wsdl:part name="parameters" element="tns:IYO323Response" />
+  </wsdl:message>
+  <wsdl:message name="IYS323Request">
+    <wsdl:part name="parameters" element="tns:IYS323" />
+  </wsdl:message>
+  <wsdl:message name="IYS323Response">
+    <wsdl:part name="parameters" element="tns:IYS323Response" />
+  </wsdl:message>
+  <wsdl:message name="Vize323Request">
+    <wsdl:part name="parameters" element="tns:Vize323" />
+  </wsdl:message>
+  <wsdl:message name="Vize323Response">
+    <wsdl:part name="parameters" element="tns:Vize323Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir323Request">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir323" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir323Response">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir323Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi323Request">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi323" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi323Response">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi323Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir323Request">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir323" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir323Response">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir323Response" />
+  </wsdl:message>
+  <wsdl:message name="IYO324Request">
+    <wsdl:part name="parameters" element="tns:IYO324" />
+  </wsdl:message>
+  <wsdl:message name="IYO324Response">
+    <wsdl:part name="parameters" element="tns:IYO324Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi324Request">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi324" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi324Response">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi324Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir324Request">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir324" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir324Response">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir324Response" />
+  </wsdl:message>
+  <wsdl:message name="IYO325Request">
+    <wsdl:part name="parameters" element="tns:IYO325" />
+  </wsdl:message>
+  <wsdl:message name="IYO325Response">
+    <wsdl:part name="parameters" element="tns:IYO325Response" />
+  </wsdl:message>
+  <wsdl:message name="IYS325Request">
+    <wsdl:part name="parameters" element="tns:IYS325" />
+  </wsdl:message>
+  <wsdl:message name="IYS325Response">
+    <wsdl:part name="parameters" element="tns:IYS325Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi325Request">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi325" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi325Response">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi325Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir325Request">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir325" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir325Response">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir325Response" />
+  </wsdl:message>
+  <wsdl:message name="IYO326Request">
+    <wsdl:part name="parameters" element="tns:IYO326" />
+  </wsdl:message>
+  <wsdl:message name="IYO326Response">
+    <wsdl:part name="parameters" element="tns:IYO326Response" />
+  </wsdl:message>
+  <wsdl:message name="IYS326Request">
+    <wsdl:part name="parameters" element="tns:IYS326" />
+  </wsdl:message>
+  <wsdl:message name="IYS326Response">
+    <wsdl:part name="parameters" element="tns:IYS326Response" />
+  </wsdl:message>
+  <wsdl:message name="Vize326Request">
+    <wsdl:part name="parameters" element="tns:Vize326" />
+  </wsdl:message>
+  <wsdl:message name="Vize326Response">
+    <wsdl:part name="parameters" element="tns:Vize326Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir326Request">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir326" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir326Response">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir326Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi326Request">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi326" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi326Response">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi326Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir326Request">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir326" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir326Response">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir326Response" />
+  </wsdl:message>
+  <wsdl:message name="IYO327Request">
+    <wsdl:part name="parameters" element="tns:IYO327" />
+  </wsdl:message>
+  <wsdl:message name="IYO327Response">
+    <wsdl:part name="parameters" element="tns:IYO327Response" />
+  </wsdl:message>
+  <wsdl:message name="IYS327Request">
+    <wsdl:part name="parameters" element="tns:IYS327" />
+  </wsdl:message>
+  <wsdl:message name="IYS327Response">
+    <wsdl:part name="parameters" element="tns:IYS327Response" />
+  </wsdl:message>
+  <wsdl:message name="Vize327Request">
+    <wsdl:part name="parameters" element="tns:Vize327" />
+  </wsdl:message>
+  <wsdl:message name="Vize327Response">
+    <wsdl:part name="parameters" element="tns:Vize327Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir327Request">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir327" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir327Response">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir327Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi327Request">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi327" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi327Response">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi327Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir327Request">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir327" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir327Response">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir327Response" />
+  </wsdl:message>
+  <wsdl:message name="IYO328Request">
+    <wsdl:part name="parameters" element="tns:IYO328" />
+  </wsdl:message>
+  <wsdl:message name="IYO328Response">
+    <wsdl:part name="parameters" element="tns:IYO328Response" />
+  </wsdl:message>
+  <wsdl:message name="IYS328Request">
+    <wsdl:part name="parameters" element="tns:IYS328" />
+  </wsdl:message>
+  <wsdl:message name="IYS328Response">
+    <wsdl:part name="parameters" element="tns:IYS328Response" />
+  </wsdl:message>
+  <wsdl:message name="Vize328Request">
+    <wsdl:part name="parameters" element="tns:Vize328" />
+  </wsdl:message>
+  <wsdl:message name="Vize328Response">
+    <wsdl:part name="parameters" element="tns:Vize328Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir328Request">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir328" />
+  </wsdl:message>
+  <wsdl:message name="BelgeNoDegistir328Response">
+    <wsdl:part name="parameters" element="tns:BelgeNoDegistir328Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi328Request">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi328" />
+  </wsdl:message>
+  <wsdl:message name="BelgeBilgi328Response">
+    <wsdl:part name="parameters" element="tns:BelgeBilgi328Response" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir328Request">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir328" />
+  </wsdl:message>
+  <wsdl:message name="BelgeYazdir328Response">
+    <wsdl:part name="parameters" element="tns:BelgeYazdir328Response" />
+  </wsdl:message>
+  <wsdl:portType name="TobbMedosPortType">
+    <wsdl:operation name="BelgeListesi">
+      <wsdl:input message="tns:BelgeListesiRequest" />
+      <wsdl:output message="tns:BelgeListesiResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="UlkeListesi">
+      <wsdl:input message="tns:UlkeListesiRequest" />
+      <wsdl:output message="tns:UlkeListesiResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GumrukListesi">
+      <wsdl:input message="tns:GumrukListesiRequest" />
+      <wsdl:output message="tns:GumrukListesiResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="BirimListesi">
+      <wsdl:input message="tns:BirimListesiRequest" />
+      <wsdl:output message="tns:BirimListesiResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="DovizListesi">
+      <wsdl:input message="tns:DovizListesiRequest" />
+      <wsdl:output message="tns:DovizListesiResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="EvrakTurListesi">
+      <wsdl:input message="tns:EvrakTurListesiRequest" />
+      <wsdl:output message="tns:EvrakTurListesiResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="YktsKontrol">
+      <wsdl:input message="tns:YktsKontrolRequest" />
+      <wsdl:output message="tns:YktsKontrolResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="IYO321">
+      <wsdl:input message="tns:IYO321Request" />
+      <wsdl:output message="tns:IYO321Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYS321">
+      <wsdl:input message="tns:IYS321Request" />
+      <wsdl:output message="tns:IYS321Response" />
+    </wsdl:operation>
+    <wsdl:operation name="Vize321">
+      <wsdl:input message="tns:Vize321Request" />
+      <wsdl:output message="tns:Vize321Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir321">
+      <wsdl:input message="tns:BelgeNoDegistir321Request" />
+      <wsdl:output message="tns:BelgeNoDegistir321Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi321">
+      <wsdl:input message="tns:BelgeBilgi321Request" />
+      <wsdl:output message="tns:BelgeBilgi321Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir321">
+      <wsdl:input message="tns:BelgeYazdir321Request" />
+      <wsdl:output message="tns:BelgeYazdir321Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYO322">
+      <wsdl:input message="tns:IYO322Request" />
+      <wsdl:output message="tns:IYO322Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYS322">
+      <wsdl:input message="tns:IYS322Request" />
+      <wsdl:output message="tns:IYS322Response" />
+    </wsdl:operation>
+    <wsdl:operation name="Vize322">
+      <wsdl:input message="tns:Vize322Request" />
+      <wsdl:output message="tns:Vize322Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir322">
+      <wsdl:input message="tns:BelgeNoDegistir322Request" />
+      <wsdl:output message="tns:BelgeNoDegistir322Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi322">
+      <wsdl:input message="tns:BelgeBilgi322Request" />
+      <wsdl:output message="tns:BelgeBilgi322Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir322">
+      <wsdl:input message="tns:BelgeYazdir322Request" />
+      <wsdl:output message="tns:BelgeYazdir322Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYO323">
+      <wsdl:input message="tns:IYO323Request" />
+      <wsdl:output message="tns:IYO323Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYS323">
+      <wsdl:input message="tns:IYS323Request" />
+      <wsdl:output message="tns:IYS323Response" />
+    </wsdl:operation>
+    <wsdl:operation name="Vize323">
+      <wsdl:input message="tns:Vize323Request" />
+      <wsdl:output message="tns:Vize323Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir323">
+      <wsdl:input message="tns:BelgeNoDegistir323Request" />
+      <wsdl:output message="tns:BelgeNoDegistir323Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi323">
+      <wsdl:input message="tns:BelgeBilgi323Request" />
+      <wsdl:output message="tns:BelgeBilgi323Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir323">
+      <wsdl:input message="tns:BelgeYazdir323Request" />
+      <wsdl:output message="tns:BelgeYazdir323Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYO324">
+      <wsdl:input message="tns:IYO324Request" />
+      <wsdl:output message="tns:IYO324Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi324">
+      <wsdl:input message="tns:BelgeBilgi324Request" />
+      <wsdl:output message="tns:BelgeBilgi324Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir324">
+      <wsdl:input message="tns:BelgeYazdir324Request" />
+      <wsdl:output message="tns:BelgeYazdir324Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYO325">
+      <wsdl:input message="tns:IYO325Request" />
+      <wsdl:output message="tns:IYO325Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYS325">
+      <wsdl:input message="tns:IYS325Request" />
+      <wsdl:output message="tns:IYS325Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi325">
+      <wsdl:input message="tns:BelgeBilgi325Request" />
+      <wsdl:output message="tns:BelgeBilgi325Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir325">
+      <wsdl:input message="tns:BelgeYazdir325Request" />
+      <wsdl:output message="tns:BelgeYazdir325Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYO326">
+      <wsdl:input message="tns:IYO326Request" />
+      <wsdl:output message="tns:IYO326Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYS326">
+      <wsdl:input message="tns:IYS326Request" />
+      <wsdl:output message="tns:IYS326Response" />
+    </wsdl:operation>
+    <wsdl:operation name="Vize326">
+      <wsdl:input message="tns:Vize326Request" />
+      <wsdl:output message="tns:Vize326Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir326">
+      <wsdl:input message="tns:BelgeNoDegistir326Request" />
+      <wsdl:output message="tns:BelgeNoDegistir326Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi326">
+      <wsdl:input message="tns:BelgeBilgi326Request" />
+      <wsdl:output message="tns:BelgeBilgi326Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir326">
+      <wsdl:input message="tns:BelgeYazdir326Request" />
+      <wsdl:output message="tns:BelgeYazdir326Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYO327">
+      <wsdl:input message="tns:IYO327Request" />
+      <wsdl:output message="tns:IYO327Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYS327">
+      <wsdl:input message="tns:IYS327Request" />
+      <wsdl:output message="tns:IYS327Response" />
+    </wsdl:operation>
+    <wsdl:operation name="Vize327">
+      <wsdl:input message="tns:Vize327Request" />
+      <wsdl:output message="tns:Vize327Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir327">
+      <wsdl:input message="tns:BelgeNoDegistir327Request" />
+      <wsdl:output message="tns:BelgeNoDegistir327Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi327">
+      <wsdl:input message="tns:BelgeBilgi327Request" />
+      <wsdl:output message="tns:BelgeBilgi327Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir327">
+      <wsdl:input message="tns:BelgeYazdir327Request" />
+      <wsdl:output message="tns:BelgeYazdir327Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYO328">
+      <wsdl:input message="tns:IYO328Request" />
+      <wsdl:output message="tns:IYO328Response" />
+    </wsdl:operation>
+    <wsdl:operation name="IYS328">
+      <wsdl:input message="tns:IYS328Request" />
+      <wsdl:output message="tns:IYS328Response" />
+    </wsdl:operation>
+    <wsdl:operation name="Vize328">
+      <wsdl:input message="tns:Vize328Request" />
+      <wsdl:output message="tns:Vize328Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir328">
+      <wsdl:input message="tns:BelgeNoDegistir328Request" />
+      <wsdl:output message="tns:BelgeNoDegistir328Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi328">
+      <wsdl:input message="tns:BelgeBilgi328Request" />
+      <wsdl:output message="tns:BelgeBilgi328Response" />
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir328">
+      <wsdl:input message="tns:BelgeYazdir328Request" />
+      <wsdl:output message="tns:BelgeYazdir328Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TobbMedosBinding" type="tns:TobbMedosPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="BelgeListesi">
+      <soap:operation soapAction="urn:TobbMedos#BelgeListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UlkeListesi">
+      <soap:operation soapAction="urn:TobbMedos#UlkeListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GumrukListesi">
+      <soap:operation soapAction="urn:TobbMedos#GumrukListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BirimListesi">
+      <soap:operation soapAction="urn:TobbMedos#BirimListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DovizListesi">
+      <soap:operation soapAction="urn:TobbMedos#DovizListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EvrakTurListesi">
+      <soap:operation soapAction="urn:TobbMedos#EvrakTurListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YktsKontrol">
+      <soap:operation soapAction="urn:TobbMedos#YktsKontrol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYO321">
+      <soap:operation soapAction="urn:TobbMedos#IYO321" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYS321">
+      <soap:operation soapAction="urn:TobbMedos#IYS321" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Vize321">
+      <soap:operation soapAction="urn:TobbMedos#Vize321" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir321">
+      <soap:operation soapAction="urn:TobbMedos#BelgeNoDegistir321" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi321">
+      <soap:operation soapAction="urn:TobbMedos#BelgeBilgi321" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir321">
+      <soap:operation soapAction="urn:TobbMedos#BelgeYazdir321" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYO322">
+      <soap:operation soapAction="urn:TobbMedos#IYO322" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYS322">
+      <soap:operation soapAction="urn:TobbMedos#IYS322" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Vize322">
+      <soap:operation soapAction="urn:TobbMedos#Vize322" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir322">
+      <soap:operation soapAction="urn:TobbMedos#BelgeNoDegistir322" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi322">
+      <soap:operation soapAction="urn:TobbMedos#BelgeBilgi322" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir322">
+      <soap:operation soapAction="urn:TobbMedos#BelgeYazdir322" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYO323">
+      <soap:operation soapAction="urn:TobbMedos#IYO323" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYS323">
+      <soap:operation soapAction="urn:TobbMedos#IYS323" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Vize323">
+      <soap:operation soapAction="urn:TobbMedos#Vize323" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir323">
+      <soap:operation soapAction="urn:TobbMedos#BelgeNoDegistir323" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi323">
+      <soap:operation soapAction="urn:TobbMedos#BelgeBilgi323" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir323">
+      <soap:operation soapAction="urn:TobbMedos#BelgeYazdir323" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYO324">
+      <soap:operation soapAction="urn:TobbMedos#IYO324" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi324">
+      <soap:operation soapAction="urn:TobbMedos#BelgeBilgi324" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir324">
+      <soap:operation soapAction="urn:TobbMedos#BelgeYazdir324" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYO325">
+      <soap:operation soapAction="urn:TobbMedos#IYO325" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYS325">
+      <soap:operation soapAction="urn:TobbMedos#IYS325" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi325">
+      <soap:operation soapAction="urn:TobbMedos#BelgeBilgi325" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir325">
+      <soap:operation soapAction="urn:TobbMedos#BelgeYazdir325" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYO326">
+      <soap:operation soapAction="urn:TobbMedos#IYO326" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYS326">
+      <soap:operation soapAction="urn:TobbMedos#IYS326" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Vize326">
+      <soap:operation soapAction="urn:TobbMedos#Vize326" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir326">
+      <soap:operation soapAction="urn:TobbMedos#BelgeNoDegistir326" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi326">
+      <soap:operation soapAction="urn:TobbMedos#BelgeBilgi326" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir326">
+      <soap:operation soapAction="urn:TobbMedos#BelgeYazdir326" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYO327">
+      <soap:operation soapAction="urn:TobbMedos#IYO327" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYS327">
+      <soap:operation soapAction="urn:TobbMedos#IYS327" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Vize327">
+      <soap:operation soapAction="urn:TobbMedos#Vize327" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir327">
+      <soap:operation soapAction="urn:TobbMedos#BelgeNoDegistir327" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi327">
+      <soap:operation soapAction="urn:TobbMedos#BelgeBilgi327" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir327">
+      <soap:operation soapAction="urn:TobbMedos#BelgeYazdir327" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYO328">
+      <soap:operation soapAction="urn:TobbMedos#IYO328" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IYS328">
+      <soap:operation soapAction="urn:TobbMedos#IYS328" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Vize328">
+      <soap:operation soapAction="urn:TobbMedos#Vize328" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeNoDegistir328">
+      <soap:operation soapAction="urn:TobbMedos#BelgeNoDegistir328" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeBilgi328">
+      <soap:operation soapAction="urn:TobbMedos#BelgeBilgi328" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BelgeYazdir328">
+      <soap:operation soapAction="urn:TobbMedos#BelgeYazdir328" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="urn:TobbMedos" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TobbMedos">
+    <wsdl:port name="TobbMedosPort" binding="tns:TobbMedosBinding">
+      <soap:address location="https://medos.tobb.org.tr/services/service20200427.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -788,6 +788,237 @@ namespace BYT.WS.Controllers.Servis.Ncts
                     //result için okuma? Hata? Guid?  000 ise başarılı, 000 değilse başarısız
                 }
 
+//                Biz direkt Web Reference import ettiğimiz için Servisi çağrınca cevapta Obje Class geliyor.
+
+
+
+//"nctsws." olan yerler bizim kendi iç kullanımımız orada gürmrükten gelen mesajı kendi dönüş formatımıza convert ediyoruz.
+//"nctsW2." Gümrüğün Web Reference adresinin import edilmiş hali
+
+//Gördüğüm kadarıyla İlk gönderm anında 2 temel bilgi dönüyor
+//corrGuid
+//error
+
+
+//error == 000 ise işlem başarılı değise de hata
+
+
+
+//Kullanımı
+
+
+
+//nctsW2.result sonuc = new nctsNet.nctsW2.result();
+//                nctsW2.WS2Service ws2 = new nctsNet.nctsW2.WS2Service();
+
+//                ws2.Credentials = new NetworkCredential(yazilimUserName, yazilimPwd);
+
+//                string _userid = uniqueKey(sirketid, refno) + "," + userid + "," + pwd;
+
+//                try
+
+//                {
+
+//                    sonuc = ws2.submitdeclaration(firmaid, _userid, "CC015B_F", imzaliMi.ToString(), xmlMesaj);
+
+//                }
+
+//                catch (Exception ex)
+
+//                {
+
+//                    nctsws.setWebServiceSonucHata(donecek, ex.Message);
+
+//                    return donecek;
+
+//                }
+
+//                _corrguid = sonuc.corrGuid;
+
+//.
+//nctsws.setWebServiceSonuc(donecek, 1, sonuc.error, sonuc.corrGuid, "");
+
+//                if (sonuc.error != "000")
+
+//                {
+
+//                    string hata = getGumrukHataKodMesaj(sonuc.error);
+
+//                    donecek.Hatalar.Add(hata);
+
+//                }
+
+//                return donecek;
+
+
+
+//                Gümrükten dönen Class yapısı şu şekildeymiş.
+
+
+//[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1085.0")]
+
+//                [System.SerializableAttribute()]
+
+//                [System.Diagnostics.DebuggerStepThroughAttribute()]
+
+//                [System.ComponentModel.DesignerCategoryAttribute("code")]
+
+//                [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://ws/")]
+
+//                public partial class result
+//        {
+
+//            private string corrGuidField;
+
+//            private string errorField;
+
+//            private string[] listField;
+
+//            private string msgContentField;
+
+//            private string msgIdField;
+
+//            private string msgStatusField;
+
+//            /// <remarks/>
+
+//            [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+
+//            public string corrGuid
+//            {
+
+//                get
+//                {
+
+//                    return this.corrGuidField;
+
+//                }
+
+//                set
+//                {
+
+//                    this.corrGuidField = value;
+
+//                }
+
+//            }
+
+//            /// <remarks/>
+
+//            [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+
+//            public string error
+//            {
+
+//                get
+//                {
+
+//                    return this.errorField;
+
+//                }
+
+//                set
+//                {
+
+//                    this.errorField = value;
+
+//                }
+
+//            }
+
+//            /// <remarks/>
+
+//            [System.Xml.Serialization.XmlElementAttribute("list", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = true)]
+
+//            public string[] list
+//            {
+
+//                get
+//                {
+
+//                    return this.listField;
+
+//                }
+
+//                set
+//                {
+
+//                    this.listField = value;
+
+//                }
+
+//            }
+
+//            /// <remarks/>
+
+//            [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+
+//            public string msgContent
+//            {
+
+//                get
+//                {
+
+//                    return this.msgContentField;
+
+//                }
+
+//                set
+//                {
+
+//                    this.msgContentField = value;
+
+//                }
+
+//            }
+
+//            /// <remarks/>
+
+//            [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+
+//            public string msgId
+//            {
+
+//                get
+//                {
+
+//                    return this.msgIdField;
+
+//                }
+
+//                set
+//                {
+
+//                    this.msgIdField = value;
+
+//                }
+
+//            }
+
+//            /// <remarks/>
+
+//            [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+
+//            public string msgStatus
+//            {
+
+//                get
+//                {
+
+//                    return this.msgStatusField;
+
+//                }
+
+//                set
+//                {
+
+//                    this.msgStatusField = value;
+
+//                }
+
+//            }
+
+//        }
 
                 //XmlDocument doc = new XmlDocument();
                 //doc.LoadXml(root.OuterXml);

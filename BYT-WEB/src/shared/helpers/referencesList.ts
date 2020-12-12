@@ -5,7 +5,8 @@
       { kod: 'OB', aciklama: 'OzetBeyan' },
       { kod: 'NB', aciklama: 'NCTS' },
       { kod: 'MB', aciklama: 'Mesai' },
-      { kod: 'IB', aciklama: 'Ighb' }
+      { kod: 'IB', aciklama: 'Ighb' },
+      { kod: 'DO', aciklama: 'Dolasim' }
     ];
   
   

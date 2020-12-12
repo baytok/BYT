@@ -38,6 +38,9 @@ export class NaviComponent implements OnInit {
   get IghbRole() {
     return this.userRoles.canIghbRoles();
   }
+  get DolasimRole() {
+    return this.userRoles.canDolasimRoles();
+  }
   public onSidenavClose = () => {
     this.sidenavClose.emit();
   }

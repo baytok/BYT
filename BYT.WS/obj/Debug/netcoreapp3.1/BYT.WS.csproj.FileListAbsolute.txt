@@ -426,3 +426,5 @@ C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApp
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.MvcApplicationPartsAssemblyInfo.cache
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.sourcelink.json
 C:\Projeler\GitHub\Repositories\BYT\BYT.WS\obj\Debug\netcoreapp3.1\BYT.WS.csprojAssemblyReference.cache
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Connected Services\DolasimBelgeHizmeti\ConnectedService.json
+C:\Projeler\GitHub\Repositories\BYT\BYT.WS\bin\Debug\netcoreapp3.1\Connected Services\Microsoft WCF Web Service Reference Provider\ConnectedService.json

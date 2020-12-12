@@ -1,0 +1,540 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <form class="example-form">
+    <mat-form-field class="islem-no">
+      <input matInput placeholder="İşlem No" #islemNo />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      (click)="getMesai(islemNo)"
+    >
+      Sorgula
+    </button>
+  </form>
+  <div class="card m-3">
+    <h5 class="card-header text-center">Dolaşım Belgeleri</h5>
+    <div class="card-body text-center">
+      <mat-form-field class="islem-no">
+        <mat-label>Mesai No</mat-label>
+        <input
+        
+          matInput
+          readonly
+         [(ngModel)]="mesaiId"
+        />
+      </mat-form-field>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="beyannameheaderMenu"
+        class="header-dropdown-mat-icon-button"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #beyannameheaderMenu="matMenu">
+        <button mat-menu-item (click)="mesaiBasvuru()">
+          <mat-icon>add</mat-icon>
+          <span>Mesai Başvurusu</span>
+        </button>
+        <button mat-menu-item (click)="duzeltMesai()" [disabled]="!BeyanStatu" >
+          <mat-icon>sync</mat-icon>
+          <span>Mesai Düzeltme</span>
+        </button>
+
+        <button mat-menu-item (click)="silMesai(islemNo)" [disabled]="!BeyanStatu" >
+          <mat-icon>delete</mat-icon>
+          <span>Mesai Silme</span>
+        </button>
+      </mat-menu>
+      <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
+      </mat-cell>
+      <mat-label>{{beyanStatu}}</mat-label>
+      
+      <form [formGroup]="mesaiForm" >
+        <mat-card class="mat-card">
+          <div class="example-box">
+       
+                <div class="form-row">                               
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Gümrük</mat-label>
+                      <select
+                        matNativeControl
+                        formControlName="gumrukKodu"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.gumrukKodu.errors
+                        }"
+                      >
+                        <option *ngFor="let g of _gumrukList" [value]="g.Id">{{
+                          g.Kodu
+                        }} {{g.Adi}}</option>
+                      </select>
+                      <div
+                        *ngIf="submitted && focus.gumrukKodu.errors"
+                        class="invalid-feedback"
+                      >
+                        <div *ngIf="focus.gumrukKodu.errors.required">
+                          Gümrük Zorunlu
+                        </div>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                       
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Firma Vergi No</mat-label>
+                      <input
+                        matNativeControl
+                        type="text"
+                        formControlName="firmaVergiNo"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.firmaVergiNo.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.firmaVergiNo.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>  
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Ödeme Yapacak Firma Vergi No</mat-label>
+                      <input
+                        matNativeControl
+                        type="text"
+                        formControlName="odemeYapacakFirmaVergiNo"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.odemeYapacakFirmaVergiNo.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.odemeYapacakFirmaVergiNo.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>  
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Başlangıç Zamanı</mat-label>
+                      <input                        
+                        matNativeControl                       
+                        formControlName="baslangicZamani"                       
+                         [ngClass]="{'is-invalid':submitted && focus.baslangicZamani.errors}"
+                      />
+                      <!-- <mat-datepicker-toggle matSuffix [for]="referansTarihi"></mat-datepicker-toggle>
+                      <mat-datepicker touchUi="true" #referansTarihi></mat-datepicker> -->
+                   
+                      <div
+                        *ngIf="submitted && focus.baslangicZamani.errors"
+                        class="invalid-feedback"
+                      >
+                      <!-- <div *ngIf="focus.referansTarihi.invalid && (focus.referansTarihi.dirty||focus.referansTarihi.touched)" class="alert alert-danger">
+                        Referans Tarihi Zorunlu
+                       </div> -->
+                      
+                    </div>
+                    </mat-form-field>
+                  </div>  
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Tescil Tarihi</mat-label>
+                      <input
+                        readonly
+                        matNativeControl
+                        formControlName="tescilTarihi"
+                     
+                         [ngClass]="{'is-invalid':submitted && focus.tescilTarihi.errors}"
+                      />
+                  
+                      <div
+                        *ngIf="submitted && focus.tescilTarihi.errors"
+                        class="invalid-feedback"
+                      >
+                     
+                    </div>
+                    </mat-form-field>
+                  </div>    
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Mesai ID</mat-label>
+                      <input
+                        readonly
+                        matNativeControl
+                        formControlName="mesaiId"
+                     
+                         [ngClass]="{'is-invalid':submitted && focus.mesaiId.errors}"
+                      />
+                  
+                      <div
+                        *ngIf="submitted && focus.mesaiId.errors"
+                        class="invalid-feedback"
+                      >
+                     
+                    </div>
+                    </mat-form-field>
+                  </div>   
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Ref No</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="refNo"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.refNo.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.refNo.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Beyanname No</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="beyannameNo"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.beyannameNo.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.beyannameNo.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+                       
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Diğer No</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="digerNo"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.digerNo.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.digerNo.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+
+               
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Araç Adedi </mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="aracAdedi"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.aracAdedi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.aracAdedi.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+                  
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Kullanıcı Kodu</mat-label>
+                      <input
+                        readonly
+                        matNativeControl
+                        type="text"
+                        formControlName="kullaniciKodu"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.kullaniciKodu.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.kullaniciKodu.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Eşyanın Bulunduğu Yer</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="esyaninBulunduguYer"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.esyaninBulunduguYer.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.esyaninBulunduguYer.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Eşyanın Bulunduğu Yer Adı</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="esyaninBulunduguYerAdi"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.esyaninBulunduguYerAdi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.esyaninBulunduguYerAdi.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Eşyanın Bulunduğu Yer Kodu</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="esyaninBulunduguYerKodu"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.esyaninBulunduguYerKodu.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.esyaninBulunduguYerKodu.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Global Hesaptan Ödeme</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="globalHesaptanOdeme"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.globalHesaptanOdeme.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.globalHesaptanOdeme.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Gümrük Sahasında</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="gumrukSahasinda"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.gumrukSahasinda.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.gumrukSahasinda.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>İrtibat Ad/Soyad</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="irtibatAdSoyad"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.irtibatAdSoyad.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.irtibatAdSoyad.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>İrtibat Telefon</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="irtibatTelefonNo"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.irtibatTelefonNo.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.irtibatTelefonNo.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>İşlem Tipi</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="islemTipi"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.islemTipi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.islemTipi.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Ncts Sayısı</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="nCTSSayisi"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.nCTSSayisi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.nCTSSayisi.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Özet Beyan Sayısı</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="oZBYSayisi"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.oZBYSayisi.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.oZBYSayisi.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+               
+                  <div class="form-group col">
+                    <mat-form-field>
+                      <mat-label>Uzaklık</mat-label>
+                      <input
+                    
+                        matNativeControl
+                        type="text"
+                        formControlName="uzaklik"
+                       
+                        [ngClass]="{
+                          'is-invalid': submitted && focus.uzaklik.errors
+                        }"
+                      />
+                      <div
+                        *ngIf="submitted && focus.uzaklik.errors"
+                        class="invalid-feedback"
+                      ></div>
+                    </mat-form-field>
+                  </div>
+            
+                </div>
+                <div class="card">
+                 <div class="form-group col">                  
+                    <mat-label>Adres</mat-label>
+                    <textarea                                    
+                      type="text"                    
+                      rows="3"
+                      formControlName="adres"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': submitted && focus.adres.errors
+                      }"
+                    ></textarea>
+
+                    <div
+                      *ngIf="submitted && focus.adres.errors"
+                      class="invalid-feedback"
+                    ></div>
+                 
+                </div> 
+                </div>
+         
+          
+          </div>
+        </mat-card>
+        <div class="text-right">      
+          <button  [disabled]="!(mesaiForm.valid )" class="btn btn-primary mr-1" (click)="onmesaiFormSubmit()">Kaydet</button>      
+        
+        </div>
+      </form>
+     
+    </div>
+  </div>
+</div>

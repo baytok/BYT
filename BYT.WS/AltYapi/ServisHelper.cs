@@ -285,5 +285,40 @@ namespace BYT.WS.AltYapi
 
             return client;
         }
+
+        public static DolasimBelgeHizmeti.TobbMedosPortTypeClient GetDolasimBelgeWSClient(string UserName, string Password)
+        {
+
+
+            EndpointAddress address;
+
+            BasicHttpsBinding binding = new BasicHttpsBinding(BasicHttpsSecurityMode.Transport);
+            binding.SendTimeout = TimeSpan.FromSeconds(125);
+            //   binding.Security.Mode= SecurityMode.Transport;
+            binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
+
+            binding.Security.Transport.ProxyCredentialType = HttpProxyCredentialType.None;
+            //binding.Security.Message.ClientCredentialType = BasicHttpMessageCredentialType.UserName;
+            //binding.Security.Message.AlgorithmSuite = System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDes;
+            binding.MaxReceivedMessageSize = 2147483647;
+#if (DEBUG)
+            //  address = new EndpointAddress("https://medos.tobb.org.tr/services/service20200427.php");
+            address = new EndpointAddress("https://medos.tobb.org.tr/services/service20200427.php");
+
+#else
+             address = new EndpointAddress("https://medos.tobb.org.tr/services/service20200427.php");
+          
+#endif
+            DolasimBelgeHizmeti.TobbMedosPortTypeClient client = new DolasimBelgeHizmeti.TobbMedosPortTypeClient(binding, address);
+            client.ClientCredentials.UserName.UserName = UserName;
+            client.ClientCredentials.UserName.Password = Password;
+            //client.ClientCredentials.ClientCertificate.SetCertificate(
+            // StoreLocation.CurrentUser,
+            // StoreName.My,
+            // X509FindType.FindBySubjectName,
+            //  "gtb.gov.tr");
+
+            return client;
+        }
     }
 }

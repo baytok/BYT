@@ -37,6 +37,12 @@
   import * as nctsKaptipiData from '../../shared/helpers/nctsKaptipi.json';
   import * as nctsteslimSekliData from '../../shared/helpers/nctsteslimSekli.json';
   import * as nctsisleminNiteligiData from '../../shared/helpers/nctsisleminniteligi.json';
+  import * as dolasimBelgelerData from '../../shared/helpers/dolasimBelgeler.json';
+  import * as dolasimBirimlerData from '../../shared/helpers/dolasimBirim.json';
+  import * as dolasimDovizData from '../../shared/helpers/dolasimDoviz.json';
+  import * as dolasimEvrakTuruData from '../../shared/helpers/dolasimEvrakTuru.json';
+  import * as dolasimGumrukData from '../../shared/helpers/dolasimGumruk.json';
+  import * as dolasimUlkeData from '../../shared/helpers/dolasimUlke.json';
   
 @Injectable()
 export class ReferansService  {
@@ -76,6 +82,13 @@ export class ReferansService  {
   private nctsKaptipi: any = (nctsKaptipiData as any).default;
   private nctsteslimSekli: any = (nctsteslimSekliData as any).default;
   private ncstisleminNiteligi: any = (nctsisleminNiteligiData as any).default;
+  private dolasimBelgeler : any = (dolasimBelgelerData as any).default;
+  private dolasimBirimler: any = (dolasimBirimlerData as any).default;
+  private dolasimDoviz: any = (dolasimDovizData as any).default;
+  private dolasimEvrakTuru: any = (dolasimEvrakTuruData as any).default;
+  private dolasimGumruk: any = (dolasimGumrukData as any).default;
+  private dolasimUlke : any = (dolasimUlkeData as any).default;
+
   constructor() {
    
 }
@@ -189,5 +202,30 @@ public getNctsTeslimSekliJSON(): Observable<any> {
 public getNctsisleminNiteligiJSON(): Observable<any> {
   return this.ncstisleminNiteligi;
 }
+
+public getdolasimBelgeler(): Observable<any> {
+  return this.dolasimBelgeler;
+}
+
+public getdolasimBirimler(): Observable<any> {
+  return this.dolasimBirimler;
+}
+
+public getdolasimDoviz(): Observable<any> {
+  return this.dolasimDoviz;
+}
+
+public getdolasimEvrakTuru(): Observable<any> {
+  return this.dolasimEvrakTuru;
+}
+
+public getdolasimGumruk(): Observable<any> {
+  return this.dolasimGumruk;
+}
+
+public getdolasimUlke(): Observable<any> {
+  return this.dolasimUlke;
+}
+
 
 }

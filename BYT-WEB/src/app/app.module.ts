@@ -56,6 +56,7 @@ import { MesaiComponent } from './components/DetayliBeyan/mesai/mesai.component'
 import { IghbSonucServisComponent } from './components/DetayliBeyan/ighbsonucservis/ighbsonucservis.component';
 import { MesaiSonucServisComponent } from './components/DetayliBeyan/mesaisonucservis/mesaisonucservis.component';
 import { NctsSonucServisComponent } from './components/Ncts/nctssonucservis/nctssonucservis.component';
+import { DolasimComponent } from './components/DetayliBeyan/dolasim/dolasim.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { NctsSonucServisComponent } from './components/Ncts/nctssonucservis/ncts
       NbDetayComponent,
       IghbComponent,
       MesaiComponent,
+      DolasimComponent,
        TestComponent
       
     

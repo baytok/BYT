@@ -491,6 +491,11 @@
     <Compile Include="BYTIslemler.Designer.cs">
       <DependentUpon>BYTIslemler.cs</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\DolasimBelgeHizmeti\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\IGHBHizmeti\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -591,6 +596,157 @@
       <Link>Raven.Studio.Html5.zip</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeBilgi321Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeBilgi322Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeBilgi323Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeBilgi324Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeBilgi325Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeBilgi326Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeBilgi327Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeBilgi328Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeListesiResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeNoDegistir321Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeNoDegistir322Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeNoDegistir323Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeNoDegistir326Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeNoDegistir327Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeNoDegistir328Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeYazdir321Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeYazdir322Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeYazdir323Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeYazdir324Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeYazdir325Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeYazdir326Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeYazdir327Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BelgeYazdir328Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.BirimListesiResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.DovizListesiResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.EvrakTurListesiResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.GumrukListesiResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYO321Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYO322Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYO323Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYO324Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYO325Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYO326Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYO327Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYO328Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYS321Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYS322Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYS323Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYS325Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYS326Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYS327Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.IYS328Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.UlkeListesiResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.Vize321Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.Vize322Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.Vize323Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.Vize326Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.Vize327Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.Vize328Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\BYT.UI.DolasimBelgeHizmeti.YktsKontrolResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\service20200427.wsdl" />
     <None Include="Connected Services\IGHBHizmeti\BYT.UI.IGHBHizmeti.IGHBSoapOut.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -786,6 +942,7 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\DolasimBelgeHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\IGHBHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\KontrolHizmeti\" />
     <WCFMetadataStorage Include="Connected Services\KpsWs\" />
@@ -848,6 +1005,12 @@
     <None Include="Connected Services\SonucHizmeti\configuration91.svcinfo" />
     <None Include="Connected Services\SonucHizmeti\configuration.svcinfo" />
     <None Include="Connected Services\SonucHizmeti\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\DolasimBelgeHizmeti\configuration91.svcinfo" />
+    <None Include="Connected Services\DolasimBelgeHizmeti\configuration.svcinfo" />
+    <None Include="Connected Services\DolasimBelgeHizmeti\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
