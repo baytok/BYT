@@ -25,7 +25,7 @@ export class UserRoles {
       for (let item of this.girisService.loggedRoles) this.Yetkiler.push(item);
 
       for (let role of this.Yetkiler) {
-        if (role.yetkiKodu === "AD" || role.yetkiKodu === "DB") {
+        if (role.yetkiKodu === "AD" || role.yetkiKodu === "MU" || role.yetkiKodu === "FI" || role.yetkiKodu === "DB") {
           yetki = true;
           break;
         } else yetki = false;
@@ -41,7 +41,7 @@ export class UserRoles {
       for (let item of this.girisService.loggedRoles) this.Yetkiler.push(item);
 
       for (let role of this.Yetkiler) {
-        if (role.yetkiKodu === "AD" || role.yetkiKodu === "OB") {
+        if (role.yetkiKodu === "AD" || role.yetkiKodu === "MU" || role.yetkiKodu === "FI" || role.yetkiKodu === "OB") {
           yetki = true;
           break;
         } else yetki = false;
@@ -57,7 +57,7 @@ export class UserRoles {
       for (let item of this.girisService.loggedRoles) this.Yetkiler.push(item);
 
       for (let role of this.Yetkiler) {
-        if (role.yetkiKodu === "AD" || role.yetkiKodu === "NB") {
+        if (role.yetkiKodu === "AD" || role.yetkiKodu === "MU" || role.yetkiKodu === "FI" || role.yetkiKodu === "NB") {
           yetki = true;
           break;
         } else yetki = false;
@@ -73,7 +73,7 @@ export class UserRoles {
       for (let item of this.girisService.loggedRoles) this.Yetkiler.push(item);
 
       for (let role of this.Yetkiler) {
-        if (role.yetkiKodu === "AD" || role.yetkiKodu === "MB") {
+        if (role.yetkiKodu === "AD" || role.yetkiKodu === "MU" || role.yetkiKodu === "FI" ||  role.yetkiKodu === "MB") {
           yetki = true;
           break;
         } else yetki = false;
@@ -89,7 +89,7 @@ export class UserRoles {
       for (let item of this.girisService.loggedRoles) this.Yetkiler.push(item);
 
       for (let role of this.Yetkiler) {
-        if (role.yetkiKodu === "AD" || role.yetkiKodu === "IB") {
+        if (role.yetkiKodu === "AD" || role.yetkiKodu === "MU" || role.yetkiKodu === "FI" || role.yetkiKodu === "IB") {
           yetki = true;
           break;
         } else yetki = false;
@@ -105,7 +105,7 @@ export class UserRoles {
       for (let item of this.girisService.loggedRoles) this.Yetkiler.push(item);
 
       for (let role of this.Yetkiler) {
-        if (role.yetkiKodu === "AD" || role.yetkiKodu === "DO") {
+        if (role.yetkiKodu === "AD" || role.yetkiKodu === "MU" || role.yetkiKodu === "FI" || role.yetkiKodu === "DO") {
           yetki = true;
           break;
         } else yetki = false;
@@ -114,7 +114,38 @@ export class UserRoles {
     }
     return yetki;
   }
+  canFirmaRoles(): boolean {
+    if (this.girisService.loggedRoles != null) {
+      var yetki: boolean;
+      this.Yetkiler = [] as any;
+      for (let item of this.girisService.loggedRoles) this.Yetkiler.push(item);
 
+      for (let role of this.Yetkiler) {
+        if (role.yetkiKodu === "AD" || role.yetkiKodu === "FI" || role.yetkiKodu === "MU") {
+          yetki = true;
+          break;
+        } else yetki = false;
+      }
+      //  this.router.navigate(['giris'])
+    }
+    return yetki;
+  }
+  canMusteriRoles(): boolean {
+    if (this.girisService.loggedRoles != null) {
+      var yetki: boolean;
+      this.Yetkiler = [] as any;
+      for (let item of this.girisService.loggedRoles) this.Yetkiler.push(item);
+    
+      for (let role of this.Yetkiler) {
+        if (role.yetkiKodu === "AD"|| role.yetkiKodu === "MU") {
+          yetki = true;
+          break;
+        } else yetki = false;
+      }
+      //  this.router.navigate(['giris'])
+    }
+    return yetki;
+  }
   canAdminRoles(): boolean {
     if (this.girisService.loggedRoles != null) {
       var yetki: boolean;

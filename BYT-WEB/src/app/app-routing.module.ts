@@ -27,6 +27,7 @@ import { TestComponent } from './components/test/test.component';
 import { MesaiComponent } from './components/DetayliBeyan/mesai/mesai.component';
 import { IghbComponent } from './components/DetayliBeyan/ighb/ighb.component';
 import { DolasimComponent } from './components/DetayliBeyan/dolasim/dolasim.component';
+import { FirmalarComponent } from './components/firma/firmalar/Firmalar.component';
 
  @NgModule({
   imports: [
@@ -38,8 +39,9 @@ import { DolasimComponent } from './components/DetayliBeyan/dolasim/dolasim.comp
           children: [
               { path: '', component: GenelComponent,canActivate : [AuthGuard] },         
               { path: 'islemler', component: IslemComponent, canActivate : [AuthGuard] }, 
-              { path: 'kullanicilar', component: KullanicilarComponent,canActivate : [AuthGuard] },      
+              { path: 'kullanicilar', component: KullanicilarComponent,canActivate : [AuthGuard] },                  
               { path: 'musteriler', component: MusterilerComponent,canActivate : [AuthGuard] }, 
+              { path: 'firmalar', component: FirmalarComponent,canActivate : [AuthGuard] }, 
               { path: 'yetkiler', component: YetkilerComponent,canActivate : [AuthGuard] },
               { path: 'genel', component: GenelComponent,canActivate : [AuthGuard] }, 
               { path: 'dbbeyan', component: DbBeyannameComponent,canActivate : [AuthGuard] },  

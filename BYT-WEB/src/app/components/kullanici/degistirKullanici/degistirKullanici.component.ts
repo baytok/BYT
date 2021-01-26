@@ -10,6 +10,7 @@ import {
 import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
   KullaniciDto,
+  FirmaDto,
   MusteriDto,
   YetkiDto,
   KullaniciYetkiDto,
@@ -36,6 +37,8 @@ import {
 } from "@angular/material/dialog";
 export interface DialogData {
   id: number;
+  musteriNo:string;
+  firmaNo:string;
   kullaniciKod: string;
   ad: string;
   soyad: string;
@@ -56,7 +59,8 @@ export class DegistirKullaniciComponent implements OnInit {
   kullaniciForm: FormGroup;
   submitted: boolean = false;
   kullaniciDataSource: KullaniciDto[] = [];
-  musteriDataSource: MusteriDto[] = [];
+  firmaDataSource: FirmaDto[] = [];
+  musteriDataSource: MusteriDto[]=[];
   yetkiDataSource: YetkiDto[] = [];
   checkedRolesMap: { [key: string]: boolean } = {};
   defaultRoleCheckedStatus = false;
@@ -74,6 +78,10 @@ export class DegistirKullaniciComponent implements OnInit {
     this.kullaniciForm = this._fb.group(
       {
         id: [],
+        musteriNo:new FormControl("", [
+          Validators.required]),
+        firmaNo:new FormControl("", [
+          Validators.required]),
         kullaniciKod: new FormControl("", [
           Validators.required,
           Validators.maxLength(15)
@@ -125,10 +133,10 @@ export class DegistirKullaniciComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadKullaniciForm();
-    this.getAktifMusteriler();
     this.getAktifYetkiler();
-    this.getKullaniciAktifYetkilerGetir();
+    this.loadKullaniciForm();
+    this.getAktifMusteriler();    
+   
   
   }
   openSnackBar(message: string, action: string) {
@@ -139,25 +147,69 @@ export class DegistirKullaniciComponent implements OnInit {
   get focus() {
     return this.kullaniciForm.controls;
   }
-  getAktifMusteriler() {
-    this.beyanServis.getAllAktifMusteriler().subscribe(
-      (result: MusteriDto[]) => {
-        this.musteriDataSource = result;
-      },
-      err => {
-        this.beyanServis.errorHandel(err);
-      }
-    );
+  getAktifFirmalar(musteriNo)
+  {
+
+      this.beyanServis.getAllAktifFirmalar(musteriNo)
+     .subscribe( (result: FirmaDto[])=>{
+           this.firmaDataSource=result;
+          
+      }, (err)=>{
+        this.beyanServis.errorHandel(err);    
+      });
+    
+  }
+  getAktifMusteriler()
+  {
+
+      this.beyanServis.getAllAktifMusteriler()
+     .subscribe( (result: MusteriDto[])=>{
+           this.musteriDataSource=result;
+          
+      }, (err)=>{
+        this.beyanServis.errorHandel(err);    
+      });
+    
+  }
+  get musteriNo(): string {
+    let musteriNo= this.kullaniciForm ? this.kullaniciForm.get('musteriNo').value : '';
+    if(musteriNo==='')
+    return '';
+    let selected = this.musteriDataSource.find(c=> c.musteriNo == musteriNo);
+    this.kullaniciForm.get("musteriNo").setValue(selected.musteriNo);
+    this.getAktifFirmalar(selected.musteriNo);
+    return selected.musteriNo;
+  }
+  get firmaNo(): string {
+    let firmaNo= this.kullaniciForm ? this.kullaniciForm.get('firmaNo').value : '';
+    if(firmaNo==='')
+    return '';
+    let selected = this.firmaDataSource.find(c=> c.firmaNo == firmaNo);
+    this.kullaniciForm.get("firmaNo").setValue(selected.firmaNo);
+      return selected.firmaNo;
+  }
+
+  
+  get firmaAd(): string {
+    let vergiNo= this.kullaniciForm ? this.kullaniciForm.get('vergiNo').value : '';
+    if(vergiNo==='')
+    return '';
+    let selected = this.firmaDataSource.find(c=> c.vergiNo == vergiNo);
+    this.kullaniciForm.get("firmaAd").setValue(selected.firmaAd);
+ 
+    return selected.firmaAd;
   }
   getAktifYetkiler() {
     this.beyanServis.getAllAktifYetkiler().subscribe(
       (result: YetkiDto[]) => {
         this.yetkiDataSource = result;
+      
       },
       err => {
         this.beyanServis.errorHandel(err);
       }
     );
+    this.getKullaniciAktifYetkilerGetir();
   }
   getKullaniciAktifYetkilerGetir() {
     this.beyanServis
@@ -178,9 +230,10 @@ export class DegistirKullaniciComponent implements OnInit {
 
   getKullaniciAktifYetkiler()
   {
-
+ 
+   
     for (let item of this.kullaniciYetkileriDataSource) {
-      for (let itm of this.yetkiDataSource) {  
+      for (let itm of this.yetkiDataSource) { 
         if(item.yetkiKodu===itm.yetkiKodu)
         {
             this.kullaniciYetkiIsimleriDataSource.push(itm) ;
@@ -218,9 +271,11 @@ export class DegistirKullaniciComponent implements OnInit {
     });
     return yetkiler;
   }
-  loadKullaniciForm() {
+    loadKullaniciForm() {
     this.kullaniciForm.setValue({
       id: this.data.id,
+      musteriNo: this.data.musteriNo,
+      firmaNo: this.data.firmaNo,
       kullaniciKod: this.data.kullaniciKod,
       ad: this.data.ad,
       soyad: this.data.soyad,
@@ -232,17 +287,9 @@ export class DegistirKullaniciComponent implements OnInit {
       kullaniciSifre: this.data.kullaniciSifre,
       kullaniciSifreTekrarla: ""
     });
+    this.kullaniciForm.markAllAsTouched();
   }
-  get firmaAd(): string {
-    let vergiNo = this.kullaniciForm
-      ? this.kullaniciForm.get("vergiNo").value
-      : "";
-    if (vergiNo === "") return "";
-    let selected = this.musteriDataSource.find(c => c.vergiNo == vergiNo);
-    this.kullaniciForm.get("firmaAd").setValue(selected.firmaAd);
-
-    return selected.firmaAd;
-  }
+  
 
   save() {
     this.submitted = true;

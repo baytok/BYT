@@ -1,7 +1,7 @@
 import { Component, Injector, Optional, Inject, OnInit } from '@angular/core';
 import { AppComponentBase } from '../../../../shared/app-component-base';
-import { YeniMusteriComponent } from '../yeniMusteri/yeniMusteri.component';
-import { DegistirMusteriComponent } from '../degistirMusteri/degistirMusteri.component';
+import { YeniFirmaComponent } from '../yeniFirma/yeniFirma.component';
+import { DegistirFirmaComponent } from '../degistirFirma/degistirFirma.component';
 import {
   FormGroup,
   FormBuilder,
@@ -11,7 +11,7 @@ import {
   NgForm
 } from "@angular/forms";
 import {
-  MusteriDto, ServisDto
+  FirmaDto, ServisDto
  } from '../../../../shared/service-proxies/service-proxies';
  import {AppServisDurumKodlari} from '../../../../shared/AppEnums';
  import { BeyannameServiceProxy ,SessionServiceProxy} from '../../../../shared/service-proxies/service-proxies';
@@ -22,14 +22,14 @@ import {
 } from "../../../../shared/service-proxies/UserRoles";
 import { appModuleAnimation } from '../../../../shared/animations/routerTransition';
  @Component({
-  selector: 'app-musteriler',
+  selector: 'app-firmalar',
   animations: [appModuleAnimation()],
-  templateUrl: './musteriler.component.html',
-  styleUrls: ['./musteriler.component.css']
+  templateUrl: './firmalar.component.html',
+  styleUrls: ['./firmalar.component.css']
 })
-export class MusterilerComponent    implements OnInit {
+export class FirmalarComponent    implements OnInit {
 
-  musteriDataSource: MusteriDto[]=[];
+  firmaDataSource: FirmaDto[]=[];
 
   constructor( 
     injector: Injector,
@@ -43,12 +43,12 @@ export class MusterilerComponent    implements OnInit {
   }
  
   ngOnInit() {
-    if(!this._userRoles.canMusteriRoles())
+    if(!this._userRoles.canFirmaRoles())
     {
       this.openSnackBar("Bu Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
       this.beyanServis.notAuthorizeRole();    
     }
-    this.getAllMusteri();
+    this.getAllFirma();
 
   }
   openSnackBar(message: string, action: string) {
@@ -56,34 +56,34 @@ export class MusterilerComponent    implements OnInit {
       duration: 2000
     });
   }
-  getAllMusteri(){
-     this.beyanServis.getAllMusteri()
-    .subscribe( (result: MusteriDto[])=>{
-          this.musteriDataSource=result;
+  getAllFirma(){
+     this.beyanServis.getAllFirma()
+    .subscribe( (result: FirmaDto[])=>{
+          this.firmaDataSource=result;
           
      }, (err)=>{
       this.beyanServis.errorHandel(err);    
      });
  
    }
-  yenileMusteriler(){
-  this.getAllMusteri();
+   yenileFirmalar(){
+  this.getAllFirma();
   }
-  yeniMusteri(){
-    this.showCreateOrEditMusteriDialog();
+  yeniFirma(){
+    this.showCreateOrEditFirmaDialog();
   }
 
-  silMusteri(musteri: MusteriDto){
-    if(confirm(musteri.vergiNo+ '- Firmasını Silmek İstediğinizden Eminmisiniz?')){
+  silFirma(firma: FirmaDto){
+    if(confirm(firma.vergiNo+ '- Firmasını Silmek İstediğinizden Eminmisiniz?')){
       const promise = this.beyanServis
-      .removeMusteri(musteri.id)
+      .removeFirma(firma.id)
       .toPromise();
       promise.then(
       result => {
        
         const servisSonuc = new ServisDto();
         servisSonuc.init(result);       
-        this.yenileMusteriler();
+        this.yenileFirmalar();
         this.openSnackBar(servisSonuc.Sonuc, "Tamam");
       },
       err => {
@@ -95,34 +95,35 @@ export class MusterilerComponent    implements OnInit {
     }
   }
 
-  degistirMusteri(musteri: MusteriDto){
-    this.showCreateOrEditMusteriDialog(musteri);
+  degistirFirma(firma: FirmaDto){
+    this.showCreateOrEditFirmaDialog(firma);
    
   }
 
 
 
-  showCreateOrEditMusteriDialog(musteri?: MusteriDto): void {
+  showCreateOrEditFirmaDialog(firma?: FirmaDto): void {
     let sonucDialog;
-    if (musteri=== undefined || musteri.id === undefined || musteri.id <= 0) {
-      sonucDialog = this._dialog.open(YeniMusteriComponent,{
+    if (firma=== undefined || firma.id === undefined || firma.id <= 0) {
+      sonucDialog = this._dialog.open(YeniFirmaComponent,{
         width: '700px',
         height:'600px',
       
       });
     } else {
-      sonucDialog = this._dialog.open(DegistirMusteriComponent,{
+      sonucDialog = this._dialog.open(DegistirFirmaComponent,{
         width: '700px',
         height:'600px',
         data: {
-          id:musteri.id,
-          musteriNo:musteri.musteriNo,
-          adres:musteri.adres,
-          vergiNo:musteri.vergiNo,
-          musteriAd:musteri.musteriAd,
-          aktif:musteri.aktif,
-          telefon:musteri.telefon,
-          mailAdres:musteri.mailAdres,
+          id:firma.id,
+          musteriNo:firma.musteriNo,
+          firmaNo:firma.firmaNo,
+          adres:firma.adres,
+          vergiNo:firma.vergiNo,
+          firmaAd:firma.firmaAd,
+          aktif:firma.aktif,
+          telefon:firma.telefon,
+          mailAdres:firma.mailAdres,
       
         }
       });
@@ -131,7 +132,7 @@ export class MusterilerComponent    implements OnInit {
     sonucDialog.afterClosed().subscribe(result => {
         if (result) {
          
-            this.yenileMusteriler();
+            this.yenileFirmalar();
         }
     });
 }

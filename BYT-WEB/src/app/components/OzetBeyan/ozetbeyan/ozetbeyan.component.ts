@@ -188,7 +188,7 @@ export class OzetbeyanComponent implements OnInit {
  
   ngOnInit() {
   
-    if(!this._userRoles.canBeyannameRoles())
+    if(!this._userRoles.canOzetBeyanRoles())
     {
       this.openSnackBar("Beyanname Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
       this.beyanServis.notAuthorizeRole();    

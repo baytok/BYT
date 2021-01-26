@@ -113,7 +113,7 @@ export class DolasimComponent implements OnInit {
  
   ngOnInit() {
   
-    if(!this._userRoles.canMesaiRoles())
+    if(!this._userRoles.canDolasimRoles())
     {
       this.openSnackBar("Mesai Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
       this.beyanServis.notAuthorizeRole();    

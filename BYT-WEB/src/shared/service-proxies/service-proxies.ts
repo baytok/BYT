@@ -67,6 +67,7 @@ export class BeyannameServiceProxy {
   }
   getAllKullanici() { 
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -76,7 +77,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
     return this.http.get(
-      this.baseUrl + "Kullanicilar/KullaniciHizmeti/",httpOptions
+      this.baseUrl + "Kullanicilar/KullaniciHizmeti/"+kullaniciId,httpOptions
     )
   }
 
@@ -146,6 +147,7 @@ export class BeyannameServiceProxy {
   }
   getAllAktifYetkiler() {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -157,7 +159,7 @@ export class BeyannameServiceProxy {
     };
 
     return this.http.get(
-      this.baseUrl + "AktifYetkiler/KullaniciHizmeti/",httpOptions 
+      this.baseUrl + "AktifYetkiler/KullaniciHizmeti/"+kullaniciId,httpOptions 
     );
   }
   getAllKullaniciAktifYetkiler(kullaniciKod) {
@@ -262,6 +264,7 @@ export class BeyannameServiceProxy {
   }
   getAllAktifMusteriler() {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -271,9 +274,8 @@ export class BeyannameServiceProxy {
     const httpOptions = {
      headers: headers_object
     };
-
-    return this.http.get(
-      this.baseUrl + "AktifMusteriler/KullaniciHizmeti/",httpOptions 
+   return this.http.get(
+      this.baseUrl + "AktifMusteriler/KullaniciHizmeti/"+kullaniciId,httpOptions 
     );
   }
   getAllMusteri() {
@@ -292,6 +294,7 @@ export class BeyannameServiceProxy {
     );
   }
   setMusteri(musteri: MusteriDto) {
+    
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
@@ -338,6 +341,89 @@ export class BeyannameServiceProxy {
       this.baseUrl + "MusteriSil/KullaniciHizmeti/"+musteriId, httpOptions        
       );
   }
+
+  getAllAktifFirmalar(musteriNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "AktifFirmalar/KullaniciHizmeti/"+musteriNo+"/"+kullaniciId,httpOptions 
+    );
+  }
+  getAllFirma() {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+    return this.http.get(
+      this.baseUrl + "Firmalar/KullaniciHizmeti/"+kullaniciId,httpOptions 
+    );
+  }
+  setFirma(firma: FirmaDto) {
+    
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.post<any>(
+      this.baseUrl + "FirmaOlustur/KullaniciHizmeti", 
+      firma,httpOptions  
+      );
+  }
+  restoreFirma(firma: FirmaDto) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.put<any>(
+        this.baseUrl + "FirmaDegistir/KullaniciHizmeti", 
+        firma,httpOptions  
+        );
+  }
+  removeFirma(firmaiId) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+     
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.delete<any>(
+      this.baseUrl + "FirmaSil/KullaniciHizmeti/"+firmaiId, httpOptions        
+      );
+  }
+
   getAllIslem(Kullanici) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -2811,6 +2897,8 @@ export class SessionServiceProxy {
 }
 
 export class IslemDto implements IIslemlerDto {
+  musteriNo: string | undefined;
+  firmaNo: string | undefined;
   refNo: string | undefined;
   guidof: string | undefined;
   gonderimSayisi: number;
@@ -2837,6 +2925,8 @@ export class IslemDto implements IIslemlerDto {
 
   init(data?: any) {
     if (data) {
+      this.musteriNo = data["musteriNo"];
+      this.firmaNo = data["firmaNo"];
       this.refNo = data["refNo"];
       this.guidof = data["guidof"];
       this.gonderimSayisi = data["gonderimSayisi"];
@@ -2863,6 +2953,8 @@ export class IslemDto implements IIslemlerDto {
 
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};
+    data["musteriNo"] = this.musteriNo;
+    data["firmaNo"] = this.firmaNo;
     data["refNo"] = this.refNo;
     data["guidof"] = this.guidof;
     data["gonderimSayisi"] = this.gonderimSayisi;
@@ -2889,6 +2981,8 @@ export class IslemDto implements IIslemlerDto {
 }
 
 export interface IIslemlerDto {
+  musteriNo: string | undefined;
+  firmaNo: string | undefined;
   refNo: string | undefined;
   guidof: string | undefined;
   gonderimSayisi: number;
@@ -3479,6 +3573,8 @@ export class KullaniciDto {
   telefon:string;
   aktif:boolean;
   sonIslemZamani:Date;
+  musteriNo: string;
+  firmaNo: string;
 
   constructor(data?: KullaniciDto) {
     if (data) {
@@ -3502,6 +3598,8 @@ export class KullaniciDto {
       this.aktif = data["aktif"];
       this.telefon = data["telefon"];
       this.sonIslemZamani = data["sonIslemZamani"];
+      this.musteriNo = data["musteriNo"];
+      this.firmaNo = data["firmaNo"];
     }
   }
 
@@ -3527,6 +3625,8 @@ export class KullaniciDto {
     data["aktif"]=this.aktif ;
     data["telefon"]=this.telefon ;
     data["sonIslemZamani"]=this.sonIslemZamani;
+    data["musteriNo"]=this.musteriNo;
+    data["firmaNo"]= this.firmaNo ;
     return data;
   }
   clone(): KullaniciDto {
@@ -3539,6 +3639,72 @@ export class KullaniciDto {
 
 export class MusteriDto {
   id: number;
+  musteriNo: string;
+  adres: string;
+  vergiNo:string;
+  musteriAd:string;
+  mailAdres:string;
+  telefon:string;
+  aktif:boolean;
+  sonIslemZamani:Date;
+
+  constructor(data?: KullaniciDto) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(data?: any) {
+    if (data) {         
+      this.id = data["id"];
+      this.musteriNo = data["musteriNo"]!=null || data["musteriNo"]!=undefined ?data["musteriNo"] :"";
+      this.adres = data["adres"];
+      this.vergiNo = data["vergiNo"];
+      this.musteriAd = data["musteriAd"];
+      this.mailAdres = data["mailAdres"];
+      this.aktif = data["aktif"];
+      this.telefon = data["telefon"];
+      this.sonIslemZamani = data["sonIslemZamani"];
+    }
+  }
+
+  static fromJS(data: any): KullaniciDto {
+    data = typeof data === "object" ? data : {};
+    let result = new KullaniciDto();
+
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === "object" ? data : {};  
+   
+    data["adres"]= this.adres ;
+    data["vergiNo"]= this.vergiNo ;
+    data["musteriAd"]=this.musteriAd ;
+    data["id"] = this.id;
+    data["musteriNo"] = this.musteriNo;
+    data["mailAdres"]= this.mailAdres;
+    data["aktif"]=this.aktif ;
+    data["telefon"]=this.telefon ;
+    data["sonIslemZamani"]=this.sonIslemZamani;
+    return data;
+  }
+  clone(): KullaniciDto {
+    const json = this.toJSON();
+    let result = new KullaniciDto();
+    result.init(json);
+    return result;
+  }
+}
+
+export class FirmaDto {
+  id: number;
+  musteriNo: string;
+  firmaNo: string;
   adres: string;
   vergiNo:string;
   firmaAd:string;
@@ -3559,6 +3725,8 @@ export class MusteriDto {
   init(data?: any) {
     if (data) {         
       this.id = data["id"];
+      this.musteriNo = data["musteriNo"]!=null ?data["musteriNo"] :"";
+      this.firmaNo = data["firmaNo"]!=null ?data["firmaNo"] :"";
       this.adres = data["adres"];
       this.vergiNo = data["vergiNo"];
       this.firmaAd = data["firmaAd"];
@@ -3584,6 +3752,8 @@ export class MusteriDto {
     data["vergiNo"]= this.vergiNo ;
     data["firmaAd"]=this.firmaAd ;
     data["id"] = this.id;
+    data["musteriNo"] = this.musteriNo;
+    data["firmaNo"] = this.firmaNo;
     data["mailAdres"]= this.mailAdres;
     data["aktif"]=this.aktif ;
     data["telefon"]=this.telefon ;

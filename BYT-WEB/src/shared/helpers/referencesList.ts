@@ -1,6 +1,8 @@
 ﻿
   export const yetkiProjeler= [
       { kod:'AD', aciklama: 'Admin' },
+      { kod:'MU', aciklama: 'Müşteri Yetkilisi' },
+      { kod:'FI', aciklama: 'Firma Yetkilisi' },
       { kod: 'DB', aciklama: 'Detayli Beyan' },
       { kod: 'OB', aciklama: 'OzetBeyan' },
       { kod: 'NB', aciklama: 'NCTS' },

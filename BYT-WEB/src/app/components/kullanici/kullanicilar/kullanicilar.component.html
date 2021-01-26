@@ -26,6 +26,8 @@
         <table class="table table-hover table-striped" >
           <thead>
             <tr>
+              <th [style.flex]="'0 0 80px'">{{ "Müşteri No"}}</th>
+              <th [style.flex]="'0 0 80px'">{{ "Firma No"}}</th>
               <th [style.flex]="'0 0 80px'">{{ "Kullanıcı Kodu"}}</th>
               <th [style.flex]="'0 0 120px'">{{ "Ad"}}</th>
               <th [style.flex]="'0 0 100px'">{{ "Soyad" }}</th>      
@@ -41,6 +43,8 @@
                 let kullanici of kullaniciDataSource                
               "
             >
+            <td [style.flex]="'0 0 80px'">{{ kullanici.musteriNo }}</td>
+            <td [style.flex]="'0 0 80px'">{{ kullanici.firmaNo }}</td>
               <td [style.flex]="'0 0 80px'">{{ kullanici.kullaniciKod }}</td>
               <td [style.flex]="'0 0 120px'">{{ kullanici.ad }}</td>
               <td [style.flex]="'0 0 100px'">{{ kullanici.soyad }}</td>

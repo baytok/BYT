@@ -12,7 +12,60 @@ class="close pull-right" (click)="close(false)">
     <h5 class="card-header text-center">Yeni Kullanıcı</h5>
     
     <div class="form-row">   
-  
+      <div class="form-group col">
+        <mat-form-field>
+          <mat-label>Müşteri No</mat-label>        
+          <select
+            matNativeControl
+            formControlName="musteriNo"
+            class="form-control"
+            (change)="musteriNo"
+            [ngClass]="{
+              'is-invalid': submitted && focus.musteriNo.errors
+            }"
+           
+          > <option *ngFor="let f of musteriDataSource" [value]="f.musteriNo" [disabled]="editable1">{{
+              f.musteriNo 
+            }}</option>
+          </select>
+        
+          <div
+            *ngIf="submitted && focus.musteriNo.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="focus.musteriNo.errors.required">
+              Müşteri No Kodu Zorunlu
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+      <div class="form-group col">
+        <mat-form-field>
+          <mat-label>Firma No</mat-label>        
+          <select
+            matNativeControl
+            formControlName="firmaNo"
+            class="form-control"
+            (change)="firmaNo"
+            [ngClass]="{
+              'is-invalid': submitted && focus.firmaNo.errors
+            }"
+           
+          > <option *ngFor="let f of firmaDataSource" [value]="f.firmaNo" [disabled]="editable2">{{
+              f.firmaNo 
+            }}</option>
+          </select>
+        
+          <div
+            *ngIf="submitted && focus.firmaNo.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="focus.firmaNo.errors.required">
+              Firma No Kodu Zorunlu
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
         <div class="form-group col">
           <mat-form-field>
             <mat-label>Kullanıcı Kodu</mat-label>
@@ -101,7 +154,7 @@ class="close pull-right" (click)="close(false)">
               'is-invalid': submitted && focus.vergiNo.errors
             }"
            
-          > <option *ngFor="let f of musteriDataSource" [value]="f.vergiNo">{{
+          > <option *ngFor="let f of firmaDataSource" [value]="f.vergiNo">{{
               f.vergiNo +":"+ f.firmaAd
             }}</option>
           </select>

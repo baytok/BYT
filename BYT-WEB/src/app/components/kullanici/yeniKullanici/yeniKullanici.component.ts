@@ -13,7 +13,7 @@ import {
   MAT_DIALOG_DATA
 } from "@angular/material/dialog";
 import {
-  KullaniciDto, MusteriDto,YetkiDto,KullaniciYetkiDto, ServisDto
+  KullaniciDto, FirmaDto,MusteriDto,YetkiDto,KullaniciYetkiDto, ServisDto
  } from '../../../../shared/service-proxies/service-proxies';
  import {
   BeyannameServiceProxy,
@@ -36,10 +36,13 @@ export class YeniKullaniciComponent implements OnInit {
   submitted: boolean = false;  
   kullaniciDataSource: KullaniciDto[]=[];
   musteriDataSource: MusteriDto[]=[];
+  firmaDataSource: FirmaDto[]=[];
   yetkiDataSource: YetkiDto[]=[];
   checkedRolesMap: { [key: string]: boolean } = {};
   defaultRoleCheckedStatus = false;
   kullaniciYetkileri:KullaniciYetkiDto[];
+  editable1: boolean = false;
+  editable2: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<YeniKullaniciComponent>,
     private _fb: FormBuilder,
@@ -52,7 +55,7 @@ export class YeniKullaniciComponent implements OnInit {
     this.buildForm();   
     this.getAktifYetkiler();
     this.getAktifMusteriler();
-   
+    this.kullaniciForm.markAllAsTouched();
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -62,8 +65,21 @@ export class YeniKullaniciComponent implements OnInit {
   get focus() {
     return this.kullaniciForm.controls;
   }
+  getAktifFirmalar(musteriNo)
+  {
+
+      this.beyanServis.getAllAktifFirmalar(musteriNo)
+     .subscribe( (result: FirmaDto[])=>{
+           this.firmaDataSource=result;
+          
+      }, (err)=>{
+        this.beyanServis.errorHandel(err);    
+      });
+    
+  }
   getAktifMusteriler()
   {
+
       this.beyanServis.getAllAktifMusteriler()
      .subscribe( (result: MusteriDto[])=>{
            this.musteriDataSource=result;
@@ -72,6 +88,36 @@ export class YeniKullaniciComponent implements OnInit {
         this.beyanServis.errorHandel(err);    
       });
     
+  }
+  get musteriNo(): string {
+    let musteriNo= this.kullaniciForm ? this.kullaniciForm.get('musteriNo').value : '';
+    if(musteriNo==='')
+    return '';
+    let selected = this.musteriDataSource.find(c=> c.musteriNo == musteriNo);
+    this.kullaniciForm.get("musteriNo").setValue(selected.musteriNo);
+    this.getAktifFirmalar(selected.musteriNo);
+    this.editable1=true;
+    return selected.musteriNo;
+  }
+  get firmaNo(): string {
+    let firmaNo= this.kullaniciForm ? this.kullaniciForm.get('firmaNo').value : '';
+    if(firmaNo==='')
+    return '';
+    let selected = this.firmaDataSource.find(c=> c.firmaNo == firmaNo);
+    this.kullaniciForm.get("firmaNo").setValue(selected.firmaNo);
+    this.editable2=true;
+      return selected.firmaNo;
+  }
+
+  
+  get firmaAd(): string {
+    let vergiNo= this.kullaniciForm ? this.kullaniciForm.get('vergiNo').value : '';
+    if(vergiNo==='')
+    return '';
+    let selected = this.firmaDataSource.find(c=> c.vergiNo == vergiNo);
+    this.kullaniciForm.get("firmaAd").setValue(selected.firmaAd);
+ 
+    return selected.firmaAd;
   }
   getAktifYetkiler()
   {
@@ -84,18 +130,12 @@ export class YeniKullaniciComponent implements OnInit {
       });
     
   }
-  get firmaAd(): string {
-    let vergiNo= this.kullaniciForm ? this.kullaniciForm.get('vergiNo').value : '';
-    if(vergiNo==='')
-    return '';
-    let selected = this.musteriDataSource.find(c=> c.vergiNo == vergiNo);
-    this.kullaniciForm.get("firmaAd").setValue(selected.firmaAd);
- 
-    return selected.firmaAd;
-  }
+  
   buildForm(): void {
     this.kullaniciForm = this._fb.group(
-      {     
+      {    
+        musteriNo:new FormControl("", [Validators.required]),
+        firmaNo:new FormControl("", [Validators.required]),
         kullaniciKod: new FormControl("", [Validators.required, Validators.maxLength(15),]),
         ad:new FormControl("", [Validators.required, Validators.maxLength(30),]),
         soyad:new FormControl("", [Validators.required, Validators.maxLength(30),]),
@@ -173,15 +213,33 @@ export class YeniKullaniciComponent implements OnInit {
       );
      
       return;
-    }
+    }   
     
+  
     let yeniKullanici=new KullaniciDto();
     yeniKullanici.init(this.kullaniciForm.value);    
 
     this.kullaniciYetkileri = [] as any;
     for(let role of this.getCheckedRoles())
     { 
-      let kullaniciYetki= new KullaniciYetkiDto();
+      if(this.getCheckedRoles().length>1 && (role=="AD" ||role=="MU" || role=="FI")) {      
+        alert(
+          "ERROR!! :-)\n\n Admin, Müşteri Temsilcisi veya Firma Temsilcisi seçtiyseniz sadece bunlardan bir tanesi seçebilirsiniz."  
+        );
+        return;
+      }
+        // admin ise müşterino ve firmano sıfırla, müşteri ise firmano sıfırla
+        if(role=="AD")
+        {
+          yeniKullanici.firmaNo="";
+          yeniKullanici.musteriNo="";
+        }
+        else  if(role=="MU")
+        {
+          yeniKullanici.firmaNo="";
+        
+        }
+       let kullaniciYetki= new KullaniciYetkiDto();
      
       kullaniciYetki.yetkiKodu=role;
       kullaniciYetki.kullaniciKod=yeniKullanici.kullaniciKod;

@@ -12,6 +12,38 @@ class="close pull-right" (click)="close(false)">
     <div class="form-row">
       <div class="form-group col">
         <mat-form-field>
+          <mat-label>Müşteri No</mat-label>
+          <input
+           readonly
+            matNativeControl
+            formControlName="musteriNo"
+            class="form-control "
+            [ngClass]="{
+              'is-invalid': submitted && focus.musteriNo.errors
+            }"
+          />
+  
+          
+        </mat-form-field>
+      </div>
+       <div class="form-group col">
+        <mat-form-field>
+          <mat-label>Firma No</mat-label>
+          <input
+           readonly
+            matNativeControl
+            formControlName="firmaNo"
+            class="form-control "
+            [ngClass]="{
+              'is-invalid': submitted && focus.firmaNo.errors
+            }"
+          />
+  
+          
+        </mat-form-field>
+      </div>
+      <div class="form-group col">
+        <mat-form-field>
           <mat-label>Kullanıcı Kodu</mat-label>
           <input
             readonly
@@ -99,7 +131,7 @@ class="close pull-right" (click)="close(false)">
               'is-invalid': submitted && focus.vergiNo.errors
             }"
           >
-            <option *ngFor="let f of musteriDataSource" [value]="f.vergiNo">{{
+            <option *ngFor="let f of firmaDataSource" [value]="f.vergiNo">{{
               f.vergiNo + ":" + f.firmaAd
             }}</option>
           </select>

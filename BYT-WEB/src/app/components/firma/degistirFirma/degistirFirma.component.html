@@ -6,11 +6,37 @@ class="close pull-right" (click)="close(false)">
 <mat-icon>close</mat-icon>
 </button>
 <br/>
-<form [formGroup]="musteriForm" (ngSubmit)="save()">  
+<form [formGroup]="firmaForm" (ngSubmit)="save()">  
   <div class="card m-3">
-   <h5 class="card-header text-center">Müşteri Bilgilerinde Değişiklik</h5>   
+   <h5 class="card-header text-center">Firma Bilgilerinde Değişiklik</h5>   
    <div class="form-row">  
-    
+    <!-- <div class="form-group col">
+      <mat-form-field>
+        <mat-label>Müşteri No</mat-label>        
+        <select
+          matNativeControl
+          formControlName="musteriNo"
+          class="form-control"
+          (change)="musteriNo"
+          [ngClass]="{
+            'is-invalid': submitted && focus.musteriNo.errors
+          }"
+         
+        > <option *ngFor="let f of musteriDataSource" [value]="f.musteriNo">{{
+            f.musteriNo 
+          }}</option>
+        </select>
+      
+        <div
+          *ngIf="submitted && focus.musteriNo.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="focus.musteriNo.errors.required">
+            Müşteri No Kodu Zorunlu
+          </div>
+        </div>
+      </mat-form-field>
+    </div> -->
     <div class="form-group col">
       <mat-form-field>
         <mat-label>Müşteri No</mat-label>
@@ -24,41 +50,59 @@ class="close pull-right" (click)="close(false)">
           }"
         />
 
+        
+      </mat-form-field>
+    </div>
+     <div class="form-group col">
+      <mat-form-field>
+        <mat-label>Firma No</mat-label>
+        <input
+         readonly
+          matNativeControl
+          formControlName="firmaNo"
+          class="form-control "
+          [ngClass]="{
+            'is-invalid': submitted && focus.firmaNo.errors
+          }"
+        />
+
+        
+      </mat-form-field>
+    </div>
+    <div class="form-group col">
+      <mat-form-field>
+        <mat-label>Vergi No</mat-label>
+        <input
+         readonly
+          matNativeControl
+          formControlName="vergiNo"
+          class="form-control "
+          [ngClass]="{
+            'is-invalid': submitted && focus.vergiNo.errors
+          }"
+        />
+
+        
       </mat-form-field>
     </div>
      <div class="form-group col">
        <mat-form-field>
-         <mat-label>Vergi No</mat-label>
-         <input
-          readonly
-           matNativeControl
-           formControlName="vergiNo"
-           class="form-control "
-           [ngClass]="{
-             'is-invalid': submitted && focus.vergiNo.errors
-           }"
-         />
-
-       </mat-form-field>
-     </div>
-     <div class="form-group col">
-       <mat-form-field>
-         <mat-label>Müşteri Adı</mat-label>
+         <mat-label>Firma Adı</mat-label>
          <input
            matNativeControl
-           formControlName="musteriAd"
+           formControlName="firmaAd"
            class="form-control "
            [ngClass]="{
-             'is-invalid': submitted && focus.musteriAd.errors
+             'is-invalid': submitted && focus.firmaAd.errors
            }"
          />
 
          <div
-           *ngIf="submitted && focus.musteriAd.errors"
+           *ngIf="submitted && focus.firmaAd.errors"
            class="invalid-feedback"
          >
-           <div *ngIf="focus.musteriAd.errors.required">
-             Müşteri Adı Zorunlu
+           <div *ngIf="focus.firmaAd.errors.required">
+             Firma Adı Zorunlu
            </div>
          </div>
        </mat-form-field>
@@ -150,6 +194,6 @@ class="close pull-right" (click)="close(false)">
    </div>
    </div>
    <div class="text-right">      
-     <button  [disabled]="!musteriForm.valid" class="btn btn-primary mr-1" (click)="close(true)">Kaydet</button>          
+     <button  [disabled]="!firmaForm.valid" class="btn btn-primary mr-1" (click)="close(true)">Kaydet</button>          
    </div>
 </form>

@@ -57,6 +57,10 @@ import { IghbSonucServisComponent } from './components/DetayliBeyan/ighbsonucser
 import { MesaiSonucServisComponent } from './components/DetayliBeyan/mesaisonucservis/mesaisonucservis.component';
 import { NctsSonucServisComponent } from './components/Ncts/nctssonucservis/nctssonucservis.component';
 import { DolasimComponent } from './components/DetayliBeyan/dolasim/dolasim.component';
+import { FirmalarComponent } from './components/firma/firmalar/Firmalar.component';
+import { YeniFirmaComponent } from './components/firma/yeniFirma/yeniFirma.component';
+import { DegistirFirmaComponent } from './components/firma/degistirFirma/degistirFirma.component';
+
 
 
 @NgModule({
@@ -78,6 +82,9 @@ import { DolasimComponent } from './components/DetayliBeyan/dolasim/dolasim.comp
       DbKalemComponent,
       KullanicilarComponent,
       MusterilerComponent,
+      FirmalarComponent,
+      YeniFirmaComponent,
+      DegistirFirmaComponent,
       YeniKullaniciComponent,
       DegistirKullaniciComponent,
       YeniMusteriComponent,

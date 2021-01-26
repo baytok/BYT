@@ -124,10 +124,32 @@ type = "ball-8bits">
             <div class="example-box">
               <mat-table
                 [dataSource]="islemlerDataSource"
-                class="mat-elevation-z8"
+                class="mat-elevation-z6"
               >
                 <ng-container matColumnDef="detay">
                   <mat-cell *matHeaderCellDef> </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="musteriNo">
+                  <mat-header-cell [style.flex]="'0 0 120px'" *matHeaderCellDef>
+                    Müşteri No
+                  </mat-header-cell>
+                  <mat-cell
+                    [style.flex]="'0 0 120px'"
+                    *matCellDef="let element"
+                  >
+                    {{ element.musteriNo }}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="firmaNo">
+                  <mat-header-cell [style.flex]="'0 0 120px'" *matHeaderCellDef>
+                    Firma No
+                  </mat-header-cell>
+                  <mat-cell
+                    [style.flex]="'0 0 120px'"
+                    *matCellDef="let element"
+                  >
+                    {{ element.firmaNo }}
+                  </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="beyanTipi">
                   <mat-header-cell [style.flex]="'0 0 120px'" *matHeaderCellDef>

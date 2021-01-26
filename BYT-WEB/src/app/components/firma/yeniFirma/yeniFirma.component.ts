@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject,Injector } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -9,53 +9,76 @@ import {
 } from "@angular/forms";
 import { MustMatch } from "../../../../shared/helpers/must-match.validator";
 import {
- MusteriDto,ServisDto
+  FirmaDto,MusteriDto,ServisDto
  } from '../../../../shared/service-proxies/service-proxies';
  import {
   BeyannameServiceProxy,
   SessionServiceProxy
 } from "../../../../shared/service-proxies/service-proxies";
 import {AppServisDurumKodlari} from '../../../../shared/AppEnums';
+import { MatDialog,MatDialogRef } from "@angular/material/dialog";
 import { MatInput } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-export interface DialogData {
-  id: number;  
-  musteriNo:string;
-  vergiNo:string;
-  musteriAd:string;
-  adres:string;
-  aktif:boolean;
-  telefon:string;
-  mailAdres:string;
- 
-}
-@Component({
-  selector: 'app-degistirMusteri',
-  templateUrl: './degistirMusteri.component.html',
-  styleUrls: ['./degistirMusteri.component.css']
-})
 
-export class DegistirMusteriComponent implements OnInit {
-  musteriForm:FormGroup;
+@Component({
+  selector: 'app-yeniFirma',
+  templateUrl: './yeniFirma.component.html',
+  styleUrls: ['./yeniFirma.component.css']
+})
+export class YeniFirmaComponent implements OnInit {
+  firmaForm:FormGroup;
   submitted: boolean = false;  
   musteriDataSource: MusteriDto[]=[];
+  editable: boolean = false;
   constructor(
-    public dialogRef: MatDialogRef<DegistirMusteriComponent>,
+    public dialogRef: MatDialogRef<YeniFirmaComponent>,
     private _fb: FormBuilder,
     private beyanServis: BeyannameServiceProxy,
     private session: SessionServiceProxy,
     private snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) { 
-    this.musteriForm = this._fb.group(
-      {    
-        id:[], 
+  ) { }
+
+  ngOnInit() {
+    this.buildForm();
+    this.getAktifMusteriler();
+   this.firmaForm.markAllAsTouched();
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000
+    });
+  }
+  get focus() {
+    return this.firmaForm.controls;
+  }
+  getAktifMusteriler()
+  {
+         this.beyanServis.getAllAktifMusteriler()
+     .subscribe( (result: MusteriDto[])=>{
+           this.musteriDataSource=result;
+          
+      }, (err)=>{
+        this.beyanServis.errorHandel(err);    
+      });
+    
+  }
+  get musteriNo(): string {
+    let musteriNo= this.firmaForm ? this.firmaForm.get('musteriNo').value : '';
+    if(musteriNo==='')
+    return '';
+    let selected = this.musteriDataSource.find(c=> c.musteriNo == musteriNo);
+    this.firmaForm.get("musteriNo").setValue(selected.musteriNo);
+    this.editable=true;
+    return selected.musteriNo;
+  }
+  buildForm(): void {
+    this.firmaForm = this._fb.group(
+      {     
         musteriNo:new FormControl("", [Validators.required]),
         adres:new FormControl("", [Validators.required, Validators.maxLength(150),]),
         vergiNo: new FormControl("", [Validators.required,Validators.maxLength(15)]),
-        musteriAd:new FormControl("", [Validators.required,Validators.maxLength(150)]), 
-      
+        firmaAd:new FormControl("", [Validators.required,Validators.maxLength(150)]), 
+       
         aktif: [true],
      
         telefon: new FormControl("", [
@@ -73,44 +96,14 @@ export class DegistirMusteriComponent implements OnInit {
         ])
       }
     )
-
-  }
-
-  ngOnInit() {
- 
-    this.loadMusteriForm();
-  
-  }
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000
-    });
-  }
-  get focus() {
-    return this.musteriForm.controls;
-  } 
-  
-  loadMusteriForm(){
-    this.musteriForm.setValue({
-      id: this.data.id,    
-      musteriNo:this.data.musteriNo, 
-      adres:this.data.adres,    
-      aktif:this.data.aktif,
-      musteriAd:this.data.musteriAd,
-      vergiNo:this.data.vergiNo,
-      telefon:this.data.telefon,
-      mailAdres:this.data.mailAdres,
-     
-    });
-    this.musteriForm.markAllAsTouched();
   }
   save(){
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.musteriForm.invalid) {
+    if (this.firmaForm.invalid) {
       const invalid = [];
-      const controls = this.musteriForm.controls;
+      const controls = this.firmaForm.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
           invalid.push(name);
@@ -124,11 +117,11 @@ export class DegistirMusteriComponent implements OnInit {
       return;
     }
     
-    let musteri=new MusteriDto();
-    musteri.init(this.musteriForm.value);
+    let yeniFirma=new FirmaDto();
+    yeniFirma.init(this.firmaForm.value);
  
       const promise = this.beyanServis
-        .restoreMusteri(musteri)
+        .setFirma(yeniFirma)
         .toPromise();
       promise.then(
         result => {
@@ -137,12 +130,13 @@ export class DegistirMusteriComponent implements OnInit {
           servisSonuc.init(result);       
 
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
-          this.musteriForm.disable();
+          this.firmaForm.disable();
         },
         err => {
           this.beyanServis.errorHandel(err);    
         }
       );
+    
     
     // alert(
     //   "SUCCESS!! :-)\n\n" + JSON.stringify(this.kullaniciForm.value, null, 4)

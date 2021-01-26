@@ -23,6 +23,12 @@ export class NaviComponent implements OnInit {
   get AdminRole() {
     return this.userRoles.canAdminRoles();
   }
+  get MusteriRole() {
+    return this.userRoles.canMusteriRoles();
+  }
+  get FirmaRole() {
+    return this.userRoles.canFirmaRoles();
+  }
   get BeyannameRole() {
         return this.userRoles.canBeyannameRoles();
   }

@@ -94,7 +94,7 @@ export class IghbComponent implements OnInit {
  
   ngOnInit() {
   
-    if(!this._userRoles.canBeyannameRoles())
+    if(!this._userRoles.canIghbRoles())
     {
       this.openSnackBar("Beyanname Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
       this.beyanServis.notAuthorizeRole();    

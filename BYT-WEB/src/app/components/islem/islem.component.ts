@@ -72,6 +72,8 @@ export class IslemComponent implements OnInit {
   islemlerDataSource: IslemDto[] = [];
   tarihceDataSource = new MatTableDataSource();
   displayedColumnsIslem: string[] = [
+    "musteriNo",
+    "firmaNo",
     "beyanTipi",
     "islemTipi",
     "islemDurumu",

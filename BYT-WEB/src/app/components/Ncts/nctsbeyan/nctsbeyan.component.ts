@@ -452,7 +452,7 @@ export class NctsBeyanComponent implements OnInit {
  
   ngOnInit() {
   
-    if(!this._userRoles.canBeyannameRoles())
+    if(!this._userRoles.canNctsBeyanRoles())
     {
       this.openSnackBar("Beyanname Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
       this.beyanServis.notAuthorizeRole();    

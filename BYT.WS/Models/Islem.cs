@@ -14,6 +14,14 @@ namespace BYT.WS.Models
         public int ID { get; set; }
 
         [Required]
+        [StringLength(20)]
+        public string MusteriNo { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string FirmaNo { get; set; }
+
+        [Required]
         [StringLength(30)]
         public string RefNo { get; set; }
 

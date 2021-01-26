@@ -9,7 +9,11 @@
         <a mat-list-item  *ngIf="AdminRole" routerLink="/app/musteriler" (click)="onSidenavClose()">
             <mat-icon>business</mat-icon> <span>Müşteriler</span>
         </a>
-        <a mat-list-item  *ngIf="AdminRole" routerLink="/app/kullanicilar" (click)="onSidenavClose()">
+        <a mat-list-item  *ngIf="MusteriRole" routerLink="/app/firmalar" (click)="onSidenavClose()">
+            <mat-icon>account_balance</mat-icon> <span>Firmalar</span>       
+        </a>
+        
+        <a mat-list-item  *ngIf="FirmaRole" routerLink="/app/kullanicilar" (click)="onSidenavClose()">
             <mat-icon>people</mat-icon> <span class="nav-caption">Kullanıcılar</span>
         </a>
         <a mat-list-item  *ngIf="AdminRole" routerLink="/app/yetkiler" (click)="onSidenavClose()">

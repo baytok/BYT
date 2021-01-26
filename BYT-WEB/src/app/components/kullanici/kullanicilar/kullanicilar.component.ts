@@ -43,7 +43,7 @@ export class KullanicilarComponent    implements OnInit {
   }
  
   ngOnInit() {
-    if(!this._userRoles.canAdminRoles())
+    if(!this._userRoles.canFirmaRoles())
     {
       this.openSnackBar("Bu Sayfasını Görmeye Yetkiniz Yoktur.", "Tamam");
       this.beyanServis.notAuthorizeRole();    
@@ -115,6 +115,8 @@ export class KullanicilarComponent    implements OnInit {
         width: '700px',
         height:'600px',
         data: {id:kullanici.id,
+          musteriNo:kullanici.musteriNo,
+          firmaNo:kullanici.firmaNo,
           kullaniciKod: kullanici.kullaniciKod,
           ad:kullanici.ad,
           soyad:kullanici.soyad,

@@ -39,6 +39,7 @@ export class YeniMusteriComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.musteriForm.markAllAsTouched();
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -54,7 +55,7 @@ export class YeniMusteriComponent implements OnInit {
       
         adres:new FormControl("", [Validators.required, Validators.maxLength(150),]),
         vergiNo: new FormControl("", [Validators.required,Validators.maxLength(15)]),
-        firmaAd:new FormControl("", [Validators.required,Validators.maxLength(150)]), 
+        musteriAd:new FormControl("", [Validators.required,Validators.maxLength(150)]), 
        
         aktif: [true],
      
@@ -96,7 +97,7 @@ export class YeniMusteriComponent implements OnInit {
     
     let yeniMusteri=new MusteriDto();
     yeniMusteri.init(this.musteriForm.value);
- 
+  
       const promise = this.beyanServis
         .setMusteri(yeniMusteri)
         .toPromise();

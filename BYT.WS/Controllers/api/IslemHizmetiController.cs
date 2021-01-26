@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using BYT.WS.AltYapi;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -24,12 +26,14 @@ namespace BYT.WS.Controllers.api
     public class IslemHizmetiController : ControllerBase
     {
         private IslemTarihceDataContext _islemContext;
+        public IConfiguration Configuration { get; }
 
         private readonly ServisCredential _servisCredential;
 
         public ILogger<IslemHizmetiController> _logger;
-        public IslemHizmetiController(IslemTarihceDataContext islemcontext, IOptions<ServisCredential> servisCredential, ILogger<IslemHizmetiController> logger)
+        public IslemHizmetiController(IConfiguration configuration,IslemTarihceDataContext islemcontext, IOptions<ServisCredential> servisCredential, ILogger<IslemHizmetiController> logger)
         {
+            Configuration = configuration;
             _islemContext = islemcontext;
             _logger = logger;
             _servisCredential = new ServisCredential();
@@ -78,19 +82,55 @@ namespace BYT.WS.Controllers.api
         [HttpGet("{Kullanici}")]
         public async Task<List<Islem>> GetIslemlerFromKullanici(string Kullanici)
         {
-        
+         
+            var options = new DbContextOptionsBuilder<KullaniciDataContext>()
+                       .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+                       .Options;
+            KullaniciDataContext  _kullaniciContext = new KullaniciDataContext(options);
+
 
             try
             {
                 ServisDurum _servisDurum = new ServisDurum();
-
-                var islemValues =  await _islemContext.Islem.Where(v => v.Kullanici == Kullanici.Trim()).ToListAsync();
-                //var result = new Sonuc<object>() { Veri = islemValues, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
-
-                var Message = $"GetIslemlerFromKullanici {DateTime.UtcNow.ToLongTimeString()}";
-                Log.Information("Message displayed: {Message}", Message);
-               _logger.LogInformation("Message displayed: {Message}", Message);
-                return islemValues;
+                var kullanici = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == Kullanici.Trim()).FirstOrDefault();
+                var kullaniciYetki= _kullaniciContext.KullaniciYetki.Where(x=>x.KullaniciKod==Kullanici.Trim()).ToListAsync();
+                if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD")>0)
+                {
+                    var islemValues = await _islemContext.Islem.ToListAsync();
+                    //var result = new Sonuc<object>() { Veri = islemValues, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
+                    var Message = $"GetIslemlerFromKullanici {DateTime.UtcNow.ToLongTimeString()}";
+                    Log.Information("Message displayed: {Message}", Message);
+                    _logger.LogInformation("Message displayed: {Message}", Message);
+                    return islemValues;
+                }
+                else if(kullaniciYetki.Result.Count(x => x.YetkiKodu == "MU") > 0)
+                {
+                    var islemValues = await _islemContext.Islem.Where(v => v.MusteriNo == kullanici.MusteriNo.Trim()).ToListAsync();
+                    //var result = new Sonuc<object>() { Veri = islemValues, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
+                    var Message = $"GetIslemlerFromKullanici {DateTime.UtcNow.ToLongTimeString()}";
+                    Log.Information("Message displayed: {Message}", Message);
+                    _logger.LogInformation("Message displayed: {Message}", Message);
+                    return islemValues;
+                }
+                else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "FI") > 0)
+                {
+                    var islemValues = await _islemContext.Islem.Where(v => v.FirmaNo == kullanici.FirmaNo.Trim()).ToListAsync();
+                    //var result = new Sonuc<object>() { Veri = islemValues, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
+                    var Message = $"GetIslemlerFromKullanici {DateTime.UtcNow.ToLongTimeString()}";
+                    Log.Information("Message displayed: {Message}", Message);
+                    _logger.LogInformation("Message displayed: {Message}", Message);
+                    return islemValues;
+                }
+                else
+                {
+                    var islemValues = await _islemContext.Islem.Where(v => v.Kullanici == Kullanici.Trim()).ToListAsync();
+                    //var result = new Sonuc<object>() { Veri = islemValues, Islem = true, Mesaj = "İşlemler Gerçekletirildi" };
+                    var Message = $"GetIslemlerFromKullanici {DateTime.UtcNow.ToLongTimeString()}";
+                    Log.Information("Message displayed: {Message}", Message);
+                    _logger.LogInformation("Message displayed: {Message}", Message);
+                    return islemValues;
+                }
+             
 
             }
             catch (Exception ex)

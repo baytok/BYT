@@ -17,6 +17,7 @@ namespace BYT.WS.Data
         }
         public DbSet<Kullanici> Kullanici { get; set; }
         public DbSet<Musteri> Musteri { get; set; }
+        public DbSet<Firma> Firma { get; set; }
 
         public DbSet<Yetki> Yetki { get; set; }
 

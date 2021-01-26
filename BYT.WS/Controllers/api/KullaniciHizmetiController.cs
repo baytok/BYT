@@ -96,17 +96,42 @@ namespace BYT.WS.Controllers.api
         }
 
 
-        [Route("api/BYT/Kullanicilar/[controller]")]
-        [HttpGet]
-        public async Task<List<Kullanici>> GetKullanici()
+        [Route("api/BYT/Kullanicilar/[controller]/{kullaniciId}")]
+        [HttpGet("{kullaniciId}")]
+        public async Task<List<Kullanici>> GetKullanici(string kullaniciId)
         {
             try
             {
+                var kullaniciValues = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == kullaniciId.Trim()).FirstOrDefault();
+                var kullaniciYetki = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == kullaniciId.Trim()).ToListAsync();
+                if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD") > 0)
+                {
+                    var kullanicilarValues = await _kullaniciContext.Kullanici.Where(x=>x.KullaniciKod != kullaniciValues.KullaniciKod).ToListAsync();
 
-                var kullaniciValues = await _kullaniciContext.Kullanici.ToListAsync();
+                    Log.Information("Message displayed: {Message}", JsonConvert.SerializeObject(kullaniciValues, Formatting.None));
+                    return kullanicilarValues;
+                }
+                else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "MU") > 0)
+                {
+                    var kullanicilarValues = await _kullaniciContext.Kullanici.Where(x => x.MusteriNo == kullaniciValues.MusteriNo && x.KullaniciKod!= kullaniciValues.KullaniciKod).ToListAsync();
 
-                Log.Information("Message displayed: {Message}", JsonConvert.SerializeObject(kullaniciValues, Formatting.None));
-                return kullaniciValues;
+                    Log.Information("Message displayed: {Message}", JsonConvert.SerializeObject(kullaniciValues, Formatting.None));
+                    return kullanicilarValues;
+                }
+                else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "FI") > 0)
+                {
+                    var kullanicilarValues = await _kullaniciContext.Kullanici.Where(x => x.MusteriNo == kullaniciValues.MusteriNo &&  x.FirmaNo == kullaniciValues.FirmaNo &&  x.KullaniciKod != kullaniciValues.KullaniciKod).ToListAsync();
+
+                    Log.Information("Message displayed: {Message}", JsonConvert.SerializeObject(kullaniciValues, Formatting.None));
+                    return kullanicilarValues;
+                }
+                else {
+
+                    var kullanicilarValues = await _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == kullaniciId).ToListAsync();
+
+                    Log.Information("Message displayed: {Message}", JsonConvert.SerializeObject(kullaniciValues, Formatting.None));
+                    return kullanicilarValues;
+                }
 
             }
             catch (Exception ex)
@@ -133,6 +158,8 @@ namespace BYT.WS.Controllers.api
                     {
                         if (_kullaniciValues.Aktif == false)
                         {
+                            _kullaniciValues.MusteriNo = kullanici.MusteriNo;
+                            _kullaniciValues.FirmaNo = kullanici.FirmaNo;
                             _kullaniciValues.Ad = kullanici.Ad;
                             _kullaniciValues.Soyad = kullanici.Soyad;
                             _kullaniciValues.Aktif = true;
@@ -159,6 +186,7 @@ namespace BYT.WS.Controllers.api
                     }
                     else
                     {
+
                         kullanici.SonIslemZamani = DateTime.Now;
                         _kullaniciContext.Entry(kullanici).State = EntityState.Added;
                     }
@@ -305,16 +333,34 @@ namespace BYT.WS.Controllers.api
 
         }
 
-        [Route("api/BYT/AktifMusteriler/[controller]")]
-        [HttpGet]
-        public async Task<List<Musteri>> GetAktifMusterler()
+        [Route("api/BYT/AktifMusteriler/[controller]/{kullaniciId}")]
+        [HttpGet("{kullaniciId}")]
+        public async Task<List<Musteri>> GetAktifMusterler(string kullaniciId)
         {
+           
             try
             {
+                var kullaniciValues = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == kullaniciId.Trim()).FirstOrDefault();
+                var kullaniciYetki = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == kullaniciId.Trim()).ToListAsync();
+                if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD") > 0)
+                {
+                    var musteriValues = await _kullaniciContext.Musteri.Where(x => x.Aktif == true).ToListAsync();
 
-                var musteriValues = await _kullaniciContext.Musteri.Where(x => x.Aktif == true).ToListAsync();
+                    return musteriValues;
+                }
+                else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "MU") > 0)
+                {
+                    var musteriValues = await _kullaniciContext.Musteri.Where(x => x.Aktif == true && x.MusteriNo == kullaniciValues.MusteriNo).ToListAsync();
 
-                return musteriValues;
+                    return musteriValues;
+                }
+                else
+                {
+                    var musteriValues = await _kullaniciContext.Musteri.Where(x => x.Aktif == true && x.MusteriNo == kullaniciValues.MusteriNo).ToListAsync();
+
+                    return musteriValues;
+                }
+               
 
             }
             catch (Exception ex)
@@ -335,8 +381,14 @@ namespace BYT.WS.Controllers.api
             {
                 try
                 {
+
+
+                  
                     musteri.SonIslemZamani = DateTime.Now;
-                    _kullaniciContext.Entry(musteri).State = EntityState.Added;
+                    _kullaniciContext.Entry(musteri).State = EntityState.Added;                 
+                    await _kullaniciContext.SaveChangesAsync();
+                    _kullaniciContext.Entry(musteri).State = EntityState.Modified;
+                    musteri.MusteriNo = "BYT-" + musteri.ID;
                     await _kullaniciContext.SaveChangesAsync();
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                     transaction.Commit();
@@ -427,7 +479,206 @@ namespace BYT.WS.Controllers.api
                     _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
                     transaction.Commit();
                     List<Bilgi> lstBlg = new List<Bilgi>();
-                    Bilgi blg = new Bilgi { IslemTipi = "Kullanıcı Silme", ReferansNo = musteriValues.VergiNo, Sonuc = "Kullanıcı Silme Başarılı", SonucVeriler = null };
+                    Bilgi blg = new Bilgi { IslemTipi = "Müşteri Silme", ReferansNo = musteriValues.VergiNo, Sonuc = "Müşteri Silme Başarılı", SonucVeriler = null };
+                    lstBlg.Add(blg);
+                    _servisDurum.Bilgiler = lstBlg;
+
+
+                    return _servisDurum;
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+                }
+
+            }
+
+        }
+
+
+        [Route("api/BYT/Firmalar/[controller]/{kullaniciId}")]
+        [HttpGet("{kullaniciId}")]
+        public async Task<List<Firma>> GetFirma(string kullaniciId)
+        {
+            try
+            {
+                var kullaniciValues = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == kullaniciId.Trim()).FirstOrDefault();
+                var kullaniciYetki = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == kullaniciId.Trim()).ToListAsync();
+                if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD") > 0)
+                {
+                    var firmaValues = await _kullaniciContext.Firma.ToListAsync();
+
+                    return firmaValues;
+                }
+                else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "MU") > 0)
+                {
+                    var firmaValues = await _kullaniciContext.Firma.Where(x => x.MusteriNo == kullaniciValues.MusteriNo).ToListAsync();
+
+                    return firmaValues;
+                }
+                else
+                {
+                    var firmaValues = await _kullaniciContext.Firma.Where(x => x.FirmaNo == kullaniciValues.FirmaNo).ToListAsync();
+
+                    return firmaValues;
+                }
+               
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+
+        [Route("api/BYT/AktifFirmalar/[controller]/{musteriNo}/{kullaniciId}")]
+        [HttpGet("{musteriNo}/{kullaniciId}")]
+        public async Task<List<Firma>> GetAktifFirmalar(string musteriNo, string kullaniciId)
+        {
+            try
+            {
+                var kullaniciValues = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == kullaniciId.Trim()).FirstOrDefault();
+                var kullaniciYetki = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == kullaniciId.Trim()).ToListAsync();
+                if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD") > 0 || kullaniciYetki.Result.Count(x => x.YetkiKodu == "MU") > 0)
+                {
+                    var firmaValues = await _kullaniciContext.Firma.Where(x => x.Aktif == true && x.MusteriNo == musteriNo).ToListAsync();
+
+                    return firmaValues;
+                }
+                else
+                {
+                    var firmaValues = await _kullaniciContext.Firma.Where(x => x.Aktif == true && x.MusteriNo == musteriNo && x.FirmaNo== kullaniciValues.FirmaNo).ToListAsync();
+
+                    return firmaValues;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+
+        }
+
+        [Route("api/BYT/FirmaOlustur/[controller]")]
+        [HttpPost]
+        public async Task<ServisDurum> PostFirma([FromBody] Firma firma)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+            using (var transaction = _kullaniciContext.Database.BeginTransaction())
+            {
+                try
+                {
+                   
+                    firma.SonIslemZamani = DateTime.Now;
+                    _kullaniciContext.Entry(firma).State = EntityState.Added;
+                    await _kullaniciContext.SaveChangesAsync();
+                    firma.FirmaNo = firma.MusteriNo + "-" + firma.ID;
+                    _kullaniciContext.Entry(firma).State = EntityState.Modified;
+                    await _kullaniciContext.SaveChangesAsync();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                    transaction.Commit();
+                    List<Bilgi> lstBlg = new List<Bilgi>();
+                    Bilgi blg = new Bilgi { IslemTipi = "Firma Oluşturma", ReferansNo = firma.VergiNo, Sonuc = "Firma Oluşturma Başarılı", SonucVeriler = null };
+                    lstBlg.Add(blg);
+                    _servisDurum.Bilgiler = lstBlg;
+
+
+                    return _servisDurum;
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+
+                }
+
+            }
+
+
+        }
+
+        [Route("api/BYT/FirmaDegistir/[controller]")]
+        [HttpPut]
+        public async Task<ServisDurum> PutFirma([FromBody] Firma firma)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+            using (var transaction = _kullaniciContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    firma.SonIslemZamani = DateTime.Now;
+                    _kullaniciContext.Entry(firma).State = EntityState.Modified;
+                    await _kullaniciContext.SaveChangesAsync();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                    transaction.Commit();
+                    List<Bilgi> lstBlg = new List<Bilgi>();
+                    Bilgi blg = new Bilgi { IslemTipi = "Firma Değişiklik", ReferansNo = firma.VergiNo, Sonuc = "Firma Değişikliği Başarılı", SonucVeriler = null };
+                    lstBlg.Add(blg);
+                    _servisDurum.Bilgiler = lstBlg;
+
+
+                    return _servisDurum;
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
+                    List<Internal.Hata> lstht = new List<Internal.Hata>();
+
+                    Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
+                    lstht.Add(ht);
+                    _servisDurum.Hatalar = lstht;
+
+                    return _servisDurum;
+                }
+
+            }
+
+        }
+
+        [Route("api/BYT/FirmaSil/[controller]/{firmaId}")]
+        [HttpDelete("{firmaId}")]
+        public async Task<ServisDurum> DeleteFirma(int firmaId)
+        {
+            ServisDurum _servisDurum = new ServisDurum();
+
+            using (var transaction = _kullaniciContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var musteriValues = await _kullaniciContext.Firma.FirstOrDefaultAsync(v => v.ID == firmaId);
+
+                    _kullaniciContext.Entry(musteriValues).State = EntityState.Deleted;
+                    await _kullaniciContext.SaveChangesAsync();
+
+                    _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
+                    transaction.Commit();
+                    List<Bilgi> lstBlg = new List<Bilgi>();
+                    Bilgi blg = new Bilgi { IslemTipi = "Firma Silme", ReferansNo = musteriValues.VergiNo, Sonuc = "Firma Silme Başarılı", SonucVeriler = null };
                     lstBlg.Add(blg);
                     _servisDurum.Bilgiler = lstBlg;
 
@@ -474,16 +725,36 @@ namespace BYT.WS.Controllers.api
 
         }
 
-        [Route("api/BYT/AktifYetkiler/[controller]")]
-        [HttpGet]
-        public async Task<List<Yetki>> GetAktifYetkiler()
+        [Route("api/BYT/AktifYetkiler/[controller]/{kullaniciId}")]
+        [HttpGet("{kullaniciId}")]
+        public async Task<List<Yetki>> GetAktifYetkiler(string kullaniciId)
         {
             try
             {
-
-                var yetkiValues = await _kullaniciContext.Yetki.Where(x => x.Aktif == true).ToListAsync();
-
-                return yetkiValues;
+                var kullaniciValues = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == kullaniciId.Trim()).FirstOrDefault();
+                var kullaniciYetki = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == kullaniciId.Trim()).ToListAsync();
+                if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD") > 0)
+                {
+                    var yetkiValues = await _kullaniciContext.Yetki.Where(x => x.Aktif == true).ToListAsync();
+                    return yetkiValues;
+                }
+                else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "MU") > 0)
+                { 
+                    var yetkiValues = await _kullaniciContext.Yetki.Where(x => x.Aktif == true && x.YetkiKodu != "AD" && x.YetkiKodu!="MU").ToListAsync();
+                    return yetkiValues;
+                }
+                else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "FI") > 0)
+                {
+                   
+                    var yetkiValues = await _kullaniciContext.Yetki.Where(x => x.Aktif == true && x.YetkiKodu != "AD" && x.YetkiKodu != "MU" && x.YetkiKodu != "FI").ToListAsync();
+                    return yetkiValues;
+                }
+                else
+                {
+                 
+                    var yetkiValues = await _kullaniciContext.Yetki.Where(x => x.Aktif == true && x.YetkiKodu != "AD" && x.YetkiKodu != "MU" && x.YetkiKodu != "FI").ToListAsync();
+                    return yetkiValues;
+                }
 
             }
             catch (Exception ex)
