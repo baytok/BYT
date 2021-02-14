@@ -372,6 +372,7 @@ namespace BYT.WS.Models
     }
     public class HEAHEA
     {
+      
         [StringLength(16)]
         public string RefNumHEA4 { get; set; } //Reference number, Tescil No, düzeltmede tescil no konacak
 
@@ -985,6 +986,13 @@ namespace BYT.WS.Models
     }
     public class NbBeyan
     {
+        //   [Required]
+        [StringLength(20)]
+        public string MusteriNo { get; set; }
+
+        //  [Required]
+        [StringLength(20)]
+        public string FirmaNo { get; set; }
         [StringLength(30)]
         public string RefNo { get; set; }
 

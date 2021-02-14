@@ -139,6 +139,8 @@ namespace BYT.WS.Controllers.Servis.Ncts
                         YerTarihDil= nctsBeyanValues.YerTarihDil,
                         YuklemeYeri= nctsBeyanValues.YuklemeYeri,
                         TescilStatu = "Olusturuldu",
+                        MusteriNo=nctsBeyanValues.MusteriNo,
+                        FirmaNo=nctsBeyanValues.FirmaNo,
                         OlsuturulmaTarihi = DateTime.Now
 
                     };

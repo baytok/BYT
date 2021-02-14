@@ -39,6 +39,8 @@ namespace BYT.WS.Data
         public DbSet<DbIghb> DbIghb { get; set; }
         public DbSet<DbIghbListe> DbIghbListe { get; set; }
         public DbSet<Mesai> Mesai { get; set; }
+        public DbSet<Dolasim> Dolasim { get; set; }
+        
         public int GetRefIdNextSequenceValue(string Rejim)
         {
             SqlParameter result = new SqlParameter("@result", System.Data.SqlDbType.Int)
@@ -73,6 +75,20 @@ namespace BYT.WS.Data
                 Direction = System.Data.ParameterDirection.Output
             };
             string sequenceName = "RefIdIghb";
+            Database.ExecuteSqlCommand(
+                       "SELECT @result = (NEXT VALUE FOR  " + sequenceName + ")", result);
+
+            return (int)result.Value;
+
+        }
+
+        public int GetDolasimIdNextSequenceValue()
+        {
+            SqlParameter result = new SqlParameter("@result", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            string sequenceName = "RefIdDolasim";
             Database.ExecuteSqlCommand(
                        "SELECT @result = (NEXT VALUE FOR  " + sequenceName + ")", result);
 

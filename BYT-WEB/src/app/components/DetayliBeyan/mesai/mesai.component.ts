@@ -242,6 +242,24 @@ export class MesaiComponent implements OnInit {
       this.mesaiForm.disable();
    
   }
+  get yeniBeyanMenu():boolean {
+
+    let yetkiVar:boolean=false;
+
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var _usersRoles = currentUser.roles;
+ 
+      for (let itm in _usersRoles) { 
+    
+        if(_usersRoles[itm].yetkiKodu=="MB" || _usersRoles[itm].yetkiKodu=="FI" )
+             yetkiVar=true;
+        
+        
+      }
+    
+      return yetkiVar;
+  
+  }
   get BeyanStatu():boolean {
    
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)

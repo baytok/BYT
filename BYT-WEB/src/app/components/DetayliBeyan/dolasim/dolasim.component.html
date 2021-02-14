@@ -7,7 +7,7 @@
       mat-raised-button
       color="primary"
       type="submit"
-      (click)="getMesai(islemNo)"
+      (click)="getDolasim(islemNo)"
     >
       Sorgula
     </button>
@@ -21,7 +21,7 @@
         
           matInput
           readonly
-         [(ngModel)]="mesaiId"
+         [(ngModel)]="dolasimId"
         />
       </mat-form-field>
       <button
@@ -32,25 +32,25 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #beyannameheaderMenu="matMenu">
-        <button mat-menu-item (click)="mesaiBasvuru()">
+        <button mat-menu-item (click)="dolasimBasvuru()" [disabled]="!yeniBeyanMenu">
           <mat-icon>add</mat-icon>
-          <span>Mesai Başvurusu</span>
+          <span>Dolaşım Belgesi Başvurusu</span>
         </button>
-        <button mat-menu-item (click)="duzeltMesai()" [disabled]="!BeyanStatu" >
+        <button mat-menu-item (click)="duzeltDolasim()" [disabled]="!BeyanStatu" >
           <mat-icon>sync</mat-icon>
-          <span>Mesai Düzeltme</span>
+          <span>Dolasim Belgesi Düzeltme</span>
         </button>
 
-        <button mat-menu-item (click)="silMesai(islemNo)" [disabled]="!BeyanStatu" >
+        <button mat-menu-item (click)="silDolasim(islemNo)" [disabled]="!BeyanStatu" >
           <mat-icon>delete</mat-icon>
-          <span>Mesai Silme</span>
+          <span>Dolasim Belgesi Silme</span>
         </button>
       </mat-menu>
       <mat-cell [style.flex]="'0 0 250px'" *matCellDef="let element">
       </mat-cell>
       <mat-label>{{beyanStatu}}</mat-label>
       
-      <form [formGroup]="mesaiForm" >
+      <form [formGroup]="dolasimForm" >
         <mat-card class="mat-card">
           <div class="example-box">
        
@@ -530,7 +530,7 @@
           </div>
         </mat-card>
         <div class="text-right">      
-          <button  [disabled]="!(mesaiForm.valid )" class="btn btn-primary mr-1" (click)="onmesaiFormSubmit()">Kaydet</button>      
+          <button  [disabled]="!(dolasimForm.valid )" class="btn btn-primary mr-1" (click)="onDolasimFormSubmit()">Kaydet</button>      
         
         </div>
       </form>

@@ -9,7 +9,15 @@ namespace BYT.WS.Models
 {
     public class Mesai
     {
-     
+
+        //   [Required]
+        [StringLength(20)]
+        public string MusteriNo { get; set; }
+
+        //  [Required]
+        [StringLength(20)]
+        public string FirmaNo { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
@@ -104,6 +112,7 @@ namespace BYT.WS.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+      
         [StringLength(50)]
         public string Guid { get; set; }
 

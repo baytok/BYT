@@ -25,7 +25,7 @@ import {
   ValidationService
 } from "../../../../shared/service-proxies/ValidationService";
 import {
-  MesaiDto,
+  DolasimDto,
   ServisDto,
   BeyanIslemDurumlari
 } from "../../../../shared/service-proxies/service-proxies";
@@ -43,18 +43,18 @@ import {
 })
 export class DolasimComponent implements OnInit {
   @ViewChild('islemNo', {static: true}) private islemInput: ElementRef;
-  mesaiForm: FormGroup;
+  dolasimForm: FormGroup;
   submitted: boolean = false;
   ihracatEditable: boolean = false;
   ithalatEditable: boolean = false;
-  mesaiInternalNo:string;
+  dolasimInternalNo:string;
   beyanStatu:string;  
   beyanDurum: BeyanIslemDurumlari=new BeyanIslemDurumlari();
-  mesaiId:string;
+  dolasimId:string;
   editable: boolean = false;
   guidOf = this._beyanSession.guidOf;
   islemInternalNo = this._beyanSession.islemInternalNo;
-  _mesai: MesaiDto = new MesaiDto();
+  _dolasim: DolasimDto = new DolasimDto();
   _gumrukList =this.referansService.getdolasimGumruk();
   _ulkeList =this.referansService.getdolasimUlke();
   _birimList =this.referansService.getdolasimBirimler();
@@ -76,14 +76,14 @@ export class DolasimComponent implements OnInit {
    
   }
   get focus() {
-    return this.mesaiForm.controls;
+    return this.dolasimForm.controls;
   }
   buildForm(): void {
-    this.mesaiForm = this.formBuilder.group(
+    this.dolasimForm = this.formBuilder.group(
       {
        
-      	mesaiInternalNo:[],
-	      mesaiId:[],
+      	dolasimInternalNo:[],
+	      dolasimId:[],
         refNo: new FormControl("", [Validators.required, Validators.maxLength(30)]),
         aracAdedi: new FormControl("",[Validators.required,Validators.maxLength(12), ValidationService.numberValidator]),
         gumrukKodu:new FormControl("", [Validators.required,Validators.maxLength(9)]),
@@ -119,12 +119,12 @@ export class DolasimComponent implements OnInit {
       this.beyanServis.notAuthorizeRole();    
     }
     this.buildForm();
-    this.mesaiForm.disable();
+    this.dolasimForm.disable();
 
    
     if (this._beyanSession.islemInternalNo != undefined) {
       this.islemInput.nativeElement.value=this._beyanSession.islemInternalNo;
-      this.getMesaiFromIslem(this._beyanSession.islemInternalNo);
+      this.getDolasimFromIslem(this._beyanSession.islemInternalNo);
      
     }
   
@@ -136,18 +136,18 @@ export class DolasimComponent implements OnInit {
     });
   }
 
-  getMesaiFromIslem(islemInternalNo:string) {  
+  getDolasimFromIslem(islemInternalNo:string) {  
   
-    this.beyanServis.getMesai(islemInternalNo).subscribe(
+    this.beyanServis.getDolasim(islemInternalNo).subscribe(
       result => {
-        this._mesai = new MesaiDto();
-        this._mesai.init(result);
-        if (this._mesai == null) {
+        this._dolasim = new DolasimDto();
+        this._dolasim.init(result);
+        if (this._dolasim == null) {
           this.openSnackBar(islemInternalNo + "  Bulunamadı", "Tamam");
-          this.mesaiInternalNo="";
+          this.dolasimInternalNo="";
           this.beyanStatu= "" ;
           this._beyanSession.islemInternalNo = "";
-          this._beyanSession.mesaiInternalNo= "" ;
+          this._beyanSession.dolasimInternalNo= "" ;
           this._beyanSession.beyanStatu= "" ;
       
           return;
@@ -155,11 +155,11 @@ export class DolasimComponent implements OnInit {
         else{
          
           this._beyanSession.islemInternalNo = islemInternalNo;    
-          this._beyanSession.mesaiInternalNo= this._mesai.mesaiInternalNo ;
-          this._beyanSession.beyanStatu= this._mesai.tescilStatu ;
-          this.mesaiInternalNo=this._mesai.mesaiInternalNo;
-          this.beyanStatu= this._mesai.tescilStatu ;
-          this.loadmesaiForm();
+          this._beyanSession.dolasimInternalNo= this._dolasim.dolasimInternalNo ;
+          this._beyanSession.beyanStatu= this._dolasim.tescilStatu ;
+          this.dolasimInternalNo=this._dolasim.dolasimInternalNo;
+          this.beyanStatu= this._dolasim.tescilStatu ;
+          this.loadDolasimForm();
         }
      
       
@@ -169,20 +169,20 @@ export class DolasimComponent implements OnInit {
       }
     );
   }
-  getMesai(islemInternalNo) {  
+  getDolasim(islemInternalNo) {  
    
-     this.beyanServis.getMesai(islemInternalNo.value).subscribe(
+     this.beyanServis.getDolasim(islemInternalNo.value).subscribe(
       result => {       
-        this._mesai = new MesaiDto();
+        this._dolasim = new DolasimDto();
       
-        this._mesai.init(result);
+        this._dolasim.init(result);
     
-        if (this._mesai == null) {
+        if (this._dolasim == null) {
            this.openSnackBar(islemInternalNo.value + "  Bulunamadı", "Tamam");
-           this.mesaiInternalNo="";
+           this.dolasimInternalNo="";
            this.beyanStatu= "" ;
            this._beyanSession.islemInternalNo = "";
-           this._beyanSession.mesaiInternalNo= "" ;
+           this._beyanSession.dolasimInternalNo= "" ;
            this._beyanSession.beyanStatu= "" ;
          
       
@@ -191,11 +191,11 @@ export class DolasimComponent implements OnInit {
         else{
         
           this._beyanSession.islemInternalNo = islemInternalNo.value;    
-          this._beyanSession.mesaiInternalNo= this._mesai.mesaiInternalNo ;
-          this._beyanSession.beyanStatu= this._mesai.tescilStatu ;
-          this.mesaiInternalNo=this._mesai.mesaiInternalNo;
-          this.beyanStatu= this._mesai.tescilStatu ;
-          this.loadmesaiForm();
+          this._beyanSession.dolasimInternalNo= this._dolasim.dolasimInternalNo ;
+          this._beyanSession.beyanStatu= this._dolasim.tescilStatu ;
+          this.dolasimInternalNo=this._dolasim.dolasimInternalNo;
+          this.beyanStatu= this._dolasim.tescilStatu ;
+          this.loadDolasimForm();
          
         
         }
@@ -207,43 +207,61 @@ export class DolasimComponent implements OnInit {
      
     );
   }
-  loadmesaiForm()
+  loadDolasimForm()
     {
-      this._beyanSession.mesaiInternalNo= this._mesai.mesaiInternalNo;
-      this.mesaiId = this._mesai.mesaiID!=null ? this._mesai.mesaiID: this._beyanSession.mesaiInternalNo;
+      this._beyanSession.dolasimInternalNo= this._dolasim.dolasimInternalNo;
+      // this.dolasimId = this._dolasim.dolasimId!=null ? this._dolasim.dolasimId: this._beyanSession.dolasimInternalNo;
         
-       this.mesaiForm.setValue({      
-        mesaiInternalNo: this._mesai.mesaiInternalNo,
-        mesaiId:this._mesai.mesaiID,
-        refNo: this._mesai.refNo,
-        aracAdedi:this._mesai.aracAdedi,
-        gumrukKodu:this._mesai.gumrukKodu,
-        kullaniciKodu:this._mesai.kullaniciKodu,
-        adres:this._mesai.adres,
-        beyannameNo:this._mesai.beyannameNo,
-        digerNo:this._mesai.digerNo,
-        esyaninBulunduguYer:this._mesai.esyaninBulunduguYer,
-        esyaninBulunduguYerAdi:this._mesai.esyaninBulunduguYerAdi,
-        esyaninBulunduguYerKodu:this._mesai.esyaninBulunduguYerKodu,
-      	firmaVergiNo:this._mesai.firmaVergiNo,
-        globalHesaptanOdeme:this._mesai.globalHesaptanOdeme,
-        gumrukSahasinda:this._mesai.gumrukSahasinda,
-        irtibatAdSoyad:this._mesai.irtibatAdSoyad,
-        irtibatTelefonNo:this._mesai.irtibatTelefonNo,
-        islemTipi:this._mesai.islemTipi,
-        odemeYapacakFirmaVergiNo:this._mesai.odemeYapacakFirmaVergiNo,
-        nCTSSayisi:this._mesai.nCTSSayisi,
-        oZBYSayisi:this._mesai.oZBYSayisi,
-        uzaklik:this._mesai.uzaklik,
-        baslangicZamani:this._mesai.baslangicZamani,   
-        tescilStatu:this._mesai.tescilStatu,
-        tescilTarihi:this._mesai.tescilTarihi
+      //  this.dolasimForm.setValue({      
+      //   dolasimInternalNo: this._mesai.dolasimInternalNo,
+      //   dolasimId:this._mesai.dolasimId,
+      //   refNo: this._mesai.refNo,
+      //   aracAdedi:this._mesai.aracAdedi,
+      //   gumrukKodu:this._mesai.gumrukKodu,
+      //   kullaniciKodu:this._mesai.kullaniciKodu,
+      //   adres:this._mesai.adres,
+      //   beyannameNo:this._mesai.beyannameNo,
+      //   digerNo:this._mesai.digerNo,
+      //   esyaninBulunduguYer:this._mesai.esyaninBulunduguYer,
+      //   esyaninBulunduguYerAdi:this._mesai.esyaninBulunduguYerAdi,
+      //   esyaninBulunduguYerKodu:this._mesai.esyaninBulunduguYerKodu,
+      // 	firmaVergiNo:this._mesai.firmaVergiNo,
+      //   globalHesaptanOdeme:this._mesai.globalHesaptanOdeme,
+      //   gumrukSahasinda:this._mesai.gumrukSahasinda,
+      //   irtibatAdSoyad:this._mesai.irtibatAdSoyad,
+      //   irtibatTelefonNo:this._mesai.irtibatTelefonNo,
+      //   islemTipi:this._mesai.islemTipi,
+      //   odemeYapacakFirmaVergiNo:this._mesai.odemeYapacakFirmaVergiNo,
+      //   nCTSSayisi:this._mesai.nCTSSayisi,
+      //   oZBYSayisi:this._mesai.oZBYSayisi,
+      //   uzaklik:this._mesai.uzaklik,
+      //   baslangicZamani:this._mesai.baslangicZamani,   
+      //   tescilStatu:this._mesai.tescilStatu,
+      //   tescilTarihi:this._mesai.tescilTarihi
      
-       });
+      //  });
   
  
-      this.mesaiForm.disable();
+      this.dolasimForm.disable();
    
+  }
+  get yeniBeyanMenu():boolean {
+
+    let yetkiVar:boolean=false;
+
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var _usersRoles = currentUser.roles;
+ 
+      for (let itm in _usersRoles) { 
+    
+        if(_usersRoles[itm].yetkiKodu=="DO" || _usersRoles[itm].yetkiKodu=="FI" )
+             yetkiVar=true;
+        
+        
+      }
+    
+      return yetkiVar;
+  
   }
   get BeyanStatu():boolean {
    
@@ -254,25 +272,24 @@ export class DolasimComponent implements OnInit {
     else return false;
   }
 
-  mesaiBasvuru() {
-    this.mesaiInternalNo='Boş';
+  dolasimBasvuru() {
+    this.dolasimInternalNo='Boş';
     this.beyanStatu='';
-    this.mesaiForm.reset();
-    this.mesaiForm.enable();
+    this.dolasimForm.reset();
+    this.dolasimForm.enable();
     this.islemInput.nativeElement.value="";
-    this.mesaiForm.markAllAsTouched();
+    this.dolasimForm.markAllAsTouched();
     this.submitted = false;
 
-
   } 
-  duzeltMesai() {
+  duzeltDolasim() {
    
-    this.mesaiForm.enable();  
-    this.mesaiForm.markAllAsTouched();
+    this.dolasimForm.enable();  
+    this.dolasimForm.markAllAsTouched();
   
-    if (this.mesaiForm.invalid) {
+    if (this.dolasimForm.invalid) {
       const invalid = [];
-      const controls = this.mesaiForm.controls;
+      const controls = this.dolasimForm.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
           invalid.push(name);
@@ -285,26 +302,26 @@ export class DolasimComponent implements OnInit {
      
     }
   }
-  silMesai(islemInternalNo){
+  silDolasim(islemInternalNo){
     if (
       confirm(islemInternalNo.value+ " Başvuruyu Silmek İstediğinizden Eminmisiniz?")
     ) {
       const promise = this.beyanServis
-        .removeMesai(islemInternalNo.value)
+        .removeDolasim(islemInternalNo.value)
         .toPromise();
       promise.then(
         (result) => {
           const servisSonuc = new ServisDto();
           servisSonuc.init(result);
-          this.mesaiForm.reset();
+          this.dolasimForm.reset();
           this._beyanSession.islemInternalNo="";
-          this._beyanSession.mesaiInternalNo="";
-          this.mesaiInternalNo="";
+          this._beyanSession.dolasimInternalNo="";
+          this.dolasimInternalNo="";
           this._beyanSession.beyanStatu="";
           this.beyanStatu="";
           this.islemInput.nativeElement.value="";
           islemInternalNo.value="";
-          this.mesaiForm.disable();
+          this.dolasimForm.disable();
      
           this.openSnackBar(servisSonuc.Sonuc, "Tamam");
         },
@@ -314,13 +331,13 @@ export class DolasimComponent implements OnInit {
       );
     }
   }
-  onmesaiFormSubmit() {
+  onDolasimFormSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.mesaiForm.invalid) {
+    if (this.dolasimForm.invalid) {
       const invalid = [];
-      const controls = this.mesaiForm.controls;
+      const controls = this.dolasimForm.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
           invalid.push(name);
@@ -334,15 +351,15 @@ export class DolasimComponent implements OnInit {
       return;
     }
    
-    this.mesaiForm.get("mesaiInternalNo").setValue(this.mesaiInternalNo);    
-    this.mesaiForm.get("kullaniciKodu").setValue(this.girisService.loggedKullanici);
+    this.dolasimForm.get("dolasimInternalNo").setValue(this.dolasimInternalNo);    
+    this.dolasimForm.get("kullaniciKodu").setValue(this.girisService.loggedKullanici);
     
     let yeniislemInternalNo: string;
-    let yeniMesai=new MesaiDto();
-    yeniMesai.init(this.mesaiForm.value);
+    let yeniDolasim=new DolasimDto();
+    yeniDolasim.init(this.dolasimForm.value);
   
       const promise = this.beyanServis
-        .restoreMesai(yeniMesai,this.mesaiInternalNo)
+        .restoreDolasim(yeniDolasim)
         .toPromise();
       promise.then(
         result => {
@@ -355,13 +372,13 @@ export class DolasimComponent implements OnInit {
          
           if (yeniislemInternalNo != null) {
             this.islemInput.nativeElement.value=yeniislemInternalNo;
-            this._mesai.mesaiInternalNo=yeniislemInternalNo;
+            this._dolasim.dolasimInternalNo=yeniislemInternalNo;
             this._beyanSession.islemInternalNo=yeniislemInternalNo;
-            this.getMesaiFromIslem(yeniislemInternalNo);
+            this.getDolasimFromIslem(yeniislemInternalNo);
             this.openSnackBar(servisSonuc.Sonuc, "Tamam");         
           
           }
-            this.mesaiForm.disable();
+            this.dolasimForm.disable();
          
         },
         err => {
@@ -370,7 +387,7 @@ export class DolasimComponent implements OnInit {
       );
     
     // alert(
-    //   "SUCCESS!! :-)\n\n" + JSON.stringify(this.mesaiForm.value, null, 4)
+    //   "SUCCESS!! :-)\n\n" + JSON.stringify(this.dolasimForm.value, null, 4)
     // );
 
   
@@ -380,7 +397,7 @@ export class DolasimComponent implements OnInit {
   
   onCancel() {
     this.submitted = false;
-    this.mesaiForm.disable();
+    this.dolasimForm.disable();
   }
   
   

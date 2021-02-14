@@ -51,6 +51,11 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
             var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
              .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
              .Options;
+            var options2 = new DbContextOptionsBuilder<KullaniciDataContext>()
+           .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+           .Options;
+            KullaniciDataContext _kullaniciContext = new KullaniciDataContext(options2);
+
             ServisDurum _servisDurum = new ServisDurum();
 
             //List<Hata> _hatalar = new List<Hata>();
@@ -108,9 +113,12 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
 
                         else
                         {
+                            var kullanici = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == beyan.KullaniciKodu).FirstOrDefault();
                             var internalrefid = beyannameContext.GetRefIdNextSequenceValue(beyan.BeyanTuru);
                             string InternalNo = beyan.BeyanTuru + beyan.KullaniciKodu + "OB" + internalrefid.ToString().PadLeft(5, '0');
 
+                            beyan.MusteriNo = kullanici.MusteriNo;
+                            beyan.FirmaNo = kullanici.FirmaNo;
                             beyan.OzetBeyanInternalNo = InternalNo;
                             beyan.XmlRefId = InternalNo;
                             beyan.TescilStatu = "Olusturuldu";

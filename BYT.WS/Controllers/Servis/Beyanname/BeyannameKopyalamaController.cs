@@ -74,7 +74,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     List<DbOzetBeyanAcmaTasimaSatir> lstTasimaSatiri = new List<DbOzetBeyanAcmaTasimaSatir>();
                     List<DbKiymetBildirim> lstKiymet = new List<DbKiymetBildirim>();
                     List<DbKiymetBildirimKalem> lstKiymetKalem = new List<DbKiymetBildirimKalem>();
-                
+
                     var newbeyannameBeyanValues = new DbBeyan
                     {
                         Aciklamalar = beyannameBeyanValues.Aciklamalar,
@@ -138,6 +138,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         RefNo = InternalNo,
                         BeyanInternalNo = InternalNo,
                         Rejim = beyannameBeyanValues.Rejim,
+                        MusteriNo = beyannameBeyanValues.MusteriNo,
+                        FirmaNo=beyannameBeyanValues.FirmaNo,
                         OlsuturulmaTarihi=DateTime.Now
                     };
 

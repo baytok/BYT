@@ -32,7 +32,7 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #beyannameheaderMenu="matMenu">
-        <button mat-menu-item (click)="mesaiBasvuru()">
+        <button mat-menu-item (click)="mesaiBasvuru()" [disabled]="!yeniBeyanMenu">
           <mat-icon>add</mat-icon>
           <span>Mesai Başvurusu</span>
         </button>

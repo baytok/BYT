@@ -96,7 +96,15 @@ namespace BYT.WS.Models
     }
     public class DbBeyan
     {
-      
+
+        //   [Required]
+        [StringLength(20)]
+        public string MusteriNo { get; set; }
+
+        //  [Required]
+        [StringLength(20)]
+        public string FirmaNo { get; set; }
+
         [StringLength(30)]
         public string RefNo { get; set; }
 
@@ -1322,6 +1330,14 @@ namespace BYT.WS.Models
 
     public class DbIghb
     {
+        //   [Required]
+        [StringLength(20)]
+        public string MusteriNo { get; set; }
+
+        //  [Required]
+        [StringLength(20)]
+        public string FirmaNo { get; set; }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         [Required]
@@ -1376,5 +1392,51 @@ namespace BYT.WS.Models
         public DateTime? SonIslemZamani { get; set; }
     }
 
-   
+    public class Dolasim
+    {
+        //   [Required]
+        [StringLength(20)]
+        public string MusteriNo { get; set; }
+
+        //  [Required]
+        [StringLength(20)]
+        public string FirmaNo { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [Required]
+        [StringLength(30)]
+        public string DolasimInternalNo { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string RefNo { get; set; }
+
+        [Required]
+        [StringLength(15)]
+        public string KullaniciKodu { get; set; }
+
+        [Required]
+        [StringLength(9)]
+        public string GumrukKodu { get; set; }
+
+        [Required]
+        [StringLength(15)]
+        public string IzinliGondericiVergiNo { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string PlakaBilgisi { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        public string TesisKodu { get; set; }
+
+        [StringLength(30)]
+        public string TescilStatu { get; set; }
+
+        public DateTime TescilTarihi { get; set; }
+        public DateTime OlsuturulmaTarihi { get; set; }
+        public DateTime? SonIslemZamani { get; set; }
+    }
 }

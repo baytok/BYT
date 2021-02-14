@@ -98,19 +98,74 @@ namespace BYT.WS.Controllers.api
         [HttpGet("{KullaniciKod}")]
         public async Task<Istatistik> GetIstatistik(string KullaniciKod)
         {
+            var options2 = new DbContextOptionsBuilder<KullaniciDataContext>()
+             .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+             .Options;
+            KullaniciDataContext _kullaniciContext = new KullaniciDataContext(options2);
+
             try
             {
 
                 Istatistik _istatistik = new Istatistik();
 
-                var resultIslem = _bilgiContext.Islem.Where(x=>x.Kullanici==KullaniciKod.Trim()).ToList();
-                var resultTarihce = _bilgiContext.Tarihce.Where(x => x.Kullanici == KullaniciKod.Trim()).ToList();
-                var resultBeyan = _bilgiContext.DbBeyan.Where(x => x.Kullanici == KullaniciKod.Trim()).ToList();
+                var kullanici = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == KullaniciKod.Trim()).FirstOrDefault();
+                var kullaniciYetki = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == KullaniciKod.Trim()).ToListAsync();
+                if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD") > 0)
+                {
+                    var resultIslem = _bilgiContext.Islem.ToList();
+                    var resultTarihce = _bilgiContext.Tarihce.ToList();
+                    var resultBeyan = _bilgiContext.DbBeyan.ToList();
 
-                _istatistik.KontrolGonderimSayisi = resultIslem.Where(x=>x.IslemTipi=="Kontrol").Sum(y=>y.GonderimSayisi);
-                _istatistik.BeyannameSayisi = resultBeyan.Count();
-                _istatistik.TescilBeyannameSayisi = resultTarihce.Where(x => x.IslemTipi == "Tescil" && x.BeyanNo!=null).Count();
-                _istatistik.SonucBeklenenSayisi = resultIslem.Where(x => x.IslemDurumu == "Gonderildi").Count();
+                    _istatistik.KontrolGonderimSayisi = resultIslem.Where(x => x.IslemTipi == "Kontrol").Sum(y => y.GonderimSayisi);
+                    _istatistik.BeyannameSayisi = resultBeyan.Count();
+                    _istatistik.TescilBeyannameSayisi = resultTarihce.Where(x => x.IslemTipi == "Tescil" && x.BeyanNo != null).Count();
+                    _istatistik.SonucBeklenenSayisi = resultIslem.Where(x => x.IslemDurumu == "Gonderildi").Count();
+                }
+                else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "MU") > 0)
+                {
+                    var resultIslem = _bilgiContext.Islem.Where(x => x.MusteriNo == kullanici.MusteriNo).ToList();
+
+                    var resultTarihce = from a in _bilgiContext.Tarihce
+                                        join b in _bilgiContext.Islem on a.IslemInternalNo equals b.IslemInternalNo
+                                        where b.MusteriNo == kullanici.MusteriNo
+                                        select new { a.IslemTipi, a.BeyanNo };
+
+                  
+                    var resultBeyan = _bilgiContext.DbBeyan.Where(x => x.MusteriNo == kullanici.MusteriNo).ToList();
+
+                    _istatistik.KontrolGonderimSayisi = resultIslem.Where(x => x.IslemTipi == "Kontrol").Sum(y => y.GonderimSayisi);
+                    _istatistik.BeyannameSayisi = resultBeyan.Count();
+                    _istatistik.TescilBeyannameSayisi = resultTarihce.Where(x => x.IslemTipi == "Tescil" && x.BeyanNo != null).Count();
+                    _istatistik.SonucBeklenenSayisi = resultIslem.Where(x => x.IslemDurumu == "Gonderildi").Count();
+                }
+                else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "FI") > 0)
+                {
+                    var resultIslem = _bilgiContext.Islem.Where(x => x.FirmaNo == kullanici.FirmaNo && x.MusteriNo== kullanici.MusteriNo).ToList();
+                    var resultTarihce = from a in _bilgiContext.Tarihce
+                                        join b in _bilgiContext.Islem on a.IslemInternalNo equals b.IslemInternalNo
+                                        where b.MusteriNo == kullanici.MusteriNo && b.FirmaNo == kullanici.FirmaNo
+                                        select new { a.IslemTipi, a.BeyanNo };
+                  //  var resultTarihce = _bilgiContext.Tarihce.Where(x => x.FirmaNo == kullanici.FirmaNo && x.MusteriNo == kullanici.MusteriNo).ToList();
+                    var resultBeyan = _bilgiContext.DbBeyan.Where(x => x.FirmaNo == kullanici.FirmaNo && x.MusteriNo == kullanici.MusteriNo).ToList();
+
+                    _istatistik.KontrolGonderimSayisi = resultIslem.Where(x => x.IslemTipi == "Kontrol").Sum(y => y.GonderimSayisi);
+                    _istatistik.BeyannameSayisi = resultBeyan.Count();
+                    _istatistik.TescilBeyannameSayisi = resultTarihce.Where(x => x.IslemTipi == "Tescil" && x.BeyanNo != null).Count();
+                    _istatistik.SonucBeklenenSayisi = resultIslem.Where(x => x.IslemDurumu == "Gonderildi").Count();
+                }
+                else
+                {
+                    var resultIslem = _bilgiContext.Islem.Where(x => x.Kullanici == kullanici.KullaniciKod ).ToList();
+                    var resultTarihce = _bilgiContext.Tarihce.Where(x => x.Kullanici == kullanici.KullaniciKod ).ToList();
+                    var resultBeyan = _bilgiContext.DbBeyan.Where(x => x.Kullanici == kullanici.KullaniciKod ).ToList();
+
+                    _istatistik.KontrolGonderimSayisi = resultIslem.Where(x => x.IslemTipi == "Kontrol").Sum(y => y.GonderimSayisi);
+                    _istatistik.BeyannameSayisi = resultBeyan.Count();
+                    _istatistik.TescilBeyannameSayisi = resultTarihce.Where(x => x.IslemTipi == "Tescil" && x.BeyanNo != null).Count();
+                    _istatistik.SonucBeklenenSayisi = resultIslem.Where(x => x.IslemDurumu == "Gonderildi").Count();
+                }
+
+             
                 //_servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
 
                 //List<Bilgi> lstBlg = new List<Bilgi>();

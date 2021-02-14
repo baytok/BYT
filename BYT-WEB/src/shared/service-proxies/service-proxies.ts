@@ -1336,6 +1336,7 @@ export class BeyannameServiceProxy {
   }
   getDbBeyanname(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -1346,7 +1347,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
      return  this.http.get(
-      this.baseUrl + "Servis/Beyanname/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Beyanname/Beyanname/" + IslemInternalNo + "/"+kullaniciId,httpOptions
     );
   }
   setDbBeyanname(beyanname: BeyannameDto) {
@@ -1407,6 +1408,7 @@ export class BeyannameServiceProxy {
   }
   getOzetBeyan(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -1417,7 +1419,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
      return  this.http.get(
-      this.baseUrl + "Servis/OzetBeyan/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/OzetBeyan/OzetBeyan/" + IslemInternalNo +"/"+kullaniciId,httpOptions
     );
   }
   setOzetBeyan(beyanname: OzetBeyanDto) {
@@ -1856,6 +1858,7 @@ export class BeyannameServiceProxy {
 
   getNctsBeyan(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -1866,7 +1869,7 @@ export class BeyannameServiceProxy {
      headers: headers_object
     };
      return  this.http.get(
-      this.baseUrl + "Servis/NctsBeyan/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/NctsBeyan/Ncts/" + IslemInternalNo+"/"+kullaniciId,httpOptions
     );
   }
   setNctsBeyan(beyanname: NctsBeyanDto) {
@@ -2694,6 +2697,7 @@ export class BeyannameServiceProxy {
 
   getMesai(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -2704,7 +2708,7 @@ export class BeyannameServiceProxy {
     };
 
     return this.http.get(
-      this.baseUrl + "Servis/Mesai/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Mesai/Beyanname/" + IslemInternalNo +"/"+ kullaniciId,httpOptions
     );
   }
   restoreMesai(mesai: MesaiDto,  mesaiInternalNo:string) {
@@ -2742,6 +2746,7 @@ export class BeyannameServiceProxy {
 
   getIghb(IslemInternalNo) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -2752,7 +2757,7 @@ export class BeyannameServiceProxy {
     };
 
     return this.http.get(
-      this.baseUrl + "Servis/Ighb/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Ighb/Beyanname/" + IslemInternalNo+"/"+kullaniciId,httpOptions
     );
   }
 
@@ -2822,6 +2827,55 @@ export class BeyannameServiceProxy {
     );
   }
 
+
+  getDolasim(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var kullaniciId = currentUser.user;
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+      
+    const httpOptions = {
+     headers: headers_object
+    };
+
+    return this.http.get(
+      this.baseUrl + "Servis/Dolasim/DolasimBelge/" + IslemInternalNo+"/"+kullaniciId,httpOptions
+    );
+  }
+  restoreDolasim(dolasim: DolasimDto) {
+   
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+    
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.post<any>(
+        this.baseUrl + "Servis/Dolasim/DolasimBelgeOlusturma/DolasimBelgesiOlustur", 
+        dolasim,httpOptions  
+        );
+  }
+  removeDolasim(dolasimInternalNo) {
+  
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var token = currentUser.token;
+    var headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+       'Authorization': "Bearer "+token})
+         
+    const httpOptions = {
+     headers: headers_object
+    };
+      return this.http.delete<any>(
+      this.baseUrl + "Servis/Dolasim/DolasimBelgeOlusturma/DolasimSil/"+dolasimInternalNo, httpOptions        
+      );
+  }
+
   getOzetBeyanAlanlar(rejim) {
     var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
     var token = currentUser.token;
@@ -2860,7 +2914,8 @@ export class SessionServiceProxy {
   public ozetBeyanInternalNo: string;
   public nctsBeyanInternalNo:string;
   public mesaiInternalNo:string;
-  public ighbInternalNo:string
+  public ighbInternalNo:string;
+  public dolasimInternalNo:string;
   public beyanStatu: string;
   public token: string;
   public ozetBeyanNo:string;
@@ -4374,6 +4429,8 @@ export class BeyannameBilgileriDto {
 }
 
 export class BeyannameDto {
+  musteriNo:string;
+  firmaNo:string;
   beyanInternalNo: string;
   beyannameNo: string;
   rejim: string;
@@ -4449,6 +4506,8 @@ export class BeyannameDto {
 
   initalBeyan(data?: any) {
     if (data) {
+      this.musteriNo=data["musteriNo"]!=null ? data["musteriNo"] : "";
+      this.firmaNo=data["firmaNo"]!=null ? data["firmaNo"] : "";
       this.beyanInternalNo=data["beyanInternalNo"]!=null ? data["beyanInternalNo"] : "";
       this.beyannameNo=data["beyannameNo"]!=null ? data["beyannameNo"]:"";
       this.rejim=data["rejim"]!=null ? data["rejim"] : "";
@@ -4517,6 +4576,8 @@ export class BeyannameDto {
 
   init(data?: any) {
     if (data) {
+      this.musteriNo=data["musteriNo"];
+      this.firmaNo=data["firmaNo"];
       this.beyanInternalNo=data["beyanInternalNo"];
       this.beyannameNo=data["beyannameNo"];
       this.rejim=data["rejim"];
@@ -7285,6 +7346,52 @@ export class IghbListeDto {
   static fromJS(data: any): IghbListeDto {
     data = typeof data === "object" ? data : {};
     let result = new IghbListeDto();
+
+    result.init(data);
+    return result;
+  }
+}
+export class DolasimDto {
+  dolasimInternalNo: string; 
+  refNo:string;
+  kullaniciKodu:string;
+  gumrukKodu:string;
+  izinliGondericiVergiNo: string;
+  plakaBilgisi: string;
+  tesisKodu: string;
+  tescilStatu: string;
+  tescilTarihi:string;
+  constructor(data?: DolasimDto) {
+    if (data) {
+    
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+  init(data?: any) {
+  
+    if (data) {    
+   
+        this.dolasimInternalNo=data["dolasimInternalNo"]!=null ?data["dolasimInternalNo"] :"";     
+        this.refNo=data["refNo"]!=null ?data["refNo"] :"";
+        this.kullaniciKodu=data["kullaniciKodu"]!=null ?data["kullaniciKodu"] :"";
+        this.gumrukKodu=data["gumrukKodu"]!=null ?data["gumrukKodu"] :"";
+        this.izinliGondericiVergiNo=data["izinliGondericiVergiNo"]!=null ?data["izinliGondericiVergiNo"] :"";
+        this.plakaBilgisi=data["plakaBilgisi"]!=null ?data["plakaBilgisi"] :"";
+        this.tesisKodu=data["tesisKodu"]!=null ?data["tesisKodu"] :"";
+        this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
+        this.tescilTarihi=data["tescilTarihi"]!=null &&  data["tescilTarihi"]!='' ? data["tescilTarihi"] : "0001-01-01T00:00:00";
+   
+      
+    }
+  }
+
+
+  static fromJS(data: any): DolasimDto {
+    data = typeof data === "object" ? data : {};
+    let result = new DolasimDto();
 
     result.init(data);
     return result;

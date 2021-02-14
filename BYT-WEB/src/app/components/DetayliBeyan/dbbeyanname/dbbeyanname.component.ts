@@ -633,14 +633,31 @@ export class DbBeyannameComponent implements OnInit {
       this.beyannameForm.disable();
 
   }
-  get BeyanStatu():boolean {
+  get yeniBeyanMenu():boolean {
+
+    let yetkiVar:boolean=false;
+
+    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var _usersRoles = currentUser.roles;
+ 
+      for (let itm in _usersRoles) { 
+    
+        if(_usersRoles[itm].yetkiKodu=="DB" || _usersRoles[itm].yetkiKodu=="FI" )
+             yetkiVar=true;
+        
+        
+      }
+    
+      return yetkiVar;
   
+  }
+  get BeyanStatu():boolean {
+
     
     if(this.beyanStatu==='undefined' || this.beyanStatu===null)
     return false;
 
-    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)
-   
+    if(this.beyanDurum.islem(this.beyanStatu) == BeyanIslemDurumlari.Progress)   
      return true;
     else return false;
   }

@@ -27,7 +27,7 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #beyannameheaderMenu="matMenu">
-        <button mat-menu-item (click)="yeniBeyanname()">
+        <button mat-menu-item (click)="yeniBeyanname()" [disabled]="!yeniBeyanMenu">
           <mat-icon>add</mat-icon>
           <span>Yeni Beyanname</span>
         </button>

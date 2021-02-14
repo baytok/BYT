@@ -93,7 +93,7 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         OlsuturulmaTarihi = DateTime.Now,
                         OncekiBeyanNo = ozetBeyanValues.OncekiBeyanNo,
                         OzetBeyanInternalNo = InternalNo,
-                        OzetBeyanNo = ozetBeyanValues.OzetBeyanNo,
+                      //  OzetBeyanNo = ozetBeyanValues.OzetBeyanNo,
                         PlakaSeferNo = ozetBeyanValues.PlakaSeferNo,
                         ReferansNumarasi = ozetBeyanValues.ReferansNumarasi,
                         RefNo = ozetBeyanValues.RefNo,
@@ -110,6 +110,8 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                         TescilStatu = "Olusturuldu",
                         YuklemeBosaltmaYeri = ozetBeyanValues.YuklemeBosaltmaYeri,
                         XmlRefId = InternalNo,
+                        MusteriNo= ozetBeyanValues.MusteriNo,
+                        FirmaNo= ozetBeyanValues.FirmaNo
 
                     };
 

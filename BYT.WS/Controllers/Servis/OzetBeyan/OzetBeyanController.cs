@@ -43,24 +43,77 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
             _servisCredential.password = servisCredential.Value.password;
         }
 
-        [Route("api/BYT/Servis/OzetBeyan/[controller]/{IslemInternalNo}")]
-        [HttpGet("{IslemInternalNo}")]
-        public async Task<ObBeyan> GetBeyanname(string IslemInternalNo)
+        [Route("api/BYT/Servis/OzetBeyan/[controller]/{IslemInternalNo}/{kullaniciId}")]
+        [HttpGet("{IslemInternalNo}/{kullaniciId}")]
+        public async Task<ObBeyan> GetBeyanname(string IslemInternalNo, string kullaniciId)
         {
+            bool beyannameYetkisi = false;
             ObBeyan _beyanname = new ObBeyan();
             var options = new DbContextOptionsBuilder<OzetBeyanDataContext>()
                  .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                  .Options;
             var _beyannameContext = new OzetBeyanDataContext(options);
+
+            var options2 = new DbContextOptionsBuilder<KullaniciDataContext>()
+             .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+             .Options;
+            KullaniciDataContext _kullaniciContext = new KullaniciDataContext(options2);
+
             try
             {
+                var kullanici = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == kullaniciId.Trim()).FirstOrDefault();
+                var kullaniciYetki = _kullaniciContext.KullaniciYetki.Where(x => x.KullaniciKod == kullaniciId.Trim()).ToListAsync();
                 var islemValues = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.IslemInternalNo == IslemInternalNo.Trim());
                 if (islemValues != null)
                 {
-                    _beyanname = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
-                                     
+                    if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD") > 0)
+                    {
+                        beyannameYetkisi = true;
+                    }
+                    else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "MU") > 0)
+                    {
+                        if (islemValues.MusteriNo == kullanici.MusteriNo)
+                            beyannameYetkisi = true;
+                    }
+                    else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "FI") > 0)
+                    {
+                        if (islemValues.MusteriNo == kullanici.MusteriNo && islemValues.FirmaNo == kullanici.FirmaNo)
+                            beyannameYetkisi = true;
+                    }
+                    else
+                    {
+                        if (islemValues.Kullanici == kullanici.KullaniciKod)
+                            beyannameYetkisi = true;
+                    }
                 }
 
+                if (islemValues != null && beyannameYetkisi)
+                {
+
+                    if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD") > 0)
+                    {
+                        _beyanname = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo);
+                        return _beyanname;
+                    }
+                    else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "MU") > 0)
+                    {
+                        _beyanname = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.MusteriNo==kullanici.MusteriNo);
+                        return _beyanname;
+                    }
+                    else if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "FI") > 0)
+                    {
+                        _beyanname = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.MusteriNo==kullanici.MusteriNo && v.FirmaNo==kullanici.FirmaNo);
+                        return _beyanname;
+                    }
+                    else
+                    {
+                        _beyanname = await _beyannameContext.ObBeyan.FirstOrDefaultAsync(v => v.OzetBeyanInternalNo == islemValues.BeyanInternalNo && v.KullaniciKodu==kullanici.KullaniciKod);
+                        return _beyanname;
+                    }
+                  
+
+                }
+             
                 return _beyanname;
 
             }

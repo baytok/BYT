@@ -21,6 +21,13 @@ namespace BYT.WS.Models
    
     public class OzetBeyanBilgisi
     {
+         //   [Required]
+        [StringLength(20)]
+        public string MusteriNo { get; set; }
+
+        //  [Required]
+        [StringLength(20)]
+        public string FirmaNo { get; set; }
         public string BeyanSahibiVergiNo { get; set; }
         public string BeyanTuru { get; set; }
         public string Diger { get; set; }
@@ -194,6 +201,14 @@ namespace BYT.WS.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string OzetBeyanInternalNo { get; set; }
+
+        //   [Required]
+        [StringLength(20)]
+        public string MusteriNo { get; set; }
+
+        //  [Required]
+        [StringLength(20)]
+        public string FirmaNo { get; set; }
 
         [StringLength(20)]
         public string? OzetBeyanNo { get; set; }

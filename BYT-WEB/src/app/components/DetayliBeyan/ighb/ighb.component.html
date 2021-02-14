@@ -32,7 +32,7 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #beyannameheaderMenu="matMenu">
-        <button mat-menu-item (click)="yeniIghbBasvuru()">
+        <button mat-menu-item (click)="yeniIghbBasvuru()" [disabled]="!yeniBeyanMenu">
           <mat-icon>add</mat-icon>
           <span>Yeni Ighb Başvuru</span>
         </button>
