@@ -127,7 +127,8 @@ namespace BYT.WS.Controllers.Servis.OzetBeyan
                             beyannameContext.Entry(beyan).State = EntityState.Added;
                             await beyannameContext.SaveChangesAsync();
 
-
+                            _islem.MusteriNo = beyan.MusteriNo;
+                            _islem.FirmaNo = beyan.FirmaNo;
                             _islem.Kullanici = beyan.KullaniciKodu;
                             _islem.IslemTipi = "";
                             _islem.BeyanTipi = "OzetBeyan";

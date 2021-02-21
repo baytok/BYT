@@ -2855,6 +2855,7 @@ export class BeyannameServiceProxy {
     const httpOptions = {
      headers: headers_object
     };
+    console.log(dolasim);
       return this.http.post<any>(
         this.baseUrl + "Servis/Dolasim/DolasimBelgeOlusturma/DolasimBelgesiOlustur", 
         dolasim,httpOptions  
@@ -7354,11 +7355,31 @@ export class IghbListeDto {
 export class DolasimDto {
   dolasimInternalNo: string; 
   refNo:string;
-  kullaniciKodu:string;
-  gumrukKodu:string;
-  izinliGondericiVergiNo: string;
-  plakaBilgisi: string;
-  tesisKodu: string;
+  tcKimlikNo:string;
+  gumrukId:number;
+  ihracatciUlkeId:number;
+  ihracUlkesiId:number;
+  varisUlkesiId:number;
+  kapasiteRaporuVizeNo:number;
+  malinGonderildigiSahisUlkeId:number;
+  belgeNo: string;
+  beyanTipi: string;
+  beyannameNo:string;
+  ihracatciAdi: string;
+  ihracatciAdres: string;
+  ihracatciVergiNo: string;
+  ihracatciYer: string;
+  kapasiteRaporuTarihi: string;
+  malinGonderildigiSahisAdi: string;
+  malinGonderildigiSahisAdres: string;
+  taahhutnameSecimi: string;
+  tasimaBelgesiNo: string;
+  tasimaBelgesiTarihi: string;
+  tasimayaIliskinBilgiler: string;
+  mallar:string;
+  faturalar:string;
+  evraklar:string;
+  signedMime:string;
   tescilStatu: string;
   tescilTarihi:string;
   constructor(data?: DolasimDto) {
@@ -7376,14 +7397,35 @@ export class DolasimDto {
    
         this.dolasimInternalNo=data["dolasimInternalNo"]!=null ?data["dolasimInternalNo"] :"";     
         this.refNo=data["refNo"]!=null ?data["refNo"] :"";
-        this.kullaniciKodu=data["kullaniciKodu"]!=null ?data["kullaniciKodu"] :"";
-        this.gumrukKodu=data["gumrukKodu"]!=null ?data["gumrukKodu"] :"";
-        this.izinliGondericiVergiNo=data["izinliGondericiVergiNo"]!=null ?data["izinliGondericiVergiNo"] :"";
-        this.plakaBilgisi=data["plakaBilgisi"]!=null ?data["plakaBilgisi"] :"";
-        this.tesisKodu=data["tesisKodu"]!=null ?data["tesisKodu"] :"";
+        this.tcKimlikNo=data["tcKimlikNo"]!=null ?data["tcKimlikNo"] :"";
+        this.gumrukId=data["gumrukId"]!=null ? parseInt(data["gumrukId"]) :0;
+        this.ihracatciUlkeId=data["ihracatciUlkeId"]!=null ? parseInt(data["ihracatciUlkeId"]) :0;
+        this.ihracUlkesiId=data["ihracUlkesiId"]!=null ?parseInt(data["ihracUlkesiId"]) :0;
+        this.varisUlkesiId=data["varisUlkesiId"]!=null ?parseInt(data["varisUlkesiId"]) :0;
+        this.kapasiteRaporuVizeNo=data["kapasiteRaporuVizeNo"]!=null ?parseInt(data["kapasiteRaporuVizeNo"]) :0;
+        this.malinGonderildigiSahisUlkeId=data["malinGonderildigiSahisUlkeId"]!=null ?parseInt(data["malinGonderildigiSahisUlkeId"]) :0;
+        this.malinGonderildigiSahisAdi=data["malinGonderildigiSahisAdi"]!=null ?data["malinGonderildigiSahisAdi"] :"";
+        this.malinGonderildigiSahisAdres=data["malinGonderildigiSahisAdres"]!=null ?data["malinGonderildigiSahisAdres"] :"";
+        this.belgeNo=data["belgeNo"]!=null ?data["belgeNo"] :"";
+        this.beyannameNo=data["beyannameNo"]!=null ?data["beyannameNo"] :"";
+        this.beyanTipi=data["beyanTipi"]!=null ?data["beyanTipi"] :"";
+        this.ihracatciAdi=data["ihracatciAdi"]!=null ?data["ihracatciAdi"] :"";
+        this.ihracatciAdres=data["ihracatciAdres"]!=null ?data["ihracatciAdres"] :"";
+        this.ihracatciVergiNo=data["ihracatciVergiNo"]!=null ?data["ihracatciVergiNo"] :"";
+        this.ihracatciYer=data["ihracatciYer"]!=null ?data["ihracatciYer"] :"";
+        this.kapasiteRaporuTarihi=data["kapasiteRaporuTarihi"]!=null ?data["kapasiteRaporuTarihi"] :"";
+        this.taahhutnameSecimi=data["taahhutnameSecimi"]!=null ?data["taahhutnameSecimi"] :"";
+        this.tasimaBelgesiNo=data["tasimaBelgesiNo"]!=null ?data["tasimaBelgesiNo"] :"";
+        this.tasimaBelgesiTarihi=data["tasimaBelgesiTarihi"]!=null ?data["tasimaBelgesiTarihi"] :"";
+        this.tasimayaIliskinBilgiler=data["tasimayaIliskinBilgiler"]!=null ?data["tasimayaIliskinBilgiler"] :"";
+        this.mallar=data["mallar"]!=null ?data["mallar"] :"";
+        this.faturalar=data["faturalar"]!=null ?data["faturalar"] :"";
+        this.evraklar=data["evraklar"]!=null ?data["evraklar"] :"";
+        this.signedMime=data["signedMime"]!=null ?data["signedMime"] :"";
         this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
         this.tescilTarihi=data["tescilTarihi"]!=null &&  data["tescilTarihi"]!='' ? data["tescilTarihi"] : "0001-01-01T00:00:00";
    
+        
       
     }
   }

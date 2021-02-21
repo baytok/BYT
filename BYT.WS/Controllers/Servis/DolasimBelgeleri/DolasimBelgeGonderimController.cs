@@ -67,8 +67,8 @@ namespace BYT.WS.Controllers.Servis.DolasimBelgeleri
                 DolasimBelgeHizmeti.IYO321Request belge0321req = new DolasimBelgeHizmeti.IYO321Request();
                 belge0321req.BelgeNo = "ç3211018";
                 belge0321req.BeyanTipi = "TCGB";
-                belge0321req.Evraklar = "";
-                belge0321req.Faturalar = "";
+                belge0321req.Evraklar = "Json";
+                belge0321req.Faturalar = "Json";
                 belge0321req.GumrukId = 66;
                 belge0321req.IhracatciAdi = "Hasan ";
                 belge0321req.IhracatciAdres = "Ankara";
@@ -81,9 +81,9 @@ namespace BYT.WS.Controllers.Servis.DolasimBelgeleri
                 belge0321req.MalinGonderildigiSahisAdi = "Osman";
                 belge0321req.MalinGonderildigiSahisAdres = "Antalya";
                 belge0321req.MalinGonderildigiSahisUlkeId = 66;
-                belge0321req.Mallar = "";
+                belge0321req.Mallar = "Json";
                 belge0321req.Sifre = "747464";
-                belge0321req.SignedMime = "";
+                belge0321req.SignedMime = "Json imzalı base64";
                 belge0321req.TaahhutnameSecimi = "Evet";
                 belge0321req.TasimaBelgesiNo = "12345";
                 belge0321req.TasimaBelgesiTarihi = "";

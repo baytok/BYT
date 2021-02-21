@@ -107,7 +107,7 @@ namespace BYT.WS.Controllers.Servis.DolasimBelgeleri
                     }
                     else
                     {
-                        _dolasim = await _beyannameContext.Dolasim.FirstOrDefaultAsync(v => v.DolasimInternalNo == islemValues.BeyanInternalNo && v.KullaniciKodu == kullanici.KullaniciKod);
+                        _dolasim = await _beyannameContext.Dolasim.FirstOrDefaultAsync(v => v.DolasimInternalNo == islemValues.BeyanInternalNo && v.TcKimlikNo == kullanici.KullaniciKod);
                         return _dolasim;
                     }
                 }

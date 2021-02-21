@@ -1402,6 +1402,14 @@ namespace BYT.WS.Models
         [StringLength(20)]
         public string FirmaNo { get; set; }
 
+        [Required]
+        [StringLength(30)]
+        public string RefNo { get; set; }
+
+        [Required]
+        [StringLength(15)]
+        public string TcKimlikNo { get; set; }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         [Required]
@@ -1409,28 +1417,89 @@ namespace BYT.WS.Models
         public string DolasimInternalNo { get; set; }
 
         [Required]
+        [StringLength(20)]
+        public string BelgeNo { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string BeyanTipi { get; set; }
+
+        [Required]
+        public int GumrukId { get; set; }
+
         [StringLength(30)]
-        public string RefNo { get; set; }
+        public string BeyannameNo { get; set; }
+
+        [Required]
+        public int IhracatciUlkeId { get; set; }
+
+        [Required]
+        public int IhracUlkesiId { get; set; }
+
+        [Required]
+        public int VarisUlkesiId { get; set; }
+
+        
+        public int KapasiteRaporuVizeNo { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string IhracatciAdi { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string IhracatciAdres { get; set; }
 
         [Required]
         [StringLength(15)]
-        public string KullaniciKodu { get; set; }
+        public string IhracatciVergiNo { get; set; }
 
         [Required]
-        [StringLength(9)]
-        public string GumrukKodu { get; set; }
+        [StringLength(50)]
+        public string IhracatciYer { get; set; }
+
+       
+        [StringLength(20)]
+        public string KapasiteRaporuTarihi { get; set; }
+
 
         [Required]
-        [StringLength(15)]
-        public string IzinliGondericiVergiNo { get; set; }
+        public int MalinGonderildigiSahisUlkeId { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string PlakaBilgisi { get; set; }
+        [StringLength(50)]
+        public string MalinGonderildigiSahisAdi { get; set; }
 
-        [Required]
-        [StringLength(30)]
-        public string TesisKodu { get; set; }
+        [StringLength(150)]
+        public string MalinGonderildigiSahisAdres { get; set; }
+
+        [StringLength(10)]
+        public string TaahhutnameSecimi { get; set; }
+
+        [StringLength(50)]
+        public string TasimaBelgesiNo { get; set; }
+
+        [StringLength(20)]
+        public string TasimaBelgesiTarihi { get; set; }
+
+        [StringLength(150)]
+        public string TasimayaIliskinBilgiler { get; set; }
+
+       
+        [StringLength(int.MaxValue)]
+        public string Mallar { get; set; }
+
+       
+        [StringLength(int.MaxValue)]
+        public string Faturalar { get; set; }
+
+      
+        [StringLength(int.MaxValue)]
+        public string Evraklar { get; set; }
+
+      
+        [StringLength(int.MaxValue)]
+        public string SignedMime { get; set; }
+        
 
         [StringLength(30)]
         public string TescilStatu { get; set; }

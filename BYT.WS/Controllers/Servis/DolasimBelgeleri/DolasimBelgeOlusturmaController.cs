@@ -42,149 +42,7 @@ namespace BYT.WS.Controllers.Servis.DolasimBelgeleri
 
         }
 
-        [Route("api/BYT/Servis/Dolasim/[controller]/DolasimBelgesiOlustur")]
-        [HttpPost]
-        public async Task<ServisDurum> PostBeyanname([FromBody] DbBeyan beyan)
-        {
-            var options = new DbContextOptionsBuilder<BeyannameDataContext>()
-             .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
-             .Options;
-
-            var options2 = new DbContextOptionsBuilder<KullaniciDataContext>()
-             .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
-             .Options;
-            KullaniciDataContext _kullaniciContext = new KullaniciDataContext(options2);
-
-            ServisDurum _servisDurum = new ServisDurum();
-
-            List<Hata> _hatalar = new List<Hata>();
-
-            DbBeyanModelValidator vbValidator = new DbBeyanModelValidator();
-            ValidationResult validationResult = new ValidationResult();
-            validationResult = vbValidator.Validate(beyan);
-
-            if (!validationResult.IsValid)
-            {
-
-                Hata ht = new Hata();
-                for (int i = 0; i < validationResult.Errors.Count; i++)
-                {
-                    ht = new Hata();
-                    ht.HataKodu = (i + 1);
-                    ht.HataAciklamasi = validationResult.Errors[i].ErrorMessage;
-                    _hatalar.Add(ht);
-                }
-
-                _servisDurum.Hatalar = _hatalar;
-
-                //var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilmedi" };
-                return _servisDurum;
-            }
-            Islem _islem = new Islem();
-            try
-            {
-
-                using (var transaction = _beyannameContext.Database.BeginTransaction())
-                {
-                    try
-                    {
-
-                        var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo && v.TescilStatu != "Tescil Edildi");
-                        var beyannameContext = new BeyannameDataContext(options);
-                        if (beyanValues != null)
-                        {
-
-                            beyan.TescilStatu = "Guncellendi";
-                            beyan.SonIslemZamani = DateTime.Now;
-                            beyannameContext.Entry(beyan).State = EntityState.Modified;
-                            await beyannameContext.SaveChangesAsync();
-
-                            _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == beyan.BeyanInternalNo);
-                            _islem.IslemDurumu = "Guncellendi";
-                            _islem.OlusturmaZamani = DateTime.Now;
-                            _islem.SonIslemZamani = DateTime.Now;
-                            _islemTarihceContext.Entry(_islem).State = EntityState.Modified;
-                            await _islemTarihceContext.SaveChangesAsync();
-
-                        }
-
-                        else
-                        {
-                            var kullanici = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == beyan.Kullanici).FirstOrDefault();
-                            var internalrefid = beyannameContext.GetRefIdNextSequenceValue(beyan.Rejim);
-                            string InternalNo = beyan.Rejim + beyan.Kullanici + "DO" + internalrefid.ToString().PadLeft(5, '0');
-
-                            beyan.MusteriNo = kullanici.MusteriNo;
-                            beyan.FirmaNo = kullanici.FirmaNo;
-                            beyan.BeyanInternalNo = InternalNo;
-                            beyan.RefNo = InternalNo;
-                            beyan.MusavirReferansNo = "BYT" + beyan.MusavirReferansNo;
-                            beyan.TescilStatu = "Olusturuldu";
-                            beyan.OlsuturulmaTarihi = DateTime.Now;
-                            beyan.SonIslemZamani = DateTime.Now;
-                            beyannameContext.Entry(beyan).State = EntityState.Added;
-                            await beyannameContext.SaveChangesAsync();
-
-
-                            _islem.Kullanici = beyan.Kullanici;
-                            _islem.IslemTipi = "";
-                            _islem.BeyanTipi = "DetayliBeyan";
-                            _islem.IslemDurumu = "Olusturuldu";
-                            _islem.RefNo = beyan.RefNo;
-                            _islem.BeyanInternalNo = beyan.BeyanInternalNo;
-                            _islem.IslemInternalNo = beyan.BeyanInternalNo;
-                            _islem.OlusturmaZamani = DateTime.Now;
-                            _islem.SonIslemZamani = DateTime.Now;
-                            _islem.GonderimSayisi = 0;
-
-                            _islemTarihceContext.Entry(_islem).State = EntityState.Added;
-                            await _islemTarihceContext.SaveChangesAsync();
-                        }
-                        transaction.Commit();
-
-                    }
-                    catch (Exception ex)
-                    {
-
-                        transaction.Rollback();
-                        _servisDurum.ServisDurumKodlari = ServisDurumKodlari.BeyannameKayitHatasi;
-                        List<Internal.Hata> lstht = new List<Internal.Hata>();
-
-                        Hata ht = new Hata { HataKodu = 1, HataAciklamasi = ex.Message };
-                        lstht.Add(ht);
-                        _servisDurum.Hatalar = lstht;
-                        // var rresult = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirilemedi" };
-                        return _servisDurum;
-                    }
-
-                }
-
-
-                _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;
-
-                List<Bilgi> lstBlg = new List<Bilgi>();
-                Bilgi blg = new Bilgi { IslemTipi = "İşlem Oluştur", ReferansNo = _islem.IslemInternalNo, Sonuc = "İşlem Oluşturma Başarılı", SonucVeriler = null };
-                lstBlg.Add(blg);
-                _servisDurum.Bilgiler = lstBlg;
-
-                var result = new Sonuc<ServisDurum>() { Veri = _servisDurum, Islem = true, Mesaj = "İşlemler Gerçekleştirildi" };
-                //string jsonData = JsonConvert.SerializeObject(result, Formatting.None);
-
-                var Message = $"PostBeyanname {DateTime.UtcNow.ToLongTimeString()}";
-                Log.Information("Message displayed: {Message}/{Gelen}/{Sonuç}", Message, JsonConvert.SerializeObject(beyan), JsonConvert.SerializeObject(_servisDurum));
-
-                return _servisDurum;
-            }
-            catch (Exception ex)
-            {
-
-                return null;
-            }
-
-
-        }
-
-     
+       
 
         [Route("api/BYT/Servis/Dolasim/[controller]/DolasimBelgesiOlustur")]
         [HttpPost]
@@ -194,6 +52,12 @@ namespace BYT.WS.Controllers.Servis.DolasimBelgeleri
             var options = new DbContextOptionsBuilder<BeyannameDataContext>()
            .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
            .Options;
+
+            var options2 = new DbContextOptionsBuilder<KullaniciDataContext>()
+           .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
+           .Options;
+            KullaniciDataContext _kullaniciContext = new KullaniciDataContext(options2);
+
             ServisDurum _servisDurum = new ServisDurum();
 
             List<Hata> _hatalar = new List<Hata>();
@@ -231,9 +95,11 @@ namespace BYT.WS.Controllers.Servis.DolasimBelgeleri
                         else
                         {
                             var internalrefid = beyannameContext.GetDolasimIdNextSequenceValue();
-                            string InternalNo = dolasim.KullaniciKodu + "DO" + internalrefid.ToString().PadLeft(5, '0');
+                            string InternalNo = dolasim.BelgeNo+ "ATR" + internalrefid.ToString().PadLeft(5, '0');
+                            var kullanici = _kullaniciContext.Kullanici.Where(x => x.KullaniciKod == dolasim.TcKimlikNo).FirstOrDefault();
+                            dolasim.MusteriNo = kullanici.MusteriNo;
+                            dolasim.FirmaNo = kullanici.FirmaNo;
 
-                        
                             dolasim.DolasimInternalNo = InternalNo;
                             dolasim.TescilStatu = "Olusturuldu";
                             dolasim.OlsuturulmaTarihi = DateTime.Now;
@@ -241,8 +107,9 @@ namespace BYT.WS.Controllers.Servis.DolasimBelgeleri
                             beyannameContext.Entry(dolasim).State = EntityState.Added;
                             await beyannameContext.SaveChangesAsync();
 
-
-                            _islem.Kullanici = dolasim.KullaniciKodu;
+                            _islem.MusteriNo = dolasim.MusteriNo;
+                            _islem.FirmaNo = dolasim.FirmaNo;
+                            _islem.Kullanici = dolasim.TcKimlikNo;
                             _islem.IslemTipi = "";
                             _islem.BeyanTipi = "Dolasim";
                             _islem.IslemDurumu = "Olusturuldu";
@@ -320,24 +187,16 @@ namespace BYT.WS.Controllers.Servis.DolasimBelgeleri
             {
                 try
                 {
-                    var ighbValues = await _beyannameContext.DbIghb.FirstOrDefaultAsync(v => v.IghbInternalNo == dolasimInternalNo);
+                    var dolasimValues = await _beyannameContext.Dolasim.FirstOrDefaultAsync(v => v.DolasimInternalNo == dolasimInternalNo);
 
-                    if (ighbValues != null)
+                    if (dolasimValues != null)
                     {
-                        _beyannameContext.Entry(ighbValues).State = EntityState.Deleted;
+                        _beyannameContext.Entry(dolasimValues).State = EntityState.Deleted;
 
                         var _islem = await _islemTarihceContext.Islem.FirstOrDefaultAsync(v => v.BeyanInternalNo == dolasimInternalNo);
 
                         _islemTarihceContext.Entry(_islem).State = EntityState.Deleted;
                         await _islemTarihceContext.SaveChangesAsync();
-
-                        var listValues = await _beyannameContext.DbIghbListe.Where(v => v.IghbInternalNo == dolasimInternalNo).ToListAsync();
-                        if (listValues.Count > 0)
-                            foreach (var item in listValues)
-                            {
-                                _beyannameContext.Entry(item).State = EntityState.Deleted;
-                            }
-
 
                         await _beyannameContext.SaveChangesAsync();
                         _servisDurum.ServisDurumKodlari = ServisDurumKodlari.IslemBasarili;

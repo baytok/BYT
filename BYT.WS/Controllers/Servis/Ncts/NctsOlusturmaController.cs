@@ -123,7 +123,8 @@ namespace BYT.WS.Controllers.Servis.Ncts
                             beyannameContext.Entry(beyan).State = EntityState.Added;
                             await beyannameContext.SaveChangesAsync();
 
-
+                            _islem.MusteriNo = beyan.MusteriNo;
+                            _islem.FirmaNo = beyan.FirmaNo;
                             _islem.Kullanici = beyan.Kullanici;
                             _islem.IslemTipi = "";
                             _islem.BeyanTipi = "Ncts";

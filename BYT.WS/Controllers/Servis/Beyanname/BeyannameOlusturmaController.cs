@@ -125,7 +125,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             beyannameContext.Entry(beyan).State = EntityState.Added;
                             await beyannameContext.SaveChangesAsync();
 
-
+                            _islem.MusteriNo = beyan.MusteriNo;
+                            _islem.FirmaNo = beyan.FirmaNo;
                             _islem.Kullanici = beyan.Kullanici;
                             _islem.IslemTipi = "";
                             _islem.BeyanTipi = "DetayliBeyan";
@@ -2160,7 +2161,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             beyannameContext.Entry(mesai).State = EntityState.Added;
                             await beyannameContext.SaveChangesAsync();
 
-
+                            _islem.MusteriNo = mesai.MusteriNo;
+                            _islem.FirmaNo = mesai.FirmaNo;
                             _islem.Kullanici = mesai.KullaniciKodu;
                             _islem.IslemTipi = "";
                             _islem.BeyanTipi = "Mesai";
@@ -2283,7 +2285,8 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                             beyannameContext.Entry(ighb).State = EntityState.Added;
                             await beyannameContext.SaveChangesAsync();
 
-
+                            _islem.MusteriNo = ighb.MusteriNo;
+                            _islem.FirmaNo = ighb.FirmaNo;
                             _islem.Kullanici = ighb.KullaniciKodu;
                             _islem.IslemTipi = "";
                             _islem.BeyanTipi = "Ighb";

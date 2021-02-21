@@ -167,7 +167,7 @@ export class IslemComponent implements OnInit {
     else  return false;
   }
   getTescilMesajiMenu(beyanTipi: string) {
-    if (beyanTipi == "Ncts" || beyanTipi == "DetayliBeyan" || beyanTipi == "OzetBeyan")
+    if (beyanTipi == "Ncts" || beyanTipi == "DetayliBeyan" || beyanTipi == "OzetBeyan" || beyanTipi == "Dolasim"  )
      return true;
     else  return false;
   }
@@ -283,6 +283,7 @@ export class IslemComponent implements OnInit {
     else if (beyanTipi == "Ncts") this.router.navigateByUrl("/app/nctsbeyan");
     else if (beyanTipi == "Mesai") this.router.navigateByUrl("/app/mesai");
     else if (beyanTipi == "Ighb") this.router.navigateByUrl("/app/ighb");
+    else if (beyanTipi == "Dolasim") this.router.navigateByUrl("/app/dolasim");
   }
   getBeyannameSonuc(guid: string, islemInternalNo: string, beyan: string) {
     this.showSonucDialog(0, guid, islemInternalNo,beyan);
