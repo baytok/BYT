@@ -84,7 +84,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                         beyannameYetkisi = true;
                 }
 
-                if (islemValues != null && beyannameYetkisi)
+                if (islemValues != null && beyannameYetkisi )
                 {
                     var beyanValues = await _beyannameContext.DbBeyan.FirstOrDefaultAsync(v => v.BeyanInternalNo == islemValues.BeyanInternalNo);
                     if (kullaniciYetki.Result.Count(x => x.YetkiKodu == "AD") > 0)
@@ -103,7 +103,7 @@ namespace BYT.WS.Controllers.Servis.Beyanname
                     }
                     else
                     {
-                        if (beyanValues.Kullanici == kullanici.KullaniciKod)
+                        if ( beyanValues != null && beyanValues.Kullanici == kullanici.KullaniciKod)
                             beyannameYetkisi = true;
                     }
                     if (beyanValues != null && beyannameYetkisi)

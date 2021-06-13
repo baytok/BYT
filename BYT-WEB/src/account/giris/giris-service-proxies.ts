@@ -2,6 +2,8 @@
 export class KullaniciModel implements IKullaniciModel {
     kullanici: string | undefined;
     sifre: string | undefined;
+    tcKimlikNo: string | undefined;
+    pinKod: string | undefined;
     rememberClient: boolean;
 
     constructor(data?: IKullaniciModel) {
@@ -17,6 +19,8 @@ export class KullaniciModel implements IKullaniciModel {
         if (data) {
             this.kullanici = data["kullanici"];
             this.sifre = data["sifre"];
+            this.tcKimlikNo = data["tcKimlikNo"];
+            this.pinKod= data["pinKod"] ;
             this.rememberClient = data["rememberClient"];
         }
     }
@@ -32,6 +36,8 @@ export class KullaniciModel implements IKullaniciModel {
         data = typeof data === 'object' ? data : {};
         data["kullanici"] = this.kullanici;
         data["sifre"] = this.sifre;
+        data["tcKimlikNo"] = this.tcKimlikNo;
+        data["pinKod"] = this.pinKod;
         data["rememberClient"] = this.rememberClient;
         return data; 
     }
@@ -47,6 +53,8 @@ export class KullaniciModel implements IKullaniciModel {
 export interface IKullaniciModel {
     kullanici: string | undefined;
     sifre: string | undefined;
+    tcKimlikNo: string | undefined;
+    pinKod: string | undefined;
     rememberClient: boolean;
 }
 

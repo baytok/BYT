@@ -113,6 +113,7 @@ import { DegistirFirmaComponent } from './components/firma/degistirFirma/degisti
     
    ],
    imports: [
+     
       SharedModule.forRoot(),
       CommonModule,
       AppRoutingModule,
@@ -120,7 +121,7 @@ import { DegistirFirmaComponent } from './components/firma/degistirFirma/degisti
       FormsModule,
       NgbModule,
       NgxChildProcessModule,
-      ServiceProxyModule,   
+      ServiceProxyModule, 
       ReactiveFormsModule,
         NgxLoadingModule.forRoot({
          animationType: ngxLoadingAnimationTypes.threeBounce,
@@ -140,6 +141,7 @@ import { DegistirFirmaComponent } from './components/firma/degistirFirma/degisti
 
    ],
    providers: [
+    
       SessionServiceProxy,AccountModule,ReferansService
    ],
     bootstrap: [

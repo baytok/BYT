@@ -1,79 +1,134 @@
 
+ 
+
 <mat-card class="example-card" layout="row" layout-align="center center" [@routerTransition]>
-  <mat-card-header>  
+  <mat-card-header layout-align="center center" >  
     <img src="./assets/byt-header.png" width="70" height="70" /> 
+  
   </mat-card-header>
   <mat-card-content> 
-   <div class="card" >
+    <div class="card m-6" > 
   <div class="body">
+   
     <form
       novalidate
       autocomplete="off"
       #loginForm="ngForm"
       (ngSubmit)="login()"
-    >
-     
-      <div class="row clearfix">
-        <div class="col-xs-12">
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="material-icons">person</i>
-            </span>
-            <div>
-              <mat-form-field>
-               <input
-                matInput
-                name="kullanici"
-                class="form-control"
-                 matInput
-                 [(ngModel)]="
-                  girisService.kullaniciModel.kullanici
-                  "
-                  placeholder="Kullanıcı Kodu"
-                  autocomplete="off"
-                  required
-                  maxlength="11"
-                />
-              </mat-form-field>
+    >        
+        <div class="card-body text-center">
+          <div class="row clearfix">
+            <div class="col-xs-12">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="material-icons">person</i>
+                </span>
+                <div>
+                  <mat-form-field>
+                   <input
+                    name="kullanici"
+                    class="form-control"
+                     matInput
+                     [(ngModel)]="
+                      girisService.kullaniciModel.kullanici
+                      "
+                      placeholder="Kullanıcı Kodu"
+                      autocomplete="off"
+                      required
+                      maxlength="11"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+               <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="material-icons">lock</i>
+                </span>
+                <div>
+                  <mat-form-field>
+                    <input
+                      matInput
+                      type="password"
+                      name="sifre"
+                      [(ngModel)]=" girisService.kullaniciModel.sifre"
+                      placeholder="Şifre"
+                      required
+                      maxlength="32"
+                    />
+                  </mat-form-field>
+                </div>
+              </div> 
             </div>
           </div>
-           <div class="input-group">
-            <span class="input-group-addon">
-              <i class="material-icons">lock</i>
-            </span>
-            <div>
-              <mat-form-field>
-                <input
-                  matInput
-                  type="password"
-                  name="sifre"
-                  [(ngModel)]=" girisService.kullaniciModel.sifre"
-                  placeholder="Şifre"
-                  required
-                  maxlength="32"
-                />
-              </mat-form-field>
-            </div>
-          </div> 
+          <div class="row">        
+            <div class="col-xs-4">
+              <button
+              name="KullaniciGiris"
+                mat-flat-button
+                type="submit"
+                flex="5"
+                color="accent"
+               [disabled]="!(girisService.kullaniciModel.kullanici && girisService.kullaniciModel.sifre) || submitting"
+              >
+               Giriş
+              </button>
+            </div> 
+          </div>
+        
         </div>
-      </div>
-      <div class="row">        
-        <div class="col-xs-4">
-          <button
-            mat-flat-button
-            type="submit"
-            flex="5"
-            color="accent"
-           [disabled]="!loginForm.form.valid || submitting"
-          >
-           Giriş
-          </button>
-        </div> 
-      </div>
-     
     </form>
+
+    
+    <div class="row">        
+      <div class="col-xs-4">
+        <button
+        name="eimzaKullaniciGiris"
+          mat-flat-button
+          type="submit"
+          flex="5"
+          color="primary"
+          (click)="oneimzaLogin();"
+        >
+        eImza ile Giriş
+        </button>
+      </div> 
+      <div class="card m-6"    [hidden]="eimzaGiris"> 
+        <div class="body">
+          <div class="container"> 
+            <div>
+                <textarea [(ngModel)]="dataToBeSigned" class="input" rows="4" disabled></textarea>
+                <div>
+                    <div class="input-padding">
+                        <input [(ngModel)]="selectedCardReader.terminal" (change)="selectedCardReaderChanged(selectedCardReader);" class="input" list="cardReaderList" placeholder="Kart Okuyucu Seçiniz">
+                        <!-- <datalist id="cardReaderList">
+                            <option *ngFor="let item of cardReaders" value="{{item.terminal}}">
+                        </datalist> -->
+                    </div>
+                    <div class="input-padding">
+                        <input [(ngModel)]="selectedCertificate.commonName" class="input" list="certificateList" placeholder="Sertifika Seçiniz">
+                        <!-- <datalist id="certificateList">
+                            <option *ngFor="let item of certificates" value="{{item.commonName}}">
+                        </datalist> -->
+                    </div>
+                    <div class="input-padding">
+                        <input [(ngModel)]="pinCode" class="input" placeholder="PIN Kodu">
+                    </div>
+                    <div class="input-padding">
+                        <button (click)="signCAdES_BES_Attached();" class="input">İmzala</button>
+                    </div>
+                    <textarea class="input" [(ngModel)]="cadesSignature" rows="20"></textarea>
+                </div>
+            </div>
+          </div>
+           
+        </div>
+        </div>  
+    </div>
   </div>
-   </div>
+  </div> 
+
   </mat-card-content>
-</mat-card>
+</mat-card> 
+
+
 

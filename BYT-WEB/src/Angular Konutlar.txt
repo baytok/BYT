@@ -1,0 +1,39 @@
+
+--  Programı derleyip çalıştırmak
+ng serve -o 
+
+--  Programı 4401 portundan çalıştırma
+ng serve -o --port 4401
+
+--Programı kendi dizininde dist klasörüne publish etmek
+ng build --base--href ./    
+
+--Paket install etmek 
+npm install @rxweb/reactive-form-validators  
+
+-- Herhangi insatal edilen paketin kaldırılması:
+ npm uninstall @rxweb/reactive-form-validators  
+
+-- Versiyoları görmek için 
+ng v  
+
+--Material dosyalarını güncellemek
+ npm update @angular/material @angular/cdk    
+
+--Projede kurulu olan tüm paketleri güncelleme
+npm update    
+
+--Tyescript en son veriyonu install etme
+npm install -g typescript@latest    
+
+--Projeden Typescript kaldırmak
+npm uninstall typescript -g         
+
+--Projeden Typescript son versiyonu ile güncellemek
+npm update -g typescript@latest   
+
+--Angular Cli in en son verisoyonu ile güncellemek
+npm install -g @angular/cli@latest     
+
+--Angular Cli ve Angular Core güncellemek
+ng update @angular/cli @angular/core    

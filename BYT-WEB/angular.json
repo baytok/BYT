@@ -31,6 +31,9 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.js"
+            ], 
+            "scripts": [
+              "src/assets/ArkSignerJS-2.1.0.4.min.js"
             ]
           },
           "configurations": {
@@ -95,6 +98,9 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
+            ],
+            "scripts": [
+              "src/assets/ArkSignerJS-2.1.0.4.min.js"
             ],
             "scripts": []
           }

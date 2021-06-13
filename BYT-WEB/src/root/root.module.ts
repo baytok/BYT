@@ -16,7 +16,7 @@ import { GirisService } from 'src/account/giris/giris.service';
         BrowserAnimationsModule,
         RootRoutingModule,
         HttpClientModule,
- 
+     
       
     ],
     declarations: [

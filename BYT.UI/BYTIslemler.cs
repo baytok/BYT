@@ -23,7 +23,7 @@ namespace BYT.UI
     {
         public SonucHizmeti.GumrukWSSoapClient mysn = ServiceHelper.GetSonucWSClient("", "");
         public NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
-
+        private static readonly string PIN_SMARTCARD = "376308";
         public string Guid, Token;
         public BYTIslemler(string s1, string s2)
         {
@@ -114,6 +114,7 @@ namespace BYT.UI
             //    return;
             //}
             //else
+            kartPin = PIN_SMARTCARD;
             if (txtsifre.Text != "" && txtsifre.Text.Length >= 4)
                 kartPin = txtsifre.Text;
             else

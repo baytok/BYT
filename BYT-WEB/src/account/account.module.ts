@@ -29,6 +29,7 @@ import {
     declarations: [
         AccountComponent,
         GirisComponent,
+      
        
     ],
    

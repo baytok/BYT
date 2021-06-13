@@ -1,0 +1,39 @@
+------------------------------
+-module ve compenetler arası veri taşıma,servis adresini, kullanıcı ve token taşımak
+
+-localstroge ototmatik veri silmek
+
+
+-servisteki güncel token okuma
+
+-kullanıcıdeğiştirde geleni yetkilerin ekranda işaretlenmesi
+
+-giris.service de kullaniciSonuc verileri aktarmak ve veriler localstorage yerine servise yazıp servisten okumak
+
+-genel istatistik, kullanıcı profiline göre
+istatistik
+
+
+-token bilgilerini ap-compenetet.ts session ile tutmak
+
+-iis üzerinden kontrol gönderimi ve sonuçlanmasının denemesi
+
+-işlemler içinde BYT nin çalıştırılaması
+
+-Kullanıcı şifre değiştirme
+-Ncts sonuçları veri tabanına yaz ve göster
+
+- beyannamede yeni alanlar var onlar eklenecek, servis tarafında tanımlı,
+
+-dolaşım belgeleri
+
+- özetbeyanda örnek yapılan zorunlu alanların eksiklerin tamamlanması, beyanname tarafınada eklenmesi
+- tüm sorgu ve işlemler için kullanıcı parametresi eklensin, sorgularınada
+-Tablolara müşterino ve firmano eklenecek, sorgular ona göre yetkisine bakarak çalışacak
+
+-Serviste Jwt üzerinden kullanıcı alınması ve servise gönderimlerde kullanıcı kaldırılması
+-Token için araya girmek için angularda bir metod etkleyerek request lere otomatik
+token ekleniyor. Bununla manuel gönderilen token lar kaldırılacak, token bilgisini local yerine
+session gibi bir yerden okunacak
+-Elektronik imza entegrasyonu, tesil öncesi imzalama yapılması
+
