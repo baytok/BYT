@@ -579,26 +579,5 @@ export class IslemComponent implements OnInit {
     this.tarihceDataSource.paginator = this.paginator;
   }
 
-  callBytIslemler() {
-    var fileName = "BYT.UI.exe";
-    var path = "C:\\Projeler\\GitHub\\Repositories\\BYT\\BYT.UI\\bin\\Debug";
-    var filepath =
-      "C:\\Projeler\\GitHub\\Repositories\\BYT\\BYT.UI\\bin\\Debug\\BYT.UI.exe";
-    const params: string[] = ["H", "He"];
 
-    var shell = new ActiveXObject("WScript.shell");
-    shell.run(filepath, params);
-    shell.Quit;
-  }
-  loadScripts() {
-    // This array contains all the files/CDNs
-    const dynamicScripts = ["assets//Js//loadByt.js"];
-    for (let i = 0; i < dynamicScripts.length; i++) {
-      const node = document.createElement("script");
-      node.src = dynamicScripts[i];
-      node.type = "text/javascript";
-      node.async = false;
-      document.getElementsByTagName("head")[0].appendChild(node);
-    }
-  }
 }
