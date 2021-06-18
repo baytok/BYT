@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using BYT.WS.AltYapi;
 using BYT.WS.Data;
@@ -82,7 +85,8 @@ namespace BYT.WS.Controllers.api
         [HttpGet("{Kullanici}")]
         public async Task<List<Islem>> GetIslemlerFromKullanici(string Kullanici)
         {
-         
+            string userId = User.FindFirst(ClaimTypes.Name)?.Value;
+            Kullanici = userId;
             var options = new DbContextOptionsBuilder<KullaniciDataContext>()
                        .UseSqlServer(new SqlConnection(Configuration.GetConnectionString("BYTConnection")))
                        .Options;

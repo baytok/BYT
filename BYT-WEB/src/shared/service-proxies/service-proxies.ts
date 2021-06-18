@@ -1,11 +1,11 @@
 ﻿import {
   mergeMap as _observableMergeMap,
-  catchError as _observableCatch
+  catchError as _observableCatch,
 } from "rxjs/operators";
 import {
   Observable,
   throwError as _observableThrow,
-  of as _observableOf
+  of as _observableOf,
 } from "rxjs";
 import { Injectable, Inject, Optional, InjectionToken } from "@angular/core";
 import {
@@ -15,1352 +15,841 @@ import {
   HttpResponse,
   HttpResponseBase,
   HttpErrorResponse,
-  JsonpInterceptor
+  JsonpInterceptor,
 } from "@angular/common/http";
 import { DecimalPipe } from "@angular/common";
-import { parse } from 'querystring';
+import { parse } from "querystring";
 export const API_BASE_URL = new InjectionToken<string>("API_BASE_URL");
-import { GirisService } from '../../account/giris/giris.service';
+import { GirisService } from "../../account/giris/giris.service";
 import { Router } from "@angular/router";
 @Injectable()
 export class BeyannameServiceProxy {
-  
-  
   private http: HttpClient;
   private baseUrl: string;
 
-  protected jsonParseReviver:
-    | ((key: string, value: any) => any)
-    | undefined = undefined;
+  protected jsonParseReviver: ((key: string, value: any) => any) | undefined =
+    undefined;
 
   constructor(
-    private router:Router,
-    private girisService:GirisService,
+    private router: Router,
+    private girisService: GirisService,
     @Inject(HttpClient) http: HttpClient,
-    @Optional() @Inject(API_BASE_URL) baseUrl?: string,
-   
-   
+    @Optional() @Inject(API_BASE_URL) baseUrl?: string
   ) {
     this.http = http;
     this.baseUrl = baseUrl ? baseUrl : "";
-  
   }
- errorHandel(err:any)
- {
-  if (err instanceof HttpErrorResponse) {
-    if (err.status == 401) {
-      console.log(err);
-      localStorage.removeItem('kullaniciInfo');   
-      this.router.navigateByUrl('/giris');
-   
+  errorHandel(err: any) {
+    if (err instanceof HttpErrorResponse) {
+      if (err.status == 401) {
+        console.log(err);
+        localStorage.removeItem("kullaniciInfo");
+        this.router.navigateByUrl("/giris");
+      }
+    }
   }
-  }
- }
 
-  notAuthorizeRole()
-  {
-
-      localStorage.removeItem('kullaniciInfo');   
-      this.router.navigateByUrl('/giris');
-   
- 
+  notAuthorizeRole() {
+    localStorage.removeItem("kullaniciInfo");
+    this.router.navigateByUrl("/giris");
   }
-  getAllKullanici() { 
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+  getAllKullanici() {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
     var token = currentUser.token;
     var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    });
     const httpOptions = {
-     headers: headers_object
+      headers: headers_object,
     };
     return this.http.get(
-      this.baseUrl + "Kullanicilar/KullaniciHizmeti/"+kullaniciId,httpOptions
-    )
+      // this.baseUrl + "Kullanicilar/KullaniciHizmeti/"+kullaniciId
+      this.baseUrl + "Kullanicilar/KullaniciHizmeti/" + kullaniciId
+    );
   }
 
   setKullanici(kullanici: KullaniciDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
-  
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "KullaniciOlustur/KullaniciHizmeti", 
-      kullanici,httpOptions  
-      );
+      this.baseUrl + "KullaniciOlustur/KullaniciHizmeti",
+      kullanici
+    );
   }
   restoreKullanici(kullanici: KullaniciDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
-
-      return this.http.put<any>(
-        this.baseUrl + "KullaniciDegistir/KullaniciHizmeti", 
-        kullanici,httpOptions);
+    return this.http.put<any>(
+      this.baseUrl + "KullaniciDegistir/KullaniciHizmeti",
+      kullanici
+    );
   }
   removeKullanici(kullaniciId) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.delete<any>(
-      this.baseUrl + "KullaniciSil/KullaniciHizmeti/"+kullaniciId, httpOptions        
-      );
+      this.baseUrl + "KullaniciSil/KullaniciHizmeti/" + kullaniciId
+    );
   }
-  getAllYetki() { 
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
-    return this.http.get(
-      this.baseUrl + "Yetkiler/KullaniciHizmeti/",httpOptions
-    )
+  getAllYetki() {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.get(this.baseUrl + "Yetkiler/KullaniciHizmeti/");
   }
   getAllAktifYetkiler() {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
 
     return this.http.get(
-      this.baseUrl + "AktifYetkiler/KullaniciHizmeti/"+kullaniciId,httpOptions 
+      this.baseUrl + "AktifYetkiler/KullaniciHizmeti/" + kullaniciId
     );
   }
   getAllKullaniciAktifYetkiler(kullaniciKod) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "AktifKullaniciYetkiler/KullaniciHizmeti/"+kullaniciKod,httpOptions 
+      this.baseUrl + "AktifKullaniciYetkiler/KullaniciHizmeti/" + kullaniciKod
     );
   }
   setYetki(yetki: YetkiDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
-  
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "YetkiOlustur/KullaniciHizmeti", 
-      yetki,httpOptions  
-      );
+      this.baseUrl + "YetkiOlustur/KullaniciHizmeti",
+      yetki
+    );
   }
   restoreYetki(yetki: YetkiDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
-
-      return this.http.put<any>(
-        this.baseUrl + "YetkiDegistir/KullaniciHizmeti", 
-        yetki,httpOptions);
+    return this.http.put<any>(
+      this.baseUrl + "YetkiDegistir/KullaniciHizmeti",
+      yetki
+    );
   }
   removeYetki(yetkiId) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.delete<any>(
-      this.baseUrl + "YetkiSil/KullaniciHizmeti/"+yetkiId, httpOptions        
-      );
+      this.baseUrl + "YetkiSil/KullaniciHizmeti/" + yetkiId
+    );
   }
-  setYetkiKullanici(yetkiKullanici: KullaniciYetkiDto[], kullaniciKod:string) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
-  
+  setYetkiKullanici(yetkiKullanici: KullaniciYetkiDto[], kullaniciKod: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "KullaniciYetkiOlustur/KullaniciHizmeti/"+kullaniciKod, 
-      yetkiKullanici,httpOptions  
-      );
+      this.baseUrl + "KullaniciYetkiOlustur/KullaniciHizmeti/" + kullaniciKod,
+      yetkiKullanici
+    );
   }
   restoreYetkiKullanici(yetkiKullanici: KullaniciYetkiDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
-
-      return this.http.put<any>(
-        this.baseUrl + "KullaniciYetkiDegistir/KullaniciHizmeti", 
-        yetkiKullanici,httpOptions);
+    return this.http.put<any>(
+      this.baseUrl + "KullaniciYetkiDegistir/KullaniciHizmeti",
+      yetkiKullanici
+    );
   }
   getAllAktifMusteriler() {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
 
-    const httpOptions = {
-     headers: headers_object
-    };
-   return this.http.get(
-      this.baseUrl + "AktifMusteriler/KullaniciHizmeti/"+kullaniciId,httpOptions 
+    return this.http.get(
+      this.baseUrl + "AktifMusteriler/KullaniciHizmeti/" + kullaniciId
     );
   }
   getAllMusteri() {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
-    return this.http.get(
-      this.baseUrl + "Musteriler/KullaniciHizmeti/",httpOptions 
-    );
+    return this.http.get(this.baseUrl + "Musteriler/KullaniciHizmeti/");
   }
   setMusteri(musteri: MusteriDto) {
-    
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "MusteriOlustur/KullaniciHizmeti", 
-      musteri,httpOptions  
-      );
+      this.baseUrl + "MusteriOlustur/KullaniciHizmeti",
+      musteri
+    );
   }
   restoreMusteri(musteri: MusteriDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.put<any>(
-        this.baseUrl + "MusteriDegistir/KullaniciHizmeti", 
-        musteri,httpOptions  
-        );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.put<any>(
+      this.baseUrl + "MusteriDegistir/KullaniciHizmeti",
+      musteri
+    );
   }
   removeMusteri(musteriId) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.delete<any>(
-      this.baseUrl + "MusteriSil/KullaniciHizmeti/"+musteriId, httpOptions        
-      );
+      this.baseUrl + "MusteriSil/KullaniciHizmeti/" + musteriId
+    );
   }
 
   getAllAktifFirmalar(musteriNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
 
     return this.http.get(
-      this.baseUrl + "AktifFirmalar/KullaniciHizmeti/"+musteriNo+"/"+kullaniciId,httpOptions 
+      this.baseUrl +
+        "AktifFirmalar/KullaniciHizmeti/" +
+        musteriNo +
+        "/" +
+        kullaniciId
     );
   }
   getAllFirma() {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.get(
-      this.baseUrl + "Firmalar/KullaniciHizmeti/"+kullaniciId,httpOptions 
+      this.baseUrl + "Firmalar/KullaniciHizmeti/" + kullaniciId
     );
   }
   setFirma(firma: FirmaDto) {
-    
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "FirmaOlustur/KullaniciHizmeti", 
-      firma,httpOptions  
-      );
+      this.baseUrl + "FirmaOlustur/KullaniciHizmeti",
+      firma
+    );
   }
   restoreFirma(firma: FirmaDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.put<any>(
-        this.baseUrl + "FirmaDegistir/KullaniciHizmeti", 
-        firma,httpOptions  
-        );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.put<any>(
+      this.baseUrl + "FirmaDegistir/KullaniciHizmeti",
+      firma
+    );
   }
   removeFirma(firmaiId) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.delete<any>(
-      this.baseUrl + "FirmaSil/KullaniciHizmeti/"+firmaiId, httpOptions        
-      );
+      this.baseUrl + "FirmaSil/KullaniciHizmeti/" + firmaiId
+    );
   }
 
   getAllIslem(Kullanici) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+    //
+    // var headers_object = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //    'Authorization': "Bearer "+token})
+
+    // const httpOptions = {
+    //  headers: headers_object
+    // };
     return this.http.get(
-      this.baseUrl + "IslemHizmeti/KullaniciIleSorgulama/" + Kullanici,httpOptions
+      this.baseUrl + "IslemHizmeti/KullaniciIleSorgulama/" + Kullanici
     );
   }
   getAllIslemFromRefNo(refNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
     return this.http.get(
-      this.baseUrl + "IslemHizmeti/RefNoIleSorgulama/" + refNo,httpOptions
+      this.baseUrl + "IslemHizmeti/RefNoIleSorgulama/" + refNo
     );
   }
   getTarihce(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-    return this.http.get(this.baseUrl + "TarihceHizmeti/" + IslemInternalNo, httpOptions);
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.get(this.baseUrl + "TarihceHizmeti/" + IslemInternalNo);
   }
   KontrolGonderimi(IslemInternalNo, Kullanici) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameKontrolGonderim/" +
-        IslemInternalNo + "/" + Kullanici,null,httpOptions  
-        );
-   
-    
-  }
-  MesaiGonderimi(IslemInternalNo, Kullanici) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/MesaiGonderim/" +
-        IslemInternalNo + "/" + Kullanici,null,httpOptions  
-        );
-   
-    
-  }
-  IghbGonderimi(IslemInternalNo, Kullanici) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/IGHBGonderim/" +
-        IslemInternalNo + "/" + Kullanici,null,httpOptions  
-        );
-   
-    
-  }
-  
-  BeyannameTescilMesajiHazirla(IslemInternalNo, Kullanici) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameTescilGonderim/" +
-        IslemInternalNo + "/" + Kullanici,null,httpOptions  
-        );
-   
-    
-  }
-  BeyannameTescilGonderimi(IslemInternalNo, Kullanici, guid) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameTescilGonderim/" +
-        IslemInternalNo + "/" + Kullanici+"/"+guid,null,httpOptions  
-        );
-   
-    
-  }
-  OzetBeyanTescilMesajiHazirla(IslemInternalNo, Kullanici) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanTescilGonderim/" +
-        IslemInternalNo + "/" + Kullanici,null,httpOptions  
-        );
-   
-    
-  }
-  OzetBeyanTescilGonderimi(IslemInternalNo, Kullanici, guid) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-  
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanTescilGonderim/" +
-        IslemInternalNo + "/" + Kullanici+"/"+guid,null,httpOptions  
-        );
-   
-    
-  }
-  NctsTescilMesajiHazirla(IslemInternalNo, Kullanici) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Ncts/NctsTescilGonderim/" +
-        IslemInternalNo + "/" + Kullanici,null,httpOptions  
-        );
-   
-    
-  }
-  NctsTescilGonderimi(IslemInternalNo, Kullanici, guid) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-    console.log(guid);
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Ncts/NctsTescilGonderim/" +
-        IslemInternalNo + "/" + Kullanici+"/"+guid,null,httpOptions  
-        );
-   
-    
-  }
-  
-  getBeyannameServisSonucSorgula(Guid) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "Servis/BeyannameSorgulamaHizmeti/" + Guid,null,
-      httpOptions
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameKontrolGonderim/" +
+        IslemInternalNo +
+        "/" +
+        Kullanici,
+      null
+    );
+  }
+  MesaiGonderimi(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/MesaiGonderim/" +
+        IslemInternalNo +
+        "/" +
+        Kullanici,
+      null
+    );
+  }
+  IghbGonderimi(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/IGHBGonderim/" +
+        IslemInternalNo +
+        "/" +
+        Kullanici,
+      null
+    );
+  }
+
+  BeyannameTescilMesajiHazirla(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameTescilGonderim/" +
+        IslemInternalNo +
+        "/" +
+        Kullanici,
+      null
+    );
+  }
+  BeyannameTescilGonderimi(IslemInternalNo, Kullanici, guid) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameTescilGonderim/" +
+        IslemInternalNo +
+        "/" +
+        Kullanici +
+        "/" +
+        guid,
+      null
+    );
+  }
+  OzetBeyanTescilMesajiHazirla(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanTescilGonderim/" +
+        IslemInternalNo +
+        "/" +
+        Kullanici,
+      null
+    );
+  }
+  OzetBeyanTescilGonderimi(IslemInternalNo, Kullanici, guid) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanTescilGonderim/" +
+        IslemInternalNo +
+        "/" +
+        Kullanici +
+        "/" +
+        guid,
+      null
+    );
+  }
+  NctsTescilMesajiHazirla(IslemInternalNo, Kullanici) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Ncts/NctsTescilGonderim/" +
+        IslemInternalNo +
+        "/" +
+        Kullanici,
+      null
+    );
+  }
+  NctsTescilGonderimi(IslemInternalNo, Kullanici, guid) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    console.log(guid);
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Ncts/NctsTescilGonderim/" +
+        IslemInternalNo +
+        "/" +
+        Kullanici +
+        "/" +
+        guid,
+      null
+    );
+  }
+
+  getBeyannameServisSonucSorgula(Guid) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/BeyannameSorgulamaHizmeti/" + Guid,
+      null
     );
   }
   getOzetBeyanServisSonucSorgula(Guid) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "Servis/OzetBeyanSorgulamaHizmeti/" + Guid,null,
-      httpOptions
+      this.baseUrl + "Servis/OzetBeyanSorgulamaHizmeti/" + Guid,
+      null
     );
   }
- 
+
   getNctsServisSonucSorgula(Guid) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "Servis/NctsSorgulamaHizmeti/" + Guid,null,
-      httpOptions
+      this.baseUrl + "Servis/NctsSorgulamaHizmeti/" + Guid,
+      null
     );
   }
-  
-  getMesaiServisSonucSorgula(Guid) {
-    
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
 
-    const httpOptions = {
-     headers: headers_object
-    };
+  getMesaiServisSonucSorgula(Guid) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "Servis/MesaiSorgulamaHizmeti/" + Guid,null,
-      httpOptions
+      this.baseUrl + "Servis/MesaiSorgulamaHizmeti/" + Guid,
+      null
     );
-
-
   }
 
   getIghbServisSonucSorgula(Guid) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.post<any>(
-      this.baseUrl + "Servis/IghbSorgulamaHizmeti/" + Guid,null,
-      httpOptions
+      this.baseUrl + "Servis/IghbSorgulamaHizmeti/" + Guid,
+      null
     );
-
-  
   }
 
   getBeyannameSonucSorgula(Guid, IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.get(
       this.baseUrl +
         "Servis/Beyanname/BeyannameSonucHizmeti/" +
         Guid +
         "/" +
-        IslemInternalNo,httpOptions
+        IslemInternalNo
     );
   }
   getMesaiSonucSorgula(Guid, IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.get(
       this.baseUrl +
         "Servis/Beyanname/MesaiSonucHizmeti/" +
         Guid +
         "/" +
-        IslemInternalNo,httpOptions
+        IslemInternalNo
     );
   }
   getIghbSonucSorgula(Guid, IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.get(
       this.baseUrl +
         "Servis/Beyanname/IghbSonucHizmeti/" +
         Guid +
         "/" +
-        IslemInternalNo,httpOptions
+        IslemInternalNo
     );
   }
   getOzetBeyanSonucSorgula(Guid, IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.get(
       this.baseUrl +
         "Servis/OzetBeyan/OzetBeyanSonucHizmeti/" +
         Guid +
         "/" +
-        IslemInternalNo,httpOptions
+        IslemInternalNo
     );
   }
 
   getKalem(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.get(
-      this.baseUrl + "Servis/Kalemler/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Kalemler/Beyanname/" + IslemInternalNo
     );
   }
-  removeKalem(kalemInternalNo,beyanInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KalemSil/"+kalemInternalNo+"/"+beyanInternalNo, httpOptions        
-      );
+  removeKalem(kalemInternalNo, beyanInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/KalemSil/" +
+        kalemInternalNo +
+        "/" +
+        beyanInternalNo
+    );
   }
   restoreKalem(kalem: KalemDto) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KalemOlustur/", 
-        kalem,httpOptions  
-        );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KalemOlustur/",
+      kalem
+    );
   }
   getOdeme(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Odeme/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Odeme/Beyanname/" + IslemInternalNo
     );
   }
-  restoreOdeme(odeme: OdemeDto[], kalemInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/OdemeSekliOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
-        odeme,httpOptions  
-        );
+  restoreOdeme(
+    odeme: OdemeDto[],
+    kalemInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/OdemeSekliOlustur/" +
+        kalemInternalNo +
+        "/" +
+        beyanInternalNo,
+      odeme
+    );
   }
   getKonteyner(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Konteyner/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Konteyner/Beyanname/" + IslemInternalNo
     );
   }
-  restoreKonteyner(konteyner: KonteynerDto[], kalemInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KonteynerOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
-        konteyner,httpOptions  
-        );
-  } 
+  restoreKonteyner(
+    konteyner: KonteynerDto[],
+    kalemInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/KonteynerOlustur/" +
+        kalemInternalNo +
+        "/" +
+        beyanInternalNo,
+      konteyner
+    );
+  }
   getTamamlayici(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/TamamlayiciBilgi/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/TamamlayiciBilgi/Beyanname/" + IslemInternalNo
     );
   }
-  restoreTamamlayici(tamamlayici: TamamlayiciBilgiDto[], kalemInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/TamamlayiciBilgiOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
-        tamamlayici,httpOptions  
-        );
+  restoreTamamlayici(
+    tamamlayici: TamamlayiciBilgiDto[],
+    kalemInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/TamamlayiciBilgiOlustur/" +
+        kalemInternalNo +
+        "/" +
+        beyanInternalNo,
+      tamamlayici
+    );
   }
   getMarka(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Marka/Beyanname/" + IslemInternalNo, httpOptions
+      this.baseUrl + "Servis/Marka/Beyanname/" + IslemInternalNo
     );
   }
-  restoreMarka(tamamlayici: MarkaDto[], kalemInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/MarkaOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
-        tamamlayici,httpOptions  
-        );
+  restoreMarka(
+    tamamlayici: MarkaDto[],
+    kalemInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/MarkaOlustur/" +
+        kalemInternalNo +
+        "/" +
+        beyanInternalNo,
+      tamamlayici
+    );
   }
   getDbBeyannameAcma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/BeyannameAcma/Beyanname/" + IslemInternalNo, httpOptions
+      this.baseUrl + "Servis/BeyannameAcma/Beyanname/" + IslemInternalNo
     );
   }
-  restoreDbBeyannameAcma(acma: BeyannameAcmaDto[], kalemInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/BeyannameAcmaOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
-        acma,httpOptions  
-        );
+  restoreDbBeyannameAcma(
+    acma: BeyannameAcmaDto[],
+    kalemInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/BeyannameAcmaOlustur/" +
+        kalemInternalNo +
+        "/" +
+        beyanInternalNo,
+      acma
+    );
   }
   getVergi(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Vergi/Beyanname/" + IslemInternalNo, httpOptions
+      this.baseUrl + "Servis/Vergi/Beyanname/" + IslemInternalNo
     );
   }
-  restoreVergi(vergi: VergiDto[], kalemInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/VergiOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
-        vergi,httpOptions  
-        );
+  restoreVergi(
+    vergi: VergiDto[],
+    kalemInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/VergiOlustur/" +
+        kalemInternalNo +
+        "/" +
+        beyanInternalNo,
+      vergi
+    );
   }
   getBelge(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Belge/Beyanname/" + IslemInternalNo, httpOptions
+      this.baseUrl + "Servis/Belge/Beyanname/" + IslemInternalNo
     );
   }
-  restoreBelge(belge: BelgeDto[], kalemInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/BelgeOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
-        belge,httpOptions  
-        );
+  restoreBelge(
+    belge: BelgeDto[],
+    kalemInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/BelgeOlustur/" +
+        kalemInternalNo +
+        "/" +
+        beyanInternalNo,
+      belge
+    );
   }
   getSoruCevap(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/SoruCevap/Beyanname/" + IslemInternalNo, httpOptions
+      this.baseUrl + "Servis/SoruCevap/Beyanname/" + IslemInternalNo
     );
   }
-  restoreSoruCevap(belge: SoruCevapDto[], kalemInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/SoruCevapOlustur/"+kalemInternalNo+"/"+beyanInternalNo, 
-        belge,httpOptions  
-        );
+  restoreSoruCevap(
+    belge: SoruCevapDto[],
+    kalemInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/SoruCevapOlustur/" +
+        kalemInternalNo +
+        "/" +
+        beyanInternalNo,
+      belge
+    );
   }
   getKiymet(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/KiymetBildirim/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/KiymetBildirim/Beyanname/" + IslemInternalNo
     );
   }
   restoreKiymet(kiymet: KiymetDto) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KiymetBildirimOlustur/", 
-        kiymet,httpOptions  
-        );
-  }
-  removeKiymet(kiymetInternalNo,beyanInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KiymetSil/"+kiymetInternalNo+"/"+beyanInternalNo, httpOptions        
-      );
-  }
-  getKiymetKalem(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    return this.http.get(
-      this.baseUrl + "Servis/KiymetKalem/Beyanname/" + IslemInternalNo, httpOptions
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/KiymetBildirimOlustur/",
+      kiymet
     );
   }
-  restoreKiymetKalem(kalem: KiymetKalemDto[], kiymetInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/KiymetKalemOlustur/"+kiymetInternalNo+"/"+beyanInternalNo, 
-        kalem,httpOptions  
-        );
+  removeKiymet(kiymetInternalNo, beyanInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/KiymetSil/" +
+        kiymetInternalNo +
+        "/" +
+        beyanInternalNo
+    );
   }
-  getDbOzetBeyanAcma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+  getKiymetKalem(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/OzetBeyanAcma/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/KiymetKalem/Beyanname/" + IslemInternalNo
+    );
+  }
+  restoreKiymetKalem(
+    kalem: KiymetKalemDto[],
+    kiymetInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/KiymetKalemOlustur/" +
+        kiymetInternalNo +
+        "/" +
+        beyanInternalNo,
+      kalem
+    );
+  }
+  getDbOzetBeyanAcma(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.get(
+      this.baseUrl + "Servis/OzetBeyanAcma/Beyanname/" + IslemInternalNo
     );
   }
   restoreDbOzetBeyanAcma(ozetBeyanAcma: DbOzetBeyanAcmaDto) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/OzetBeyanAcmaOlustur/", 
-        ozetBeyanAcma,httpOptions  
-        );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/OzetBeyanAcmaOlustur/",
+      ozetBeyanAcma
+    );
   }
   getDbTasimaSenet(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/TasimaSenet/Beyanname/" + IslemInternalNo, httpOptions
+      this.baseUrl + "Servis/TasimaSenet/Beyanname/" + IslemInternalNo
     );
   }
-  restoreDbTasimaSenet(tasimaSenet:DbOzetBeyanAcmaTasimaSenetDto[],ozetBeyanInternalNo:string , beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/TasimaSenetOlustur/"+ozetBeyanInternalNo+"/"+beyanInternalNo, 
-        tasimaSenet,httpOptions  
-        );
+  restoreDbTasimaSenet(
+    tasimaSenet: DbOzetBeyanAcmaTasimaSenetDto[],
+    ozetBeyanInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/TasimaSenetOlustur/" +
+        ozetBeyanInternalNo +
+        "/" +
+        beyanInternalNo,
+      tasimaSenet
+    );
   }
   getDbTasimaSatir(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/TasimaSatir/Beyanname/" + IslemInternalNo, httpOptions
+      this.baseUrl + "Servis/TasimaSatir/Beyanname/" + IslemInternalNo
     );
   }
-  restoreDbTasimaSatir(tasimaSatir: DbOzetBeyanAcmaTasimaSatirDto[],ozetBeyanInternalNo:string ,tasimaSenetInternalNo:string, beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/TasimaSatirOlustur/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo+"/"+beyanInternalNo, 
-        tasimaSatir,httpOptions  
-        );
+  restoreDbTasimaSatir(
+    tasimaSatir: DbOzetBeyanAcmaTasimaSatirDto[],
+    ozetBeyanInternalNo: string,
+    tasimaSenetInternalNo: string,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/TasimaSatirOlustur/" +
+        tasimaSenetInternalNo +
+        "/" +
+        ozetBeyanInternalNo +
+        "/" +
+        beyanInternalNo,
+      tasimaSatir
+    );
   }
-  removeDbOzetBeyanAcma(ozetBeyanInternalNo,beyanInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/OzetBeyanAcmaSil/"+ozetBeyanInternalNo+"/"+beyanInternalNo, httpOptions        
-      );
+  removeDbOzetBeyanAcma(ozetBeyanInternalNo, beyanInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/OzetBeyanAcmaSil/" +
+        ozetBeyanInternalNo +
+        "/" +
+        beyanInternalNo
+    );
   }
   getDbTeminat(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Teminat/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Teminat/Beyanname/" + IslemInternalNo
     );
   }
-  restoreDbTeminat(teminat: DbTeminatDto[], beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/TeminatOlustur/"+beyanInternalNo, 
-        teminat,httpOptions  
-        );
+  restoreDbTeminat(teminat: DbTeminatDto[], beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/TeminatOlustur/" +
+        beyanInternalNo,
+      teminat
+    );
   }
   getDbFirma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Firma/Beyanname/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Firma/Beyanname/" + IslemInternalNo
     );
   }
-  restoreDbFirma(firma: DbFirmaDto[], beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/FirmaOlustur/"+beyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreDbFirma(firma: DbFirmaDto[], beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/FirmaOlustur/" +
+        beyanInternalNo,
+      firma
+    );
   }
   getDbBeyanname(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
 
-    const httpOptions = {
-     headers: headers_object
-    };
-     return  this.http.get(
-      this.baseUrl + "Servis/Beyanname/Beyanname/" + IslemInternalNo + "/"+kullaniciId,httpOptions
+    return this.http.get(
+      this.baseUrl +
+        "Servis/Beyanname/Beyanname/" +
+        IslemInternalNo +
+        "/" +
+        kullaniciId
     );
   }
   setDbBeyanname(beyanname: BeyannameDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     // const options = new RequestOptions({
     //   headers: this.getAuthorizedHeaders(),
     //   responseType: ResponseContentType.Json,
@@ -1370,1542 +859,999 @@ export class BeyannameServiceProxy {
     // JSON.stringify({
     //   cmd: cmd,
     //   data: beyanname}), options)
-      
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/BeyannameOlustur/", 
-        beyanname, httpOptions  
-        );
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/BeyannameOlustur/",
+      beyanname
+    );
   }
   getBeyannameKopyalama(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.post(
-      this.baseUrl + "Servis/Beyanname/BeyannameKopyalama/" + IslemInternalNo,null,httpOptions
+      this.baseUrl + "Servis/Beyanname/BeyannameKopyalama/" + IslemInternalNo,
+      null
     );
   }
   removeBeyanname(IslemInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/Beyanname/BeyannameSilme/"+IslemInternalNo, httpOptions        
-      );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl + "Servis/Beyanname/BeyannameSilme/" + IslemInternalNo
+    );
   }
   getOzetBeyan(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
 
-    const httpOptions = {
-     headers: headers_object
-    };
-     return  this.http.get(
-      this.baseUrl + "Servis/OzetBeyan/OzetBeyan/" + IslemInternalNo +"/"+kullaniciId,httpOptions
+    return this.http.get(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyan/" +
+        IslemInternalNo +
+        "/" +
+        kullaniciId
     );
   }
   setOzetBeyan(beyanname: OzetBeyanDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
-   
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/BeyannameOlustur/", 
-        beyanname, httpOptions  
-        );
+    return this.http.post<any>(
+      this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/BeyannameOlustur/",
+      beyanname
+    );
   }
   getOzetBeyanKopyalama(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.post(
-      this.baseUrl + "Servis/OzetBeyan/OzetBeyanKopyalama/" + IslemInternalNo,null,httpOptions
+      this.baseUrl + "Servis/OzetBeyan/OzetBeyanKopyalama/" + IslemInternalNo,
+      null
     );
   }
   removeOzetBeyan(IslemInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/OzetBeyan/OzetBeyanSilme/"+IslemInternalNo, httpOptions        
-      );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl + "Servis/OzetBeyan/OzetBeyanSilme/" + IslemInternalNo
+    );
   }
   getObTasitUgrakUlke(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/TasitUgrakUlke/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/TasitUgrakUlke/OzetBeyan/" + IslemInternalNo
     );
   }
-  restoreObTasitUgrakUlke(tasit: TasitUgrakUlkeDto[],  ozetBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasitUgrakUlkeOlustur/"+ozetBeyanInternalNo, 
-        tasit,httpOptions  
-        );
+  restoreObTasitUgrakUlke(
+    tasit: TasitUgrakUlkeDto[],
+    ozetBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/TasitUgrakUlkeOlustur/" +
+        ozetBeyanInternalNo,
+      tasit
+    );
   }
   getObTasimaSenet(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.get(
-      this.baseUrl + "Servis/TasimaSenet/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/TasimaSenet/OzetBeyan/" + IslemInternalNo
     );
   }
-  removeObTasimaSenet(tasimaSenetInternalNo,ozetBeyanInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSenetSil/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, httpOptions        
-      );
+  removeObTasimaSenet(tasimaSenetInternalNo, ozetBeyanInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSenetSil/" +
+        tasimaSenetInternalNo +
+        "/" +
+        ozetBeyanInternalNo
+    );
   }
   restoreObTasimaSenet(senet: ObTasimaSenetDto) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSenetOlustur/", 
-        senet,httpOptions  
-        );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSenetOlustur/",
+      senet
+    );
   }
   getObTasimaSatir(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/TasimaSatir/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/TasimaSatir/OzetBeyan/" + IslemInternalNo
     );
   }
-  restoreObTasimaSatir(satir: ObTasimaSatirDto[], tasimaSenetInternalNo:string , ozetBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSatirOlustur/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, 
-        satir,httpOptions  
-        );
+  restoreObTasimaSatir(
+    satir: ObTasimaSatirDto[],
+    tasimaSenetInternalNo: string,
+    ozetBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSatirOlustur/" +
+        tasimaSenetInternalNo +
+        "/" +
+        ozetBeyanInternalNo,
+      satir
+    );
   }
   getObIhracat(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Ihracat/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Ihracat/OzetBeyan/" + IslemInternalNo
     );
   }
-  restoreObIhracat(ihracat: ObIhracatDto[], tasimaSenetInternalNo:string , ozetBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/IhracatOlustur/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, 
-        ihracat,httpOptions  
-        );
+  restoreObIhracat(
+    ihracat: ObIhracatDto[],
+    tasimaSenetInternalNo: string,
+    ozetBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/IhracatOlustur/" +
+        tasimaSenetInternalNo +
+        "/" +
+        ozetBeyanInternalNo,
+      ihracat
+    );
   }
   getObUgrakUlke(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/UgrakUlke/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/UgrakUlke/OzetBeyan/" + IslemInternalNo
     );
   }
-  restoreObUgrakUlke(ulke: ObUgrakUlkeDto[], tasimaSenetInternalNo:string , ozetBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/UgrakUlkeOlustur/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, 
-        ulke,httpOptions  
-        );
+  restoreObUgrakUlke(
+    ulke: ObUgrakUlkeDto[],
+    tasimaSenetInternalNo: string,
+    ozetBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/UgrakUlkeOlustur/" +
+        tasimaSenetInternalNo +
+        "/" +
+        ozetBeyanInternalNo,
+      ulke
+    );
   }
   getObSatirEsya(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/TasimaSatirEsya/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/TasimaSatirEsya/OzetBeyan/" + IslemInternalNo
     );
   }
-  restoreObSatirEsya(esya: ObSatirEsyaDto[], tasimaSatirInternalNo:string, tasimaSenetInternalNo:string , ozetBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSatirEsyaOlustur/"+tasimaSatirInternalNo+"/"+tasimaSenetInternalNo+"/"+ozetBeyanInternalNo, 
-        esya,httpOptions  
-        );
+  restoreObSatirEsya(
+    esya: ObSatirEsyaDto[],
+    tasimaSatirInternalNo: string,
+    tasimaSenetInternalNo: string,
+    ozetBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSatirEsyaOlustur/" +
+        tasimaSatirInternalNo +
+        "/" +
+        tasimaSenetInternalNo +
+        "/" +
+        ozetBeyanInternalNo,
+      esya
+    );
   }
   getObTasiyiciFirma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/TasiyiciFirma/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/TasiyiciFirma/OzetBeyan/" + IslemInternalNo
     );
   }
-  restoreObTasiyiciFirma(firma: ObTasiyiciFirmaDto, beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasiyiciFirmaOlustur/"+beyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreObTasiyiciFirma(firma: ObTasiyiciFirmaDto, beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/TasiyiciFirmaOlustur/" +
+        beyanInternalNo,
+      firma
+    );
   }
   resmoveObTasiyiciFirma(ozetBeyanInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasiyiciFirmaSil/"+ozetBeyanInternalNo, httpOptions        
-      );
-  } 
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/TasiyiciFirmaSil/" +
+        ozetBeyanInternalNo
+    );
+  }
   getObOzetBeyanAcma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/OzetBeyanAcma/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/OzetBeyanAcma/OzetBeyan/" + IslemInternalNo
     );
   }
   restoreObOzetBeyanAcma(ozetBeyanAcma: ObOzetBeyanAcmaDto) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/OzetBeyanAcmaOlustur/", 
-        ozetBeyanAcma,httpOptions  
-        );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/OzetBeyanAcmaOlustur/",
+      ozetBeyanAcma
+    );
   }
   getObOzetBeyanAcmaTasimaSenet(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/OzetBeyanAcmaTasimaSenet/OzetBeyan/" + IslemInternalNo, httpOptions
+      this.baseUrl +
+        "Servis/OzetBeyanAcmaTasimaSenet/OzetBeyan/" +
+        IslemInternalNo
     );
   }
-  restoreObOzetBeyanAcmaTasimaSenet(tasimaSenet:ObOzetBeyanAcmaTasimaSenetDto[], ozetBeyanAcmaBeyanInternalNo:string, ozetBeyanInternalNo:string ) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSenetOlustur/"+ozetBeyanInternalNo+"/"+ozetBeyanAcmaBeyanInternalNo, 
-        tasimaSenet,httpOptions  
-        );
+  restoreObOzetBeyanAcmaTasimaSenet(
+    tasimaSenet: ObOzetBeyanAcmaTasimaSenetDto[],
+    ozetBeyanAcmaBeyanInternalNo: string,
+    ozetBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSenetOlustur/" +
+        ozetBeyanInternalNo +
+        "/" +
+        ozetBeyanAcmaBeyanInternalNo,
+      tasimaSenet
+    );
   }
   getObOzetBeyanAcmaTasimaSatir(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/OzetBeyanAcmaTasimaSatir/OzetBeyan/" + IslemInternalNo, httpOptions
+      this.baseUrl +
+        "Servis/OzetBeyanAcmaTasimaSatir/OzetBeyan/" +
+        IslemInternalNo
     );
   }
-  restoreObOzetBeyanAcmaTasimaSatir(tasimaSatir: DbOzetBeyanAcmaTasimaSatirDto[],tasimaSenetInternalNo:string,OzetBeyanAcmaBeyanInternalNo:string, ozetBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSatirOlustur/"+tasimaSenetInternalNo+"/"+OzetBeyanAcmaBeyanInternalNo+"/"+ozetBeyanInternalNo, 
-        tasimaSatir,httpOptions  
-        );
+  restoreObOzetBeyanAcmaTasimaSatir(
+    tasimaSatir: DbOzetBeyanAcmaTasimaSatirDto[],
+    tasimaSenetInternalNo: string,
+    OzetBeyanAcmaBeyanInternalNo: string,
+    ozetBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/TasimaSatirOlustur/" +
+        tasimaSenetInternalNo +
+        "/" +
+        OzetBeyanAcmaBeyanInternalNo +
+        "/" +
+        ozetBeyanInternalNo,
+      tasimaSatir
+    );
   }
-  removeObOzetBeyanAcma(ozetBeyanAcmaBeyanInternalNo,ozetBeyanInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/OzetBeyanAcmaSil/"+ozetBeyanAcmaBeyanInternalNo+"/"+ozetBeyanInternalNo, httpOptions        
-      );
+  removeObOzetBeyanAcma(ozetBeyanAcmaBeyanInternalNo, ozetBeyanInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/OzetBeyanAcmaSil/" +
+        ozetBeyanAcmaBeyanInternalNo +
+        "/" +
+        ozetBeyanInternalNo
+    );
   }
   getObTeminat(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Teminat/OzetBeyan/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Teminat/OzetBeyan/" + IslemInternalNo
     );
   }
-  restoreObTeminat(teminat: ObTeminatDto[], ozetBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/OzetBeyan/OzetBeyanOlusturma/TeminatOlustur/"+ozetBeyanInternalNo, 
-        teminat,httpOptions  
-        );
+  restoreObTeminat(teminat: ObTeminatDto[], ozetBeyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/OzetBeyan/OzetBeyanOlusturma/TeminatOlustur/" +
+        ozetBeyanInternalNo,
+      teminat
+    );
   }
 
   getNctsBeyan(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
 
-    const httpOptions = {
-     headers: headers_object
-    };
-     return  this.http.get(
-      this.baseUrl + "Servis/NctsBeyan/Ncts/" + IslemInternalNo+"/"+kullaniciId,httpOptions
+    return this.http.get(
+      this.baseUrl +
+        "Servis/NctsBeyan/Ncts/" +
+        IslemInternalNo +
+        "/" +
+        kullaniciId
     );
   }
   setNctsBeyan(beyanname: NctsBeyanDto) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
- 
-    const httpOptions = {
-     headers: headers_object
-    };
-   
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/BeyannameOlustur/", 
-        beyanname, httpOptions  
-        );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/BeyannameOlustur/",
+      beyanname
+    );
   }
   getNctsKopyalama(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-     
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
     return this.http.post(
-      this.baseUrl + "Servis/NctsBeyan/NctsBeyanKopyalama/" + IslemInternalNo,null,httpOptions
+      this.baseUrl + "Servis/NctsBeyan/NctsBeyanKopyalama/" + IslemInternalNo,
+      null
     );
   }
   removeNctsBeyan(IslemInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/NctsBeyan/NctsBeyanSilme/"+IslemInternalNo, httpOptions        
-      );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl + "Servis/NctsBeyan/NctsBeyanSilme/" + IslemInternalNo
+    );
   }
   getNbBeyanSahibi(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/BeyanSahibi/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/BeyanSahibi/Ncts/" + IslemInternalNo
     );
   }
   getNbTasiyiciFirma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/TasiyiFirma/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/TasiyiFirma/Ncts/" + IslemInternalNo
     );
   }
   getNbAsilSorumluFirma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/AsilSorumluFirma/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/AsilSorumluFirma/Ncts/" + IslemInternalNo
     );
   }
   getNbAliciFirma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/AliciFirma/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/AliciFirma/Ncts/" + IslemInternalNo
     );
   }
   getNbGondericiFirma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/GondericiFirma/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/GondericiFirma/Ncts/" + IslemInternalNo
     );
   }
   getNbGuvenliAliciFirma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/GuvenliAliciFirma/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/GuvenliAliciFirma/Ncts/" + IslemInternalNo
     );
   }
   getNbGuvenliGondericiFirma(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/GuvenliGondericiFirma/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/GuvenliGondericiFirma/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbBeyanSahibi(firma: NbBeyanSahibiDto, beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/BeyanSahibiOlustur/"+beyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbBeyanSahibi(firma: NbBeyanSahibiDto, beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/BeyanSahibiOlustur/" +
+        beyanInternalNo,
+      firma
+    );
   }
-  restoreNbTasiyiciFirma(firma: NbTasiyiciFirmaDto, beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/TasiyiciFirmaOlustur/"+beyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbTasiyiciFirma(firma: NbTasiyiciFirmaDto, beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/TasiyiciFirmaOlustur/" +
+        beyanInternalNo,
+      firma
+    );
   }
-  restoreNbAsilSorumluFirma(firma: NbAsilSorumluFirmaDto, beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/AsilSorumluFirmaOlustur/"+beyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbAsilSorumluFirma(
+    firma: NbAsilSorumluFirmaDto,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/AsilSorumluFirmaOlustur/" +
+        beyanInternalNo,
+      firma
+    );
   }
-  restoreNbGondericiFirma(firma: NbGondericiFirmaDto, beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/GondericiFirmaOlustur/"+beyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbGondericiFirma(firma: NbGondericiFirmaDto, beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/GondericiFirmaOlustur/" +
+        beyanInternalNo,
+      firma
+    );
   }
-  restoreNbAliciFirma(firma: NbAliciFirmaDto, beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/AliciFirmaOlustur/"+beyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbAliciFirma(firma: NbAliciFirmaDto, beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/AliciFirmaOlustur/" +
+        beyanInternalNo,
+      firma
+    );
   }
-  restoreNbGuvenliGondericiFirma(firma: NbGuvenliGondericiFirmaDto, beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/GuvenliGondericiFirmaOlustur/"+beyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbGuvenliGondericiFirma(
+    firma: NbGuvenliGondericiFirmaDto,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/GuvenliGondericiFirmaOlustur/" +
+        beyanInternalNo,
+      firma
+    );
   }
-  restoreNbGuvenliAliciFirma(firma: NbGuvenliAliciFirmaDto, beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/GuvenliAliciFirmaOlustur/"+beyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbGuvenliAliciFirma(
+    firma: NbGuvenliAliciFirmaDto,
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/GuvenliAliciFirmaOlustur/" +
+        beyanInternalNo,
+      firma
+    );
   }
   getNbTeminat(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Teminat/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Teminat/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbTeminat(teminat: NbTeminatDto[], beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/TeminatOlustur/"+beyanInternalNo, 
-        teminat,httpOptions  
-        );
+  restoreNbTeminat(teminat: NbTeminatDto[], beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/TeminatOlustur/" +
+        beyanInternalNo,
+      teminat
+    );
   }
   getNbMuhur(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    return this.http.get(
-      this.baseUrl + "Servis/Muhur/Ncts/" + IslemInternalNo,httpOptions
-    );
+    return this.http.get(this.baseUrl + "Servis/Muhur/Ncts/" + IslemInternalNo);
   }
-  restoreNbMuhur(muhur: NbMuhurDto[], beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/MuhurOlustur/"+beyanInternalNo, 
-        muhur,httpOptions  
-        );
+  restoreNbMuhur(muhur: NbMuhurDto[], beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/MuhurOlustur/" +
+        beyanInternalNo,
+      muhur
+    );
   }
   getNbRota(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    return this.http.get(
-      this.baseUrl + "Servis/Rota/Ncts/" + IslemInternalNo,httpOptions
-    );
+    return this.http.get(this.baseUrl + "Servis/Rota/Ncts/" + IslemInternalNo);
   }
-  restoreNbRota(rota: NbRotaDto[], beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/RotaOlustur/"+beyanInternalNo, 
-        rota,httpOptions  
-        );
+  restoreNbRota(rota: NbRotaDto[], beyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/RotaOlustur/" +
+        beyanInternalNo,
+      rota
+    );
   }
   getNbTransitGumruk(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/TransitGumruk/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/TransitGumruk/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbTransitGumruk(transit: NbTransitGumrukDto[], beyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-   
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/TransitGumrukOlustur/"+beyanInternalNo, 
-        transit,httpOptions  
-        );
+  restoreNbTransitGumruk(
+    transit: NbTransitGumrukDto[],
+    beyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/TransitGumrukOlustur/" +
+        beyanInternalNo,
+      transit
+    );
   }
   getNbKalem(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    const httpOptions = {
-     headers: headers_object
-    };
-    return this.http.get(
-      this.baseUrl + "Servis/Kalem/Ncts/" + IslemInternalNo,httpOptions
-    );
+    return this.http.get(this.baseUrl + "Servis/Kalem/Ncts/" + IslemInternalNo);
   }
-  removeNbKalem(kalemInternalNo,nctsBeyanInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/KalemSil/"+kalemInternalNo+"/"+nctsBeyanInternalNo, httpOptions        
-      );
+  removeNbKalem(kalemInternalNo, nctsBeyanInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/KalemSil/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo
+    );
   }
   restoreNbKalem(kalem: NbKalemDto) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/KalemOlustur/", 
-        kalem,httpOptions  
-        );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/KalemOlustur/",
+      kalem
+    );
   }
   getNbKonteyner(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Konteyner/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Konteyner/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbKonteyner(konteyner: NbKonteynerDto[], kalemInternalNo:string , nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/KonteynerOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        konteyner,httpOptions  
-        );
+  restoreNbKonteyner(
+    konteyner: NbKonteynerDto[],
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/KonteynerOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      konteyner
+    );
   }
   getNbHassasEsya(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/HassasEsya/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/HassasEsya/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbHassasEsya(esya: NbHassasEsyaDto[], kalemInternalNo:string , nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/HassasEsyaOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        esya,httpOptions  
-        );
+  restoreNbHassasEsya(
+    esya: NbHassasEsyaDto[],
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/HassasEsyaOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      esya
+    );
   }
   getNbKap(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-    return this.http.get(
-      this.baseUrl + "Servis/Kap/Ncts/" + IslemInternalNo,httpOptions
-    );
+    return this.http.get(this.baseUrl + "Servis/Kap/Ncts/" + IslemInternalNo);
   }
-  restoreNbKap(kap: NbKapDto[], kalemInternalNo:string , nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/KapOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        kap,httpOptions  
-        );
+  restoreNbKap(
+    kap: NbKapDto[],
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/KapOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      kap
+    );
   }
   getNbEkBilgi(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/EkBilgi/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/EkBilgi/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbEkBilgi(ekBilgi: NbEkBilgiDto[], kalemInternalNo:string , nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/EkBilgiOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        ekBilgi,httpOptions  
-        );
+  restoreNbEkBilgi(
+    ekBilgi: NbEkBilgiDto[],
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/EkBilgiOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      ekBilgi
+    );
   }
   getNbBelgeler(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Belgeler/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/Belgeler/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbBelgeler(belgeler: NbBelgelerDto[], kalemInternalNo:string , nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/BelgelerOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        belgeler,httpOptions  
-        );
+  restoreNbBelgeler(
+    belgeler: NbBelgelerDto[],
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/BelgelerOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      belgeler
+    );
   }
   getNbOncekiBelgeler(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/OncekiBelgeler/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/OncekiBelgeler/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbOncekiBelgeler(belgeler: NbOncekiBelgelerDto[], kalemInternalNo:string , nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/OncekiBelgelerOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        belgeler,httpOptions  
-        );
+  restoreNbOncekiBelgeler(
+    belgeler: NbOncekiBelgelerDto[],
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/OncekiBelgelerOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      belgeler
+    );
   }
   getNbKalemAliciFirma(IslemInternalNo, KalemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/KalemAliciFirma/Ncts/" + IslemInternalNo+"/"+KalemInternalNo,httpOptions
+      this.baseUrl +
+        "Servis/KalemAliciFirma/Ncts/" +
+        IslemInternalNo +
+        "/" +
+        KalemInternalNo
     );
   }
   getNbKalemGondericiFirma(IslemInternalNo, KalemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/KalemGondericiFirma/Ncts/" + IslemInternalNo+"/"+KalemInternalNo,httpOptions
+      this.baseUrl +
+        "Servis/KalemGondericiFirma/Ncts/" +
+        IslemInternalNo +
+        "/" +
+        KalemInternalNo
     );
   }
   getNbKalemGuvenliAliciFirma(IslemInternalNo, KalemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/KalemGuvenliAliciFirma/Ncts/" + IslemInternalNo+"/"+KalemInternalNo,httpOptions
+      this.baseUrl +
+        "Servis/KalemGuvenliAliciFirma/Ncts/" +
+        IslemInternalNo +
+        "/" +
+        KalemInternalNo
     );
   }
   getNbKalemGuvenliGondericiFirma(IslemInternalNo, KalemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/KalemGuvenliGondericiFirma/Ncts/" + IslemInternalNo+"/"+KalemInternalNo,httpOptions
+      this.baseUrl +
+        "Servis/KalemGuvenliGondericiFirma/Ncts/" +
+        IslemInternalNo +
+        "/" +
+        KalemInternalNo
     );
   }
-  restoreNbKalemGondericiFirma(firma: NbKalemGondericiFirmaDto, kalemInternalNo:string, nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/KalemGondericiFirmaOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbKalemGondericiFirma(
+    firma: NbKalemGondericiFirmaDto,
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/KalemGondericiFirmaOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      firma
+    );
   }
-  restoreNbKalemAliciFirma(firma: NbKalemAliciFirmaDto,kalemInternalNo:string, nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/KalemAliciFirmaOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbKalemAliciFirma(
+    firma: NbKalemAliciFirmaDto,
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/KalemAliciFirmaOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      firma
+    );
   }
-  restoreNbKalemGuvenliGondericiFirma(firma: NbKalemGuvenliGondericiFirmaDto, kalemInternalNo:string, nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/KalemGuvenliGondericiFirmaOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbKalemGuvenliGondericiFirma(
+    firma: NbKalemGuvenliGondericiFirmaDto,
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/KalemGuvenliGondericiFirmaOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      firma
+    );
   }
-  restoreNbKalemGuvenliAliciFirma(firma: NbKalemGuvenliAliciFirmaDto, kalemInternalNo:string, nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/KalemGuvenliAliciFirmaOlustur/"+kalemInternalNo+"/"+nctsBeyanInternalNo, 
-        firma,httpOptions  
-        );
+  restoreNbKalemGuvenliAliciFirma(
+    firma: NbKalemGuvenliAliciFirmaDto,
+    kalemInternalNo: string,
+    nctsBeyanInternalNo: string
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/KalemGuvenliAliciFirmaOlustur/" +
+        kalemInternalNo +
+        "/" +
+        nctsBeyanInternalNo,
+      firma
+    );
   }
   getNbObAcama(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/ObAcma/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/ObAcma/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbObAcma(acma: NbObAcmaDto[],  nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/ObAcmaOlustur/"+nctsBeyanInternalNo, 
-        acma,httpOptions  
-        );
+  restoreNbObAcma(acma: NbObAcmaDto[], nctsBeyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/ObAcmaOlustur/" +
+        nctsBeyanInternalNo,
+      acma
+    );
   }
   getNbAbAcama(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/AbAcma/Ncts/" + IslemInternalNo,httpOptions
+      this.baseUrl + "Servis/AbAcma/Ncts/" + IslemInternalNo
     );
   }
-  restoreNbAbAcma(acma: NbAbAcmaDto[],  nctsBeyanInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/NctsBeyan/NctsOlusturma/abAcmaOlustur/"+nctsBeyanInternalNo, 
-        acma,httpOptions  
-        );
+  restoreNbAbAcma(acma: NbAbAcmaDto[], nctsBeyanInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/NctsBeyan/NctsOlusturma/abAcmaOlustur/" +
+        nctsBeyanInternalNo,
+      acma
+    );
   }
   getNbKalemler(NctsBeyanInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/NbKalemler/Ncts/" + NctsBeyanInternalNo,httpOptions
+      this.baseUrl + "Servis/NbKalemler/Ncts/" + NctsBeyanInternalNo
     );
   }
 
   getMesai(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
 
     return this.http.get(
-      this.baseUrl + "Servis/Mesai/Beyanname/" + IslemInternalNo +"/"+ kullaniciId,httpOptions
+      this.baseUrl +
+        "Servis/Mesai/Beyanname/" +
+        IslemInternalNo +
+        "/" +
+        kullaniciId
     );
   }
-  restoreMesai(mesai: MesaiDto,  mesaiInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/MesaiOlustur/"+mesaiInternalNo, 
-        mesai,httpOptions  
-        );
+  restoreMesai(mesai: MesaiDto, mesaiInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/MesaiOlustur/" +
+        mesaiInternalNo,
+      mesai
+    );
   }
-  
+
   removeMesai(mesaiInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/MesaiSil/"+mesaiInternalNo, httpOptions        
-      );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/MesaiSil/" +
+        mesaiInternalNo
+    );
   }
 
   getIghb(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
     var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
 
     return this.http.get(
-      this.baseUrl + "Servis/Ighb/Beyanname/" + IslemInternalNo+"/"+kullaniciId,httpOptions
+      this.baseUrl +
+        "Servis/Ighb/Beyanname/" +
+        IslemInternalNo +
+        "/" +
+        kullaniciId
     );
   }
 
+  restoreIghb(ighb: IghbDto, ighbInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-  restoreIghb(ighb: IghbDto,  ighbInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/IghbOlustur/"+ighbInternalNo, 
-        ighb,httpOptions  
-        );
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/IghbOlustur/" +
+        ighbInternalNo,
+      ighb
+    );
   }
   removeIghb(ighbInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/IghbSil/"+ighbInternalNo, httpOptions        
-      );
-  }
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-  restoreIghbListe(ighb: IghbListeDto[],  ighbInternalNo:string) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-  
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Beyanname/BeyannameOlusturma/IghbListeOlustur/"+ighbInternalNo, ighb,
-        httpOptions  
-        );
-  }
-  getIghbListe(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
-
-    return this.http.get(
-      this.baseUrl + "Servis/IghbListe/Beyanname/" + IslemInternalNo,httpOptions
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/IghbSil/" +
+        ighbInternalNo
     );
   }
 
+  restoreIghbListe(ighb: IghbListeDto[], ighbInternalNo: string) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
-  getDolasim(IslemInternalNo) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var kullaniciId = currentUser.user;
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-      
-    const httpOptions = {
-     headers: headers_object
-    };
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Beyanname/BeyannameOlusturma/IghbListeOlustur/" +
+        ighbInternalNo,
+      ighb
+    );
+  }
+  getIghbListe(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
 
     return this.http.get(
-      this.baseUrl + "Servis/Dolasim/DolasimBelge/" + IslemInternalNo+"/"+kullaniciId,httpOptions
+      this.baseUrl + "Servis/IghbListe/Beyanname/" + IslemInternalNo
+    );
+  }
+
+  getDolasim(IslemInternalNo) {
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+    var kullaniciId = currentUser.user;
+
+    return this.http.get(
+      this.baseUrl +
+        "Servis/Dolasim/DolasimBelge/" +
+        IslemInternalNo +
+        "/" +
+        kullaniciId
     );
   }
   restoreDolasim(dolasim: DolasimDto) {
-   
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
     console.log(dolasim);
-      return this.http.post<any>(
-        this.baseUrl + "Servis/Dolasim/DolasimBelgeOlusturma/DolasimBelgesiOlustur", 
-        dolasim,httpOptions  
-        );
+    return this.http.post<any>(
+      this.baseUrl +
+        "Servis/Dolasim/DolasimBelgeOlusturma/DolasimBelgesiOlustur",
+      dolasim
+    );
   }
   removeDolasim(dolasimInternalNo) {
-  
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-         
-    const httpOptions = {
-     headers: headers_object
-    };
-      return this.http.delete<any>(
-      this.baseUrl + "Servis/Dolasim/DolasimBelgeOlusturma/DolasimSil/"+dolasimInternalNo, httpOptions        
-      );
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.delete<any>(
+      this.baseUrl +
+        "Servis/Dolasim/DolasimBelgeOlusturma/DolasimSil/" +
+        dolasimInternalNo
+    );
   }
 
   getOzetBeyanAlanlar(rejim) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-    return this.http.get(this.baseUrl + "OzetBeyanAlan/BilgiHizmeti/" + rejim, httpOptions);
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.get(this.baseUrl + "OzetBeyanAlan/BilgiHizmeti/" + rejim);
   }
 
   getIstatistik(KullaniciKod) {
-    var currentUser = JSON.parse(localStorage.getItem('kullaniciInfo'));
-    var token = currentUser.token;
-    var headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-       'Authorization': "Bearer "+token})
-    
-    const httpOptions = {
-     headers: headers_object
-    };
-    return this.http.get(this.baseUrl + "Istatistik/BilgiHizmeti/" + KullaniciKod, httpOptions);
+    var currentUser = JSON.parse(localStorage.getItem("kullaniciInfo"));
+
+    return this.http.get(
+      this.baseUrl + "Istatistik/BilgiHizmeti/" + KullaniciKod
+    );
   }
 }
 @Injectable()
 export class SessionServiceProxy {
-  
   private http: HttpClient;
   private baseUrl: string;
   public guidOf: string;
@@ -2913,18 +1859,17 @@ export class SessionServiceProxy {
   public islemInternalNo: string;
   public beyanInternalNo: string;
   public ozetBeyanInternalNo: string;
-  public nctsBeyanInternalNo:string;
-  public mesaiInternalNo:string;
-  public ighbInternalNo:string;
-  public dolasimInternalNo:string;
+  public nctsBeyanInternalNo: string;
+  public mesaiInternalNo: string;
+  public ighbInternalNo: string;
+  public dolasimInternalNo: string;
   public beyanStatu: string;
   public token: string;
-  public ozetBeyanNo:string;
-  public beyannameNo:string;
+  public ozetBeyanNo: string;
+  public beyannameNo: string;
   public Kalemler: KalemDto[];
-  protected jsonParseReviver:
-    | ((key: string, value: any) => any)
-    | undefined = undefined;
+  protected jsonParseReviver: ((key: string, value: any) => any) | undefined =
+    undefined;
 
   constructor(
     @Inject(HttpClient) http: HttpClient,
@@ -3070,15 +2015,14 @@ export class TarihceDto implements ITarihceDto {
   IslemSonucu: string;
   Gumruk: string;
   Rejim: string;
-  OlusturmaZamani:Date;
-  GonderilecekVeri:string;
+  OlusturmaZamani: Date;
+  GonderilecekVeri: string;
   GonderilenVeri: string;
-  GondermeZamani:Date;
+  GondermeZamani: Date;
   SonucVeri: string;
   SonucZamani: Date;
   ServistekiVeri: string;
-  ImzaliVeri:string;
- 
+  ImzaliVeri: string;
 
   constructor(data?: ITarihceDto) {
     if (data) {
@@ -3111,7 +2055,7 @@ export class TarihceDto implements ITarihceDto {
       this.SonucVeri = data["SonucVeri"];
       this.SonucZamani = data["SonucZamani"];
       this.ServistekiVeri = data["ServistekiVeri"];
-      this.ImzaliVeri= data["ImzaliVeri"];
+      this.ImzaliVeri = data["ImzaliVeri"];
     }
   }
 
@@ -3138,14 +2082,14 @@ export class TarihceDto implements ITarihceDto {
     data["IslemSonucu"] = this.IslemSonucu;
     data["Gumruk"] = this.Gumruk;
     data["Rejim"] = this.Rejim;
-     data["OlusturmaZamani"]=this.OlusturmaZamani ;
-     data["GonderilecekVeri"]= this.GonderilecekVeri ;
-     data["GondermeZamani"]= this.GondermeZamani;
-     data["GonderilenVeri"]= this.GonderilenVeri;
-     data["SonucVeri"] = this.SonucVeri;
-     data["SonucZamani"]=this.SonucZamani;
-     data["ServistekiVeri"]= this.ServistekiVeri;
-     data["ImzaliVeri"]= this.ImzaliVeri;
+    data["OlusturmaZamani"] = this.OlusturmaZamani;
+    data["GonderilecekVeri"] = this.GonderilecekVeri;
+    data["GondermeZamani"] = this.GondermeZamani;
+    data["GonderilenVeri"] = this.GonderilenVeri;
+    data["SonucVeri"] = this.SonucVeri;
+    data["SonucZamani"] = this.SonucZamani;
+    data["ServistekiVeri"] = this.ServistekiVeri;
+    data["ImzaliVeri"] = this.ImzaliVeri;
     return data;
   }
 
@@ -3171,15 +2115,14 @@ export interface ITarihceDto {
   IslemSonucu: string;
   Gumruk: string;
   Rejim: string;
-  OlusturmaZamani:Date;
-  GonderilecekVeri:string;
+  OlusturmaZamani: Date;
+  GonderilecekVeri: string;
   GonderilenVeri: string;
-  GondermeZamani:Date;
+  GondermeZamani: Date;
   SonucVeri: string;
   SonucZamani: Date;
   ServistekiVeri: string;
-  ImzaliVeri:string;
-
+  ImzaliVeri: string;
 }
 
 export class SonucDto implements ISonucDto {
@@ -3346,8 +2289,8 @@ export class ServisDto {
   ServisDurumKodu: number;
   Hatalar: HatalarDto[];
   Bilgiler: BilgilerDto[];
-  SonucVeriler:string;
-  
+  SonucVeriler: string;
+
   Sonuc: string;
   constructor(data?: ServisDto) {
     if (data) {
@@ -3360,7 +2303,6 @@ export class ServisDto {
 
   init(data?: any) {
     if (data) {
-     
       if (Array.isArray(data["bilgiler"])) {
         this.Bilgiler = [] as any;
         for (let item of data["bilgiler"]) this.Bilgiler.push(item);
@@ -3369,13 +2311,12 @@ export class ServisDto {
         this.Hatalar = [] as any;
         for (let item of data["hatalar"]) this.Hatalar.push(item);
       }
-     
-      this.ServisDurumKodu = data["servisDurumKodlari"];
-      this.Sonuc=this.getSonuc();
 
-      if (this.Bilgiler!=undefined && Array.isArray( this.Bilgiler))
-      this.SonucVeriler= JSON.stringify(this.Bilgiler[0].sonucVeriler);
-    
+      this.ServisDurumKodu = data["servisDurumKodlari"];
+      this.Sonuc = this.getSonuc();
+
+      if (this.Bilgiler != undefined && Array.isArray(this.Bilgiler))
+        this.SonucVeriler = JSON.stringify(this.Bilgiler[0].sonucVeriler);
     }
   }
 
@@ -3397,9 +2338,9 @@ export class ServisDto {
     if (Array.isArray(this.Hatalar)) {
       data["hatalar"] = [];
       for (let item of this.Hatalar) data["hatalar"].push(item);
-    } 
+    }
     data["servisDurumKodlari"] = this.ServisDurumKodu;
-   
+
     return data;
   }
 
@@ -3409,44 +2350,32 @@ export class ServisDto {
     result.init(json);
     return result;
   }
-  getSonuc():string
-  {
-    let result={};
+  getSonuc(): string {
+    let result = {};
 
-   
-   if(this.ServisDurumKodu===1)
-   {
-    if (this.Bilgiler!=undefined && Array.isArray( this.Bilgiler)) {
-    
-      for (let item of this.Bilgiler) 
-      {
-      result={
-        Guid:item.guid,
-        İşlemTipi: item.islemTipi,
-        ReferansNo:item.referansNo,
-        Sonuç:item.sonuc
-      }     
-      }
-    }
-
-   }
-   else
-   {
-    if (this.Hatalar!=undefined && this.Hatalar) {
-    
-      for (let item of this.Hatalar) 
-      {
-        result={
-          HataKodu:item.hataKodu,
-          HataAçıklaması:item.hataAciklamasi
+    if (this.ServisDurumKodu === 1) {
+      if (this.Bilgiler != undefined && Array.isArray(this.Bilgiler)) {
+        for (let item of this.Bilgiler) {
+          result = {
+            Guid: item.guid,
+            İşlemTipi: item.islemTipi,
+            ReferansNo: item.referansNo,
+            Sonuç: item.sonuc,
+          };
         }
-    
+      }
+    } else {
+      if (this.Hatalar != undefined && this.Hatalar) {
+        for (let item of this.Hatalar) {
+          result = {
+            HataKodu: item.hataKodu,
+            HataAçıklaması: item.hataAciklamasi,
+          };
+        }
       }
     }
-    }
-   
+
     return JSON.stringify(result, null, 4);
-  
   }
 }
 
@@ -3455,8 +2384,8 @@ export class KullaniciServisDto {
   Hatalar: HatalarDto[];
   Bilgiler: BilgilerDto[];
   KullaniciBilgiler: KullaniciBilgileriDto;
-  SonucVeriler:object;
-  
+  SonucVeriler: object;
+
   Sonuc: string;
   constructor(data?: KullaniciServisDto) {
     if (data) {
@@ -3469,7 +2398,6 @@ export class KullaniciServisDto {
 
   init(data?: any) {
     if (data) {
-     
       if (Array.isArray(data["bilgiler"])) {
         this.Bilgiler = [] as any;
         for (let item of data["bilgiler"]) this.Bilgiler.push(item);
@@ -3478,12 +2406,11 @@ export class KullaniciServisDto {
         this.Hatalar = [] as any;
         for (let item of data["hatalar"]) this.Hatalar.push(item);
       }
-      this.KullaniciBilgiler= data["kullaniciBilgileri"]; 
-    
+      this.KullaniciBilgiler = data["kullaniciBilgileri"];
+
       this.ServisDurumKodu = data["servisDurumKodlari"];
-      this.Sonuc=this.getSonuc();     
+      this.Sonuc = this.getSonuc();
       //this.SonucVeriler= this.Bilgiler[0].sonucVeriler;
-     
     }
   }
 
@@ -3505,10 +2432,10 @@ export class KullaniciServisDto {
     if (Array.isArray(this.Hatalar)) {
       data["hatalar"] = [];
       for (let item of this.Hatalar) data["hatalar"].push(item);
-    }   
-     data["kullaniciBilgileri"] = this.KullaniciBilgiler;
-     data["servisDurumKodlari"] = this.ServisDurumKodu;
-   
+    }
+    data["kullaniciBilgileri"] = this.KullaniciBilgiler;
+    data["servisDurumKodlari"] = this.ServisDurumKodu;
+
     return data;
   }
 
@@ -3518,42 +2445,30 @@ export class KullaniciServisDto {
     result.init(json);
     return result;
   }
-  getSonuc():string
-  {
-    let result={};
-  
-   if(this.ServisDurumKodu===1)
-   {
-   
-    if (this.KullaniciBilgiler!=null){ 
-     
-        result={
-          KullaniciKod:this.KullaniciBilgiler.kullaniciKod,
-          KullaniciAdi:this.KullaniciBilgiler.kullaniciAdi,
+  getSonuc(): string {
+    let result = {};
+
+    if (this.ServisDurumKodu === 1) {
+      if (this.KullaniciBilgiler != null) {
+        result = {
+          KullaniciKod: this.KullaniciBilgiler.kullaniciKod,
+          KullaniciAdi: this.KullaniciBilgiler.kullaniciAdi,
           Token: this.KullaniciBilgiler.token,
-          Yetkiler:this.KullaniciBilgiler.yetkiler       
-        }     
-      
+          Yetkiler: this.KullaniciBilgiler.yetkiler,
+        };
       }
-  }
-   else
-   {
-    
-    if (this.Hatalar) {
-     
-      for (let item of this.Hatalar) 
-      {
-        result={
-          HataKodu:item.hataKodu,
-          HataAçıklaması:item.hataAciklamasi
+    } else {
+      if (this.Hatalar) {
+        for (let item of this.Hatalar) {
+          result = {
+            HataKodu: item.hataKodu,
+            HataAçıklaması: item.hataAciklamasi,
+          };
         }
-    
       }
     }
-    }
-   
+
     return JSON.stringify(result, null, 4);
-  
   }
 }
 
@@ -3562,7 +2477,7 @@ export class IstatistikDto {
   TescilGonderimSayisi: number;
   BeyannameSayisi: number;
   TescilBeyannameSayisi: number;
-  SonucBeklenenSayisi:number;
+  SonucBeklenenSayisi: number;
   Sonuc: string;
   constructor(data?: IstatistikDto) {
     if (data) {
@@ -3574,12 +2489,12 @@ export class IstatistikDto {
   }
 
   init(data?: any) {
-    if (data) {     
-      this.KontrolGonderimSayisi= data["kontrolGonderimSayisi"];
-      this.TescilGonderimSayisi= data["tescilGonderimSayisi"];
-      this.BeyannameSayisi= data["beyannameSayisi"];
-      this.TescilBeyannameSayisi= data["tescilBeyannameSayisi"];
-      this.SonucBeklenenSayisi=data["sonucBeklenenSayisi"];
+    if (data) {
+      this.KontrolGonderimSayisi = data["kontrolGonderimSayisi"];
+      this.TescilGonderimSayisi = data["tescilGonderimSayisi"];
+      this.BeyannameSayisi = data["beyannameSayisi"];
+      this.TescilBeyannameSayisi = data["tescilBeyannameSayisi"];
+      this.SonucBeklenenSayisi = data["sonucBeklenenSayisi"];
     }
   }
 
@@ -3594,15 +2509,15 @@ export class IstatistikDto {
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};
 
-    this.TescilGonderimSayisi= data["tescilGonderimSayisi"];
-    this.BeyannameSayisi= data["beyannameSayisi"];
-    this.TescilBeyannameSayisi= data["tescilBeyannameSayisi"];
-     data["kontrolGonderimSayisi"] = this.KontrolGonderimSayisi;
-     data["tescilGonderimSayisi"]=this.TescilGonderimSayisi;
-     data["beyannameSayisi"]=this.BeyannameSayisi;
-     data["tescilBeyannameSayisi"]=this.TescilBeyannameSayisi;
-     data["sonucBeklenenSayisi"]=this.SonucBeklenenSayisi;
-   
+    this.TescilGonderimSayisi = data["tescilGonderimSayisi"];
+    this.BeyannameSayisi = data["beyannameSayisi"];
+    this.TescilBeyannameSayisi = data["tescilBeyannameSayisi"];
+    data["kontrolGonderimSayisi"] = this.KontrolGonderimSayisi;
+    data["tescilGonderimSayisi"] = this.TescilGonderimSayisi;
+    data["beyannameSayisi"] = this.BeyannameSayisi;
+    data["tescilBeyannameSayisi"] = this.TescilBeyannameSayisi;
+    data["sonucBeklenenSayisi"] = this.SonucBeklenenSayisi;
+
     return data;
   }
 
@@ -3612,23 +2527,20 @@ export class IstatistikDto {
     result.init(json);
     return result;
   }
-  
-    
 }
-
 
 export class KullaniciDto {
   id: number;
-  kullaniciKod:string;
-  kullaniciSifre:string;
+  kullaniciKod: string;
+  kullaniciSifre: string;
   ad: string;
   soyad: string;
-  vergiNo:string;
-  firmaAd:string;
-  mailAdres:string;
-  telefon:string;
-  aktif:boolean;
-  sonIslemZamani:Date;
+  vergiNo: string;
+  firmaAd: string;
+  mailAdres: string;
+  telefon: string;
+  aktif: boolean;
+  sonIslemZamani: Date;
   musteriNo: string;
   firmaNo: string;
 
@@ -3642,7 +2554,7 @@ export class KullaniciDto {
   }
 
   init(data?: any) {
-    if (data) {         
+    if (data) {
       this.id = data["id"];
       this.kullaniciKod = data["kullaniciKod"];
       this.kullaniciSifre = data["kullaniciSifre"];
@@ -3669,20 +2581,20 @@ export class KullaniciDto {
 
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};
-  
-    data["kullaniciKod"]=this.kullaniciKod ;
-    data["kullaniciSifre"]= this.kullaniciSifre ;
-    data["ad"]= this.ad ;
-    data["soyad"]= this.soyad ;
-    data["vergiNo"]= this.vergiNo ;
-    data["firmaAd"]=this.firmaAd ;
+
+    data["kullaniciKod"] = this.kullaniciKod;
+    data["kullaniciSifre"] = this.kullaniciSifre;
+    data["ad"] = this.ad;
+    data["soyad"] = this.soyad;
+    data["vergiNo"] = this.vergiNo;
+    data["firmaAd"] = this.firmaAd;
     data["id"] = this.id;
-    data["mailAdres"]= this.mailAdres;
-    data["aktif"]=this.aktif ;
-    data["telefon"]=this.telefon ;
-    data["sonIslemZamani"]=this.sonIslemZamani;
-    data["musteriNo"]=this.musteriNo;
-    data["firmaNo"]= this.firmaNo ;
+    data["mailAdres"] = this.mailAdres;
+    data["aktif"] = this.aktif;
+    data["telefon"] = this.telefon;
+    data["sonIslemZamani"] = this.sonIslemZamani;
+    data["musteriNo"] = this.musteriNo;
+    data["firmaNo"] = this.firmaNo;
     return data;
   }
   clone(): KullaniciDto {
@@ -3697,12 +2609,12 @@ export class MusteriDto {
   id: number;
   musteriNo: string;
   adres: string;
-  vergiNo:string;
-  musteriAd:string;
-  mailAdres:string;
-  telefon:string;
-  aktif:boolean;
-  sonIslemZamani:Date;
+  vergiNo: string;
+  musteriAd: string;
+  mailAdres: string;
+  telefon: string;
+  aktif: boolean;
+  sonIslemZamani: Date;
 
   constructor(data?: KullaniciDto) {
     if (data) {
@@ -3714,9 +2626,12 @@ export class MusteriDto {
   }
 
   init(data?: any) {
-    if (data) {         
+    if (data) {
       this.id = data["id"];
-      this.musteriNo = data["musteriNo"]!=null || data["musteriNo"]!=undefined ?data["musteriNo"] :"";
+      this.musteriNo =
+        data["musteriNo"] != null || data["musteriNo"] != undefined
+          ? data["musteriNo"]
+          : "";
       this.adres = data["adres"];
       this.vergiNo = data["vergiNo"];
       this.musteriAd = data["musteriAd"];
@@ -3736,17 +2651,17 @@ export class MusteriDto {
   }
 
   toJSON(data?: any) {
-    data = typeof data === "object" ? data : {};  
-   
-    data["adres"]= this.adres ;
-    data["vergiNo"]= this.vergiNo ;
-    data["musteriAd"]=this.musteriAd ;
+    data = typeof data === "object" ? data : {};
+
+    data["adres"] = this.adres;
+    data["vergiNo"] = this.vergiNo;
+    data["musteriAd"] = this.musteriAd;
     data["id"] = this.id;
     data["musteriNo"] = this.musteriNo;
-    data["mailAdres"]= this.mailAdres;
-    data["aktif"]=this.aktif ;
-    data["telefon"]=this.telefon ;
-    data["sonIslemZamani"]=this.sonIslemZamani;
+    data["mailAdres"] = this.mailAdres;
+    data["aktif"] = this.aktif;
+    data["telefon"] = this.telefon;
+    data["sonIslemZamani"] = this.sonIslemZamani;
     return data;
   }
   clone(): KullaniciDto {
@@ -3762,12 +2677,12 @@ export class FirmaDto {
   musteriNo: string;
   firmaNo: string;
   adres: string;
-  vergiNo:string;
-  firmaAd:string;
-  mailAdres:string;
-  telefon:string;
-  aktif:boolean;
-  sonIslemZamani:Date;
+  vergiNo: string;
+  firmaAd: string;
+  mailAdres: string;
+  telefon: string;
+  aktif: boolean;
+  sonIslemZamani: Date;
 
   constructor(data?: KullaniciDto) {
     if (data) {
@@ -3779,10 +2694,10 @@ export class FirmaDto {
   }
 
   init(data?: any) {
-    if (data) {         
+    if (data) {
       this.id = data["id"];
-      this.musteriNo = data["musteriNo"]!=null ?data["musteriNo"] :"";
-      this.firmaNo = data["firmaNo"]!=null ?data["firmaNo"] :"";
+      this.musteriNo = data["musteriNo"] != null ? data["musteriNo"] : "";
+      this.firmaNo = data["firmaNo"] != null ? data["firmaNo"] : "";
       this.adres = data["adres"];
       this.vergiNo = data["vergiNo"];
       this.firmaAd = data["firmaAd"];
@@ -3802,18 +2717,18 @@ export class FirmaDto {
   }
 
   toJSON(data?: any) {
-    data = typeof data === "object" ? data : {};  
-   
-    data["adres"]= this.adres ;
-    data["vergiNo"]= this.vergiNo ;
-    data["firmaAd"]=this.firmaAd ;
+    data = typeof data === "object" ? data : {};
+
+    data["adres"] = this.adres;
+    data["vergiNo"] = this.vergiNo;
+    data["firmaAd"] = this.firmaAd;
     data["id"] = this.id;
     data["musteriNo"] = this.musteriNo;
     data["firmaNo"] = this.firmaNo;
-    data["mailAdres"]= this.mailAdres;
-    data["aktif"]=this.aktif ;
-    data["telefon"]=this.telefon ;
-    data["sonIslemZamani"]=this.sonIslemZamani;
+    data["mailAdres"] = this.mailAdres;
+    data["aktif"] = this.aktif;
+    data["telefon"] = this.telefon;
+    data["sonIslemZamani"] = this.sonIslemZamani;
     return data;
   }
   clone(): KullaniciDto {
@@ -3825,12 +2740,12 @@ export class FirmaDto {
 }
 
 export class YetkiDto {
-  id:number;
+  id: number;
   yetkiKodu: string;
   yetkiAdi: string;
-  aciklama:string;  
-  aktif:boolean;
- 
+  aciklama: string;
+  aktif: boolean;
+
   constructor(data?: YetkiDto) {
     if (data) {
       for (var property in data) {
@@ -3841,14 +2756,12 @@ export class YetkiDto {
   }
 
   init(data?: any) {
-    
-    if (data) {         
+    if (data) {
       this.id = data["id"];
       this.yetkiKodu = data["yetkiKodu"];
       this.yetkiAdi = data["yetkiAdi"];
       this.aciklama = data["aciklama"];
       this.aktif = data["aktif"];
-    
     }
   }
 
@@ -3861,13 +2774,13 @@ export class YetkiDto {
   }
 
   toJSON(data?: any) {
-    data = typeof data === "object" ? data : {};  
-     data["id"]=this.id;
-    data["yetkiAdi"]= this.yetkiAdi ;
-    data["aciklama"]= this.aciklama ;  
-    data["yetkiKodu"] = this.yetkiKodu;  
-    data["aktif"]=this.aktif ;
-   
+    data = typeof data === "object" ? data : {};
+    data["id"] = this.id;
+    data["yetkiAdi"] = this.yetkiAdi;
+    data["aciklama"] = this.aciklama;
+    data["yetkiKodu"] = this.yetkiKodu;
+    data["aktif"] = this.aktif;
+
     return data;
   }
   clone(): YetkiDto {
@@ -3881,9 +2794,8 @@ export class YetkiDto {
 export class KullaniciYetkiDto {
   id: number;
   kullaniciKod: string;
-  yetkiKodu:string;  
-  aktif:boolean;
- 
+  yetkiKodu: string;
+  aktif: boolean;
 
   constructor(data?: KullaniciYetkiDto) {
     if (data) {
@@ -3895,12 +2807,11 @@ export class KullaniciYetkiDto {
   }
 
   init(data?: any) {
-    if (data) {         
+    if (data) {
       this.id = data["id"];
       this.kullaniciKod = data["kullaniciKod"];
       this.yetkiKodu = data["yetkiKodu"];
       this.aktif = data["aktif"];
-    
     }
   }
 
@@ -3913,13 +2824,13 @@ export class KullaniciYetkiDto {
   }
 
   toJSON(data?: any) {
-    data = typeof data === "object" ? data : {};  
-   
-    data["kullaniciKod"]= this.kullaniciKod ;
-    data["yetkiKodu"]= this.yetkiKodu ;  
-    data["id"] = this.id;  
-    data["aktif"]=this.aktif ;
-   
+    data = typeof data === "object" ? data : {};
+
+    data["kullaniciKod"] = this.kullaniciKod;
+    data["yetkiKodu"] = this.yetkiKodu;
+    data["id"] = this.id;
+    data["aktif"] = this.aktif;
+
     return data;
   }
   clone(): KullaniciYetkiDto {
@@ -3929,7 +2840,6 @@ export class KullaniciYetkiDto {
     return result;
   }
 }
-
 
 export class BeyannameSonucDto {
   Hatalar: SonucHatalarDto[];
@@ -4088,9 +2998,8 @@ export class BeyannameSonucDto {
   }
 }
 export class MesaiSonucDto {
-  Hatalar: SonucHatalarDto[];  
+  Hatalar: SonucHatalarDto[];
   MesaiId: string;
- 
 
   constructor(data?: MesaiSonucDto) {
     if (data) {
@@ -4103,14 +3012,12 @@ export class MesaiSonucDto {
 
   init(data?: any) {
     if (data) {
-      
       if (Array.isArray(data["hatalar"])) {
         this.Hatalar = [] as any;
         for (let item of data["hatalar"]) this.Hatalar.push(item);
-      }   
+      }
 
       this.MesaiId = data["mesaiId"];
-     
     }
   }
 
@@ -4125,15 +3032,13 @@ export class MesaiSonucDto {
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};
 
-   
     if (Array.isArray(this.Hatalar)) {
       data["hatalar"] = [];
       for (let item of this.Hatalar) data["hatalar"].push(item);
     }
-  
-    data["mesaiId"]= this.MesaiId
 
-    
+    data["mesaiId"] = this.MesaiId;
+
     return data;
   }
 
@@ -4146,9 +3051,8 @@ export class MesaiSonucDto {
 }
 
 export class IghbSonucDto {
-  Hatalar: SonucHatalarDto[];  
- // MesaiId: string;
- 
+  Hatalar: SonucHatalarDto[];
+  // MesaiId: string;
 
   constructor(data?: IghbSonucDto) {
     if (data) {
@@ -4161,14 +3065,12 @@ export class IghbSonucDto {
 
   init(data?: any) {
     if (data) {
-      
       if (Array.isArray(data["hatalar"])) {
         this.Hatalar = [] as any;
         for (let item of data["hatalar"]) this.Hatalar.push(item);
-      }   
+      }
 
-     // this.MesaiId = data["mesaiId"];
-     
+      // this.MesaiId = data["mesaiId"];
     }
   }
 
@@ -4183,15 +3085,13 @@ export class IghbSonucDto {
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};
 
-   
     if (Array.isArray(this.Hatalar)) {
       data["hatalar"] = [];
       for (let item of this.Hatalar) data["hatalar"].push(item);
     }
-  
-   // data["mesaiId"]= this.MesaiId
 
-    
+    // data["mesaiId"]= this.MesaiId
+
     return data;
   }
 
@@ -4203,12 +3103,11 @@ export class IghbSonucDto {
   }
 }
 
-
 export class OzetBeyanSonucDto {
-  Hatalar: SonucHatalarDto[];  
+  Hatalar: SonucHatalarDto[];
   KalemSayisi: string;
   TescilNo: string;
-  TescilTarihi:string;
+  TescilTarihi: string;
 
   constructor(data?: OzetBeyanSonucDto) {
     if (data) {
@@ -4221,16 +3120,14 @@ export class OzetBeyanSonucDto {
 
   init(data?: any) {
     if (data) {
-      
       if (Array.isArray(data["hatalar"])) {
         this.Hatalar = [] as any;
         for (let item of data["hatalar"]) this.Hatalar.push(item);
-      }   
+      }
 
       this.KalemSayisi = data["kalemSayisi"];
       this.TescilNo = data["tescilNo"];
       this.TescilTarihi = data["tescilTarihi"];
-    
     }
   }
 
@@ -4245,16 +3142,15 @@ export class OzetBeyanSonucDto {
   toJSON(data?: any) {
     data = typeof data === "object" ? data : {};
 
-   
     if (Array.isArray(this.Hatalar)) {
       data["hatalar"] = [];
       for (let item of this.Hatalar) data["hatalar"].push(item);
     }
-  
-    data["kalemSayisi"]= this.KalemSayisi
-     data["tescilNo"]=this.TescilNo;
-    data["tescilTarihi"]= this.TescilTarihi;
-    
+
+    data["kalemSayisi"] = this.KalemSayisi;
+    data["tescilNo"] = this.TescilNo;
+    data["tescilTarihi"] = this.TescilTarihi;
+
     return data;
   }
 
@@ -4346,18 +3242,16 @@ export class KullaniciBilgileriDto {
   kullaniciAdi: string;
   token: string;
   yetkiler: KullaniciYetkileri[];
- 
 }
 export class KullaniciYetkileri {
   yetkiKodu: string;
-  yetkiAdi: string; 
+  yetkiAdi: string;
 }
 
 export enum BeyanDurum {
-  
   _0 = "Olusturuldu",
   _1 = "Guncellendi",
-  _2 = "Islemde", 
+  _2 = "Islemde",
   _3 = "Islem Sonucu Hatali",
   _4 = "Islem Sonucu Basarili",
   _5 = "Kontrol Gonderildi",
@@ -4372,27 +3266,52 @@ export enum BeyanDurum {
   _14 = "Kontrol Hatali",
   _15 = "Tescil Edildi",
   _16 = "Tescil Hatali",
-
-
 }
 
 export class BeyanIslemDurumlari {
-  static Progress: string = BeyanDurum._0 || BeyanDurum._1 || BeyanDurum._2 || BeyanDurum._13 || BeyanDurum._14 || BeyanDurum._16 ;
+  static Progress: string =
+    BeyanDurum._0 ||
+    BeyanDurum._1 ||
+    BeyanDurum._2 ||
+    BeyanDurum._13 ||
+    BeyanDurum._14 ||
+    BeyanDurum._16;
   static Error: string = BeyanDurum._3;
   static Success: string = BeyanDurum._4;
-  static Lock: string = BeyanDurum._5 || BeyanDurum._6 || BeyanDurum._7 ||BeyanDurum._8 ||BeyanDurum._9|| BeyanDurum._10|| BeyanDurum._11||BeyanDurum._12;
-  
-  islem(durumKod:string):string {  
-   
-       if(durumKod==BeyanDurum._0 || durumKod==BeyanDurum._1 || durumKod==BeyanDurum._2 || durumKod==BeyanDurum._13 || durumKod==BeyanDurum._14 || durumKod==BeyanDurum._16 )
-       return BeyanIslemDurumlari.Progress;
-       else if(durumKod==BeyanDurum._3)
-       return BeyanIslemDurumlari.Error;
-       else if(durumKod==BeyanDurum._4)
-       return BeyanIslemDurumlari.Success;
-       else if(durumKod==BeyanDurum._5 || durumKod==BeyanDurum._6 || durumKod==BeyanDurum._7 || durumKod==BeyanDurum._8 || durumKod==BeyanDurum._9|| durumKod==BeyanDurum._10|| durumKod==BeyanDurum._11|| durumKod==BeyanDurum._12)
-       return BeyanIslemDurumlari.Lock;
-       else BeyanIslemDurumlari.Lock;
+  static Lock: string =
+    BeyanDurum._5 ||
+    BeyanDurum._6 ||
+    BeyanDurum._7 ||
+    BeyanDurum._8 ||
+    BeyanDurum._9 ||
+    BeyanDurum._10 ||
+    BeyanDurum._11 ||
+    BeyanDurum._12;
+
+  islem(durumKod: string): string {
+    if (
+      durumKod == BeyanDurum._0 ||
+      durumKod == BeyanDurum._1 ||
+      durumKod == BeyanDurum._2 ||
+      durumKod == BeyanDurum._13 ||
+      durumKod == BeyanDurum._14 ||
+      durumKod == BeyanDurum._16
+    )
+      return BeyanIslemDurumlari.Progress;
+    else if (durumKod == BeyanDurum._3) return BeyanIslemDurumlari.Error;
+    else if (durumKod == BeyanDurum._4) return BeyanIslemDurumlari.Success;
+    else if (
+      durumKod == BeyanDurum._5 ||
+      durumKod == BeyanDurum._6 ||
+      durumKod == BeyanDurum._7 ||
+      durumKod == BeyanDurum._8 ||
+      durumKod == BeyanDurum._9 ||
+      durumKod == BeyanDurum._10 ||
+      durumKod == BeyanDurum._11 ||
+      durumKod == BeyanDurum._12
+    )
+      return BeyanIslemDurumlari.Lock;
+    else BeyanIslemDurumlari.Lock;
   }
 }
 
@@ -4401,7 +3320,7 @@ export enum ServisDurumKodlari {
   _1 = 1,
   _2 = 2,
   _3 = 3,
-  _4 = 4
+  _4 = 4,
 
   // 0= "İşlem sırasında beklenmeyen bir hata oluştu.",
   // 1 = "İşlem Başarılı.",
@@ -4417,7 +3336,6 @@ export class BeyannameBilgileriDto {
 
   init(data?: any) {
     if (data) {
-    
       this.Beyanname = data["beyanname"];
       if (Array.isArray(data["kalemler"])) {
         this.Kalemler = [] as any;
@@ -4430,8 +3348,8 @@ export class BeyannameBilgileriDto {
 }
 
 export class BeyannameDto {
-  musteriNo:string;
-  firmaNo:string;
+  musteriNo: string;
+  firmaNo: string;
   beyanInternalNo: string;
   beyannameNo: string;
   rejim: string;
@@ -4493,8 +3411,8 @@ export class BeyannameDto {
   varisGumrukIdaresi: string;
   yukBelgeleriSayisi: number;
   yuklemeBosaltmaYeri: string;
-  olsuturulmaTarihi:string;
-  sonIslemZamani:string;
+  olsuturulmaTarihi: string;
+  sonIslemZamani: string;
 
   constructor(data?: BeyannameDto) {
     if (data) {
@@ -4507,140 +3425,222 @@ export class BeyannameDto {
 
   initalBeyan(data?: any) {
     if (data) {
-      this.musteriNo=data["musteriNo"]!=null ? data["musteriNo"] : "";
-      this.firmaNo=data["firmaNo"]!=null ? data["firmaNo"] : "";
-      this.beyanInternalNo=data["beyanInternalNo"]!=null ? data["beyanInternalNo"] : "";
-      this.beyannameNo=data["beyannameNo"]!=null ? data["beyannameNo"]:"";
-      this.rejim=data["rejim"]!=null ? data["rejim"] : "";
-      this.aciklamalar=data["aciklamalar"]!=null ? data["aciklamalar"] : "";
-      this.aliciSaticiIliskisi=data["aliciSaticiIliskisi"]!=null ? data["aliciSaticiIliskisi"] : "";
-      this.aliciVergiNo=data["aliciVergiNo"]!=null ? data["aliciVergiNo"] : "";
-      this.antrepoKodu=data["antrepoKodu"]!=null ? data["antrepoKodu"] : "";
-      this.asilSorumluVergiNo=data["asilSorumluVergiNo"]!=null ? data["asilSorumluVergiNo"] : "";
-      this.bankaKodu=data["bankaKodu"]!=null ? data["bankaKodu"] : "";
-      this.basitlestirilmisUsul=data["basitlestirilmisUsul"]!=null ? data["basitlestirilmisUsul"] : "";
-      this.beyanSahibiVergiNo=data["beyanSahibiVergiNo"]!=null ? data["beyanSahibiVergiNo"] : "";
-      this.birlikKayitNumarasi=data["birlikKayitNumarasi"]!=null ? data["birlikKayitNumarasi"] : "";
-      this.birlikKriptoNumarasi=data["birlikKriptoNumarasi"]!=null ? data["birlikKriptoNumarasi"] : "";
-      this.cikistakiAracinKimligi=data["cikistakiAracinKimligi"]!=null ? data["cikistakiAracinKimligi"] : "";
-      this.cikistakiAracinTipi=data["cikistakiAracinTipi"]!=null ? data["cikistakiAracinTipi"] : "";
-      this.cikistakiAracinUlkesi=data["cikistakiAracinUlkesi"]!=null ? data["cikistakiAracinUlkesi"] : "";
-      this.cikisUlkesi=data["cikisUlkesi"]!=null ? data["cikisUlkesi"] : "";
-      this.esyaninBulunduguYer=data["esyaninBulunduguYer"]!=null ? data["esyaninBulunduguYer"] : "";
-      this.gidecegiSevkUlkesi=data["gidecegiSevkUlkesi"]!=null ? data["gidecegiSevkUlkesi"] : "";
-      this.gidecegiUlke=data["gidecegiUlke"]!=null ? data["gidecegiUlke"] : "";
-      this.girisGumrukIdaresi=data["girisGumrukIdaresi"]!=null ? data["girisGumrukIdaresi"] : "";
-      this.gondericiVergiNo=data["gondericiVergiNo"]!=null ? data["gondericiVergiNo"] : "";
-      this.gumruk=data["gumruk"]!=null ? data["gumruk"] : "";
-      this.isleminNiteligi=data["isleminNiteligi"]!=null ? data["isleminNiteligi"] : "";
-      this.kapAdedi=data["kapAdedi"]!=null ?parseInt(data["kapAdedi"]):0;
-      this.konteyner=data["konteyner"]!=null ? data["konteyner"] : "";
-      this.kullanici=data["kullanici"]!=null ? data["kullanici"] : "";
-      this.limanKodu=data["limanKodu"]!=null ? data["limanKodu"] : "";
-      this.mail1=data["mail1"]!=null ? data["mail1"] : "";
-      this.mail2=data["mail2"]!=null ? data["mail2"] : "";
-      this.mail3=data["maimail3l1"]!=null ? data["mail3"] : "";
-      this.mobil1=data["mobil1"]!=null ? data["mobil1"] : "";
-      this.mobil2=data["mobil2"]!=null ? data["mobil2"] : "";
-      this.musavirVergiNo=data["musavirVergiNo"]!=null ? data["musavirVergiNo"] : "";
-      this.odemeAraci=data["odemeAraci"]!=null ? data["odemeAraci"] : "";
-      this.musavirReferansNo=data["musavirReferansNo"]!=null ? data["musavirReferansNo"] : "";
-      this.referansTarihi=data["referansTarihi"]!=null ? data["referansTarihi"] : "";
-      this.refNo=data["refNo"]!=null ? data["refNo"] : "";
-      this.sinirdakiAracinKimligi=data["sinirdakiAracinKimligi"]!=null ? data["sinirdakiAracinKimligi"] : "";
-      this.sinirdakiAracinTipi=data["sinirdakiAracinTipi"]!=null ? data["sinirdakiAracinTipi"] : "";
-      this.sinirdakiAracinUlkesi=data["sinirdakiAracinUlkesi"]!=null ? data["sinirdakiAracinUlkesi"] : "";
-      this.sinirdakiTasimaSekli=data["sinirdakiTasimaSekli"]!=null ? data["sinirdakiTasimaSekli"] : "";
-      this.tasarlananGuzergah=data["tasarlananGuzergah"]!=null ? data["tasarlananGuzergah"] : "";
-      this.telafiEdiciVergi=data["telafiEdiciVergi"]!=null ?parseFloat(data["telafiEdiciVergi"]):0;
-      this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
-      this.tescilTarihi=data["tescilTarihi"]!=null && data["tescilTarihi"]!='' ? data["tescilTarihi"] : "0001-01-01T00:00:00";
-      this.teslimSekli=data["teslimSekli"]!=null ? data["teslimSekli"] : "";
-      this.teslimSekliYeri=data["teslimSekliYeri"]!=null ? data["teslimSekliYeri"] : "";
-      this.ticaretUlkesi=data["ticaretUlkesi"]!=null ? data["ticaretUlkesi"] : "";
-      this.toplamFatura=data["toplamFatura"]!=null ?parseFloat(data["toplamFatura"]):0;
-      this.toplamFaturaDovizi=data["toplamFaturaDovizi"]!=null ? data["toplamFaturaDovizi"] : "";
-      this.toplamNavlun=data["toplamNavlun"]!=null ?parseFloat(data["toplamNavlun"]):0;
-      this.toplamNavlunDovizi=data["toplamNavlunDovizi"]!=null ? data["toplamNavlunDovizi"] : "";
-      this.toplamSigorta=data["toplamSigorta"]!=null ?parseFloat(data["toplamSigorta"]):0;
-      this.toplamSigortaDovizi=data["toplamSigortaDovizi"]!=null ? data["toplamSigortaDovizi"] : "";
-      this.toplamYurtDisiHarcamalar=data["toplamYurtDisiHarcamalar"]!=null ?parseFloat(data["toplamYurtDisiHarcamalar"]):0;
-      this.toplamYurtDisiHarcamalarDovizi=data["toplamYurtDisiHarcamalarDovizi"]!=null ? data["toplamYurtDisiHarcamalarDovizi"] : "";
-      this.toplamYurtIciHarcamalar=data["toplamYurtIciHarcamalar"]!=null ?parseFloat(data["toplamYurtIciHarcamalar"]):0;
-      this.varisGumrukIdaresi=data["varisGumrukIdaresi"]!=null ? data["varisGumrukIdaresi"] : "";
-      this.yukBelgeleriSayisi=data["yukBelgeleriSayisi"]!=null ?parseFloat(data["yukBelgeleriSayisi"]):0;
-      this.yuklemeBosaltmaYeri=data["yuklemeBosaltmaYeri"]!=null ? data["yuklemeBosaltmaYeri"] : "";
-      this.olsuturulmaTarihi= "0001-01-01T00:00:00";
-      this.sonIslemZamani=  "0001-01-01T00:00:00";
+      this.musteriNo = data["musteriNo"] != null ? data["musteriNo"] : "";
+      this.firmaNo = data["firmaNo"] != null ? data["firmaNo"] : "";
+      this.beyanInternalNo =
+        data["beyanInternalNo"] != null ? data["beyanInternalNo"] : "";
+      this.beyannameNo = data["beyannameNo"] != null ? data["beyannameNo"] : "";
+      this.rejim = data["rejim"] != null ? data["rejim"] : "";
+      this.aciklamalar = data["aciklamalar"] != null ? data["aciklamalar"] : "";
+      this.aliciSaticiIliskisi =
+        data["aliciSaticiIliskisi"] != null ? data["aliciSaticiIliskisi"] : "";
+      this.aliciVergiNo =
+        data["aliciVergiNo"] != null ? data["aliciVergiNo"] : "";
+      this.antrepoKodu = data["antrepoKodu"] != null ? data["antrepoKodu"] : "";
+      this.asilSorumluVergiNo =
+        data["asilSorumluVergiNo"] != null ? data["asilSorumluVergiNo"] : "";
+      this.bankaKodu = data["bankaKodu"] != null ? data["bankaKodu"] : "";
+      this.basitlestirilmisUsul =
+        data["basitlestirilmisUsul"] != null
+          ? data["basitlestirilmisUsul"]
+          : "";
+      this.beyanSahibiVergiNo =
+        data["beyanSahibiVergiNo"] != null ? data["beyanSahibiVergiNo"] : "";
+      this.birlikKayitNumarasi =
+        data["birlikKayitNumarasi"] != null ? data["birlikKayitNumarasi"] : "";
+      this.birlikKriptoNumarasi =
+        data["birlikKriptoNumarasi"] != null
+          ? data["birlikKriptoNumarasi"]
+          : "";
+      this.cikistakiAracinKimligi =
+        data["cikistakiAracinKimligi"] != null
+          ? data["cikistakiAracinKimligi"]
+          : "";
+      this.cikistakiAracinTipi =
+        data["cikistakiAracinTipi"] != null ? data["cikistakiAracinTipi"] : "";
+      this.cikistakiAracinUlkesi =
+        data["cikistakiAracinUlkesi"] != null
+          ? data["cikistakiAracinUlkesi"]
+          : "";
+      this.cikisUlkesi = data["cikisUlkesi"] != null ? data["cikisUlkesi"] : "";
+      this.esyaninBulunduguYer =
+        data["esyaninBulunduguYer"] != null ? data["esyaninBulunduguYer"] : "";
+      this.gidecegiSevkUlkesi =
+        data["gidecegiSevkUlkesi"] != null ? data["gidecegiSevkUlkesi"] : "";
+      this.gidecegiUlke =
+        data["gidecegiUlke"] != null ? data["gidecegiUlke"] : "";
+      this.girisGumrukIdaresi =
+        data["girisGumrukIdaresi"] != null ? data["girisGumrukIdaresi"] : "";
+      this.gondericiVergiNo =
+        data["gondericiVergiNo"] != null ? data["gondericiVergiNo"] : "";
+      this.gumruk = data["gumruk"] != null ? data["gumruk"] : "";
+      this.isleminNiteligi =
+        data["isleminNiteligi"] != null ? data["isleminNiteligi"] : "";
+      this.kapAdedi = data["kapAdedi"] != null ? parseInt(data["kapAdedi"]) : 0;
+      this.konteyner = data["konteyner"] != null ? data["konteyner"] : "";
+      this.kullanici = data["kullanici"] != null ? data["kullanici"] : "";
+      this.limanKodu = data["limanKodu"] != null ? data["limanKodu"] : "";
+      this.mail1 = data["mail1"] != null ? data["mail1"] : "";
+      this.mail2 = data["mail2"] != null ? data["mail2"] : "";
+      this.mail3 = data["maimail3l1"] != null ? data["mail3"] : "";
+      this.mobil1 = data["mobil1"] != null ? data["mobil1"] : "";
+      this.mobil2 = data["mobil2"] != null ? data["mobil2"] : "";
+      this.musavirVergiNo =
+        data["musavirVergiNo"] != null ? data["musavirVergiNo"] : "";
+      this.odemeAraci = data["odemeAraci"] != null ? data["odemeAraci"] : "";
+      this.musavirReferansNo =
+        data["musavirReferansNo"] != null ? data["musavirReferansNo"] : "";
+      this.referansTarihi =
+        data["referansTarihi"] != null ? data["referansTarihi"] : "";
+      this.refNo = data["refNo"] != null ? data["refNo"] : "";
+      this.sinirdakiAracinKimligi =
+        data["sinirdakiAracinKimligi"] != null
+          ? data["sinirdakiAracinKimligi"]
+          : "";
+      this.sinirdakiAracinTipi =
+        data["sinirdakiAracinTipi"] != null ? data["sinirdakiAracinTipi"] : "";
+      this.sinirdakiAracinUlkesi =
+        data["sinirdakiAracinUlkesi"] != null
+          ? data["sinirdakiAracinUlkesi"]
+          : "";
+      this.sinirdakiTasimaSekli =
+        data["sinirdakiTasimaSekli"] != null
+          ? data["sinirdakiTasimaSekli"]
+          : "";
+      this.tasarlananGuzergah =
+        data["tasarlananGuzergah"] != null ? data["tasarlananGuzergah"] : "";
+      this.telafiEdiciVergi =
+        data["telafiEdiciVergi"] != null
+          ? parseFloat(data["telafiEdiciVergi"])
+          : 0;
+      this.tescilStatu = data["tescilStatu"] != null ? data["tescilStatu"] : "";
+      this.tescilTarihi =
+        data["tescilTarihi"] != null && data["tescilTarihi"] != ""
+          ? data["tescilTarihi"]
+          : "0001-01-01T00:00:00";
+      this.teslimSekli = data["teslimSekli"] != null ? data["teslimSekli"] : "";
+      this.teslimSekliYeri =
+        data["teslimSekliYeri"] != null ? data["teslimSekliYeri"] : "";
+      this.ticaretUlkesi =
+        data["ticaretUlkesi"] != null ? data["ticaretUlkesi"] : "";
+      this.toplamFatura =
+        data["toplamFatura"] != null ? parseFloat(data["toplamFatura"]) : 0;
+      this.toplamFaturaDovizi =
+        data["toplamFaturaDovizi"] != null ? data["toplamFaturaDovizi"] : "";
+      this.toplamNavlun =
+        data["toplamNavlun"] != null ? parseFloat(data["toplamNavlun"]) : 0;
+      this.toplamNavlunDovizi =
+        data["toplamNavlunDovizi"] != null ? data["toplamNavlunDovizi"] : "";
+      this.toplamSigorta =
+        data["toplamSigorta"] != null ? parseFloat(data["toplamSigorta"]) : 0;
+      this.toplamSigortaDovizi =
+        data["toplamSigortaDovizi"] != null ? data["toplamSigortaDovizi"] : "";
+      this.toplamYurtDisiHarcamalar =
+        data["toplamYurtDisiHarcamalar"] != null
+          ? parseFloat(data["toplamYurtDisiHarcamalar"])
+          : 0;
+      this.toplamYurtDisiHarcamalarDovizi =
+        data["toplamYurtDisiHarcamalarDovizi"] != null
+          ? data["toplamYurtDisiHarcamalarDovizi"]
+          : "";
+      this.toplamYurtIciHarcamalar =
+        data["toplamYurtIciHarcamalar"] != null
+          ? parseFloat(data["toplamYurtIciHarcamalar"])
+          : 0;
+      this.varisGumrukIdaresi =
+        data["varisGumrukIdaresi"] != null ? data["varisGumrukIdaresi"] : "";
+      this.yukBelgeleriSayisi =
+        data["yukBelgeleriSayisi"] != null
+          ? parseFloat(data["yukBelgeleriSayisi"])
+          : 0;
+      this.yuklemeBosaltmaYeri =
+        data["yuklemeBosaltmaYeri"] != null ? data["yuklemeBosaltmaYeri"] : "";
+      this.olsuturulmaTarihi = "0001-01-01T00:00:00";
+      this.sonIslemZamani = "0001-01-01T00:00:00";
     }
   }
 
   init(data?: any) {
     if (data) {
-      this.musteriNo=data["musteriNo"];
-      this.firmaNo=data["firmaNo"];
-      this.beyanInternalNo=data["beyanInternalNo"];
-      this.beyannameNo=data["beyannameNo"];
-      this.rejim=data["rejim"];
-      this.aciklamalar=data["aciklamalar"];
-      this.aliciSaticiIliskisi=data["aliciSaticiIliskisi"];
-      this.aliciVergiNo=data["aliciVergiNo"];
-      this.antrepoKodu=data["antrepoKodu"];
-      this.asilSorumluVergiNo=data["asilSorumluVergiNo"];
-      this.bankaKodu=data["bankaKodu"];
-      this.basitlestirilmisUsul=data["basitlestirilmisUsul"];;
-      this.beyanSahibiVergiNo=data["beyanSahibiVergiNo"];
-      this.birlikKayitNumarasi=data["birlikKayitNumarasi"];
-      this.birlikKriptoNumarasi=data["birlikKriptoNumarasi"];
-      this.cikistakiAracinKimligi=data["cikistakiAracinKimligi"];
-      this.cikistakiAracinTipi=data["cikistakiAracinTipi"];
-      this.cikistakiAracinUlkesi=data["cikistakiAracinUlkesi"];
-      this.cikisUlkesi=data["cikisUlkesi"];
-      this.esyaninBulunduguYer=data["esyaninBulunduguYer"];
-      this.gidecegiSevkUlkesi=data["gidecegiSevkUlkesi"];
-      this.gidecegiUlke=data["gidecegiUlke"];
-      this.girisGumrukIdaresi=data["girisGumrukIdaresi"];
-      this.gondericiVergiNo=data["gondericiVergiNo"];
-      this.gumruk=data["gumruk"];
-      this.isleminNiteligi=data["isleminNiteligi"];
-      this.kapAdedi=data["kapAdedi"]!=null ?parseInt(data["kapAdedi"]):0;
-      this.konteyner=data["konteyner"];
-      this.kullanici=data["kullanici"];
-      this.limanKodu=data["limanKodu"];
-      this.mail1=data["mail1"];
-      this.mail2=data["mail2"];
-      this.mail3=data["mail3"];
-      this.mobil1=data["mobil1"];
-      this.mobil2=data["mobil2"];
-      this.musavirVergiNo=data["musavirVergiNo"];
-      this.odemeAraci=data["odemeAraci"];
-      this.musavirReferansNo=data["musavirReferansNo"];
-      this.referansTarihi=data["referansTarihi"];
-      this.refNo=data["refNo"];
-      this.sinirdakiAracinKimligi=data["sinirdakiAracinKimligi"];
-      this.sinirdakiAracinTipi=data["sinirdakiAracinTipi"];
-      this.sinirdakiAracinUlkesi=data["sinirdakiAracinUlkesi"];
-      this.sinirdakiTasimaSekli=data["sinirdakiTasimaSekli"];
-      this.tasarlananGuzergah=data["tasarlananGuzergah"];
-      this.telafiEdiciVergi=data["telafiEdiciVergi"]!=null ?parseFloat(data["telafiEdiciVergi"]):0;
-      this.tescilStatu=data["tescilStatu"];
-      this.tescilTarihi=data["tescilTarihi"];
-      this.teslimSekli=data["teslimSekli"];
-      this.teslimSekliYeri=data["teslimSekliYeri"];
-      this.ticaretUlkesi=data["ticaretUlkesi"];
-      this.toplamFatura=data["toplamFatura"]!=null ?parseFloat(data["toplamFatura"]):0;
-      this.toplamFaturaDovizi= data["toplamFaturaDovizi"];
-      this.toplamNavlun=data["toplamNavlun"]!=null ?parseFloat(data["toplamNavlun"]):0;
-      this.toplamNavlunDovizi=data["toplamNavlunDovizi"];
-      this.toplamSigorta=data["toplamSigorta"]!=null ?parseFloat(data["toplamSigorta"]):0;
-      this.toplamSigortaDovizi=data["toplamSigortaDovizi"];
-      this.toplamYurtDisiHarcamalar=data["toplamYurtDisiHarcamalar"]!=null ?parseFloat(data["toplamYurtDisiHarcamalar"]):0;
-      this.toplamYurtDisiHarcamalarDovizi=data["toplamYurtDisiHarcamalarDovizi"];
-      this.toplamYurtIciHarcamalar=data["toplamYurtIciHarcamalar"]!=null ?parseFloat(data["toplamYurtIciHarcamalar"]):0;
-      this.varisGumrukIdaresi=data["varisGumrukIdaresi"];
-      this.yukBelgeleriSayisi=data["yukBelgeleriSayisi"]!=null ?parseFloat(data["yukBelgeleriSayisi"]):0;
-      this.yuklemeBosaltmaYeri=data["yuklemeBosaltmaYeri"];
-      
+      this.musteriNo = data["musteriNo"];
+      this.firmaNo = data["firmaNo"];
+      this.beyanInternalNo = data["beyanInternalNo"];
+      this.beyannameNo = data["beyannameNo"];
+      this.rejim = data["rejim"];
+      this.aciklamalar = data["aciklamalar"];
+      this.aliciSaticiIliskisi = data["aliciSaticiIliskisi"];
+      this.aliciVergiNo = data["aliciVergiNo"];
+      this.antrepoKodu = data["antrepoKodu"];
+      this.asilSorumluVergiNo = data["asilSorumluVergiNo"];
+      this.bankaKodu = data["bankaKodu"];
+      this.basitlestirilmisUsul = data["basitlestirilmisUsul"];
+      this.beyanSahibiVergiNo = data["beyanSahibiVergiNo"];
+      this.birlikKayitNumarasi = data["birlikKayitNumarasi"];
+      this.birlikKriptoNumarasi = data["birlikKriptoNumarasi"];
+      this.cikistakiAracinKimligi = data["cikistakiAracinKimligi"];
+      this.cikistakiAracinTipi = data["cikistakiAracinTipi"];
+      this.cikistakiAracinUlkesi = data["cikistakiAracinUlkesi"];
+      this.cikisUlkesi = data["cikisUlkesi"];
+      this.esyaninBulunduguYer = data["esyaninBulunduguYer"];
+      this.gidecegiSevkUlkesi = data["gidecegiSevkUlkesi"];
+      this.gidecegiUlke = data["gidecegiUlke"];
+      this.girisGumrukIdaresi = data["girisGumrukIdaresi"];
+      this.gondericiVergiNo = data["gondericiVergiNo"];
+      this.gumruk = data["gumruk"];
+      this.isleminNiteligi = data["isleminNiteligi"];
+      this.kapAdedi = data["kapAdedi"] != null ? parseInt(data["kapAdedi"]) : 0;
+      this.konteyner = data["konteyner"];
+      this.kullanici = data["kullanici"];
+      this.limanKodu = data["limanKodu"];
+      this.mail1 = data["mail1"];
+      this.mail2 = data["mail2"];
+      this.mail3 = data["mail3"];
+      this.mobil1 = data["mobil1"];
+      this.mobil2 = data["mobil2"];
+      this.musavirVergiNo = data["musavirVergiNo"];
+      this.odemeAraci = data["odemeAraci"];
+      this.musavirReferansNo = data["musavirReferansNo"];
+      this.referansTarihi = data["referansTarihi"];
+      this.refNo = data["refNo"];
+      this.sinirdakiAracinKimligi = data["sinirdakiAracinKimligi"];
+      this.sinirdakiAracinTipi = data["sinirdakiAracinTipi"];
+      this.sinirdakiAracinUlkesi = data["sinirdakiAracinUlkesi"];
+      this.sinirdakiTasimaSekli = data["sinirdakiTasimaSekli"];
+      this.tasarlananGuzergah = data["tasarlananGuzergah"];
+      this.telafiEdiciVergi =
+        data["telafiEdiciVergi"] != null
+          ? parseFloat(data["telafiEdiciVergi"])
+          : 0;
+      this.tescilStatu = data["tescilStatu"];
+      this.tescilTarihi = data["tescilTarihi"];
+      this.teslimSekli = data["teslimSekli"];
+      this.teslimSekliYeri = data["teslimSekliYeri"];
+      this.ticaretUlkesi = data["ticaretUlkesi"];
+      this.toplamFatura =
+        data["toplamFatura"] != null ? parseFloat(data["toplamFatura"]) : 0;
+      this.toplamFaturaDovizi = data["toplamFaturaDovizi"];
+      this.toplamNavlun =
+        data["toplamNavlun"] != null ? parseFloat(data["toplamNavlun"]) : 0;
+      this.toplamNavlunDovizi = data["toplamNavlunDovizi"];
+      this.toplamSigorta =
+        data["toplamSigorta"] != null ? parseFloat(data["toplamSigorta"]) : 0;
+      this.toplamSigortaDovizi = data["toplamSigortaDovizi"];
+      this.toplamYurtDisiHarcamalar =
+        data["toplamYurtDisiHarcamalar"] != null
+          ? parseFloat(data["toplamYurtDisiHarcamalar"])
+          : 0;
+      this.toplamYurtDisiHarcamalarDovizi =
+        data["toplamYurtDisiHarcamalarDovizi"];
+      this.toplamYurtIciHarcamalar =
+        data["toplamYurtIciHarcamalar"] != null
+          ? parseFloat(data["toplamYurtIciHarcamalar"])
+          : 0;
+      this.varisGumrukIdaresi = data["varisGumrukIdaresi"];
+      this.yukBelgeleriSayisi =
+        data["yukBelgeleriSayisi"] != null
+          ? parseFloat(data["yukBelgeleriSayisi"])
+          : 0;
+      this.yuklemeBosaltmaYeri = data["yuklemeBosaltmaYeri"];
     }
   }
 
@@ -4651,8 +3651,6 @@ export class BeyannameDto {
     result.init(data);
     return result;
   }
-
-
 }
 export class KalemDto {
   beyanInternalNo: string;
@@ -4731,102 +3729,190 @@ export class KalemDto {
 
   constructor(data?: KalemDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  initKalem(data?:[]) {
+  initKalem(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
-    if (data) { 
-     
-         this.beyanInternalNo=data["beyanInternalNo"]!=null ? data["beyanInternalNo"] : "";
-         this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"]:"";
-         this.kalemSiraNo=data["kalemSiraNo"]!=null ? parseInt(data["kalemSiraNo"]):0;
-         this.gtip=data["gtip"]!=null ?data["gtip"]:"";        
-         this.aciklama44=data["aciklama44"]!=null ? data["aciklama44"]:"";
-         this.adet=data["adet"]!=null ? parseInt(data["adet"]):0;
-         this.algilamaBirimi1=data["algilamaBirimi1"]!=null ?data["algilamaBirimi1"]:"";
-         this.algilamaBirimi2=data["algilamaBirimi2"]!=null ?data["algilamaBirimi2"]:"";
-         this.algilamaBirimi3=data["algilamaBirimi3"]!=null ?data["algilamaBirimi3"]:"";
-         this.algilamaMiktari1=data["algilamaMiktari1"]!=null ?parseFloat(data["algilamaMiktari1"]):0;
-         this.algilamaMiktari2=data["algilamaMiktari2"]!=null ?parseFloat(data["algilamaMiktari2"]):0;
-         this.algilamaMiktari3=data["algilamaMiktari3"]!=null ?parseFloat(data["algilamaMiktari3"]):0;
-         this.brutAgirlik=data["brutAgirlik"]!=null ? parseFloat(data["brutAgirlik"]):0;
-         this.cins=data["cins"]!=null ?data["cins"]:"";
-         this.ekKod=data["ekKod"]!=null ?data["ekKod"]:"";
-         this.faturaMiktari=data["faturaMiktari"]!=null ? parseFloat(data["faturaMiktari"]):0;
-         this.faturaMiktariDovizi=data["faturaMiktariDovizi"]!=null ?data["faturaMiktariDovizi"]:"";
-         this.girisCikisAmaci=data["girisCikisAmaci"]!=null ?data["girisCikisAmaci"]:"";
-         this.girisCikisAmaciAciklama=data["girisCikisAmaciAciklama"]!=null ?data["girisCikisAmaciAciklama"]:"";
-         this.ikincilIslem=data["ikincilIslem"]!=null ? data["ikincilIslem"]:"";
-         this.imalatciFirmaBilgisi=data["imalatciFirmaBilgisi"]!=null ?data["imalatciFirmaBilgisi"]:"";
-         this.imalatciVergiNo=data["imalatciVergiNo"]!=null ?data["imalatciVergiNo"]:"";
-         this.istatistikiKiymet=data["istatistikiKiymet"]!=null ? parseFloat(data["istatistikiKiymet"]):0;
-         this.istatistikiMiktar=data["istatistikiMiktar"]!=null ? parseFloat(data["istatistikiMiktar"]):0;
-         this.kalemIslemNiteligi=data["kalemIslemNiteligi"]!=null ?data["kalemIslemNiteligi"]:"";
-         this.kullanilmisEsya=data["kullanilmisEsya"]!=null ?data["kullanilmisEsya"]:"";
-         this.mahraceIade=data["mahraceIade"]!=null ?data["mahraceIade"]:"";
-         this.marka=data["marka"]!=null ?data["marka"]:"";
-         this.menseiUlke=data["menseiUlke"]!=null ?data["menseiUlke"]:"";
-         this.miktar=data["miktar"]!=null ? parseFloat(data["miktar"]):0;
-         this.miktarBirimi=data["miktarBirimi"]!=null ?data["miktarBirimi"]:"";
-         this.muafiyetAciklamasi=data["muafiyetAciklamasi"]!=null ?data["muafiyetAciklamasi"]:"";
-         this.muafiyetler1=data["muafiyetler1"]!=null ?data["muafiyetler1"]:"";
-         this.muafiyetler2=data["muafiyetler2"]!=null ?data["muafiyetler2"]:"";
-         this.muafiyetler3=data["muafiyetler3"]!=null ?data["muafiyetler3"]:"";
-         this.muafiyetler4=data["muafiyetler4"]!=null ?data["muafiyetler4"]:"";
-         this.muafiyetler5=data["muafiyetler5"]!=null ?data["muafiyetler5"]:"";
-         this.navlunMiktari=data["navlunMiktari"]!=null ? parseFloat(data["navlunMiktari"]):0;
-         this.navlunMiktariDovizi=data["navlunMiktariDovizi"]!=null ?data["navlunMiktariDovizi"]:"";
-         this.netAgirlik=data["netAgirlik"]!=null ? parseFloat(data["netAgirlik"]):0;
-         this.numara=data["numara"]!=null ?data["numara"]:"";
-         this.ozellik=data["ozellik"]!=null ?data["ozellik"]:"";
-         this.satirNo=data["satirNo"]!=null ?data["satirNo"]:"";
-         this.sigortaMiktari=data["sigortaMiktari"]!=null ? parseFloat(data["sigortaMiktari"]):0;
-         this.sigortaMiktariDovizi=data["sigortaMiktariDovizi"]!=null ?data["sigortaMiktariDovizi"]:"";
-         this.sinirGecisUcreti=data["sinirGecisUcreti"]!=null ? parseFloat(data["sinirGecisUcreti"]):0;
-         this.stmIlKodu=data["stmIlKodu"]!=null ?data["stmIlKodu"]:"";
-         this.tamamlayiciOlcuBirimi=data["tamamlayiciOlcuBirimi"]!=null ?data["tamamlayiciOlcuBirimi"]:"";
-         this.teslimSekli=data["teslimSekli"]!=null ?data["teslimSekli"]:"";
-         this.ticariTanimi=data["ticariTanimi"]!=null ?data["ticariTanimi"]:"";
-         this.uluslararasiAnlasma=data["uluslararasiAnlasma"]!=null ?data["uluslararasiAnlasma"]:"";
-         this.yurtDisiDemuraj=data["yurtDisiDemuraj"]!=null ? parseFloat(data["yurtDisiDemuraj"]):0;
-         this.yurtDisiDemurajDovizi=data["yurtDisiDemurajDovizi"]!=null ?data["yurtDisiDemurajDovizi"]:"";
-         this.yurtDisiDiger=data["yurtDisiDiger"]!=null ? parseFloat(data["yurtDisiDiger"]):0;
-         this.yurtDisiDigerAciklama=data["yurtDisiDigerAciklama"]!=null ?data["yurtDisiDigerAciklama"]:"";
-         this.yurtDisiDigerDovizi=data["yurtDisiDigerDovizi"]!=null ?data["yurtDisiDigerDovizi"]:"";
-         this.yurtDisiFaiz=data["yurtDisiFaiz"]!=null ? parseFloat(data["yurtDisiFaiz"]):0;
-         this.yurtDisiFaizDovizi=data["yurtDisiFaizDovizi"]!=null ?data["yurtDisiFaizDovizi"]:"";
-         this.yurtDisiKomisyon=data["yurtDisiKomisyon"]!=null ? parseFloat(data["yurtDisiKomisyon"]):0;
-         this.yurtDisiKomisyonDovizi=data["yurtDisiKomisyonDovizi"]!=null ?data["yurtDisiKomisyonDovizi"]:"";
-         this.yurtDisiRoyalti=data["yurtDisiRoyalti"]!=null ? parseFloat(data["yurtDisiRoyalti"]):0;
-         this.yurtDisiRoyaltiDovizi=data["yurtDisiRoyaltiDovizi"]!=null ?data["yurtDisiRoyaltiDovizi"]:"";
-         this.yurtIciBanka=data["yurtIciBanka"]!=null ? parseFloat(data["yurtIciBanka"]):0;
-         this.yurtIciCevre=data["yurtIciCevre"]!=null ? parseFloat(data["yurtIciCevre"]):0;
-         this.yurtIciDepolama=data["yurtIciDepolama"]!=null ? parseFloat(data["yurtIciDepolama"]):0;
-         this.yurtIciDiger=data["yurtIciDiger"]!=null ? parseFloat(data["yurtIciDiger"]):0;
-         this.yurtIciDigerAciklama=data["yurtIciDigerAciklama"]!=null ?data["yurtIciDigerAciklama"]:"";
-         this.yurtIciKkdf=data["yurtIciKkdf"]!=null ? parseFloat(data["yurtIciKkdf"]):0;
-         this.yurtIciKultur=data["yurtIciKultur"]!=null ? parseFloat(data["yurtIciKultur"]):0;
-         this.yurtIciLiman=data["yurtIciLiman"]!=null ? parseFloat(data["yurtIciLiman"]):0;
-         this.yurtIciTahliye=data["yurtIciTahliye"]!=null ? parseFloat(data["yurtIciTahliye"]):0;
-
-         
+  init(data?: []) {
+    if (data) {
+      this.beyanInternalNo =
+        data["beyanInternalNo"] != null ? data["beyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.kalemSiraNo =
+        data["kalemSiraNo"] != null ? parseInt(data["kalemSiraNo"]) : 0;
+      this.gtip = data["gtip"] != null ? data["gtip"] : "";
+      this.aciklama44 = data["aciklama44"] != null ? data["aciklama44"] : "";
+      this.adet = data["adet"] != null ? parseInt(data["adet"]) : 0;
+      this.algilamaBirimi1 =
+        data["algilamaBirimi1"] != null ? data["algilamaBirimi1"] : "";
+      this.algilamaBirimi2 =
+        data["algilamaBirimi2"] != null ? data["algilamaBirimi2"] : "";
+      this.algilamaBirimi3 =
+        data["algilamaBirimi3"] != null ? data["algilamaBirimi3"] : "";
+      this.algilamaMiktari1 =
+        data["algilamaMiktari1"] != null
+          ? parseFloat(data["algilamaMiktari1"])
+          : 0;
+      this.algilamaMiktari2 =
+        data["algilamaMiktari2"] != null
+          ? parseFloat(data["algilamaMiktari2"])
+          : 0;
+      this.algilamaMiktari3 =
+        data["algilamaMiktari3"] != null
+          ? parseFloat(data["algilamaMiktari3"])
+          : 0;
+      this.brutAgirlik =
+        data["brutAgirlik"] != null ? parseFloat(data["brutAgirlik"]) : 0;
+      this.cins = data["cins"] != null ? data["cins"] : "";
+      this.ekKod = data["ekKod"] != null ? data["ekKod"] : "";
+      this.faturaMiktari =
+        data["faturaMiktari"] != null ? parseFloat(data["faturaMiktari"]) : 0;
+      this.faturaMiktariDovizi =
+        data["faturaMiktariDovizi"] != null ? data["faturaMiktariDovizi"] : "";
+      this.girisCikisAmaci =
+        data["girisCikisAmaci"] != null ? data["girisCikisAmaci"] : "";
+      this.girisCikisAmaciAciklama =
+        data["girisCikisAmaciAciklama"] != null
+          ? data["girisCikisAmaciAciklama"]
+          : "";
+      this.ikincilIslem =
+        data["ikincilIslem"] != null ? data["ikincilIslem"] : "";
+      this.imalatciFirmaBilgisi =
+        data["imalatciFirmaBilgisi"] != null
+          ? data["imalatciFirmaBilgisi"]
+          : "";
+      this.imalatciVergiNo =
+        data["imalatciVergiNo"] != null ? data["imalatciVergiNo"] : "";
+      this.istatistikiKiymet =
+        data["istatistikiKiymet"] != null
+          ? parseFloat(data["istatistikiKiymet"])
+          : 0;
+      this.istatistikiMiktar =
+        data["istatistikiMiktar"] != null
+          ? parseFloat(data["istatistikiMiktar"])
+          : 0;
+      this.kalemIslemNiteligi =
+        data["kalemIslemNiteligi"] != null ? data["kalemIslemNiteligi"] : "";
+      this.kullanilmisEsya =
+        data["kullanilmisEsya"] != null ? data["kullanilmisEsya"] : "";
+      this.mahraceIade = data["mahraceIade"] != null ? data["mahraceIade"] : "";
+      this.marka = data["marka"] != null ? data["marka"] : "";
+      this.menseiUlke = data["menseiUlke"] != null ? data["menseiUlke"] : "";
+      this.miktar = data["miktar"] != null ? parseFloat(data["miktar"]) : 0;
+      this.miktarBirimi =
+        data["miktarBirimi"] != null ? data["miktarBirimi"] : "";
+      this.muafiyetAciklamasi =
+        data["muafiyetAciklamasi"] != null ? data["muafiyetAciklamasi"] : "";
+      this.muafiyetler1 =
+        data["muafiyetler1"] != null ? data["muafiyetler1"] : "";
+      this.muafiyetler2 =
+        data["muafiyetler2"] != null ? data["muafiyetler2"] : "";
+      this.muafiyetler3 =
+        data["muafiyetler3"] != null ? data["muafiyetler3"] : "";
+      this.muafiyetler4 =
+        data["muafiyetler4"] != null ? data["muafiyetler4"] : "";
+      this.muafiyetler5 =
+        data["muafiyetler5"] != null ? data["muafiyetler5"] : "";
+      this.navlunMiktari =
+        data["navlunMiktari"] != null ? parseFloat(data["navlunMiktari"]) : 0;
+      this.navlunMiktariDovizi =
+        data["navlunMiktariDovizi"] != null ? data["navlunMiktariDovizi"] : "";
+      this.netAgirlik =
+        data["netAgirlik"] != null ? parseFloat(data["netAgirlik"]) : 0;
+      this.numara = data["numara"] != null ? data["numara"] : "";
+      this.ozellik = data["ozellik"] != null ? data["ozellik"] : "";
+      this.satirNo = data["satirNo"] != null ? data["satirNo"] : "";
+      this.sigortaMiktari =
+        data["sigortaMiktari"] != null ? parseFloat(data["sigortaMiktari"]) : 0;
+      this.sigortaMiktariDovizi =
+        data["sigortaMiktariDovizi"] != null
+          ? data["sigortaMiktariDovizi"]
+          : "";
+      this.sinirGecisUcreti =
+        data["sinirGecisUcreti"] != null
+          ? parseFloat(data["sinirGecisUcreti"])
+          : 0;
+      this.stmIlKodu = data["stmIlKodu"] != null ? data["stmIlKodu"] : "";
+      this.tamamlayiciOlcuBirimi =
+        data["tamamlayiciOlcuBirimi"] != null
+          ? data["tamamlayiciOlcuBirimi"]
+          : "";
+      this.teslimSekli = data["teslimSekli"] != null ? data["teslimSekli"] : "";
+      this.ticariTanimi =
+        data["ticariTanimi"] != null ? data["ticariTanimi"] : "";
+      this.uluslararasiAnlasma =
+        data["uluslararasiAnlasma"] != null ? data["uluslararasiAnlasma"] : "";
+      this.yurtDisiDemuraj =
+        data["yurtDisiDemuraj"] != null
+          ? parseFloat(data["yurtDisiDemuraj"])
+          : 0;
+      this.yurtDisiDemurajDovizi =
+        data["yurtDisiDemurajDovizi"] != null
+          ? data["yurtDisiDemurajDovizi"]
+          : "";
+      this.yurtDisiDiger =
+        data["yurtDisiDiger"] != null ? parseFloat(data["yurtDisiDiger"]) : 0;
+      this.yurtDisiDigerAciklama =
+        data["yurtDisiDigerAciklama"] != null
+          ? data["yurtDisiDigerAciklama"]
+          : "";
+      this.yurtDisiDigerDovizi =
+        data["yurtDisiDigerDovizi"] != null ? data["yurtDisiDigerDovizi"] : "";
+      this.yurtDisiFaiz =
+        data["yurtDisiFaiz"] != null ? parseFloat(data["yurtDisiFaiz"]) : 0;
+      this.yurtDisiFaizDovizi =
+        data["yurtDisiFaizDovizi"] != null ? data["yurtDisiFaizDovizi"] : "";
+      this.yurtDisiKomisyon =
+        data["yurtDisiKomisyon"] != null
+          ? parseFloat(data["yurtDisiKomisyon"])
+          : 0;
+      this.yurtDisiKomisyonDovizi =
+        data["yurtDisiKomisyonDovizi"] != null
+          ? data["yurtDisiKomisyonDovizi"]
+          : "";
+      this.yurtDisiRoyalti =
+        data["yurtDisiRoyalti"] != null
+          ? parseFloat(data["yurtDisiRoyalti"])
+          : 0;
+      this.yurtDisiRoyaltiDovizi =
+        data["yurtDisiRoyaltiDovizi"] != null
+          ? data["yurtDisiRoyaltiDovizi"]
+          : "";
+      this.yurtIciBanka =
+        data["yurtIciBanka"] != null ? parseFloat(data["yurtIciBanka"]) : 0;
+      this.yurtIciCevre =
+        data["yurtIciCevre"] != null ? parseFloat(data["yurtIciCevre"]) : 0;
+      this.yurtIciDepolama =
+        data["yurtIciDepolama"] != null
+          ? parseFloat(data["yurtIciDepolama"])
+          : 0;
+      this.yurtIciDiger =
+        data["yurtIciDiger"] != null ? parseFloat(data["yurtIciDiger"]) : 0;
+      this.yurtIciDigerAciklama =
+        data["yurtIciDigerAciklama"] != null
+          ? data["yurtIciDigerAciklama"]
+          : "";
+      this.yurtIciKkdf =
+        data["yurtIciKkdf"] != null ? parseFloat(data["yurtIciKkdf"]) : 0;
+      this.yurtIciKultur =
+        data["yurtIciKultur"] != null ? parseFloat(data["yurtIciKultur"]) : 0;
+      this.yurtIciLiman =
+        data["yurtIciLiman"] != null ? parseFloat(data["yurtIciLiman"]) : 0;
+      this.yurtIciTahliye =
+        data["yurtIciTahliye"] != null ? parseFloat(data["yurtIciTahliye"]) : 0;
     }
   }
-
-  
 
   static fromJS(data: any): KalemDto {
     data = typeof data === "object" ? data : {};
@@ -4841,27 +3927,24 @@ export class OdemeDto {
   kalemInternalNo: string;
   odemeTutari: number;
   odemeSekliKodu: string;
-  tbfid:string;
+  tbfid: string;
 
   constructor(data?: OdemeDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): OdemeDto {
     data = typeof data === "object" ? data : {};
@@ -4875,27 +3958,24 @@ export class KonteynerDto {
   beyanInternalNo: string;
   kalemInternalNo: string;
   konteynerNo: string;
-  ulkeKodu:string;
+  ulkeKodu: string;
 
   constructor(data?: KonteynerDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): KonteynerDto {
     data = typeof data === "object" ? data : {};
@@ -4909,27 +3989,24 @@ export class TamamlayiciBilgiDto {
   beyanInternalNo: string;
   kalemInternalNo: string;
   gtip: string;
-  bilgi:string;
-  oran:string;
+  bilgi: string;
+  oran: string;
   constructor(data?: TamamlayiciBilgiDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): TamamlayiciBilgiDto {
     data = typeof data === "object" ? data : {};
@@ -4943,39 +4020,36 @@ export class MarkaDto {
   beyanInternalNo: string;
   kalemInternalNo: string;
   markaAdi: string;
-  markaKiymeti:number;
-  markaTescilNo:string;
-  markaTuru:string;
-  model:string;
-  motorGucu:number;
-  motorHacmi:string;
-  motorNo:string;
-  motorTipi:string;
-  modelYili:string
-  renk:string
-  referansNo:string
-  silindirAdet:number;
-  vites:string;
+  markaKiymeti: number;
+  markaTescilNo: string;
+  markaTuru: string;
+  model: string;
+  motorGucu: number;
+  motorHacmi: string;
+  motorNo: string;
+  motorTipi: string;
+  modelYili: string;
+  renk: string;
+  referansNo: string;
+  silindirAdet: number;
+  vites: string;
 
   constructor(data?: MarkaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): MarkaDto {
     data = typeof data === "object" ? data : {};
@@ -4989,29 +4063,26 @@ export class BeyannameAcmaDto {
   beyanInternalNo: string;
   kalemInternalNo: string;
   beyannameNo: string;
-  kalemNo:number;
-  miktar:number;
-  aciklama:string;
- 
+  kalemNo: number;
+  miktar: number;
+  aciklama: string;
+
   constructor(data?: BeyannameAcmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): BeyannameAcmaDto {
     data = typeof data === "object" ? data : {};
@@ -5022,37 +4093,32 @@ export class BeyannameAcmaDto {
   }
 }
 export class VergiDto {
-  
   beyanInternalNo: string;
   kalemInternalNo: string;
-  kalemNo:number;
+  kalemNo: number;
   vergiKodu: number;
-  vergiAciklamasi:string;
-  miktar:number;
-  oran:string;
-  matrah:number;
-  odemeSekli:string;
+  vergiAciklamasi: string;
+  miktar: number;
+  oran: string;
+  matrah: number;
+  odemeSekli: string;
 
- 
   constructor(data?: VergiDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): VergiDto {
     data = typeof data === "object" ? data : {};
@@ -5063,35 +4129,31 @@ export class VergiDto {
   }
 }
 export class BelgeDto {
- 
   beyanInternalNo: string;
   kalemInternalNo: string;
-  kalemNo:number;
+  kalemNo: number;
   belgeKodu: string;
-  belgeAciklamasi:string;
-  dogrulama:string;
-  referans:string;
-  belgeTarihi:string;
- 
+  belgeAciklamasi: string;
+  dogrulama: string;
+  referans: string;
+  belgeTarihi: string;
+
   constructor(data?: BelgeDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): BelgeDto {
     data = typeof data === "object" ? data : {};
@@ -5105,31 +4167,28 @@ export class SoruCevapDto {
   islemInternalNo: string;
   beyanInternalNo: string;
   kalemInternalNo: string;
-  kalemNo:number;
+  kalemNo: number;
   soruKodu: string;
-  soruCevap:string;
-  soruAciklamasi:string;
-  tip:string;
-  
+  soruCevap: string;
+  soruAciklamasi: string;
+  tip: string;
+
   constructor(data?: SoruCevapDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): SoruCevapDto {
     data = typeof data === "object" ? data : {};
@@ -5140,46 +4199,43 @@ export class SoruCevapDto {
   }
 }
 export class KiymetDto {
-  id:number;
+  id: number;
   beyanInternalNo: string;
   kiymetInternalNo: string;
   aliciSatici: string;
-  aliciSaticiAyrintilar:string;
-  edim:string;
-  emsal:string;
-  faturaTarihiSayisi:string;
-  gumrukIdaresiKarari:string;
-  kisitlamalar:string;
-  kisitlamalarAyrintilar:string;
-  munasebet:string;
-  royalti:string;
-  royaltiKosullar:string;
-  saticiyaIntikal:string;
-  saticiyaIntikalKosullar:string;
-  sehirYer:string;
-  sozlesmeTarihiSayisi:string;
-  taahhutname:string;
-  teslimSekli:string;
+  aliciSaticiAyrintilar: string;
+  edim: string;
+  emsal: string;
+  faturaTarihiSayisi: string;
+  gumrukIdaresiKarari: string;
+  kisitlamalar: string;
+  kisitlamalarAyrintilar: string;
+  munasebet: string;
+  royalti: string;
+  royaltiKosullar: string;
+  saticiyaIntikal: string;
+  saticiyaIntikalKosullar: string;
+  sehirYer: string;
+  sozlesmeTarihiSayisi: string;
+  taahhutname: string;
+  teslimSekli: string;
 
   constructor(data?: KiymetDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): KiymetDto {
     data = typeof data === "object" ? data : {};
@@ -5190,48 +4246,45 @@ export class KiymetDto {
   }
 }
 export class KiymetKalemDto {
-  id:number;
+  id: number;
   beyanInternalNo: string;
   kiymetInternalNo: string;
   beyannameKalemNo: number;
-  kiymetKalemNo:number;
-  digerOdemeler:number;
-  digerOdemelerNiteligi:string;
-  dolayliIntikal:number;
-  dolayliOdeme:number;
-  girisSonrasiNakliye:number;
-  ithalaKatilanMalzeme:number;
-  ithalaUretimAraclar:number;
-  ithalaUretimTuketimMalzemesi:number;
-  kapAmbalajBedeli:number;
-  komisyon:number;
-  nakliye:number;
-  planTaslak:number;
-  royaltiLisans:number;
-  sigorta:number;
-  teknikYardim:number;
-  tellaliye:number;
-  vergiHarcFon:number;
+  kiymetKalemNo: number;
+  digerOdemeler: number;
+  digerOdemelerNiteligi: string;
+  dolayliIntikal: number;
+  dolayliOdeme: number;
+  girisSonrasiNakliye: number;
+  ithalaKatilanMalzeme: number;
+  ithalaUretimAraclar: number;
+  ithalaUretimTuketimMalzemesi: number;
+  kapAmbalajBedeli: number;
+  komisyon: number;
+  nakliye: number;
+  planTaslak: number;
+  royaltiLisans: number;
+  sigorta: number;
+  teknikYardim: number;
+  tellaliye: number;
+  vergiHarcFon: number;
 
   constructor(data?: KiymetKalemDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): KiymetKalemDto {
     data = typeof data === "object" ? data : {};
@@ -5244,33 +4297,30 @@ export class KiymetKalemDto {
 export class DbTeminatDto {
   beyanInternalNo: string;
   teminatSekli: string;
-  teminatOrani:number;
-  globalTeminatNo:string;
-  bankaMektubuTutari:number;
-  nakdiTeminatTutari:number;
-  digerTutar:number;
-  digerTutarReferansi:string;
-  aciklama:string;
+  teminatOrani: number;
+  globalTeminatNo: string;
+  bankaMektubuTutari: number;
+  nakdiTeminatTutari: number;
+  digerTutar: number;
+  digerTutarReferansi: string;
+  aciklama: string;
 
   constructor(data?: DbTeminatDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): DbTeminatDto {
     data = typeof data === "object" ? data : {};
@@ -5283,35 +4333,32 @@ export class DbTeminatDto {
 export class DbFirmaDto {
   beyanInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  faks:string;
-  ilIlce:string;
-  kimlikTuru:string;
-  no:string;
-  postaKodu:string;
-  telefon:string;
-  tip:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  faks: string;
+  ilIlce: string;
+  kimlikTuru: string;
+  no: string;
+  postaKodu: string;
+  telefon: string;
+  tip: string;
+  ulkeKodu: string;
 
   constructor(data?: DbFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): DbFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -5322,35 +4369,31 @@ export class DbFirmaDto {
   }
 }
 export class DbOzetBeyanAcmaDto {
-  id:number;
+  id: number;
   beyanInternalNo: string;
   ozetBeyanInternalNo: string;
   ozetBeyanNo: string;
-  islemKapsami:string;
-  ambar:string;
-  baskaRejim:string;
-  aciklama:string;
- 
+  islemKapsami: string;
+  ambar: string;
+  baskaRejim: string;
+  aciklama: string;
 
   constructor(data?: DbOzetBeyanAcmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): DbOzetBeyanAcmaDto {
     data = typeof data === "object" ? data : {};
@@ -5361,34 +4404,28 @@ export class DbOzetBeyanAcmaDto {
   }
 }
 export class DbOzetBeyanAcmaTasimaSenetDto {
-  id:number;
+  id: number;
   beyanInternalNo: string;
   ozetBeyanInternalNo: string;
   tasimaSenetInternalNo: string;
   tasimaSenediNo: string;
 
-  
- 
-
   constructor(data?: DbOzetBeyanAcmaTasimaSenetDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): DbOzetBeyanAcmaTasimaSenetDto {
     data = typeof data === "object" ? data : {};
@@ -5399,35 +4436,30 @@ export class DbOzetBeyanAcmaTasimaSenetDto {
   }
 }
 export class DbOzetBeyanAcmaTasimaSatirDto {
-  id:number;
+  id: number;
   beyanInternalNo: string;
   ozetBeyanInternalNo: string;
   tasimaSenetInternalNo: string;
-  ambarKodu:string;
-  miktar:number;
-  tasimaSatirNo:number;
-  
- 
+  ambarKodu: string;
+  miktar: number;
+  tasimaSatirNo: number;
 
   constructor(data?: DbOzetBeyanAcmaTasimaSatirDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): DbOzetBeyanAcmaTasimaSatirDto {
     data = typeof data === "object" ? data : {};
@@ -5437,46 +4469,45 @@ export class DbOzetBeyanAcmaTasimaSatirDto {
     return result;
   }
 }
-export class OzetBeyanDto { 
-  
-	ozetBeyanInternalNo:string;
-	ozetBeyanNo:string;
-	beyanSahibiVergiNo:string;
-	beyanTuru:string;
-	diger:string;
-	dorseNo1:string;
-	dorseNo1Uyrugu:string;
-	dorseNo2:string;
-	dorseNo2Uyrugu:string;
-	ekBelgeSayisi:number;
-	emniyetGuvenlik:string;
-	grupTasimaSenediNo:string;
-	gumrukIdaresi:string;
-	kullaniciKodu:string;
-	kurye:string;
-	limanYerAdiBos:string;
-	limanYerAdiYuk:string;
-	oncekiBeyanNo:string;
-	plakaSeferNo:string;
-  referansNumarasi:string;
-  refNo:string;
-	rejim:string;
-	tasimaSekli:string;
-	tasitinAdi:string;
-	tasiyiciVergiNo:string;
-	tirAtaKarneNo:string;
-	ulkeKodu:string;
-	ulkeKoduYuk:string;
-	ulkeKoduBos:string;
-	yuklemeBosaltmaYeri:string;
-	varisCikisGumrukIdaresi:string;
-	varisTarihSaati:string;
-	xmlRefId:string;
-  tescilStatu:string;
-  tescilTarihi:string;
-	olsuturulmaTarihi:string;
-  sonIslemZamani:string;
-  
+export class OzetBeyanDto {
+  ozetBeyanInternalNo: string;
+  ozetBeyanNo: string;
+  beyanSahibiVergiNo: string;
+  beyanTuru: string;
+  diger: string;
+  dorseNo1: string;
+  dorseNo1Uyrugu: string;
+  dorseNo2: string;
+  dorseNo2Uyrugu: string;
+  ekBelgeSayisi: number;
+  emniyetGuvenlik: string;
+  grupTasimaSenediNo: string;
+  gumrukIdaresi: string;
+  kullaniciKodu: string;
+  kurye: string;
+  limanYerAdiBos: string;
+  limanYerAdiYuk: string;
+  oncekiBeyanNo: string;
+  plakaSeferNo: string;
+  referansNumarasi: string;
+  refNo: string;
+  rejim: string;
+  tasimaSekli: string;
+  tasitinAdi: string;
+  tasiyiciVergiNo: string;
+  tirAtaKarneNo: string;
+  ulkeKodu: string;
+  ulkeKoduYuk: string;
+  ulkeKoduBos: string;
+  yuklemeBosaltmaYeri: string;
+  varisCikisGumrukIdaresi: string;
+  varisTarihSaati: string;
+  xmlRefId: string;
+  tescilStatu: string;
+  tescilTarihi: string;
+  olsuturulmaTarihi: string;
+  sonIslemZamani: string;
+
   constructor(data?: OzetBeyanDto) {
     if (data) {
       for (var property in data) {
@@ -5488,81 +4519,97 @@ export class OzetBeyanDto {
 
   initalBeyan(data?: any) {
     if (data) {
-     
-      this.ozetBeyanInternalNo=data["ozetBeyanInternalNo"]!=null ? data["ozetBeyanInternalNo"] : "";
-      this.ozetBeyanNo=data["ozetBeyanNo"]!=null ? data["ozetBeyanNo"] : "";
-      this.beyanSahibiVergiNo=data["beyanSahibiVergiNo"]!=null ? data["beyanSahibiVergiNo"] : "";
-      this.beyanTuru=data["beyanTuru"]!=null ? data["beyanTuru"] : "";
-      this.diger=data["diger"]!=null ? data["diger"] : "";
-      this.dorseNo1=data["dorseNo1"]!=null ? data["dorseNo1"] : "";;
-      this.dorseNo1Uyrugu=data["dorseNo1Uyrugu"]!=null ? data["dorseNo1Uyrugu"] : "";
-      this.dorseNo2=data["dorseNo2"]!=null ? data["dorseNo2"] : "";
-      this.dorseNo2Uyrugu=data["dorseNo2Uyrugu"]!=null ? data["dorseNo2Uyrugu"] : "";
-      this.ekBelgeSayisi=data["ekBelgeSayisi"]!=null ? data["ekBelgeSayisi"] : 0;
-      this.emniyetGuvenlik=data["emniyetGuvenlik"]!=null ? data["emniyetGuvenlik"] : "";
-      this.grupTasimaSenediNo=data["grupTasimaSenediNo"]!=null ? data["grupTasimaSenediNo"] : "";
-      this.gumrukIdaresi=data["gumrukIdaresi"]!=null ? data["gumrukIdaresi"] : "";
-      this.kullaniciKodu=data["kullaniciKodu"]!=null ? data["kullaniciKodu"] : "";
-      this.kurye=data["kurye"]!=null ? data["kurye"] : "";
-      this.limanYerAdiBos=data["limanYerAdiBos"]!=null ? data["limanYerAdiBos"] : "";
-      this.limanYerAdiYuk=data["limanYerAdiYuk"]!=null ? data["limanYerAdiYuk"] : "";
-      this.oncekiBeyanNo=data["oncekiBeyanNo"]!=null ? data["oncekiBeyanNo"] : "";
-      this.plakaSeferNo=data["plakaSeferNo"]!=null ? data["plakaSeferNo"] : "";
-      this.referansNumarasi=data["referansNumarasi"]!=null ? data["referansNumarasi"] : "";
-      this.refNo=data["refNo"]!=null ? data["refNo"] : "";
-      this.rejim=data["rejim"]!=null ? data["rejim"] : "";
-      this.tasimaSekli=data["tasimaSekli"]!=null ? data["tasimaSekli"] : "";
-      this.tasitinAdi=data["tasitinAdi"]!=null ? data["tasitinAdi"] : "";
-      this.tasiyiciVergiNo=data["tasiyiciVergiNo"]!=null ? data["tasiyiciVergiNo"] : "";
-      this.tirAtaKarneNo=data["tirAtaKarneNo"]!=null ? data["tirAtaKarneNo"] : "";
-      this.ulkeKodu=data["ulkeKodu"]!=null ? data["ulkeKodu"] : "";
-      this.ulkeKoduYuk=data["ulkeKoduYuk"]!=null ? data["ulkeKoduYuk"] : "";
-      this.ulkeKoduBos=data["ulkeKoduBos"]!=null ? data["ulkeKoduBos"] : "";
-      this.yuklemeBosaltmaYeri=data["yuklemeBosaltmaYeri"]!=null ? data["yuklemeBosaltmaYeri"] : "";
-      this.varisCikisGumrukIdaresi=data["varisCikisGumrukIdaresi"]!=null ? data["varisCikisGumrukIdaresi"] : "";
-      this.varisTarihSaati=data["varisTarihSaati"]!=null ?  data["varisTarihSaati"] : "";
-      this.xmlRefId=data["xmlRefId"]!=null ? data["xmlRefId"] : "";
-      this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
-      this.tescilTarihi=data[""]!=null ? data[""] : "0001-01-01T00:00:00";
-      this.olsuturulmaTarihi= "0001-01-01T00:00:00";
-      this.sonIslemZamani=  "0001-01-01T00:00:00";
+      this.ozetBeyanInternalNo =
+        data["ozetBeyanInternalNo"] != null ? data["ozetBeyanInternalNo"] : "";
+      this.ozetBeyanNo = data["ozetBeyanNo"] != null ? data["ozetBeyanNo"] : "";
+      this.beyanSahibiVergiNo =
+        data["beyanSahibiVergiNo"] != null ? data["beyanSahibiVergiNo"] : "";
+      this.beyanTuru = data["beyanTuru"] != null ? data["beyanTuru"] : "";
+      this.diger = data["diger"] != null ? data["diger"] : "";
+      this.dorseNo1 = data["dorseNo1"] != null ? data["dorseNo1"] : "";
+      this.dorseNo1Uyrugu =
+        data["dorseNo1Uyrugu"] != null ? data["dorseNo1Uyrugu"] : "";
+      this.dorseNo2 = data["dorseNo2"] != null ? data["dorseNo2"] : "";
+      this.dorseNo2Uyrugu =
+        data["dorseNo2Uyrugu"] != null ? data["dorseNo2Uyrugu"] : "";
+      this.ekBelgeSayisi =
+        data["ekBelgeSayisi"] != null ? data["ekBelgeSayisi"] : 0;
+      this.emniyetGuvenlik =
+        data["emniyetGuvenlik"] != null ? data["emniyetGuvenlik"] : "";
+      this.grupTasimaSenediNo =
+        data["grupTasimaSenediNo"] != null ? data["grupTasimaSenediNo"] : "";
+      this.gumrukIdaresi =
+        data["gumrukIdaresi"] != null ? data["gumrukIdaresi"] : "";
+      this.kullaniciKodu =
+        data["kullaniciKodu"] != null ? data["kullaniciKodu"] : "";
+      this.kurye = data["kurye"] != null ? data["kurye"] : "";
+      this.limanYerAdiBos =
+        data["limanYerAdiBos"] != null ? data["limanYerAdiBos"] : "";
+      this.limanYerAdiYuk =
+        data["limanYerAdiYuk"] != null ? data["limanYerAdiYuk"] : "";
+      this.oncekiBeyanNo =
+        data["oncekiBeyanNo"] != null ? data["oncekiBeyanNo"] : "";
+      this.plakaSeferNo =
+        data["plakaSeferNo"] != null ? data["plakaSeferNo"] : "";
+      this.referansNumarasi =
+        data["referansNumarasi"] != null ? data["referansNumarasi"] : "";
+      this.refNo = data["refNo"] != null ? data["refNo"] : "";
+      this.rejim = data["rejim"] != null ? data["rejim"] : "";
+      this.tasimaSekli = data["tasimaSekli"] != null ? data["tasimaSekli"] : "";
+      this.tasitinAdi = data["tasitinAdi"] != null ? data["tasitinAdi"] : "";
+      this.tasiyiciVergiNo =
+        data["tasiyiciVergiNo"] != null ? data["tasiyiciVergiNo"] : "";
+      this.tirAtaKarneNo =
+        data["tirAtaKarneNo"] != null ? data["tirAtaKarneNo"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
+      this.ulkeKoduYuk = data["ulkeKoduYuk"] != null ? data["ulkeKoduYuk"] : "";
+      this.ulkeKoduBos = data["ulkeKoduBos"] != null ? data["ulkeKoduBos"] : "";
+      this.yuklemeBosaltmaYeri =
+        data["yuklemeBosaltmaYeri"] != null ? data["yuklemeBosaltmaYeri"] : "";
+      this.varisCikisGumrukIdaresi =
+        data["varisCikisGumrukIdaresi"] != null
+          ? data["varisCikisGumrukIdaresi"]
+          : "";
+      this.varisTarihSaati =
+        data["varisTarihSaati"] != null ? data["varisTarihSaati"] : "";
+      this.xmlRefId = data["xmlRefId"] != null ? data["xmlRefId"] : "";
+      this.tescilStatu = data["tescilStatu"] != null ? data["tescilStatu"] : "";
+      this.tescilTarihi = data[""] != null ? data[""] : "0001-01-01T00:00:00";
+      this.olsuturulmaTarihi = "0001-01-01T00:00:00";
+      this.sonIslemZamani = "0001-01-01T00:00:00";
     }
   }
 
-   static fromJS(data: any): OzetBeyanDto {
+  static fromJS(data: any): OzetBeyanDto {
     data = typeof data === "object" ? data : {};
     let result = new OzetBeyanDto();
 
     result.initalBeyan(data);
     return result;
   }
-
 }
 export class TasitUgrakUlkeDto {
   ozetBeyanInternalNo: string;
   hareketTarihSaati: string;
   limanYerAdi: string;
-  ulkeKodu: string;  
+  ulkeKodu: string;
 
   constructor(data?: TasitUgrakUlkeDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): TasitUgrakUlkeDto {
     data = typeof data === "object" ? data : {};
@@ -5574,81 +4621,98 @@ export class TasitUgrakUlkeDto {
 }
 export class ObTasimaSenetDto {
   ozetBeyanInternalNo: string;
-  tasimaSenetInternalNo:string;
-  tasimaSenediNo:string;
+  tasimaSenetInternalNo: string;
+  tasimaSenediNo: string;
   acentaAdi: string;
-  acentaVergiNo: string; 
-  aktarmaYapilacak: string;  
-  aktarmaTipi: string;   
-  aliciAdi: string;  
-  aliciVergiNo: string;  
-  ambarHarici: string;  
-  bildirimTarafiAdi: string;  
-  bildirimTarafiVergiNo: string;  
-  duzenlendigiUlke: string;  
-  emniyetGuvenlik: string;  
-  esyaninBulunduguYer: string;  
-  faturaDoviz: string;  
-  faturaToplami: number;  
-  gondericiAdi: string;  
-  gondericiVergiNo: string;  
-  grup: string;  
-  konteyner: string;  
-  navlunDoviz: string;  
-  navlunTutari: number;  
-  odemeSekli: string;  
-  oncekiSeferNumarasi: string;  
-  oncekiSeferTarihi: string;  
-  ozetBeyanNo: string;  
-  roro: string;  
-  senetSiraNo: number;  
+  acentaVergiNo: string;
+  aktarmaYapilacak: string;
+  aktarmaTipi: string;
+  aliciAdi: string;
+  aliciVergiNo: string;
+  ambarHarici: string;
+  bildirimTarafiAdi: string;
+  bildirimTarafiVergiNo: string;
+  duzenlendigiUlke: string;
+  emniyetGuvenlik: string;
+  esyaninBulunduguYer: string;
+  faturaDoviz: string;
+  faturaToplami: number;
+  gondericiAdi: string;
+  gondericiVergiNo: string;
+  grup: string;
+  konteyner: string;
+  navlunDoviz: string;
+  navlunTutari: number;
+  odemeSekli: string;
+  oncekiSeferNumarasi: string;
+  oncekiSeferTarihi: string;
+  ozetBeyanNo: string;
+  roro: string;
+  senetSiraNo: number;
 
   constructor(data?: ObTasimaSenetDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
-    if (data) { 
-     
-         this.ozetBeyanInternalNo=data["ozetBeyanInternalNo"]!=null ? data["ozetBeyanInternalNo"] : "";
-         this.tasimaSenetInternalNo=data["tasimaSenetInternalNo"]!=null ?data["tasimaSenetInternalNo"]:"";
-         this.senetSiraNo=data["senetSiraNo"]!=null ? parseInt(data["senetSiraNo"]):0;
-         this.tasimaSenediNo=data["tasimaSenediNo"]!=null ?data["tasimaSenediNo"]:"";        
-         this.faturaToplami=data["faturaToplami"]!=null ? parseInt(data["faturaToplami"]):0;     
-         this.navlunTutari=data["navlunTutari"]!=null ?parseFloat(data["navlunTutari"]):0;       
-         this.acentaAdi=data["acentaAdi"]!=null ?data["acentaAdi"]:"";   
-         this.acentaVergiNo=data["acentaVergiNo"]!=null ?data["acentaVergiNo"]:"";   
-         this.aktarmaYapilacak=data["aktarmaYapilacak"]!=null ?data["aktarmaYapilacak"]:"";   
-         this.aktarmaTipi=data["aktarmaTipi"]!=null ?data["aktarmaTipi"]:"";    
-         this.aliciAdi=data["aliciAdi"]!=null ?data["aliciAdi"]:"";    
-         this.aliciVergiNo=data["aliciVergiNo"]!=null ?data["aliciVergiNo"]:"";     
-         this.ambarHarici=data["ambarHarici"]!=null ?data["ambarHarici"]:"";     
-         this.bildirimTarafiAdi=data["bildirimTarafiAdi"]!=null ?data["bildirimTarafiAdi"]:"";    
-         this.bildirimTarafiVergiNo=data["bildirimTarafiVergiNo"]!=null ?data["bildirimTarafiVergiNo"]:"";   
-         this.duzenlendigiUlke=data["duzenlendigiUlke"]!=null ?data["duzenlendigiUlke"]:"";   
-         this.emniyetGuvenlik=data["emniyetGuvenlik"]!=null ?data["emniyetGuvenlik"]:"";     
-         this.esyaninBulunduguYer=data["esyaninBulunduguYer"]!=null ?data["esyaninBulunduguYer"]:"";    
-         this.faturaDoviz=data["faturaDoviz"]!=null ?data["faturaDoviz"]:"";     
-         this.gondericiAdi=data["gondericiAdi"]!=null ?data["gondericiAdi"]:"";     
-         this.gondericiVergiNo=data["gondericiVergiNo"]!=null ?data["gondericiVergiNo"]:"";   
-         this.grup=data["grup"]!=null ?data["grup"]:"";   
-         this.konteyner=data["konteyner"]!=null ?data["konteyner"]:"";   
-         this.navlunDoviz=data["navlunDoviz"]!=null ?data["navlunDoviz"]:"";             
-         this.odemeSekli=data["odemeSekli"]!=null ?data["odemeSekli"]:"";     
-         this.oncekiSeferNumarasi=data["oncekiSeferNumarasi"]!=null ?data["oncekiSeferNumarasi"]:"";   
-         this.oncekiSeferTarihi=data["oncekiSeferTarihi"]!=null ?data["oncekiSeferTarihi"]:"";   
-         this.ozetBeyanNo=data["ozetBeyanNo"]!=null ?data["ozetBeyanNo"]:"";   
-         this.roro=data["roro"]!=null ?data["roro"]:"";   
-       
-         
+  init(data?: []) {
+    if (data) {
+      this.ozetBeyanInternalNo =
+        data["ozetBeyanInternalNo"] != null ? data["ozetBeyanInternalNo"] : "";
+      this.tasimaSenetInternalNo =
+        data["tasimaSenetInternalNo"] != null
+          ? data["tasimaSenetInternalNo"]
+          : "";
+      this.senetSiraNo =
+        data["senetSiraNo"] != null ? parseInt(data["senetSiraNo"]) : 0;
+      this.tasimaSenediNo =
+        data["tasimaSenediNo"] != null ? data["tasimaSenediNo"] : "";
+      this.faturaToplami =
+        data["faturaToplami"] != null ? parseInt(data["faturaToplami"]) : 0;
+      this.navlunTutari =
+        data["navlunTutari"] != null ? parseFloat(data["navlunTutari"]) : 0;
+      this.acentaAdi = data["acentaAdi"] != null ? data["acentaAdi"] : "";
+      this.acentaVergiNo =
+        data["acentaVergiNo"] != null ? data["acentaVergiNo"] : "";
+      this.aktarmaYapilacak =
+        data["aktarmaYapilacak"] != null ? data["aktarmaYapilacak"] : "";
+      this.aktarmaTipi = data["aktarmaTipi"] != null ? data["aktarmaTipi"] : "";
+      this.aliciAdi = data["aliciAdi"] != null ? data["aliciAdi"] : "";
+      this.aliciVergiNo =
+        data["aliciVergiNo"] != null ? data["aliciVergiNo"] : "";
+      this.ambarHarici = data["ambarHarici"] != null ? data["ambarHarici"] : "";
+      this.bildirimTarafiAdi =
+        data["bildirimTarafiAdi"] != null ? data["bildirimTarafiAdi"] : "";
+      this.bildirimTarafiVergiNo =
+        data["bildirimTarafiVergiNo"] != null
+          ? data["bildirimTarafiVergiNo"]
+          : "";
+      this.duzenlendigiUlke =
+        data["duzenlendigiUlke"] != null ? data["duzenlendigiUlke"] : "";
+      this.emniyetGuvenlik =
+        data["emniyetGuvenlik"] != null ? data["emniyetGuvenlik"] : "";
+      this.esyaninBulunduguYer =
+        data["esyaninBulunduguYer"] != null ? data["esyaninBulunduguYer"] : "";
+      this.faturaDoviz = data["faturaDoviz"] != null ? data["faturaDoviz"] : "";
+      this.gondericiAdi =
+        data["gondericiAdi"] != null ? data["gondericiAdi"] : "";
+      this.gondericiVergiNo =
+        data["gondericiVergiNo"] != null ? data["gondericiVergiNo"] : "";
+      this.grup = data["grup"] != null ? data["grup"] : "";
+      this.konteyner = data["konteyner"] != null ? data["konteyner"] : "";
+      this.navlunDoviz = data["navlunDoviz"] != null ? data["navlunDoviz"] : "";
+      this.odemeSekli = data["odemeSekli"] != null ? data["odemeSekli"] : "";
+      this.oncekiSeferNumarasi =
+        data["oncekiSeferNumarasi"] != null ? data["oncekiSeferNumarasi"] : "";
+      this.oncekiSeferTarihi =
+        data["oncekiSeferTarihi"] != null ? data["oncekiSeferTarihi"] : "";
+      this.ozetBeyanNo = data["ozetBeyanNo"] != null ? data["ozetBeyanNo"] : "";
+      this.roro = data["roro"] != null ? data["roro"] : "";
     }
   }
-
 
   static fromJS(data: any): ObTasimaSenetDto {
     data = typeof data === "object" ? data : {};
@@ -5660,29 +4724,26 @@ export class ObTasimaSenetDto {
 }
 export class ObUgrakUlkeDto {
   ozetBeyanInternalNo: string;
-  tasimaSenetInternalNo:string;
+  tasimaSenetInternalNo: string;
   limanYerAdi: string;
-  ulkeKodu: string;  
+  ulkeKodu: string;
 
   constructor(data?: ObUgrakUlkeDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): ObUgrakUlkeDto {
     data = typeof data === "object" ? data : {};
@@ -5694,33 +4755,29 @@ export class ObUgrakUlkeDto {
 }
 export class ObIhracatDto {
   ozetBeyanInternalNo: string;
-  tasimaSenetInternalNo:string;
+  tasimaSenetInternalNo: string;
   brutAgirlik: number;
   kapAdet: number;
-  numara:string;
-  parcali:string;
-  tip:string;
-
+  numara: string;
+  parcali: string;
+  tip: string;
 
   constructor(data?: ObIhracatDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): ObIhracatDto {
     data = typeof data === "object" ? data : {};
@@ -5734,36 +4791,33 @@ export class ObTasimaSatirDto {
   ozetBeyanInternalNo: string;
   tasimaSenetInternalNo: string;
   tasimaSatirInternalNo: string;
-  brutAgirlik: number;  
-  kapAdet:number;
-  kapCinsi:string;
-  konteynerTipi:string;
-  markaNo:string;  
-  muhurNumarasi:string;  
-  netAgirlik:number;  
-  olcuBirimi:string;  
-  satirNo:number;  
-  konteynerYukDurumu:string;  
+  brutAgirlik: number;
+  kapAdet: number;
+  kapCinsi: string;
+  konteynerTipi: string;
+  markaNo: string;
+  muhurNumarasi: string;
+  netAgirlik: number;
+  olcuBirimi: string;
+  satirNo: number;
+  konteynerYukDurumu: string;
 
   constructor(data?: ObTasimaSatirDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): ObTasimaSatirDto {
     data = typeof data === "object" ? data : {};
@@ -5778,34 +4832,31 @@ export class ObSatirEsyaDto {
   tasimaSenetInternalNo: string;
   tasimaSatirInternalNo: string;
   bmEsyaKodu: string;
-  brutAgirlik: number;  
-  esyaKodu:string;
-  esyaninTanimi:string;
-  kalemFiyati:number;
-  kalemFiyatiDoviz:string;
-  kalemSiraNo:number;
-  netAgirlik:number;
-  olcuBirimi:string;
+  brutAgirlik: number;
+  esyaKodu: string;
+  esyaninTanimi: string;
+  kalemFiyati: number;
+  kalemFiyatiDoviz: string;
+  kalemSiraNo: number;
+  netAgirlik: number;
+  olcuBirimi: string;
 
   constructor(data?: ObSatirEsyaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): ObSatirEsyaDto {
     data = typeof data === "object" ? data : {};
@@ -5818,19 +4869,18 @@ export class ObSatirEsyaDto {
 export class ObTasiyiciFirmaDto {
   ozetBeyanInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  faks:string;
-  ilIlce:string;
-  kimlikTuru:string;
-  no:string;
-  postaKodu:string;
-  telefon:string;
-  tip:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  faks: string;
+  ilIlce: string;
+  kimlikTuru: string;
+  no: string;
+  postaKodu: string;
+  telefon: string;
+  tip: string;
+  ulkeKodu: string;
 
   constructor(data?: ObTasiyiciFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -5838,24 +4888,22 @@ export class ObTasiyiciFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.ozetBeyanInternalNo=data["ozetBeyanInternalNo"]!=null ?data["ozetBeyanInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.faks=data["faks"]!=null ?data["faks"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.kimlikTuru=data["kimlikTuru"]!=null ?data["kimlikTuru"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.telefon=data["telefon"]!=null ?data["telefon"]:"";
-        this.tip=data["tip"]!=null ?data["tip"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.ozetBeyanInternalNo =
+        data["ozetBeyanInternalNo"] != null ? data["ozetBeyanInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.faks = data["faks"] != null ? data["faks"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.kimlikTuru = data["kimlikTuru"] != null ? data["kimlikTuru"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.telefon = data["telefon"] != null ? data["telefon"] : "";
+      this.tip = data["tip"] != null ? data["tip"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): ObTasiyiciFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -5866,36 +4914,32 @@ export class ObTasiyiciFirmaDto {
   }
 }
 export class ObOzetBeyanAcmaDto {
-  id:number;
+  id: number;
   ozetBeyanInternalNo: string;
   ozetBeyanAcmaBeyanInternalNo: string;
   ozetBeyanNo: string;
-  islemKapsami:string;
-  ambar:string;
-  baskaRejim:string;
-  dahiliNoAcma:string;
-  aciklama:string;
- 
+  islemKapsami: string;
+  ambar: string;
+  baskaRejim: string;
+  dahiliNoAcma: string;
+  aciklama: string;
 
   constructor(data?: ObOzetBeyanAcmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): ObOzetBeyanAcmaDto {
     data = typeof data === "object" ? data : {};
@@ -5906,34 +4950,29 @@ export class ObOzetBeyanAcmaDto {
   }
 }
 export class ObOzetBeyanAcmaTasimaSenetDto {
-  id:number;
+  id: number;
   ozetBeyanInternalNo: string;
   ozetBeyanAcmaBeyanInternalNo: string;
   tasimaSenetInternalNo: string;
   tasimaSenediNo: string;
-  dahiliNoAcilanSenet:string;
-  
- 
+  dahiliNoAcilanSenet: string;
 
   constructor(data?: ObOzetBeyanAcmaTasimaSenetDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): ObOzetBeyanAcmaTasimaSenetDto {
     data = typeof data === "object" ? data : {};
@@ -5944,43 +4983,37 @@ export class ObOzetBeyanAcmaTasimaSenetDto {
   }
 }
 export class ObOzetBeyanAcmaTasimaSatirDto {
-  id:number;
+  id: number;
   ozetBeyanInternalNo: string;
   ozetBeyanAcmaBeyanInternalNo: string;
   tasimaSenetInternalNo: string;
-  acmaSatirNo:number;
-  ambarKodu:string;
-  ambardakiMiktar:number;
-  acilacakMiktar:number;
-  markaNo:string;
-  esyaCinsi:string;
-  birim:string;
-  toplamMiktar:number;
-  kapatilanMiktar:number;
-  olcuBirimi:string;
-
-  
- 
+  acmaSatirNo: number;
+  ambarKodu: string;
+  ambardakiMiktar: number;
+  acilacakMiktar: number;
+  markaNo: string;
+  esyaCinsi: string;
+  birim: string;
+  toplamMiktar: number;
+  kapatilanMiktar: number;
+  olcuBirimi: string;
 
   constructor(data?: ObOzetBeyanAcmaTasimaSatirDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): ObOzetBeyanAcmaTasimaSatirDto {
     data = typeof data === "object" ? data : {};
@@ -5993,33 +5026,30 @@ export class ObOzetBeyanAcmaTasimaSatirDto {
 export class ObTeminatDto {
   ozetBeyanInternalNo: string;
   teminatSekli: string;
-  teminatOrani:number;
-  globalTeminatNo:string;
-  bankaMektubuTutari:number;
-  nakdiTeminatTutari:number;
-  digerTutar:number;
-  digerTutarReferansi:string;
-  aciklama:string;
+  teminatOrani: number;
+  globalTeminatNo: string;
+  bankaMektubuTutari: number;
+  nakdiTeminatTutari: number;
+  digerTutar: number;
+  digerTutarReferansi: string;
+  aciklama: string;
 
   constructor(data?: ObTeminatDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-  init(data?:[]) {
+  init(data?: []) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): ObTeminatDto {
     data = typeof data === "object" ? data : {};
@@ -6029,62 +5059,61 @@ export class ObTeminatDto {
     return result;
   }
 }
-export class NctsBeyanDto { 
-  
-  refNo:string;
-	nctsBeyanInternalNo:string;
-  beyannameNo:string;
-  hareketGumruk:string;
-  varisGumruk:string;
-  tescilStatu:string;
-  tescilTarihi:string;
-	olsuturulmaTarihi:string;
-  sonIslemZamani:string;  
-  varisUlke:string;  
-  cikisUlke:string;
-  esyaKabulYerKod:string;
-  esyaKabulYerDil:string;
-	esyaKabulYer:string;
-	esyaOnayYer:string;
-  yuklemeYeri:string  
-  esyaYer:string;
-  yer:string;
-  yerTarihDil:string;
-  bosaltmaYer:string;
-  yukBosYerDil:string;
-  dahildeTasimaSekli:string;  
-  sinirTasimaSekli:string;
-  cikisTasimaSekli:string;  
-	cikisTasitKimligi:string;
-	cikisTasitKimligiDil:string;
-	cikisTasitUlke:string;
-  sinirTasitKimligi:string;  
-	sinirTasitKimligiDil:string;
-  sinirTasitUlke:string;  
-  konteyner:boolean;  
-	kalemSayisi:number;
-	toplamKapSayisi:number;
-  kalemToplamBrutKG:number;  	
-	rejim:string;
-  beyanTipi:string;  
-	beyanTipiDil:string;
-	odemeAraci:string;
-	refaransNo:string;
-	guvenliBeyan:number; 
-  konveyansRefNo:string; 
-  dorse1:string;
-  dorse2:string;
-  damgaVergi:number;
-  musavirKimlikNo:string;
-  kullanici:string;
-  temsilci:string;
-	temsilKapasite:string;
-	temsilKapasiteDil:string;
-	varisGumrukYetkilisi:string;
-	kontrolSonuc:string;
-  sureSinir:string;
-  tanker:boolean;
-  sinirGumruk:string;
+export class NctsBeyanDto {
+  refNo: string;
+  nctsBeyanInternalNo: string;
+  beyannameNo: string;
+  hareketGumruk: string;
+  varisGumruk: string;
+  tescilStatu: string;
+  tescilTarihi: string;
+  olsuturulmaTarihi: string;
+  sonIslemZamani: string;
+  varisUlke: string;
+  cikisUlke: string;
+  esyaKabulYerKod: string;
+  esyaKabulYerDil: string;
+  esyaKabulYer: string;
+  esyaOnayYer: string;
+  yuklemeYeri: string;
+  esyaYer: string;
+  yer: string;
+  yerTarihDil: string;
+  bosaltmaYer: string;
+  yukBosYerDil: string;
+  dahildeTasimaSekli: string;
+  sinirTasimaSekli: string;
+  cikisTasimaSekli: string;
+  cikisTasitKimligi: string;
+  cikisTasitKimligiDil: string;
+  cikisTasitUlke: string;
+  sinirTasitKimligi: string;
+  sinirTasitKimligiDil: string;
+  sinirTasitUlke: string;
+  konteyner: boolean;
+  kalemSayisi: number;
+  toplamKapSayisi: number;
+  kalemToplamBrutKG: number;
+  rejim: string;
+  beyanTipi: string;
+  beyanTipiDil: string;
+  odemeAraci: string;
+  refaransNo: string;
+  guvenliBeyan: number;
+  konveyansRefNo: string;
+  dorse1: string;
+  dorse2: string;
+  damgaVergi: number;
+  musavirKimlikNo: string;
+  kullanici: string;
+  temsilci: string;
+  temsilKapasite: string;
+  temsilKapasiteDil: string;
+  varisGumrukYetkilisi: string;
+  kontrolSonuc: string;
+  sureSinir: string;
+  tanker: boolean;
+  sinirGumruk: string;
 
   constructor(data?: NctsBeyanDto) {
     if (data) {
@@ -6097,83 +5126,116 @@ export class NctsBeyanDto {
 
   initalBeyan(data?: any) {
     if (data) {
-      this.refNo=data["refNo"]!=null ? data["refNo"] : "";
-      this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ? data["nctsBeyanInternalNo"] : "";
-      this.beyannameNo=data["beyannameNo"]!=null ? data["beyannameNo"] : "";
-      this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
-      this.tescilTarihi=data[""]!=null ? data["tescilTarihi"] : "0001-01-01T00:00:00";
-      this.olsuturulmaTarihi= "0001-01-01T00:00:00";
-      this.sonIslemZamani=  "0001-01-01T00:00:00";
-      this.varisUlke=data["varisUlke"]!=null ? data["varisUlke"] : "";
-      this.cikisUlke=data["cikisUlke"]!=null ? data["cikisUlke"] : "";
-      this.esyaKabulYerKod=data["esyaKabulYerKod"]!=null ? data["esyaKabulYerKod"] : "";
-      this.esyaKabulYerDil=data["esyaKabulYerDil"]!=null ? data["esyaKabulYerDil"] : "";
-      this.esyaKabulYer=data["esyaKabulYer"]!=null ? data["esyaKabulYer"] : "";
-      this.esyaOnayYer=data["esyaOnayYer"]!=null ? data["esyaOnayYer"] : "";
-      this.yuklemeYeri=data["yuklemeYeri"]!=null ? data["yuklemeYeri"] : "";    
-      this.esyaYer=data["esyaYer"]!=null ? data["esyaYer"] : "";
-      this.varisGumruk=data["varisGumruk"]!=null ? data["varisGumruk"] : "";
-      this.hareketGumruk=data["hareketGumruk"]!=null ? data["hareketGumruk"] : "";
-      this.sinirGumruk=data["sinirGumruk"]!=null ? data["sinirGumruk"] : "";
-      this.dahildeTasimaSekli=data["dahildeTasimaSekli"]!=null ? data["dahildeTasimaSekli"] : "";
-      this.cikisTasimaSekli=data["cikisTasimaSekli"]!=null ? data["cikisTasimaSekli"] : "";  
-      this.cikisTasitKimligi=data["emniyetGuvenlik"]!=null ? data["cikisTasitKimligi"] : "";
-      this.cikisTasitKimligiDil=data["cikisTasitKimligiDil"]!=null ? data["cikisTasitKimligiDil"] : "";
-      this.cikisTasitUlke=data["cikisTasitUlke"]!=null ? data["cikisTasitUlke"] : "";
-      this.sinirTasitKimligi=data["sinirTasitKimligi"]!=null ? data["sinirTasitKimligi"] : "";
-      this.sinirTasitKimligiDil=data["sinirTasitKimligiDil"]!=null ? data["sinirTasitKimligiDil"] : "";
-      this.sinirTasitUlke=data["sinirTasitUlke"]!=null ? data["sinirTasitUlke"] : "";
-      this.sinirTasimaSekli=data["sinirTasimaSekli"]!=null ? data["sinirTasimaSekli"] : "";
-      this.konteyner=data["konteyner"]!=null ? data["konteyner"] : false;
-      this.kalemSayisi=data["kalemSayisi"]!=null ? parseInt(data["kalemSayisi"]) : 0;
-      this.toplamKapSayisi=data["toplamKapSayisi"]!=null ? parseInt(data["toplamKapSayisi"]) : 0;
-      this.kalemToplamBrutKG=data["kalemToplamBrutKG"]!=null ? parseFloat(data["kalemToplamBrutKG"]) : 0;    
-      this.rejim=data["rejim"]!=null ? data["rejim"] : "";
-      this.yer=data["yer"]!=null ? data["yer"] : "";
-      this.yerTarihDil=data["yerTarihDil"]!=null ? data["yerTarihDil"] : "";
-      this.beyanTipi=data["beyanTipi"]!=null ? data["beyanTipi"] : "";
-      this.beyanTipiDil=data["beyanTipiDil"]!=null ? data["beyanTipiDil"] : "";
-      this.odemeAraci=data["odemeAraci"]!=null ? data["odemeAraci"] : "";
-      this.refaransNo=data["refaransNo"]!=null ? data["refaransNo"] : "";
-      this.guvenliBeyan=data["guvenliBeyan"]!=null ? parseInt(data["guvenliBeyan"]) : 0;
-      this.konveyansRefNo=data["konveyansRefNo"]!=null ? data["konveyansRefNo"] : "";
-      this.bosaltmaYer=data["bosaltmaYer"]!=null ? data["bosaltmaYer"] : "";
-      this.yukBosYerDil=data["yukBosYerDil"]!=null ?  data["yukBosYerDil"] : "";
-      this.dorse1=data["dorse1"]!=null ? data["dorse1"] : "";
-      this.dorse2=data["dorse2"]!=null ? data["dorse2"] : "";
-      this.damgaVergi=data["damgaVergi"]!=null ?parseFloat(data["damgaVergi"]):0;
-      this.musavirKimlikNo=data["musavirKimlikNo"]!=null ? data["musavirKimlikNo"] : "";
-      this.kullanici=data["kullanici"]!=null ? data["kullanici"] : "";      
-      this.temsilci=data["temsilci"]!=null ? data["temsilci"] : "";
-      this.temsilKapasite=data["temsilKapasite"]!=null ? data["temsilKapasite"] : "";
-      this.temsilKapasiteDil=data["temsilKapasiteDil"]!=null ? data["temsilKapasiteDil"] : "";
-      this.varisGumrukYetkilisi=data["varisGumrukYetkilisi"]!=null ? data["varisGumrukYetkilisi"] : "";
-      this.kontrolSonuc=data["kontrolSonuc"]!=null ? data["kontrolSonuc"] : "";
-      this.tanker=data["tanker"]!=null ? data["tanker"] : false;
-      this.sureSinir=data["sureSinir"]!=null ? data["sureSinir"] :  "";
-      
+      this.refNo = data["refNo"] != null ? data["refNo"] : "";
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.beyannameNo = data["beyannameNo"] != null ? data["beyannameNo"] : "";
+      this.tescilStatu = data["tescilStatu"] != null ? data["tescilStatu"] : "";
+      this.tescilTarihi =
+        data[""] != null ? data["tescilTarihi"] : "0001-01-01T00:00:00";
+      this.olsuturulmaTarihi = "0001-01-01T00:00:00";
+      this.sonIslemZamani = "0001-01-01T00:00:00";
+      this.varisUlke = data["varisUlke"] != null ? data["varisUlke"] : "";
+      this.cikisUlke = data["cikisUlke"] != null ? data["cikisUlke"] : "";
+      this.esyaKabulYerKod =
+        data["esyaKabulYerKod"] != null ? data["esyaKabulYerKod"] : "";
+      this.esyaKabulYerDil =
+        data["esyaKabulYerDil"] != null ? data["esyaKabulYerDil"] : "";
+      this.esyaKabulYer =
+        data["esyaKabulYer"] != null ? data["esyaKabulYer"] : "";
+      this.esyaOnayYer = data["esyaOnayYer"] != null ? data["esyaOnayYer"] : "";
+      this.yuklemeYeri = data["yuklemeYeri"] != null ? data["yuklemeYeri"] : "";
+      this.esyaYer = data["esyaYer"] != null ? data["esyaYer"] : "";
+      this.varisGumruk = data["varisGumruk"] != null ? data["varisGumruk"] : "";
+      this.hareketGumruk =
+        data["hareketGumruk"] != null ? data["hareketGumruk"] : "";
+      this.sinirGumruk = data["sinirGumruk"] != null ? data["sinirGumruk"] : "";
+      this.dahildeTasimaSekli =
+        data["dahildeTasimaSekli"] != null ? data["dahildeTasimaSekli"] : "";
+      this.cikisTasimaSekli =
+        data["cikisTasimaSekli"] != null ? data["cikisTasimaSekli"] : "";
+      this.cikisTasitKimligi =
+        data["emniyetGuvenlik"] != null ? data["cikisTasitKimligi"] : "";
+      this.cikisTasitKimligiDil =
+        data["cikisTasitKimligiDil"] != null
+          ? data["cikisTasitKimligiDil"]
+          : "";
+      this.cikisTasitUlke =
+        data["cikisTasitUlke"] != null ? data["cikisTasitUlke"] : "";
+      this.sinirTasitKimligi =
+        data["sinirTasitKimligi"] != null ? data["sinirTasitKimligi"] : "";
+      this.sinirTasitKimligiDil =
+        data["sinirTasitKimligiDil"] != null
+          ? data["sinirTasitKimligiDil"]
+          : "";
+      this.sinirTasitUlke =
+        data["sinirTasitUlke"] != null ? data["sinirTasitUlke"] : "";
+      this.sinirTasimaSekli =
+        data["sinirTasimaSekli"] != null ? data["sinirTasimaSekli"] : "";
+      this.konteyner = data["konteyner"] != null ? data["konteyner"] : false;
+      this.kalemSayisi =
+        data["kalemSayisi"] != null ? parseInt(data["kalemSayisi"]) : 0;
+      this.toplamKapSayisi =
+        data["toplamKapSayisi"] != null ? parseInt(data["toplamKapSayisi"]) : 0;
+      this.kalemToplamBrutKG =
+        data["kalemToplamBrutKG"] != null
+          ? parseFloat(data["kalemToplamBrutKG"])
+          : 0;
+      this.rejim = data["rejim"] != null ? data["rejim"] : "";
+      this.yer = data["yer"] != null ? data["yer"] : "";
+      this.yerTarihDil = data["yerTarihDil"] != null ? data["yerTarihDil"] : "";
+      this.beyanTipi = data["beyanTipi"] != null ? data["beyanTipi"] : "";
+      this.beyanTipiDil =
+        data["beyanTipiDil"] != null ? data["beyanTipiDil"] : "";
+      this.odemeAraci = data["odemeAraci"] != null ? data["odemeAraci"] : "";
+      this.refaransNo = data["refaransNo"] != null ? data["refaransNo"] : "";
+      this.guvenliBeyan =
+        data["guvenliBeyan"] != null ? parseInt(data["guvenliBeyan"]) : 0;
+      this.konveyansRefNo =
+        data["konveyansRefNo"] != null ? data["konveyansRefNo"] : "";
+      this.bosaltmaYer = data["bosaltmaYer"] != null ? data["bosaltmaYer"] : "";
+      this.yukBosYerDil =
+        data["yukBosYerDil"] != null ? data["yukBosYerDil"] : "";
+      this.dorse1 = data["dorse1"] != null ? data["dorse1"] : "";
+      this.dorse2 = data["dorse2"] != null ? data["dorse2"] : "";
+      this.damgaVergi =
+        data["damgaVergi"] != null ? parseFloat(data["damgaVergi"]) : 0;
+      this.musavirKimlikNo =
+        data["musavirKimlikNo"] != null ? data["musavirKimlikNo"] : "";
+      this.kullanici = data["kullanici"] != null ? data["kullanici"] : "";
+      this.temsilci = data["temsilci"] != null ? data["temsilci"] : "";
+      this.temsilKapasite =
+        data["temsilKapasite"] != null ? data["temsilKapasite"] : "";
+      this.temsilKapasiteDil =
+        data["temsilKapasiteDil"] != null ? data["temsilKapasiteDil"] : "";
+      this.varisGumrukYetkilisi =
+        data["varisGumrukYetkilisi"] != null
+          ? data["varisGumrukYetkilisi"]
+          : "";
+      this.kontrolSonuc =
+        data["kontrolSonuc"] != null ? data["kontrolSonuc"] : "";
+      this.tanker = data["tanker"] != null ? data["tanker"] : false;
+      this.sureSinir = data["sureSinir"] != null ? data["sureSinir"] : "";
     }
   }
 
-   static fromJS(data: any): NctsBeyanDto {
+  static fromJS(data: any): NctsBeyanDto {
     data = typeof data === "object" ? data : {};
     let result = new NctsBeyanDto();
 
     result.initalBeyan(data);
     return result;
   }
-
 }
 export class NbBeyanSahibiDto {
   nctsBeyanInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  no:string;
- 
+  caddeSokakNo: string;
+  ilIlce: string;
+  no: string;
+
   constructor(data?: NbBeyanSahibiDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6181,18 +5243,16 @@ export class NbBeyanSahibiDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";     
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-      
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
     }
   }
-
 
   static fromJS(data: any): NbBeyanSahibiDto {
     data = typeof data === "object" ? data : {};
@@ -6205,16 +5265,15 @@ export class NbBeyanSahibiDto {
 export class NbTasiyiciFirmaDto {
   nctsBeyanInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbTasiyiciFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6222,21 +5281,19 @@ export class NbTasiyiciFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbTasiyiciFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6249,16 +5306,15 @@ export class NbTasiyiciFirmaDto {
 export class NbGondericiFirmaDto {
   nctsBeyanInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbGondericiFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6266,21 +5322,19 @@ export class NbGondericiFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbGondericiFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6293,16 +5347,15 @@ export class NbGondericiFirmaDto {
 export class NbAliciFirmaDto {
   nctsBeyanInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbAliciFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6310,21 +5363,19 @@ export class NbAliciFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbAliciFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6337,16 +5388,15 @@ export class NbAliciFirmaDto {
 export class NbAsilSorumluFirmaDto {
   nctsBeyanInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbAsilSorumluFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6354,21 +5404,19 @@ export class NbAsilSorumluFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbAsilSorumluFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6381,16 +5429,15 @@ export class NbAsilSorumluFirmaDto {
 export class NbGuvenliGondericiFirmaDto {
   nctsBeyanInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbGuvenliGondericiFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6398,21 +5445,19 @@ export class NbGuvenliGondericiFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbGuvenliGondericiFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6425,16 +5470,15 @@ export class NbGuvenliGondericiFirmaDto {
 export class NbGuvenliAliciFirmaDto {
   nctsBeyanInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbGuvenliAliciFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6442,21 +5486,19 @@ export class NbGuvenliAliciFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbGuvenliAliciFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6469,17 +5511,16 @@ export class NbGuvenliAliciFirmaDto {
 export class NbTeminatDto {
   nctsBeyanInternalNo: string;
   teminatTipi: string;
-  grnNo:string;
-  digerRefNo:string;
-  erisimKodu:string;
-  dovizCinsi:string;
-  tutar:number;
-  ecGecerliDegil:number;
-  ulkeGecerliDegil:string;
- 
+  grnNo: string;
+  digerRefNo: string;
+  erisimKodu: string;
+  dovizCinsi: string;
+  tutar: number;
+  ecGecerliDegil: number;
+  ulkeGecerliDegil: string;
+
   constructor(data?: NbTeminatDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6487,22 +5528,21 @@ export class NbTeminatDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.teminatTipi=data["teminatTipi"]!=null ?data["teminatTipi"] :"";
-        this.grnNo=data["grnNo"]!=null ?data["grnNo"]:"";     
-        this.digerRefNo=data["digerRefNo"]!=null ?data["digerRefNo"]:"";
-        this.erisimKodu=data["erisimKodu"]!=null ?data["erisimKodu"]:"";
-        this.dovizCinsi=data["dovizCinsi"]!=null ?data["dovizCinsi"]:"";
-        this.ulkeGecerliDegil=data["ulkeGecerliDegil"]!=null ?data["ulkeGecerliDegil"]:"";
-        this.tutar=data["tutar"]!=null ? parseFloat( data["tutar"]):0;
-        this.ecGecerliDegil=data["ecGecerliDegil"]!=null ? parseInt(data["ecGecerliDegil"]):0;
-        
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.teminatTipi = data["teminatTipi"] != null ? data["teminatTipi"] : "";
+      this.grnNo = data["grnNo"] != null ? data["grnNo"] : "";
+      this.digerRefNo = data["digerRefNo"] != null ? data["digerRefNo"] : "";
+      this.erisimKodu = data["erisimKodu"] != null ? data["erisimKodu"] : "";
+      this.dovizCinsi = data["dovizCinsi"] != null ? data["dovizCinsi"] : "";
+      this.ulkeGecerliDegil =
+        data["ulkeGecerliDegil"] != null ? data["ulkeGecerliDegil"] : "";
+      this.tutar = data["tutar"] != null ? parseFloat(data["tutar"]) : 0;
+      this.ecGecerliDegil =
+        data["ecGecerliDegil"] != null ? parseInt(data["ecGecerliDegil"]) : 0;
     }
   }
-
 
   static fromJS(data: any): NbTeminatDto {
     data = typeof data === "object" ? data : {};
@@ -6515,12 +5555,10 @@ export class NbTeminatDto {
 export class NbTransitGumrukDto {
   nctsBeyanInternalNo: string;
   gumruk: string;
-  varisTarihi:string;
-  
- 
+  varisTarihi: string;
+
   constructor(data?: NbTransitGumrukDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6528,17 +5566,13 @@ export class NbTransitGumrukDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.gumruk=data["gumruk"]!=null ?data["gumruk"] :"";
-        this.varisTarihi=data["varisTarihi"]!=null ?data["varisTarihi"]:"";     
-      
-      
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.gumruk = data["gumruk"] != null ? data["gumruk"] : "";
+      this.varisTarihi = data["varisTarihi"] != null ? data["varisTarihi"] : "";
     }
   }
-
 
   static fromJS(data: any): NbTransitGumrukDto {
     data = typeof data === "object" ? data : {};
@@ -6551,12 +5585,10 @@ export class NbTransitGumrukDto {
 export class NbMuhurDto {
   nctsBeyanInternalNo: string;
   muhurNo: string;
-  dil:string;
- 
- 
+  dil: string;
+
   constructor(data?: NbMuhurDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6564,17 +5596,13 @@ export class NbMuhurDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.muhurNo=data["muhurNo"]!=null ?data["muhurNo"] :"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";     
-      
-      
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.muhurNo = data["muhurNo"] != null ? data["muhurNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
     }
   }
-
 
   static fromJS(data: any): NbMuhurDto {
     data = typeof data === "object" ? data : {};
@@ -6587,11 +5615,9 @@ export class NbMuhurDto {
 export class NbRotaDto {
   nctsBeyanInternalNo: string;
   ulkeKodu: string;
- 
- 
+
   constructor(data?: NbRotaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6599,15 +5625,12 @@ export class NbRotaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"] :"";
-       
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbRotaDto {
     data = typeof data === "object" ? data : {};
@@ -6620,27 +5643,26 @@ export class NbRotaDto {
 export class NbKalemDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
-  kalemSiraNo: number;  
-	gtip: string;
-	rejimKodu: string;
-	ticariTanim: string;
-	ticariTanimDil: string;
-	kiymet: number;
-	kiymetDoviz: string;
-	burutAgirlik: number;
-	netAgirlik: number;
-	varisUlkesi: string;
-	cikisUlkesi: string;
-	tptChMOdemeKod: string;
-	konsimentoRef: string;
-	undg: string;
-	ihrBeyanNo: string;
-	ihrBeyanTip: string;
-	ihrBeyanParcali: string;
- 
+  kalemSiraNo: number;
+  gtip: string;
+  rejimKodu: string;
+  ticariTanim: string;
+  ticariTanimDil: string;
+  kiymet: number;
+  kiymetDoviz: string;
+  burutAgirlik: number;
+  netAgirlik: number;
+  varisUlkesi: string;
+  cikisUlkesi: string;
+  tptChMOdemeKod: string;
+  konsimentoRef: string;
+  undg: string;
+  ihrBeyanNo: string;
+  ihrBeyanTip: string;
+  ihrBeyanParcali: string;
+
   constructor(data?: NbKalemDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6648,33 +5670,36 @@ export class NbKalemDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.kalemSiraNo=data["kalemSiraNo"]!=null ?data["kalemSiraNo"] :0;
-        this.gtip=data["gtip"]!=null ?data["gtip"] :"";
-        this.rejimKodu=data["rejimKodu"]!=null ?data["rejimKodu"] :"";
-        this.ticariTanim=data["ticariTanim"]!=null ?data["ticariTanim"] :"";
-        this.ticariTanimDil=data["ticariTanimDil"]!=null ?data["ticariTanimDil"] :"";
-        this.kiymet=data["kiymet"]!=null ?parseFloat(data["kiymet"]) :0;
-        this.kiymetDoviz=data["kiymetDoviz"]!=null ?data["kiymetDoviz"] :"";
-        this.burutAgirlik=data["burutAgirlik"]!=null ?parseFloat(data["burutAgirlik"]) :0;
-        this.netAgirlik=data["netAgirlik"]!=null ?parseFloat(data["netAgirlik"]) :0;
-        this.varisUlkesi=data["varisUlkesi"]!=null ?data["varisUlkesi"] :"";
-        this.cikisUlkesi=data["cikisUlkesi"]!=null ?data["cikisUlkesi"] :"";
-        this.tptChMOdemeKod=data["tptChMOdemeKod"]!=null ?data["tptChMOdemeKod"] :"";
-        this.konsimentoRef=data["konsimentoRef"]!=null ?data["konsimentoRef"] :"";
-        this.undg=data["undg"]!=null ?data["undg"] :"";
-        this.ihrBeyanNo=data["ihrBeyanNo"]!=null ?data["ihrBeyanNo"] :"";
-        this.ihrBeyanTip=data["ihrBeyanTip"]!=null ?data["ihrBeyanTip"] :"";
-        this.ihrBeyanParcali=data["ihrBeyanParcali"]!=null ?data["ihrBeyanParcali"] :"";
-
-       
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.kalemSiraNo = data["kalemSiraNo"] != null ? data["kalemSiraNo"] : 0;
+      this.gtip = data["gtip"] != null ? data["gtip"] : "";
+      this.rejimKodu = data["rejimKodu"] != null ? data["rejimKodu"] : "";
+      this.ticariTanim = data["ticariTanim"] != null ? data["ticariTanim"] : "";
+      this.ticariTanimDil =
+        data["ticariTanimDil"] != null ? data["ticariTanimDil"] : "";
+      this.kiymet = data["kiymet"] != null ? parseFloat(data["kiymet"]) : 0;
+      this.kiymetDoviz = data["kiymetDoviz"] != null ? data["kiymetDoviz"] : "";
+      this.burutAgirlik =
+        data["burutAgirlik"] != null ? parseFloat(data["burutAgirlik"]) : 0;
+      this.netAgirlik =
+        data["netAgirlik"] != null ? parseFloat(data["netAgirlik"]) : 0;
+      this.varisUlkesi = data["varisUlkesi"] != null ? data["varisUlkesi"] : "";
+      this.cikisUlkesi = data["cikisUlkesi"] != null ? data["cikisUlkesi"] : "";
+      this.tptChMOdemeKod =
+        data["tptChMOdemeKod"] != null ? data["tptChMOdemeKod"] : "";
+      this.konsimentoRef =
+        data["konsimentoRef"] != null ? data["konsimentoRef"] : "";
+      this.undg = data["undg"] != null ? data["undg"] : "";
+      this.ihrBeyanNo = data["ihrBeyanNo"] != null ? data["ihrBeyanNo"] : "";
+      this.ihrBeyanTip = data["ihrBeyanTip"] != null ? data["ihrBeyanTip"] : "";
+      this.ihrBeyanParcali =
+        data["ihrBeyanParcali"] != null ? data["ihrBeyanParcali"] : "";
     }
   }
-
 
   static fromJS(data: any): NbKalemDto {
     data = typeof data === "object" ? data : {};
@@ -6689,10 +5714,9 @@ export class NbKonteynerDto {
   kalemInternalNo: string;
   konteynerNo: string;
   ulke: string;
- 
+
   constructor(data?: NbKonteynerDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6700,16 +5724,15 @@ export class NbKonteynerDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.konteynerNo=data["konteynerNo"]!=null ?data["konteynerNo"] :"";
-        this.ulke=data["ulke"]!=null ?data["ulke"] :"";
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.konteynerNo = data["konteynerNo"] != null ? data["konteynerNo"] : "";
+      this.ulke = data["ulke"] != null ? data["ulke"] : "";
     }
   }
-
 
   static fromJS(data: any): NbKonteynerDto {
     data = typeof data === "object" ? data : {};
@@ -6723,16 +5746,15 @@ export class NbKalemGondericiFirmaDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbKalemGondericiFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6740,22 +5762,21 @@ export class NbKalemGondericiFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbKalemGondericiFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6769,16 +5790,15 @@ export class NbKalemAliciFirmaDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbKalemAliciFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6786,22 +5806,21 @@ export class NbKalemAliciFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbKalemAliciFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6815,16 +5834,15 @@ export class NbKalemGuvenliGondericiFirmaDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbKalemGuvenliGondericiFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6832,22 +5850,21 @@ export class NbKalemGuvenliGondericiFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbKalemGuvenliGondericiFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6861,16 +5878,15 @@ export class NbKalemGuvenliAliciFirmaDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
   adUnvan: string;
-  caddeSokakNo:string;
-  ilIlce:string;
-  dil:string;
-  no:string;
-  postaKodu:string;
-  ulkeKodu:string;
+  caddeSokakNo: string;
+  ilIlce: string;
+  dil: string;
+  no: string;
+  postaKodu: string;
+  ulkeKodu: string;
 
   constructor(data?: NbKalemGuvenliAliciFirmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6878,22 +5894,21 @@ export class NbKalemGuvenliAliciFirmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.adUnvan=data["adUnvan"]!=null ?data["adUnvan"] :"";
-        this.caddeSokakNo=data["caddeSokakNo"]!=null ?data["caddeSokakNo"]:"";
-        this.dil=data["dil"]!=null ?data["dil"]:"";
-        this.ilIlce=data["ilIlce"]!=null ?data["ilIlce"]:"";
-        this.no=data["no"]!=null ?data["no"]:"";
-        this.postaKodu=data["postaKodu"]!=null ?data["postaKodu"]:"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ?data["ulkeKodu"]:"";
-
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.adUnvan = data["adUnvan"] != null ? data["adUnvan"] : "";
+      this.caddeSokakNo =
+        data["caddeSokakNo"] != null ? data["caddeSokakNo"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ilIlce = data["ilIlce"] != null ? data["ilIlce"] : "";
+      this.no = data["no"] != null ? data["no"] : "";
+      this.postaKodu = data["postaKodu"] != null ? data["postaKodu"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
     }
   }
-
 
   static fromJS(data: any): NbKalemGuvenliAliciFirmaDto {
     data = typeof data === "object" ? data : {};
@@ -6908,10 +5923,9 @@ export class NbHassasEsyaDto {
   kalemInternalNo: string;
   kod: number;
   miktar: number;
- 
+
   constructor(data?: NbHassasEsyaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6919,16 +5933,15 @@ export class NbHassasEsyaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.kod=data["kod"]!=null ?  parseInt(data["kod"]) :0;
-        this.miktar=data["miktar"]!=null ? parseFloat( data["miktar"]) :0;
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.kod = data["kod"] != null ? parseInt(data["kod"]) : 0;
+      this.miktar = data["miktar"] != null ? parseFloat(data["miktar"]) : 0;
     }
   }
-
 
   static fromJS(data: any): NbHassasEsyaDto {
     data = typeof data === "object" ? data : {};
@@ -6941,15 +5954,14 @@ export class NbHassasEsyaDto {
 export class NbKapDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
-  markaNo:string;
-  kapTipi:string;
-  markaDil:string;
+  markaNo: string;
+  kapTipi: string;
+  markaDil: string;
   kapAdet: number;
   parcaSayisi: number;
- 
+
   constructor(data?: NbKapDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6957,19 +5969,19 @@ export class NbKapDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.markaNo=data["no"]!=null ?data["markaNo"] :"";
-        this.markaDil=data["markaDil"]!=null ?data["markaDil"] :"";
-        this.kapTipi=data["kapTipi"]!=null ?data["kapTipi"] :"";
-        this.kapAdet=data["kapAdet"]!=null ?  parseInt(data["kapAdet"]) :0;
-        this.parcaSayisi=data["parcaSayisi"]!=null ? parseInt( data["parcaSayisi"]) :0;
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.markaNo = data["no"] != null ? data["markaNo"] : "";
+      this.markaDil = data["markaDil"] != null ? data["markaDil"] : "";
+      this.kapTipi = data["kapTipi"] != null ? data["kapTipi"] : "";
+      this.kapAdet = data["kapAdet"] != null ? parseInt(data["kapAdet"]) : 0;
+      this.parcaSayisi =
+        data["parcaSayisi"] != null ? parseInt(data["parcaSayisi"]) : 0;
     }
   }
-
 
   static fromJS(data: any): NbKapDto {
     data = typeof data === "object" ? data : {};
@@ -6982,15 +5994,14 @@ export class NbKapDto {
 export class NbEkBilgiDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
-  ekBilgiKod:string;
-  ekBilgi:string;
-  dil:string;
+  ekBilgiKod: string;
+  ekBilgi: string;
+  dil: string;
   ec2Ihr: number;
   ulkeKodu: string;
- 
+
   constructor(data?: NbEkBilgiDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -6998,19 +6009,18 @@ export class NbEkBilgiDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.ekBilgiKod=data["ekBilgiKod"]!=null ?data["ekBilgiKod"] :"";
-        this.dil=data["dil"]!=null ?data["dil"] :"";
-        this.ekBilgi=data["tip"]!=null ?data["ekBilgi"] :"";
-        this.ulkeKodu=data["ulkeKodu"]!=null ? data["ulkeKodu"] :"";
-        this.ec2Ihr=data["ec2Ihr"]!=null ? parseInt( data["ec2Ihr"]) :0;
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.ekBilgiKod = data["ekBilgiKod"] != null ? data["ekBilgiKod"] : "";
+      this.dil = data["dil"] != null ? data["dil"] : "";
+      this.ekBilgi = data["tip"] != null ? data["ekBilgi"] : "";
+      this.ulkeKodu = data["ulkeKodu"] != null ? data["ulkeKodu"] : "";
+      this.ec2Ihr = data["ec2Ihr"] != null ? parseInt(data["ec2Ihr"]) : 0;
     }
   }
-
 
   static fromJS(data: any): NbEkBilgiDto {
     data = typeof data === "object" ? data : {};
@@ -7023,15 +6033,14 @@ export class NbEkBilgiDto {
 export class NbBelgelerDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
-  belgeTipi:string;
-  refNo:string;
-  belgeDil:string;
+  belgeTipi: string;
+  refNo: string;
+  belgeDil: string;
   tamamlayiciOlcu: string;
   tamamlayiciOlcuDil: string;
- 
+
   constructor(data?: NbBelgelerDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -7039,19 +6048,20 @@ export class NbBelgelerDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.belgeTipi=data["belgeTipi"]!=null ?data["belgeTipi"] :"";
-        this.belgeDil=data["belgeDil"]!=null ?data["belgeDil"] :"";
-        this.refNo=data["refNo"]!=null ?data["refNo"] :"";
-        this.tamamlayiciOlcu=data["tamamlayiciOlcu"]!=null ? data["tamamlayiciOlcu"] :"";
-        this.tamamlayiciOlcuDil=data["tamamlayiciOlcuDil"]!=null ? data["tamamlayiciOlcuDil"] :"";
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.belgeTipi = data["belgeTipi"] != null ? data["belgeTipi"] : "";
+      this.belgeDil = data["belgeDil"] != null ? data["belgeDil"] : "";
+      this.refNo = data["refNo"] != null ? data["refNo"] : "";
+      this.tamamlayiciOlcu =
+        data["tamamlayiciOlcu"] != null ? data["tamamlayiciOlcu"] : "";
+      this.tamamlayiciOlcuDil =
+        data["tamamlayiciOlcuDil"] != null ? data["tamamlayiciOlcuDil"] : "";
     }
   }
-
 
   static fromJS(data: any): NbBelgelerDto {
     data = typeof data === "object" ? data : {};
@@ -7064,15 +6074,14 @@ export class NbBelgelerDto {
 export class NbOncekiBelgelerDto {
   nctsBeyanInternalNo: string;
   kalemInternalNo: string;
-  belgeTipi:string;
-  refNo:string;
-  belgeDil:string;
+  belgeTipi: string;
+  refNo: string;
+  belgeDil: string;
   tamamlayiciBilgi: string;
   tamamlayiciBilgiDil: string;
- 
+
   constructor(data?: NbOncekiBelgelerDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -7080,19 +6089,20 @@ export class NbOncekiBelgelerDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-        this.kalemInternalNo=data["kalemInternalNo"]!=null ?data["kalemInternalNo"] :"";
-        this.belgeTipi=data["belgeTipi"]!=null ?data["belgeTipi"] :"";
-        this.belgeDil=data["belgeDil"]!=null ?data["belgeDil"] :"";
-        this.refNo=data["refNo"]!=null ?data["refNo"] :"";
-        this.tamamlayiciBilgi=data["tamamlayiciBilgi"]!=null ? data["tamamlayiciBilgi"] :"";
-        this.tamamlayiciBilgiDil=data["tamamlayiciBilgiDil"]!=null ? data["tamamlayiciBilgiDil"] :"";
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.kalemInternalNo =
+        data["kalemInternalNo"] != null ? data["kalemInternalNo"] : "";
+      this.belgeTipi = data["belgeTipi"] != null ? data["belgeTipi"] : "";
+      this.belgeDil = data["belgeDil"] != null ? data["belgeDil"] : "";
+      this.refNo = data["refNo"] != null ? data["refNo"] : "";
+      this.tamamlayiciBilgi =
+        data["tamamlayiciBilgi"] != null ? data["tamamlayiciBilgi"] : "";
+      this.tamamlayiciBilgiDil =
+        data["tamamlayiciBilgiDil"] != null ? data["tamamlayiciBilgiDil"] : "";
     }
   }
-
 
   static fromJS(data: any): NbOncekiBelgelerDto {
     data = typeof data === "object" ? data : {};
@@ -7103,18 +6113,17 @@ export class NbOncekiBelgelerDto {
   }
 }
 export class NbObAcmaDto {
-  nctsBeyanInternalNo: string;  
-  islemKapsami:string;
-  ozetBeyanNo:string;
-  ambarIci:string;
+  nctsBeyanInternalNo: string;
+  islemKapsami: string;
+  ozetBeyanNo: string;
+  ambarIci: string;
   ambarKodu: string;
   tasimaSenetNo: string;
   tasimaSatirNo: number;
   miktar: number;
- 
+
   constructor(data?: NbObAcmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -7122,21 +6131,23 @@ export class NbObAcmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";
-      
-        this.islemKapsami=data["islemKapsami"]!=null ?data["islemKapsami"] :"";
-        this.ozetBeyanNo=data["belgozetBeyanNoeDil"]!=null ?data["ozetBeyanNo"] :"";
-        this.ambarIci=data["ambarIci"]!=null ?data["ambarIci"] :"";
-        this.ambarKodu=data["ambarKodu"]!=null ? data["ambarKodu"] :"";
-        this.tasimaSenetNo=data["tasimaSenetNo"]!=null ? data["tamamlayiciBilgiDil"] :"";
-        this.tasimaSatirNo=data["titlNum"]!=null ? parseInt( data["tasimaSatirNo"]) :0;
-        this.miktar=data["miktar"]!=null ? parseFloat( data["miktar"] ):0;
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+
+      this.islemKapsami =
+        data["islemKapsami"] != null ? data["islemKapsami"] : "";
+      this.ozetBeyanNo =
+        data["belgozetBeyanNoeDil"] != null ? data["ozetBeyanNo"] : "";
+      this.ambarIci = data["ambarIci"] != null ? data["ambarIci"] : "";
+      this.ambarKodu = data["ambarKodu"] != null ? data["ambarKodu"] : "";
+      this.tasimaSenetNo =
+        data["tasimaSenetNo"] != null ? data["tamamlayiciBilgiDil"] : "";
+      this.tasimaSatirNo =
+        data["titlNum"] != null ? parseInt(data["tasimaSatirNo"]) : 0;
+      this.miktar = data["miktar"] != null ? parseFloat(data["miktar"]) : 0;
     }
   }
-
 
   static fromJS(data: any): NbObAcmaDto {
     data = typeof data === "object" ? data : {};
@@ -7147,10 +6158,10 @@ export class NbObAcmaDto {
   }
 }
 export class NbAbAcmaDto {
-  nctsBeyanInternalNo: string; 
-  beyannameNo:string;
-  kalemNo:number;
-  acilanKalemNo:number;
+  nctsBeyanInternalNo: string;
+  beyannameNo: string;
+  kalemNo: number;
+  acilanKalemNo: number;
   aciklama: string;
   miktar: number;
   teslimSekli: string;
@@ -7161,7 +6172,6 @@ export class NbAbAcmaDto {
   ticaretUlkesi: string;
   constructor(data?: NbAbAcmaDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -7169,24 +6179,25 @@ export class NbAbAcmaDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.nctsBeyanInternalNo=data["nctsBeyanInternalNo"]!=null ?data["nctsBeyanInternalNo"] :"";     
-        this.beyannameNo=data["beyannameNo"]!=null ?data["beyannameNo"] :"";
-        this.aciklama=data["aciklama"]!=null ?data["aciklama"] :"";
-        this.kalemNo=data["kalemNo"]!=null ? parseInt( data["kalemNo"]) :0;
-        this.acilanKalemNo=data["acilanKalemNo"]!=null ? parseInt( data["acilanKalemNo"]) :0;
-        this.miktar=data["miktar"]!=null ? parseFloat( data["miktar"]) :0;
-        this.teslimSekli=data["teslimSekli"]!=null ?data["teslimSekli"] :"";
-        this.dovizCinsi=data["dovizCinsi"]!=null ?data["dovizCinsi"] :"";
-        this.kiymet= data["miktar"]!=null ? parseFloat( data["miktar"]) :0;
-        this.odemeSekli=data["odemeSekli"]!=null ?data["odemeSekli"] :"";
-        this.isleminNiteligi=data["isleminNiteligi"]!=null ?data["isleminNiteligi"] :"";
-        this.ticaretUlkesi=data["ticaretUlkesi"]!=null ?data["ticaretUlkesi"] :"";
+    if (data) {
+      this.nctsBeyanInternalNo =
+        data["nctsBeyanInternalNo"] != null ? data["nctsBeyanInternalNo"] : "";
+      this.beyannameNo = data["beyannameNo"] != null ? data["beyannameNo"] : "";
+      this.aciklama = data["aciklama"] != null ? data["aciklama"] : "";
+      this.kalemNo = data["kalemNo"] != null ? parseInt(data["kalemNo"]) : 0;
+      this.acilanKalemNo =
+        data["acilanKalemNo"] != null ? parseInt(data["acilanKalemNo"]) : 0;
+      this.miktar = data["miktar"] != null ? parseFloat(data["miktar"]) : 0;
+      this.teslimSekli = data["teslimSekli"] != null ? data["teslimSekli"] : "";
+      this.dovizCinsi = data["dovizCinsi"] != null ? data["dovizCinsi"] : "";
+      this.kiymet = data["miktar"] != null ? parseFloat(data["miktar"]) : 0;
+      this.odemeSekli = data["odemeSekli"] != null ? data["odemeSekli"] : "";
+      this.isleminNiteligi =
+        data["isleminNiteligi"] != null ? data["isleminNiteligi"] : "";
+      this.ticaretUlkesi =
+        data["ticaretUlkesi"] != null ? data["ticaretUlkesi"] : "";
     }
   }
-
 
   static fromJS(data: any): NbAbAcmaDto {
     data = typeof data === "object" ? data : {};
@@ -7197,8 +6208,8 @@ export class NbAbAcmaDto {
   }
 }
 export class MesaiDto {
-  mesaiInternalNo: string; 
-  refNo:string;
+  mesaiInternalNo: string;
+  refNo: string;
   mesaiID: string;
   tescilStatu: string;
   aracAdedi: number;
@@ -7216,16 +6227,15 @@ export class MesaiDto {
   irtibatAdSoyad: string;
   irtibatTelefonNo: string;
   islemTipi: string;
-  odemeYapacakFirmaVergiNo:string;
-  nCTSSayisi:number;
-  oZBYSayisi:number;
-  uzaklik:number;
-  baslangicZamani:string;
-  tescilTarihi:string;
+  odemeYapacakFirmaVergiNo: string;
+  nCTSSayisi: number;
+  oZBYSayisi: number;
+  uzaklik: number;
+  baslangicZamani: string;
+  tescilTarihi: string;
 
   constructor(data?: MesaiDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -7233,38 +6243,59 @@ export class MesaiDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.mesaiInternalNo=data["mesaiInternalNo"]!=null ?data["mesaiInternalNo"] :"";     
-        this.beyannameNo=data["beyannameNo"]!=null ?data["beyannameNo"] :"";
-        this.refNo=data["refNo"]!=null ?data["refNo"] :"";        
-        this.aracAdedi=data["miktar"]!=null ? parseInt( data["aracAdedi"]) :0;
-        this.mesaiID=data["mesaiID"]!=null ?data["mesaiID"] :"";
-        this.gumrukKodu=data["gumrukKodu"]!=null ?data["gumrukKodu"] :"";
-        this.adres=data["adres"]!=null ?data["adres"] :"";
-        this.digerNo=data["digerNo"]!=null ?data["digerNo"] :"";
-        this.esyaninBulunduguYer=data["esyaninBulunduguYer"]!=null ?data["esyaninBulunduguYer"] :"";
-        this.esyaninBulunduguYerAdi=data["esyaninBulunduguYerAdi"]!=null ?data["esyaninBulunduguYerAdi"] :"";
-        this.esyaninBulunduguYerKodu=data["esyaninBulunduguYerKodu"]!=null ?data["esyaninBulunduguYerKodu"] :"";
-        this.firmaVergiNo=data["firmaVergiNo"]!=null ?data["firmaVergiNo"] :"";
-        this.kullaniciKodu=data["kullaniciKodu"]!=null ?data["kullaniciKodu"] :"";
-        this.globalHesaptanOdeme=data["globalHesaptanOdeme"]!=null ?data["globalHesaptanOdeme"] :"";
-        this.gumrukSahasinda=data["gumrukSahasinda"]!=null ?data["gumrukSahasinda"] :"";
-        this.irtibatAdSoyad=data["irtibatAdSoyad"]!=null ?data["irtibatAdSoyad"] :"";
-        this.irtibatTelefonNo=data["irtibatTelefonNo"]!=null ?data["irtibatTelefonNo"] :"";
-        this.islemTipi=data["islemTipi"]!=null ?data["islemTipi"] :"";
-        this.odemeYapacakFirmaVergiNo=data["odemeYapacakFirmaVergiNo"]!=null ?data["odemeYapacakFirmaVergiNo"] :"";
-        this.nCTSSayisi=data["nCTSSayisi"]!=null ? parseInt( data["nCTSSayisi"]) :0;
-        this.oZBYSayisi=data["oZBYSayisi"]!=null ? parseInt( data["oZBYSayisi"]) :0;
-        this.uzaklik=data["uzaklik"]!=null ? parseInt( data["uzaklik"]) :0;
-        this.baslangicZamani=data["baslangicZamani"]!=null &&  data["baslangicZamani"]!='' ? data["baslangicZamani"] : "0001-01-01T00:00:00";
-        this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
-        this.tescilTarihi=data["tescilTarihi"]!=null &&  data["tescilTarihi"]!='' ? data["tescilTarihi"] : "0001-01-01T00:00:00";
-   
+    if (data) {
+      this.mesaiInternalNo =
+        data["mesaiInternalNo"] != null ? data["mesaiInternalNo"] : "";
+      this.beyannameNo = data["beyannameNo"] != null ? data["beyannameNo"] : "";
+      this.refNo = data["refNo"] != null ? data["refNo"] : "";
+      this.aracAdedi = data["miktar"] != null ? parseInt(data["aracAdedi"]) : 0;
+      this.mesaiID = data["mesaiID"] != null ? data["mesaiID"] : "";
+      this.gumrukKodu = data["gumrukKodu"] != null ? data["gumrukKodu"] : "";
+      this.adres = data["adres"] != null ? data["adres"] : "";
+      this.digerNo = data["digerNo"] != null ? data["digerNo"] : "";
+      this.esyaninBulunduguYer =
+        data["esyaninBulunduguYer"] != null ? data["esyaninBulunduguYer"] : "";
+      this.esyaninBulunduguYerAdi =
+        data["esyaninBulunduguYerAdi"] != null
+          ? data["esyaninBulunduguYerAdi"]
+          : "";
+      this.esyaninBulunduguYerKodu =
+        data["esyaninBulunduguYerKodu"] != null
+          ? data["esyaninBulunduguYerKodu"]
+          : "";
+      this.firmaVergiNo =
+        data["firmaVergiNo"] != null ? data["firmaVergiNo"] : "";
+      this.kullaniciKodu =
+        data["kullaniciKodu"] != null ? data["kullaniciKodu"] : "";
+      this.globalHesaptanOdeme =
+        data["globalHesaptanOdeme"] != null ? data["globalHesaptanOdeme"] : "";
+      this.gumrukSahasinda =
+        data["gumrukSahasinda"] != null ? data["gumrukSahasinda"] : "";
+      this.irtibatAdSoyad =
+        data["irtibatAdSoyad"] != null ? data["irtibatAdSoyad"] : "";
+      this.irtibatTelefonNo =
+        data["irtibatTelefonNo"] != null ? data["irtibatTelefonNo"] : "";
+      this.islemTipi = data["islemTipi"] != null ? data["islemTipi"] : "";
+      this.odemeYapacakFirmaVergiNo =
+        data["odemeYapacakFirmaVergiNo"] != null
+          ? data["odemeYapacakFirmaVergiNo"]
+          : "";
+      this.nCTSSayisi =
+        data["nCTSSayisi"] != null ? parseInt(data["nCTSSayisi"]) : 0;
+      this.oZBYSayisi =
+        data["oZBYSayisi"] != null ? parseInt(data["oZBYSayisi"]) : 0;
+      this.uzaklik = data["uzaklik"] != null ? parseInt(data["uzaklik"]) : 0;
+      this.baslangicZamani =
+        data["baslangicZamani"] != null && data["baslangicZamani"] != ""
+          ? data["baslangicZamani"]
+          : "0001-01-01T00:00:00";
+      this.tescilStatu = data["tescilStatu"] != null ? data["tescilStatu"] : "";
+      this.tescilTarihi =
+        data["tescilTarihi"] != null && data["tescilTarihi"] != ""
+          ? data["tescilTarihi"]
+          : "0001-01-01T00:00:00";
     }
   }
-
 
   static fromJS(data: any): MesaiDto {
     data = typeof data === "object" ? data : {};
@@ -7275,18 +6306,17 @@ export class MesaiDto {
   }
 }
 export class IghbDto {
-  ighbInternalNo: string; 
-  refNo:string;
-  kullaniciKodu:string;
-  gumrukKodu:string;
+  ighbInternalNo: string;
+  refNo: string;
+  kullaniciKodu: string;
+  gumrukKodu: string;
   izinliGondericiVergiNo: string;
   plakaBilgisi: string;
   tesisKodu: string;
   tescilStatu: string;
-  tescilTarihi:string;
+  tescilTarihi: string;
   constructor(data?: IghbDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -7294,23 +6324,27 @@ export class IghbDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.ighbInternalNo=data["ighbInternalNo"]!=null ?data["ighbInternalNo"] :"";     
-        this.refNo=data["refNo"]!=null ?data["refNo"] :"";
-        this.kullaniciKodu=data["kullaniciKodu"]!=null ?data["kullaniciKodu"] :"";
-        this.gumrukKodu=data["gumrukKodu"]!=null ?data["gumrukKodu"] :"";
-        this.izinliGondericiVergiNo=data["izinliGondericiVergiNo"]!=null ?data["izinliGondericiVergiNo"] :"";
-        this.plakaBilgisi=data["plakaBilgisi"]!=null ?data["plakaBilgisi"] :"";
-        this.tesisKodu=data["tesisKodu"]!=null ?data["tesisKodu"] :"";
-        this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
-        this.tescilTarihi=data["tescilTarihi"]!=null &&  data["tescilTarihi"]!='' ? data["tescilTarihi"] : "0001-01-01T00:00:00";
-   
-      
+    if (data) {
+      this.ighbInternalNo =
+        data["ighbInternalNo"] != null ? data["ighbInternalNo"] : "";
+      this.refNo = data["refNo"] != null ? data["refNo"] : "";
+      this.kullaniciKodu =
+        data["kullaniciKodu"] != null ? data["kullaniciKodu"] : "";
+      this.gumrukKodu = data["gumrukKodu"] != null ? data["gumrukKodu"] : "";
+      this.izinliGondericiVergiNo =
+        data["izinliGondericiVergiNo"] != null
+          ? data["izinliGondericiVergiNo"]
+          : "";
+      this.plakaBilgisi =
+        data["plakaBilgisi"] != null ? data["plakaBilgisi"] : "";
+      this.tesisKodu = data["tesisKodu"] != null ? data["tesisKodu"] : "";
+      this.tescilStatu = data["tescilStatu"] != null ? data["tescilStatu"] : "";
+      this.tescilTarihi =
+        data["tescilTarihi"] != null && data["tescilTarihi"] != ""
+          ? data["tescilTarihi"]
+          : "0001-01-01T00:00:00";
     }
   }
-
 
   static fromJS(data: any): IghbDto {
     data = typeof data === "object" ? data : {};
@@ -7321,12 +6355,11 @@ export class IghbDto {
   }
 }
 export class IghbListeDto {
-  ighbInternalNo: string; 
-   tcgbNumarasi:string;
-  
+  ighbInternalNo: string;
+  tcgbNumarasi: string;
+
   constructor(data?: IghbListeDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -7334,15 +6367,13 @@ export class IghbListeDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.ighbInternalNo=data["ighbInternalNo"]!=null ?data["ighbInternalNo"] :"";     
-        this.tcgbNumarasi=data["tcgbNumarasi"]!=null ?data["tcgbNumarasi"] :"";
-       
+    if (data) {
+      this.ighbInternalNo =
+        data["ighbInternalNo"] != null ? data["ighbInternalNo"] : "";
+      this.tcgbNumarasi =
+        data["tcgbNumarasi"] != null ? data["tcgbNumarasi"] : "";
     }
   }
-
 
   static fromJS(data: any): IghbListeDto {
     data = typeof data === "object" ? data : {};
@@ -7353,18 +6384,18 @@ export class IghbListeDto {
   }
 }
 export class DolasimDto {
-  dolasimInternalNo: string; 
-  refNo:string;
-  tcKimlikNo:string;
-  gumrukId:number;
-  ihracatciUlkeId:number;
-  ihracUlkesiId:number;
-  varisUlkesiId:number;
-  kapasiteRaporuVizeNo:number;
-  malinGonderildigiSahisUlkeId:number;
+  dolasimInternalNo: string;
+  refNo: string;
+  tcKimlikNo: string;
+  gumrukId: number;
+  ihracatciUlkeId: number;
+  ihracUlkesiId: number;
+  varisUlkesiId: number;
+  kapasiteRaporuVizeNo: number;
+  malinGonderildigiSahisUlkeId: number;
   belgeNo: string;
   beyanTipi: string;
-  beyannameNo:string;
+  beyannameNo: string;
   ihracatciAdi: string;
   ihracatciAdres: string;
   ihracatciVergiNo: string;
@@ -7376,15 +6407,14 @@ export class DolasimDto {
   tasimaBelgesiNo: string;
   tasimaBelgesiTarihi: string;
   tasimayaIliskinBilgiler: string;
-  mallar:string;
-  faturalar:string;
-  evraklar:string;
-  signedMime:string;
+  mallar: string;
+  faturalar: string;
+  evraklar: string;
+  signedMime: string;
   tescilStatu: string;
-  tescilTarihi:string;
+  tescilTarihi: string;
   constructor(data?: DolasimDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -7392,44 +6422,70 @@ export class DolasimDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
-   
-        this.dolasimInternalNo=data["dolasimInternalNo"]!=null ?data["dolasimInternalNo"] :"";     
-        this.refNo=data["refNo"]!=null ?data["refNo"] :"";
-        this.tcKimlikNo=data["tcKimlikNo"]!=null ?data["tcKimlikNo"] :"";
-        this.gumrukId=data["gumrukId"]!=null ? parseInt(data["gumrukId"]) :0;
-        this.ihracatciUlkeId=data["ihracatciUlkeId"]!=null ? parseInt(data["ihracatciUlkeId"]) :0;
-        this.ihracUlkesiId=data["ihracUlkesiId"]!=null ?parseInt(data["ihracUlkesiId"]) :0;
-        this.varisUlkesiId=data["varisUlkesiId"]!=null ?parseInt(data["varisUlkesiId"]) :0;
-        this.kapasiteRaporuVizeNo=data["kapasiteRaporuVizeNo"]!=null ?parseInt(data["kapasiteRaporuVizeNo"]) :0;
-        this.malinGonderildigiSahisUlkeId=data["malinGonderildigiSahisUlkeId"]!=null ?parseInt(data["malinGonderildigiSahisUlkeId"]) :0;
-        this.malinGonderildigiSahisAdi=data["malinGonderildigiSahisAdi"]!=null ?data["malinGonderildigiSahisAdi"] :"";
-        this.malinGonderildigiSahisAdres=data["malinGonderildigiSahisAdres"]!=null ?data["malinGonderildigiSahisAdres"] :"";
-        this.belgeNo=data["belgeNo"]!=null ?data["belgeNo"] :"";
-        this.beyannameNo=data["beyannameNo"]!=null ?data["beyannameNo"] :"";
-        this.beyanTipi=data["beyanTipi"]!=null ?data["beyanTipi"] :"";
-        this.ihracatciAdi=data["ihracatciAdi"]!=null ?data["ihracatciAdi"] :"";
-        this.ihracatciAdres=data["ihracatciAdres"]!=null ?data["ihracatciAdres"] :"";
-        this.ihracatciVergiNo=data["ihracatciVergiNo"]!=null ?data["ihracatciVergiNo"] :"";
-        this.ihracatciYer=data["ihracatciYer"]!=null ?data["ihracatciYer"] :"";
-        this.kapasiteRaporuTarihi=data["kapasiteRaporuTarihi"]!=null ?data["kapasiteRaporuTarihi"] :"";
-        this.taahhutnameSecimi=data["taahhutnameSecimi"]!=null ?data["taahhutnameSecimi"] :"";
-        this.tasimaBelgesiNo=data["tasimaBelgesiNo"]!=null ?data["tasimaBelgesiNo"] :"";
-        this.tasimaBelgesiTarihi=data["tasimaBelgesiTarihi"]!=null ?data["tasimaBelgesiTarihi"] :"";
-        this.tasimayaIliskinBilgiler=data["tasimayaIliskinBilgiler"]!=null ?data["tasimayaIliskinBilgiler"] :"";
-        this.mallar=data["mallar"]!=null ?data["mallar"] :"";
-        this.faturalar=data["faturalar"]!=null ?data["faturalar"] :"";
-        this.evraklar=data["evraklar"]!=null ?data["evraklar"] :"";
-        this.signedMime=data["signedMime"]!=null ?data["signedMime"] :"";
-        this.tescilStatu=data["tescilStatu"]!=null ? data["tescilStatu"] : "";
-        this.tescilTarihi=data["tescilTarihi"]!=null &&  data["tescilTarihi"]!='' ? data["tescilTarihi"] : "0001-01-01T00:00:00";
-   
-        
-      
+    if (data) {
+      this.dolasimInternalNo =
+        data["dolasimInternalNo"] != null ? data["dolasimInternalNo"] : "";
+      this.refNo = data["refNo"] != null ? data["refNo"] : "";
+      this.tcKimlikNo = data["tcKimlikNo"] != null ? data["tcKimlikNo"] : "";
+      this.gumrukId = data["gumrukId"] != null ? parseInt(data["gumrukId"]) : 0;
+      this.ihracatciUlkeId =
+        data["ihracatciUlkeId"] != null ? parseInt(data["ihracatciUlkeId"]) : 0;
+      this.ihracUlkesiId =
+        data["ihracUlkesiId"] != null ? parseInt(data["ihracUlkesiId"]) : 0;
+      this.varisUlkesiId =
+        data["varisUlkesiId"] != null ? parseInt(data["varisUlkesiId"]) : 0;
+      this.kapasiteRaporuVizeNo =
+        data["kapasiteRaporuVizeNo"] != null
+          ? parseInt(data["kapasiteRaporuVizeNo"])
+          : 0;
+      this.malinGonderildigiSahisUlkeId =
+        data["malinGonderildigiSahisUlkeId"] != null
+          ? parseInt(data["malinGonderildigiSahisUlkeId"])
+          : 0;
+      this.malinGonderildigiSahisAdi =
+        data["malinGonderildigiSahisAdi"] != null
+          ? data["malinGonderildigiSahisAdi"]
+          : "";
+      this.malinGonderildigiSahisAdres =
+        data["malinGonderildigiSahisAdres"] != null
+          ? data["malinGonderildigiSahisAdres"]
+          : "";
+      this.belgeNo = data["belgeNo"] != null ? data["belgeNo"] : "";
+      this.beyannameNo = data["beyannameNo"] != null ? data["beyannameNo"] : "";
+      this.beyanTipi = data["beyanTipi"] != null ? data["beyanTipi"] : "";
+      this.ihracatciAdi =
+        data["ihracatciAdi"] != null ? data["ihracatciAdi"] : "";
+      this.ihracatciAdres =
+        data["ihracatciAdres"] != null ? data["ihracatciAdres"] : "";
+      this.ihracatciVergiNo =
+        data["ihracatciVergiNo"] != null ? data["ihracatciVergiNo"] : "";
+      this.ihracatciYer =
+        data["ihracatciYer"] != null ? data["ihracatciYer"] : "";
+      this.kapasiteRaporuTarihi =
+        data["kapasiteRaporuTarihi"] != null
+          ? data["kapasiteRaporuTarihi"]
+          : "";
+      this.taahhutnameSecimi =
+        data["taahhutnameSecimi"] != null ? data["taahhutnameSecimi"] : "";
+      this.tasimaBelgesiNo =
+        data["tasimaBelgesiNo"] != null ? data["tasimaBelgesiNo"] : "";
+      this.tasimaBelgesiTarihi =
+        data["tasimaBelgesiTarihi"] != null ? data["tasimaBelgesiTarihi"] : "";
+      this.tasimayaIliskinBilgiler =
+        data["tasimayaIliskinBilgiler"] != null
+          ? data["tasimayaIliskinBilgiler"]
+          : "";
+      this.mallar = data["mallar"] != null ? data["mallar"] : "";
+      this.faturalar = data["faturalar"] != null ? data["faturalar"] : "";
+      this.evraklar = data["evraklar"] != null ? data["evraklar"] : "";
+      this.signedMime = data["signedMime"] != null ? data["signedMime"] : "";
+      this.tescilStatu = data["tescilStatu"] != null ? data["tescilStatu"] : "";
+      this.tescilTarihi =
+        data["tescilTarihi"] != null && data["tescilTarihi"] != ""
+          ? data["tescilTarihi"]
+          : "0001-01-01T00:00:00";
     }
   }
-
 
   static fromJS(data: any): DolasimDto {
     data = typeof data === "object" ? data : {};
@@ -7441,45 +6497,44 @@ export class DolasimDto {
 }
 
 export class ObBeyanAlanDto {
- tip:string;
- ozetBeyanNo:string;
- beyanSahibiVergiNo:string; 
- beyanTuru:string;
- diger:string;
- dorseNo1:string; 
- dorseNo1Uyrugu:string;
- dorseNo2:string;
- dorseNo2Uyrugu:string;
- ekBelgeSayisi:string;
- emniyetGuvenlik:string;
- grupTasimaSenediNo:string;
- gumrukIdaresi:string;
- kullaniciKodu:string;
- kurye:string;
- limanYerAdiBos:string;
- limanYerAdiYuk:string;
- oncekiBeyanNo:string;
- plakaSeferNo:string;
- referansNumarasi:string;
- refNo:string;
- rejim:string;
- tasimaSekli:string;
- tasitinAdi:string;
- tasiyiciVergiNo:string;
- tirAtaKarneNo:string;
- ulkeKodu:string;
- ulkeKoduYuk:string;
- ulkeKoduBos:string;
- yuklemeBosaltmaYeri:string;
- varisCikisGumrukIdaresi:string;
- varisTarihSaati:string;
- xmlRefId:string;
- tescilStatu:string;
- tescilTarihi:string; 
-  
+  tip: string;
+  ozetBeyanNo: string;
+  beyanSahibiVergiNo: string;
+  beyanTuru: string;
+  diger: string;
+  dorseNo1: string;
+  dorseNo1Uyrugu: string;
+  dorseNo2: string;
+  dorseNo2Uyrugu: string;
+  ekBelgeSayisi: string;
+  emniyetGuvenlik: string;
+  grupTasimaSenediNo: string;
+  gumrukIdaresi: string;
+  kullaniciKodu: string;
+  kurye: string;
+  limanYerAdiBos: string;
+  limanYerAdiYuk: string;
+  oncekiBeyanNo: string;
+  plakaSeferNo: string;
+  referansNumarasi: string;
+  refNo: string;
+  rejim: string;
+  tasimaSekli: string;
+  tasitinAdi: string;
+  tasiyiciVergiNo: string;
+  tirAtaKarneNo: string;
+  ulkeKodu: string;
+  ulkeKoduYuk: string;
+  ulkeKoduBos: string;
+  yuklemeBosaltmaYeri: string;
+  varisCikisGumrukIdaresi: string;
+  varisTarihSaati: string;
+  xmlRefId: string;
+  tescilStatu: string;
+  tescilTarihi: string;
+
   constructor(data?: ObBeyanAlanDto) {
     if (data) {
-    
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
@@ -7487,15 +6542,13 @@ export class ObBeyanAlanDto {
     }
   }
   init(data?: any) {
-  
-    if (data) {    
+    if (data) {
       for (var property in data) {
         if (data.hasOwnProperty(property))
           (<any>this)[property] = (<any>data)[property];
       }
     }
   }
-
 
   static fromJS(data: any): ObBeyanAlanDto {
     data = typeof data === "object" ? data : {};
@@ -7505,8 +6558,7 @@ export class ObBeyanAlanDto {
     return result;
   }
 }
-export class ReferansDto { 
+export class ReferansDto {
   kod: string;
-  aciklama: string; 
+  aciklama: string;
 }
-

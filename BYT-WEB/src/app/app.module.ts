@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AboutComponent } from './components/about/about.component';
 import { NaviComponent } from './components/layout/navi/navi.component';
 import { HeaderComponent } from './components/layout/header/header.component';
@@ -60,6 +60,7 @@ import { DolasimComponent } from './components/DetayliBeyan/dolasim/dolasim.comp
 import { FirmalarComponent } from './components/firma/firmalar/Firmalar.component';
 import { YeniFirmaComponent } from './components/firma/yeniFirma/yeniFirma.component';
 import { DegistirFirmaComponent } from './components/firma/degistirFirma/degistirFirma.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 
@@ -140,9 +141,10 @@ import { DegistirFirmaComponent } from './components/firma/degistirFirma/degisti
       
 
    ],
-   providers: [
+   providers: [    
+      {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true},
+      SessionServiceProxy,AccountModule,ReferansService,
     
-      SessionServiceProxy,AccountModule,ReferansService
    ],
     bootstrap: [
         AppComponent,
