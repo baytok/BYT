@@ -31,6 +31,7 @@
     "ngx-childprocess": "0.0.6",
     "ngx-loading": "^8.0.0",
     "ngx-spinner": "^8.1.0",
+    "ngx-toastr": "^14.0.0",
     "rxjs": "^6.5.5",
     "rxjs-compat": "^6.5.5",
     "tslib": "^1.11.1",

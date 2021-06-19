@@ -23,7 +23,7 @@ import {
         HttpClientJsonpModule,     
         SharedModule,       
         AccountRoutingModule,
-        
+      
         
     ],
     declarations: [

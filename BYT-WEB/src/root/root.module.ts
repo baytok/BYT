@@ -5,7 +5,7 @@ import { RootRoutingModule } from './root-routing.module';
 import { RootComponent } from './root.component';
 import { HttpClientModule } from '@angular/common/http';
 import { API_BASE_URL } from '../shared/service-proxies/service-proxies';
-
+import { ToastrModule } from 'ngx-toastr';
 import * as _ from 'lodash';
 import { GirisService } from 'src/account/giris/giris.service';
 
@@ -16,7 +16,11 @@ import { GirisService } from 'src/account/giris/giris.service';
         BrowserAnimationsModule,
         RootRoutingModule,
         HttpClientModule,
-     
+        ToastrModule.forRoot({
+            timeOut:500,
+            positionClass:'toast-top-right',
+            preventDuplicates:false,
+        }),
       
     ],
     declarations: [

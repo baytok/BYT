@@ -10,6 +10,7 @@ import {
  } from '../../shared/service-proxies/service-proxies';
  import { MatSnackBar } from "@angular/material/snack-bar";
  import { accountModuleAnimation } from '../../shared/animations/routerTransition'; 
+
  declare const pwsigner: any;
 
 @Component({
@@ -42,7 +43,6 @@ export class GirisComponent implements OnInit {
   constructor(
     private _UserSession: AppSessionService,
     public   girisService: GirisService,     
-   
     private router:Router,
     private snackBar: MatSnackBar,
     private _beyanSession: SessionServiceProxy,
@@ -95,6 +95,7 @@ export class GirisComponent implements OnInit {
      }
 
   ngOnInit() {
+
   this.initialize();
       
   }

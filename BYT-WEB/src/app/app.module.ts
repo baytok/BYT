@@ -132,8 +132,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
          secondaryColour: '#8883e6', 
          tertiaryColour: '#8883e6'
          
-     })
-    
+     }),
+     
+        
    ],
    entryComponents: [
       BeyannameSonucServisComponent,OzetBeyanSonucServisComponent,DegistirKullaniciComponent,DegistirMusteriComponent,AppConsts,

@@ -31,6 +31,8 @@ import { NctsBeyanComponent } from '../Ncts/nctsbeyan/nctsbeyan.component';
 import { NctsSonucServisComponent } from '../Ncts/nctssonucservis/nctssonucservis.component';
 import { MesaiSonucServisComponent } from '../DetayliBeyan/mesaisonucservis/mesaisonucservis.component';
 import { IghbSonucServisComponent } from '../DetayliBeyan/ighbsonucservis/ighbsonucservis.component';
+import { ToastrService } from 'ngx-toastr';
+
 export interface Element {
   checked: boolean;
   name: string;
@@ -104,12 +106,12 @@ export class GenelComponent implements OnInit {
     private _dialog: MatDialog,
     private router: Router,
     private _userRoles:UserRoles,
-
+    private toastr:ToastrService,
 
         ) { }
 
   ngOnInit() {
-   
+    this.toastr.success("Mesaj","Hello");
  
     this.tarihceDataSource.paginator = this.paginator;
     this.tarihceDataSource.sort = this.sort;
